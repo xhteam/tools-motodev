@@ -7,11 +7,12 @@ export BUILD_BASE_PATH=/android/5.0.0
 
 #[2012.03.03] Forcing git to update
 #Investigate later if bootstraper from config.xml is being used
-echo Forcing git to update
-chmod 0777 $BUILD_BASE_PATH/env/code/android/makefile/scripts/git_update.sh
-$BUILD_BASE_PATH/env/code/android/makefile/scripts/git_update.sh
+#echo Forcing git to update
+#chmod 0777 $BUILD_BASE_PATH/env/code/android/makefile/scripts/git_update.sh
+#$BUILD_BASE_PATH/env/code/android/makefile/scripts/git_update.sh
 
-$BUILD_BASE_PATH/env/eclipse/eclipse -nosplash -application org.eclipse.ant.core.antRunner -data $BUILD_BASE_PATH/env/workspace_product -buildfile $BUILD_BASE_PATH/env/code/android/makefile/studioBuild.xml -logger org.apache.tools.ant.XmlLogger -logfile $BUILD_BASE_PATH/log.xml
+$BUILD_BASE_PATH/env/eclipse/eclipse -nosplash -application org.eclipse.ant.core.antRunner -data $BUILD_BASE_PATH/env/workspace_product -buildfile $BUILD_BASE_PATH/env/code/android/makefile/studioBuild.xml -debug
+#-logger org.apache.tools.ant.XmlLogger -logfile $BUILD_BASE_PATH/log.xml
 
 
 

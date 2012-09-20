@@ -61,7 +61,7 @@ public class NativeUI implements INativeUI
     public long getWindowHandle(String windowName)
     {
         StudioLogger.debug(this, "Get native window handler for: " + windowName);
-        int windowHandle = 0;
+        long windowHandle = 0;
         try
         {
             TCHAR className = null;
