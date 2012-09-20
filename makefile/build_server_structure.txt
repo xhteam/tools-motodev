@@ -3,6 +3,9 @@
 ./<version>/env
 ./<version>/env/ant-contrib
 ./<version>/env/code
+./<version>/env/code/android
+./<version>/env/code/android/makefile
+./<version>/env/code/android/src
 ./<version>/env/eclipse
 ./<version>/input
 ./<version>/input/repository

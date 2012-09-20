@@ -45,18 +45,6 @@
     <!-- Publishers are run *after* a build completes -->
 	<publishers>
 		<artifactspublisher dest="/android/${path_name}/logs/${project_name}" dir="/android/${path_name}/output/output"/>
-		<htmlemail mailhost="serv070.corp.eldorado.org.br"
-			returnaddress="android.noreply@serv167.corp.eldorado.org.br" 
-			buildresultsurl="http://192.168.4.167:8080/dashboard/tab/build/detail/${project_name}" 
-			skipusers="true" spamWhileBroken="false" 
-			css="/android/${path_name}/env/cruisecontrol-bin-2.8.4/webapps/cruisecontrol/css/cruisecontrol.css"
-			xsldir="/android/${path_name}/env/cruisecontrol-bin-2.8.4/webapps/cruisecontrol/xsl"
-			subjectprefix="Build Android -">
-			<always address="daniel.pastore@eldorado.org.br"/>
-			<always address="julia.perdigueiro@eldorado.org.br" />
-			<success address="pablo.leite@eldorado.org.br"/>
-			<success address="paulo.faria@eldorado.org.br"/>
-		</htmlemail>
 	</publishers>
 	</project>
 	

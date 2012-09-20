@@ -29,7 +29,7 @@
 		
 		<mkdir dir="${OUTPUT_DIR}/output" />
 
-		<antcall target="check_plugins_needing_version_update" />
+		<!-- antcall target="check_plugins_needing_version_update" /-->
 
 		<!-- antcall target="build.app.validator.product" /-->
 

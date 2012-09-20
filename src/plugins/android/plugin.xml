@@ -261,24 +261,6 @@
             </logContribution>
          </extension>
    <extension
-         point="biz.junginger.rss.eclipse.RssPlugin.channel">
-      <channel
-            name="MOTODEV Blog"
-            enablement="true"
-            url="http://feeds2.feedburner.com/MOTODEVBlog">
-      </channel>
-      <channel
-            name="MOTODEV Studio Blog"
-            enablement="true"
-            url="http://feeds2.feedburner.com/motodevstudioblog">
-      </channel>
-      <channel
-            name="MOTODEV Studio for Android discussion boards"
-            enablement="false"
-            url="http://community.developer.motorola.com/mtrl/rss/board?board.id=Studio_Android">
-      </channel>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="com.motorola.studio.android.application.store.handlers.OpenMotorolaMobilityDevicePropertiesHandler"
