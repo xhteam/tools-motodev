@@ -56,8 +56,6 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
     private static String VIEW_SNIPPETS =
             "org.eclipse.wst.common.snippets.internal.ui.SnippetsView";
 
-    private static String VIEW_RSS = "biz.junginger.newsfeed.eclipse.FeedView";
-
     // DDMS Views
 
     private static String DDMSVIEW_EMULATOR_CONTROL =
@@ -149,7 +147,6 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
 
         IFolderLayout right = layout.createFolder("right", IPageLayout.RIGHT, 0.6f, editorArea);
         right.addView(VIEW_ANDROID_EMULATOR);
-        right.addView(VIEW_RSS);
 
         IFolderLayout bottomMiddle =
                 layout.createFolder("bottomMiddle", IPageLayout.BOTTOM, 0.59f, editorArea);

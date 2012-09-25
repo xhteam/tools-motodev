@@ -444,6 +444,11 @@
 		<concat destfile="${buildDirectory}/build.properties" binary="yes">
 			<fileset dir="${buildDirectory}/" includes="*.properties" />
 		</concat>
+		
+		<!-- <echoproperties destfile="${buildDirectory}/build.properties" >
+			<property name="ADT_JAR_FILENAME" value="${env.ADT_JAR_FILENAME}"/>
+			<property name="DDMS_JAR_FILENAME" value="${env.DDMS_JAR_FILENAME}"/>
+		</echoproperties> -->
 	</target>
 
 
