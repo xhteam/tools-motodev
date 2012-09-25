@@ -33,12 +33,12 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
+ <!--  <plugin
          id="com.motorolamobility.preflighting.tooldocs.validator.helpbase"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
+         unpack="false"/> -->
 
    <plugin
          id="com.motorola.studio.android.common"
