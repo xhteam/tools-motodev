@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.co
 Bundle-Vendor: %providerName
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: commons-net-1.4.1.jar,jakarta-oro-2.0.8.jar,.
-Bundle-Version: 5.0.0.201404091758
+Bundle-Version: 5.0.0.201404091807
 Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-Activator: com.motorola.studio.android.common.CommonPlugin

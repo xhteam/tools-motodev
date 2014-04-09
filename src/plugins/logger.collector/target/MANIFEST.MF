@@ -3,7 +3,7 @@ Export-Package: com.motorola.studio.android.logger.collector.core
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime
 Bundle-Vendor: Motorola Mobility, Inc.
 Bundle-ActivationPolicy: lazy
-Bundle-Version: 5.0.0.201404091758
+Bundle-Version: 5.0.0.201404091807
 Bundle-Localization: plugin
 Bundle-Name: MOTODEV Studio Android Log Collector
 Bundle-ManifestVersion: 2

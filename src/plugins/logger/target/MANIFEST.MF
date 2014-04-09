@@ -4,7 +4,7 @@ Export-Package: com.motorola.studio.android.logger
 Bundle-Vendor: Motorola Mobility, Inc.
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/log4j-1.2.14.jar,.
-Bundle-Version: 5.0.0.201404091758
+Bundle-Version: 5.0.0.201404091807
 Bundle-Name: MOTODEV Studio Android Logger
 Bundle-Activator: com.motorola.studio.android.logger.internal.Activato
  r

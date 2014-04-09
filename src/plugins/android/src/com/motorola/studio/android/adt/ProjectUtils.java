@@ -53,7 +53,7 @@ public class ProjectUtils
             throws CoreException
     {
         // Add the Java and android nature to the project
-        AndroidNature.setupProjectNatures(project, monitor);
+        AndroidNature.setupProjectNatures(project, monitor, true);
     }
 
     /**
