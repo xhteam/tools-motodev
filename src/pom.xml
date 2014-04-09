@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>us.nineworlds.motodev</groupId>
+  <artifactId>src</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+    <tycho-version>0.19.0</tycho-version>
+    <platform-version-name>indigo</platform-version-name>
+    <eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
+    <android-adt>file:///Users/davidcarver/Work/NineWorlds/adt-p2-site/target/repository/</android-adt>
+    <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <id>helios</id>
+      <layout>p2</layout>
+      <url>${eclipse-site}</url>
+    </repository>
+    <repository>
+      <id>orbit</id>
+      <layout>p2</layout>
+      <url>${orbit-site}</url>
+    </repository>
+    <repository>
+      <id>android-adt</id>
+      <layout>p2</layout>
+      <url>${android-adt}</url>
+    </repository>
+  </repositories>  
+  
+  <modules>
+<!--    <module>features/basic</module>
+    <module>features/feature</module>
+    <module>features/preflighting</module>
+    <module>features/preflighting.sdk</module>
+    <module>features/preflighting.ui</module>
+-->
+    <module>plugins/android</module>
+    <module>plugins/android.codeutils</module>
+    <module>plugins/android.linux.x86</module>
+    <module>plugins/android.linux.x86_64</module>
+    <module>plugins/android.macosx</module>
+    <module>plugins/android.win32.x86</module>
+    <module>plugins/android.win32.x86_64</module>
+    <module>plugins/certmanager</module>
+    <module>plugins/common</module>
+    <module>plugins/db.core</module>
+    <module>plugins/db.devices</module>
+    <module>plugins/devices.services</module>
+    <module>plugins/emulator</module>
+    <module>plugins/handset</module>
+    <module>plugins/installer</module>
+    <module>plugins/launch</module>
+    <module>plugins/logger</module>
+    <module>plugins/logger.collector</module>
+    <module>plugins/mat</module>
+    <module>plugins/packaging.ui</module>
+    <module>plugins/preflighting</module>
+    <module>plugins/preflighting.checkers</module>
+    <module>plugins/preflighting.checkers.ui</module>
+    <module>plugins/preflighting.core</module>
+    <module>plugins/preflighting.samplechecker.androidlabel</module>
+    <module>plugins/preflighting.samplecheckers.findviewbyid</module>
+    <module>plugins/preflighting.samplecheckers.findviewbyid.ui</module>
+    <module>plugins/preflighting.sdk</module>
+    <module>plugins/preflighting.ui</module>
+    <module>plugins/remote.device</module>
+    <module>plugins/snippets</module>
+    <module>plugins/translation</module>
+    <module>plugins/videos</module>
+  </modules>
+  
+  
+  <build>
+  	<sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>0.19.0</version>
+        <extensions>true</extensions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <resolver>p2</resolver>
+         <environments>     
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86_64</arch>
+            </environment>
+          </environments>          
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

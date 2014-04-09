@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='com.motorola.studio.android.common' version='5.0.0.201404091758'>
+    <properties size='5'>
+      <property name='artifact.size' value='2029346'/>
+      <property name='download.size' value='2029346'/>
+      <property name='maven-groupId' value='us.nineworlds.motodev'/>
+      <property name='maven-artifactId' value='com.motorola.studio.android.common'/>
+      <property name='maven-version' value='5.0.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>
