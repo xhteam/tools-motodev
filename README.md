@@ -1,16 +1,25 @@
 To compile.  You need the following:
 
-1. A p2 generated site of the ADT plugins. 
-    See https://wiki.eclipse.org/Tycho/Additional_Tools#mirror_goal.
+1. Maven 3.x installed.
+2. A p2 generated site of the ADT plugins. 
+   a. cd makefile/adtp2
+   b. mvn clean install
 
-2. Maven 3.x installed
+This will generate the necessary p2 update site of the Android Development Tools for 
+the build to use later.
 
-You will need to generate a p2 site, and set the android-adt property in the build to the
-location where you have the p2 site stored.
+3. Change the src directory.
+4. mvn clean install
 
-mvn clean install -Dandroid-adt=file:///Users/username/adt-site/target/repository
+Running the above will compile all features and plugins.  It will also generate a p2 update
+site that can be used to install the plugins.  Currently the Basic and MotoDev Studio features
+are generated in the p2 site.
 
-Running the above will compile all features and plugins.
+The site location is:
+
+src/site/target/repository
+
+You can add this as a local repository for Eclipse to install from.
 
 Eclipse Development.
 

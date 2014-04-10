@@ -16,7 +16,6 @@
     <groupId>us.nineworlds.motodev</groupId>
     <artifactId>src</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../../</relativePath>
   </parent>
   
   <artifactId>com.motorolamobility.dev.studio.repository</artifactId>
