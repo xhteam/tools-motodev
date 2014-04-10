@@ -29,11 +29,11 @@ import java.security.cert.X509Certificate;
 
 import javax.security.auth.x500.X500Principal;
 
-import sun.security.pkcs.ContentInfo;
-import sun.security.pkcs.PKCS7;
-import sun.security.pkcs.SignerInfo;
-import sun.security.x509.AlgorithmId;
-import sun.security.x509.X500Name;
+//import sun.security.pkcs.ContentInfo;
+//import sun.security.pkcs.PKCS7;
+//import sun.security.pkcs.SignerInfo;
+//import sun.security.x509.AlgorithmId;
+//import sun.security.x509.X500Name;
 
 import com.motorola.studio.android.common.log.StudioLogger;
 import com.motorolamobility.studio.android.certmanager.CertificateManagerActivator;
@@ -175,89 +175,90 @@ public class SignatureBlockFile
 
             String signatureAlgorithm =
                     digestAlgotithm + ISignConstants.ALGORITHM_CONNECTOR + blockalgorithm;
-
-            AlgorithmId digestAlg;
-            try
-            {
-                digestAlg = AlgorithmId.get(digestAlgotithm);
-                AlgorithmId privateKeyAlg = AlgorithmId.get(blockalgorithm);
-                // write the certificate with signature file and cipher it
-                Signature sig = Signature.getInstance(signatureAlgorithm);
-                sig.initSign(keystoreEntry.getPrivateKey(this.keyEntryPassword));
-
-                PKCS7 block = null;
-                ByteArrayOutputStream baos = null;
-                ByteArrayOutputStream signature = null;
-
-                try
-                {
-                    baos = new ByteArrayOutputStream();
-                    signatureFile.write(baos);
-
-                    ContentInfo contentInfo = new ContentInfo(ContentInfo.DATA_OID, null);
-                    sig.update(baos.toByteArray());
-
-                    signature = new ByteArrayOutputStream();
-                    signature.write(sig.sign());
-
-                    SignerInfo si =
-                            new SignerInfo(new X500Name(issuer.getName()), new BigInteger(serial),
-                                    digestAlg, privateKeyAlg, signature.toByteArray());
-
-                    AlgorithmId[] algs =
-                    {
-                        digestAlg
-                    };
-                    SignerInfo[] infos =
-                    {
-                        si
-                    };
-
-                    block = new PKCS7(algs, contentInfo, certChain, infos);
-                }
-                catch (IOException e)
-                {
-                    StudioLogger.error(SignatureBlockFile.class,
-                            "I/O error creating signature block file: " + e.getMessage());
-
-                    throw new SignException("I/O error creating signature block file", e);
-                }
-                finally
-                {
-                    if (baos != null)
-                    {
-                        baos.close();
-                    }
-                    if (signature != null)
-                    {
-                        signature.close();
-                    }
-                }
-
-                // I/O exceptions below are thrown unmodified
-                block.encodeSignedData(outputStream);
-            }
-            catch (NoSuchAlgorithmException nsae)
-            {
-                StudioLogger.error(SignatureBlockFile.class, "Signing algorithm not supported: "
-                        + nsae.getMessage());
-
-                throw new SignException("Signing algorithm not supported", nsae);
-            }
-            catch (InvalidKeyException ike)
-            {
-                StudioLogger.error(SignatureBlockFile.class,
-                        "Invalid key when creating signature block file: " + ike.getMessage());
-
-                throw new SignException("Invalid key when creating signature block file", ike);
-            }
-            catch (SignatureException se)
-            {
-                StudioLogger.error(SignatureBlockFile.class,
-                        "Signature error when creating signature block file: " + se.getMessage());
-
-                throw new SignException("Signature error creating signature block file", se);
-            }
+            
+// TODO: FIX ME. Migrate to Bouncy Castle instead of using Sun classes directly.
+//            AlgorithmId digestAlg;
+//            try
+//            {
+//                digestAlg = AlgorithmId.get(digestAlgotithm);
+//                AlgorithmId privateKeyAlg = AlgorithmId.get(blockalgorithm);
+//                // write the certificate with signature file and cipher it
+//                Signature sig = Signature.getInstance(signatureAlgorithm);
+//                sig.initSign(keystoreEntry.getPrivateKey(this.keyEntryPassword));
+//
+//                PKCS7 block = null;
+//                ByteArrayOutputStream baos = null;
+//                ByteArrayOutputStream signature = null;
+//
+//                try
+//                {
+//                    baos = new ByteArrayOutputStream();
+//                    signatureFile.write(baos);
+//
+//                    ContentInfo contentInfo = new ContentInfo(ContentInfo.DATA_OID, null);
+//                    sig.update(baos.toByteArray());
+//
+//                    signature = new ByteArrayOutputStream();
+//                    signature.write(sig.sign());
+//
+//                    SignerInfo si =
+//                            new SignerInfo(new X500Name(issuer.getName()), new BigInteger(serial),
+//                                    digestAlg, privateKeyAlg, signature.toByteArray());
+//
+//                    AlgorithmId[] algs =
+//                    {
+//                        digestAlg
+//                    };
+//                    SignerInfo[] infos =
+//                    {
+//                        si
+//                    };
+//
+//                    block = new PKCS7(algs, contentInfo, certChain, infos);
+//                }
+//                catch (IOException e)
+//                {
+//                    StudioLogger.error(SignatureBlockFile.class,
+//                            "I/O error creating signature block file: " + e.getMessage());
+//
+//                    throw new SignException("I/O error creating signature block file", e);
+//                }
+//                finally
+//                {
+//                    if (baos != null)
+//                    {
+//                        baos.close();
+//                    }
+//                    if (signature != null)
+//                    {
+//                        signature.close();
+//                    }
+//                }
+//
+//                // I/O exceptions below are thrown unmodified
+//                block.encodeSignedData(outputStream);
+//            }
+//            catch (NoSuchAlgorithmException nsae)
+//            {
+//                StudioLogger.error(SignatureBlockFile.class, "Signing algorithm not supported: "
+//                        + nsae.getMessage());
+//
+//                throw new SignException("Signing algorithm not supported", nsae);
+//            }
+//            catch (InvalidKeyException ike)
+//            {
+//                StudioLogger.error(SignatureBlockFile.class,
+//                        "Invalid key when creating signature block file: " + ike.getMessage());
+//
+//                throw new SignException("Invalid key when creating signature block file", ike);
+//            }
+//            catch (SignatureException se)
+//            {
+//                StudioLogger.error(SignatureBlockFile.class,
+//                        "Signature error when creating signature block file: " + se.getMessage());
+//
+//                throw new SignException("Signature error creating signature block file", se);
+//            }
         }
         StudioLogger.info(SignatureBlockFile.class, "Created signature block file");
     }

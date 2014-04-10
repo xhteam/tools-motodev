@@ -52,8 +52,9 @@ import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
 
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.ISystemImage;
-import com.android.sdklib.SdkConstants;
+import com.android.SdkConstants;
 import com.android.sdklib.internal.avd.AvdInfo;
+import com.android.sdklib.internal.avd.AvdManager;
 import com.motorola.studio.android.adt.SdkUtils;
 import com.motorola.studio.android.common.log.StudioLogger;
 import com.motorola.studio.android.emulator.device.IAndroidDeviceConstants;
@@ -466,9 +467,13 @@ public class PropertiesMainComposite extends AbstractPropertiesComposite
         abiTypeLabel.setText(EmulatorNLS.PropertiesMainComposite_ABITypeLabel);
         data = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         abiTypeLabel.setLayoutData(data);
+        
+        AvdManager manager = SdkUtils.getVmManager();
+        
+        AvdInfo avd = manager.getAvd(name, true);
 
         final Text abiTypeText = new Text(mainComposite, SWT.WRAP | SWT.READ_ONLY);
-        abiTypeText.setText(AvdInfo.getPrettyAbiType(abiType));
+        abiTypeText.setText(AvdInfo.getPrettyAbiType(avd));
         data = new GridData(SWT.FILL, SWT.TOP, true, false);
         abiTypeText.setLayoutData(data);
 
@@ -912,7 +917,7 @@ public class PropertiesMainComposite extends AbstractPropertiesComposite
         {
             for (ISystemImage image : images)
             {
-                String prettyAbiName = AvdInfo.getPrettyAbiType(image.getAbiType());
+                String prettyAbiName = AvdInfo.getPrettyAbiType(image);
                 abiTypeCombo.add(prettyAbiName);
                 abiTypeCombo.setData(prettyAbiName, image.getAbiType());
                 if (image.getAbiType().equals(abiType))
@@ -972,18 +977,18 @@ public class PropertiesMainComposite extends AbstractPropertiesComposite
 
         if (vmTarget != null)
         {
-            String[] skins = vmTarget.getSkins();
-            String defaultSkin = vmTarget.getDefaultSkin();
+            File[] skins = vmTarget.getSkins();
+            File defaultSkin = vmTarget.getDefaultSkin();
 
             for (int i = 0; i < skins.length; i++)
             {
-                skinCombo.add(skins[i]);
-                skinCombo.setData(skins[i], skins[i]);
+                skinCombo.add(skins[i].getName());
+                skinCombo.setData(skins[i].getName(), skins[i].getName());
 
                 if (skins[i].equals(defaultSkin))
                 {
                     skinCombo.select(i);
-                    vmSkin = defaultSkin;
+                    vmSkin = defaultSkin.getName();
                 }
             }
 

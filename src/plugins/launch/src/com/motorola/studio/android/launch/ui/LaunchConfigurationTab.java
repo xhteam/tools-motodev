@@ -66,9 +66,9 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import com.android.ide.eclipse.adt.io.IFolderWrapper;
-import com.android.sdklib.xml.AndroidManifestParser;
-import com.android.sdklib.xml.ManifestData;
-import com.android.sdklib.xml.ManifestData.Activity;
+import com.android.ide.common.xml.AndroidManifestParser;
+import com.android.ide.common.xml.ManifestData;
+import com.android.ide.common.xml.ManifestData.Activity;
 import com.motorola.studio.android.adt.ISerialNumbered;
 import com.motorola.studio.android.adt.SdkUtils;
 import com.motorola.studio.android.common.log.StudioLogger;

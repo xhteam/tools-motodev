@@ -13,9 +13,15 @@
     <eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
     <android-adt>file:///Users/davidcarver/Work/NineWorlds/adt-p2-site/target/repository/</android-adt>
     <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
+    <sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
   </properties>
   
   <repositories>
+    <repository>
+      <id>sequoyah</id>
+      <layout>p2</layout>
+      <url>${sequoyah-site}</url>
+    </repository>
     <repository>
       <id>helios</id>
       <layout>p2</layout>
@@ -34,12 +40,7 @@
   </repositories>  
   
   <modules>
-<!--    <module>features/basic</module>
-    <module>features/feature</module>
-    <module>features/preflighting</module>
-    <module>features/preflighting.sdk</module>
-    <module>features/preflighting.ui</module>
--->
+    
     <module>plugins/android</module>
     <module>plugins/android.codeutils</module>
     <module>plugins/android.linux.x86</module>
@@ -73,6 +74,13 @@
     <module>plugins/snippets</module>
     <module>plugins/translation</module>
     <module>plugins/videos</module>
+
+    <module>features/basic</module>
+    <module>features/feature</module>
+    <module>features/preflighting</module>
+    <module>features/preflighting.sdk</module>
+    <module>features/preflighting.ui</module>
+
   </modules>
   
   

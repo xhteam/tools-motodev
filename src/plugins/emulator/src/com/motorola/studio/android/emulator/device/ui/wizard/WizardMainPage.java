@@ -15,6 +15,7 @@
 */
 package com.motorola.studio.android.emulator.device.ui.wizard;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +27,7 @@ import org.eclipse.sequoyah.device.framework.ui.wizard.IInstanceProperties;
 import org.eclipse.swt.widgets.Composite;
 
 import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.SdkConstants;
+import com.android.SdkConstants;
 import com.motorola.studio.android.adt.SdkUtils;
 import com.motorola.studio.android.common.log.StudioLogger;
 import com.motorola.studio.android.emulator.EmulatorPlugin;
@@ -180,9 +181,9 @@ public class WizardMainPage extends WizardPage implements IInstanceProperties
 
             }
 
-            String skins[] = vmTarget.getSkins();
-            vmSkin = vmTarget.getDefaultSkin();
-            List<String> skinsList = Arrays.asList(skins);
+            File skins[] = vmTarget.getSkins();
+            vmSkin = vmTarget.getDefaultSkin().getName();
+            List<File> skinsList = Arrays.asList(skins);
 
             /*
              * Workaround to select WVGA skin on JIL SDK because HVGA skin is broken
@@ -193,9 +194,9 @@ public class WizardMainPage extends WizardPage implements IInstanceProperties
                 int i = 0;
                 while ((tmpVmSkin == null) && (i < skins.length))
                 {
-                    if (skins[i].toLowerCase().trim().equals("wvga"))
+                    if (skins[i].getName().toLowerCase().trim().equals("wvga"))
                     {
-                        tmpVmSkin = skins[i];
+                        tmpVmSkin = skins[i].getName();
                     }
                     i++;
                 }
@@ -207,7 +208,7 @@ public class WizardMainPage extends WizardPage implements IInstanceProperties
 
             if (!skinsList.contains(vmSkin))
             {
-                vmSkin = skins[0];
+                vmSkin = skins[0].getName();
             }
         }
 

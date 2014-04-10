@@ -38,9 +38,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 import com.android.ide.eclipse.adt.io.IFolderWrapper;
-import com.android.sdklib.xml.AndroidManifestParser;
-import com.android.sdklib.xml.ManifestData;
-import com.android.sdklib.xml.ManifestData.Activity;
+import com.android.ide.common.xml.AndroidManifestParser;
+import com.android.ide.common.xml.ManifestData;
+import com.android.ide.common.xml.ManifestData.Activity;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.adt.DDMSFacade;
 import com.motorola.studio.android.adt.ISerialNumbered;

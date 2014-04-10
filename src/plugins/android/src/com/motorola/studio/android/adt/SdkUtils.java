@@ -954,4 +954,24 @@ public class SdkUtils {
 		target.getDefaultSkin().getName();
 		return target != null ? target.getDefaultSkin().getName() : "HVGA";
 	}
+	
+	/**
+     * Returns the full absolute OS path to a skin specified by name for a given target.
+     * @param skinName The name of the skin to find. Case-sensitive.
+     * @param target The target where to find the skin.
+     * @return a {@link File} that may or may not actually exist.
+     */
+    public static File getSkinFolder(String skinName, IAndroidTarget target) {
+        String path = target.getPath(IAndroidTarget.SKINS);
+        File skin = new File(path, skinName);
+
+        if (skin.exists() == false && target.isPlatform() == false) {
+            target = target.getParent();
+
+            path = target.getPath(IAndroidTarget.SKINS);
+            skin = new File(path, skinName);
+        }
+
+        return skin;
+    }
 }

@@ -435,15 +435,13 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
         if (avdInfo != null)
         {
             String skinPath = avdInfo.getProperties().get("skin.path");
-            skinPath = SdkUtils.getCurrentSdk().getSdkLocation() + skinPath;
+            skinPath = SdkUtils.getCurrentSdk().getSdkOsLocation() + skinPath;
             IAndroidTarget target = avdInfo.getTarget();
             File candidateFile = new File(skinPath);
             //If path specified on the skin does not exist, try to retrieve it from the target.
             if (!candidateFile.exists())
             {
-                candidateFile =
-                        SdkUtils.getCurrentSdk().getAvdManager()
-                                .getSkinPath(SdkUtils.getSkin(avdInfo), target);
+                candidateFile = SdkUtils.getSkinFolder(SdkUtils.getSkin(avdInfo), target);
             }
             if (!target.isPlatform())
             {
