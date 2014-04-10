@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description>
+	MotoDev for Android
+   </description>
+   <feature id="com.motorola.studio.android.basic.feature" version="0.0.0" patch="false">
+      <category name="MotoDev Studio Plugin"/>
+   </feature>
+   <category-def name="MotoDev Studio Plugin" label="MotoDev Plugins">
+      <description>
+         P2 update site for motodev studio
+      </description>
+   </category-def>
+</site>

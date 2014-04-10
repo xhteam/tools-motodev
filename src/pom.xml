@@ -80,6 +80,7 @@
     <module>features/preflighting</module>
     <module>features/preflighting.sdk</module>
     <module>features/preflighting.ui</module>
+    <module>site</module>
 
   </modules>
   
