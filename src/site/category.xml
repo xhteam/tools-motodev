@@ -6,6 +6,10 @@
    <feature id="com.motorola.studio.android.basic.feature" version="0.0.0" patch="false">
       <category name="MotoDev Studio Plugin"/>
    </feature>
+<!--   <feature id="org.eclipse.sequoyah" version="2.1.1">
+      <category name="MotoDev Studio Plugin"/>
+   </feature>
+-->
    <feature id="com.motorola.studio.android.feature" version="0.0.0">
       <category name="MotoDev Studio"/>
    </feature>
@@ -19,5 +23,4 @@
          All of MotoDev Studio
       </description>
    </category-def>
-
 </site>

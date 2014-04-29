@@ -30,6 +30,35 @@
       <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
    </requires>
 
+   <includes
+         id="org.eclipse.sequoyah.device.common.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.device.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.localization.android.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.localization.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.vnc.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.vnc.protocol.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.sequoyah.vnc.vncviewer.feature"
+         version="0.0.0"/>
+
+
    <plugin
          id="com.motorola.studio.android.common"
          download-size="0"
