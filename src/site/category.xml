@@ -6,9 +6,18 @@
    <feature id="com.motorola.studio.android.basic.feature" version="0.0.0" patch="false">
       <category name="MotoDev Studio Plugin"/>
    </feature>
+   <feature id="com.motorola.studio.android.feature" version="0.0.0">
+      <category name="MotoDev Studio"/>
+   </feature>
    <category-def name="MotoDev Studio Plugin" label="MotoDev Plugins">
       <description>
          P2 update site for motodev studio
       </description>
    </category-def>
+   <category-def name="MotoDev Studio" label="MotoDev Studio">
+      <description>
+         All of MotoDev Studio
+      </description>
+   </category-def>
+
 </site>
