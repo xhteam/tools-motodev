@@ -11,7 +11,8 @@
     <tycho-version>0.19.0</tycho-version>
     <platform-version-name>indigo</platform-version-name>
     <eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
-    <android-adt>file:///${env.PWD}/../makefile/adtp2/target/repository/</android-adt>
+<!--    <android-adt>file:///${env.PWD}/../makefile/adtp2/target/repository/</android-adt> -->
+    <android-adt>https://dl-ssl.google.com/android/eclipse/</android-adt>
     <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
     <sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
   </properties>
