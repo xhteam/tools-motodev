@@ -88,7 +88,7 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab
 
     private Composite mainComposite;
 
-    private List<?> selectedPackagesPreference = null;
+    private List<String> selectedPackagesPreference = null;
 
     /**
      * Determines whether the filter is active.
@@ -577,9 +577,10 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab
                     configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_EVENT_COUNT_NAME,
                             IMonkeyConfigurationConstants.DEFAULT_COUNT_VALUE);
 
+            List<String> defaultValue = null;
             selectedPackagesPreference =
                     configuration.getAttribute(
-                            IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES, (List<?>) null);
+                            IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES, defaultValue);
 
             // Handling Revert button effect on the list of packages
             if (((packageTable != null) && (packageTable.getTableItems().length > 0) && (!packageTable
@@ -642,8 +643,9 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab
 
         configuration.setAttribute(IMonkeyConfigurationConstants.ATTR_EVENT_COUNT_NAME,
                 IMonkeyConfigurationConstants.DEFAULT_COUNT_VALUE);
+        List<String> defaultValue = null;
         configuration.setAttribute(IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES,
-                (List<?>) null);
+                defaultValue);
 
         if (mainComposite != null)
         {

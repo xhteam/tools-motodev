@@ -54,9 +54,9 @@ public class MonkeyConfigurationDelegate implements ILaunchConfigurationDelegate
 
             ArrayList<String> t = new ArrayList<String>();
 
-            List<?> c =
-                    configuration.getAttribute(
-                            IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES, (List<?>) null);
+            List<String> defaultValue = null;
+            List<String> c =
+            		configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES, defaultValue);
             if (c != null)
             {
                 for (int i = 0; i < c.size(); i++)
