@@ -39,6 +39,14 @@
                </goals>
             </execution>
          </executions>
+         <configuration>
+           <products>
+             <product>
+               <id>proteus-ide.product</id>
+               <archiveFileName>proteus-${project.version}</archiveFileName>
+             </product>
+           </products>
+         </configuration>
       </plugin>
    </plugins>
   </build>

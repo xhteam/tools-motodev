@@ -3,6 +3,14 @@
 
 <product name="Proteus" uid="proteus-ide.product" id="org.eclipse.platform.ide" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
+   <aboutInfo>
+      <image path="eclipse_lg.png"/>
+      <text>
+         Proteus Android IDE is licensed under an Eclipse Public License 1.0.  Android Development Tools and MotoDev Studion are licensed
+         under an Apache 2.0 license.
+      </text>
+   </aboutInfo>
+
 
    <configIni use="default">
    </configIni>
@@ -11,8 +19,12 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i16="eclipse16.png" i32="eclipse32.png" i48="eclipse48.png"/>
 
+   <splash
+      startupProgressRect="2,290,448,10"
+      startupMessageRect="7,265,320,20"
+      startupForegroundColor="9c9696" />
 
    <launcher>
       <solaris/>
@@ -47,6 +59,9 @@
       <feature id="org.eclipse.mylyn.team_feature" installMode="root"/>
       <feature id="org.eclipse.mylyn.ide_feature" installMode="root"/>
       <feature id="org.eclipse.mylyn.java_feature" installMode="root"/>
+      <feature id="org.eclipse.mylyn.gerrit.feature" installMode="root"/>
+      <feature id="org.eclipse.mylyn.reviews.feature" installMode="root"/>
+      <feature id="org.eclipse.mylyn.github.feature" installMode="root"/>
    </features>
 
    <configurations>
