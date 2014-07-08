@@ -17,6 +17,7 @@
     <eclipse-theme-site>http://eclipse-color-theme.github.com/update</eclipse-theme-site>
     <android-m2e-site>http://rgladwell.github.com/m2e-android/updates/</android-m2e-site>
     <m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
+    <gradle-tooling-site>http://dist.springsource.com/release/TOOLS/gradle</gradle-tooling-site>
   </properties>
   
   <repositories>
@@ -54,6 +55,11 @@
     	<id>android-m2e-site</id>
     	<url>${android-m2e-site}</url>
     	<layout>p2</layout>    
+    </repository>
+    <repository>
+       <id>gradle-tooling-site</id>
+       <layout>p2</layout>
+       <url>${gradle-tooling-site}</url>
     </repository>
   </repositories>  
   

@@ -11,7 +11,6 @@
       </text>
    </aboutInfo>
 
-
    <configIni use="default">
    </configIni>
 
@@ -22,10 +21,10 @@
    <windowImages i16="eclipse16.png" i32="eclipse32.png" i48="eclipse48.png"/>
 
    <splash
+      location="org.eclipse.platform"
       startupProgressRect="2,290,448,10"
       startupMessageRect="7,265,320,20"
       startupForegroundColor="9c9696" />
-
    <launcher>
       <solaris/>
       <win useIco="false">
@@ -37,31 +36,31 @@
    <vm>
    </vm>
 
-
    <plugins>
    </plugins>
 
    <features>
       <feature id="org.eclipse.platform"/>
       <feature id="com.motorola.studio.android.basic.feature"/>
-      <feature id="com.android.ide.eclipse.adt.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.ddms.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.hierarchyviewer.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.traceview.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.ndk.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.gldebugger.feature" installMode="root"/>
-      <feature id="org.eclipse.m2e.feature" installMode="root"/>
-      <feature id="com.github.eclipsecolortheme.feature" installMode="root" />
-      <feature id="me.gladwell.eclipse.m2e.android.feature" installMode="root"/>
-      <feature id="org.eclipse.egit" installMode="root"/>
-      <feature id="org.eclipse.mylyn_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.git" installMode="root"/>
-      <feature id="org.eclipse.mylyn.team_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.ide_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.java_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.gerrit.feature" installMode="root"/>
+      <feature id="com.android.ide.eclipse.adt.feature"  installMode="root"/>
+      <feature id="com.android.ide.eclipse.ddms.feature"  installMode="root"/>
+      <feature id="com.android.ide.eclipse.hierarchyviewer.feature"  installMode="root"/>
+      <feature id="com.android.ide.eclipse.traceview.feature"/>
+      <feature id="com.android.ide.eclipse.ndk.feature"  installMode="root"/>
+      <feature id="com.android.ide.eclipse.gldebugger.feature"  installMode="root"/>
+      <feature id="org.eclipse.m2e.feature"  installMode="root"/>
+      <feature id="com.github.eclipsecolortheme.feature"  installMode="root"/>
+      <feature id="me.gladwell.eclipse.m2e.android.feature"  installMode="root"/>
+      <feature id="org.eclipse.egit"  installMode="root"/>
+      <feature id="org.eclipse.mylyn_feature"  installMode="root"/>
+      <feature id="org.eclipse.mylyn.git"  installMode="root"/>
+      <feature id="org.eclipse.mylyn.team_feature"  installMode="root"/>
+      <feature id="org.eclipse.mylyn.ide_feature"  installMode="root"/>
+      <feature id="org.eclipse.mylyn.java_feature"  installMode="root"/>
+      <feature id="org.eclipse.mylyn.gerrit.feature"  installMode="root"/>
       <feature id="org.eclipse.mylyn.reviews.feature" installMode="root"/>
       <feature id="org.eclipse.mylyn.github.feature" installMode="root"/>
+      <feature id="org.springsource.ide.eclipse.gradle.feature" installMode="root"/>
    </features>
 
    <configurations>
