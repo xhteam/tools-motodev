@@ -714,8 +714,12 @@
              locationURI="menu:org.eclipse.ui.main.menu?after=project">
           <menu
                 id="motorolaMenu"
-                label="MOTODEV">
-             
+                label="Proteus">
+            <visibleWhen checkEnabled="false">
+               <with variable="activeWorkbenchWindow.activePerspective">
+                   <equals value="com.motorola.studio.android.perspective"/>
+               </with>
+            </visibleWhen> 
           </menu>
        </menuContribution>
     </extension>
