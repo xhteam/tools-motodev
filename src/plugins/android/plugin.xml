@@ -491,12 +491,14 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="com.motorola.studio.android.perspective.MotodevStudioAndroidPerspective"
-            fixed="false"
+            fixed="true"
             icon="icons/obj16/plate16.png"
             id="com.motorola.studio.android.perspective"
-            name="MOTODEV Studio for Android">
+            name="Proteus">
       </perspective>
    </extension>
+   
+   
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
