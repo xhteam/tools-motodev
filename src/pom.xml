@@ -10,12 +10,12 @@
   <properties>
     <tycho-version>0.19.0</tycho-version>
     <platform-version-name>indigo</platform-version-name>
-    <eclipse-site>http://download.eclipse.org/releases/kepler/</eclipse-site>
+    <eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
     <android-adt>https://dl-ssl.google.com/android/eclipse/</android-adt>
     <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
     <sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
     <eclipse-theme-site>http://eclipse-color-theme.github.com/update</eclipse-theme-site>
-    <android-m2e-site>http://rgladwell.github.com/m2e-android/updates/</android-m2e-site>
+    <android-m2e-site>http://rgladwell.github.com/m2e-android/updates/master</android-m2e-site>
     <m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
     <gradle-tooling-site>http://dist.springsource.com/release/TOOLS/gradle</gradle-tooling-site>
   </properties>
