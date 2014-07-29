@@ -273,11 +273,6 @@
             name="%command.name.obfuscate">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.help.handlers.OpenHelpAndroidHandler"
-            id="com.motorola.studio.android.HelpAndroid"
-            name="%command.name.helpandroid">
-      </command>
-      <command
             defaultHandler="com.motorola.studio.android.help.handlers.OpenHelpStudioHandler"
             id="com.motorola.studio.android.HelpStudio"
             name="%command.name.helpstudio">
@@ -287,24 +282,6 @@
             id="com.motorola.studio.android.OnlineHelpStudio"
             name="%command.name.helponline">
       </command>
-   </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:motorolaMenu?after=com.motorola.studio.android.open.motodev.web.resources">
-         <command
-               commandId="com.motorola.studio.android.open.motorola.products"
-               disabledIcon="icons/obj16/handset_info.png"
-               hoverIcon="icons/obj16/handset_info.png"
-               icon="icons/obj16/handset_info.png"
-               id="open.motorola.products.ui.command"
-               label="%command.name.2"
-               mnemonic="%command.mnemonic.2"
-               style="push"
-               tooltip="%command.tooltip.2">
-         </command>
-      </menuContribution>
    </extension>
   <extension
         point="org.eclipse.ui.perspectiveExtensions">
@@ -417,74 +394,41 @@
         </page>       
         
   </extension>    
-  <!-- Help -->
-  <extension
-         point="org.eclipse.ui.menus">
-  <menuContribution
-            allPopups="false"
-            locationURI="menu:motorolaMenu?after=helpSeparator">
-         <menu
-               id="studioHelpMenu"
-               label="%label.help">
-            <command
-                  commandId="com.motorola.studio.android.OnlineHelpStudio"
-                  icon="IMG_LCL_LINKTO_HELP"
-                  label="%command.name.helponline"
-                  style="push"
-                  tooltip="%command.name.helponline">
-            </command>
-            <command
-                  commandId="com.motorola.studio.android.HelpAndroid"
-                  icon="icons/obj16/android_discussion_16x16.png"
-                  label="%command.name.helpandroid"
-                  style="push"
-                  tooltip="%command.name.helpandroid">
-            </command>
-            <command
-                  commandId="com.motorola.studio.android.HelpStudio"
-                  icon="icons/obj16/studio_discussion_16x16.png"
-                  label="%command.name.helpstudio"
-                  style="push"
-                  tooltip="%command.name.helpstudio">
-            </command>
-         </menu>
-      </menuContribution>
-      </extension>
   <!-- PLATFORM -->
   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="com.motorola.studio.android.preferences.ui.MotodevStudioPreference"
             id="com.motorola.studio.platform.ui.preference"
-            name="MOTODEV Studio">
+            name="Proteus">
       </page>
    </extension>
    <extension
          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
       <category
             id="com.motorola.studio.platform.ui.cheatsheet"
-            name="MOTODEV Studio">
+            name="Proteus">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.importWizards">
       <category
             id="com.motorola.studio.platform.ui.import"
-            name="MOTODEV Studio">
+            name="Proteus">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.exportWizards">
       <category
             id="com.motorola.studio.platform.ui.export"
-            name="MOTODEV Studio">
+            name="Proteus">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="com.motorola.studio.platform.ui.newproject"
-            name="MOTODEV Studio">
+            name="Proteus">
       </category>
    </extension>
    <extension
@@ -543,12 +487,6 @@
                name="webResourceSeparator"
                visible="true">
          </separator>
-         <command
-               commandId="com.motorola.studio.android.open.motodev.web.resources"
-               icon="icons/obj16/webresources.gif"
-               label="%motodevmenu.web.resources"
-               style="push">
-         </command>
          <separator
                name="updateSeparator"
                visible="true">
@@ -645,15 +583,6 @@
                </with>
             </visibleWhen>
          </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="menu:help?before=com.motorola.studio.platform.logger.collector.separator">
-         <command
-               commandId="com.motorola.studio.android.open.motodev.web.resources"
-               icon="icons/obj16/webresources.gif"
-               label="%motodevmenu.web.resources"
-               style="push">
-         </command>
       </menuContribution>
    </extension>
    <extension
