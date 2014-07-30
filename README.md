@@ -1,11 +1,13 @@
 # Contributing
 
-Proteus is based off the open source plugins from MotoDev Studio.  This is a fork of those plugins.   The
+Proteus is based off the open source plugins from MotoDev Studio and Android Development Tools.  This is a fork of those plugins.   The
 goal is to enhance the Google ADT plugins to provide additional features and functionality that ADT currently
 does not provide.
 
 This is an open source community lead project, so contributions are encouraged.  All code contributions will
 be licensed under an Eclipse Public License.
+
+To get started, <a href="https://www.clahub.com/agreements/kingargyle/proteus">sign the Contributor License Agreement</a>.
 
 The following describes how to build Proteus and bring the source code into an existing eclipse environment to development and improve.
 

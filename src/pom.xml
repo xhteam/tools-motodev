@@ -18,6 +18,7 @@
     <android-m2e-site>http://rgladwell.github.com/m2e-android/updates/master</android-m2e-site>
     <m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
     <gradle-tooling-site>http://dist.springsource.com/release/TOOLS/gradle</gradle-tooling-site>
+    <m2e-extras>http://ifedorenko.github.io/m2e-extras/</m2e-extras>
   </properties>
   
   <repositories>
@@ -60,6 +61,11 @@
        <id>gradle-tooling-site</id>
        <layout>p2</layout>
        <url>${gradle-tooling-site}</url>
+    </repository>
+    <repository>
+    	<id>m2e-extras-site</id>
+    	<url>${m2e-extras}</url>
+    	<layout>p2</layout>
     </repository>
   </repositories>  
   
