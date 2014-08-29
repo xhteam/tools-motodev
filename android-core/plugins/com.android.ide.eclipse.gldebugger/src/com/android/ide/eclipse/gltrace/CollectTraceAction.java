@@ -70,7 +70,7 @@ public class CollectTraceAction implements IWorkbenchWindowActionDelegate {
     private static final String SYSTEM_APP = "system";          //$NON-NLS-1$
 
     /** Time to wait for the application to launch (seconds) */
-    private static final int LAUNCH_TIMEOUT = 5;
+    private static final int LAUNCH_TIMEOUT = 15;
 
     /** Time to wait for the application to die (seconds) */
     private static final int KILL_TIMEOUT = 5;

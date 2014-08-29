@@ -55,6 +55,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.ui.IEditorPart;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -248,7 +249,7 @@ public class ConfigurationMatcher {
      */
     void findAndSetCompatibleConfig(boolean favorCurrentConfig) {
         List<Locale> localeList = mConfigChooser.getLocaleList();
-        List<Device> deviceList = mConfigChooser.getDeviceList();
+        Collection<Device> devices = mConfigChooser.getDevices();
         FolderConfiguration editedConfig = mConfiguration.getEditedConfig();
         FolderConfiguration currentConfig = mConfiguration.getFullConfig();
 
@@ -301,7 +302,7 @@ public class ConfigurationMatcher {
 
         addRenderTargetToBundles(configBundles);
 
-        for (Device device : deviceList) {
+        for (Device device : devices) {
             for (State state : device.getAllStates()) {
 
                 // loop on the list of config bundles to create full

@@ -36,77 +36,23 @@
     -->
     <profiles>
         <profile>
-            <id>mirrored-p2-repositories</id>
-            <activation>
-                <property>
-                    <name>ANDROID_OUT</name>
-                </property>
-            </activation>
-            <properties>
-                <!-- The target platform should have been created under the Android ANDROID_OUT folder -->
-                <target-platform.base.url>file://${ANDROID_OUT}/host/maven/target</target-platform.base.url>
-            </properties>
-            <repositories>
-                <repository>
-                    <id>kepler</id>
-                    <url>${target-platform.base.url}/platform</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>jdt</id>
-                    <url>${target-platform.base.url}/jdt</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>cdt</id>
-                    <url>${target-platform.base.url}/cdt</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>emf</id>
-                    <url>${target-platform.base.url}/emf</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>wtp</id>
-                    <url>${target-platform.base.url}/wtp</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>gef</id>
-                    <url>${target-platform.base.url}/gef</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>pde</id>
-                    <url>${target-platform.base.url}/pde</url>
-                    <layout>p2</layout>
-                </repository>
-                <repository>
-                    <id>egit</id>
-                    <url>${target-platform.base.url}/egit</url>
-                    <layout>p2</layout>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
             <id>external-p2-repositories</id>
-            <repositories>
-               <repository>
-                   <id>kepler</id>
-                   <url>http://download.eclipse.org/releases/kepler</url>
-                   <layout>p2</layout>
-               </repository>
-            </repositories>
         </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>luna</id>
+            <url>http://download.eclipse.org/releases/luna</url>
+            <layout>p2</layout>
+        </repository>
+    </repositories>
 
     <modules>
         <module>plugins/com.android.ide.eclipse.base</module>
         <module>plugins/com.android.ide.eclipse.ddms</module>
         <module>plugins/com.android.ide.eclipse.gldebugger</module>
         <module>plugins/com.android.ide.eclipse.hierarchyviewer</module>
-        <module>plugins/com.android.ide.eclipse.monitor</module>
+<!--        <module>plugins/com.android.ide.eclipse.monitor</module> -->
         <module>plugins/com.android.ide.eclipse.traceview</module>
 
         <module>plugins/com.android.ide.eclipse.adt</module>
@@ -118,34 +64,20 @@
         <module>features/com.android.ide.eclipse.gldebugger</module>
         <module>features/com.android.ide.eclipse.hierarchyviewer</module>
         <module>features/com.android.ide.eclipse.traceview</module>
-        <module>features/com.android.ide.eclipse.monitor</module>
+<!--        <module>features/com.android.ide.eclipse.monitor</module> -->
 
         <module>features/com.android.ide.eclipse.adt</module>
         <module>features/com.android.ide.eclipse.adt.package</module>
         <module>features/com.android.ide.eclipse.ndk</module>
-
-        <module>artifacts/p2repo</module>
-        <module>artifacts/bundles</module>
     </modules>
 
     <build>
-        <!-- Path is relative to each of the build modules defined above. -->
-        <directory>../../../../out/host/maven/${project.artifactId}-${project.version}</directory>
-
         <plugins>
             <plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>target-platform-configuration</artifactId>
                 <version>${tycho-version}</version>
                 <configuration>
-                    <!--
-                    <target>
-                        <artifact>
-                            <groupId>adt.group</groupId>
-                            <artifactId>helios</artifactId>
-                            <version>1.0.0-SNAPSHOT</version>
-                        </artifact>
-                    </target> -->
                     <environments>
                         <environment>
                             <os>win32</os>

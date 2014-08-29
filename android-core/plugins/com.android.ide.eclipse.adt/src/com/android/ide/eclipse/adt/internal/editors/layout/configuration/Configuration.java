@@ -747,7 +747,7 @@ public class Configuration {
     boolean initialize(String data) {
         String[] values = data.split(SEP);
         if (values.length >= 6 && values.length <= 8) {
-            for (Device d : mConfigChooser.getDeviceList()) {
+            for (Device d : mConfigChooser.getDevices()) {
                 if (d.getName().equals(values[0])) {
                     mDevice = d;
                     String stateName = null;

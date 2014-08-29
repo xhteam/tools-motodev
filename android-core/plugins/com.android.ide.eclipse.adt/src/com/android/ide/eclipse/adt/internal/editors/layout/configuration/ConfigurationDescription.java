@@ -50,6 +50,7 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.Collection;
 import java.util.List;
 
 /** A description of a configuration, used for persistence */
@@ -169,7 +170,7 @@ public class ConfigurationDescription {
     public static ConfigurationDescription fromXml(
             @Nullable IProject project,
             @NonNull Element element,
-            @NonNull List<Device> deviceList) {
+            @NonNull Collection<Device> deviceList) {
         ConfigurationDescription description = new ConfigurationDescription(project);
 
         if (!TAG_PREVIEW.equals(element.getTagName())) {

@@ -133,7 +133,7 @@ public class ConfigurationChooser extends Composite
     private int mDisableUpdates = 0;
 
     /** List of available devices */
-    private List<Device> mDeviceList = Collections.emptyList();
+    private Collection<Device> mDevices = Collections.emptyList();
 
     /** List of available targets */
     private final List<IAndroidTarget> mTargetList = new ArrayList<IAndroidTarget>();
@@ -383,8 +383,8 @@ public class ConfigurationChooser extends Composite
      * @return a list of {@link Device} objects
      */
     @NonNull
-    public List<Device> getDeviceList() {
-        return mDeviceList;
+    public Collection<Device> getDevices() {
+        return mDevices;
     }
 
     /**
@@ -873,9 +873,9 @@ public class ConfigurationChooser extends Composite
             // This method can be called more than once, so avoid duplicate entries
             manager.unregisterListener(this);
             manager.registerListener(this);
-            mDeviceList = manager.getDevices(DeviceManager.ALL_DEVICES);
+            mDevices = manager.getDevices(DeviceManager.ALL_DEVICES);
         } else {
-            mDeviceList = new ArrayList<Device>();
+            mDevices = new ArrayList<Device>();
         }
     }
 
@@ -916,7 +916,7 @@ public class ConfigurationChooser extends Composite
     }
 
     private void updateDevices() {
-        if (mDeviceList.size() == 0) {
+        if (mDevices.size() == 0) {
             initDevices();
         }
     }
@@ -1370,9 +1370,9 @@ public class ConfigurationChooser extends Composite
     public void onDevicesChanged() {
         final Sdk sdk = Sdk.getCurrent();
         if (sdk != null) {
-            mDeviceList = sdk.getDeviceManager().getDevices(DeviceManager.ALL_DEVICES);
+            mDevices = sdk.getDeviceManager().getDevices(DeviceManager.ALL_DEVICES);
         } else {
-            mDeviceList = new ArrayList<Device>();
+            mDevices = new ArrayList<Device>();
         }
     }
 

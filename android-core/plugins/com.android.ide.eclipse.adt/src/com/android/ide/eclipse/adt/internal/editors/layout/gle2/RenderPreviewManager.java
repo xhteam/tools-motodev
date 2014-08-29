@@ -72,6 +72,7 @@ import org.eclipse.ui.ide.IDE;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -964,7 +965,7 @@ public class RenderPreviewManager {
     /** Similar to {@link #addDefaultPreviews()} but for screen sizes */
     public void addScreenSizePreviews() {
         ConfigurationChooser chooser = getChooser();
-        List<Device> devices = chooser.getDeviceList();
+        Collection<Device> devices = chooser.getDevices();
         Configuration configuration = chooser.getConfiguration();
         boolean canScaleNinePatch = configuration.supports(Capability.FIXED_SCALABLE_NINE_PATCH);
 
@@ -1122,7 +1123,7 @@ public class RenderPreviewManager {
         }
 
         try {
-            mManualList.load(getChooser().getDeviceList());
+            mManualList.load(getChooser().getDevices());
             mPreviews = mManualList.createPreviews(mCanvas);
         } catch (IOException e) {
             AdtPlugin.log(e, null);
