@@ -18,5 +18,5 @@ package com.android.ide.eclipse.adt.internal.resources.manager;
 import junit.framework.TestCase;
 
 @SuppressWarnings("javadoc")
-public class IdeScanningContextTest extends TestCase {
+public abstract class IdeScanningContextTest extends TestCase {
 }

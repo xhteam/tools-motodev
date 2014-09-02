@@ -21,7 +21,6 @@ import com.android.ide.eclipse.adt.internal.preferences.AdtPrefs;
 import com.android.ide.eclipse.adt.internal.sdk.AndroidTargetParser;
 import com.android.ide.eclipse.adt.internal.sdk.Sdk;
 import com.android.sdklib.IAndroidTarget;
-import com.android.testutils.SdkTestCase;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -39,7 +38,7 @@ public abstract class SdkLoadingTestCase extends SdkTestCase {
     /**
      * Retrieve the {@link Sdk} under test.
      */
-    protected Sdk getSdk() {
+	protected Sdk getSdk() {
         if (mSdk == null) {
             mSdk = loadSdk();
             assertNotNull(mSdk);
@@ -92,7 +91,7 @@ public abstract class SdkLoadingTestCase extends SdkTestCase {
         return sdk;
     }
 
-    protected boolean validateSdk(IAndroidTarget target) {
+	protected boolean validateSdk(IAndroidTarget target) {
         return true;
     }
 
