@@ -10,6 +10,30 @@
       <category name="MotoDev Studio Plugin"/>
    </feature>
 -->
+   <feature id="com.android.ide.eclipse.adt.feature" version="0.0.0">
+       <category name="Android Core"/>
+   </feature>
+   
+   <feature id="com.android.ide.eclipse.ddms.feature" version="0.0.0">
+       <category name="Android Core"/>
+   </feature>
+   
+   <feature id="com.android.ide.eclipse.gldebugger.feature" version="0.0.0">
+       <category name="Android Core"/>
+   </feature>
+   
+   <feature id="com.android.ide.eclipse.hierarchyviewer.feature" version="0.0.0">
+       <category name="Android Core"/>
+   </feature>
+   
+   <feature id="com.android.ide.eclipse.ndk.feature">
+       <category name="Android Core"/>
+   </feature>
+   
+   <feature id="com.android.ide.eclipse.traceview.feature" version="0.0.0">
+       <category name="Android Core"/>
+   </feature>
+
    <feature id="com.motorola.studio.android.feature" version="0.0.0">
       <category name="MotoDev Studio"/>
    </feature>
@@ -22,5 +46,11 @@
       <description>
          All of MotoDev Studio
       </description>
+   </category-def>
+   
+   <category-def name="Android Core" label="Android Core">
+       <description>
+           Android Core Tools and Native Tools Frameworks.
+       </description>
    </category-def>
 </site>

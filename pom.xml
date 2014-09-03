@@ -8,10 +8,9 @@
   <packaging>pom</packaging>
   
   <properties>
-    <tycho-version>0.19.0</tycho-version>
+    <tycho-version>0.20.0</tycho-version>
     <platform-version-name>indigo</platform-version-name>
     <eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
-    <android-adt>https://dl-ssl.google.com/android/eclipse/</android-adt>
     <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
     <sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
     <eclipse-theme-site>http://eclipse-color-theme.github.com/update</eclipse-theme-site>
@@ -36,11 +35,6 @@
       <id>orbit</id>
       <layout>p2</layout>
       <url>${orbit-site}</url>
-    </repository>
-    <repository>
-      <id>android-adt</id>
-      <layout>p2</layout>
-      <url>${android-adt}</url>
     </repository>
     <repository>
       <id>eclipse-theme</id>
