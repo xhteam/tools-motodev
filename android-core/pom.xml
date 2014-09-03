@@ -40,5 +40,7 @@
         <module>features/com.android.ide.eclipse.adt</module>
         <module>features/com.android.ide.eclipse.adt.package</module>
         <module>features/com.android.ide.eclipse.ndk</module>
+        
+        <module>plugins/com.android.ide.eclipse.tests</module>
     </modules>
 </project>

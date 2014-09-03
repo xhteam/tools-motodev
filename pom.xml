@@ -8,7 +8,7 @@
   <packaging>pom</packaging>
   
   <properties>
-    <tycho-version>0.20.0</tycho-version>
+    <tycho-version>0.19.0</tycho-version>
     <platform-version-name>indigo</platform-version-name>
     <eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
     <android-adt>https://dl-ssl.google.com/android/eclipse/</android-adt>
@@ -81,7 +81,7 @@
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-maven-plugin</artifactId>
-        <version>0.19.0</version>
+        <version>${tycho-version}</version>
         <extensions>true</extensions>
       </plugin>
       
