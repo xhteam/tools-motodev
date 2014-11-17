@@ -11,7 +11,7 @@
 	<properties>
 		<tycho-version>0.21.0</tycho-version>
 		<platform-version-name>indigo</platform-version-name>
-		<eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
+		<eclipse-site>http://download.eclipse.org/releases/indigo/</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
 		<sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
 		<eclipse-theme-site>http://eclipse-color-theme.github.com/update</eclipse-theme-site>
@@ -97,10 +97,11 @@
 				<groupId>org.eclipse.tycho.extras</groupId>
 				<artifactId>tycho-source-feature-plugin</artifactId>
 			</plugin>
-			<plugin>
+<!--			<plugin>
 				<groupId>org.eclipse.tycho.extras</groupId>
 				<artifactId>tycho-document-bundle-plugin</artifactId>
 			</plugin>
+-->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>

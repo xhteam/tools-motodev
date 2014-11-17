@@ -50,20 +50,10 @@
       <feature id="com.android.ide.eclipse.ndk.feature" installMode="root"/>
       <feature id="com.android.ide.eclipse.gldebugger.feature" installMode="root"/>
       <feature id="org.eclipse.m2e.feature" installMode="root"/>
-      <feature id="com.github.eclipsecolortheme.feature" installMode="root"/>
       <feature id="me.gladwell.eclipse.m2e.android.feature" installMode="root"/>
       <feature id="org.eclipse.egit" installMode="root"/>
-      <feature id="org.eclipse.mylyn_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.git" installMode="root"/>
-      <feature id="org.eclipse.mylyn.team_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.ide_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.java_feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.gerrit.feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.reviews.feature" installMode="root"/>
-      <feature id="org.eclipse.mylyn.github.feature" installMode="root"/>
       <feature id="org.eclipse.mat.feature" installMode="root"/>
       <feature id="org.springsource.ide.eclipse.gradle.feature" installMode="root"/>
-      <feature id="com.ifedorenko.m2e.sourcelookup.feature" installMode="root"/>
    </features>
 
    <configurations>
