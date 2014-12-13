@@ -2,8 +2,8 @@ package com.android.ide.eclipse.gltrace;
 
 import com.android.ddmlib.Client;
 import com.android.ddmlib.ClientData;
-import com.android.ide.eclipse.ddms.IClientAction;
 
+import org.eclipse.andmore.ddms.IClientAction;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;

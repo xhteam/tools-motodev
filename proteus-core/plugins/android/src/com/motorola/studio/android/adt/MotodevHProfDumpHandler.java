@@ -22,6 +22,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.eclipse.andmore.ddms.DdmsPlugin;
+import org.eclipse.andmore.ddms.preferences.PreferenceInitializer;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,8 +45,6 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.SyncService;
 import com.android.ddmuilib.SyncProgressMonitor;
 import com.android.ddmuilib.handler.BaseFileHandler;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
-import com.android.ide.eclipse.ddms.preferences.PreferenceInitializer;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.common.preferences.DialogWithToggleUtils;
 import com.motorola.studio.android.common.utilities.EclipseUtils;

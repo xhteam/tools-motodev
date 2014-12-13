@@ -19,9 +19,9 @@ package org.eclipse.andmore;
 import static com.android.SdkConstants.CLASS_CONSTRUCTOR;
 import static com.android.SdkConstants.CONSTRUCTOR_NAME;
 
-import com.android.ide.eclipse.ddms.ISourceRevealer;
 import com.google.common.base.Predicate;
 
+import org.eclipse.andmore.ddms.ISourceRevealer;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
 import org.eclipse.core.resources.IFile;

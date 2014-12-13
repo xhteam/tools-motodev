@@ -18,6 +18,7 @@ package com.motorola.studio.android.emulator.device.sync;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.sequoyah.device.framework.factory.InstanceRegistry;
 import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.sequoyah.device.framework.ui.view.InstanceMgtView;
@@ -28,7 +29,6 @@ import org.eclipse.swt.widgets.Listener;
 
 import com.android.ddmlib.Client;
 import com.android.ddmlib.IDevice;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.motorola.studio.android.adt.DDMSFacade;
 import com.motorola.studio.android.common.log.StudioLogger;
 import com.motorola.studio.android.emulator.EmulatorPlugin;

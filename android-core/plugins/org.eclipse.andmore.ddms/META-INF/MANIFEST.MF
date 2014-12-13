@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.andmore.ddms;singleton:=true
 Bundle-Version: 23.0.3.qualifier
-Bundle-Activator: com.android.ide.eclipse.ddms.DdmsPlugin
+Bundle-Activator: org.eclipse.andmore.ddms.DdmsPlugin
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -29,10 +29,10 @@ Export-Package: com.android.ddmlib,
  com.android.ddmuilib.log.event,
  com.android.ddmuilib.logcat,
  com.android.ddmuilib.net,
- com.android.ide.eclipse.ddms,
- com.android.ide.eclipse.ddms.i18n,
- com.android.ide.eclipse.ddms.preferences,
- com.android.ide.eclipse.ddms.views
+ org.eclipse.andmore.ddms,
+ org.eclipse.andmore.ddms.i18n,
+ org.eclipse.andmore.ddms.preferences,
+ org.eclipse.andmore.ddms.views
 Bundle-ClassPath: .,
  libs/ddmlib.jar,
  libs/ddmuilib.jar,

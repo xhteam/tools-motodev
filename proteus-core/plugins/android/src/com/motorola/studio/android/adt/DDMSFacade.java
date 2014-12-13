@@ -37,6 +37,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -63,7 +64,6 @@ import com.android.ddmlib.MultiLineReceiver;
 import com.android.ddmlib.SyncException;
 import com.android.ddmlib.SyncService;
 import com.android.ddmlib.SyncService.ISyncProgressMonitor;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.adt.StudioAndroidEventManager.EventType;
 import com.motorola.studio.android.common.IAndroidConstants;

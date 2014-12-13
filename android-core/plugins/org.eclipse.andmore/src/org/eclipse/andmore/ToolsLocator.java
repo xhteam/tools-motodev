@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore;
 
-import com.android.ide.eclipse.ddms.IToolsLocator;
+import org.eclipse.andmore.ddms.IToolsLocator;
 
 /**
  * Implementation of the com.android.ide.ddms.toolsLocator extension point.

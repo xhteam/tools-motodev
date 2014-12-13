@@ -16,8 +16,7 @@
 
 package org.eclipse.andmore;
 
-import com.android.ide.eclipse.ddms.IDebuggerConnector;
-
+import org.eclipse.andmore.ddms.IDebuggerConnector;
 import org.eclipse.andmore.internal.launch.AndroidLaunchController;
 import org.eclipse.andmore.internal.project.ProjectHelper;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor;

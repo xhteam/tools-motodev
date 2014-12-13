@@ -16,12 +16,12 @@
 
 package com.android.ide.eclipse.hierarchyviewer;
 
-import com.android.ide.eclipse.ddms.Perspective;
 import com.android.ide.eclipse.hierarchyviewer.views.DeviceSelectorView;
 import com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectLoupeView;
 import com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectTreeView;
 import com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectView;
 
+import org.eclipse.andmore.ddms.Perspective;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;

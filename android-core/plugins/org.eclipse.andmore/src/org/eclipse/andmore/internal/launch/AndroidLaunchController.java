@@ -32,7 +32,6 @@ import com.android.ddmlib.InstallException;
 import com.android.ddmlib.Log;
 import com.android.ddmlib.TimeoutException;
 import com.android.ide.common.xml.ManifestData;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.android.prefs.AndroidLocation.AndroidLocationException;
 import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
@@ -41,6 +40,7 @@ import com.android.sdklib.internal.avd.AvdManager;
 import com.android.utils.NullLogger;
 
 import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.actions.AvdManagerAction;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;

@@ -23,7 +23,6 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.IDevice.DeviceState;
 import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.TableHelper;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
@@ -31,6 +30,7 @@ import com.android.sdkuilib.internal.widgets.AvdSelector;
 import com.android.sdkuilib.internal.widgets.AvdSelector.DisplayMode;
 import com.android.sdkuilib.internal.widgets.AvdSelector.IAvdFilter;
 
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;

@@ -26,7 +26,6 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.sdk.LoadStatus;
-import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.android.io.StreamException;
 import com.android.resources.ResourceFolderType;
 import com.android.sdklib.IAndroidTarget;
@@ -35,6 +34,7 @@ import com.google.common.collect.Sets;
 import com.google.common.io.Closeables;
 
 import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler.Solution;
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.VersionCheck;
 import org.eclipse.andmore.internal.actions.SdkManagerAction;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;

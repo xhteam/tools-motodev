@@ -16,8 +16,7 @@
 
 package com.android.ide.eclipse.traceview;
 
-import com.android.ide.eclipse.ddms.ITraceviewLauncher;
-
+import org.eclipse.andmore.ddms.ITraceviewLauncher;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.resources.ResourcesPlugin;

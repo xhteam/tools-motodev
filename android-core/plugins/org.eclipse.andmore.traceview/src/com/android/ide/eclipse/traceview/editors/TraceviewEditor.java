@@ -15,7 +15,6 @@
  */
 package com.android.ide.eclipse.traceview.editors;
 
-import com.android.ide.eclipse.ddms.JavaSourceRevealer;
 import com.android.ide.eclipse.traceview.TraceviewPlugin;
 import com.android.traceview.ColorController;
 import com.android.traceview.DmTraceReader;
@@ -27,6 +26,7 @@ import com.android.traceview.TimeLineView;
 import com.android.traceview.TraceReader;
 import com.android.traceview.TraceUnits;
 
+import org.eclipse.andmore.ddms.JavaSourceRevealer;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.URIUtil;
