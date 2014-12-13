@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.android.ide.eclipse.ddms.feature"
-      label="Android DDMS"
+      id="org.eclipse.andmore.ddms.feature"
+      label="Andmore Android DDMS"
       version="23.0.3.qualifier"
-      provider-name="The Android Open Source Project"
-      plugin="com.android.ide.eclipse.ddms">
+      provider-name="Eclipse Foundation"
+      plugin="org.eclipse.andmore.ddms">
 
    <description>
       Android Dalvik Debug Monitor Service
@@ -223,9 +223,6 @@
    limitations under the License.
    </license>
 
-   <url>
-      <update label="Android Update Site" url="https://dl-ssl.google.com/android/eclipse/"/>
-   </url>
 
    <requires>
       <import plugin="org.eclipse.ui" version="0.0.0"/>

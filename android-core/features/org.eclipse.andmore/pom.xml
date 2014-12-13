@@ -29,7 +29,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<plugin id="overlay.com.android.ide.eclipse.adt.overlay"/>
+								<plugin id="overlay.org.eclipse.andmore.overlay"/>
 							</excludes>
 						</configuration>
 					</execution>

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.android.ide.eclipse.hierarchyviewer.feature"
-      label="Android Hierarchy Viewer"
+      id="org.eclipse.andmore.gldebugger.feature"
+      label="Tracer for OpenGL ES"
       version="23.0.3.qualifier"
-      provider-name="The Android Open Source Project"
-      plugin="com.android.ide.eclipse.hierarchyviewer">
+      provider-name="The Eclipse Foundation">
 
    <description>
-      Android Hierarchy Viewer.
+      GLESv2 Debugger Client (Alpha status).
    </description>
 
    <copyright>
-      Copyright (C) 2010-2011 The Android Open Source Project
+      Copyright (C) 2011 The Android Open Source Project
    </copyright>
 
-   <license url="http://www.apache.org/licenses/LICENSE-2.0.txt">
+   <license url="http://www.apache.org/licenses/LICENSE-2.0">
       Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -218,19 +217,13 @@
    limitations under the License.
    </license>
 
-   <url>
-      <update label="Android Update Site" url="https://dl-ssl.google.com/android/eclipse/"/>
-   </url>
-
    <requires>
-      <import plugin="org.eclipse.ui" version="0.0.0"/>
-      <import plugin="org.eclipse.core.runtime" version="0.0.0"/>
-      <import plugin="org.eclipse.ui.console"/>
-      <import plugin="com.android.ide.eclipse.ddms" match="perfect"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
    <plugin
-         id="org.eclipse.andmore.hierarchyviewer"
+         id="org.eclipse.andmore.gldebugger"
          download-size="0"
          install-size="0"
          version="0.0.0"

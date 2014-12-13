@@ -31,16 +31,16 @@
         <module>plugins/org.eclipse.andmore.overlay</module>
         <module>plugins/org.eclipse.andmore.package</module>
         <module>plugins/org.eclipse.andmore.ndk</module>
-<!--
+
         <module>features/org.eclipse.andmore.ddms</module>
         <module>features/org.eclipse.andmore.gldebugger</module>
         <module>features/org.eclipse.andmore.hierarchyviewer</module>
         <module>features/org.eclipse.andmore.traceview</module>
 
-        <module>features/com.android.ide.eclipse.adt</module>
-        <module>features/com.android.ide.eclipse.adt.package</module>
-        <module>features/com.android.ide.eclipse.ndk</module>
-        
+        <module>features/org.eclipse.andmore</module>
+        <module>features/org.eclipse.andmore.package</module>
+        <module>features/org.eclipse.andmore.ndk</module>
+<!--        
         <module>plugins/org.eclipse.andmore.integration.tests</module>
 -->
     </modules>
