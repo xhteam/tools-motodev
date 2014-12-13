@@ -15,7 +15,7 @@
    <extension
          point="com.android.ide.eclipse.ddms.traceviewLauncher">
       <launcher
-            class="com.android.ide.eclipse.traceview.TraceviewLauncher">
+            class="org.eclipse.andmore.traceview.TraceviewLauncher">
       </launcher>
    </extension>
 

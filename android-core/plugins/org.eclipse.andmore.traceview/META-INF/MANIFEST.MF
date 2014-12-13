@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Traceview
 Bundle-SymbolicName: org.eclipse.andmore.traceview;singleton:=true
 Bundle-Version: 23.0.3.qualifier
-Bundle-Activator: com.android.ide.eclipse.traceview.TraceviewPlugin
+Bundle-Activator: org.eclipse.andmore.traceview.TraceviewPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.ide,

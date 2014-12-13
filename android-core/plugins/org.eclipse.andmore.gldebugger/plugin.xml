@@ -92,7 +92,7 @@
    <extension
          point="com.android.ide.eclipse.ddms.clientAction">
       <clientAction
-            class="com.android.ide.eclipse.gltrace.DeviceViewAction">
+            class="org.eclipse.andmore.gltrace.DeviceViewAction">
       </clientAction>
    </extension>
 
