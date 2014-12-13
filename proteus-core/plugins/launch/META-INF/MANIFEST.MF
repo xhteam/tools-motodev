@@ -13,12 +13,12 @@ Require-Bundle: com.motorola.studio.android,
  org.eclipse.jdt.core,
  org.eclipse.sequoyah.device.framework,
  org.eclipse.sequoyah.device.common.utilities,
- com.android.ide.eclipse.ddms,
- com.android.ide.eclipse.adt,
+ org.eclipse.andmore.ddms,
+ org.eclipse.andmore,
  org.eclipse.core.runtime,
  org.eclipse.ui.console,
  org.eclipse.ui,
- com.android.ide.eclipse.base
+ org.eclipse.andmore.base
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy

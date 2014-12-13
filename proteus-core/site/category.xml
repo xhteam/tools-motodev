@@ -24,53 +24,53 @@
       <category name="MotoDev Studio Plugin"/>
    </feature>
 -->
-   <feature id="com.android.ide.eclipse.adt.feature" version="0.0.0">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.feature" version="0.0.0">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.adt.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.ddms.feature" version="0.0.0">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.ddms.feature" version="0.0.0">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.ddms.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.ddms.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.gldebugger.feature" version="0.0.0">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.gldebugger.feature" version="0.0.0">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.gldebugger.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.gldebugger.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.hierarchyviewer.feature" version="0.0.0">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.hierarchyviewer.feature" version="0.0.0">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.hierarchyviewer.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.hierarchyviewer.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
    
    
-   <feature id="com.android.ide.eclipse.ndk.feature">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.ndk.feature">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.ndk.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.ndk.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.traceview.feature" version="0.0.0">
-       <category name="Android Core"/>
+   <feature id="org.eclipse.andmore.traceview.feature" version="0.0.0">
+       <category name="Andmore Android Core"/>
    </feature>
    
-   <feature id="com.android.ide.eclipse.traceview.feature.source" version="0.0.0">
-       <category name="Android Core SDK"/>
+   <feature id="org.eclipse.andmore.traceview.feature.source" version="0.0.0">
+       <category name="Andmore Android Core SDK"/>
    </feature>
 
    <category-def name="MotoDev Studio Plugin" label="MotoDev Plugins">
@@ -84,13 +84,13 @@
       </description>
    </category-def>
    
-   <category-def name="Android Core" label="Android Core">
+   <category-def name="Andmore Android Core" label="Andmore Android Core">
        <description>
            Android Core Tools and Native Tools Frameworks.
        </description>
    </category-def>
    
-   <category-def name="Android Core SDK" label="Android Core SDK">
+   <category-def name="Andmore Android Core SDK" label="Andmore Android Core SDK">
        <description>
            Android Core Tools and Native Tools SDK
        </description>

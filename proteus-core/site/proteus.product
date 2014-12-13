@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Proteus" uid="proteus-ide.product" id="org.eclipse.platform.ide" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Andmore" uid="proteus-ide.product" id="org.eclipse.platform.ide" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="eclipse_lg.png"/>
       <text>
-         Proteus Android IDE is licensed under an Eclipse Public License 1.0.  Android Development Tools and MotoDev Studion are licensed
-         under an Apache 2.0 license.
+         Andmore IDE is licensed under an Eclipse Public License 1.0 and Apache Public License 2.0.
       </text>
    </aboutInfo>
 
@@ -43,17 +42,17 @@
    <features>
       <feature id="org.eclipse.platform"/>
       <feature id="com.motorola.studio.android.basic.feature"/>
-      <feature id="com.android.ide.eclipse.adt.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.ddms.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.hierarchyviewer.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.traceview.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.ndk.feature" installMode="root"/>
-      <feature id="com.android.ide.eclipse.gldebugger.feature" installMode="root"/>
-      <feature id="org.eclipse.m2e.feature" installMode="root"/>
-      <feature id="me.gladwell.eclipse.m2e.android.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.ddms.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.hierarchyviewer.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.traceview.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.ndk.feature" installMode="root"/>
+      <feature id="org.eclipse.andmore.gldebugger.feature" installMode="root"/>
+<!--      <feature id="org.eclipse.m2e.feature" installMode="root"/>
+      <feature id="me.gladwell.eclipse.m2e.android.feature" installMode="root"/>  -->
       <feature id="org.eclipse.egit" installMode="root"/>
       <feature id="org.eclipse.mat.feature" installMode="root"/>
-      <feature id="org.springsource.ide.eclipse.gradle.feature" installMode="root"/>
+<!--      <feature id="org.springsource.ide.eclipse.gradle.feature" installMode="root"/> -->
    </features>
 
    <configurations>

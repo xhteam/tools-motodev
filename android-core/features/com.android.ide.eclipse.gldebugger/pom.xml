@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <version>23.0.3-SNAPSHOT</version>
-    <artifactId>com.android.ide.eclipse.gldebugger.feature</artifactId>
+    <artifactId>org.eclipse.andmore.gldebugger.feature</artifactId>
     <packaging>eclipse-feature</packaging>
     <name>gldebugger</name>
 

@@ -19,14 +19,14 @@
    </license>
 
    <requires>
-      <import plugin="com.android.ide.eclipse.adt" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.base" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.ddms" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.gldebugger" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.hierarchyviewer" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.traceview" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.ndk" version="22.3.0" match="greaterOrEqual"/>
-      <import plugin="overlay.com.android.ide.eclipse.adt.overlay"/>
+      <import plugin="org.eclipse.andmore" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.base" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.ddms" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.gldebugger" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.hierarchyviewer" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.traceview" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.ndk" version="22.3.0" match="greaterOrEqual"/>
+      <import plugin="overlay.org.eclipse.andmore.overlay"/>
       <import feature="org.eclipse.equinox.p2.user.ui"/>
       <import feature="org.eclipse.platform"/>
       <import feature="org.eclipse.rcp"/>
@@ -36,7 +36,7 @@
    </requires>
 
    <plugin
-         id="com.android.ide.eclipse.adt.package"
+         id="org.eclipse.andmore.package"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

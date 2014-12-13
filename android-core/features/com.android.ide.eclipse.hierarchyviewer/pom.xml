@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <version>23.0.3-SNAPSHOT</version>
-    <artifactId>com.android.ide.eclipse.hierarchyviewer.feature</artifactId>
+    <artifactId>org.eclipse.andmore.hierarchyviewer.feature</artifactId>
     <packaging>eclipse-feature</packaging>
     <name>hierarchyviewer</name>
 

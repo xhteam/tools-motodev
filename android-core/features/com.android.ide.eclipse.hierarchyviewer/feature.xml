@@ -230,7 +230,7 @@
    </requires>
 
    <plugin
-         id="com.android.ide.eclipse.hierarchyviewer"
+         id="org.eclipse.andmore.hierarchyviewer"
          download-size="0"
          install-size="0"
          version="0.0.0"

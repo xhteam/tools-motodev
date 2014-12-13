@@ -21,26 +21,27 @@
     </properties>
 
     <modules>
-        <module>plugins/com.android.ide.eclipse.base</module>
-        <module>plugins/com.android.ide.eclipse.ddms</module>
-        <module>plugins/com.android.ide.eclipse.gldebugger</module>
-        <module>plugins/com.android.ide.eclipse.hierarchyviewer</module>
-        <module>plugins/com.android.ide.eclipse.traceview</module>
+        <module>plugins/org.eclipse.andmore.base</module>
+        <module>plugins/org.eclipse.andmore.ddms</module>
+        <module>plugins/org.eclipse.andmore.gldebugger</module>
+        <module>plugins/org.eclipse.andmore.hierarchyviewer</module>
+        <module>plugins/org.eclipse.andmore.traceview</module>
 
-        <module>plugins/com.android.ide.eclipse.adt</module>
-        <module>plugins/com.android.ide.eclipse.adt.overlay</module>
-        <module>plugins/com.android.ide.eclipse.adt.package</module>
-        <module>plugins/com.android.ide.eclipse.ndk</module>
-
-        <module>features/com.android.ide.eclipse.ddms</module>
-        <module>features/com.android.ide.eclipse.gldebugger</module>
-        <module>features/com.android.ide.eclipse.hierarchyviewer</module>
-        <module>features/com.android.ide.eclipse.traceview</module>
+        <module>plugins/org.eclipse.andmore</module>
+        <module>plugins/org.eclipse.andmore.overlay</module>
+        <module>plugins/org.eclipse.andmore.package</module>
+        <module>plugins/org.eclipse.andmore.ndk</module>
+<!--
+        <module>features/org.eclipse.andmore.ddms</module>
+        <module>features/org.eclipse.andmore.gldebugger</module>
+        <module>features/org.eclipse.andmore.hierarchyviewer</module>
+        <module>features/org.eclipse.andmore.traceview</module>
 
         <module>features/com.android.ide.eclipse.adt</module>
         <module>features/com.android.ide.eclipse.adt.package</module>
         <module>features/com.android.ide.eclipse.ndk</module>
         
-        <module>plugins/com.android.ide.eclipse.tests</module>
+        <module>plugins/org.eclipse.andmore.integration.tests</module>
+-->
     </modules>
 </project>

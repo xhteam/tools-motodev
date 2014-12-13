@@ -21,9 +21,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sequoyah.device.common.utilities,
  org.eclipse.ui.console,
  org.eclipse.ui.ide,
- com.android.ide.eclipse.adt;resolution:=optional,
+ org.eclipse.andmore;resolution:=optional,
  org.apache.commons.httpclient,
- com.android.ide.eclipse.base;resolution:=optional
+ org.eclipse.andmore.base;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.motorola.studio.android.common,
  com.motorola.studio.android.common.exception,

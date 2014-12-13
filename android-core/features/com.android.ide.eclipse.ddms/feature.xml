@@ -237,14 +237,14 @@
    </requires>
 
    <plugin
-         id="com.android.ide.eclipse.base"
+         id="org.eclipse.andmore.base"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.android.ide.eclipse.ddms"
+         id="org.eclipse.andmore.ddms"
          download-size="0"
          install-size="0"
          version="0.0.0"

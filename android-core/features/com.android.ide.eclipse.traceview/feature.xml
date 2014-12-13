@@ -224,13 +224,13 @@
 
    <requires>
       <import plugin="org.eclipse.core.runtime" version="0.0.0" match="greaterOrEqual"/>
-      <import plugin="com.android.ide.eclipse.ddms" version="10.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.ddms" version="10.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.filesystem"/>
       <import plugin="org.eclipse.core.resources"/>
    </requires>
 
    <plugin
-         id="com.android.ide.eclipse.traceview"
+         id="org.eclipse.andmore.traceview"
          download-size="0"
          install-size="0"
          version="0.0.0"

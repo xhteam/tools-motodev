@@ -19,11 +19,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.equinox.p2.touchpoint.natives,
  com.motorola.studio.android.common,
  org.eclipse.jdt.launching,
- com.android.ide.eclipse.adt,
+ org.eclipse.andmore,
  org.apache.commons.httpclient,
  org.eclipse.ui.browser,
  org.eclipse.equinox.p2.ui.sdk,
- com.android.ide.eclipse.base
+ org.eclipse.andmore.base
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
