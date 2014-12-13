@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.net.proxy.IProxyService;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -34,8 +36,6 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IViewPart;
 import org.osgi.framework.ServiceReference;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
-import com.android.ide.eclipse.adt.internal.preferences.AdtPrefs;
 import com.motorola.studio.android.adt.DDMSFacade;
 import com.motorola.studio.android.adt.SdkUtils;
 import com.motorola.studio.android.common.exception.AndroidException;

@@ -1164,15 +1164,15 @@
         </propertyTester>
     </extension>
     <extension point="com.android.ide.eclipse.ddms.toolsLocator">
-        <locator class="com.android.ide.eclipse.adt.ToolsLocator">
+        <locator class="org.eclipse.andmore.ToolsLocator">
         </locator>
     </extension>
     <extension point="com.android.ide.eclipse.ddms.debuggerConnector">
-        <connector class="com.android.ide.eclipse.adt.DebuggerConnector">
+        <connector class="org.eclipse.andmore.DebuggerConnector">
         </connector>
     </extension>
     <extension point="com.android.ide.eclipse.ddms.sourceRevealer">
-        <revealer class="com.android.ide.eclipse.adt.SourceRevealer">
+        <revealer class="org.eclipse.andmore.SourceRevealer">
         </revealer>
     </extension>
     <extension point="org.eclipse.ltk.core.refactoring.renameParticipants">

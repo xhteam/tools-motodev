@@ -16,12 +16,12 @@
 
 package com.android.ide.eclipse.ndk.internal.launch;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
-import com.android.ide.eclipse.adt.internal.launch.AndroidLaunchController;
-import com.android.ide.eclipse.adt.internal.sdk.ProjectState;
-import com.android.ide.eclipse.adt.internal.sdk.Sdk;
 import com.android.ide.eclipse.ndk.internal.NdkHelper;
 
+import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.internal.launch.AndroidLaunchController;
+import org.eclipse.andmore.internal.sdk.ProjectState;
+import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
 import org.eclipse.cdt.dsf.gdb.IGDBLaunchConfigurationConstants;

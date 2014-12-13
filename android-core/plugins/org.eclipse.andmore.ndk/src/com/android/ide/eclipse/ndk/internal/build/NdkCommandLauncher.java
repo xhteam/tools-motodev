@@ -16,9 +16,9 @@
 
 package com.android.ide.eclipse.ndk.internal.build;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
 import com.android.ide.eclipse.ndk.internal.NdkManager;
 
+import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.cdt.core.CommandLauncher;
 import org.eclipse.cdt.utils.CygPath;
 import org.eclipse.core.runtime.CoreException;

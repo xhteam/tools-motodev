@@ -15,10 +15,10 @@
  */
 package com.motorola.studio.android.wizards.project;
 
+import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import com.android.ide.eclipse.adt.internal.sdk.Sdk;
 import com.android.sdklib.IAndroidTarget;
 import com.motorola.studio.android.adt.SdkUtils;
 import com.motorola.studio.android.model.AndroidProject;

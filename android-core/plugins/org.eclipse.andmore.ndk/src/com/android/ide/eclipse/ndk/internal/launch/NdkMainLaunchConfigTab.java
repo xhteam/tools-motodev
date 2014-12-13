@@ -16,11 +16,10 @@
 
 package com.android.ide.eclipse.ndk.internal.launch;
 
-import com.android.ide.eclipse.adt.internal.launch.MainLaunchConfigTab;
-import com.android.ide.eclipse.adt.internal.project.ProjectChooserHelper.IProjectChooserFilter;
-import com.android.ide.eclipse.adt.internal.sdk.ProjectState;
-import com.android.ide.eclipse.adt.internal.sdk.Sdk;
-
+import org.eclipse.andmore.internal.launch.MainLaunchConfigTab;
+import org.eclipse.andmore.internal.project.ProjectChooserHelper.IProjectChooserFilter;
+import org.eclipse.andmore.internal.sdk.ProjectState;
+import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.cdt.core.model.CoreModel;
 import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
 import org.eclipse.core.resources.IProject;

@@ -15,14 +15,13 @@
  */
 package com.motorola.studio.android.adt;
 
+import org.eclipse.andmore.internal.project.AndroidNature;
+import org.eclipse.andmore.internal.project.ProjectHelper;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaModelException;
-
-import com.android.ide.eclipse.adt.internal.project.AndroidNature;
-import com.android.ide.eclipse.adt.internal.project.ProjectHelper;
 
 /**
  * Class that contains useful methods to handle with Android Projects

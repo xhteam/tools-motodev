@@ -15,12 +15,12 @@
  */
 package com.motorola.studio.android.wizards.project;
 
+import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE.SharedImages;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
 import com.android.sdklib.IAndroidTarget;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.adt.Sample;

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -55,7 +56,6 @@ import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.adt.ProjectUtils;
 import com.motorola.studio.android.adt.SdkUtils;

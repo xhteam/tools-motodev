@@ -16,10 +16,9 @@
 
 package com.motorola.studio.android.launch;
 
+import org.eclipse.andmore.internal.launch.LaunchConfigDelegate;
+import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
-
-import com.android.ide.eclipse.adt.internal.launch.AndroidLaunchConfiguration.TargetMode;
-import com.android.ide.eclipse.adt.internal.launch.LaunchConfigDelegate;
 
 /**
  * This interface holds the constants for Launch Configuration

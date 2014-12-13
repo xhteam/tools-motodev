@@ -20,11 +20,10 @@ import java.io.File;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
+import org.eclipse.andmore.internal.project.ExportHelper;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-
-import com.android.ide.eclipse.adt.internal.project.ExportHelper;
 
 /**
  * Methods to interface with ADT plug-in.

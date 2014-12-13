@@ -16,9 +16,9 @@
 
 package com.android.ide.eclipse.ndk.internal;
 
-import com.android.ide.eclipse.adt.AdtPlugin;
 import com.android.ide.eclipse.ndk.internal.launch.NdkLaunchConstants;
 
+import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.cdt.core.CommandLauncher;
 import org.eclipse.cdt.core.ICommandLauncher;
 import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;

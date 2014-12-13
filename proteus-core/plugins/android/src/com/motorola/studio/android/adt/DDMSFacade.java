@@ -36,6 +36,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -61,8 +63,6 @@ import com.android.ddmlib.MultiLineReceiver;
 import com.android.ddmlib.SyncException;
 import com.android.ddmlib.SyncService;
 import com.android.ddmlib.SyncService.ISyncProgressMonitor;
-import com.android.ide.eclipse.adt.AdtPlugin;
-import com.android.ide.eclipse.adt.internal.preferences.AdtPrefs;
 import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.motorola.studio.android.AndroidPlugin;
 import com.motorola.studio.android.adt.StudioAndroidEventManager.EventType;
@@ -824,7 +824,7 @@ public class DDMSFacade
     /**
      * Return true if the Device is being shown on the OFFLINE state.
      * 
-     * @param serialNumber Device´s serial number.
+     * @param serialNumber Deviceï¿½s serial number.
      * 
      * @return <code>true</code> in case the Device if offline,
      * <code>false</code> otherwise.
