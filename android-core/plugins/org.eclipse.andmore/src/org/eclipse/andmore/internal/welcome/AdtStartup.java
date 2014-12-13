@@ -18,7 +18,6 @@ package org.eclipse.andmore.internal.welcome;
 
 import com.android.SdkConstants;
 import com.android.annotations.Nullable;
-import com.android.ide.eclipse.base.InstallDetails;
 import com.android.utils.GrabProcessOutput;
 import com.android.utils.GrabProcessOutput.IProcessOutput;
 import com.android.utils.GrabProcessOutput.Wait;
@@ -27,6 +26,7 @@ import com.android.sdkstats.SdkStatsService;
 
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.base.InstallDetails;
 import org.eclipse.andmore.internal.editors.layout.gle2.LayoutWindowCoordinator;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.runtime.IProgressMonitor;

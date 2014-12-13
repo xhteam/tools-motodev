@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.ide.eclipse.base;
+package org.eclipse.andmore.base;
 
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;

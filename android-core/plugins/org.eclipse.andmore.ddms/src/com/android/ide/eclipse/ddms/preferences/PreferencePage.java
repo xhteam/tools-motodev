@@ -18,11 +18,11 @@ package com.android.ide.eclipse.ddms.preferences;
 
 import com.android.ddmlib.DdmPreferences;
 import com.android.ddmlib.Log.LogLevel;
-import com.android.ide.eclipse.base.InstallDetails;
 import com.android.ide.eclipse.ddms.DdmsPlugin;
 import com.android.ide.eclipse.ddms.i18n.Messages;
 import com.android.ide.eclipse.ddms.views.DeviceView.HProfHandler;
 
+import org.eclipse.andmore.base.InstallDetails;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;

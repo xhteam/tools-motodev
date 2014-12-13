@@ -16,11 +16,11 @@
 
 package com.android.ide.eclipse.ddms.editors;
 
-import com.android.ide.eclipse.base.InstallDetails;
 import com.android.uiautomator.UiAutomatorHelper.UiAutomatorResult;
 import com.android.uiautomator.UiAutomatorModel;
 import com.android.uiautomator.UiAutomatorView;
 
+import org.eclipse.andmore.base.InstallDetails;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.IProgressMonitor;

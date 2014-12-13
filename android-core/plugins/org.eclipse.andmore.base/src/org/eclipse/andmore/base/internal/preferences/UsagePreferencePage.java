@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.ide.eclipse.base.internal.preferences;
+package org.eclipse.andmore.base.internal.preferences;
 
 import com.android.sdkstats.DdmsPreferenceStore;
 import com.android.sdkstats.SdkStatsPermissionDialog;
