@@ -86,6 +86,7 @@ public class ChangeViewRefactoring extends VisualRefactoring {
     }
 
     @VisibleForTesting
+	public
     ChangeViewRefactoring(List<Element> selectedElements, LayoutEditorDelegate editor) {
         super(selectedElements, editor);
     }
@@ -148,12 +149,13 @@ public class ChangeViewRefactoring extends VisualRefactoring {
         return "Change Widget Type";
     }
 
-    void setType(String typeFqcn) {
+    public void setType(String typeFqcn) {
         mTypeFqcn = typeFqcn;
     }
 
     @Override
-    protected @NonNull List<Change> computeChanges(IProgressMonitor monitor) {
+    @NonNull
+	public List<Change> computeChanges(IProgressMonitor monitor) {
         String name = getViewClass(mTypeFqcn);
 
         IFile file = mDelegate.getEditor().getInputFile();

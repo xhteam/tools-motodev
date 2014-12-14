@@ -124,6 +124,7 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
     }
 
     @VisibleForTesting
+	public
     ExtractIncludeRefactoring(List<Element> selectedElements, LayoutEditorDelegate editor) {
         super(selectedElements, editor);
     }
@@ -209,18 +210,19 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
         return "Extract as Include";
     }
 
-    void setLayoutName(String layoutName) {
+    public void setLayoutName(String layoutName) {
         mLayoutName = layoutName;
     }
 
-    void setReplaceOccurrences(boolean selection) {
+    public void setReplaceOccurrences(boolean selection) {
         mReplaceOccurrences = selection;
     }
 
     // ---- Actual implementation of Extract as Include modification computation ----
 
     @Override
-    protected @NonNull List<Change> computeChanges(IProgressMonitor monitor) {
+    @NonNull
+	public List<Change> computeChanges(IProgressMonitor monitor) {
         String extractedText = getExtractedText();
 
         String namespaceDeclarations = computeNamespaceDeclarations();

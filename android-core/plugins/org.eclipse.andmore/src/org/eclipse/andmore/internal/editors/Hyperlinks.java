@@ -188,6 +188,7 @@ public class Hyperlinks {
      * Does not check for existence.
      */
     @VisibleForTesting
+	public
     static boolean isViewClassName(String name) {
         int length = name.length();
         if (length < 2 || name.indexOf('.') == -1) {
@@ -1553,7 +1554,7 @@ public class Hyperlinks {
      * is known, but the value location within XML files is deferred until the link is
      * actually opened.
      */
-    static class ResourceLink implements IHyperlink {
+    public static class ResourceLink implements IHyperlink {
         private final String mLinkText;
         private final IRegion mLinkRegion;
         private final ResourceType mType;
@@ -1660,7 +1661,7 @@ public class Hyperlinks {
             }
         }
 
-        ResourceFile getFile() {
+        public ResourceFile getFile() {
             return mFile;
         }
     }

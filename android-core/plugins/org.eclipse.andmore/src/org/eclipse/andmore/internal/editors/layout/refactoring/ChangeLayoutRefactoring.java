@@ -106,6 +106,7 @@ public class ChangeLayoutRefactoring extends VisualRefactoring {
     }
 
     @VisibleForTesting
+	public
     ChangeLayoutRefactoring(List<Element> selectedElements, LayoutEditorDelegate delegate) {
         super(selectedElements, delegate);
     }
@@ -168,15 +169,15 @@ public class ChangeLayoutRefactoring extends VisualRefactoring {
         return "Change Layout";
     }
 
-    void setType(String typeFqcn) {
+    public void setType(String typeFqcn) {
         mTypeFqcn = typeFqcn;
     }
 
-    void setInitializedAttributes(String initializedAttributes) {
+    public void setInitializedAttributes(String initializedAttributes) {
         mInitializedAttributes = initializedAttributes;
     }
 
-    void setFlatten(boolean flatten) {
+    public void setFlatten(boolean flatten) {
         mFlatten = flatten;
     }
 
@@ -219,7 +220,8 @@ public class ChangeLayoutRefactoring extends VisualRefactoring {
     }
 
     @Override
-    protected @NonNull List<Change> computeChanges(IProgressMonitor monitor) {
+    @NonNull
+	public List<Change> computeChanges(IProgressMonitor monitor) {
         String name = getViewClass(mTypeFqcn);
 
         IFile file = mDelegate.getEditor().getInputFile();

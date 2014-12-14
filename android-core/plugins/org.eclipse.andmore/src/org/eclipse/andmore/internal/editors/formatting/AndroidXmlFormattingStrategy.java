@@ -524,7 +524,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
 
     /**
      * Guess what style to use to edit the given document - layout, resource, manifest, ... ? */
-    static XmlFormatStyle guessStyle(IStructuredModel model, Document domDocument) {
+    public static XmlFormatStyle guessStyle(IStructuredModel model, Document domDocument) {
         // The "layout" style is used for most XML resource file types:
         // layouts, color-lists and state-lists, animations, drawables, menus, etc
         XmlFormatStyle style = XmlFormatStyle.get(domDocument);

@@ -40,8 +40,6 @@
         <module>features/org.eclipse.andmore</module>
         <module>features/org.eclipse.andmore.package</module>
         <module>features/org.eclipse.andmore.ndk</module>
-<!--        
         <module>plugins/org.eclipse.andmore.integration.tests</module>
--->
     </modules>
 </project>

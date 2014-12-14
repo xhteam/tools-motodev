@@ -734,7 +734,7 @@ public abstract class AndroidContentAssist implements IContentAssistProcessor {
      * @param prefix the prefix the word should start with
      * @return true if the given word starts with the given prefix
      */
-    protected static boolean startsWith(String word, String prefix) {
+    public static boolean startsWith(String word, String prefix) {
         int prefixLength = prefix.length();
         int wordLength = word.length();
         if (wordLength < prefixLength) {
@@ -774,7 +774,7 @@ public abstract class AndroidContentAssist implements IContentAssistProcessor {
      *            namespace prefix)
      * @return true if the prefix matches for code completion
      */
-    protected static boolean nameStartsWith(String word, String prefix, String nsPrefix) {
+    public static boolean nameStartsWith(String word, String prefix, String nsPrefix) {
         if (nsPrefix == null) {
             nsPrefix = ""; //$NON-NLS-1$
         }
