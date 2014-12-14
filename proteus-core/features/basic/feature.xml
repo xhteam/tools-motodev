@@ -26,7 +26,7 @@
    </url>
 
    <requires>
-      <import feature="com.android.ide.eclipse.adt.feature" version="15.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.andmore.feature" version="15.0.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
    </requires>
 

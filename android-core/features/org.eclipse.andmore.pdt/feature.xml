@@ -217,10 +217,6 @@
    limitations under the License.
    </license>
 
-   <url>
-      <update label="Android Update Site" url="https://dl-ssl.google.com/android/eclipse/"/>
-   </url>
-
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
