@@ -70,7 +70,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
     public static final String SOURCES_ZIP = "/sources.zip"; //$NON-NLS-1$
 
     public static final String COM_ANDROID_IDE_ECLIPSE_ADT_SOURCE =
-        "com.android.ide.eclipse.source"; //$NON-NLS-1$
+        "org.eclipse.andmore.source"; //$NON-NLS-1$
 
     private static final String ANDROID_API_REFERENCE =
         "http://developer.android.com/reference/"; //$NON-NLS-1$

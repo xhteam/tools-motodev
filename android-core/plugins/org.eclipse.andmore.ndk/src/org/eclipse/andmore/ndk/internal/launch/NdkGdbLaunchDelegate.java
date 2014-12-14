@@ -77,7 +77,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("restriction")
 public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
     public static final String LAUNCH_TYPE_ID =
-            "com.android.ide.eclipse.ndk.debug.LaunchConfigType"; //$NON-NLS-1$
+            "org.eclipse.andmore.ndk.debug.LaunchConfigType"; //$NON-NLS-1$
 
     private static final Joiner JOINER = Joiner.on(", ").skipNulls();
 

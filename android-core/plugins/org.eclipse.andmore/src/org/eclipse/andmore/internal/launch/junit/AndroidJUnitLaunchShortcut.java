@@ -28,7 +28,7 @@ public class AndroidJUnitLaunchShortcut extends JUnitLaunchShortcut {
 
     @Override
     protected String getLaunchConfigurationTypeId() {
-        return "com.android.ide.eclipse.adt.junit.launchConfigurationType"; //$NON-NLS-1$
+        return "org.eclipse.andmore.junit.launchConfigurationType"; //$NON-NLS-1$
     }
 
     /**

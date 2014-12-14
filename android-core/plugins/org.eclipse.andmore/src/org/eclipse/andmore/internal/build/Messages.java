@@ -4,7 +4,7 @@ package org.eclipse.andmore.internal.build;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.adt.internal.build.build_messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.internal.build.build_messages"; //$NON-NLS-1$
 
     public static String AAPT_Error;
 

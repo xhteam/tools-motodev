@@ -88,7 +88,7 @@ import java.util.Map;
 public class LintPreferencePage extends PropertyPage implements IWorkbenchPreferencePage,
         SelectionListener, ControlListener, ModifyListener {
     private static final String ID =
-            "com.android.ide.eclipse.common.preferences.LintPreferencePage"; //$NON-NLS-1$
+            "org.eclipse.andmore.common.preferences.LintPreferencePage"; //$NON-NLS-1$
     private static final int ID_COLUMN_WIDTH = 150;
 
     private EclipseLintClient mClient;

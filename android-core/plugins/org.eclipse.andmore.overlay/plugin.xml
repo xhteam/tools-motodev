@@ -3,7 +3,7 @@
 <plugin>
     <extension point="org.eclipse.wst.sse.core.formatProcessors">
         <processor
-            class="com.android.ide.eclipse.adt.internal.editors.formatting.XmlFormatProcessor"
+            class="org.eclipse.andmore.internal.editors.formatting.XmlFormatProcessor"
             contentTypeId="org.eclipse.core.runtime.xml">
         </processor>
     </extension>

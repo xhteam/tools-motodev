@@ -34,7 +34,7 @@ import org.eclipse.ui.actions.ActionFactory;
 
 public class LogCatView extends SelectionDependentViewPart {
     /** LogCatView ID as defined in plugin.xml. */
-    public static final String ID = "com.android.ide.eclipse.ddms.views.LogCatView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.LogCatView"; //$NON-NLS-1$
 
     /** Switch perspective when a Java file is opened from logcat view. */
     public static final boolean DEFAULT_SWITCH_PERSPECTIVE = true;

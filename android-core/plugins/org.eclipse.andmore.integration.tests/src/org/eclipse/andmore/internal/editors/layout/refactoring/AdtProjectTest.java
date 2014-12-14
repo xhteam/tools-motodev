@@ -83,7 +83,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 
     @Override
     protected String getTestDataRelPath() {
-        return "eclipse/plugins/com.android.ide.eclipse.tests/src/com/android/ide/eclipse/adt/"
+        return "eclipse/plugins/org.eclipse.andmore.tests/src/org/eclipse/andmore/"
                 + "internal/editors/layout/refactoring/testdata";
     }
 

@@ -163,7 +163,7 @@ public abstract class AndroidSourceViewerConfig extends StructuredTextViewerConf
         Map<String, ?> targets = super.getHyperlinkDetectorTargets(sourceViewer);
         // If we want to look up more context in our HyperlinkDetector via the
         // getAdapter method, we should place an IAdaptable object into the map here.
-        targets.put("com.android.ide.eclipse.xmlCode", null); //$NON-NLS-1$
+        targets.put("org.eclipse.andmore.xmlCode", null); //$NON-NLS-1$
         return targets;
     }
 

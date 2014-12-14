@@ -57,7 +57,7 @@ import java.util.Map;
  */
 public class ResourceManagerBuilder extends BaseBuilder {
 
-    public static final String ID = "com.android.ide.eclipse.adt.ResourceManagerBuilder"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ResourceManagerBuilder"; //$NON-NLS-1$
 
     public ResourceManagerBuilder() {
         super();

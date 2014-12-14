@@ -28,7 +28,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 public class PixelPerfectPespective implements IPerspectiveFactory {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.PixelPerfectPespective"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.PixelPerfectPespective"; //$NON-NLS-1$
 
     @Override
     public void createInitialLayout(IPageLayout layout) {

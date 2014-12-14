@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 public class EmulatorControlView extends SelectionDependentViewPart {
 
     public static final String ID =
-        "com.android.ide.eclipse.ddms.views.EmulatorControlView"; //$NON-NLS-1$
+        "org.eclipse.andmore.ddms.views.EmulatorControlView"; //$NON-NLS-1$
 
     private EmulatorControlPanel mPanel;
 

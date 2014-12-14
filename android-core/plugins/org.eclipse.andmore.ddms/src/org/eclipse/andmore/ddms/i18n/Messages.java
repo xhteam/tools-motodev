@@ -19,7 +19,7 @@ package org.eclipse.andmore.ddms.i18n;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.ddms.i18n.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.ddms.i18n.messages"; //$NON-NLS-1$
     public static String DdmsPlugin_Message_Tag_Mask_1;
     public static String DdmsPlugin_Message_Tag_Mask_2;
     public static String DdmsPlugin_DDMS_Post_Create_Init;

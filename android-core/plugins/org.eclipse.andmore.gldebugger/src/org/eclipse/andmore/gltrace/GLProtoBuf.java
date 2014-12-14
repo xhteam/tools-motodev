@@ -1585,7 +1585,7 @@ public final class GLProtoBuf {
             org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.DataType, Builder> {
         private org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.DataType result;
         
-        // Construct using com.android.ide.eclipse.gltrace.GLProtoBuf.GLMessage.DataType.newBuilder()
+        // Construct using org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.DataType.newBuilder()
         private Builder() {}
         
         private static Builder create() {
@@ -2260,7 +2260,7 @@ public final class GLProtoBuf {
             org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.FrameBuffer, Builder> {
         private org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.FrameBuffer result;
         
-        // Construct using com.android.ide.eclipse.gltrace.GLProtoBuf.GLMessage.FrameBuffer.newBuilder()
+        // Construct using org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.FrameBuffer.newBuilder()
         private Builder() {}
         
         private static Builder create() {
@@ -2707,7 +2707,7 @@ public final class GLProtoBuf {
           org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage, Builder> {
       private org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage result;
       
-      // Construct using com.android.ide.eclipse.gltrace.GLProtoBuf.GLMessage.newBuilder()
+      // Construct using org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.newBuilder()
       private Builder() {}
       
       private static Builder create() {

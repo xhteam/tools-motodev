@@ -37,7 +37,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class FileExplorerView extends ViewPart implements ISelectionListener {
 
-    public static final String ID = "com.android.ide.eclipse.ddms.views.FileExplorerView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.FileExplorerView"; //$NON-NLS-1$
 
     private final static String COLUMN_NAME =
             DdmsPlugin.PLUGIN_ID + ".explorer.name"; //$NON-NLS-1S

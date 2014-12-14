@@ -5,7 +5,7 @@ import com.android.ddmuilib.SysinfoPanel;
 import org.eclipse.swt.widgets.Composite;
 
 public class SysInfoView extends SelectionDependentViewPart {
-    public static final String ID = "com.android.ide.eclipse.ddms.views.SysInfoView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.SysInfoView"; //$NON-NLS-1$
 
     private SysinfoPanel mSysInfoPanel;
 

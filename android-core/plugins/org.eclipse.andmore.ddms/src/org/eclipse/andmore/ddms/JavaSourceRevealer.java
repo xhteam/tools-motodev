@@ -24,7 +24,7 @@ import java.util.List;
 
 public class JavaSourceRevealer {
     private static final String SOURCE_REVEALER_EXTENSION_ID =
-            "com.android.ide.eclipse.ddms.sourceRevealer"; //$NON-NLS-1$
+            "org.eclipse.andmore.ddms.sourceRevealer"; //$NON-NLS-1$
 
     private static List<ISourceRevealer> sSourceRevealers = instantiateSourceRevealers();
 

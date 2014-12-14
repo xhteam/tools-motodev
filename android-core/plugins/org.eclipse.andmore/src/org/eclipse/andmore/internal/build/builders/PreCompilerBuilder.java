@@ -107,7 +107,7 @@ public class PreCompilerBuilder extends BaseBuilder {
 
     /** This ID is used in plugin.xml and in each project's .project file.
      * It cannot be changed even if the class is renamed/moved */
-    public static final String ID = "com.android.ide.eclipse.adt.PreCompilerBuilder"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.PreCompilerBuilder"; //$NON-NLS-1$
 
     /** Flag to pass to PreCompiler builder that the build is a release build.
      */

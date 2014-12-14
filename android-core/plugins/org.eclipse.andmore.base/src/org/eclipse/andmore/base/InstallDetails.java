@@ -21,7 +21,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
 
 public class InstallDetails {
-    private static final String ADT_PLUGIN_ID = "com.android.ide.eclipse.adt"; //$NON-NLS-1$
+    private static final String ADT_PLUGIN_ID = "org.eclipse.andmore"; //$NON-NLS-1$
     private static final String ECLIPSE_PLATFORM_PLUGIN_ID = "org.eclipse.platform"; //$NON-NLS-1$
 
     /**

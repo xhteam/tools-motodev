@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 public class HeapView extends TableView {
 
-    public static final String ID = "com.android.ide.eclipse.ddms.views.HeapView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.HeapView"; //$NON-NLS-1$
     private HeapPanel mPanel;
 
     public HeapView() {

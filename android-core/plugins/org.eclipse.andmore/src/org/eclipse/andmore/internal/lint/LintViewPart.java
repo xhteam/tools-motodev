@@ -82,7 +82,7 @@ import java.util.Set;
  */
 public class LintViewPart extends ViewPart implements SelectionListener, IJobChangeListener {
     /** The view id for this view part */
-    public static final String ID = "com.android.ide.eclipse.adt.internal.lint.LintViewPart"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.internal.lint.LintViewPart"; //$NON-NLS-1$
     private static final String QUICKFIX_DISABLED_ICON = "quickfix-disabled";         //$NON-NLS-1$
     private static final String QUICKFIX_ICON = "quickfix";                           //$NON-NLS-1$
     private static final String REFRESH_ICON = "refresh";                             //$NON-NLS-1$

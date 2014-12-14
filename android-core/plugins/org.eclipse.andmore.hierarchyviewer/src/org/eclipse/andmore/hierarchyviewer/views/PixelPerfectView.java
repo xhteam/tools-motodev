@@ -31,7 +31,7 @@ import org.eclipse.ui.part.ViewPart;
 public class PixelPerfectView extends ViewPart {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectView"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectView"; //$NON-NLS-1$
 
     private PixelPerfect mPixelPerfect;
 

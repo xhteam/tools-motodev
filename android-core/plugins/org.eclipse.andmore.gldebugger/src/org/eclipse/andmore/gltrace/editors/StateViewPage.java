@@ -70,7 +70,7 @@ import java.util.Set;
  * in the Function Trace view, and updates its view to reflect the state as of the selected call.
  */
 public class StateViewPage extends Page implements ISelectionListener, ISelectionProvider {
-    public static final String ID = "com.android.ide.eclipse.gltrace.views.GLState"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.gltrace.views.GLState"; //$NON-NLS-1$
     private static String sLastUsedPath;
     private static final ILock sGlStateLock = Job.getJobManager().newLock();
 

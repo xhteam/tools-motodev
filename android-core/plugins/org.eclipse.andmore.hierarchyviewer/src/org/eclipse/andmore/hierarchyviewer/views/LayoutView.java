@@ -36,7 +36,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class LayoutView extends ViewPart implements ITreeChangeListener {
 
-    public static final String ID = "com.android.ide.eclipse.hierarchyviewer.views.LayoutView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.LayoutView"; //$NON-NLS-1$
 
     private LayoutViewer mLayoutViewer;
 

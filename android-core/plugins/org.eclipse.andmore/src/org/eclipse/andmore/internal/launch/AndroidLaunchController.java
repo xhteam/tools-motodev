@@ -1803,9 +1803,6 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
         }.start();
     }
 
-    /* (non-Javadoc)
-     * @see com.android.ide.eclipse.adt.launch.ILaunchController#stopLaunch(com.android.ide.eclipse.adt.launch.AndroidLaunchController.DelayedLaunchInfo)
-     */
     @Override
     public void stopLaunch(DelayedLaunchInfo launchInfo) {
         launchInfo.getLaunch().stopLaunch();

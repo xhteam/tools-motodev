@@ -4,7 +4,7 @@ package org.eclipse.andmore;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.adt.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.messages"; //$NON-NLS-1$
 
     public static String AdtPlugin_Android_SDK_Content_Loader;
 

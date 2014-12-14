@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
 
 public class FuncTests extends TestSuite {
 
-    static final String FUNC_TEST_PACKAGE = "com.android.ide.eclipse.tests.functests";
+    static final String FUNC_TEST_PACKAGE = "org.eclipse.andmore.tests.functests";
 
     public FuncTests() {
 

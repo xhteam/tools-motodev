@@ -131,7 +131,7 @@ import java.util.Set;
  */
 public class AdtPlugin extends AbstractUIPlugin implements ILogger {
     /** The plug-in ID */
-    public static final String PLUGIN_ID = "com.android.ide.eclipse.adt"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore"; //$NON-NLS-1$
 
     /** singleton instance */
     private static AdtPlugin sPlugin;
@@ -1275,7 +1275,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             private void openAndroidPrefs() {
                 PreferenceDialog dialog = PreferencesUtil.createPreferenceDialogOn(
                         getDisplay().getActiveShell(),
-                        "com.android.ide.eclipse.preferences.main", //$NON-NLS-1$ preferencePageId
+                        "org.eclipse.andmore.preferences.main", //$NON-NLS-1$ preferencePageId
                         null,  // displayedIds
                         null); // data
                 dialog.open();

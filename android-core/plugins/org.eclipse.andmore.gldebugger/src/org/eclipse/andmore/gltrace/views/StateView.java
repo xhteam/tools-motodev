@@ -27,7 +27,7 @@ import org.eclipse.ui.IWorkbenchPart;
  * state corresponding to whichever editor is active.
  */
 public class StateView extends GLPageBookView {
-    public static final String ID = "com.android.ide.eclipse.gltrace.views.State"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.gltrace.views.State"; //$NON-NLS-1$
 
     public StateView() {
         super("Open (or select) a GL Trace file to view the GL State.");

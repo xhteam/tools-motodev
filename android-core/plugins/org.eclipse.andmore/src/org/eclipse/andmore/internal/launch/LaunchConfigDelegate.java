@@ -45,7 +45,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
     final static int INVALID_DEBUG_PORT = -1;
 
     public final static String ANDROID_LAUNCH_TYPE_ID =
-        "com.android.ide.eclipse.adt.debug.LaunchConfigType"; //$NON-NLS-1$
+        "org.eclipse.andmore.debug.LaunchConfigType"; //$NON-NLS-1$
 
     /** Target mode parameters: true is automatic, false is manual */
     public static final String ATTR_TARGET_MODE = AdtPlugin.PLUGIN_ID + ".target"; //$NON-NLS-1$

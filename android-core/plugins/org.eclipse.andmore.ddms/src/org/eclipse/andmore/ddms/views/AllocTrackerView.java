@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 public class AllocTrackerView extends TableView {
 
-    public static final String ID = "com.android.ide.eclipse.ddms.views.AllocTrackerView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.AllocTrackerView"; //$NON-NLS-1$
     private AllocationPanel mPanel;
 
     public AllocTrackerView() {

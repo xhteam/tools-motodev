@@ -84,7 +84,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
     /** This ID is used in plugin.xml and in each project's .project file.
      * It cannot be changed even if the class is renamed/moved */
-    public static final String ID = "com.android.ide.eclipse.adt.ApkBuilder"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ApkBuilder"; //$NON-NLS-1$
 
     private static final String PROPERTY_CONVERT_TO_DEX = "convertToDex"; //$NON-NLS-1$
     private static final String PROPERTY_PACKAGE_RESOURCES = "packageResources"; //$NON-NLS-1$

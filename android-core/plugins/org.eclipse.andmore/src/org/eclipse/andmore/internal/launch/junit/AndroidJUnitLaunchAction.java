@@ -123,7 +123,7 @@ class AndroidJUnitLaunchAction implements IAndroidLaunchAction {
          */
         @Override
         public String verifyMainTypeName(ILaunchConfiguration configuration) {
-            return "com.android.ide.eclipse.adt.junit.internal.runner.RemoteAndroidTestRunner"; //$NON-NLS-1$
+            return "org.eclipse.andmore.junit.internal.runner.RemoteAndroidTestRunner"; //$NON-NLS-1$
         }
 
         /**

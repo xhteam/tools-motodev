@@ -30,7 +30,7 @@ import java.util.Map;
 public class ExtractStringDescriptor extends RefactoringDescriptor {
 
     public static final String ID =
-        "com.android.ide.eclipse.adt.refactoring.extract.string";  //$NON-NLS-1$
+        "org.eclipse.andmore.refactoring.extract.string";  //$NON-NLS-1$
     
     private final Map<String, String> mArguments;
 

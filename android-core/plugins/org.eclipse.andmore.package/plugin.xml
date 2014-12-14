@@ -65,7 +65,7 @@
          point="org.eclipse.ui.intro">
       <introProductBinding
             introId="org.eclipse.ui.intro.universal"
-            productId="com.android.ide.eclipse.adt.package.product">
+            productId="org.eclipse.andmore.package.product">
       </introProductBinding>
    </extension>
 </plugin>

@@ -102,7 +102,7 @@ import java.util.regex.Pattern;
 
 /** Display OpenGL function trace in a tabular view. */
 public class GLFunctionTraceViewer extends EditorPart implements ISelectionProvider {
-    public static final String ID = "com.android.ide.eclipse.gltrace.GLFunctionTrace"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.gltrace.GLFunctionTrace"; //$NON-NLS-1$
 
     private static final String DEFAULT_FILTER_MESSAGE = "Filter list of OpenGL calls. Accepts Java regexes.";
     private static final String NEWLINE = System.getProperty("line.separator"); //$NON-NLS-1$

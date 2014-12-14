@@ -24,7 +24,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class PropertyView extends ViewPart {
 
-    public static final String ID = "com.android.ide.eclipse.hierarchyviewer.views.PropertyView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.PropertyView"; //$NON-NLS-1$
 
     private PropertyViewer mPropertyViewer;
 

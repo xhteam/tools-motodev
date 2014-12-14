@@ -55,18 +55,18 @@ public class AdtConstants {
      * The old Editors Plugin ID. It is still used in some places for compatibility.
      * Please do not use for new features.
      */
-    public static final String EDITORS_NAMESPACE = "com.android.ide.eclipse.editors"; //$NON-NLS-1$
+    public static final String EDITORS_NAMESPACE = "org.eclipse.andmore.editors"; //$NON-NLS-1$
 
     /** Nature of default Android projects */
-    public final static String NATURE_DEFAULT = "com.android.ide.eclipse.adt.AndroidNature"; //$NON-NLS-1$
+    public final static String NATURE_DEFAULT = "org.eclipse.andmore.adt.AndroidNature"; //$NON-NLS-1$
 
     /** The container id for the android framework jar file */
     public final static String CONTAINER_FRAMEWORK =
-        "com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"; //$NON-NLS-1$
+        "org.eclipse.andmore.ANDROID_FRAMEWORK"; //$NON-NLS-1$
 
     /** The container id for the libraries */
-    public final static String CONTAINER_PRIVATE_LIBRARIES = "com.android.ide.eclipse.adt.LIBRARIES"; //$NON-NLS-1$
-    public final static String CONTAINER_DEPENDENCIES = "com.android.ide.eclipse.adt.DEPENDENCIES";
+    public final static String CONTAINER_PRIVATE_LIBRARIES = "org.eclipse.andmore.LIBRARIES"; //$NON-NLS-1$
+    public final static String CONTAINER_DEPENDENCIES = "org.eclipse.andmore.DEPENDENCIES";
 
 
     /** Separator for workspace path, i.e. "/". */
@@ -152,7 +152,7 @@ public class AdtConstants {
     public final static String NS_CUSTOM_RESOURCES = "http://schemas.android.com/apk/res/%1$s"; //$NON-NLS-1$
 
     /** The old common plug-in ID. Please do not use for new features. */
-    private static final String LEGACY_PLUGIN_ID = "com.android.ide.eclipse.common"; //$NON-NLS-1$
+    private static final String LEGACY_PLUGIN_ID = "org.eclipse.andmore.common"; //$NON-NLS-1$
 
     /** Generic marker for ADT errors, only to be used in the {@link ResourceManagerBuilder} */
     public final static String MARKER_ADT = AdtPlugin.PLUGIN_ID + ".adtProblem"; //$NON-NLS-1$

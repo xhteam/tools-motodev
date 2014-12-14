@@ -5,30 +5,30 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            id="com.android.ide.eclipse.gltrace"
+            id="org.eclipse.andmore.gltrace"
             name="Tracer for OpenGL ES">
       </category>
       <view
-            category="com.android.ide.eclipse.gltrace"
-            class="com.android.ide.eclipse.gltrace.views.FrameSummaryView"
+            category="org.eclipse.andmore.gltrace"
+            class="org.eclipse.andmore.gltrace.views.FrameSummaryView"
             icon="icons/opengl.png"
-            id="com.android.ide.eclipse.gltrace.views.FrameBuffer"
+            id="org.eclipse.andmore.gltrace.views.FrameBuffer"
             name="Frame Summary"
             restorable="true">
       </view>
       <view
-            category="com.android.ide.eclipse.gltrace"
-            class="com.android.ide.eclipse.gltrace.views.StateView"
+            category="org.eclipse.andmore.gltrace"
+            class="org.eclipse.andmore.gltrace.views.StateView"
             icon="icons/opengl.png"
-            id="com.android.ide.eclipse.gltrace.views.State"
+            id="org.eclipse.andmore.gltrace.views.State"
             name="GL State"
             restorable="true">
       </view>
       <view
-            category="com.android.ide.eclipse.gltrace"
-            class="com.android.ide.eclipse.gltrace.views.detail.DetailsView"
+            category="org.eclipse.andmore.gltrace"
+            class="org.eclipse.andmore.gltrace.views.detail.DetailsView"
             icon="icons/opengl.png"
-            id="com.android.ide.eclipse.gltrace.views.Details"
+            id="org.eclipse.andmore.gltrace.views.Details"
             name="Details"
             restorable="true">
       </view>
@@ -36,11 +36,11 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="com.android.ide.eclipse.gltrace.editors.GLFunctionTraceViewer"
+            class="org.eclipse.andmore.gltrace.editors.GLFunctionTraceViewer"
             default="true"
             extensions="gltrace"
             icon="icons/opengl.png"
-            id="com.android.ide.eclipse.gltrace.GLFunctionTrace"
+            id="org.eclipse.andmore.gltrace.GLFunctionTrace"
             name="GL Function Trace">
       </editor>
    </extension>
@@ -48,11 +48,11 @@
          point="org.eclipse.ui.actionSets">
       <actionSet
             description="OpenGL Trace Actions"
-            id="com.android.ide.eclipse.gltrace.actionset"
+            id="org.eclipse.andmore.gltrace.actionset"
             label="OpenGL Trace Actions"
             visible="false">
          <action
-               class="com.android.ide.eclipse.gltrace.CollectTraceAction"
+               class="org.eclipse.andmore.gltrace.CollectTraceAction"
                icon="icons/connect.png"
                id="gltrace.action.connect"
                label="Collects OpenGL trace from device"
@@ -61,7 +61,7 @@
                tooltip="Connects to the device and collects OpenGL trace information">
          </action>
          <action
-               class="com.android.ide.eclipse.gltrace.OpenGLTraceAction"
+               class="org.eclipse.andmore.gltrace.OpenGLTraceAction"
                icon="icons/opengl.png"
                id="gltrace.action.open"
                label="Open GL Trace File"
@@ -74,23 +74,23 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="com.android.ide.eclipse.gltrace.GLTracePerspective"
+            class="org.eclipse.andmore.gltrace.GLTracePerspective"
             icon="icons/opengl.png"
-            id="com.android.ide.eclipse.gltrace.perspective"
+            id="org.eclipse.andmore.gltrace.perspective"
             name="Tracer for OpenGL ES">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="com.android.ide.eclipse.gltrace.perspective">
+            targetID="org.eclipse.andmore.gltrace.perspective">
          <actionSet
-               id="com.android.ide.eclipse.gltrace.actionset">
+               id="org.eclipse.andmore.gltrace.actionset">
          </actionSet>
       </perspectiveExtension>
    </extension>
    <extension
-         point="com.android.ide.eclipse.ddms.clientAction">
+         point="org.eclipse.andmore.ddms.clientAction">
       <clientAction
             class="org.eclipse.andmore.gltrace.DeviceViewAction">
       </clientAction>

@@ -19,7 +19,7 @@ package org.eclipse.andmore.ndk.internal.launch;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.ndk.internal.launch.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.ndk.internal.launch.messages"; //$NON-NLS-1$
     public static String NdkGdbLaunchDelegate_LaunchError_gdbserverOutput;
     public static String NdkGdbLaunchDelegate_Action_ActivityLaunch;
     public static String NdkGdbLaunchDelegate_Action_CheckAndroidDeviceVersion;

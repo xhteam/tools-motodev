@@ -61,7 +61,7 @@ import java.util.ArrayList;
  */
 public final class OldLogCatView extends SelectionDependentViewPart implements LogCatViewInterface {
 
-    public static final String ID = "com.android.ide.eclipse.ddms.views.OldLogCatView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.OldLogCatView"; //$NON-NLS-1$
 
     private static final String PREFS_COL_TIME =
             DdmsPlugin.PLUGIN_ID + ".logcat.time"; //$NON-NLS-1$

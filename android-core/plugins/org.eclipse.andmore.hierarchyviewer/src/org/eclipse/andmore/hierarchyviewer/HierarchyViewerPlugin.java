@@ -41,7 +41,7 @@ import java.util.Calendar;
  */
 public class HierarchyViewerPlugin extends AbstractUIPlugin {
 
-    public static final String PLUGIN_ID = "com.android.ide.eclipse.hierarchyviewer"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.hierarchyviewer"; //$NON-NLS-1$
 
     public static final String ADB_LOCATION = PLUGIN_ID + ".adb"; //$NON-NLS-1$
 

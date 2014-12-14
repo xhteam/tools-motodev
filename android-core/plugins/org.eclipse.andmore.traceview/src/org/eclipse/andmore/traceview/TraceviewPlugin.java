@@ -24,7 +24,7 @@ import org.osgi.framework.BundleContext;
 public class TraceviewPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.android.ide.eclipse.traceview"; // $NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.traceview"; // $NON-NLS-1$
 
     // The shared instance
     private static TraceviewPlugin sPlugin;

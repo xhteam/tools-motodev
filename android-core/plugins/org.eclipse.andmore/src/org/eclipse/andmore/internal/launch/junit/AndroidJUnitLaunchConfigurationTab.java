@@ -140,9 +140,6 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
             LARGE_TEST_ANNOTATION
     );
 
-    /* (non-Javadoc)
-     * @see org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse.swt.widgets.Composite)
-     */
     @Override
     public void createControl(Composite parent) {
         mProjectChooserHelper = new ProjectChooserHelper(parent.getShell(), null /*filter*/);
@@ -1006,7 +1003,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
      */
     @Override
     public String getId() {
-        return "com.android.ide.eclipse.adt.launch.AndroidJUnitLaunchConfigurationTab"; //$NON-NLS-1$
+        return "org.eclipse.andmore.launch.AndroidJUnitLaunchConfigurationTab"; //$NON-NLS-1$
     }
 
     /**

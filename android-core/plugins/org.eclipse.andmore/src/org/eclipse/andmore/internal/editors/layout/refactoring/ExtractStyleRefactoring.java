@@ -513,7 +513,7 @@ public class ExtractStyleRefactoring extends VisualRefactoring {
     public static class Descriptor extends VisualRefactoringDescriptor {
         public Descriptor(String project, String description, String comment,
                 Map<String, String> arguments) {
-            super("com.android.ide.eclipse.adt.refactoring.extract.style", //$NON-NLS-1$
+            super("org.eclipse.andmore.refactoring.extract.style", //$NON-NLS-1$
                     project, description, comment, arguments);
         }
 

@@ -167,7 +167,7 @@ public class CollectTraceAction implements IWorkbenchWindowActionDelegate {
         }
 
         try {
-            workbench.showPerspective("com.android.ide.eclipse.gltrace.perspective", window);
+            workbench.showPerspective("org.eclipse.andmore.gltrace.perspective", window);
         } catch (WorkbenchException e) {
         }
 

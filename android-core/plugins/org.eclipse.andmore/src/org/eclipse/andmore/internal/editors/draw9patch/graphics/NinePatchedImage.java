@@ -473,18 +473,10 @@ public class NinePatchedImage {
         return result;
     }
 
-    /**
-     * This is for unit test use only.
-     * @see com.android.ide.eclipse.adt.internal.editors.draw9patch.graphics.NinePatchedImageTest
-     */
     public List<Tick> getHorizontalContents() {
         return mHorizontalContents;
     }
 
-    /**
-     * This is for unit test use only.
-     * @see com.android.ide.eclipse.adt.internal.editors.draw9patch.graphics.NinePatchedImageTest
-     */
     public List<Tick> getVerticalContents() {
         return mVerticalContents;
     }

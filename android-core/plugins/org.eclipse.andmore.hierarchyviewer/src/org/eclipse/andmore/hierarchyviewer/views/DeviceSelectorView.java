@@ -36,7 +36,7 @@ import org.eclipse.ui.part.ViewPart;
 public class DeviceSelectorView extends ViewPart implements IPerspectiveListener {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.views.DeviceSelectorView"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.views.DeviceSelectorView"; //$NON-NLS-1$
 
     private DeviceSelector mDeviceSelector;
 

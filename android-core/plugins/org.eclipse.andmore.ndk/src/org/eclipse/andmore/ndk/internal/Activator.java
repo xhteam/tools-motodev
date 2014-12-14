@@ -33,7 +33,7 @@ import java.net.URL;
 public class Activator extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.android.ide.eclipse.ndk"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.ndk"; //$NON-NLS-1$
 
     // The shared instance
     private static Activator mPlugin;

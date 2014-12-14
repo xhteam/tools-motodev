@@ -32,7 +32,7 @@ import java.util.Map;
 public class GLAPISpec {
     private static final String GL_SPECS_FILE = "/entries.in"; //$NON-NLS-1$
     private static final String GLES2_ENTRIES_HEADER_V1 =
-            "# com.android.ide.eclipse.gltrace.glentries, v1"; //$NON-NLS-1$
+            "# org.eclipse.andmore.gltrace.glentries, v1"; //$NON-NLS-1$
     private static Map<String, GLAPISpec> sApiSpecs;
 
     private final String mGLFunction;

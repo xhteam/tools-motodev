@@ -25,7 +25,7 @@ import org.eclipse.ui.part.ViewPart;
 public class TreeOverviewView extends ViewPart {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.views.TreeOverviewView"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.views.TreeOverviewView"; //$NON-NLS-1$
 
     private TreeViewOverview mTreeViewOverview;
     @Override

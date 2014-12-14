@@ -20,7 +20,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class ExportMessages extends NLS {
     private static final String BUNDLE_NAME =
-            "com.android.ide.eclipse.adt.internal.wizards.exportgradle.ExportMessages";//$NON-NLS-1$
+            "org.eclipse.andmore.internal.wizards.exportgradle.ExportMessages";//$NON-NLS-1$
 
     public static String PageTitle;
     public static String PageDescription;

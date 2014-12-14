@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.launch;
 import org.eclipse.osgi.util.NLS;
 
 public class LaunchMessages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.adt.internal.launch.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.internal.launch.messages"; //$NON-NLS-1$
 
     // generic messages that could be used by multiple classes
     public static String LaunchDialogTitle;

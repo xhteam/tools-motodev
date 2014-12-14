@@ -73,7 +73,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.android.ide.eclipse.ddms"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.ddms"; //$NON-NLS-1$
 
     /** The singleton instance */
     private static DdmsPlugin sPlugin;
@@ -286,7 +286,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 
         // get the IConfigurationElement for the debuggerConnector right away.
         final IConfigurationElement[] dcce = findConfigElements(
-                "com.android.ide.eclipse.ddms.debuggerConnector"); //$NON-NLS-1$
+                "org.eclipse.andmore.ddms.debuggerConnector"); //$NON-NLS-1$
         mHasDebuggerConnectors = dcce.length > 0;
 
         // get the other configElements and instantiante them in a Job.
@@ -299,7 +299,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 
                     // get the available adb locators
                     IConfigurationElement[] elements = findConfigElements(
-                            "com.android.ide.eclipse.ddms.toolsLocator"); //$NON-NLS-1$
+                            "org.eclipse.andmore.ddms.toolsLocator"); //$NON-NLS-1$
 
                     IToolsLocator[] locators = instantiateToolsLocators(elements);
 
@@ -330,7 +330,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
                     mDebuggerConnectors = instantiateDebuggerConnectors(dcce);
 
                     // get the available Traceview Launchers.
-                    elements = findConfigElements("com.android.ide.eclipse.ddms.traceviewLauncher"); //$NON-NLS-1$
+                    elements = findConfigElements("org.eclipse.andmore.ddms.traceviewLauncher"); //$NON-NLS-1$
                     mTraceviewLaunchers = instantiateTraceviewLauncher(elements);
 
                     return Status.OK_STATUS;
@@ -849,7 +849,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
         if (mClientSpecificActions == null) {
             // get available client specific action extensions
             IConfigurationElement[] elements =
-                    findConfigElements("com.android.ide.eclipse.ddms.clientAction"); //$NON-NLS-1$
+                    findConfigElements("org.eclipse.andmore.ddms.clientAction"); //$NON-NLS-1$
             try {
                 mClientSpecificActions = instantiateClientSpecificActions(elements);
             } catch (CoreException e) {

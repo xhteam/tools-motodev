@@ -58,9 +58,6 @@ public final class ValuesDescriptors implements IDescriptorProvider {
         return sThis;
     }
 
-    /*
-     * @see com.android.ide.eclipse.editors.descriptors.IDescriptorProvider#getRootElementDescriptors()
-     */
     @Override
     public ElementDescriptor[] getRootElementDescriptors() {
         return new ElementDescriptor[] { mResourcesElement };

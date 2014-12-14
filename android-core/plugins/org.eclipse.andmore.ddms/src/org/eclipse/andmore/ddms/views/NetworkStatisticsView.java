@@ -21,7 +21,7 @@ import com.android.ddmuilib.net.NetworkPanel;
 import org.eclipse.swt.widgets.Composite;
 
 public class NetworkStatisticsView extends TableView {
-    public static final String ID = "com.android.ide.eclipse.ddms.views.NetworkStatsView";
+    public static final String ID = "org.eclipse.andmore.ddms.views.NetworkStatsView";
 
     private NetworkPanel mPanel;
 

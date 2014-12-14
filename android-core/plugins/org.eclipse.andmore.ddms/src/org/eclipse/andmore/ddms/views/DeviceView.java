@@ -99,7 +99,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 
     private final static boolean USE_SELECTED_DEBUG_PORT = true;
 
-    public static final String ID = "com.android.ide.eclipse.ddms.views.DeviceView"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.ddms.views.DeviceView"; //$NON-NLS-1$
 
     private static DeviceView sThis;
 

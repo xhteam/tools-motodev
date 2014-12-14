@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbenchPart;
  * The {@link FrameSummaryView} is a page book view with pages of type {@link FrameSummaryViewPage}.
  */
 public class FrameSummaryView extends GLPageBookView {
-    public static final String ID = "com.android.ide.eclipse.gltrace.views.FrameBuffer"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.gltrace.views.FrameBuffer"; //$NON-NLS-1$
 
     public FrameSummaryView() {
         super("Open a GL Trace file to view the framebuffer contents.");

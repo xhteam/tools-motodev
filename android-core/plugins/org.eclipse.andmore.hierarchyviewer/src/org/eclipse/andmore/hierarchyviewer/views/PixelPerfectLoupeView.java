@@ -41,7 +41,7 @@ import org.eclipse.ui.part.ViewPart;
 public class PixelPerfectLoupeView extends ViewPart implements IImageChangeListener {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectLoupeView"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectLoupeView"; //$NON-NLS-1$
 
     private PixelPerfectLoupe mPixelPerfectLoupe;
 

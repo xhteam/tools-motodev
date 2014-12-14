@@ -27,11 +27,11 @@ public class ProjectHelperTest extends TestCase {
 
     /** The old container id */
     private final static String OLD_CONTAINER_ID =
-        "com.android.ide.eclipse.adt.project.AndroidClasspathContainerInitializer"; //$NON-NLS-1$
+        "org.eclipse.andmore.project.AndroidClasspathContainerInitializer"; //$NON-NLS-1$
 
     /** The container id for the android framework jar file */
     private final static String CONTAINER_ID =
-        "com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"; //$NON-NLS-1$
+        "org.eclipse.andmore.ANDROID_FRAMEWORK"; //$NON-NLS-1$
 
     @Override
     public void setUp() throws Exception {

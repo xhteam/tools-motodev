@@ -440,7 +440,7 @@ public class UseCompoundDrawableRefactoring extends VisualRefactoring {
     public static class Descriptor extends VisualRefactoringDescriptor {
         public Descriptor(String project, String description, String comment,
                 Map<String, String> arguments) {
-            super("com.android.ide.eclipse.adt.refactoring.usecompound", //$NON-NLS-1$
+            super("org.eclipse.andmore.refactoring.usecompound", //$NON-NLS-1$
                     project, description, comment, arguments);
         }
 

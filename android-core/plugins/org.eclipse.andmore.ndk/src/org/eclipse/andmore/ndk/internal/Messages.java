@@ -19,7 +19,7 @@ package org.eclipse.andmore.ndk.internal;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "com.android.ide.eclipse.ndk.internal.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.andmore.ndk.internal.messages"; //$NON-NLS-1$
 
     public static String AddNativeWizardPage_Description;
 

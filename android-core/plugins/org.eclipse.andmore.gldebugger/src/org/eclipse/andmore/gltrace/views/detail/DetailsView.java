@@ -21,7 +21,7 @@ import org.eclipse.andmore.gltrace.views.GLPageBookView;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class DetailsView extends GLPageBookView {
-    public static final String ID = "com.android.ide.eclipse.gltrace.views.Details"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.gltrace.views.Details"; //$NON-NLS-1$
 
     public DetailsView() {
         super(""); //$NON-NLS-1$

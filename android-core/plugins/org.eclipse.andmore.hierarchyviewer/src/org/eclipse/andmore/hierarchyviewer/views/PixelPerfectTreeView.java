@@ -29,7 +29,7 @@ import org.eclipse.ui.part.ViewPart;
 public class PixelPerfectTreeView extends ViewPart {
 
     public static final String ID =
-            "com.android.ide.eclipse.hierarchyviewer.views.PixelPerfectTreeView"; //$NON-NLS-1$
+            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectTreeView"; //$NON-NLS-1$
 
     private PixelPerfectTree mPixelPerfectTree;
 
