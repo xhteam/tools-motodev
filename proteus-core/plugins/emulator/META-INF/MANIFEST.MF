@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.emulator;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.emulator.EmulatorPlugin
+Bundle-Activator: org.eclipse.andmore.android.emulator.EmulatorPlugin
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
@@ -22,23 +22,23 @@ Require-Bundle: org.eclipse.andmore,
  org.eclipse.sequoyah.vnc.protocol,
  org.eclipse.sequoyah.vnc.vncviewer.vncviews,
  org.eclipse.andmore.base
-Export-Package: com.motorola.studio.android.emulator,
- com.motorola.studio.android.emulator.core.devfrm,
- com.motorola.studio.android.emulator.core.emulationui,
- com.motorola.studio.android.emulator.core.exception,
- com.motorola.studio.android.emulator.core.model,
- com.motorola.studio.android.emulator.core.skin,
- com.motorola.studio.android.emulator.core.utils,
- com.motorola.studio.android.emulator.device,
- com.motorola.studio.android.emulator.device.definition,
- com.motorola.studio.android.emulator.device.handlers,
- com.motorola.studio.android.emulator.device.instance,
- com.motorola.studio.android.emulator.device.refresh,
- com.motorola.studio.android.emulator.device.sync,
- com.motorola.studio.android.emulator.i18n,
- com.motorola.studio.android.emulator.logic,
- com.motorola.studio.android.emulator.skin.android.parser,
- com.motorola.studio.android.emulator.ui.view
+Export-Package: org.eclipse.andmore.android.emulator,
+ org.eclipse.andmore.android.emulator.core.devfrm,
+ org.eclipse.andmore.android.emulator.core.emulationui,
+ org.eclipse.andmore.android.emulator.core.exception,
+ org.eclipse.andmore.android.emulator.core.model,
+ org.eclipse.andmore.android.emulator.core.skin,
+ org.eclipse.andmore.android.emulator.core.utils,
+ org.eclipse.andmore.android.emulator.device,
+ org.eclipse.andmore.android.emulator.device.definition,
+ org.eclipse.andmore.android.emulator.device.handlers,
+ org.eclipse.andmore.android.emulator.device.instance,
+ org.eclipse.andmore.android.emulator.device.refresh,
+ org.eclipse.andmore.android.emulator.device.sync,
+ org.eclipse.andmore.android.emulator.i18n,
+ org.eclipse.andmore.android.emulator.logic,
+ org.eclipse.andmore.android.emulator.skin.android.parser,
+ org.eclipse.andmore.android.emulator.ui.view
 Bundle-ClassPath: lib/commons-net-1.4.1.jar,
  lib/jakarta-oro-2.0.8.jar,
  .

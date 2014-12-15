@@ -21,7 +21,7 @@
    <extension
          point="com.motorolamobility.studio.android.db.core.dbRootNode">
       <rootNode
-            class="com.motorolamobility.studio.android.db.devices.model.DevicesRootNode"
+            class="org.eclipse.andmore.android.db.devices.model.DevicesRootNode"
             id="com.motorolamobility.studio.android.db.devices.devicesRootNode"
             name="%devicesNodeName">
       </rootNode>

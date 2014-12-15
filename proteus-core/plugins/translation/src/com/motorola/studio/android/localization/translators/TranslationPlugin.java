@@ -16,10 +16,9 @@
 
 package com.motorola.studio.android.localization.translators;
 
+import org.eclipse.andmore.android.common.log.StudioLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
-import com.motorola.studio.android.common.log.StudioLogger;
 
 public class TranslationPlugin extends AbstractUIPlugin
 {

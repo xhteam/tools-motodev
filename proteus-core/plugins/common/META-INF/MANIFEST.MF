@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.common;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.common.CommonPlugin
+Bundle-Activator: org.eclipse.andmore.android.common.CommonPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -25,19 +25,19 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.httpclient,
  org.eclipse.andmore.base;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.motorola.studio.android.common,
- com.motorola.studio.android.common.exception,
- com.motorola.studio.android.common.log,
- com.motorola.studio.android.common.preferences,
- com.motorola.studio.android.common.proxy,
- com.motorola.studio.android.common.utilities,
- com.motorola.studio.android.common.utilities.i18n,
- com.motorola.studio.android.common.utilities.ui,
- com.motorola.studio.android.manifest,
- com.motorola.studio.android.model.manifest,
- com.motorola.studio.android.model.manifest.dom,
- com.motorola.studio.android.wizards,
- com.motorola.studio.android.wizards.elements
+Export-Package: org.eclipse.andmore.android.common,
+ org.eclipse.andmore.android.common.exception,
+ org.eclipse.andmore.android.common.log,
+ org.eclipse.andmore.android.common.preferences,
+ org.eclipse.andmore.android.common.proxy,
+ org.eclipse.andmore.android.common.utilities,
+ org.eclipse.andmore.android.common.utilities.i18n,
+ org.eclipse.andmore.android.common.utilities.ui,
+ org.eclipse.andmore.android.manifest,
+ org.eclipse.andmore.android.model.manifest,
+ org.eclipse.andmore.android.model.manifest.dom,
+ org.eclipse.andmore.android.wizards,
+ org.eclipse.andmore.android.wizards.elements
 Bundle-ClassPath: commons-net-1.4.1.jar,
  jakarta-oro-2.0.8.jar,
  .

@@ -5,7 +5,7 @@
 <extension
           point="com.motorolamobility.studio.android.db.core.dbRootNode">
    <rootNode
-         class="com.motorolamobility.studio.android.db.core.workspace.WorkspaceRootNode"
+         class="org.eclipse.andmore.android.db.core.workspace.WorkspaceRootNode"
          id="com.motorolamobility.studio.android.db.core.rootNode1"
          name="%workspaceExtensionName">
    </rootNode>       
@@ -685,7 +685,7 @@
    <extension
          point="com.motorolamobility.studio.android.db.core.dbRootNode">
       <rootNode
-            class="com.motorolamobility.studio.android.db.core.filesystem.FilesystemRootNode"
+            class="org.eclipse.andmore.android.db.core.filesystem.FilesystemRootNode"
             id="com.motorolamobility.studio.android.db.core.filesystemRoot"
             name="%filesystemRootNodeName">
       </rootNode>

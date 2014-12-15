@@ -16,4 +16,4 @@ Require-Bundle: org.eclipse.core.runtime,
  com.motorola.studio.android.common
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.motorola.studio.android.codesnippets.i18n
+Export-Package: org.eclipse.andmore.android.codesnippets.i18n

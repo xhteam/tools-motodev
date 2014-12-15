@@ -8,7 +8,7 @@
          point="org.eclipse.sequoyah.device.framework.service">
       <service
             description="%adbShellDescription"
-            handler="com.motorola.studio.android.devices.services.console.ADBShellHandler"
+            handler="org.eclipse.andmore.android.devices.services.console.ADBShellHandler"
             icon="icons/adb_shell.png"
             id="com.motorola.studio.android.devices.services.adbShell"
             name="%adbShellName"
@@ -24,7 +24,7 @@
          point="org.eclipse.sequoyah.device.framework.service">
       <service
             description="%emulatorConsoleDescription"
-            handler="com.motorola.studio.android.devices.services.console.EmulatorConsoleHandler"
+            handler="org.eclipse.andmore.android.devices.services.console.EmulatorConsoleHandler"
             icon="icons/emulator_console.png"
             id="com.motorola.studio.android.devices.services.emulatorConsole"
             name="%emulatorConsoleName"
@@ -129,7 +129,7 @@
       <service
             copyright="%copyright"
             description="%deployDescription"
-            handler="com.motorola.studio.android.devices.services.deploy.DeployServiceHandler"
+            handler="org.eclipse.andmore.android.devices.services.deploy.DeployServiceHandler"
             icon="icons/deploy.png"
             id="com.motorola.studio.android.devices.services.deployService"
             interval="1000"
@@ -148,7 +148,7 @@
    <service
          copyright="%copyright"
          description="%uninstallAppServiceDescription"
-         handler="com.motorola.studio.android.devices.services.deploy.UninstallAppServiceHandler"
+         handler="org.eclipse.andmore.android.devices.services.deploy.UninstallAppServiceHandler"
          icon="icons/uninstall.png"
          id="com.motorola.studio.android.devices.services.uninstallAppService"
          name="%uninstallAppServiceName"
@@ -291,7 +291,7 @@
       <service
             copyright="%copyright"
             description="%takeScreenshotDescription"
-            handler="com.motorola.studio.android.devices.services.ddms.ScreenshotServiceHandler"
+            handler="org.eclipse.andmore.android.devices.services.ddms.ScreenshotServiceHandler"
             icon="icons/screenshot_16.jpg"
             id="com.motorola.studio.android.devices.services.takescreenshot"
             name="%takeScreenshotServiceName"
@@ -308,7 +308,7 @@
       <service
             copyright="%copyright"
             description="%monkeyDescription"
-            handler="com.motorola.studio.android.devices.services.ddms.MonkeyServiceHandler"
+            handler="org.eclipse.andmore.android.devices.services.ddms.MonkeyServiceHandler"
             icon="icons/monkey_16.png"
             id="com.motorola.studio.android.devices.services.monkey"
             name="%monkeyDescription"
@@ -439,7 +439,7 @@
       <service
             copyright="%copyright"
             description="%langServiceDescription"
-            handler="com.motorola.studio.android.devices.services.lang.LangServiceHandler"
+            handler="org.eclipse.andmore.android.devices.services.lang.LangServiceHandler"
             icon="resources/flag_small.png"
             id="com.motorola.studio.android.devices.services.changeLanguageService"
             name="%langServiceName"

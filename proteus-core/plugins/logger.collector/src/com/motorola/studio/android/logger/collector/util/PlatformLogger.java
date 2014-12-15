@@ -19,7 +19,7 @@ package com.motorola.studio.android.logger.collector.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.motorola.studio.android.logger.Logger;
+import org.eclipse.andmore.android.logger.Logger;
 
 /**
  * Class with useful methods to log errors.

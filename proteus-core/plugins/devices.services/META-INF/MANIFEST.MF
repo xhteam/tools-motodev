@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.devices.services;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.devices.services.DeviceServicesPlugin
+Bundle-Activator: org.eclipse.andmore.android.devices.services.DeviceServicesPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: com.motorola.studio.android,
  com.motorola.studio.android.handset,
@@ -18,4 +18,4 @@ Require-Bundle: com.motorola.studio.android,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android.devices.services.i18n
+Export-Package: org.eclipse.andmore.android.devices.services.i18n

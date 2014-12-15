@@ -17,13 +17,12 @@ package com.motorola.studio.android.logger.collector.util;
 
 import java.util.ArrayList;
 
+import org.eclipse.andmore.android.logger.collector.core.ILogFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
-
-import com.motorola.studio.android.logger.collector.core.ILogFile;
 
 /**
  * This class is responsible to load the log collector contributor

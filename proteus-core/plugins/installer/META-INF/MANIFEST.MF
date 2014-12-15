@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %plugin.name
 Bundle-SymbolicName: com.motorola.studio.android.installer;singleton:=true
 Bundle-Version: 4.1.0.qualifier
-Bundle-Activator: com.motorola.studio.android.installer.InstallerPlugin
+Bundle-Activator: org.eclipse.andmore.android.installer.InstallerPlugin
 Bundle-Vendor: %plugin.provider
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -27,11 +27,11 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android.installer,
- com.motorola.studio.android.installer.i18n,
- com.motorola.studio.android.installer.ui.dialogs,
- com.motorola.studio.android.installer.utilities
-Import-Package: com.motorola.studio.android.installer.utilities,
+Export-Package: org.eclipse.andmore.android.installer,
+ org.eclipse.andmore.android.installer.i18n,
+ org.eclipse.andmore.android.installer.ui.dialogs,
+ org.eclipse.andmore.android.installer.utilities
+Import-Package: org.eclipse.andmore.android.installer.utilities,
  org.eclipse.core.internal.net,
  org.eclipse.core.net.proxy,
  org.eclipse.equinox.security.storage,

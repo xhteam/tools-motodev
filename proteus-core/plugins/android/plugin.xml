@@ -254,10 +254,10 @@
          <extension
                point="com.motorola.studio.android.logger.collector.log">
             <logContribution
-                  logFileImpl="com.motorola.studio.android.logger.DevicePropertyLogger">
+                  logFileImpl="org.eclipse.andmore.android.logger.DevicePropertyLogger">
             </logContribution>
             <logContribution
-                  logFileImpl="com.motorola.studio.android.logger.AppValidatorLogCollector">
+                  logFileImpl="org.eclipse.andmore.android.logger.AppValidatorLogCollector">
             </logContribution>
          </extension>
    <extension

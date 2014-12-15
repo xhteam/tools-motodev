@@ -23,8 +23,8 @@
          name="androidRemoteDevice"
          point="org.eclipse.sequoyah.device.framework.deviceTypes">
       <deviceType
-            dropSupportHandler="com.motorola.studio.android.remote.RemoteDeviceDropSupportHandler"
-            handler="com.motorola.studio.android.remote.handlers.RemoteDeviceHandler"
+            dropSupportHandler="org.eclipse.andmore.android.remote.RemoteDeviceDropSupportHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.RemoteDeviceHandler"
             icon="icons/plate16.gif"
             id="com.motorola.studio.android.remote.androidRemoteDevice"
             isAbstract="false"
@@ -62,7 +62,7 @@
       <service
             copyright="%copyright"
             description="%connectServiceDescription"
-            handler="com.motorola.studio.android.remote.handlers.ConnectToRemoteHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.ConnectToRemoteHandler"
             icon="icons/start.png"
             id="com.motorola.studio.android.remote.connectRemoteService"
             name="%connectServiceName"
@@ -78,7 +78,7 @@
       <service
             copyright="%copyright"
             description="%disconnectServiceDescription"
-            handler="com.motorola.studio.android.remote.handlers.DisconnectFromRemoteHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.DisconnectFromRemoteHandler"
             icon="icons/stop.png"
             id="com.motorola.studio.android.remote.disconnectRemoteService"
             name="%disconnectServiceName"
@@ -94,7 +94,7 @@
       <service
             copyright="%copyright"
             description="%initServiceDescription"
-            handler="com.motorola.studio.android.remote.handlers.InitRemoteHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.InitRemoteHandler"
             icon="icons/start.png"
             id="com.motorola.studio.android.remote.initRemoteService"
             name="%initServiceName"
@@ -140,7 +140,7 @@
          point="org.eclipse.sequoyah.device.framework.ui.newDeviceWizardPages">
       <wizardPage
             id="com.motorola.studio.android.remote.ipPortPage"
-            pageClass="com.motorola.studio.android.remote.ui.RemoteDeviceWizardPage">
+            pageClass="org.eclipse.andmore.android.remote.ui.RemoteDeviceWizardPage">
          <deviceType
                deviceTypeId="com.motorola.studio.android.remote.androidRemoteDevice">
          </deviceType>
@@ -177,7 +177,7 @@
       <service
             copyright="%copyright"
             description="%wirelessDescription"
-            handler="com.motorola.studio.android.remote.handlers.WirelessServiceHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.WirelessServiceHandler"
             icon="icons/wireless-16x16.png"
             id="com.motorola.studio.android.remote.wifi"
             name="%wirelessServiceName"
@@ -210,7 +210,7 @@
       <service
             copyright="%copyright"
             description="%usbModeDescription"
-            handler="com.motorola.studio.android.remote.handlers.USBModeServiceHandler"
+            handler="org.eclipse.andmore.android.remote.handlers.USBModeServiceHandler"
             icon="icons/switch2usb_cable.png"
             id="com.motorola.studio.android.remote.usbmode"
             name="%usbModeServiceName"

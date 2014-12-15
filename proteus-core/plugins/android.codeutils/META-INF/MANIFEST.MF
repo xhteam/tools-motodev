@@ -3,18 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin_Name
 Bundle-SymbolicName: com.motorola.studio.android.codeutils;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.codeutils.CodeUtilsActivator
+Bundle-Activator: org.eclipse.andmore.android.codeutils.CodeUtilsActivator
 Bundle-Vendor: %Plugin_Vendor
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android.codeutils.codegeneration,
- com.motorola.studio.android.codeutils.db.actions,
- com.motorola.studio.android.codeutils.db.utils,
- com.motorola.studio.android.codeutils.wizards,
- com.motorola.studio.android.db.deployment,
- com.motorola.studio.android.db.wizards.model,
- com.motorola.studio.android.wizards.buildingblocks
+Export-Package: org.eclipse.andmore.android.codeutils.codegeneration,
+ org.eclipse.andmore.android.codeutils.db.actions,
+ org.eclipse.andmore.android.codeutils.db.utils,
+ org.eclipse.andmore.android.codeutils.wizards,
+ org.eclipse.andmore.android.db.deployment,
+ org.eclipse.andmore.android.db.wizards.model,
+ org.eclipse.andmore.wizards.buildingblocks
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,

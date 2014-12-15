@@ -232,7 +232,7 @@ public class ZipUtil
     {
         if (zipEntry.isDirectory())
         {
-            com.motorola.studio.android.common.utilities.FileUtil.mkdir(new File(folder, zipEntry
+            org.eclipse.andmore.android.common.utilities.FileUtil.mkdir(new File(folder, zipEntry
                     .getName()).getPath());
         }
         else
@@ -240,14 +240,14 @@ public class ZipUtil
             File outputFile = new File(folder, zipEntry.getName());
             if (!outputFile.getParentFile().exists())
             {
-                com.motorola.studio.android.common.utilities.FileUtil.mkdir(outputFile
+                org.eclipse.andmore.android.common.utilities.FileUtil.mkdir(outputFile
                         .getParentFile().getPath());
             }
             BufferedInputStream is = new BufferedInputStream(zipFile.getInputStream(zipEntry));
             BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(outputFile));
             try
             {
-                com.motorola.studio.android.common.utilities.FileUtil.copy(
+                org.eclipse.andmore.android.common.utilities.FileUtil.copy(
                         new File(zipFile.getName()), outputFile);
             }
             finally

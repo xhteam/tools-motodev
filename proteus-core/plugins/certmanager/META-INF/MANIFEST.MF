@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorolamobility.studio.android.certmanager;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorolamobility.studio.android.certmanager.CertificateManagerActivator
+Bundle-Activator: org.eclipse.andmore.android.certmanager.CertificateManagerActivator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -21,13 +21,13 @@ Bundle-ClassPath: .,
  lib/bcprov-jdk15on-147.jar,
  lib/bcpkix-jdk15on-147.jar
 Import-Package: org.eclipse.ui.actions
-Export-Package: com.motorolamobility.studio.android.certmanager,
- com.motorolamobility.studio.android.certmanager.command,
- com.motorolamobility.studio.android.certmanager.core,
- com.motorolamobility.studio.android.certmanager.exception,
- com.motorolamobility.studio.android.certmanager.job,
- com.motorolamobility.studio.android.certmanager.packaging,
- com.motorolamobility.studio.android.certmanager.packaging.sign,
- com.motorolamobility.studio.android.certmanager.ui.model,
- com.motorolamobility.studio.android.certmanager.ui.wizards,
- com.motorolamobility.studio.android.certmanager.views
+Export-Package: org.eclipse.andmore.android.certmanager,
+ org.eclipse.andmore.android.certmanager.command,
+ org.eclipse.andmore.android.certmanager.core,
+ org.eclipse.andmore.android.certmanager.exception,
+ org.eclipse.andmore.android.certmanager.job,
+ org.eclipse.andmore.android.certmanager.packaging,
+ org.eclipse.andmore.android.certmanager.packaging.sign,
+ org.eclipse.andmore.android.certmanager.ui.model,
+ org.eclipse.andmore.android.certmanager.ui.wizards,
+ org.eclipse.andmore.android.certmanager.views

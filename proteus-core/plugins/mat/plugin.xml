@@ -4,14 +4,14 @@
    <extension
          point="org.eclipse.mat.ui.editorPanes">
       <pane
-            class="com.motorola.studio.android.mat.panes.MotodevPane"
+            class="org.eclipse.andmore.android.mat.panes.MotodevPane"
             id="com.motorola.studio.android.mat.MotodevPane">
       </pane>
    </extension>
    <extension
          point="org.eclipse.mat.ui.editorContributions">
       <contribution
-            class="com.motorola.studio.android.mat.actions.HeapEditorContributions"
+            class="org.eclipse.andmore.android.mat.actions.HeapEditorContributions"
             editorClass="org.eclipse.mat.ui.snapshot.editor.HeapEditor"
             sequenceNr="2">
       </contribution>
@@ -23,7 +23,7 @@
       <service
             copyright="%copyright"
             description="%service_dumpHPROF_description"
-            handler="com.motorola.studio.android.mat.services.DumpHPROFHandler"
+            handler="org.eclipse.andmore.android.mat.services.DumpHPROFHandler"
             icon="icons/motodev_pane.png"
             id="com.motorola.studio.android.mat.dumpHprofService"
             name="%service_dumpHPROF_name"

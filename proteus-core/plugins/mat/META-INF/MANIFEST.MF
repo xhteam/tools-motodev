@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.mat;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.mat.Activator
+Bundle-Activator: org.eclipse.andmore.android.mat.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -16,6 +16,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android.mat.i18n
-Import-Package: com.motorola.studio.android.common.log
+Export-Package: org.eclipse.andmore.android.mat.i18n
+Import-Package: org.eclipse.andmore.android.common.log
 

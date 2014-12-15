@@ -41,6 +41,15 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.proxy.ProxyAuthenticator;
+import org.eclipse.andmore.android.common.utilities.EclipseUtils;
+import org.eclipse.andmore.android.json.JSONArray;
+import org.eclipse.andmore.android.json.JSONObject;
+import org.eclipse.andmore.android.json.JSONPair;
+import org.eclipse.andmore.android.json.JSONString;
+import org.eclipse.andmore.android.json.JSONValue;
+import org.eclipse.andmore.android.json.Jason;
 import org.eclipse.core.internal.net.ProxyManager;
 import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.net.proxy.IProxyService;
@@ -58,15 +67,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Link;
 
-import com.motorola.studio.android.common.log.StudioLogger;
-import com.motorola.studio.android.common.proxy.ProxyAuthenticator;
-import com.motorola.studio.android.common.utilities.EclipseUtils;
-import com.motorola.studio.android.json.JSONArray;
-import com.motorola.studio.android.json.JSONObject;
-import com.motorola.studio.android.json.JSONPair;
-import com.motorola.studio.android.json.JSONString;
-import com.motorola.studio.android.json.JSONValue;
-import com.motorola.studio.android.json.Jason;
 import com.motorola.studio.android.localization.translators.i18n.TranslateNLS;
 
 /**

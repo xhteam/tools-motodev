@@ -551,7 +551,7 @@
     <extension
           point="com.motorola.studio.android.codeutils.sampleActivityDatabase">
        <parameterCollector
-             class="com.motorola.studio.android.codeutils.codegeneration.DatabaseListActivityGeneratorByTable">
+             class="org.eclipse.andmore.android.codeutils.codegeneration.DatabaseListActivityGeneratorByTable">
        </parameterCollector>
     </extension>	
     <extension

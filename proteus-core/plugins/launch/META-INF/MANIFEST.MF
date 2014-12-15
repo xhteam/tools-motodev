@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.launch;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.launch.LaunchPlugin
+Bundle-Activator: org.eclipse.andmore.android.launch.LaunchPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: com.motorola.studio.android,
  com.motorola.studio.android.emulator,
@@ -22,4 +22,4 @@ Require-Bundle: com.motorola.studio.android,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
-Export-Package: com.motorola.studio.android.launch.i18n
+Export-Package: org.eclipse.andmore.android.launch.i18n

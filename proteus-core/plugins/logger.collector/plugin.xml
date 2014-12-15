@@ -28,13 +28,13 @@
    <extension
          point="com.motorola.studio.android.logger.collector.log">
       <logContribution
-            logFileImpl="com.motorola.studio.android.logger.collector.core.internal.EclipseLogFile">
+            logFileImpl="org.eclipse.andmore.android.logger.collector.core.internal.EclipseLogFile">
       </logContribution>
       <logContribution
-            logFileImpl="com.motorola.studio.android.logger.collector.core.internal.StudioLogFile">
+            logFileImpl="org.eclipse.andmore.android.logger.collector.core.internal.StudioLogFile">
       </logContribution>
       <logContribution
-            logFileImpl="com.motorola.studio.android.logger.collector.core.internal.EnvironmentLogFile">
+            logFileImpl="org.eclipse.andmore.android.logger.collector.core.internal.EnvironmentLogFile">
       </logContribution>
    </extension>
 

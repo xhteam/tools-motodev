@@ -19,6 +19,7 @@ package com.motorola.studio.android.localization.translators.preferences.ui;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.andmore.android.common.log.StudioLogger;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -44,7 +45,6 @@ import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.osgi.service.prefs.BackingStoreException;
 
-import com.motorola.studio.android.common.log.StudioLogger;
 import com.motorola.studio.android.localization.translators.GoogleTranslatorConstants;
 import com.motorola.studio.android.localization.translators.TranslationPlugin;
 import com.motorola.studio.android.localization.translators.i18n.TranslateNLS;

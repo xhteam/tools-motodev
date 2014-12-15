@@ -17,8 +17,8 @@
         name="androidHandset"
         point="org.eclipse.sequoyah.device.framework.deviceTypes">     
      	<deviceType
-            dropSupportHandler="com.motorola.studio.android.handset.HandsetDropSupportHandler"
-            handler="com.motorola.studio.android.handset.AndroidHandsetHandler"
+            dropSupportHandler="org.eclipse.andmore.android.handset.HandsetDropSupportHandler"
+            handler="org.eclipse.andmore.android.handset.AndroidHandsetHandler"
             icon="icons/plate16.gif"
             id="com.motorola.studio.android.handset.androidHandset"
             isAbstract="false"
@@ -35,7 +35,7 @@
       <service
             copyright="Copyright (C) 2012 The Android Open Source Project"
             description="Service to initialize an Android Handset"
-            handler="com.motorola.studio.android.handset.DummyServiceHandler"
+            handler="org.eclipse.andmore.android.handset.DummyServiceHandler"
             icon="icons/iniciate-icon-16x16.png"
             id="com.motorola.studio.android.handset.initHandsetService"
             name="%initServiceName"

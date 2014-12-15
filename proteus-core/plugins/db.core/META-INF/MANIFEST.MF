@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorolamobility.studio.android.db.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorolamobility.studio.android.db.core.DbCoreActivator
+Bundle-Activator: org.eclipse.andmore.android.db.core.DbCoreActivator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -22,11 +22,11 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.motorolamobility.studio.android.db.core,
- com.motorolamobility.studio.android.db.core.command,
- com.motorolamobility.studio.android.db.core.event,
- com.motorolamobility.studio.android.db.core.exception,
- com.motorolamobility.studio.android.db.core.model,
- com.motorolamobility.studio.android.db.core.ui,
- com.motorolamobility.studio.android.db.core.ui.action,
- com.motorolamobility.studio.android.db.core.ui.view
+Export-Package: org.eclipse.andmore.android.db.core,
+ org.eclipse.andmore.android.db.core.command,
+ org.eclipse.andmore.android.db.core.event,
+ org.eclipse.andmore.android.db.core.exception,
+ org.eclipse.andmore.android.db.core.model,
+ org.eclipse.andmore.android.db.core.ui,
+ org.eclipse.andmore.android.db.core.ui.action,
+ org.eclipse.andmore.android.db.core.ui.view

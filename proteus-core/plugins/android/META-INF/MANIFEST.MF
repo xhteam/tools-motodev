@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin_Name
 Bundle-SymbolicName: com.motorola.studio.android;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.AndroidPlugin
+Bundle-Activator: org.eclipse.andmore.android.AndroidPlugin
 Bundle-Vendor: %Plugin_Vendor
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
@@ -26,17 +26,17 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android,
- com.motorola.studio.android.adt,
- com.motorola.studio.android.devices,
- com.motorola.studio.android.i18n,
-  com.motorola.studio.android.model,
- com.motorola.studio.android.nativeos,
- com.motorola.studio.android.sdkmanager,
- com.motorola.studio.android.utilities,
- com.motorola.studio.android.wizards.elements,
- com.motorola.studio.android.wizards.installapp,
- com.motorola.studio.android.wizards.monkey
+Export-Package: 
+ org.eclipse.andmore.android,
+ org.eclipse.andmore.android.devices,
+ org.eclipse.andmore.android.i18n,
+ org.eclipse.andmore.android.model,
+ org.eclipse.andmore.android.nativeos,
+ org.eclipse.andmore.android.sdkmanager,
+ org.eclipse.andmore.android.utilities,
+ org.eclipse.andmore.android.wizards.elements,
+ org.eclipse.andmore.android.wizards.installapp,
+ org.eclipse.andmore.android.wizards.monkey
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.equinox.security.storage,
  org.eclipse.ui.console

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.motorola.studio.android.handset;singleton:=true
 Bundle-Version: 5.0.0.qualifier
-Bundle-Activator: com.motorola.studio.android.handset.HandsetPlugin
+Bundle-Activator: org.eclipse.andmore.android.handset.HandsetPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: com.motorola.studio.android,
  com.motorola.studio.android.common,
@@ -16,5 +16,5 @@ Require-Bundle: com.motorola.studio.android,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.motorola.studio.android.handset,
- com.motorola.studio.android.handset.i18n
+Export-Package: org.eclipse.andmore.android.handset,
+ org.eclipse.andmore.android.handset.i18n

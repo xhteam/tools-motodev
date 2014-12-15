@@ -87,7 +87,7 @@
       </page>
    </extension>
    <extension id="initEmulatorService" name="initEmulatorService" point="org.eclipse.sequoyah.device.framework.service">
-      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="com.motorola.studio.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="com.motorola.studio.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Motorola Mobility, Inc." version="0.2.0" visible="false">
+      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="org.eclipse.andmore.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="com.motorola.studio.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Motorola Mobility, Inc." version="0.2.0" visible="false">
       </service>
    </extension>
    <extension id="com.motorola.studio.android.emulator.androidDevice" name="%initEmulatorServiceName" point="org.eclipse.sequoyah.device.framework.serviceDefinition">
@@ -96,7 +96,7 @@
          </status></service>
    </extension>
    <extension point="com.motorola.studio.android.emulator.deviceFramework">
-      <deviceFramework class="com.motorola.studio.android.emulator.device.TmLDeviceFrameworkSupport">
+      <deviceFramework class="org.eclipse.andmore.android.emulator.device.TmLDeviceFrameworkSupport">
       </deviceFramework>
    </extension>
   <extension id="tmlInstanceViewContribution" point="com.motorola.studio.android.emulator.androidPerspectiveExtension">
@@ -117,8 +117,8 @@
   </extension>
   <extension id="androidDevice" name="androidDevice" point="org.eclipse.sequoyah.device.framework.deviceTypes">     
      	<deviceType
-            dropSupportHandler="com.motorola.studio.android.emulator.device.EmulatorDropSupportHandler"
-            handler="com.motorola.studio.android.emulator.device.AndroidDeviceHandler"
+            dropSupportHandler="org.eclipse.andmore.android.emulator.device.EmulatorDropSupportHandler"
+            handler="org.eclipse.andmore.android.emulator.device.AndroidDeviceHandler"
             icon="icons/plate16.gif"
             id="com.motorola.studio.android.emulator.androidDevice"
             isAbstract="false"
@@ -128,11 +128,11 @@
      	</deviceType>     
   </extension>
   <extension point="org.eclipse.sequoyah.device.framework.ui.newDeviceWizardPages">
-       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.mainPage" operationClass="com.motorola.studio.android.emulator.device.ui.wizard.WizardMainPageOperation" pageClass="com.motorola.studio.android.emulator.device.ui.wizard.WizardMainPage">
+       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.mainPage" operationClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPageOperation" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPage">
           <deviceType deviceTypeId="com.motorola.studio.android.emulator.androidDevice">
           </deviceType>
        </wizardPage>
-       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.startupOptionsPage" pageClass="com.motorola.studio.android.emulator.device.ui.wizard.WizardStartupOptionsPage">
+       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.startupOptionsPage" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardStartupOptionsPage">
           <deviceType deviceTypeId="com.motorola.studio.android.emulator.androidDevice">
           </deviceType>
        </wizardPage>
@@ -179,7 +179,7 @@
       <service
             copyright="%copyright"
             description="%resetServiceDescription"
-            handler="com.motorola.studio.android.emulator.service.reset.ResetServiceHandler"
+            handler="org.eclipse.andmore.android.emulator.service.reset.ResetServiceHandler"
             icon="resource/reset.png"
             id="com.motorola.studio.android.emulator.resetService"
             name="%resetServiceName"
@@ -208,7 +208,7 @@
       <service
             copyright="%copyright"
             description="%stopDescription"
-            handler="com.motorola.studio.android.emulator.service.stop.StopEmulatorHandler"
+            handler="org.eclipse.andmore.android.emulator.service.stop.StopEmulatorHandler"
             icon="icons/stop.png"
             id="com.motorola.studio.android.emulator.stopService"
             name="%stopServiceName"
@@ -251,7 +251,7 @@
       <service
             copyright="%copyright"
             description="%repairDescription"
-            handler="com.motorola.studio.android.emulator.service.repair.RepairAvdHandler"
+            handler="org.eclipse.andmore.android.emulator.service.repair.RepairAvdHandler"
             icon="icons/repair.png"
             id="com.motorola.studio.android.emulator.repairService"
             name="%repairServiceName"
@@ -291,10 +291,10 @@
             size="HVGA">
       </skin>
       <startLogic
-            class="com.motorola.studio.android.emulator10.StartAndroidEmulatorLogic">
+            class="org.eclipse.andmore.android.emulator10.StartAndroidEmulatorLogic">
       </startLogic>
       <inputLogic
-            class="com.motorola.studio.android.emulator.core.utils.TelnetAndroidInput"></inputLogic>
+            class="org.eclipse.andmore.android.emulator.core.utils.TelnetAndroidInput"></inputLogic>
    </extension>
    <extension
          id="startService"
@@ -303,7 +303,7 @@
       <service
             copyright="%copyright"
             description="%startDescription"
-            handler="com.motorola.studio.android.emulator.service.start.StartEmulatorHandler"
+            handler="org.eclipse.andmore.android.emulator.service.start.StartEmulatorHandler"
             icon="icons/start.png"
             id="com.motorola.studio.android.emulator.startService"
             interval="1000"
@@ -336,7 +336,7 @@
          name=""
          point="com.motorola.studio.android.emulator.skin">
       <skinInfo
-            class="com.motorola.studio.android.emulator.skin.android.AndroidSkin"
+            class="org.eclipse.andmore.android.emulator.skin.android.AndroidSkin"
             skinId="com.motorola.studio.android.emulator.skin.android.androidSkin"
             skinName="Android Google Skin">
       </skinInfo>
