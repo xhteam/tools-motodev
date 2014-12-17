@@ -33,7 +33,7 @@ public class NativeUIUtils
     {
         if (instance == null)
         {
-            instance = (INativeUI) getClass("com.motorola.studio.android.nativeos.NativeUI");
+            instance = (INativeUI) getClass("org.eclipse.andmore.android.nativeos.NativeUI");
         }
         return instance;
     }

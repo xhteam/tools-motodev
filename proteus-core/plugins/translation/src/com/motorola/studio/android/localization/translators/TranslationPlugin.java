@@ -26,7 +26,7 @@ public class TranslationPlugin extends AbstractUIPlugin
     /**
      *  The plug-in ID
      */
-    public static final String PLUGIN_ID = "com.motorola.studio.android.translation";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.translation";
 
     // The shared instance
     private static TranslationPlugin plugin;

@@ -26,7 +26,7 @@ public class CodeUtilsNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.codeutils.i18n.codeUtilsNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.codeutils.i18n.codeUtilsNLS",
                 CodeUtilsNLS.class);
     }
 

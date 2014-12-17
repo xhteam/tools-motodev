@@ -46,7 +46,7 @@ public class VMEnvironmentManager implements EnvironmentManager
      */
     public void logEnvironment()
     {
-        Logger envLogger = Logger.getLogger("com.motorola.studio.environment"); //$NON-NLS-1$
+        Logger envLogger = Logger.getLogger("org.eclipse.andmore.environment"); //$NON-NLS-1$
         /*Navigates looking for the neccessary information.*/
         for (int i = 0; i < property.length; i++)
         {

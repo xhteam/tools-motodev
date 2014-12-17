@@ -66,13 +66,13 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
         setId(appName);
         setName(appName);
         ImageDescriptor icon =
-                AbstractUIPlugin.imageDescriptorFromPlugin("com.android.ide.eclipse.adt", //$NON-NLS-1$
+                AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipe.andmore", //$NON-NLS-1$
                         "icons/android.png"); //$NON-NLS-1$
         setIcon(icon);
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#canRefresh()
      */
     @Override
     public IStatus canRefresh()
@@ -103,7 +103,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.andkroid.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.andkroid.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -133,7 +133,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode#createDb(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode#createDb(java.lang.String)
      */
     public IStatus createDb(String dbName)
     {
@@ -141,7 +141,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode#createDb(java.lang.String, java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode#createDb(java.lang.String, java.util.List)
      */
     public IStatus createDb(String dbName, List<TableModel> tables)
     {
@@ -169,7 +169,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -178,7 +178,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode#deleteDb(com.motorolamobility.studio.android.db.core.ui.IDbNode)
+     * @see org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode#deleteDb(org.eclipse.andmore.android.db.core.ui.IDbNode)
      */
     public IStatus deleteDb(IDbNode dbNode)
     {

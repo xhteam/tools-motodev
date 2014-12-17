@@ -65,7 +65,7 @@ import org.osgi.framework.BundleContext;
 public class EmulatorPlugin extends AbstractUIPlugin
 {
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.emulator";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.emulator";
 
     // The shared instance
     private static EmulatorPlugin plugin;
@@ -96,7 +96,7 @@ public class EmulatorPlugin extends AbstractUIPlugin
      * Reference the id of the extension point with the default Android Emulator definitions...
      */
     public static String DEFAULT_EMULATOR_DEFINITION =
-            "com.motorola.studio.android.emulator10.defaultEmulatorDefinitions";
+            "org.eclipse.andmore.android.emulator10.defaultEmulatorDefinitions";
 
     public static final String FORCE_ATTR = "force";
 

@@ -63,7 +63,7 @@ public class AndroidProject implements IWizardModel
 
     private static final String SETTINGS_FILE = "org.eclipse.core.resources.prefs"; //$NON-NLS-1$
 
-    public static final String ANDROID_NATURE = "com.android.ide.eclipse.adt.AndroidNature"; //$NON-NLS-1$
+    public static final String ANDROID_NATURE = "org.eclipse.andmore.AndroidNature"; //$NON-NLS-1$
 
     private static final int MAX_PATH_LENGTH = 255;
 

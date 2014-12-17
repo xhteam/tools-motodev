@@ -137,7 +137,7 @@ public abstract class AbstractAndroidView extends ViewPart implements IEmulatorV
 {
     private final MenuManager menuManager;
 
-    public static final String POPUP_MENU_ID = "com.motorola.studio.android.emulator.view.popup";
+    public static final String POPUP_MENU_ID = "org.eclipse.andmore.android.emulator.view.popup";
 
     private MouseListener mouseClickListener;
 

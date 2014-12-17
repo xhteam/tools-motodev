@@ -36,7 +36,7 @@ public class CreateDatabaseWizard extends Wizard
     private static final String WIZBAN_ICON = "icons/wizban/create_database_ban.png"; //$NON-NLS-1$
 
     //it is an old plugin because of backward compatibility
-    private static final String DB_PERSPECTIVE = "com.motorola.studio.android.db.perspective"; //$NON-NLS-1$
+    private static final String DB_PERSPECTIVE = "org.eclipse.andmore.android.db.perspective"; //$NON-NLS-1$
 
     private static final String SWITCH_MOTODEV_DATABASE_PERSPECTIVE =
             "switch.perspective.to.motodevstudio.database"; //$NON-NLS-1$

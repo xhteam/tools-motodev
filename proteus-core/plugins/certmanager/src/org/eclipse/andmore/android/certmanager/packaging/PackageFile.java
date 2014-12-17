@@ -59,8 +59,8 @@ import org.eclipse.core.runtime.Platform;
  */
 public class PackageFile
 {
-    private static final String COM_MOTOROLA_STUDIO_ANDROID_FEATURE =
-            "com.motorola.studio.android.feature";
+    private static final String ANDROID_FEATURE =
+            "org.eclipse.andmore.android.feature";
 
     /*
      * Map of entries contained in this package file
@@ -220,7 +220,7 @@ public class PackageFile
         String version = "";
         for (IBundleGroup group : groups)
         {
-            if (group.getIdentifier().equals(COM_MOTOROLA_STUDIO_ANDROID_FEATURE))
+            if (group.getIdentifier().equals(ANDROID_FEATURE))
             {
                 version = group.getVersion();
                 break;

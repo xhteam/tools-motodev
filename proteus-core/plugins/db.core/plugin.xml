@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="com.motorolamobility.studio.android.db.core.dbRootNode" name="Workspace" schema="schema/com.motorolamobility.studio.android.db.core.dbRootNode.exsd"/>
+   <extension-point id="org.eclipse.andmore.android.db.core.dbRootNode" name="Workspace" schema="schema/dbRootNode.exsd"/>
 <extension
-          point="com.motorolamobility.studio.android.db.core.dbRootNode">
+          point="org.eclipse.andmore.android.db.core.dbRootNode">
    <rootNode
          class="org.eclipse.andmore.android.db.core.workspace.WorkspaceRootNode"
-         id="com.motorolamobility.studio.android.db.core.rootNode1"
+         id="org.eclipse.andmore.android.db.core.rootNode1"
          name="%workspaceExtensionName">
    </rootNode>       
     </extension>	
@@ -14,7 +14,7 @@
          point="org.eclipse.ui.views">
       <view
             category="studioAndroidViewCategory"
-            class="com.motorolamobility.studio.android.db.core.ui.view.MOTODEVDatabaseExplorerView"
+            class="org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView"
             icon="icons/database_explorer_view.png"
             id="com.motorola.studio.android.db.databaseView"
             name="%motodevDatabaseViewName"
@@ -26,97 +26,97 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode">
+            id="org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode"
+            objectClass="org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode">
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.createDatabaseCommand"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.createDatabaseCommand"
                enablesFor="1"
                icon="icons/action_create_database.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.createDbAction"
+               id="org.eclipse.andmore.android.db.core.ui.action.createDbAction"
                label="%create_db_action">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.refreshNode"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.refreshNode"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.refreshProjectNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.refreshProjectNode"
                label="%action_refresh_project">
          </action>
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.IDbNode"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.IDbNode">
+            id="org.eclipse.andmore.android.db.core.ui.action.IDbNode"
+            objectClass="org.eclipse.andmore.android.db.core.ui.IDbNode">
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.createTableCommand"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.createTableCommand"
                enablesFor="1"
                icon="icons/action_new_table.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.createTableAction"
+               id="org.eclipse.andmore.android.db.core.ui.action.createTableAction"
                label="%create_table_action">
             <enablement>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.databaseConnection"
-                     value="com.motorolamobility.studio.android.db.core.databaseConnected">
+                     name="org.eclipse.andmore.android.db.core.databaseConnection"
+                     value="org.eclipse.andmore.android.db.core.databaseConnected">
                </objectState>
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.connect"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.connect"
                enablesFor="1"
                icon="icons/connect.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.connect"
+               id="org.eclipse.andmore.android.db.core.ui.action.connect"
                label="%connect_db_action">
             <enablement>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.databaseConnection"
-                     value="com.motorolamobility.studio.android.db.core.databaseDisconnected">
+                     name="org.eclipse.andmore.android.db.core.databaseConnection"
+                     value="org.eclipse.andmore.android.db.core.databaseDisconnected">
                </objectState></enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.disconnect"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.disconnect"
                enablesFor="1"
                icon="icons/disconnect.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.disconnect"
+               id="org.eclipse.andmore.android.db.core.ui.action.disconnect"
                label="%disconnect_db_action">
             <enablement>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.databaseConnection"
-                     value="com.motorolamobility.studio.android.db.core.databaseConnected">
+                     name="org.eclipse.andmore.android.db.core.databaseConnection"
+                     value="org.eclipse.andmore.android.db.core.databaseConnected">
                </objectState>
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.createDBManagementClasses"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.createDBManagementClasses"
                enablesFor="1"
                icon="icons/action_content_provider.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.createDatabaseManagementClasses"
+               id="org.eclipse.andmore.android.db.core.ui.action.createDatabaseManagementClasses"
                label="%createDBManagementClassesAction">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.refreshNode"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.refreshNode"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.refreshDbNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.refreshDbNode"
                label="%action_refresh_db">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.deleteDatabase"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.deleteDatabase"
                icon="platform:/plugin/org.eclipse.datatools.connectivity.sqm.core.ui/icons/delete.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.deleteDatabase"
+               id="org.eclipse.andmore.android.db.core.ui.action.deleteDatabase"
                label="%action_delete_database">
             <enablement>
                <not>
                   <objectState
-                        name="com.motorolamobility.studio.android.db.core.IDbNodeType"
-                        value="com.motorolamobility.studio.android.db.core.isExternalStorage">
+                        name="org.eclipse.andmore.android.db.core.IDbNodeType"
+                        value="org.eclipse.andmore.android.db.core.isExternalStorage">
                   </objectState>
                </not>
             </enablement>
@@ -124,203 +124,203 @@
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.IRootNode"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.IRootNode">
+            id="org.eclipse.andmore.android.db.core.ui.action.IRootNode"
+            objectClass="org.eclipse.andmore.android.db.core.ui.IRootNode">
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.refreshNode"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.refreshNode"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.refreshWorkspaceNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.refreshWorkspaceNode"
                label="%action_refresh_workspace">
          </action>
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.ITableNode"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.ITableNode">
+            id="org.eclipse.andmore.android.db.core.ui.action.ITableNode"
+            objectClass="org.eclipse.andmore.android.db.core.ui.ITableNode">
          <menu
-               id="com.motorolamobility.studio.android.db.core.dataSubMenu"
+               id="org.eclipse.andmore.android.db.core.dataSubMenu"
                label="%data_sub_menu">
          </menu>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.extractData"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.extractData"
                enablesFor="1"
-               id="com.motorolamobility.studio.android.db.core.ui.action.extractData"
+               id="org.eclipse.andmore.android.db.core.ui.action.extractData"
                label="%command_extract_data"
-               menubarPath="com.motorolamobility.studio.android.db.core.dataSubMenu/data">
+               menubarPath="org.eclipse.andmore.android.db.core.dataSubMenu/data">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.loadData"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.loadData"
                enablesFor="1"
-               id="com.motorolamobility.studio.android.db.core.ui.action.loadData"
+               id="org.eclipse.andmore.android.db.core.ui.action.loadData"
                label="%command_load_data"
-               menubarPath="com.motorolamobility.studio.android.db.core.dataSubMenu/data">
+               menubarPath="org.eclipse.andmore.android.db.core.dataSubMenu/data">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.browseTableContents"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.browseTableContents"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.data.ui/icons/table.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.browseTableContents"
+               id="org.eclipse.andmore.android.db.core.ui.action.browseTableContents"
                label="%browse_table_contents_action">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.refreshNode"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.refreshNode"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.refreshTableNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.refreshTableNode"
                label="%action_refresh_table">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.deleteTable"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.deleteTable"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.connectivity.sqm.core.ui/icons/delete.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.deleteTable"
+               id="org.eclipse.andmore.android.db.core.ui.action.deleteTable"
                label="%action_delete_table">
          </action>
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.IDbMapperNode"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.IDbMapperNode">
+            id="org.eclipse.andmore.android.db.core.ui.action.IDbMapperNode"
+            objectClass="org.eclipse.andmore.android.db.core.ui.IDbMapperNode">
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.mapDatabase"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.mapDatabase"
                enablesFor="1"
 			   icon="icons/map.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.mapDbNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.mapDbNode"
                label="%action_map_database">
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.unmapDatabase"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.unmapDatabase"
                enablesFor="1"
 			   icon="icons/unmap.png"
-               id="com.motorolamobility.studio.android.db.core.ui.action.unmapDbNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.unmapDbNode"
                label="%action_unmap_database">
             <enablement>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.mappedDatabases"
-                     value="com.motorolamobility.studio.android.db.core.atLeastOne">
+                     name="org.eclipse.andmore.android.db.core.mappedDatabases"
+                     value="org.eclipse.andmore.android.db.core.atLeastOne">
                </objectState>
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.refreshDbMapperNode"
+               id="org.eclipse.andmore.android.db.core.ui.action.refreshDbMapperNode"
                label="%action_refresh_db_mapper_node">
          </action>
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.core.ui.action.IDataSampler"
-            objectClass="com.motorolamobility.studio.android.db.core.ui.IDataSampler">
+            id="org.eclipse.andmore.android.db.core.ui.action.IDataSampler"
+            objectClass="org.eclipse.andmore.android.db.core.ui.IDataSampler">
          <menu
-               id="com.motorolamobility.studio.android.db.core.dataSubMenu"
+               id="org.eclipse.andmore.android.db.core.dataSubMenu"
                label="%data_sub_menu">
          </menu>
          <action
-               class="com.motorolamobility.studio.android.db.core.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.sampleContents"
+               class="org.eclipse.andmore.android.db.core.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.sampleContents"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.connectivity.sqm.core.ui/icons/sampleContents.gif"
-               id="com.motorolamobility.studio.android.db.core.ui.action.sampleContents"
+               id="org.eclipse.andmore.android.db.core.ui.action.sampleContents"
                label="%command_sample_data"
-               menubarPath="com.motorolamobility.studio.android.db.core.dataSubMenu/data">
+               menubarPath="org.eclipse.andmore.android.db.core.dataSubMenu/data">
          </action>
       </objectContribution>
    </extension>   <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.DbConnectHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.DbConnectHandler"
             description="%command_connect_description"
-            id="com.motorolamobility.studio.android.db.core.connect"
+            id="org.eclipse.andmore.android.db.core.connect"
             name="%command_connect_name">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.DbDisconnectHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.DbDisconnectHandler"
             description="%command_disconnect_description"
-            id="com.motorolamobility.studio.android.db.core.disconnect"
+            id="org.eclipse.andmore.android.db.core.disconnect"
             name="%command_disconnect_name">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.DbCreateHandler"
-            id="com.motorolamobility.studio.android.db.core.createDatabaseCommand"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.DbCreateHandler"
+            id="org.eclipse.andmore.android.db.core.createDatabaseCommand"
             name="%create_database_command_label">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.RefreshNodeHandler"
-            id="com.motorolamobility.studio.android.db.core.refreshNode"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.RefreshNodeHandler"
+            id="org.eclipse.andmore.android.db.core.refreshNode"
             name="%command_refresh_node">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.SampleContentsHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.SampleContentsHandler"
             description="%command_sample_data"
-            id="com.motorolamobility.studio.android.db.core.browseTableContents"
+            id="org.eclipse.andmore.android.db.core.browseTableContents"
             name="%command_sample_data">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.ExtractDataHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.ExtractDataHandler"
             description="%command_extract_data"
-            id="com.motorolamobility.studio.android.db.core.extractData"
+            id="org.eclipse.andmore.android.db.core.extractData"
             name="%command_extract_data">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.LoadDataHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.LoadDataHandler"
             description="%command_load_data"
-            id="com.motorolamobility.studio.android.db.core.loadData"
+            id="org.eclipse.andmore.android.db.core.loadData"
             name="%command_load_data">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.BrowseTableContentsHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.BrowseTableContentsHandler"
             description="%command_sample_data"
-            id="com.motorolamobility.studio.android.db.core.sampleContents"
+            id="org.eclipse.andmore.android.db.core.sampleContents"
             name="%command_sample_data">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.CreateDatabaseManagementClassesHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.CreateDatabaseManagementClassesHandler"
             description="%createDBManagementClassesCommandDescription"
-            id="com.motorolamobility.studio.android.db.core.createDBManagementClasses"
+            id="org.eclipse.andmore.android.db.core.createDBManagementClasses"
             name="%createDBManagementClassesCommandLabel">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.DeleteTableHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.DeleteTableHandler"
             description="%command_delete_table_description"
-            id="com.motorolamobility.studio.android.db.core.deleteTable"
+            id="org.eclipse.andmore.android.db.core.deleteTable"
             name="%command_delete_table_name">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.DeleteDatabaseHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.DeleteDatabaseHandler"
             description="%command_delete_database_description"
-            id="com.motorolamobility.studio.android.db.core.deleteDatabase"
+            id="org.eclipse.andmore.android.db.core.deleteDatabase"
             name="%command_delete_database_name">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.MapDatabaseHandler"
-            id="com.motorolamobility.studio.android.db.core.mapDatabase"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.MapDatabaseHandler"
+            id="org.eclipse.andmore.android.db.core.mapDatabase"
             name="%command_map_database">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.UnmapDatabaseHandler"
-            id="com.motorolamobility.studio.android.db.core.unmapDatabase"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.UnmapDatabaseHandler"
+            id="org.eclipse.andmore.android.db.core.unmapDatabase"
             name="%command_unmap_database">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.TableCreateHandler"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.TableCreateHandler"
             description="%command_create_table_description"
-            id="com.motorolamobility.studio.android.db.core.createTableCommand"
+            id="org.eclipse.andmore.android.db.core.createTableCommand"
             name="%command_create_table_name">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.core.command.CollapseAllHandler"
-            id="com.motorolamobility.studio.android.db.core.collapseAll"
+            defaultHandler="org.eclipse.andmore.android.db.core.command.CollapseAllHandler"
+            id="org.eclipse.andmore.android.db.core.collapseAll"
             name="%command_collapse_all">
       </command>
    </extension>
@@ -330,45 +330,45 @@
             allPopups="false"
             locationURI="toolbar:com.motorola.studio.android.db.databaseView">
          <command
-               commandId="com.motorolamobility.studio.android.db.core.collapseAll"
+               commandId="org.eclipse.andmore.android.db.core.collapseAll"
                icon="platform:/plugin/org.eclipse.datatools.connectivity.sqm.core.ui/icons/collapseall.gif"
                label="%menu_collapse_all"
                style="push">
          </command>
          <command
-               commandId="com.motorolamobility.studio.android.db.core.refreshNode"
+               commandId="org.eclipse.andmore.android.db.core.refreshNode"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
                label="%menu_refresh_node"
                style="push">
          </command>
          <separator
-               name="com.motorolamobility.studio.android.db.core.separatorTableManagement"
+               name="org.eclipse.andmore.android.db.core.separatorTableManagement"
                visible="true">
          </separator>
          <command
-               commandId="com.motorolamobility.studio.android.db.core.createTableCommand"
+               commandId="org.eclipse.andmore.android.db.core.createTableCommand"
                icon="icons/action_new_table.png"
                label="%command_create_table_name"
                style="push">
          </command>
          <command
-               commandId="com.motorolamobility.studio.android.db.core.createDBManagementClasses"
+               commandId="org.eclipse.andmore.android.db.core.createDBManagementClasses"
                icon="icons/action_content_provider.png"
                label="%menu_create_db_management_classes"
                style="push">
          </command>
          <separator
-               name="com.motorolamobility.studio.android.db.core.separatorTableCommands"
+               name="org.eclipse.andmore.android.db.core.separatorTableCommands"
                visible="true">
          </separator>
          <command
-               commandId="com.motorolamobility.studio.android.db.core.browseTableContents"
+               commandId="org.eclipse.andmore.android.db.core.browseTableContents"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.data.ui/icons/table.gif"
                label="%menu_browse_table_contents"
                style="push">
          </command>
          <separator
-               name="com.motorolamobility.studio.android.db.core.separatorOtherCommands"
+               name="org.eclipse.andmore.android.db.core.separatorOtherCommands"
                visible="true">
          </separator>
          <command
@@ -384,7 +384,7 @@
                 id="studioManageDatabaseMenu"
                 label="%manageDatabaseLabel">
              <command
-                   commandId="com.motorolamobility.studio.android.db.core.createDBManagementClasses"
+                   commandId="org.eclipse.andmore.android.db.core.createDBManagementClasses"
                    disabledIcon="icons/action_content_provider.png"
                    hoverIcon="icons/action_content_provider.png"
                    icon="icons/action_content_provider.png"
@@ -402,7 +402,7 @@
                    </parameter>
              </command>
              <command
-                   commandId="com.motorolamobility.studio.android.db.core.createDatabaseCommand"                       
+                   commandId="org.eclipse.andmore.android.db.core.createDatabaseCommand"                       
                    disabledIcon="icons/action_create_database.png"
                    hoverIcon="icons/action_create_database.png"
                    icon="icons/action_create_database.png"
@@ -415,7 +415,7 @@
     	       <menuContribution
              locationURI="popup:studioAndroidPopupMenu">
           <command
-                commandId="com.motorolamobility.studio.android.db.core.createDBManagementClasses"
+                commandId="org.eclipse.andmore.android.db.core.createDBManagementClasses"
                 disabledIcon="icons/action_content_provider.png"
                 hoverIcon="icons/action_content_provider.png"
                 icon="icons/action_content_provider.png"
@@ -466,7 +466,7 @@
                                      <test
                                            forcePluginActivation="true"
                                            property="org.eclipse.core.resources.projectNature"
-                                           value="com.android.ide.eclipse.adt.AndroidNature">
+                                           value="org.eclipse.andmore.AndroidNature">
                                      </test>
                                      <test
                                            property="org.eclipse.core.resources.open">
@@ -489,7 +489,7 @@
              </visibleWhen>
           </command>
           <command
-                commandId="com.motorolamobility.studio.android.db.core.createDatabaseCommand"
+                commandId="org.eclipse.andmore.android.db.core.createDatabaseCommand"
                 disabledIcon="icons/action_create_database.png"
                 hoverIcon="icons/action_create_database.png"
                 icon="icons/action_create_database.png"
@@ -533,7 +533,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="com.motorolamobility.studio.android.db.core.DbPerspective"
+            class="org.eclipse.andmore.android.db.core.DbPerspective"
             fixed="false"
             icon="icons/obj16/dbplate.gif"
             id="com.motorola.studio.android.db.perspective"
@@ -558,8 +558,8 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="com.motorolamobility.studio.android.db.core.command.TableCreateHandler"
-            commandId="com.motorolamobility.studio.android.db.core.createTableCommand">
+            class="org.eclipse.andmore.android.db.core.command.TableCreateHandler"
+            commandId="org.eclipse.andmore.android.db.core.createTableCommand">
          <activeWhen>
             <with
                   variable="activeWorkbenchWindow">
@@ -570,37 +570,37 @@
          </activeWhen>
          <enabledWhen>
             <reference
-                  definitionId="com.motorolamobility.studio.android.db.core.definitionIDbNodeSelected">
+                  definitionId="org.eclipse.andmore.android.db.core.definitionIDbNodeSelected">
             </reference>
          </enabledWhen>
       </handler>
       <handler
-            class="com.motorolamobility.studio.android.db.core.command.BrowseTableContentsHandler"
-            commandId="com.motorolamobility.studio.android.db.core.browseTableContents">
+            class="org.eclipse.andmore.android.db.core.command.BrowseTableContentsHandler"
+            commandId="org.eclipse.andmore.android.db.core.browseTableContents">
          <activeWhen>
             <reference
-                  definitionId="com.motorolamobility.studio.android.db.core.definitionIWorkbenchWindowActive">
+                  definitionId="org.eclipse.andmore.android.db.core.definitionIWorkbenchWindowActive">
             </reference>
          </activeWhen>
          <enabledWhen>
             <reference
-                  definitionId="com.motorolamobility.studio.android.db.core.definitionITableNodeSelected">
+                  definitionId="org.eclipse.andmore.android.db.core.definitionITableNodeSelected">
             </reference></enabledWhen>
       </handler>
       <handler
-            class="com.motorolamobility.studio.android.db.core.command.DbCreateHandler"
-            commandId="com.motorolamobility.studio.android.db.core.createDatabaseCommand">
+            class="org.eclipse.andmore.android.db.core.command.DbCreateHandler"
+            commandId="org.eclipse.andmore.android.db.core.createDatabaseCommand">
          <activeWhen>
             <reference
-                  definitionId="com.motorolamobility.studio.android.db.core.definitionIWorkbenchWindowActive">
+                  definitionId="org.eclipse.andmore.android.db.core.definitionIWorkbenchWindowActive">
             </reference></activeWhen>
          <enabledWhen>
             <or>
                <reference
-                     definitionId="com.motorolamobility.studio.android.db.core.definitionIDbNodeCreatorSelected">
+                     definitionId="org.eclipse.andmore.android.db.core.definitionIDbNodeCreatorSelected">
                </reference>
                <reference
-                     definitionId="com.motorolamobility.studio.android.db.core.definitionIResourceSelected">
+                     definitionId="org.eclipse.andmore.android.db.core.definitionIResourceSelected">
                </reference>
             </or></enabledWhen>
       </handler>
@@ -608,7 +608,7 @@
    <extension
          point="org.eclipse.core.expressions.definitions">
       <definition
-            id="com.motorolamobility.studio.android.db.core.definitionIDbNodeSelected">
+            id="org.eclipse.andmore.android.db.core.definitionIDbNodeSelected">
          <with
                variable="selection">
             <count
@@ -617,18 +617,18 @@
             <iterate
                   ifEmpty="false">
                <adapt
-                     type="com.motorolamobility.studio.android.db.core.ui.IDbNode">
+                     type="org.eclipse.andmore.android.db.core.ui.IDbNode">
                </adapt>
                <test
                      forcePluginActivation="false"
-                     property="com.motorolamobility.studio.android.db.core.databaseConnection"
-                     value="com.motorolamobility.studio.android.db.core.databaseConnected">
+                     property="org.eclipse.andmore.android.db.core.databaseConnection"
+                     value="org.eclipse.andmore.android.db.core.databaseConnected">
                </test>
             </iterate>
          </with>
       </definition>
       <definition
-            id="com.motorolamobility.studio.android.db.core.definitionIWorkbenchWindowActive">
+            id="org.eclipse.andmore.android.db.core.definitionIWorkbenchWindowActive">
          <with
                variable="activeWorkbenchWindow">
             <instanceof
@@ -637,7 +637,7 @@
          </with>
       </definition>
       <definition
-            id="com.motorolamobility.studio.android.db.core.definitionITableNodeSelected">
+            id="org.eclipse.andmore.android.db.core.definitionITableNodeSelected">
          <with
                variable="selection">
             <count
@@ -646,13 +646,13 @@
             <iterate
                   ifEmpty="false">
                <adapt
-                     type="com.motorolamobility.studio.android.db.core.ui.ITableNode">
+                     type="org.eclipse.andmore.android.db.core.ui.ITableNode">
                </adapt>
             </iterate>
          </with>
       </definition>
       <definition
-            id="com.motorolamobility.studio.android.db.core.definitionIDbNodeCreatorSelected">
+            id="org.eclipse.andmore.android.db.core.definitionIDbNodeCreatorSelected">
          <with
                variable="selection">
             <count
@@ -661,13 +661,13 @@
             <iterate
                   ifEmpty="false">
                <adapt
-                     type="com.motorolamobility.studio.android.db.core.ui.action.IDbCreatorNode">
+                     type="org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode">
                </adapt>
             </iterate>
          </with>
       </definition>
       <definition
-            id="com.motorolamobility.studio.android.db.core.definitionIResourceSelected">
+            id="org.eclipse.andmore.android.db.core.definitionIResourceSelected">
          <with
                variable="selection">
             <count
@@ -683,10 +683,10 @@
       </definition>
    </extension>
    <extension
-         point="com.motorolamobility.studio.android.db.core.dbRootNode">
+         point="org.eclipse.andmore.android.db.core.dbRootNode">
       <rootNode
             class="org.eclipse.andmore.android.db.core.filesystem.FilesystemRootNode"
-            id="com.motorolamobility.studio.android.db.core.filesystemRoot"
+            id="org.eclipse.andmore.android.db.core.filesystemRoot"
             name="%filesystemRootNodeName">
       </rootNode>
    </extension>
@@ -695,7 +695,7 @@
       <decorator
             adaptable="false"
             icon="icons/ovr16/error_ovr.png"
-            id="com.motorolamobility.studio.android.db.core.decorator.errorNode"
+            id="org.eclipse.andmore.android.db.core.decorator.errorNode"
             label="%decorator_error_node_label"
             lightweight="true"
             location="BOTTOM_RIGHT"
@@ -703,25 +703,25 @@
          <enablement>
             <and>
                <objectClass
-                     name="com.motorolamobility.studio.android.db.core.ui.ITreeNode">
+                     name="org.eclipse.andmore.android.db.core.ui.ITreeNode">
                </objectClass>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.nodeStatus"
-                     value="com.motorolamobility.studio.android.db.core.nodeStatusError">
+                     name="org.eclipse.andmore.android.db.core.nodeStatus"
+                     value="org.eclipse.andmore.android.db.core.nodeStatusError">
                </objectState>
             </and>
          </enablement>
       </decorator>
    </extension>
    <extension
-         id="com.motorolamobility.studio.android.db.core.propertyTesters"
+         id="org.eclipse.andmore.android.db.core.propertyTesters"
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="com.motorolamobility.studio.android.db.core.command.DbNodeTester"
-            id="com.motorolamobility.studio.android.db.core.propertyTester.IDbNode"
-            namespace="com.motorolamobility.studio.android.db.core"
+            class="org.eclipse.andmore.android.db.core.command.DbNodeTester"
+            id="org.eclipse.andmore.android.db.core.propertyTester.IDbNode"
+            namespace="org.eclipse.andmore.android.db.core"
             properties="databaseConnection"
-            type="com.motorolamobility.studio.android.db.core.ui.IDbNode">
+            type="org.eclipse.andmore.android.db.core.ui.IDbNode">
       </propertyTester>
    </extension>
 </plugin>

@@ -36,16 +36,16 @@ public interface IMonkeyConfigurationConstants
     public final static boolean DEFAULT_BOOL_VALUE = false;
 
     public final static String ATTR_DEVICE_INSTANCE_NAME =
-            "com.motorola.studio.android.monkey.instanceName";
+            "org.eclipse.andmore.android.monkey.instanceName";
 
     public final static String ANDROID_CONSOLE_ID = "Android";
 
     public static final String ATTR_EVENT_COUNT_NAME = "";
 
-    public static final String ATTR_OTHER_CMDS = "com.motorola.studio.android.monkey.otherCmds";
+    public static final String ATTR_OTHER_CMDS = "org.eclipse.andmore.android.monkey.otherCmds";
 
     public static final String ATTR_SELECTED_PACKAGES =
-            "com.motorola.studio.android.monkey.selectedPackages";
+            "org.eclipse.andmore.android.monkey.selectedPackages";
 
     public static final String NEW_CONFIGURATION_NAME = "New_configuration";
 

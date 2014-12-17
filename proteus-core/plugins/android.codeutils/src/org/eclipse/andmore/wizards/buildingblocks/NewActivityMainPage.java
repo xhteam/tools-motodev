@@ -167,7 +167,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage
                                     .getWorkbench()
                                     .getNewWizardRegistry()
                                     .findWizard(
-                                            "com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard");
+                                            "org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard");
                     if (descriptor != null)
                     {
                         NewActivityBasedOnTemplateWizard wizard = null;

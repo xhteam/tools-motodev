@@ -104,7 +104,7 @@ public class EclipseEnvironmentManager implements EnvironmentManager
         /* Logs the Environment */
         new VMEnvironmentManager().logEnvironment();
 
-        Logger envLogger = Logger.getLogger("com.motorola.studio.environment"); //$NON-NLS-1$
+        Logger envLogger = Logger.getLogger("org.eclipse.andmore.environment"); //$NON-NLS-1$
         IBundleGroupProvider[] registry = Platform.getBundleGroupProviders();
         envLogger.info("--------------------------------------"); //$NON-NLS-1$
         envLogger.info("## Eclipse Plug-ins Log Information ##"); //$NON-NLS-1$

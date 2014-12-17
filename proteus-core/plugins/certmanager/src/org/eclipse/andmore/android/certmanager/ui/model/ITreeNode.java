@@ -27,28 +27,28 @@ public interface ITreeNode extends IActionFilter
 {
 
     public static final String PROP_VALUE_NODE_STATUS_OK =
-            "com.motorolamobility.studio.android.certmanager.core.property.nodeStatusOk"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusOk"; //$NON-NLS-1$
 
     public static final String PROP_VALUE_NODE_STATUS_KEYSTORE_TYPE_OK =
-            "com.motorolamobility.studio.android.certmanager.core.property.keystoreTypeOk"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.certmanager.core.property.keystoreTypeOk"; //$NON-NLS-1$
 
     /**
      * Property value used to check if the node has an error status.
      */
     public static final String PROP_VALUE_NODE_STATUS_ERROR =
-            "com.motorolamobility.studio.android.certmanager.core.property.nodeStatusError"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusError"; //$NON-NLS-1$
 
     public static final String PROP_VALUE_NODE_STATUS_WARNING =
-            "com.motorolamobility.studio.android.certmanager.core.property.nodeStatusWarning"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusWarning"; //$NON-NLS-1$
 
     /**
      * Property name used to test the status of the node. 
      */
     public static final String PROP_NAME_NODE_STATUS =
-            "com.motorolamobility.studio.android.certmanager.core.property.nodeStatus"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.certmanager.core.property.nodeStatus"; //$NON-NLS-1$
 
     public static final String PROP_NAMESPACE =
-            "com.motorolamobility.studio.android.certmanager.core.property";
+            "org.eclipse.andmore.android.certmanager.core.property";
 
     /**
      * Method responsible to reload the node itself and its children 

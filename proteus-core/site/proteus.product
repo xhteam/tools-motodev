@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-perspective com.motorola.studio.android.perspective</programArgs>
+      <programArgs>-perspective org.eclipse.andmore.android.perspective</programArgs>
       <vmArgs>-Xms512m -Xmx1024m -XX:MaxPermSize=256m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
@@ -41,18 +41,15 @@
 
    <features>
       <feature id="org.eclipse.platform"/>
-      <feature id="com.motorola.studio.android.basic.feature"/>
+      <feature id="org.eclipse.andmore.android.basic.feature"/>
       <feature id="org.eclipse.andmore.feature" installMode="root"/>
       <feature id="org.eclipse.andmore.ddms.feature" installMode="root"/>
       <feature id="org.eclipse.andmore.hierarchyviewer.feature" installMode="root"/>
       <feature id="org.eclipse.andmore.traceview.feature" installMode="root"/>
       <feature id="org.eclipse.andmore.ndk.feature" installMode="root"/>
       <feature id="org.eclipse.andmore.gldebugger.feature" installMode="root"/>
-<!--      <feature id="org.eclipse.m2e.feature" installMode="root"/>
-      <feature id="me.gladwell.eclipse.m2e.android.feature" installMode="root"/>  -->
       <feature id="org.eclipse.egit" installMode="root"/>
       <feature id="org.eclipse.mat.feature" installMode="root"/>
-<!--      <feature id="org.springsource.ide.eclipse.gradle.feature" installMode="root"/> -->
    </features>
 
    <configurations>

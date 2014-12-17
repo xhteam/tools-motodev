@@ -22,7 +22,7 @@ public class RootNode extends AbstractTreeNode
 {
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -31,7 +31,7 @@ public class RootNode extends AbstractTreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()

@@ -38,7 +38,7 @@ public class LaunchNLS extends NLS
 
     static
     {
-        LaunchNLS.initializeMessages("com.motorola.studio.android.launch.i18n.launchNLS",
+        LaunchNLS.initializeMessages("org.eclipse.andmore.android.launch.i18n.launchNLS",
                 LaunchNLS.class);
     }
 

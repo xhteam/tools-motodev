@@ -188,7 +188,7 @@ public class PackageExportWizardArea
         this.projectSeverity = new HashMap<IProject, Integer>();
         validateProjects();
         ImageDescriptor adtProjectImageDescriptor =
-                AbstractUIPlugin.imageDescriptorFromPlugin("com.android.ide.eclipse.adt", //$NON-NLS-1$
+                AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipe.andmore", //$NON-NLS-1$
                         "icons/android_project.png"); //$NON-NLS-1$
         ImageDescriptor errorImageDescriptor = JavaPluginImages.DESC_OVR_ERROR;
         ImageDescriptor projectImage =

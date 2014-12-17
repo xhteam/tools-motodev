@@ -86,7 +86,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#canRefresh()
      */
     @Override
     public IStatus canRefresh()
@@ -116,7 +116,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -139,7 +139,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -148,7 +148,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#map()
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#map()
      */
     public IStatus map(IPath remoteDbPath)
     {
@@ -185,7 +185,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#unmap(com.motorolamobility.studio.android.db.core.ui.ITreeNode)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#unmap(org.eclipse.andmore.android.db.core.ui.ITreeNode)
      */
     public IStatus unmap(ITreeNode treeNode)
     {
@@ -216,7 +216,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#unmap(java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#unmap(java.util.List)
      */
     public IStatus unmap(List<ITreeNode> dbNodeList)
     {
@@ -244,7 +244,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void saveState(IEclipsePreferences preferences)
     {
@@ -271,7 +271,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void restoreState(IEclipsePreferences preferences)
     {

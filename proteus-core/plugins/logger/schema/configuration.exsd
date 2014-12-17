@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.motorolamobility.studio.android.logger" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.android.logger" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.motorolamobility.studio.android.logger" id="configuration" name="Logger Configuration"/>
+         <meta.schema plugin="org.eclipse.andmore.android.logger" id="configuration" name="Logger Configuration"/>
       </appInfo>
       <documentation>
          &lt;P&gt;
@@ -80,7 +80,7 @@ of the Logger configuration extension point usage:
 &lt;p&gt;
 &lt;pre&gt;
    &lt;extension
-         point=&quot;com.motorola.studio.android.logger.configuration&quot;&gt;
+         point=&quot;org.eclipse.andmore.android.logger.configuration&quot;&gt;
       &lt;configuration file=&quot;customConfiguration.properties&quot;/&gt;
    &lt;/extension&gt;
 &lt;/pre&gt;

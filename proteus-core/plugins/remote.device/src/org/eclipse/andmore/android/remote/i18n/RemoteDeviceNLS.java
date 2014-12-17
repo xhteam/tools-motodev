@@ -29,7 +29,7 @@ public class RemoteDeviceNLS extends NLS
 
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.remote.i18n.remoteDeviceNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.remote.i18n.remoteDeviceNLS",
                 RemoteDeviceNLS.class);
     }
 

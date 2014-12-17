@@ -28,7 +28,7 @@ public class DbDevicesPlugin extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorolamobility.studio.android.db.devices"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.db.devices"; //$NON-NLS-1$
 
     public static final String DB_TEMP_PATH_PREFERENCE = PLUGIN_ID + ".dbstudiotemppath"; //$NON-NLS-1$
 

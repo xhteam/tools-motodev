@@ -106,7 +106,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
@@ -133,7 +133,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#map(org.eclipse.core.runtime.IPath)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#map(org.eclipse.core.runtime.IPath)
      */
     public IStatus map(IPath dbFilePath)
     {
@@ -158,7 +158,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#unmap(com.motorolamobility.studio.android.db.core.ui.ITreeNode)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#unmap(org.eclipse.andmore.android.db.core.ui.ITreeNode)
      */
     public IStatus unmap(ITreeNode dbNode)
     {
@@ -181,7 +181,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbMapperNode#unmap(java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbMapperNode#unmap(java.util.List)
      */
     public IStatus unmap(List<ITreeNode> dbNodeList)
     {
@@ -217,7 +217,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void saveState(IEclipsePreferences preferences)
     {
@@ -244,7 +244,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void restoreState(IEclipsePreferences preferences)
     {

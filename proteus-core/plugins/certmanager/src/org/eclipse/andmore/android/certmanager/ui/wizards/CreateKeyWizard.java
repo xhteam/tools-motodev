@@ -73,11 +73,6 @@ public class CreateKeyWizard extends BaseWizard
                 .setHelp(getShell(), CreateKeyWizardPage.CREATE_SELF_SIGNED_CERTIFICATE_HELP_ID);
     }
 
-    /*
-     * (non-Javadoc)
-     * @seecom.motorola.studio.android.wizards.BaseWizard#
-     * doPerformFinish()
-     */
     @Override
     protected boolean doPerformFinish()
     {

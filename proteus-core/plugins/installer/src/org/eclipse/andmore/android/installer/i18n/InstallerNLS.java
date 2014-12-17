@@ -21,7 +21,7 @@ public class InstallerNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.installer.i18n.installerNLS", //$NON-NLS-1$
+        NLS.initializeMessages("org.eclipse.andmore.android.installer.i18n.installerNLS", //$NON-NLS-1$
                 InstallerNLS.class);
     }
 

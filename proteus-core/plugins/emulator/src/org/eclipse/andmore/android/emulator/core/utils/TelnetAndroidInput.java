@@ -114,7 +114,7 @@ public class TelnetAndroidInput extends AbstractInputLogic
     /** 
      * Open the Telnet connection and initialize the communication
      * 
-     * @see org.eclipse.andmore.android.emulator.core.model.AbstractInputLogic#init(org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance)
+     * @see org.eclipse.andmore.android.emulator.core.model.AbstractInputLogic#init("org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance)
      */
     @Override
     public void init(IAndroidEmulatorInstance instance)

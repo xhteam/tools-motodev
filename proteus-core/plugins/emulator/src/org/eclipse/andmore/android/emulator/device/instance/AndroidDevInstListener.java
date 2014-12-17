@@ -96,7 +96,7 @@ public class AndroidDevInstListener extends InstanceAdapter
             {
                 String transitionId = e.getTransitionId();
                 if ((transitionId != null)
-                        && transitionId.equals("com.motorola.studio.android.emulator.startService"))
+                        && transitionId.equals("org.eclipse.andmore.android.emulator.startService"))
                 {
                     // If it is coming from other state than the started, 
                     // connect to VNC server

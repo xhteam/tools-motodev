@@ -64,7 +64,7 @@ public interface ITreeNode extends IActionFilter
 
     /**
      * Retrieve the child for the given node ID 
-     * @param id node ID as specified in the extension point com.motorolamobility.studio.android.db.core.dbRootNode
+     * @param id node ID as specified in the extension point org.eclipse.andmore.android.db.core.dbRootNode
      * @return {@link AbstractTreeNode} if child with the given ID was found, null if node not found as a child  
      */
     ITreeNode getChildById(String id);

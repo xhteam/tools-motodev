@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="com.motorola.studio.android.codesnippets.AndroidSnippetsStartup"></startup>
+            class="org.eclipse.andmore.android.codesnippets.AndroidSnippetsStartup"></startup>
    </extension>
    <extension point="org.eclipse.wst.common.snippets.SnippetContributions">
     <category
@@ -12,9 +12,9 @@
           id="android_services"
           label="%category.service">
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService00.description"
-             id="com.motorola.studio.android.codesnippets.item3"
+             id="org.eclipse.andmore.android.codesnippets.item3"
              label="%snippet.service.systemService00">
           <content>
              // To use this ActivityManager method, AndroidManifest.xml must have the following permission:
@@ -24,7 +24,7 @@ ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACT
        </item>
        <item
              description="%snippet.service.systemService01.description"
-             id="com.motorola.studio.android.codesnippets.item4"
+             id="org.eclipse.andmore.android.codesnippets.item4"
              label="%snippet.service.systemService01">
           <content>
              AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -32,7 +32,7 @@ ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACT
        </item>
        <item
              description="%snippet.service.systemService02.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.service.systemService02">
           <content>
              AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -40,16 +40,16 @@ ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACT
        </item>
        <item
              description="%snippet.service.systemService03.description"
-             id="com.motorola.studio.android.codesnippets.item6"
+             id="org.eclipse.andmore.android.codesnippets.item6"
              label="%snippet.service.systemService03">
           <content>
              ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService04.description"
-             id="com.motorola.studio.android.codesnippets.item7"
+             id="org.eclipse.andmore.android.codesnippets.item7"
              label="%snippet.service.systemService04">
           <content>
              // To use this ConectivityManager method, AndroidManifest.xml must have the following permission:
@@ -59,7 +59,7 @@ ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService
        </item>
        <item
              description="%snippet.service.systemService05.description"
-             id="com.motorola.studio.android.codesnippets.item8"
+             id="org.eclipse.andmore.android.codesnippets.item8"
              label="%snippet.service.systemService05">
           <content>
              InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -67,7 +67,7 @@ ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService
        </item>
        <item
              description="%snippet.service.systemService06.description"
-             id="com.motorola.studio.android.codesnippets.item9"
+             id="org.eclipse.andmore.android.codesnippets.item9"
              label="%snippet.service.systemService06">
           <content>
              KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
@@ -75,7 +75,7 @@ ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService
        </item>
        <item
              description="%snippet.service.systemService07.description"
-             id="com.motorola.studio.android.codesnippets.item10"
+             id="org.eclipse.andmore.android.codesnippets.item10"
              label="%snippet.service.systemService07">
           <content>
              LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,7 +83,7 @@ ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService
        </item>
        <item
              description="%snippet.service.systemService08.description"
-             id="com.motorola.studio.android.codesnippets.item11"
+             id="org.eclipse.andmore.android.codesnippets.item11"
              label="%snippet.service.systemService08">
           <content>
              LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -91,16 +91,16 @@ ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService
        </item>
        <item
              description="%snippet.service.systemService09.description"
-             id="com.motorola.studio.android.codesnippets.item12"
+             id="org.eclipse.andmore.android.codesnippets.item12"
              label="%snippet.service.systemService09">
           <content>
              NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService10.description"
-             id="com.motorola.studio.android.codesnippets.item13"
+             id="org.eclipse.andmore.android.codesnippets.item13"
              label="%snippet.service.systemService10">
           <content>
              // To use this PowerManager method, AndroidManifest.xml must have the following permission:
@@ -110,7 +110,7 @@ PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVIC
        </item>
        <item
              description="%snippet.service.systemService11.description"
-             id="com.motorola.studio.android.codesnippets.item14"
+             id="org.eclipse.andmore.android.codesnippets.item14"
              label="%snippet.service.systemService11">
           <content>
              SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -118,16 +118,16 @@ PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVIC
        </item>
        <item
              description="%snippet.service.systemService12.description"
-             id="com.motorola.studio.android.codesnippets.item15"
+             id="org.eclipse.andmore.android.codesnippets.item15"
              label="%snippet.service.systemService12">
           <content>
              SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService13.description"
-             id="com.motorola.studio.android.codesnippets.item32"
+             id="org.eclipse.andmore.android.codesnippets.item32"
              label="%snippet.service.systemService13">
           <content>
              // To use this TelephonyManager method, AndroidManifest.xml must have the following permission:
@@ -136,9 +136,9 @@ TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService14.description"
-             id="com.motorola.studio.android.codesnippets.item33"
+             id="org.eclipse.andmore.android.codesnippets.item33"
              label="%snippet.service.systemService14">
           <content>
              // To use this Vibrator method, AndroidManifest.xml must have the following permission:
@@ -147,9 +147,9 @@ Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService15.description"
-             id="com.motorola.studio.android.codesnippets.item34"
+             id="org.eclipse.andmore.android.codesnippets.item34"
              label="%snippet.service.systemService15">
           <content>
              // To use this WallpaperService method, AndroidManifest.xml must have the following permission:
@@ -158,9 +158,9 @@ WallpaperService wallpaperService = (WallpaperService) getSystemService(Context.
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.service.systemService16.description"
-             id="com.motorola.studio.android.codesnippets.item35"
+             id="org.eclipse.andmore.android.codesnippets.item35"
              label="%snippet.service.systemService16">
           <content>
              // To use this WifiManager method, AndroidManifest.xml must have the following permission:
@@ -170,7 +170,7 @@ WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
        </item>
        <item
              description="%snippet.service.systemService17.description"
-             id="com.motorola.studio.android.codesnippets.item36"
+             id="org.eclipse.andmore.android.codesnippets.item36"
              label="%snippet.service.systemService17">
           <content>
              WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -185,9 +185,9 @@ WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         id="android_general"
         label="%category.general">
         <item
-        class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+        class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
               description="%snippet.general.sendSMS.description"
-              id="com.motorola.studio.android.codesnippets.item9"
+              id="org.eclipse.andmore.android.codesnippets.item9"
               label="%snippet.general.sendSMS">
            <content>
               // To use these SmsManager methods, AndroidManifest.xml must have the following permission:
@@ -200,7 +200,7 @@ m.sendTextMessage(destinationNumber, null, text, null, null);
         </item>
         <item
               description="%snippet.general.toast.description"
-              id="com.motorola.studio.android.codesnippets.item8"
+              id="org.eclipse.andmore.android.codesnippets.item8"
               label="%snippet.general.toast">
            <content>
               Toast.makeText(this, &quot;Put your message here&quot;, Toast.LENGTH_SHORT).show();
@@ -208,7 +208,7 @@ m.sendTextMessage(destinationNumber, null, text, null, null);
         </item>
         <item
               description="%snippet.general.statusBar.description"
-              id="com.motorola.studio.android.codesnippets.item31"
+              id="org.eclipse.andmore.android.codesnippets.item31"
               label="%snippet.general.statusBar">
            <content>
               int notificationID = 10;
@@ -225,9 +225,9 @@ notificationManager.notify(notificationID, notification);
            </content>
         </item>
         <item
-        class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+        class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
               description="%snippet.general.vibrateTime.description"
-              id="com.motorola.studio.android.codesnippets.item6"
+              id="org.eclipse.andmore.android.codesnippets.item6"
               label="%snippet.general.vibrateTime">
            <content>
               // To use these Vibrator methods, AndroidManifest.xml must have the following permission:
@@ -238,9 +238,9 @@ vibrator.vibrate(1000);
            </content>
         </item>
         <item
-        class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+        class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
               description="%snippet.general.vibratePattern.description"
-              id="com.motorola.studio.android.codesnippets.item25"
+              id="org.eclipse.andmore.android.codesnippets.item25"
               label="%snippet.general.vibratePattern">
            <content>
 // To use these Vibrator methods, AndroidManifest.xml must have the following permission:
@@ -254,9 +254,9 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
            </content>
         </item>
         <item
-        class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+        class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
               description="%snippet.general.strictMode.description"
-              id="com.motorola.studio.android.codesnippets.item25"
+              id="org.eclipse.andmore.android.codesnippets.item25"
               label="%snippet.general.strictMode">
            <content>
         // Add or remove any policies and penalties strict mode checking.
@@ -290,7 +290,7 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
           label="%category.database">
        <item
              description="%snippet.database.createOrOpenDb.description"
-             id="com.motorola.studio.android.codesnippets.item29"
+             id="org.eclipse.andmore.android.codesnippets.item29"
              label="%snippet.database.createOrOpenDb">
           <content>
              SQLiteDatabase db =openOrCreateDatabase(&quot;MyDatabaseName&quot;, MODE_PRIVATE, null);
@@ -298,7 +298,7 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
        </item>
        <item
              description="%snippet.database.deleteDb.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.database.deleteDb">
           <content>
              boolean success = deleteDatabase(&quot;MyDatabaseName&quot;);
@@ -306,7 +306,7 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
        </item>
        <item
              description="%snippet.database.createTbl.description"
-             id="com.motorola.studio.android.codesnippets.item17"
+             id="org.eclipse.andmore.android.codesnippets.item17"
              label="%snippet.database.createTbl">
           <content>
              db.execSQL(&quot;CREATE TABLE MyTableName (_id INTEGER PRIMARY KEY AUTOINCREMENT, YourColumnName TEXT);&quot;);
@@ -314,7 +314,7 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
        </item>
        <item
              description="%snippet.database.deleteTbl.description"
-             id="com.motorola.studio.android.codesnippets.item18"
+             id="org.eclipse.andmore.android.codesnippets.item18"
              label="%snippet.database.deleteTbl">
           <content>
              db.execSQL(&quot;DROP TABLE IF EXISTS MyTableName&quot;);
@@ -322,7 +322,7 @@ vibrator.vibrate(new long[] {0, 200, 100, 100, 500, 500}, 4);
        </item>
        <item
              description="%snippet.database.insertEntry.description"
-             id="com.motorola.studio.android.codesnippets.item20"
+             id="org.eclipse.andmore.android.codesnippets.item20"
              label="%snippet.database.insertEntry">
           <content>
              // Since SQL doesn&apos;t allow the insertion of a completely empty row, the second parameter of db.insert defines the column that will receive NULL if cv is empty
@@ -333,7 +333,7 @@ db.insert(&quot;MyTableName&quot;, &quot;YourColumnName&quot;, cv);
        </item>
        <item
              description="%snippet.database.updateEntry.description"
-             id="com.motorola.studio.android.codesnippets.item21"
+             id="org.eclipse.andmore.android.codesnippets.item21"
              label="%snippet.database.updateEntry">
           <content>
              ContentValues cv=new ContentValues();
@@ -343,7 +343,7 @@ db.update(&quot;MyTableName&quot;, cv, &quot;_id=?&quot;, new String[]{&quot;1&q
        </item>
        <item
              description="%snippet.database.deleteEntry.description"
-             id="com.motorola.studio.android.codesnippets.item22"
+             id="org.eclipse.andmore.android.codesnippets.item22"
              label="%snippet.database.deleteEntry">
           <content>
              db.delete(&quot;MyTableName&quot;,&quot;_id=?&quot;, new String[]{&quot;1&quot;});
@@ -351,7 +351,7 @@ db.update(&quot;MyTableName&quot;, cv, &quot;_id=?&quot;, new String[]{&quot;1&q
        </item>
        <item
              description="%snippet.database.runQuery.description"
-             id="com.motorola.studio.android.codesnippets.item23"
+             id="org.eclipse.andmore.android.codesnippets.item23"
              label="%snippet.database.runQuery">
           <content>
              Cursor c=db.rawQuery(SQL_COMMAND, null);
@@ -369,7 +369,7 @@ db.update(&quot;MyTableName&quot;, cv, &quot;_id=?&quot;, new String[]{&quot;1&q
              label="%category.menus">
        <item
              description="%snippet.menus.handleItems.description"
-             id="com.motorola.studio.android.codesnippets.item3"
+             id="org.eclipse.andmore.android.codesnippets.item3"
              label="%snippet.menus.handleItems">
           <content>
              /*
@@ -412,7 +412,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
        </item>
        <item
              description="%snippet.menus.disableItem.description"
-             id="com.motorola.studio.android.codesnippets.item2"
+             id="org.eclipse.andmore.android.codesnippets.item2"
              label="%snippet.menus.disableItem">
           <content>
              menu.findItem(&quot;yourItemId&quot;).setEnabled(false);
@@ -420,7 +420,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
        </item>
        <item
              description="%snippet.menus.subItem.description"
-             id="com.motorola.studio.android.codesnippets.item3"
+             id="org.eclipse.andmore.android.codesnippets.item3"
              label="%snippet.menus.subItem">
           <content>
              SubMenu subMenu = menu.addSubMenu(&quot;YourMenu&quot;);
@@ -430,7 +430,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
        </item>
        <item
              description="%snippet.menus.declareMenuXML.description"
-             id="com.motorola.studio.android.codesnippets.item4"
+             id="org.eclipse.andmore.android.codesnippets.item4"
              label="%snippet.menus.declareMenuXML">
           <content>
              &lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
@@ -443,7 +443,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
        </item>
        <item
              description="%snippet.menus.inflateMenu.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.menus.inflateMenu">
           <content>
              /**
@@ -459,7 +459,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
        </item>
        <item
              description="%snippet.menus.showActionBar.description"
-             id="com.motorola.studio.android.codesnippets.item6"
+             id="org.eclipse.andmore.android.codesnippets.item6"
              label="%snippet.menus.showActionBar">
           <content>
              //Notes: 
@@ -475,7 +475,7 @@ if (getActionBar() != null){
        </item>
        <item
              description="%snippet.menus.hideActionBar.description"
-             id="com.motorola.studio.android.codesnippets.item7"
+             id="org.eclipse.andmore.android.codesnippets.item7"
              label="%snippet.menus.hideActionBar">
           <content>
              //Notes: 
@@ -491,7 +491,7 @@ if (getActionBar() != null){
        </item>
        <item
              description="%snippet.menus.toggle.actionbar.description"
-             id="com.motorola.studio.android.codesnippets.item9"
+             id="org.eclipse.andmore.android.codesnippets.item9"
              label="%snippet.menus.toggle.actionbar.label">
           <content>
              //Toggles action bar state (If visible, hides it. If hidden, shows it)
@@ -508,7 +508,7 @@ if (bar != null) {
        </item>
        <item
              description="%snippet.menus.manage.actionbar.description"
-             id="com.motorola.studio.android.codesnippets.item8"
+             id="org.eclipse.andmore.android.codesnippets.item8"
              label="%snippet.menus.manage.actionbar.label">
           <content>
              //Sets the action bar navigation mode
@@ -523,7 +523,7 @@ actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
           label="%category.dialogs">
        <item
              description="%snippet.dialogs.alert.description"
-             id="com.motorola.studio.android.codesnippets.item26"
+             id="org.eclipse.andmore.android.codesnippets.item26"
              label="%snippet.dialogs.alert">
           <content>
              AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -546,7 +546,7 @@ alertDialog.show();
        </item>
        <item
              description="%snippet.dialogs.progressDialog"
-             id="com.motorola.studio.android.codesnippets.item27"
+             id="org.eclipse.andmore.android.codesnippets.item27"
              label="%snippet.dialogs.progressDialog">
           <content>
              ProgressDialog dialog = ProgressDialog.show(this, &quot;Your Title&quot;, &quot;Put your message here&quot;, true);
@@ -554,7 +554,7 @@ alertDialog.show();
        </item>
        <item
              description="%snippet.dialogs.progressBar.description"
-             id="com.motorola.studio.android.codesnippets.item29"
+             id="org.eclipse.andmore.android.codesnippets.item29"
              label="%snippet.dialogs.progressBar">
           <content>
              ProgressDialog progressDialog = new ProgressDialog(this);
@@ -567,7 +567,7 @@ progressDialog.incrementProgressBy(PROGRESS_INCREMENT);
        </item>
        <item
              description="%snippet.dialogs.datePicker.description"
-             id="com.motorola.studio.android.codesnippets.item28"
+             id="org.eclipse.andmore.android.codesnippets.item28"
              label="%snippet.dialogs.datePicker">
           <content>
              // Define the date picker dialog listener, which will be called after
@@ -600,7 +600,7 @@ datePickerDialog.show();
        </item>
        <item
              description="%snippet.dialogs.timePicker.description"
-             id="com.motorola.studio.android.codesnippets.item25"
+             id="org.eclipse.andmore.android.codesnippets.item25"
              label="%snippet.dialogs.timePicker">
           <content>
              // Define the date picker dialog listener, which will be called after
@@ -629,7 +629,7 @@ timerPickerDialog.show();
        </item>
        <item
              description="%snippet.dialogs.custom.description"
-             id="com.motorola.studio.android.codesnippets.item30"
+             id="org.eclipse.andmore.android.codesnippets.item30"
              label="%snippet.dialogs.custom">
           <content>
              Dialog dialog = new Dialog(this);
@@ -639,7 +639,7 @@ dialog.show();
           </content>
        </item>
        <item
-             id="com.motorola.studio.android.codesnippets.item9"
+             id="org.eclipse.andmore.android.codesnippets.item9"
              label="%snippet.dialogs.customAlert">
           <content>
              LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -662,7 +662,7 @@ alertDialog.show();
           label="%category.screen">
        <item
              description="%snippet.screen.fullscreen.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.screen.fullscreen">
           <content>
              getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -670,7 +670,7 @@ alertDialog.show();
        </item>
        <item
              description="%snippet.screen.size.description"
-             id="com.motorola.studio.android.codesnippets.item24"
+             id="org.eclipse.andmore.android.codesnippets.item24"
              label="%snippet.screen.size">
           <content>
              Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
@@ -680,7 +680,7 @@ int height = display.getHeight();
        </item>
        <item
              description="%snippet.screen.orientation.description"
-             id="com.motorola.studio.android.codesnippets.item1"
+             id="org.eclipse.andmore.android.codesnippets.item1"
              label="%snippet.screen.orientation">
           <content>
              Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
@@ -693,9 +693,9 @@ int orientation = display.getOrientation();
           id="android_gps"
           label="%category.gps">
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.gps.currentCoordinates.description"
-             id="com.motorola.studio.android.codesnippets.item6"
+             id="org.eclipse.andmore.android.codesnippets.item6"
              label="%snippet.gps.currentCoordinates">
           <content>
              // To use these LocationManager methods, AndroidManifest.xml must have the following permission:
@@ -721,9 +721,9 @@ locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new L
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.gps.lastCoordinates.description"
-             id="com.motorola.studio.android.codesnippets.item4"
+             id="org.eclipse.andmore.android.codesnippets.item4"
              label="%snippet.gps.lastCoordinates">
           <content>
              // To use these LocationManager methods, AndroidManifest.xml must have the following permission:
@@ -740,7 +740,7 @@ if(location != null){
        </item>
        <item
              description="%snippet.gps.distance.description"
-             id="com.motorola.studio.android.codesnippets.item7"
+             id="org.eclipse.andmore.android.codesnippets.item7"
              label="%snippet.gps.distance">
           <content>
              Location originLocation = new Location(&quot;gps&quot;);
@@ -754,9 +754,9 @@ float distance = originLocation.distanceTo(destinationLocation);
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.gps.listenerChanges.description"
-             id="com.motorola.studio.android.codesnippets.item1"
+             id="org.eclipse.andmore.android.codesnippets.item1"
              label="%snippet.gps.listenerChanges">
           <content>
              // To use these LocationManager methods, AndroidManifest.xml must have the following permission:
@@ -792,9 +792,9 @@ locationManager.addGpsStatusListener(new GpsStatus.Listener(){
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.gps.listenerProximity.description"
-             id="com.motorola.studio.android.codesnippets.item2"
+             id="org.eclipse.andmore.android.codesnippets.item2"
              label="%snippet.gps.listenerProximity">
           <content>
              // To use these LocationManager methods, AndroidManifest.xml must have the following permission:
@@ -815,7 +815,7 @@ locationManager.addProximityAlert(latitude, longitude, radius, -1, pendingIntent
           label="%category.media">
        <item
              description="%snippet.media.playAudioVideoRaw.description"
-             id="com.motorola.studio.android.codesnippets.item17"
+             id="org.eclipse.andmore.android.codesnippets.item17"
              label="%snippet.media.playAudioVideoRaw">
           <content>
              // Put the media file into the res/raw folder of your application
@@ -825,7 +825,7 @@ mp.start();
        </item>
        <item
              description="%snippet.media.playAudioVideoFile.description"
-             id="com.motorola.studio.android.codesnippets.item18"
+             id="org.eclipse.andmore.android.codesnippets.item18"
              label="%snippet.media.playAudioVideoFile">
           <content>
              MediaPlayer mp = new MediaPlayer();
@@ -835,9 +835,9 @@ mp.start();
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.media.startRecordingAudio.description"
-             id="com.motorola.studio.android.codesnippets.item16"
+             id="org.eclipse.andmore.android.codesnippets.item16"
              label="%snippet.media.startRecordingAudio">
           <content>
              // To use these MediaRecorder methods, AndroidManifest.xml must have the following permission:
@@ -853,7 +853,7 @@ recorder.start();
        </item>
        <item
              description="%snippet.media.stopRecording.description"
-             id="com.motorola.studio.android.codesnippets.item21"
+             id="org.eclipse.andmore.android.codesnippets.item21"
              label="%snippet.media.stopRecording">
           <content>
              recorder.stop();
@@ -866,9 +866,9 @@ recorder.release();
           id="android_motorolaapi"
           label="%category.motorolaapi">
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"           
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"           
              description="%snippet.motorolaapi.ffcamera.description"
-             id="com.motorola.studio.android.codesnippets.motorolaapi1"
+             id="org.eclipse.andmore.android.codesnippets.motorolaapi1"
              label="%snippet.motorolaapi.ffcamera">
           <content>
              // To use these Camera methods, AndroidManifest.xml must have the following permission:
@@ -886,7 +886,7 @@ frontCam.release();   // always release when done with the Camera object
           </content>
        </item>
        <item description="%snippet.motorolaapi.hdmi.description"
-             id="com.motorola.studio.android.codesnippets.motorolaapi2"
+             id="org.eclipse.andmore.android.codesnippets.motorolaapi2"
              label="%snippet.motorolaapi.hdmi">
           <content>
 // Insert the code below into the onReceive method of a BroadcastReceiver class
@@ -917,11 +917,11 @@ if (action.equals(EXTDISP_PUBLIC_STATE))
     </category>
     <category
           description="%category.preferences.description"
-          id="com.motorola.studio.android.codesnippets.category2"
+          id="org.eclipse.andmore.android.codesnippets.category2"
           label="%category.preferences">
        <item
              description="%snippet.preferences.loadSharedPreference.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.preferences.loadSharedPreference">
           <content>
 // Use MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE to grant access to other applications
@@ -931,7 +931,7 @@ String preferenceValue = preferences.getString(&quot;yourPreferenceKey&quot;, &q
        </item>
        <item
              description="%snippet.preferences.loadSharedPreferenceFromPreferenceManager.description"
-             id="com.motorola.studio.android.codesnippets.item8"
+             id="org.eclipse.andmore.android.codesnippets.item8"
              label="%snippet.preferences.loadSharedPreferenceFromPreferenceManager">
           <content>
 // Use MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE to grant access to other applications
@@ -941,7 +941,7 @@ String preferenceValue = preferences.getString(&quot;yourPreferenceKey&quot;, &q
        </item>
        <item
              description="%snippet.preferences.writeSharedPreference.description"
-             id="com.motorola.studio.android.codesnippets.item7"
+             id="org.eclipse.andmore.android.codesnippets.item7"
              label="%snippet.preferences.writeSharedPreference">
           <content>
 // Use MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE to grant access to other applications
@@ -953,7 +953,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.preferences.writeSharedPreferenceFromPreferenceManager.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.preferences.writeSharedPreferenceFromPreferenceManager">
           <content>
 // Use MODE_WORLD_READABLE and/or MODE_WORLD_WRITEABLE to grant access to other applications
@@ -970,7 +970,7 @@ editor.commit();
           label="%category.resources">
        <item
              description="%snippet.resources.listAssets.description"
-             id="com.motorola.studio.android.codesnippets.item24"
+             id="org.eclipse.andmore.android.codesnippets.item24"
              label="%snippet.resources.listAssets">
           <content>
              String fileArray[] = this.getAssets().list(&quot;&quot;);
@@ -978,7 +978,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.resources.readFile.description"
-             id="com.motorola.studio.android.codesnippets.item22"
+             id="org.eclipse.andmore.android.codesnippets.item22"
              label="%snippet.resources.readFile">
           <content>
              InputStream is = this.getAssets().open(fileName);
@@ -986,7 +986,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.resources.readXmlFile.description"
-             id="com.motorola.studio.android.codesnippets.item23"
+             id="org.eclipse.andmore.android.codesnippets.item23"
              label="%snippet.resources.readXmlFile">
           <content>
              XmlResourceParser xmlParser = this.getAssets().openXmlResourceParser(fileName);
@@ -1003,7 +1003,7 @@ editor.commit();
           label="%category.log">
        <item
              description="%snippet.log.error.description"
-             id="com.motorola.studio.android.codesnippets.item16"
+             id="org.eclipse.andmore.android.codesnippets.item16"
              label="%snippet.log.error">
           <content>
              Log.e(&quot;YourIdentifier&quot;,&quot;This is an error message&quot;);
@@ -1011,7 +1011,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.log.warning.description"
-             id="com.motorola.studio.android.codesnippets.item26"
+             id="org.eclipse.andmore.android.codesnippets.item26"
              label="%snippet.log.warning">
           <content>
              Log.w(&quot;YourIdentifier&quot;,&quot;This is a warning message&quot;);
@@ -1019,7 +1019,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.log.info.description"
-             id="com.motorola.studio.android.codesnippets.item27"
+             id="org.eclipse.andmore.android.codesnippets.item27"
              label="%snippet.log.info">
           <content>
              Log.i(&quot;YourIdentifier&quot;,&quot;This is an information message&quot;);
@@ -1027,7 +1027,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.log.debug.description"
-             id="com.motorola.studio.android.codesnippets.item28"
+             id="org.eclipse.andmore.android.codesnippets.item28"
              label="%snippet.log.debug">
           <content>
              Log.d(&quot;YourIdentifier&quot;,&quot;This is a debug message&quot;);
@@ -1040,7 +1040,7 @@ editor.commit();
           label="%category.localization">
        <item
              description="%snippet.localization.string.description"
-             id="com.motorola.studio.android.codesnippets.item1"
+             id="org.eclipse.andmore.android.codesnippets.item1"
              label="%snippet.localization.string">
           <content>
              String text = getResources().getString(R.string.yourStringID);
@@ -1048,7 +1048,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.localization.drawable.description"
-             id="com.motorola.studio.android.codesnippets.item2"
+             id="org.eclipse.andmore.android.codesnippets.item2"
              label="%snippet.localization.drawable">
           <content>
              Drawable drawable = getResources().getDrawable(R.drawable.yourDrawableID);
@@ -1056,7 +1056,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.localization.curLocale.description"
-             id="com.motorola.studio.android.codesnippets.item4"
+             id="org.eclipse.andmore.android.codesnippets.item4"
              label="%snippet.localization.curLocale">
           <content>
              Locale curLocale = java.util.Locale.getDefault();
@@ -1064,7 +1064,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.localization.resLocale.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%snippet.localization.resLocale">
           <content>
              Locale resLocale = getResources().getConfiguration().locale;
@@ -1072,7 +1072,7 @@ editor.commit();
        </item>
        <item
              description="%snippet.localization.dynamicMsg.description"
-             id="com.motorola.studio.android.codesnippets.item3"
+             id="org.eclipse.andmore.android.codesnippets.item3"
              label="%snippet.localization.dynamicMsg">
           <content>
              // yourMsgID =&quot;The language is {0}&quot;
@@ -1089,9 +1089,9 @@ String fullMsg = java.text.MessageFormat.format(msg, arguments);
           id="android_bluetooth"
           label="%category.bluetooth">
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.check.description"
-             id="com.motorola.studio.android.codesnippets.bt1"
+             id="org.eclipse.andmore.android.codesnippets.bt1"
              label="%snippet.bluetooth.check">
           <content>
              // To use this BluetoothAdapter method, AndroidManifest.xml must have the following permission:
@@ -1106,9 +1106,9 @@ if (btAdapter == null) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.connect.description"
-             id="com.motorola.studio.android.codesnippets.bt7"
+             id="org.eclipse.andmore.android.codesnippets.bt7"
              label="%snippet.bluetooth.connect">
           <content>
              // To use these BluetoothAdapter methods, AndroidManifest.xml must have the following permission:
@@ -1156,9 +1156,9 @@ myConnectionManager(socket);
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.enable.description"
-             id="com.motorola.studio.android.codesnippets.bt2"
+             id="org.eclipse.andmore.android.codesnippets.bt2"
              label="%snippet.bluetooth.enable">
           <content>
              // To use these BluetoothAdapter methods, AndroidManifest.xml must have the following permission:
@@ -1187,9 +1187,9 @@ if (!btAdapter.isEnabled()) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.getpaired.description"
-             id="com.motorola.studio.android.codesnippets.bt4"
+             id="org.eclipse.andmore.android.codesnippets.bt4"
              label="%snippet.bluetooth.getpaired">
           <content>
              // To use these BluetoothAdapter methods, AndroidManifest.xml must have the following permission:
@@ -1209,9 +1209,9 @@ if (devices.size() &gt; 0) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.discoverable.description"
-             id="com.motorola.studio.android.codesnippets.bt3"
+             id="org.eclipse.andmore.android.codesnippets.bt3"
              label="%snippet.bluetooth.discoverable">
           <content>
              // To use these BluetoothAdapter methods, AndroidManifest.xml must have the following permission:
@@ -1233,9 +1233,9 @@ if (btAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERAB
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.incoming.description"
-             id="com.motorola.studio.android.codesnippets.bt6"
+             id="org.eclipse.andmore.android.codesnippets.bt6"
              label="%snippet.bluetooth.incoming">
           <content>
              // To use these BluetoothAdapter methods, AndroidManifest.xml must have the following permission:
@@ -1280,9 +1280,9 @@ if (socket != null) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.bluetooth.discover.description"
-             id="com.motorola.studio.android.codesnippets.bt5"
+             id="org.eclipse.andmore.android.codesnippets.bt5"
              label="%snippet.bluetooth.discover">
           <content>
              // To use these BluetoothDevice methods, AndroidManifest.xml must have the following permission:
@@ -1326,7 +1326,7 @@ this.registerReceiver(bluetoothReceiver, intentFilter);
           label="%category.sql">
        <item
              description="%snippet.sql.create.description"
-             id="com.motorola.studio.android.codesnippets.sql1"
+             id="org.eclipse.andmore.android.codesnippets.sql1"
              label="%snippet.sql.create">
           <content>
              CREATE TABLE songs(
@@ -1340,7 +1340,7 @@ this.registerReceiver(bluetoothReceiver, intentFilter);
        </item>
        <item
              description="%snippet.sql.createfromtable.description"
-             id="com.motorola.studio.android.codesnippets.sql2"
+             id="org.eclipse.andmore.android.codesnippets.sql2"
              label="%snippet.sql.createfromtable">
           <content>
              SELECT *  INTO rockssongs
@@ -1349,7 +1349,7 @@ FROM songs WHERE genre =&apos;rock&apos;;
        </item>
        <item
              description="%snippet.sql.count.description"
-             id="com.motorola.studio.android.codesnippets.sql3"
+             id="org.eclipse.andmore.android.codesnippets.sql3"
              label="%snippet.sql.count">
           <content>
              SELECT COUNT(DISTINCT student_city) AS total
@@ -1358,7 +1358,7 @@ FROM students;
        </item>
        <item
              description="%snippet.sql.delete.description"
-             id="com.motorola.studio.android.codesnippets.sql4"
+             id="org.eclipse.andmore.android.codesnippets.sql4"
              label="%snippet.sql.delete">
           <content>
 DELETE FROM songs
@@ -1367,7 +1367,7 @@ WHERE rating&lt; 5;
        </item>
        <item
              description="%snippet.sql.drop.description"
-             id="com.motorola.studio.android.codesnippets.sql5"
+             id="org.eclipse.andmore.android.codesnippets.sql5"
              label="%snippet.sql.drop">
           <content>
              DROP TABLE&quot;bad_songs&quot;;
@@ -1375,7 +1375,7 @@ WHERE rating&lt; 5;
        </item>
        <item
              description="%snippet.sql.left.description"
-             id="com.motorola.studio.android.codesnippets.sql6"
+             id="org.eclipse.andmore.android.codesnippets.sql6"
              label="%snippet.sql.left">
           <content>
              SELECT students.name 
@@ -1386,7 +1386,7 @@ WHERE math_class.grade &gt; 5;
        </item>
        <item
              description="%snippet.sql.inner.description"
-             id="com.motorola.studio.android.codesnippets.sql7"
+             id="org.eclipse.andmore.android.codesnippets.sql7"
              label="%snippet.sql.inner">
           <content>
              SELECT DISTINCT students.id, students.name
@@ -1395,7 +1395,7 @@ FROM students INNER JOIN math_class ON students.id = math_class.student_id;
        </item>
        <item
              description="%snippet.sql.insert.description"
-             id="com.motorola.studio.android.codesnippets.sql8"
+             id="org.eclipse.andmore.android.codesnippets.sql8"
              label="%snippet.sql.insert">
           <content>
              INSERT INTO albums(ambum_id, artist_name, album_name)
@@ -1404,7 +1404,7 @@ VALUES(&apos;12345&apos;, &apos;David Bowie&apos;,&apos;Ziggy Stardust&apos;);
        </item>
        <item
              description="%snippet.sql.update.description"
-             id="com.motorola.studio.android.codesnippets.sql9"
+             id="org.eclipse.andmore.android.codesnippets.sql9"
              label="%snippet.sql.update">
           <content>
              UPDATE songs SET already_listened =&quot;yes&quot;
@@ -1417,9 +1417,9 @@ WHERE genre = &quot;rock&quot;;
           id="android_web"
           label="%category.web">
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.get.description"
-             id="com.motorola.studio.android.codesnippets.web1"
+             id="org.eclipse.andmore.android.codesnippets.web1"
              label="%snippet.web.get">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1451,9 +1451,9 @@ if (httpEntity != null) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.post.description"
-             id="com.motorola.studio.android.codesnippets.web2"
+             id="org.eclipse.andmore.android.codesnippets.web2"
              label="%snippet.web.post">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1480,9 +1480,9 @@ if (httpEntity != null) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.json.description"
-             id="com.motorola.studio.android.codesnippets.web3"
+             id="org.eclipse.andmore.android.codesnippets.web3"
              label="%snippet.web.json">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1508,9 +1508,9 @@ for (int i = 0; i &lt; values.length(); i++) {
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.rest.description"
-             id="com.motorola.studio.android.codesnippets.web4"
+             id="org.eclipse.andmore.android.codesnippets.web4"
              label="%snippet.web.rest">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1563,9 +1563,9 @@ try {
           </content>
        </item>
        <item
-       class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+       class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.email.description"
-             id="com.motorola.studio.android.codesnippets.web5"
+             id="org.eclipse.andmore.android.codesnippets.web5"
              label="%snippet.web.email">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1580,9 +1580,9 @@ startActivity(Intent.createChooser(emailIntent, &quot;Send mail...&quot;));
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.urlconnection.description"
-             id="com.motorola.studio.android.codesnippets.web6"
+             id="org.eclipse.andmore.android.codesnippets.web6"
              label="%snippet.web.urlconnection">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1617,9 +1617,9 @@ handleResult(result);
           </content>
        </item>
        <item
-             class="com.motorola.studio.android.codesnippets.AndroidPermissionInsertSnippet"
+             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"
              description="%snippet.web.soap.description"
-             id="com.motorola.studio.android.codesnippets.web7"
+             id="org.eclipse.andmore.android.codesnippets.web7"
              label="%snippet.web.soap">
           <content>
              // To use these Internet methods, AndroidManifest.xml must have the following permission:
@@ -1659,7 +1659,7 @@ handleResults(results);
           label="%category.sensors">
        <item
              description="%snnipet.sensor.detect.description"
-             id="com.motorola.studio.android.codesnippets.sensor1"
+             id="org.eclipse.andmore.android.codesnippets.sensor1"
              label="%snnipet.sensor.detect">
           <content>
              // This code requires API level 3 (Android 1.5) or higher
@@ -1672,7 +1672,7 @@ if(manager.getSensorList(Sensor.TYPE_ACCELEROMETER).isEmpty()){
        </item>
        <item
              description="%snnipet.sensor.getorientation.description"
-             id="com.motorola.studio.android.codesnippets.sensor2"
+             id="org.eclipse.andmore.android.codesnippets.sensor2"
              label="%snnipet.sensor.getorientation">
           <content>
              // This code requires API level 3 (Android 1.5) or higher
@@ -1705,7 +1705,7 @@ manager.registerListener(new SensorEventListener(){
           label="%category.ui">
        <item
              description="%snippet.ui.gestures.description"
-             id="com.motorola.studio.android.codesnippets.ui1"
+             id="org.eclipse.andmore.android.codesnippets.ui1"
              label="%snippet.ui.gestures.string">
           <content>
 private static final float DISTANCE_DIP = 16.0f;
@@ -1722,7 +1722,7 @@ int scaledPath = (int) (PATH_DIP * scale + 0.5f);
        </item>
        <item
              description="%snippet.ui.background.description"
-             id="com.motorola.studio.android.codesnippets.ui3"
+             id="org.eclipse.andmore.android.codesnippets.ui3"
              label="%snippet.ui.background.string">
           <content>
              originalImage = Bitmap.createScaledBitmap( 
@@ -1735,7 +1735,7 @@ true);             // bilinear filtering
        </item>
        <item
              description="%snippet.ui.sizes.description"
-             id="com.motorola.studio.android.codesnippets.ui2"
+             id="org.eclipse.andmore.android.codesnippets.ui2"
              label="%snippet.ui.sizes.string">
           <content>
              public void onSizeChanged(int w, int h, int oldW,
@@ -1757,7 +1757,7 @@ measureText();
        </item>
        <item
              description="%snippet.ui.widget.description"
-             id="com.motorola.studio.android.codesnippets.ui4"
+             id="org.eclipse.andmore.android.codesnippets.ui4"
              label="%snippet.ui.widget.string">
           <content>
           // Add import android.view.View.OnClickListener; statement
@@ -1774,7 +1774,7 @@ b1.setOnClickListener(new OnClickListener() {
        </item>
        <item
              description="%snippet.ui.moveout.description"
-             id="com.motorola.studio.android.codesnippets.ui5"
+             id="org.eclipse.andmore.android.codesnippets.ui5"
              label="%snippet.ui.moveout.string">
           <content>
 // You must provide types for the three generic parameters before the code will compile.          
@@ -1801,7 +1801,7 @@ b1.setOnClickListener(new OnClickListener() {
        </item>
        <item
              description="%snippet.ui.backgroundtaskwithnotification.description"
-             id="com.motorola.studio.android.codesnippets.ui6"
+             id="org.eclipse.andmore.android.codesnippets.ui6"
              label="%snippet.ui.backgroundtaskwithnotification.string">
           <content>
              // This code is supposed to be used as an inner class and will start a
@@ -1905,7 +1905,7 @@ b1.setOnClickListener(new OnClickListener() {
        </item>
        <item
              description="%snippet.ui.hide.statusbar.description"
-             id="com.motorola.studio.android.codesnippets.item6"
+             id="org.eclipse.andmore.android.codesnippets.item6"
              label="%snippet.ui.hide.statusbar.label">
           <content>
              //Hides status bar (if it was showing)
@@ -1915,7 +1915,7 @@ v.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
        </item>
        <item
              description="%snippet.ui.visible.statusbar.description"
-             id="com.motorola.studio.android.codesnippets.item7"
+             id="org.eclipse.andmore.android.codesnippets.item7"
              label="%snippet.ui.visible.statusbar.label">
           <content>
              //Shows status bar (if it was hidden)
@@ -1930,7 +1930,7 @@ v.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
           label="%intents.ui">
        <item
              description="%intents.start.activity.explicitly.description"
-             id="com.motorola.studio.android.codesnippets.intents1"
+             id="org.eclipse.andmore.android.codesnippets.intents1"
              label="%intents.start.activity.explicitly.label">
           <content>
              //Calls another activity, by name, without passing data
@@ -1942,7 +1942,7 @@ startActivity(iExp);
        </item>
        <item
              description="%intents.start.activity.implicitly.description"
-             id="com.motorola.studio.android.codesnippets.item2"
+             id="org.eclipse.andmore.android.codesnippets.item2"
              label="%intents.start.activity.implicitly.label">
           <content>
              //Calls another activity, by action and category, without passing data
@@ -1954,7 +1954,7 @@ startActivity(iImp);
        </item>
        <item
              description="%intents.start.activity.for.result.description"
-             id="com.motorola.studio.android.codesnippets.item3"
+             id="org.eclipse.andmore.android.codesnippets.item3"
              label="%intents.start.activity.for.result.label">
           <content>
              //Calls another activity, identified by action and category, passing data URL and a MIME type
@@ -1970,7 +1970,7 @@ startActivityForResult(iImp, 0); //TODO The second parameter (here, zero) is the
        </item>
        <item
              description="%intents.send.broadcast.description"
-             id="com.motorola.studio.android.codesnippets.item4"
+             id="org.eclipse.andmore.android.codesnippets.item4"
              label="%intents.send.broadcast.label">
           <content>
              //Broadcasts an event notification
@@ -1984,7 +1984,7 @@ this.sendBroadcast(iBroad);
        </item>
        <item
              description="%intents.start.service.description"
-             id="com.motorola.studio.android.codesnippets.item5"
+             id="org.eclipse.andmore.android.codesnippets.item5"
              label="%intents.start.service.label">
           <content>
              //Starts a service (task to be accomplished in the background, without UI)
@@ -2002,7 +2002,7 @@ startService(iServ);
           label="%fragments.ui">
        <item
              description="%fragments.replace.transaction.description"
-             id="com.motorola.studio.android.codesnippets.item10"
+             id="org.eclipse.andmore.android.codesnippets.item10"
              label="%fragments.replace.transaction.label">
           <content>
              //Replaces a container's fragment(s)
@@ -2015,7 +2015,7 @@ ft.commit();
        </item>
        <item
              description="%fragments.add.transaction.description"
-             id="com.motorola.studio.android.codesnippets.item11"
+             id="org.eclipse.andmore.android.codesnippets.item11"
              label="%fragments.add.transaction.label">
           <content>
              //Adds a fragment to a specified layout
@@ -2033,7 +2033,7 @@ ft.commit();
           label="%category.facerecog">
        <item
              description="%snippet.facerecog.description"
-             id="com.motorola.studio.android.codesnippets.facerecog1"
+             id="org.eclipse.andmore.android.codesnippets.facerecog1"
              label="%snippet.facerecog.string">
           <content>
              //Make sure the bitmap file was generated using the RGB_565

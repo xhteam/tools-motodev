@@ -59,7 +59,7 @@ public class DefineSqlOpenHelperPage extends NewLauncherWizardPage
     /**
      * Default constructor.
      * </br></br>
-     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage(org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
+     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage("org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
      * and passing {@link org.eclipse.andmore.android.model.ActivityBasedOnTemplate#ActivityBasedOnTemplate()} and {@link CodeUtilsNLS#UI_DefineSqlOpenHelperPage_Title Page name} as arguments.
      */
     public DefineSqlOpenHelperPage()
@@ -69,7 +69,7 @@ public class DefineSqlOpenHelperPage extends NewLauncherWizardPage
     }
 
     /**
-     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage(org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
+     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage("org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
      * and passing {@code activity} and {@link CodeUtilsNLS#UI_CreateSampleDatabaseActivityPageName Page name} as arguments.
      * 
      * @param activity an {@code com.motorola.studio.android.model.ActivityBasedOnTemplate} to be used as the building block model. 

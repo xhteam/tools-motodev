@@ -104,16 +104,9 @@ public class DatabaseUtils
     public static final String DBNAME_PROPERTY =
             "org.eclipse.datatools.connectivity.db.databaseName"; //$NON-NLS-1$
 
-    //    private static final String DEVICENAME_PROPERTY =
-    //            "org.eclipse.datatools.connectivity.db.deviceName"; //$NON-NLS-1$
+    public static final String REMOTEPATH_PROPERTY = "org.eclipse.andmore.db.remotePathProperty"; //$NON-NLS-1$
 
-    //    private static final String SERIAL_PROPERTY = "com.motorola.studio.db.serialProperty"; //$NON-NLS-1$
-
-    //    private static final String APPNAME_PROPERTY = "com.motorola.studio.db.appNameProperty"; //$NON-NLS-1$
-
-    public static final String REMOTEPATH_PROPERTY = "com.motorola.studio.db.remotePathProperty"; //$NON-NLS-1$
-
-    public static final String LOCALPATH_PROPERTY = "com.motorola.studio.db.localPathProperty"; //$NON-NLS-1$
+    public static final String LOCALPATH_PROPERTY = "org.eclipse.andmore.db.localPathProperty"; //$NON-NLS-1$
 
     public static final String TYPE_PROPERTY = "org.eclipse.datatools.connectivity.db.TYPE";
 

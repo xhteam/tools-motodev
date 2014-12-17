@@ -33,7 +33,7 @@ import org.eclipse.ui.PartInitException;
 public abstract class DbRootNodeReader
 {
     public static final String DB_ROOT_NODE_EXTENSION_POINT_ID =
-            "com.motorolamobility.studio.android.db.core.dbRootNode"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.dbRootNode"; //$NON-NLS-1$
 
     public static final String DB_ROOT_NODE_EXTENSION_POINT_ATTRIBUTE_ID = "id"; //$NON-NLS-1$
 

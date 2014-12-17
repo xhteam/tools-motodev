@@ -26,8 +26,8 @@
       <status
             canDeleteInstance="true"
             canEditProperties="true"
-            defaultServiceId="com.motorola.studio.android.emulator.startService"
-            id="com.motorola.studio.android.emulator.status.offlineNoData"
+            defaultServiceId="org.eclipse.andmore.android.emulator.startService"
+            id="org.eclipse.andmore.android.emulator.status.offlineNoData"
             image="icons/stopped-icon-16x16.png"
             name="%status.offlineNoData">
       </status>
@@ -36,8 +36,8 @@
       <status
             canDeleteInstance="true"
             canEditProperties="true"
-            defaultServiceId="com.motorola.studio.android.emulator.startService"
-            id="com.motorola.studio.android.emulator.status.offline"
+            defaultServiceId="org.eclipse.andmore.android.emulator.startService"
+            id="org.eclipse.andmore.android.emulator.status.offline"
             image="icons/stopped-icon-16x16.png"
             name="%status.offline">
       </status>
@@ -46,8 +46,8 @@
       <status
             canDeleteInstance="false"
             canEditProperties="true"
-            defaultServiceId="com.motorola.studio.android.emulator.stopService"
-            id="com.motorola.studio.android.emulator.status.online"
+            defaultServiceId="org.eclipse.andmore.android.emulator.stopService"
+            id="org.eclipse.andmore.android.emulator.status.online"
             image="icons/started-icon-16x16.png"
             name="%status.online">
       </status>
@@ -56,63 +56,63 @@
       <status
             canDeleteInstance="true"
             canEditProperties="false"
-            id="com.motorola.studio.android.emulator.status.notavailable"
+            id="org.eclipse.andmore.android.emulator.status.notavailable"
             image="icons/notavailable-icon-16x16.png"
             name="%status.notavailable">
       </status>
    </extension>
    <extension point="org.eclipse.ui.propertyPages">
-      <page class="com.motorola.studio.android.emulator.device.ui.AndroidPropertiesPage" id="android.emulator.device.property.page" name="%android.emulator.device.property.page.name">
+      <page class="org.eclipse.andmore.android.emulator.device.ui.AndroidPropertiesPage" id="android.emulator.device.property.page" name="%android.emulator.device.property.page.name">
          <enabledWhen>
-            <instanceof value="com.motorola.studio.android.emulator.device.instance.AndroidDeviceInstance">
+            <instanceof value="org.eclipse.andmore.android.emulator.device.instance.AndroidDeviceInstance">
             </instanceof>
          </enabledWhen>
       </page>
-      <page category="android.emulator.device.property.page" class="com.motorola.studio.android.emulator.device.ui.AndroidPropertiesStartupOptionsPage" id="android.emulator.device.property.page.startupOptions" name="%android.emulator.device.property.page.startupOptions.name">
+      <page category="android.emulator.device.property.page" class="org.eclipse.andmore.android.emulator.device.ui.AndroidPropertiesStartupOptionsPage" id="android.emulator.device.property.page.startupOptions" name="%android.emulator.device.property.page.startupOptions.name">
          <enabledWhen>
-            <instanceof value="com.motorola.studio.android.emulator.device.instance.AndroidDeviceInstance">
+            <instanceof value="org.eclipse.andmore.android.emulator.device.instance.AndroidDeviceInstance">
             </instanceof>
          </enabledWhen>
       </page>
       <page
             category="android.emulator.device.property.page"
-            class="com.motorola.studio.android.emulator.device.ui.DevicePropertiesPage"
+            class="org.eclipse.andmore.android.emulator.device.ui.DevicePropertiesPage"
             id="android.emulator.device.properties.page"
             name="%android.emulator.device.properties.page.name">
          <enabledWhen>
             <instanceof
-                  value="com.motorola.studio.android.emulator.device.instance.AndroidDeviceInstance">
+                  value="org.eclipse.andmore.android.emulator.device.instance.AndroidDeviceInstance">
             </instanceof>
          </enabledWhen>
       </page>
    </extension>
    <extension id="initEmulatorService" name="initEmulatorService" point="org.eclipse.sequoyah.device.framework.service">
-      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="org.eclipse.andmore.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="com.motorola.studio.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Motorola Mobility, Inc." version="0.2.0" visible="false">
+      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="org.eclipse.andmore.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="org.eclipse.andmore.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Motorola Mobility, Inc." version="0.2.0" visible="false">
       </service>
    </extension>
-   <extension id="com.motorola.studio.android.emulator.androidDevice" name="%initEmulatorServiceName" point="org.eclipse.sequoyah.device.framework.serviceDefinition">
-      <service id="com.motorola.studio.android.emulator.initEmulatorService">
-         <status endId="com.motorola.studio.android.emulator.status.offline" haltId="com.motorola.studio.android.emulator.status.offlineNoData" startId="OFF">
+   <extension id="org.eclipse.andmore.android.emulator.androidDevice" name="%initEmulatorServiceName" point="org.eclipse.sequoyah.device.framework.serviceDefinition">
+      <service id="org.eclipse.andmore.android.emulator.initEmulatorService">
+         <status endId="org.eclipse.andmore.android.emulator.status.offline" haltId="org.eclipse.andmore.android.emulator.status.offlineNoData" startId="OFF">
          </status></service>
    </extension>
-   <extension point="com.motorola.studio.android.emulator.deviceFramework">
+   <extension point="org.eclipse.andmore.android.emulator.deviceFramework">
       <deviceFramework class="org.eclipse.andmore.android.emulator.device.TmLDeviceFrameworkSupport">
       </deviceFramework>
    </extension>
-  <extension id="tmlInstanceViewContribution" point="com.motorola.studio.android.emulator.androidPerspectiveExtension">
+  <extension id="tmlInstanceViewContribution" point="org.eclipse.andmore.android.emulator.androidPerspectiveExtension">
      <view area="devicemanagementviews" id="org.eclipse.sequoyah.device.framework.ui.InstanceMgtView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.DeviceView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.DeviceView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.LogCatView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.LogCatView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.ThreadView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.ThreadView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.HeapView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.HeapView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.FileExplorerView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.FileExplorerView">
      </view>
-     <view area="emulationviews" id="com.android.ide.eclipse.ddms.views.EmulatorControlView">
+     <view area="emulationviews" id="org.eclipse.andmore.ddms.views.EmulatorControlView">
      </view>
   </extension>
   <extension id="androidDevice" name="androidDevice" point="org.eclipse.sequoyah.device.framework.deviceTypes">     
@@ -120,7 +120,7 @@
             dropSupportHandler="org.eclipse.andmore.android.emulator.device.EmulatorDropSupportHandler"
             handler="org.eclipse.andmore.android.emulator.device.AndroidDeviceHandler"
             icon="icons/plate16.gif"
-            id="com.motorola.studio.android.emulator.androidDevice"
+            id="org.eclipse.andmore.android.emulator.androidDevice"
             isAbstract="false"
             isPersistent="true"
             label="%android.emulator.device.wizard.name"
@@ -128,41 +128,41 @@
      	</deviceType>     
   </extension>
   <extension point="org.eclipse.sequoyah.device.framework.ui.newDeviceWizardPages">
-       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.mainPage" operationClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPageOperation" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPage">
-          <deviceType deviceTypeId="com.motorola.studio.android.emulator.androidDevice">
+       <wizardPage id="org.eclipse.andmore.android.emulator.device.ui.wizard.mainPage" operationClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPageOperation" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardMainPage">
+          <deviceType deviceTypeId="org.eclipse.andmore.android.emulator.androidDevice">
           </deviceType>
        </wizardPage>
-       <wizardPage id="com.motorola.studio.android.emulator.device.ui.wizard.startupOptionsPage" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardStartupOptionsPage">
-          <deviceType deviceTypeId="com.motorola.studio.android.emulator.androidDevice">
+       <wizardPage id="org.eclipse.andmore.android.emulator.device.ui.wizard.startupOptionsPage" pageClass="org.eclipse.andmore.android.emulator.device.ui.wizard.WizardStartupOptionsPage">
+          <deviceType deviceTypeId="org.eclipse.andmore.android.emulator.androidDevice">
           </deviceType>
        </wizardPage>
    </extension>
   <extension point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.emulator.device.refresh.InstancesListRefreshHandler"
-            id="com.motorola.studio.android.device.refresh.avd.list"
+            defaultHandler="org.eclipse.andmore.android.emulator.device.refresh.InstancesListRefreshHandler"
+            id="org.eclipse.andmore.android.device.refresh.avd.list"
             name="%toolbarRefreshList">
       </command>
-      <command defaultHandler="com.motorola.studio.android.emulator.device.handlers.OpenNewDeviceWizardHandler" id="com.motorola.studio.android.device.new.avd.wizard" name="%newAvdWizardName">
+      <command defaultHandler="org.eclipse.andmore.android.emulator.device.handlers.OpenNewDeviceWizardHandler" id="org.eclipse.andmore.android.device.new.avd.wizard" name="%newAvdWizardName">
       </command>
   </extension>
   <extension point="org.eclipse.ui.menus">
    	<menuContribution locationURI="toolbar:org.eclipse.sequoyah.device.framework.ui.InstanceMgtView">
-         <command commandId="com.motorola.studio.android.device.refresh.avd.list" icon="icons/refresh.png" label="%toolbarRefreshList">
+         <command commandId="org.eclipse.andmore.android.device.refresh.avd.list" icon="icons/refresh.png" label="%toolbarRefreshList">
          </command>         
    	</menuContribution>
    	 <menuContribution locationURI="menu:motorolaMenu?after=otherNewWizardsSeparator">
-       <command commandId="com.motorola.studio.android.device.new.avd.wizard" icon="icons/device.png" label="%newAvdWizardName" style="push">
+       <command commandId="org.eclipse.andmore.android.device.new.avd.wizard" icon="icons/device.png" label="%newAvdWizardName" style="push">
        </command>
     </menuContribution>
    </extension>
   <extension
         point="org.eclipse.ui.startup">
      <startup
-           class="com.motorola.studio.android.emulator.device.CreateAVDOnStartupListener">
+           class="org.eclipse.andmore.android.emulator.device.CreateAVDOnStartupListener">
      </startup>
      <startup
-           class="com.motorola.studio.android.emulator.device.SequoyahInstanceBackward">
+           class="org.eclipse.andmore.android.emulator.device.SequoyahInstanceBackward">
      </startup>
   </extension>
   <extension
@@ -181,7 +181,7 @@
             description="%resetServiceDescription"
             handler="org.eclipse.andmore.android.emulator.service.reset.ResetServiceHandler"
             icon="resource/reset.png"
-            id="com.motorola.studio.android.emulator.resetService"
+            id="org.eclipse.andmore.android.emulator.resetService"
             name="%resetServiceName"
             parallelized="true"
             provider="%providerName"
@@ -190,15 +190,15 @@
       </service>
    </extension>
   <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%resetServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.emulator.resetService">
+            id="org.eclipse.andmore.android.emulator.resetService">
          <status
-               endId="com.motorola.studio.android.emulator.status.offlineNoData"
-               haltId="com.motorola.studio.android.emulator.status.offline"
-               startId="com.motorola.studio.android.emulator.status.offline">
+               endId="org.eclipse.andmore.android.emulator.status.offlineNoData"
+               haltId="org.eclipse.andmore.android.emulator.status.offline"
+               startId="org.eclipse.andmore.android.emulator.status.offline">
          </status></service>
    </extension>
    <extension
@@ -210,7 +210,7 @@
             description="%stopDescription"
             handler="org.eclipse.andmore.android.emulator.service.stop.StopEmulatorHandler"
             icon="icons/stop.png"
-            id="com.motorola.studio.android.emulator.stopService"
+            id="org.eclipse.andmore.android.emulator.stopService"
             name="%stopServiceName"
             parallelized="true"
             provider="%providerName"
@@ -219,28 +219,28 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%stopServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.emulator.stopService">
+            id="org.eclipse.andmore.android.emulator.stopService">
          <status
-               endId="com.motorola.studio.android.emulator.status.offline"
-               haltId="com.motorola.studio.android.emulator.device.status.online"               
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.offline"
+               haltId="org.eclipse.andmore.android.emulator.device.status.online"               
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status>
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%repairServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.emulator.repairService">
+            id="org.eclipse.andmore.android.emulator.repairService">
          <status
-               endId="com.motorola.studio.android.emulator.status.offline"
-               haltId="com.motorola.studio.android.emulator.status.notavailable"
-               startId="com.motorola.studio.android.emulator.status.notavailable">
+               endId="org.eclipse.andmore.android.emulator.status.offline"
+               haltId="org.eclipse.andmore.android.emulator.status.notavailable"
+               startId="org.eclipse.andmore.android.emulator.status.notavailable">
          </status>
       </service>
    </extension>
@@ -253,7 +253,7 @@
             description="%repairDescription"
             handler="org.eclipse.andmore.android.emulator.service.repair.RepairAvdHandler"
             icon="icons/repair.png"
-            id="com.motorola.studio.android.emulator.repairService"
+            id="org.eclipse.andmore.android.emulator.repairService"
             name="%repairServiceName"
             parallelized="true"
             provider="%providerName"
@@ -264,9 +264,9 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:com.motorola.studio.android.emulator.view.popup">
+            locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
-               commandId="com.motorola.studio.android.device.stop.emulator"
+               commandId="org.eclipse.andmore.android.device.stop.emulator"
                icon="icons/stop.png"
                id="blah"
                label="%stopServiceName"
@@ -277,17 +277,17 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.emulator.service.stop.StopEmulatorCommand"
-            id="com.motorola.studio.android.device.stop.emulator"
+            defaultHandler="org.eclipse.andmore.android.emulator.service.stop.StopEmulatorCommand"
+            id="org.eclipse.andmore.android.device.stop.emulator"
             name="%stopServiceName">
       </command>
    </extension>
     <extension
-         id="com.motorola.studio.android.emulator10.defaultEmulatorDefinitions"
+         id="org.eclipse.andmore.android.emulator10.defaultEmulatorDefinitions"
          name="Default Emulator Definitions"
-         point="com.motorola.studio.android.emulator.androidEmulatorDefinition">
+         point="org.eclipse.andmore.android.emulator.androidEmulatorDefinition">
       <skin
-            id="com.motorola.studio.android.emulator.skin.android.androidSkin"
+            id="org.eclipse.andmore.android.emulator.skin.android.androidSkin"
             size="HVGA">
       </skin>
       <startLogic
@@ -305,7 +305,7 @@
             description="%startDescription"
             handler="org.eclipse.andmore.android.emulator.service.start.StartEmulatorHandler"
             icon="icons/start.png"
-            id="com.motorola.studio.android.emulator.startService"
+            id="org.eclipse.andmore.android.emulator.startService"
             interval="1000"
             name="%startServiceName"
             parallelized="true"
@@ -315,29 +315,29 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%startServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.emulator.startService">
+            id="org.eclipse.andmore.android.emulator.startService">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.offlineNoData"
-               startId="com.motorola.studio.android.emulator.status.offlineNoData">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.offlineNoData"
+               startId="org.eclipse.andmore.android.emulator.status.offlineNoData">
          </status>
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.offline"
-               startId="com.motorola.studio.android.emulator.status.offline">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.offline"
+               startId="org.eclipse.andmore.android.emulator.status.offline">
          </status></service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.skin.android.androidSkin"
+         id="org.eclipse.andmore.android.emulator.skin.android.androidSkin"
          name=""
-         point="com.motorola.studio.android.emulator.skin">
+         point="org.eclipse.andmore.android.emulator.skin">
       <skinInfo
             class="org.eclipse.andmore.android.emulator.skin.android.AndroidSkin"
-            skinId="com.motorola.studio.android.emulator.skin.android.androidSkin"
+            skinId="org.eclipse.andmore.android.emulator.skin.android.androidSkin"
             skinName="Android Google Skin">
       </skinInfo>
    </extension>
@@ -346,10 +346,10 @@
       <perspectiveExtension
             targetID="org.eclipse.debug.ui.DebugPerspective">
          <viewShortcut
-               id="com.motorola.studio.android.emulator.androidView">
+               id="org.eclipse.andmore.android.emulator.androidView">
          </viewShortcut>
          <view
-               id="com.motorola.studio.android.emulator.androidView"
+               id="org.eclipse.andmore.android.emulator.androidView"
                minimized="false"
                ratio="0.7"
                relationship="stack"
@@ -363,32 +363,32 @@
          point="org.eclipse.ui.views">
       <view
             category="studioAndroidViewCategory"
-            class="com.motorola.studio.android.emulator.ui.view.AndroidView"
+            class="org.eclipse.andmore.android.emulator.ui.view.AndroidView"
             icon="resource/emulator.png"
-            id="com.motorola.studio.android.emulator.androidView"
+            id="org.eclipse.andmore.android.emulator.androidView"
             name="%androidEmulatorViewName">
       </view>      
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="com.motorola.studio.android.emulator.ui.handlers.ChangeZoomHandler"
-            commandId="com.motorola.studio.android.emulator.ui.change.zoom">
+            class="org.eclipse.andmore.android.emulator.ui.handlers.ChangeZoomHandler"
+            commandId="org.eclipse.andmore.android.emulator.ui.change.zoom">
       </handler>
       <handler
-            class="com.motorola.studio.android.emulator.ui.handlers.ZoomInOutHandler"
-            commandId="com.motorola.studio.android.emulator.ui.zoomInOut">
+            class="org.eclipse.andmore.android.emulator.ui.handlers.ZoomInOutHandler"
+            commandId="org.eclipse.andmore.android.emulator.ui.zoomInOut">
       </handler>
       <handler
-            class="com.motorola.studio.android.emulator.ui.handlers.ShowViewHandler"
-            commandId="com.motorola.studio.android.emulator.ui.show.android.emulator.view">
+            class="org.eclipse.andmore.android.emulator.ui.handlers.ShowViewHandler"
+            commandId="org.eclipse.andmore.android.emulator.ui.show.android.emulator.view">
       </handler>
       <!--handler
-            class="com.motorola.studio.android.emulator.ui.handlers.ChangeEmulatorOrientationHandler"
+            class="org.eclipse.andmore.android.emulator.ui.handlers.ChangeEmulatorOrientationHandler"
             commandId="changeEmulatorOrientationCommand">
       </handler-->
       <handler
-            class="com.motorola.studio.android.emulator.ui.handlers.ChangeEmulatorOrientationHandler"
+            class="org.eclipse.andmore.android.emulator.ui.handlers.ChangeEmulatorOrientationHandler"
             commandId="switchToNextLayoutCommand">
       </handler>  
    </extension>
@@ -397,7 +397,7 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            id="com.motorola.studio.android.emulator.ui.show.android.emulator.view"
+            id="org.eclipse.andmore.android.emulator.ui.show.android.emulator.view"
             name="%androidEmulatorViewName">
          <commandParameter
                id="activeViewId"
@@ -415,7 +415,7 @@
          </commandParameter>
       </command>
       <command
-            id="com.motorola.studio.android.emulator.ui.zoomInOut"
+            id="org.eclipse.andmore.android.emulator.ui.zoomInOut"
             name="%submenuZoom">
          <commandParameter
                id="activeViewId"
@@ -429,7 +429,7 @@
          </commandParameter>
       </command>
       <command
-            id="com.motorola.studio.android.emulator.ui.change.zoom"
+            id="org.eclipse.andmore.android.emulator.ui.change.zoom"
             name="%submenuZoom">
          <commandParameter
                id="activeViewId"
@@ -448,16 +448,16 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:com.motorola.studio.android.emulator.androidView">
+            locationURI="menu:org.eclipse.andmore.android.emulator.androidView">
          <menu
                label="%submenuZoom">
                         <command
-                              commandId="com.motorola.studio.android.emulator.ui.change.zoom"
+                              commandId="org.eclipse.andmore.android.emulator.ui.change.zoom"
                               label="%menuZoom25"
                               style="radio">
                            <parameter
                                  name="activeViewId"
-                                 value="com.motorola.studio.android.emulator.androidView">
+                                 value="org.eclipse.andmore.android.emulator.androidView">
                            </parameter>
                            <parameter
                                  name="zoomFactor"
@@ -465,12 +465,12 @@
                            </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.change.zoom"
+               commandId="org.eclipse.andmore.android.emulator.ui.change.zoom"
                label="%menuZoom50"
                style="radio">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomFactor"
@@ -478,12 +478,12 @@
             </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.change.zoom"
+               commandId="org.eclipse.andmore.android.emulator.ui.change.zoom"
                label="%menuZoom75"
                style="radio">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomFactor"
@@ -491,12 +491,12 @@
             </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.change.zoom"
+               commandId="org.eclipse.andmore.android.emulator.ui.change.zoom"
                label="%menuZoom100"
                style="radio">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomFactor"
@@ -504,12 +504,12 @@
             </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.change.zoom"
+               commandId="org.eclipse.andmore.android.emulator.ui.change.zoom"
                label="%menuZoomFit"
                style="radio">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomFactor"
@@ -522,13 +522,13 @@
          </separator>         
                   
           <command
-               commandId="com.motorola.studio.android.emulator.ui.zoomInOut"
+               commandId="org.eclipse.andmore.android.emulator.ui.zoomInOut"
                icon="resource/zoom-in.png"
                label="%menuZoomIn"
                style="push">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomChangeFactor"
@@ -536,13 +536,13 @@
             </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.zoomInOut"
+               commandId="org.eclipse.andmore.android.emulator.ui.zoomInOut"
                icon="resource/zoom-out.png"
                label="%menuZoomOut"
                style="push">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomChangeFactor"
@@ -563,22 +563,22 @@
                tooltip="%toolbarSwitchLayout">
                <parameter
                    name="activeViewId"
-                   value="com.motorola.studio.android.emulator.androidView">
+                   value="org.eclipse.andmore.android.emulator.androidView">
                </parameter>
          </command>
       </menuContribution>
       
       
       <menuContribution
-            locationURI="toolbar:com.motorola.studio.android.emulator.androidView">
+            locationURI="toolbar:org.eclipse.andmore.android.emulator.androidView">
          <command
-               commandId="com.motorola.studio.android.emulator.ui.zoomInOut"
+               commandId="org.eclipse.andmore.android.emulator.ui.zoomInOut"
                icon="resource/zoom-in.png"
                label="%menuZoomIn"
                style="push">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomChangeFactor"
@@ -586,13 +586,13 @@
             </parameter>
          </command>
          <command
-               commandId="com.motorola.studio.android.emulator.ui.zoomInOut"
+               commandId="org.eclipse.andmore.android.emulator.ui.zoomInOut"
                icon="resource/zoom-out.png"
                label="%menuZoomOut"
                style="push">
             <parameter
                   name="activeViewId"
-                  value="com.motorola.studio.android.emulator.androidView">
+                  value="org.eclipse.andmore.android.emulator.androidView">
             </parameter>
             <parameter
                   name="zoomChangeFactor"
@@ -612,7 +612,7 @@
                tooltip="%toolbarSwitchLayout">
                <parameter
                    name="activeViewId"
-                   value="com.motorola.studio.android.emulator.androidView">
+                   value="org.eclipse.andmore.android.emulator.androidView">
                </parameter>
          </command>
       </menuContribution>
@@ -620,7 +620,7 @@
          <extension
                point="org.eclipse.ui.newWizards">
             <category
-                  id="com.motorola.studio.android.emulator.ui.wizardCategory"
+                  id="org.eclipse.andmore.android.emulator.ui.wizardCategory"
                   name="%android.emulator.wizard.category">
             </category>
          </extension>

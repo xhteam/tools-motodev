@@ -26,7 +26,7 @@ public class MatNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.mat.i18n.matNLS", MatNLS.class);
+        NLS.initializeMessages("org.eclipse.andmore.android.mat.i18n.matNLS", MatNLS.class);
     }
 
     /*

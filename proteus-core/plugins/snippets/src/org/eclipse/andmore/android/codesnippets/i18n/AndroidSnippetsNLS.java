@@ -28,7 +28,7 @@ public class AndroidSnippetsNLS extends NLS
      * It refers to messages.properties file inside this package
      */
     private static final String BUNDLE_NAME =
-            "com.motorola.studio.android.codesnippets.i18n.androidSnippetsNLS";
+            "org.eclipse.andmore.android.codesnippets.i18n.androidSnippetsNLS";
 
     static
     {

@@ -47,13 +47,13 @@ public class SequoyahInstanceBackward implements IStartup
         for (IInstance oldInstance : instances)
         {
             if (oldInstance.getDeviceTypeId().equals(
-                    "com.motorola.studio.android.emulator.device.androidDevice"))
+                    "org.eclipse.andmore.android.emulator.device.androidDevice"))
             {
                 try
                 {
                     InstanceRegistry.getInstance().addInstance(
                             InstanceManager.createInstance(oldInstance.getName(),
-                                    "com.motorola.studio.android.emulator.androidDevice",
+                                    "org.eclipse.andmore.android.emulator.androidDevice",
                                     DevicePlugin.SEQUOYAH_STATUS_OFF, oldInstance.getProperties()));
                     InstanceRegistry.getInstance().removeInstance(oldInstance);
                 }

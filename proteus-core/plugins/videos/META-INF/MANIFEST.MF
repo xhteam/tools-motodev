@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.videos; singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.videos;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.videos.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.net,
- com.motorola.studio.android,
+ org.eclipse.andmore.android,
  org.eclipse.ui.net,
- com.motorola.studio.android.common
+ org.eclipse.andmore.android.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy

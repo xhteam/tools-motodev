@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.motorola.studio.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.motorola.studio.android.emulator" id="skin" name="Android Emulator Skin"/>
+         <meta.schema plugin="org.eclipse.andmore.android.emulator" id="skin" name="Android Emulator Skin"/>
       </appInfo>
       <documentation>
          
@@ -69,7 +69,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.motorola.studio.android.emulator.core.skin.IAndroidSkin"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin"/>
                </appInfo>
             </annotation>
          </attribute>

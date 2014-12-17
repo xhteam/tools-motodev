@@ -30,7 +30,7 @@
    <extension
          point="org.eclipse.debug.core.launchDelegates">
       <launchDelegate
-            delegate="com.motorola.studio.android.launch.StudioAndroidConfigurationDelegate"
+            delegate="org.eclipse.andmore.android.launch.StudioAndroidConfigurationDelegate"
             delegateDescription="%launchDelegate.description"
             id="androidLaunchDelegate"
             modes="run, debug"
@@ -43,7 +43,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="com.motorola.studio.android.launch.ui.LaunchConfigurationTabGroup"
+            class="org.eclipse.andmore.android.launch.ui.LaunchConfigurationTabGroup"
             description="%launchTabGroup.description"
             id="androidLaunchConfigurationTabGroup"
             type="androidLaunchConfigurationType">
@@ -60,9 +60,9 @@
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
-            class="com.motorola.studio.android.launch.LaunchConfigurationShortcut"
+            class="org.eclipse.andmore.android.launch.LaunchConfigurationShortcut"
             icon="icons/motodevapp.gif"
-            id="com.motorola.studio.android.launch.android.app"
+            id="org.eclipse.andmore.android.launch.android.app"
             label="%launchConfigurationType.name"
             modes="run, debug">
 <contextualLaunch>
@@ -71,7 +71,7 @@
                <count value="1"/>
                <iterate>
                   <and>
-                     <test property="org.eclipse.jdt.launching.hasProjectNature" args="com.android.ide.eclipse.adt.AndroidNature"/>
+                     <test property="org.eclipse.jdt.launching.hasProjectNature" args="org.eclipse.andmore.AndroidNature"/>
                   </and>
                </iterate>
                </with>
@@ -88,13 +88,13 @@
       <command
             categoryId="org.eclipse.debug.ui.category.run"
             description="%command.launchshortcut.run.desc"
-            id="com.motorola.studio.android.launch.android.app.run"
+            id="org.eclipse.andmore.android.launch.android.app.run"
             name="%command.launchshortcut.run.name">
       </command>
       <command
             categoryId="org.eclipse.debug.ui.category.run"
             description="%command.launchshortcut.debug.desc"
-            id="com.motorola.studio.android.launch.android.app.debug"
+            id="org.eclipse.andmore.android.launch.android.app.debug"
             name="%command.launchshortcut.debug.name">
       </command>
    </extension>

@@ -46,7 +46,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
      */
     enum ActionHandlers
     {
-        SIGN_PACKAGE("com.motorolamobility.studio.android.certmanager.core.ui.action.addSignature") //$NON-NLS-1$
+        SIGN_PACKAGE("org.eclipse.andmore.android.certmanager.core.ui.action.addSignature") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -55,7 +55,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
         },
         BACKUP_KEYSTORE(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.backupKeystore") //$NON-NLS-1$
+                "org.eclipse.andmore.android.certmanager.core.ui.action.backupKeystore") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -68,7 +68,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         DELETE_KEYSTORE(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.deleteKeystore") //$NON-NLS-1$
+                "org.eclipse.andmore.android.certmanager.core.ui.action.deleteKeystore") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -78,7 +78,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         PROPERTIES_KEYSTORE(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.certificateProperties") //$NON-NLS-1$
+                "org.eclipse.andmore.android.certmanager.core.ui.action.certificateProperties") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -88,7 +88,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         CHANGE_KEYSTORE_PASSWORD(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.changeKeystorePassword") //$NON-NLS-1$
+                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystorePassword") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -98,7 +98,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         CHANGE_KEY_PASSWORD(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.changeKeyPassword") //$NON-NLS-1$
+                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeyPassword") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -107,7 +107,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        CREATE_KEY("com.motorolamobility.studio.android.certmanager.core.ui.action.createKey") //$NON-NLS-1$
+        CREATE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.createKey") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -116,7 +116,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        DELETE_KEY("com.motorolamobility.studio.android.certmanager.core.ui.action.deleteEntry") //$NON-NLS-1$
+        DELETE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.deleteEntry") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -125,7 +125,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        REFRESH("com.motorolamobility.studio.android.certmanager.core.ui.action.refresh") //$NON-NLS-1$
+        REFRESH("org.eclipse.andmore.android.certmanager.core.ui.action.refresh") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler()
@@ -135,7 +135,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         CHANGE_KEYSTORE_TYPE(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.changeKeystoreType")
+                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystoreType")
         {
             @Override
             public IHandler getHandler()
@@ -144,7 +144,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
         },
         IMPORT_KEYSTORE_ENTRIES(
-                "com.motorolamobility.studio.android.certmanager.core.ui.action.importKeystoreEntries")
+                "org.eclipse.andmore.android.certmanager.core.ui.action.importKeystoreEntries")
         {
             @Override
             public IHandler getHandler()

@@ -34,7 +34,7 @@ public class InstallerPlugin extends AbstractUIPlugin
 
     private static InstallerPlugin plugin;
 
-    public static final String PLUGIN_ID = "com.motorola.studio.android.installer"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.installer"; //$NON-NLS-1$
 
     private static final String CONTRIBUTED_PAGE_EXTENSION_POINT_ID = PLUGIN_ID + ".configuration"; //$NON-NLS-1$
 
@@ -69,7 +69,7 @@ public class InstallerPlugin extends AbstractUIPlugin
 
     private boolean canRegisterPolicy()
     {
-        return "com.motorola.studio.android.product.android".equals(Platform.getProduct().getId());
+        return "org.eclipse.andmore.android.product.android".equals(Platform.getProduct().getId());
     }
 
     /**

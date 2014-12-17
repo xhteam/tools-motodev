@@ -22,7 +22,7 @@ package org.eclipse.andmore.android.emulator.device.definition;
 public interface IAndroidEmuDefConstants
 {
     String EMULATOR_DEFINITION_EXTENSION_POINT =
-            "com.motorola.studio.android.emulator.androidEmulatorDefinition";
+            "org.eclipse.andmore.android.emulator.androidEmulatorDefinition";
 
     String ELEMENT_SKIN = "skin";
 

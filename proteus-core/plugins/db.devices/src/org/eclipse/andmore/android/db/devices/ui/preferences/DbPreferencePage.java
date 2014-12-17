@@ -39,7 +39,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 public class DbPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
 {
 
-    public static final String LEGACY_PLUGIN_ID = "com.motorola.studio.android.db"; //$NON-NLS-1$
+    public static final String LEGACY_PLUGIN_ID = "org.eclipse.andmore.android.db"; //$NON-NLS-1$
 
     public static final String LEGACY_DB_PATH_PREFERENCE = LEGACY_PLUGIN_ID + ".dbstudiopath"; //$NON-NLS-1$
 

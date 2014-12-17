@@ -10,7 +10,7 @@
 		<relativePath>../../</relativePath>
 	</parent>
 	<groupId>us.nineworlds.motodev</groupId>
-	<artifactId>com.motorola.studio.android.installer</artifactId>
+	<artifactId>org.eclipse.andmore.android.installer</artifactId>
 	<version>4.1.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 

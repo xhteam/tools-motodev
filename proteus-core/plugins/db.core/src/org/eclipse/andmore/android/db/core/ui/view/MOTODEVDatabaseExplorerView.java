@@ -63,12 +63,12 @@ import org.eclipse.ui.services.IEvaluationService;
  */
 public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseModelListener
 {
-    public static final String VIEW_ID = "com.motorola.studio.android.db.databaseView"; //$NON-NLS-1$
+    public static final String VIEW_ID = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
     public static final String DB_EXPLORER_VIEW_HELP = DbCoreActivator.PLUGIN_ID + ".dbexplorer"; //$NON-NLS-1$
 
     public static final String DB_EXPLORER_VIEW_CONTR_BROWSE_TABLE_ID =
-            "com.motorolamobility.studio.android.db.core.createTableCommand";
+            "org.eclipse.andmore.android.db.core.createTableCommand";
 
     private TreeViewer treeViewer;
 
@@ -139,7 +139,7 @@ public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseMo
     }
 
     /**
-     * Loads the contributions from extension point com.motorolamobility.studio.android.db.core.dbRootNode
+     * Loads the contributions from extension point org.eclipse.andmore.android.db.core.dbRootNode
      * @return root node (invisible) that contains as children the contributed tree nodes subclassing {@link AbstractTreeNode}. 
      */
     private Object getInitalInput()
@@ -370,7 +370,7 @@ public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseMo
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.event.IDatabaseModelListener#handleNodeExpandEvent(com.motorolamobility.studio.android.db.core.event.DatabaseModelEvent)
+     * @see org.eclipse.andmore.android.db.core.event.IDatabaseModelListener#handleNodeExpandEvent(org.eclipse.andmore.android.db.core.event.DatabaseModelEvent)
      */
     public void handleNodeExpandEvent(final DatabaseModelEvent databaseModelEvent)
     {
@@ -388,7 +388,7 @@ public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseMo
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.event.IDatabaseModelListener#handleNodeSelectEvent(com.motorolamobility.studio.android.db.core.event.DatabaseModelEvent)
+     * @see org.eclipse.andmore.android.db.core.event.IDatabaseModelListener#handleNodeSelectEvent(org.eclipse.andmore.android.db.core.event.DatabaseModelEvent)
      */
     public void handleNodeSelectEvent(final DatabaseModelEvent databaseModelEvent)
     {

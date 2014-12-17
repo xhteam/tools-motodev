@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.mat;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.mat;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.mat.Activator
 Bundle-Vendor: %providerName
@@ -11,8 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sequoyah.device.framework,
  org.eclipse.sequoyah.device.common.utilities,
  org.eclipse.core.resources,
- com.motorola.studio.android,
- com.motorola.studio.android.emulator
+ org.eclipse.andmore.android,
+ org.eclipse.andmore.android.emulator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin

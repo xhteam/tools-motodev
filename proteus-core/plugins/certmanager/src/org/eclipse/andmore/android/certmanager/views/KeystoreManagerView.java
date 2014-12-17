@@ -59,7 +59,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
     /**
      * The ID of the view as specified by the extension.
      */
-    public static final String ID = "com.motorola.studio.android.packaging.ui.signingview"; //$NON-NLS-1$
+    public static final String ID = "org.eclipse.andmore.android.packaging.ui.signingview"; //$NON-NLS-1$
 
     private TreeViewer viewer;
 
@@ -134,7 +134,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
                 .getWorkbench()
                 .getHelpSystem()
                 .setHelp(viewer.getControl(),
-                        "com.motorolamobility.studio.android.certmanager.viewer"); //$NON-NLS-1$
+                        "org.eclipse.andmore.android.certmanager.viewer"); //$NON-NLS-1$
 
         hookContextMenu();
 
@@ -203,7 +203,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.event.IKeyStoreModelListener#handleNodeAdditionEvent(com.motorolamobility.studio.android.certmanager.event.KeyStoreModelEvent)
+     * @see org.eclipse.andmore.android.certmanager.event.IKeyStoreModelListener#handleNodeAdditionEvent(org.eclipse.andmore.android.certmanager.event.KeyStoreModelEvent)
      */
     @Override
     public void handleNodeAdditionEvent(final KeyStoreModelEvent keyStoreModeEvent)
@@ -251,7 +251,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.event.IKeyStoreModelListener#handleNodeRemovalEvent(com.motorolamobility.studio.android.certmanager.event.KeyStoreModelEvent)
+     * @see org.eclipse.andmore.android.certmanager.event.IKeyStoreModelListener#handleNodeRemovalEvent(org.eclipse.andmore.android.certmanager.event.KeyStoreModelEvent)
      */
     @Override
     public void handleNodeRemovalEvent(final KeyStoreModelEvent keyStoreModeEvent)
@@ -274,7 +274,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.event.IKeyStoreModelListener#handleNodeUpdateEvent(com.motorolamobility.studio.android.certmanager.event.KeyStoreModelEvent)
+     * @see org.eclipse.andmore.android.certmanager.event.IKeyStoreModelListener#handleNodeUpdateEvent(org.eclipse.andmore.android.certmanager.event.KeyStoreModelEvent)
      */
     @Override
     public void handleNodeUpdateEvent(final KeyStoreModelEvent keyStoreModeEvent)

@@ -173,7 +173,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore
     /*
      * (non-Javadoc)
      * 
-     * @see com.motorolamobility.studio.android.certmanager.ui.model.IKeyStore#
+     * @see org.eclipse.andmore.android.certmanager.ui.model.IKeyStore#
      * getKeyStore()
      */
     public KeyStore getKeyStore(boolean load) throws KeyStoreManagerException

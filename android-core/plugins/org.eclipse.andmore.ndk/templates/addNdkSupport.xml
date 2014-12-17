@@ -7,7 +7,7 @@
 	label="Add Android NDK Support"
 	description="Adds NDK support to Android Java projects"
 	help="help.html">
-	<process type="com.android.ide.eclipse.ndk.SetFolders">
+	<process type="org.eclipse.andmore.ndk.SetFolders">
 		<simple name="projectName" value="$(projectName)"/>
 		<simple-array name="sourceFolders">
 			<element value="jni"/>
@@ -17,7 +17,7 @@
 			<element value="libs"/>
 		</simple-array>
 	</process>
-	<process type="com.android.ide.eclipse.ndk.SimpleFile">
+	<process type="org.eclipse.andmore.ndk.SimpleFile">
 		<simple name="projectName" value="$(projectName)"/>
 		<complex-array name="files">
 			<element>

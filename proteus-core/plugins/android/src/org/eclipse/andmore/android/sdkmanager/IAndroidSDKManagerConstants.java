@@ -17,7 +17,7 @@ package org.eclipse.andmore.android.sdkmanager;
 
 public interface IAndroidSDKManagerConstants
 {
-    String EMULATOR_OPTION_PREFERENCE_KEY = "com.android.ide.eclipse.adt.emuOptions";
+    String EMULATOR_OPTION_PREFERENCE_KEY = "org.eclipe.andmore.emuOptions";
 
     String EMULATOR_OPTION_PREFERENCE_INITIAL_VALUE = "-no-window";
 

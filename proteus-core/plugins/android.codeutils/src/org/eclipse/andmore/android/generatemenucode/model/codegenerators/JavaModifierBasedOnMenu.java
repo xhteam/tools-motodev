@@ -35,7 +35,7 @@ public class JavaModifierBasedOnMenu extends JavaCodeModifier
     }
 
     /**
-     * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#populateListOfCodeGenerators(org.eclipse.andmore.android.generatecode.AbstractCodeGeneratorData)
+     * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#populateListOfCodeGenerators("org.eclipse.andmore.android.generatecode.AbstractCodeGeneratorData)
      */
     @Override
     public List<AbstractCodeGenerator> populateListOfCodeGenerators(

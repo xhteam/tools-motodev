@@ -929,7 +929,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
             public void widgetSelected(SelectionEvent e)
             {
                 EclipseUtils.openPreference(prefPageLink.getShell(),
-                        "com.motorola.studio.android.localization.translators.preferencepage"); //$NON-NLS-1$
+                        "org.eclipse.andmore.android.localization.translators.preferencepage"); //$NON-NLS-1$
                 dialog.validate();
             }
         });

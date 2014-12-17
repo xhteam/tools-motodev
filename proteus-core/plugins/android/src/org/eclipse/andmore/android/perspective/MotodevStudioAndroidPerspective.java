@@ -50,7 +50,7 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
     private static String VIEW_OUTLINE = "org.eclipse.ui.views.ContentOutline";
 
     private static String VIEW_ANDROID_EMULATOR =
-            "com.motorola.studio.android.emulator.androidView";
+            "org.eclipse.andmore.android.emulator.androidView";
 
     private static String VIEW_SNIPPETS =
             "org.eclipse.wst.common.snippets.internal.ui.SnippetsView";
@@ -58,20 +58,20 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
     // DDMS Views
 
     private static String DDMSVIEW_EMULATOR_CONTROL =
-            "com.android.ide.eclipse.ddms.views.EmulatorControlView";
+            "org.eclipse.andmore.ddms.views.EmulatorControlView";
 
-    private static String DDMSVIEW_LOGCAT = "com.android.ide.eclipse.ddms.views.LogCatView";
+    private static String DDMSVIEW_LOGCAT = "org.eclipse.andmore.ddms.views.LogCatView";
 
     private static String DDMSVIEW_FILE_EXPLORER =
-            "com.android.ide.eclipse.ddms.views.FileExplorerView";
+            "org.eclipse.andmore.ddms.views.FileExplorerView";
 
-    private static String PERSPECTIVE_ANDROID = "com.motorola.studio.android.perspective";
+    private static String PERSPECTIVE_ANDROID = "org.eclipse.andmore.android.perspective";
 
-    private static String PERSPECTIVE_OPHONE = "com.motorola.studio.android.ophone.perspective";
+    private static String PERSPECTIVE_OPHONE = "org.eclipse.andmore.android.ophone.perspective";
 
-    private static String PERSPECTIVE_DDMS = "com.android.ide.eclipse.ddms.Perspective";
+    private static String PERSPECTIVE_DDMS = "org.eclipse.andmore.ddms.Perspective";
 
-    private static String PERSPECTIVE_EMULATOR = "com.motorola.studio.android.emulator.perspective";
+    private static String PERSPECTIVE_EMULATOR = "org.eclipse.andmore.android.emulator.perspective";
 
     private static String PERSPECTIVE_DEBUG = "org.eclipse.debug.ui.DebugPerspective";
 
@@ -80,27 +80,27 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
     private static String VIEW_TML_DEV_MGT =
             "org.eclipse.sequoyah.device.framework.ui.InstanceMgtView";
 
-    private static String WIZARD_PROJECT = "com.motorola.studio.android.wizards.newProjectWizard";
+    private static String WIZARD_PROJECT = "org.eclipse.andmore.android.wizards.newProjectWizard";
 
     private static String WIZARD_WIDGET_PROJECT =
-            "com.motorola.studio.android.wizards.newWidgetProjectWizard";
+            "org.eclipse.andmore.android.wizards.newWidgetProjectWizard";
 
-    private static String WIZARD_ACTIVITY = "com.motorola.studio.android.wizards.newActivityWizard";
+    private static String WIZARD_ACTIVITY = "org.eclipse.andmore.android.wizards.newActivityWizard";
 
     private static String WIZARD_ACTIVITY_BASED_ON_TEMPLATE =
-            "com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard";
+            "org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard";
 
-    private static String WIZARD_RECEIVER = "com.motorola.studio.android.wizards.newReceiverWizard";
+    private static String WIZARD_RECEIVER = "org.eclipse.andmore.android.wizards.newReceiverWizard";
 
-    private static String WIZARD_SERVICE = "com.motorola.studio.android.wizards.newServiceWizard";
+    private static String WIZARD_SERVICE = "org.eclipse.andmore.android.wizards.newServiceWizard";
 
-    private static String WIZARD_PROVIDER = "com.motorola.studio.android.wizards.newProviderWizard";
+    private static String WIZARD_PROVIDER = "org.eclipse.andmore.android.wizards.newProviderWizard";
 
     private static String WIZARD_ANDROID_XML =
-            "com.android.ide.eclipse.editors.wizards.NewXmlFileWizard";
+            "org.eclipse.andmore.eclipse.editors.wizards.NewXmlFileWizard";
 
     private static String WIZARD_WIDGET_PROVIDER =
-            "com.motorola.studio.android.wizard.newWidgetProviderWizard";
+            "org.eclipse.andmore.android.wizard.newWidgetProviderWizard";
 
     private static String WIZARD_JAVA_PACKAGE =
             "org.eclipse.jdt.ui.wizards.NewPackageCreationWizard";
@@ -113,7 +113,7 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory
     private static String WIZARD_NEW_FOLDER = "org.eclipse.ui.wizards.new.folder";
 
     private static String VIEW_APPLICATION_SIGNING_TOOL =
-            "com.motorola.studio.android.packaging.ui.signingview";
+            "org.eclipse.andmore.android.packaging.ui.signingview";
 
     private static final String STUDIO_INFO_INITIAL_PAGE_PROPERTY = "studio.android.initial.page";
 

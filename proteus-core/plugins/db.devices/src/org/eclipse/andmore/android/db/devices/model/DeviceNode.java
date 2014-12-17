@@ -91,7 +91,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#canRefresh()
      */
     @Override
     public IStatus canRefresh()
@@ -120,7 +120,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -207,7 +207,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -242,7 +242,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#saveState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void saveState(IEclipsePreferences preferences)
     {
@@ -255,7 +255,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
+     * @see org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode#restoreState(org.eclipse.core.runtime.preferences.IEclipsePreferences)
      */
     public void restoreState(IEclipsePreferences preferences)
     {
@@ -368,7 +368,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
      */
     @Override
     public void cleanUp()

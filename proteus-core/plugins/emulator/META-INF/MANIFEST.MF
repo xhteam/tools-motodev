@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.emulator;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.emulator;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.emulator.EmulatorPlugin
 Bundle-Vendor: %providerName
@@ -9,8 +9,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.andmore,
  org.eclipse.andmore.ddms,
- com.motorola.studio.android,
- com.motorola.studio.android.common,
+ org.eclipse.andmore.android,
+ org.eclipse.andmore.android.common,
  org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.net,

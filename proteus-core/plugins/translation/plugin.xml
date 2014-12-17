@@ -5,9 +5,9 @@
    <extension 
          point="org.eclipse.ui.preferencePages">
        <page
-             category="com.motorola.studio.platform.ui.preference"
-             class="com.motorola.studio.android.localization.translators.preferences.ui.TranslationPreferencePage"
-             id="com.motorola.studio.android.localization.translators.preferencepage"
+             category="org.eclipse.andmore.platform.ui.preference"
+             class="org.eclipse.andmore.android.localization.translators.preferences.ui.TranslationPreferencePage"
+             id="org.eclipse.andmore.android.localization.translators.preferencepage"
              name="%preferencePageName">
        </page>
    </extension>
@@ -18,7 +18,7 @@
          point="org.eclipse.sequoyah.localization.tools.translator">
       <translator
             brandingImage="icons/google-branding.png"
-            class="com.motorola.studio.android.localization.translators.GoogleTranslator"
+            class="org.eclipse.andmore.android.localization.translators.GoogleTranslator"
             name="%translator.google">
       </translator>
    </extension>

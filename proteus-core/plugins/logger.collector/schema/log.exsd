@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.motorolamobility.studio.android.logger.collector" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.android.logger.collector" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.motorolamobility.studio.android.logger.collector" id="com.motorola.studio.android.logger.collector.log" name="Logger Collector Log File"/>
+         <meta.schema plugin="org.eclipse.andmore.android.logger.collector" id="org.eclipse.andmore.android.logger.collector.log" name="Logger Collector Log File"/>
       </appInfo>
       <documentation>
          This extension point allow developer to contribute to the logs that will be packed within Collect Log files feature

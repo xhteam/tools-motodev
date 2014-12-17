@@ -287,7 +287,7 @@ public class MotodevHProfDumpHandler extends BaseFileHandler implements IHprofDu
                     IWorkbench workbench = PlatformUI.getWorkbench();
                     IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();
                     EclipseUtils.openPreference(ww.getShell(),
-                            "com.android.ide.eclipse.ddms.preferences.PreferencePage"); //$NON-NLS-1$
+                            "org.eclipe.andmore.ddms.preferences.PreferencePage"); //$NON-NLS-1$
                 }
             }
         });

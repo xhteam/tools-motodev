@@ -23,7 +23,7 @@ public class CodeSnippetsPlugin extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.codesnippets"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.codesnippets"; //$NON-NLS-1$
 
     // The shared instance
     private static CodeSnippetsPlugin plugin;

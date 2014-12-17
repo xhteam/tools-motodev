@@ -36,12 +36,12 @@ public class LoggerCollectorConstants
     /**
      * The plug-in ID
      */
-    public static final String PLUGIN_ID = "com.motorolamobility.studio.android.logger.collector"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.logger.collector"; //$NON-NLS-1$
 
     // The plugin path location
     private static final String PLUGIN_LOCATION = File.separator + ".metadata" //$NON-NLS-1$
             + File.separator + ".plugins" + File.separator //$NON-NLS-1$
-            + "com.motorolamobility.studio.android.logger"; //$NON-NLS-1$
+            + "org.eclipse.andmore.android.logger"; //$NON-NLS-1$
 
     // The absolute logger files path
     public static final String LOG_PATH = Platform.getLocation() + PLUGIN_LOCATION;

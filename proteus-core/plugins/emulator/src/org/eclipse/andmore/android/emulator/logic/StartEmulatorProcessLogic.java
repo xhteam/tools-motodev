@@ -76,7 +76,7 @@ public class StartEmulatorProcessLogic implements IAndroidLogic
 
     private static final String PROXY_HTTP = "http://";
 
-    private static final String EMULATOR_VIEW = "com.motorola.studio.android.emulator.androidView";
+    private static final String EMULATOR_VIEW = "org.eclipse.andmore.android.emulator.androidView";
 
     // Strings used to build the command line for launching the emulator process
     private static final String ARM_EMULATOR_RELATIVE_PATH = "/tools/emulator-arm";

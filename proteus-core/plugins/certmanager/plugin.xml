@@ -24,7 +24,7 @@
             category="studioAndroidViewCategory"
             class="com.motorolamobility.studio.android.certmanager.views.KeystoreManagerView"
             icon="icons/view_icon.png"
-            id="com.motorola.studio.android.packaging.ui.signingview"
+            id="org.eclipse.andmore.android.packaging.ui.signingview"
             name="%certificate_manager_view_name"
             restorable="true">
       </view>
@@ -34,10 +34,10 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <viewShortcut
-               id="com.motorola.studio.android.packaging.ui.signingview">
+               id="org.eclipse.andmore.android.packaging.ui.signingview">
          </viewShortcut>
          <view
-               id="com.motorola.studio.android.packaging.ui.signingview"
+               id="org.eclipse.andmore.android.packaging.ui.signingview"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.views.ProblemView"
@@ -48,7 +48,7 @@
    <extension point="org.eclipse.ui.menus">         
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:com.motorola.studio.android.packaging.ui.signingview">
+            locationURI="toolbar:org.eclipse.andmore.android.packaging.ui.signingview">
          <command
                commandId="com.motorolamobility.studio.android.certmanager.refresh"
                icon="icons/refresh.png"
@@ -166,7 +166,7 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="com.motorola.studio.android.packaging.ui.signingview">
+            locationURI="org.eclipse.andmore.android.packaging.ui.signingview">
       </menuContribution>
    </extension>
    <extension

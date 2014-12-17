@@ -38,7 +38,7 @@ import org.eclipse.osgi.util.NLS;
 import org.osgi.framework.Bundle;
 
 /**
- * Node abstraction to be contributed/implemented through extension point com.motorolamobility.studio.android.db.core.dbRootNode.
+ * Node abstraction to be contributed/implemented through extension point org.eclipse.andmore.android.db.core.dbRootNode.
  */
 public abstract class AbstractTreeNode implements ITreeNode
 {
@@ -46,18 +46,18 @@ public abstract class AbstractTreeNode implements ITreeNode
      * Property value used to check if the node has an error status.
      */
     public static final String PROP_VALUE_NODE_STATUS_ERROR =
-            "com.motorolamobility.studio.android.db.core.nodeStatusError"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.nodeStatusError"; //$NON-NLS-1$
 
     /**
      * Property name used to test the status of the node. 
      */
     public static final String PROP_NAME_NODE_STATUS =
-            "com.motorolamobility.studio.android.db.core.nodeStatus"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.nodeStatus"; //$NON-NLS-1$
 
     private static final String DEFAULT_ICON_PATH = "icons/obj16/plate16.png"; //$NON-NLS-1$
 
     /*
-     * id, name, and icon will come from extension point com.motorolamobility.studio.android.db.core.dbRootNode
+     * id, name, and icon will come from extension point org.eclipse.andmore.android.db.core.dbRootNode
      */
     private String id;
 
@@ -83,7 +83,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     /**
      * Default constructor
      * 
-     * Warning: If the node comes is declared through extension point com.motorolamobility.studio.android.db.core.dbRootNode
+     * Warning: If the node comes is declared through extension point org.eclipse.andmore.android.db.core.dbRootNode
      * this constructor is mandatory to exist and be the unique to be used.
      */
     public AbstractTreeNode()
@@ -146,7 +146,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#refresh()
      */
     public abstract void refresh();
 
@@ -159,7 +159,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getParent()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getParent()
      */
     public ITreeNode getParent()
     {
@@ -167,7 +167,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setParent(com.motorolamobility.studio.android.db.core.ui.ITreeNode)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setParent(org.eclipse.andmore.android.db.core.ui.ITreeNode)
      */
     public void setParent(ITreeNode parent)
     {
@@ -175,7 +175,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getChildren()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getChildren()
      */
     public List<ITreeNode> getChildren()
     {
@@ -183,7 +183,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#clear()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#clear()
      */
     public void clear()
     {
@@ -197,7 +197,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getChild(int)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getChild(int)
      */
     public ITreeNode getChild(int index)
     {
@@ -205,7 +205,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getChildById(String)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getChildById(String)
      */
     public ITreeNode getChildById(String id)
     {
@@ -222,7 +222,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getFilteredChildren(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getFilteredChildren(java.lang.String)
      */
     public List<ITreeNode> getFilteredChildren(String regex)
     {
@@ -245,7 +245,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#putChild(java.lang.String, com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#putChild(java.lang.String, org.eclipse.andmore.android.db.core.ui.AbstractTreeNode)
      */
     public void putChild(ITreeNode treeNode)
     {
@@ -257,7 +257,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#putChildren(java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#putChildren(java.util.List)
      */
     public void putChildren(List<ITreeNode> childrenList)
     {
@@ -265,7 +265,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#removeChild(ITreeNode)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#removeChild(ITreeNode)
      */
     public void removeChild(ITreeNode node)
     {
@@ -276,7 +276,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#isLoading()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#isLoading()
      */
     public boolean isLoading()
     {
@@ -284,7 +284,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setLoading(boolean)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setLoading(boolean)
      */
     public void setLoading(boolean isLoading)
     {
@@ -292,7 +292,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getId()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getId()
      */
     public String getId()
     {
@@ -300,7 +300,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setId(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setId(java.lang.String)
      */
     public void setId(String id)
     {
@@ -308,7 +308,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getName()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getName()
      */
     public String getName()
     {
@@ -316,7 +316,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setName(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setName(java.lang.String)
      */
     public void setName(String name)
     {
@@ -324,7 +324,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getIcon()
      */
     public ImageDescriptor getIcon()
     {
@@ -365,7 +365,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setIcon(org.eclipse.jface.resource.ImageDescriptor)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setIcon(org.eclipse.jface.resource.ImageDescriptor)
      */
     public void setIcon(ImageDescriptor icon)
     {
@@ -373,7 +373,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#canRefresh()
      */
     public IStatus canRefresh()
     {
@@ -381,7 +381,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#isLeaf()
      */
     public abstract boolean isLeaf();
 
@@ -395,7 +395,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#clean()
      */
     public void cleanUp()
     {
@@ -440,7 +440,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#setTooltip(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#setTooltip(java.lang.String)
      */
     public void setTooltip(String tooltip)
     {
@@ -448,7 +448,7 @@ public abstract class AbstractTreeNode implements ITreeNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITreeNode#getTooltip()
+     * @see org.eclipse.andmore.android.db.core.ui.ITreeNode#getTooltip()
      */
     public String getTooltip()
     {

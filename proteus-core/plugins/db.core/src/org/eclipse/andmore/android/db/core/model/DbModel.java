@@ -82,7 +82,7 @@ public class DbModel
 
     public static final String JDBC_SQLITE_PREFIX = "jdbc:sqlite:"; //$NON-NLS-1$
 
-    public static final String LOCALPATH_PROPERTY = "com.motorola.studio.db.localPathProperty"; //$NON-NLS-1$
+    public static final String LOCALPATH_PROPERTY = "org.eclipse.andmore.db.localPathProperty"; //$NON-NLS-1$
 
     private final IConnectionProfile connProfile;
 

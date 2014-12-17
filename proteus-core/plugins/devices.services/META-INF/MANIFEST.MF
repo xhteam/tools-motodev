@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.devices.services;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.devices.services;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.devices.services.DeviceServicesPlugin
 Bundle-Vendor: %providerName
-Require-Bundle: com.motorola.studio.android,
- com.motorola.studio.android.handset,
- com.motorola.studio.android.emulator,
- com.motorola.studio.android.common,
+Require-Bundle: org.eclipse.andmore.android,
+ org.eclipse.andmore.android.handset,
+ org.eclipse.andmore.android.emulator,
+ org.eclipse.andmore.android.common,
  org.eclipse.sequoyah.device.framework,
  org.eclipse.sequoyah.device.common.utilities,
  org.eclipse.ui.console,

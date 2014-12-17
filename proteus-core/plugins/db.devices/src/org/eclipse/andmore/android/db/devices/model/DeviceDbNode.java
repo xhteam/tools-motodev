@@ -74,7 +74,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     private class ResultManagerListener extends AbstractDbResultManagerAdapter
     {
         /* (non-Javadoc)
-         * @see com.motorolamobility.studio.android.db.core.ui.AbstractDbResultManagerAdapter#statementExecuted(java.lang.String, java.lang.String)
+         * @see org.eclipse.andmore.android.db.core.ui.AbstractDbResultManagerAdapter#statementExecuted(java.lang.String, java.lang.String)
          */
         @Override
         public void statementExecuted(String profilename, String sqlStatement)
@@ -199,7 +199,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#connect()
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#connect()
      */
     @Override
     public IStatus connect()
@@ -292,7 +292,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#disconnect()
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#disconnect()
      */
     @Override
     public IStatus disconnect()
@@ -327,7 +327,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#createTables(java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#createTables(java.util.List)
      */
     @Override
     public IStatus createTables(List<TableModel> tables)
@@ -348,7 +348,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#createTable(com.motorolamobility.studio.android.db.core.model.TableModel)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#createTable(org.eclipse.andmore.android.db.core.model.TableModel)
      */
     @Override
     public IStatus createTable(TableModel table)
@@ -369,7 +369,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#deleteTable(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#deleteTable(java.lang.String)
      */
     @Override
     public IStatus deleteTable(ITableNode tableNode)
@@ -390,7 +390,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#deleteDb()
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#deleteDb()
      */
     @Override
     public IStatus deleteDb()
@@ -414,7 +414,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#canRefresh()
      */
     @Override
     public IStatus canRefresh()
@@ -445,7 +445,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -530,7 +530,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh(boolean)
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh(boolean)
      */
     @Override
     public void refresh(boolean canRefreshYesResponse)
@@ -701,7 +701,7 @@ public class DeviceDbNode extends DbNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.DbNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.DbNode#clean()
      */
     @Override
     public void cleanUp()

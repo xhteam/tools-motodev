@@ -27,7 +27,7 @@ public class DbCoreNLS extends NLS
      * It refers to messages.properties file inside this package
      */
     private static final String BUNDLE_NAME =
-            "com.motorolamobility.studio.android.db.core.i18n.dbcoreNLS"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.i18n.dbcoreNLS"; //$NON-NLS-1$
 
     static
     {

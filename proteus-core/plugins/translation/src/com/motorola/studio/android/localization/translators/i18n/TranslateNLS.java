@@ -23,7 +23,7 @@ public class TranslateNLS extends NLS
     static
     {
         NLS.initializeMessages(
-                "com.motorola.studio.android.localization.translators.i18n.translateNLS", //$NON-NLS-1$
+                "org.eclipse.andmore.android.localization.translators.i18n.translateNLS", //$NON-NLS-1$
                 TranslateNLS.class);
     }
 

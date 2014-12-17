@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.translation;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.translation;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.core.net,
  org.eclipse.jface,
  org.eclipse.sequoyah.localization.tools,
  org.eclipse.ui.workbench,
- com.motorola.studio.android.common,
+ org.eclipse.andmore.android.common,
  org.eclipse.ui.net,
  org.eclipse.sequoyah.localization.android,
  org.eclipse.sequoyah.localization.editor

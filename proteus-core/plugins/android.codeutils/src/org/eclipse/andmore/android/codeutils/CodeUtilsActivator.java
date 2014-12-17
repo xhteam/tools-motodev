@@ -27,10 +27,10 @@ public class CodeUtilsActivator extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.codeutils"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.codeutils"; //$NON-NLS-1$
 
     // Studio for Android Perspective ID
-    public static final String PERSPECTIVE_ID = "com.motorola.studio.android.perspective";
+    public static final String PERSPECTIVE_ID = "org.eclipse.andmore.android.perspective";
 
     // The shared instance
     private static CodeUtilsActivator plugin;

@@ -56,7 +56,7 @@ public class LoggerCollectorWizardPage extends WizardPage
     private Text filenameText = null;
 
     public static final String LOGGER_COLLECTOR_HELP_ID =
-            "com.motorola.studio.platform.logger.collector.collectlogs";
+            "org.eclipse.andmore.platform.logger.collector.collectlogs";
 
     /**
      * Composite used to show the Log File TableColumn.

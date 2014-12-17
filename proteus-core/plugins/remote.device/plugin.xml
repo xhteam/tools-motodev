@@ -26,7 +26,7 @@
             dropSupportHandler="org.eclipse.andmore.android.remote.RemoteDeviceDropSupportHandler"
             handler="org.eclipse.andmore.android.remote.handlers.RemoteDeviceHandler"
             icon="icons/plate16.gif"
-            id="com.motorola.studio.android.remote.androidRemoteDevice"
+            id="org.eclipse.andmore.android.remote.androidRemoteDevice"
             isAbstract="false"
             isPersistent="true"
             label="%remoteDeviceType"
@@ -39,7 +39,7 @@
       <status
             canDeleteInstance="false"
             canEditProperties="false"
-            id="com.motorola.studio.android.remote.status.connected"
+            id="org.eclipse.andmore.android.remote.status.connected"
             image="icons/started-icon-16x16.png"
             name="%connectedStatus">
       </status>
@@ -50,7 +50,7 @@
       <status
             canDeleteInstance="true"
             canEditProperties="true"
-            id="com.motorola.studio.android.remote.status.disconnected"
+            id="org.eclipse.andmore.android.remote.status.disconnected"
             image="icons/stopped-icon-16x16.png"
             name="%disconnectedStatus">
       </status>
@@ -64,7 +64,7 @@
             description="%connectServiceDescription"
             handler="org.eclipse.andmore.android.remote.handlers.ConnectToRemoteHandler"
             icon="icons/start.png"
-            id="com.motorola.studio.android.remote.connectRemoteService"
+            id="org.eclipse.andmore.android.remote.connectRemoteService"
             name="%connectServiceName"
             provider="%providerName"
             version="1.0.0"
@@ -80,7 +80,7 @@
             description="%disconnectServiceDescription"
             handler="org.eclipse.andmore.android.remote.handlers.DisconnectFromRemoteHandler"
             icon="icons/stop.png"
-            id="com.motorola.studio.android.remote.disconnectRemoteService"
+            id="org.eclipse.andmore.android.remote.disconnectRemoteService"
             name="%disconnectServiceName"
             provider="%providerName"
             version="1.0.0"
@@ -96,7 +96,7 @@
             description="%initServiceDescription"
             handler="org.eclipse.andmore.android.remote.handlers.InitRemoteHandler"
             icon="icons/start.png"
-            id="com.motorola.studio.android.remote.initRemoteService"
+            id="org.eclipse.andmore.android.remote.initRemoteService"
             name="%initServiceName"
             provider="%providerName"
             version="1.0.0"
@@ -104,69 +104,69 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.remote.connectRemoteService">
+            id="org.eclipse.andmore.android.remote.connectRemoteService">
          <status
-               endId="com.motorola.studio.android.remote.status.connected"
-               haltId="com.motorola.studio.android.remote.status.disconnected"
-               startId="com.motorola.studio.android.remote.status.disconnected">
+               endId="org.eclipse.andmore.android.remote.status.connected"
+               haltId="org.eclipse.andmore.android.remote.status.disconnected"
+               startId="org.eclipse.andmore.android.remote.status.disconnected">
          </status></service>
    </extension>
    <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.remote.disconnectRemoteService">
+            id="org.eclipse.andmore.android.remote.disconnectRemoteService">
          <status
-               endId="com.motorola.studio.android.remote.status.disconnected"
-               haltId="com.motorola.studio.android.remote.status.connected"
-               startId="com.motorola.studio.android.remote.status.connected">
+               endId="org.eclipse.andmore.android.remote.status.disconnected"
+               haltId="org.eclipse.andmore.android.remote.status.connected"
+               startId="org.eclipse.andmore.android.remote.status.connected">
          </status></service>
    </extension>
    <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.remote.initRemoteService">
+            id="org.eclipse.andmore.android.remote.initRemoteService">
          <status
-               endId="com.motorola.studio.android.remote.status.disconnected"
-               haltId="com.motorola.studio.android.remote.status.disconnected"
+               endId="org.eclipse.andmore.android.remote.status.disconnected"
+               haltId="org.eclipse.andmore.android.remote.status.disconnected"
                startId="OFF">
          </status></service>
    </extension>
    <extension
          point="org.eclipse.sequoyah.device.framework.ui.newDeviceWizardPages">
       <wizardPage
-            id="com.motorola.studio.android.remote.ipPortPage"
+            id="org.eclipse.andmore.android.remote.ipPortPage"
             pageClass="org.eclipse.andmore.android.remote.ui.RemoteDeviceWizardPage">
          <deviceType
-               deviceTypeId="com.motorola.studio.android.remote.androidRemoteDevice">
+               deviceTypeId="org.eclipse.andmore.android.remote.androidRemoteDevice">
          </deviceType>
       </wizardPage>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            class="com.motorola.studio.android.remote.ui.RemoteDevicePropertiesPage"
-            id="com.motorola.studio.android.remote.remoteDevice"
+            class="org.eclipse.andmore.android.remote.ui.RemoteDevicePropertiesPage"
+            id="org.eclipse.andmore.android.remote.remoteDevice"
             name="%remoteDevicePropertyPage">
          <enabledWhen>
             <instanceof
-                  value="com.motorola.studio.android.remote.instance.RemoteDeviceInstance">
+                  value="org.eclipse.andmore.android.remote.instance.RemoteDeviceInstance">
             </instanceof>
          </enabledWhen>
       </page>
    </extension>
    <extension point="org.eclipse.ui.menus">
    <menuContribution locationURI="menu:motorolaMenu?after=otherNewWizardsSeparator">
-       <command commandId="com.motorola.studio.android.device.new.remote.device.wizard" icon="icons/remote_device.png" label="%newRemoteDeviceWizardName" style="push">
+       <command commandId="org.eclipse.andmore.android.device.new.remote.device.wizard" icon="icons/remote_device.png" label="%newRemoteDeviceWizardName" style="push">
        </command>
     </menuContribution>
    </extension>
      <extension point="org.eclipse.ui.commands">
-      <command defaultHandler="com.motorola.studio.android.remote.handlers.OpenNewRemoteDeviceWizardHandler" id="com.motorola.studio.android.device.new.remote.device.wizard" name="%newRemoteDeviceWizardName">
+      <command defaultHandler="org.eclipse.andmore.android.remote.handlers.OpenNewRemoteDeviceWizardHandler" id="org.eclipse.andmore.android.device.new.remote.device.wizard" name="%newRemoteDeviceWizardName">
       </command>
   </extension>
   <!--START WiFi service -->
@@ -179,7 +179,7 @@
             description="%wirelessDescription"
             handler="org.eclipse.andmore.android.remote.handlers.WirelessServiceHandler"
             icon="icons/wireless-16x16.png"
-            id="com.motorola.studio.android.remote.wifi"
+            id="org.eclipse.andmore.android.remote.wifi"
             name="%wirelessServiceName"
             parallelized="false"
             provider="%providerName"
@@ -188,15 +188,15 @@
       </service>
    </extension>
     <extension
-          id="com.motorola.studio.android.handset.androidHandset"
+          id="org.eclipse.andmore.android.handset.androidHandset"
           name="switchtowireless"
           point="org.eclipse.sequoyah.device.framework.serviceDefinition">
        <service
-             id="com.motorola.studio.android.remote.wifi">
+             id="org.eclipse.andmore.android.remote.wifi">
           <status
-                endId="com.motorola.studio.android.handset.status.handsetonline"
-                haltId="com.motorola.studio.android.handset.status.handsetonline"
-                startId="com.motorola.studio.android.handset.status.handsetonline">
+                endId="org.eclipse.andmore.android.handset.status.handsetonline"
+                haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+                startId="org.eclipse.andmore.android.handset.status.handsetonline">
           </status>
        </service>
     </extension>
@@ -212,7 +212,7 @@
             description="%usbModeDescription"
             handler="org.eclipse.andmore.android.remote.handlers.USBModeServiceHandler"
             icon="icons/switch2usb_cable.png"
-            id="com.motorola.studio.android.remote.usbmode"
+            id="org.eclipse.andmore.android.remote.usbmode"
             name="%usbModeServiceName"
             parallelized="false"
             provider="%providerName"
@@ -221,15 +221,15 @@
       </service>
     </extension>
     <extension
-          id="com.motorola.studio.android.remote.androidRemoteDevice"
+          id="org.eclipse.andmore.android.remote.androidRemoteDevice"
           name="switchtousbmode"
           point="org.eclipse.sequoyah.device.framework.serviceDefinition">
        <service
-             id="com.motorola.studio.android.remote.usbmode">
+             id="org.eclipse.andmore.android.remote.usbmode">
           <status
-                endId="com.motorola.studio.android.remote.status.disconnected"
-                haltId="com.motorola.studio.android.remote.status.disconnected"
-                startId="com.motorola.studio.android.remote.status.connected">
+                endId="org.eclipse.andmore.android.remote.status.disconnected"
+                haltId="org.eclipse.andmore.android.remote.status.disconnected"
+                startId="org.eclipse.andmore.android.remote.status.connected">
           </status>
        </service>
     </extension>

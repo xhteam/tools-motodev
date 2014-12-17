@@ -64,7 +64,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
     /**
      * Default constructor.
      * </br></br>
-     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage(org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
+     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage("org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
      * and passing {@code null} and {@link CodeUtilsNLS#UI_CreateSampleDatabaseActivityColumnsPageName Page name} as arguments.
      */
     public CreateSampleDatabaseActivityColumnsPage()
@@ -73,7 +73,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
     }
 
     /**
-     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage(org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
+     * Creates a new instance using {@link org.eclipse.andmore.wizards.buildingblocks.NewLauncherWizardPage#NewLauncherWizardPage("org.eclipse.andmore.android.model.BuildingBlockModel,java.lang.String) NewLauncherWizardPage(BuildingBlockModel, String)}
      * and passing {@code activity} and {@link CodeUtilsNLS#UI_CreateSampleDatabaseActivityColumnsPageName Page name} as arguments.
      * 
      * @param activity an {@code com.motorola.studio.android.model.ActivityBasedOnTemplate} to be used as the building block model. 

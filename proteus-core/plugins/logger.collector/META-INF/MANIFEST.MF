@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MOTODEV Studio Android Log Collector
-Bundle-SymbolicName: com.motorolamobility.studio.android.logger.collector;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.logger.collector;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime

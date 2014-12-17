@@ -46,7 +46,7 @@ public interface IAndroidConstants
 
     String DOT_JAVA = ".java";
 
-    String ANDROID_NATURE = "com.android.ide.eclipse.adt.AndroidNature";
+    String ANDROID_NATURE = "org.eclipe.andmore.AndroidNature";
 
     String CLASS_ACTIVITY = "android.app.Activity";
 

@@ -55,7 +55,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
      */
     enum ActionHandlers
     {
-        CREATE_DB("com.motorolamobility.studio.android.db.core.ui.action.createDbAction") //$NON-NLS-1$
+        CREATE_DB("org.eclipse.andmore.android.db.core.ui.action.createDbAction") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -63,7 +63,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
                 return new DbCreateHandler((IDbCreatorNode) node);
             }
         },
-        CREATE_TABLE("com.motorolamobility.studio.android.db.core.ui.action.createTableAction") //$NON-NLS-1$
+        CREATE_TABLE("org.eclipse.andmore.android.db.core.ui.action.createTableAction") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -71,7 +71,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
                 return new TableCreateHandler((ITableCreatorNode) node);
             }
         },
-        CONNECT("com.motorolamobility.studio.android.db.core.ui.action.connect") //$NON-NLS-1$
+        CONNECT("org.eclipse.andmore.android.db.core.ui.action.connect") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -79,7 +79,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
                 return new DbConnectHandler((IDbNode) node);
             }
         },
-        DISCONNECT("com.motorolamobility.studio.android.db.core.ui.action.disconnect") //$NON-NLS-1$
+        DISCONNECT("org.eclipse.andmore.android.db.core.ui.action.disconnect") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -87,7 +87,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
                 return new DbDisconnectHandler((IDbNode) node);
             }
         },
-        REFRESH_PROJECT("com.motorolamobility.studio.android.db.core.ui.action.refreshProjectNode") //$NON-NLS-1$
+        REFRESH_PROJECT("org.eclipse.andmore.android.db.core.ui.action.refreshProjectNode") //$NON-NLS-1$
         {
 
             @Override
@@ -98,7 +98,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         REFRESH_WORKSPACE(
-                "com.motorolamobility.studio.android.db.core.ui.action.refreshWorkspaceNode") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.core.ui.action.refreshWorkspaceNode") //$NON-NLS-1$
         {
 
             @Override
@@ -109,7 +109,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         REFRESH_FILESYSTEM(
-                "com.motorolamobility.studio.android.db.core.ui.action.refreshFileSystemNode") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.core.ui.action.refreshFileSystemNode") //$NON-NLS-1$
         {
 
             @Override
@@ -119,7 +119,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        REFRESH_DB("com.motorolamobility.studio.android.db.core.ui.action.refreshDbNode") //$NON-NLS-1$
+        REFRESH_DB("org.eclipse.andmore.android.db.core.ui.action.refreshDbNode") //$NON-NLS-1$
         {
 
             @Override
@@ -129,7 +129,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        REFRESH_TABLE("com.motorolamobility.studio.android.db.core.ui.action.refreshTableNode") //$NON-NLS-1$
+        REFRESH_TABLE("org.eclipse.andmore.android.db.core.ui.action.refreshTableNode") //$NON-NLS-1$
         {
 
             @Override
@@ -140,7 +140,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         REFRESH_DB_MAPPER_NODE(
-                "com.motorolamobility.studio.android.db.core.ui.action.refreshDbMapperNode") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.core.ui.action.refreshDbMapperNode") //$NON-NLS-1$
         {
 
             @Override
@@ -150,7 +150,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        DELETE_TABLE("com.motorolamobility.studio.android.db.core.ui.action.deleteTable") //$NON-NLS-1$
+        DELETE_TABLE("org.eclipse.andmore.android.db.core.ui.action.deleteTable") //$NON-NLS-1$
         {
 
             @Override
@@ -160,7 +160,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        DELETE_DATABASE("com.motorolamobility.studio.android.db.core.ui.action.deleteDatabase") //$NON-NLS-1$
+        DELETE_DATABASE("org.eclipse.andmore.android.db.core.ui.action.deleteDatabase") //$NON-NLS-1$
         {
 
             @Override
@@ -171,7 +171,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         BROWSE_TABLE_CONTENTS(
-                "com.motorolamobility.studio.android.db.core.ui.action.browseTableContents") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.core.ui.action.browseTableContents") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -180,7 +180,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
         },
         CREATE_DB_MANAGEMENT_CLASSES(
-                "com.motorolamobility.studio.android.db.core.ui.action.createDatabaseManagementClasses") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.core.ui.action.createDatabaseManagementClasses") //$NON-NLS-1$
         {
             @Override
             public IHandler getHandler(ITreeNode node)
@@ -188,7 +188,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
                 return new CreateDatabaseManagementClassesHandler((IDbNode) node);
             }
         },
-        MAP_DATABASE("com.motorolamobility.studio.android.db.core.ui.action.mapDbNode") //$NON-NLS-1$
+        MAP_DATABASE("org.eclipse.andmore.android.db.core.ui.action.mapDbNode") //$NON-NLS-1$
         {
 
             @Override
@@ -198,7 +198,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        UNMAP_DATABASE("com.motorolamobility.studio.android.db.core.ui.action.unmapDbNode") //$NON-NLS-1$
+        UNMAP_DATABASE("org.eclipse.andmore.android.db.core.ui.action.unmapDbNode") //$NON-NLS-1$
         {
 
             @Override
@@ -208,7 +208,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        SAMPLE_CONTENTS("com.motorolamobility.studio.android.db.core.ui.action.sampleContents") //$NON-NLS-1$
+        SAMPLE_CONTENTS("org.eclipse.andmore.android.db.core.ui.action.sampleContents") //$NON-NLS-1$
         {
 
             @Override
@@ -218,7 +218,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        EXTRACT_DATA("com.motorolamobility.studio.android.db.core.ui.action.extractData") //$NON-NLS-1$
+        EXTRACT_DATA("org.eclipse.andmore.android.db.core.ui.action.extractData") //$NON-NLS-1$
         {
 
             @Override
@@ -228,7 +228,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
             }
 
         },
-        LOAD_DATA("com.motorolamobility.studio.android.db.core.ui.action.loadData") //$NON-NLS-1$
+        LOAD_DATA("org.eclipse.andmore.android.db.core.ui.action.loadData") //$NON-NLS-1$
         {
 
             @Override

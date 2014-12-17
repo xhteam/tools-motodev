@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.motorola.studio.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.motorola.studio.android.emulator" id="deviceFramework" name="Device Framework"/>
+         <meta.schema plugin="org.eclipse.andmore.android.emulator" id="deviceFramework" name="Device Framework"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -55,7 +55,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.motorola.studio.android.emulator.core.devfrm.IDeviceFrameworkSupport"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.android.emulator.core.devfrm.IDeviceFrameworkSupport"/>
                </appInfo>
             </annotation>
          </attribute>

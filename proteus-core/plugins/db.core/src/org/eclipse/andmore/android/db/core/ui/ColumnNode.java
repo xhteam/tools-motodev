@@ -53,7 +53,7 @@ public class ColumnNode extends AbstractTreeNode implements IDataSampler
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -62,7 +62,7 @@ public class ColumnNode extends AbstractTreeNode implements IDataSampler
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -71,7 +71,7 @@ public class ColumnNode extends AbstractTreeNode implements IDataSampler
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
@@ -90,7 +90,7 @@ public class ColumnNode extends AbstractTreeNode implements IDataSampler
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDataSampler#sampleDbContents()
+     * @see org.eclipse.andmore.android.db.core.ui.IDataSampler#sampleDbContents()
      */
     public void sampleDbContents()
     {

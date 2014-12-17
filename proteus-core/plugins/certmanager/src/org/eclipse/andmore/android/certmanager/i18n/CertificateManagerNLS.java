@@ -262,7 +262,7 @@ public class CertificateManagerNLS extends NLS
     static
     {
         NLS.initializeMessages(
-                "com.motorolamobility.studio.android.certmanager.i18n.certificateManagerNLS",
+                "org.eclipse.andmore.android.certmanager.i18n.certificateManagerNLS",
                 CertificateManagerNLS.class);
     }
 

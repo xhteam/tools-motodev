@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.Platform;
 public class LogCollectorExtensionLoader
 {
     private static final String LOGGER_EXTENSION_POINT_ID =
-            "com.motorola.studio.android.logger.collector.log";
+            "org.eclipse.andmore.android.logger.collector.log";
 
     private static final String LOG_FILE_ELEMENT = "logContribution";
 

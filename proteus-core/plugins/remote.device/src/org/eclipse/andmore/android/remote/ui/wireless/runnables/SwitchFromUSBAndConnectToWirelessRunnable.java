@@ -126,7 +126,7 @@ public class SwitchFromUSBAndConnectToWirelessRunnable implements IRunnableWithP
                         remoteDeviceInstance =
                                 (RemoteDeviceInstance) InstanceManager.createInstance(
                                         this.wirelessWizard.getDeviceName(), //$NON-NLS-1$
-                                        "com.motorola.studio.android.remote.androidRemoteDevice", //$NON-NLS-1$
+                                        "org.eclipse.andmore.android.remote.androidRemoteDevice", //$NON-NLS-1$
                                         DevicePlugin.SEQUOYAH_STATUS_OFF,
                                         this.wirelessWizard.getProperties());
                     }

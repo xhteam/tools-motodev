@@ -46,7 +46,7 @@ public class JavaQuickAssistant implements org.eclipse.jdt.ui.text.java.IQuickAs
         //    <enablement>
         //        <with variable="projectNatures">
         //            <iterate operator="or">
-        //                <equals value="com.android.ide.eclipse.adt.AndroidNature"/>
+        //                <equals value="org.eclipe.andmore.AndroidNature"/>
         //            </iterate>
         //        </with>
         //    </enablement>

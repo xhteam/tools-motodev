@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.android.ide.eclipse.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.android.ide.eclipse.ddms" id="debuggerConnector" name="Debugger Connector"/>
+         <meta.schema plugin="org.eclipse.andmore.ddms" id="debuggerConnector" name="Debugger Connector"/>
       </appInfo>
       <documentation>
          Extension Point to provide a way to connect a debugger to a VM running on a connected device.
@@ -20,7 +20,7 @@ The goal of the extension is to identify which project in the workspace matches 
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.android.ide.eclipse.ddms.IDebuggerConnector"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.ddms.IDebuggerConnector"/>
                </appInfo>
             </annotation>
          </attribute>

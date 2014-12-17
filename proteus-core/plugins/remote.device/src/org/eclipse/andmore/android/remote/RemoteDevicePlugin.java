@@ -50,7 +50,7 @@ import org.osgi.framework.BundleContext;
 public class RemoteDevicePlugin extends AbstractUIPlugin
 {
 
-    public static final String PLUGIN_ID = "com.motorola.studio.android.remote";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.remote";
 
     /**
      *  The ID of the device declared by this plug-in

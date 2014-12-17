@@ -23,7 +23,7 @@ import org.eclipse.osgi.util.NLS;
 public class DbDevicesNLS extends NLS
 {
     private static final String BUNDLE_NAME =
-            "com.motorolamobility.studio.android.db.devices.i18n.messages"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.devices.i18n.messages"; //$NON-NLS-1$
 
     public static String ApplicationNode_ConnectedDbs_Refresh_Message;
 

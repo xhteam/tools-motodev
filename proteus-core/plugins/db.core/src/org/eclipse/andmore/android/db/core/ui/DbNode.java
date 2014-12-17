@@ -49,42 +49,42 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     /**
      * Properties name space.
      */
-    public static final String PROP_NAMESPACE = "com.motorolamobility.studio.android.db.core"; //$NON-NLS-1$
+    public static final String PROP_NAMESPACE = "org.eclipse.andmore.android.db.core"; //$NON-NLS-1$
 
     /**
      * Property value used to check if the database is disconnected.
      */
     public static final String PROP_VALUE_DB_DISCONNECTED =
-            "com.motorolamobility.studio.android.db.core.databaseDisconnected"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.databaseDisconnected"; //$NON-NLS-1$
 
     /**
      * Property value used to check if the database is connected.
      */
     public static final String PROP_VALUE_DB_CONNECTED =
-            "com.motorolamobility.studio.android.db.core.databaseConnected"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.databaseConnected"; //$NON-NLS-1$
 
     /**
      * Property name used to check database connection status (connected/disconnected).
      */
     public static final String PROP_NAME_DB_CONNECTION =
-            "com.motorolamobility.studio.android.db.core.databaseConnection"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.databaseConnection"; //$NON-NLS-1$
 
     /**
      * Property name used to check database connection status (connected/disconnected).
      */
     public static final String PROP_NAME_DB_NODE_TYPE =
-            "com.motorolamobility.studio.android.db.core.IDbNodeType"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.IDbNodeType"; //$NON-NLS-1$
 
     /**
      * Property value used to check if the database is connected.
      */
     public static final String PROP_VALUE_DB_NODE_IS_EXT_STORAGE =
-            "com.motorolamobility.studio.android.db.core.isExternalStorage"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.isExternalStorage"; //$NON-NLS-1$
 
     private class ResultManagerAdapter extends AbstractDbResultManagerAdapter
     {
         /* (non-Javadoc)
-         * @see com.motorolamobility.studio.android.db.core.ui.AbstractDbResultManagerAdapter#statementExecuted(java.lang.String, java.lang.String)
+         * @see org.eclipse.andmore.android.db.core.ui.AbstractDbResultManagerAdapter#statementExecuted(java.lang.String, java.lang.String)
          */
         @Override
         public void statementExecuted(String profileName, String sqlStatement)
@@ -183,7 +183,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#connect()
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#connect()
      */
     public IStatus connect()
     {
@@ -203,7 +203,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#disconnect()
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#disconnect()
      */
     public IStatus disconnect()
     {
@@ -262,7 +262,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#createTable(java.lang.String, java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#createTable(java.lang.String, java.lang.String)
      */
     public IStatus createTable(TableModel table)
     {
@@ -277,7 +277,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#deleteTable(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#deleteTable(java.lang.String)
      */
     public IStatus deleteTable(ITableNode tableNode)
     {
@@ -291,7 +291,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#getTables()
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#getTables()
      */
     public List<Table> getTables()
     {
@@ -299,7 +299,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -398,7 +398,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDBNode#getTable(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.IDBNode#getTable(java.lang.String)
      */
     public Table getTable(String tableName)
     {
@@ -431,7 +431,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -440,7 +440,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbNode#deleteDb()
+     * @see org.eclipse.andmore.android.db.core.ui.IDbNode#deleteDb()
      */
     public IStatus deleteDb()
     {
@@ -487,7 +487,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
@@ -502,7 +502,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
      */
     @Override
     public void cleanUp()

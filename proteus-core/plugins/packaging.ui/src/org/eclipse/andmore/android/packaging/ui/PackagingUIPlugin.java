@@ -27,7 +27,7 @@ public class PackagingUIPlugin extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.packaging.ui";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.packaging.ui";
 
     public static final String EXPORT_WIZARD_ICON = "icons/wizban/export_android_package.png";
 

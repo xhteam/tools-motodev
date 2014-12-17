@@ -37,7 +37,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
      */
     enum ActionHandlers
     {
-        REFRESH_DEVICE("com.motorolamobility.studio.android.db.devices.ui.action.refreshDeviceNode") //$NON-NLS-1$
+        REFRESH_DEVICE("org.eclipse.andmore.android.db.devices.ui.action.refreshDeviceNode") //$NON-NLS-1$
         {
 
             @Override
@@ -48,7 +48,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         FILTER_DB_APPNODE(
-                "com.motorolamobility.studio.android.db.devices.ui.action.filterDbApplicationNode") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.devices.ui.action.filterDbApplicationNode") //$NON-NLS-1$
         {
 
             @Override
@@ -59,7 +59,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         MAP_DEVICE_DB_APPNODE(
-                "com.motorolamobility.studio.android.db.devices.ui.action.mapDeviceDbNode") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.devices.ui.action.mapDeviceDbNode") //$NON-NLS-1$
         {
 
             @Override
@@ -70,7 +70,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate
 
         },
         SAVE_TO_LOCAL_FILE(
-                "com.motorolamobility.studio.android.db.devices.ui.action.saveToLocalFile") //$NON-NLS-1$
+                "org.eclipse.andmore.android.db.devices.ui.action.saveToLocalFile") //$NON-NLS-1$
         {
 
             @Override

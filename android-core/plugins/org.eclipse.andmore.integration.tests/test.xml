@@ -13,11 +13,11 @@
     <property name="test-folder" value="${eclipse.home}/test_folder" />
         
     <!-- sets the properties eclipse.home, and library-file -->
-    <property name="plugin-name" value="com.android.ide.eclipse.tests" />
+    <property name="plugin-name" value="org.eclipse.andmore.tests" />
     <property name="library-file" value="${eclipse_test}/library.xml" />
 
     <!-- location of adt preference file (within workspace) -->
-    <property name="prefs_path" value="${test-folder}/.metadata/.plugins/org.eclipse.core.runtime/.settings/com.android.ide.eclipse.adt.prefs" />
+    <property name="prefs_path" value="${test-folder}/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.andmore.prefs" />
     <!-- location of pref template file relative to this file -->
 
     <property name="prefs_template" value="prefs.template" />
@@ -52,7 +52,7 @@
         <ant target="ui-test" antfile="${library-file}" dir="${eclipse.home}">
             <property name="data-dir" value="${test-folder}" />
             <property name="plugin-name" value="${plugin-name}" />
-            <property name="classname" value="com.android.ide.eclipse.tests.AllTests" />
+            <property name="classname" value="org.eclipse.andmore.tests.AllTests" />
             <!-- pass extra vm arg to set sdk_home env and test_data env variable -->
             <property name="extraVMargs" value="-Dtest_data=${test_data}" />
         </ant>

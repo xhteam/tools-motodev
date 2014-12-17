@@ -22,8 +22,8 @@
       <import feature="com.motorolamobility.preflighting.feature" version="1.0.0" match="greaterOrEqual"/>
       <import feature="com.motorolamobility.preflighting.sdk.feature" version="1.0.0" match="greaterOrEqual"/>
       <import feature="com.android.ide.eclipse.adt.feature" version="15.0.0" match="greaterOrEqual"/>
-      <import plugin="com.motorola.studio.android.common" version="4.0.0" match="greaterOrEqual"/>
-      <import plugin="com.motorolamobility.studio.android.logger" version="4.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.android.common" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.android.logger" version="4.1.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -41,7 +41,7 @@
          unpack="false"/> -->
 
    <plugin
-         id="com.motorola.studio.android.common"
+         id="org.eclipse.andmore.android.common"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -62,7 +62,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorolamobility.studio.android.logger"
+         id="org.eclipse.andmore.android.logger"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

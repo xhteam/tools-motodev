@@ -91,7 +91,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode,
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbCreatorNode#createDb(java.lang.String)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbCreatorNode#createDb(java.lang.String)
      */
     public IStatus createDb(String dbName)
     {
@@ -99,7 +99,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode,
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.IDbCreatorNode#createDb(java.lang.String, java.util.List)
+     * @see org.eclipse.andmore.android.db.core.ui.IDbCreatorNode#createDb(java.lang.String, java.util.List)
      */
     public IStatus createDb(String dbName, List<TableModel> tables)
     {
@@ -138,12 +138,12 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode,
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
     {
-        return getSpecificIcon("com.android.ide.eclipse.adt", "icons/android.png"); //$NON-NLS-1$ //$NON-NLS-2$
+        return getSpecificIcon("org.eclipe.andmore", "icons/android.png"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -181,7 +181,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode,
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -395,7 +395,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode,
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
      */
     @Override
     public void cleanUp()

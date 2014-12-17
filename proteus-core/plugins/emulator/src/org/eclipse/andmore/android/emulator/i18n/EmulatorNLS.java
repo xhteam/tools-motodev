@@ -42,7 +42,7 @@ public class EmulatorNLS extends NLS
 
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.emulator.i18n.emulatorNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.emulator.i18n.emulatorNLS",
                 EmulatorNLS.class);
     }
 

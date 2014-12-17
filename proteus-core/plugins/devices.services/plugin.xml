@@ -3,14 +3,14 @@
 <plugin>
 <!--START adb shell and console services START-->
    <extension
-         id="com.motorola.studio.android.devices.services.adbShell"
+         id="org.eclipse.andmore.android.devices.services.adbShell"
          name="%adbShellName"
          point="org.eclipse.sequoyah.device.framework.service">
       <service
             description="%adbShellDescription"
             handler="org.eclipse.andmore.android.devices.services.console.ADBShellHandler"
             icon="icons/adb_shell.png"
-            id="com.motorola.studio.android.devices.services.adbShell"
+            id="org.eclipse.andmore.android.devices.services.adbShell"
             name="%adbShellName"
             parallelized="true"
             provider="%providerName"
@@ -19,14 +19,14 @@
       </service>
    </extension>
 <extension
-         id="com.motorola.studio.android.devices.services.emulatorConsole"
+         id="org.eclipse.andmore.android.devices.services.emulatorConsole"
          name="%emulatorConsoleName"
          point="org.eclipse.sequoyah.device.framework.service">
       <service
             description="%emulatorConsoleDescription"
             handler="org.eclipse.andmore.android.devices.services.console.EmulatorConsoleHandler"
             icon="icons/emulator_console.png"
-            id="com.motorola.studio.android.devices.services.emulatorConsole"
+            id="org.eclipse.andmore.android.devices.services.emulatorConsole"
             name="%emulatorConsoleName"
             parallelized="true"
             provider="%providerName"
@@ -35,73 +35,73 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%adbShellName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.adbShell">
+            id="org.eclipse.andmore.android.devices.services.adbShell">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status></service>
    </extension>
    <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%adbShellName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.adbShell">
+            id="org.eclipse.andmore.android.devices.services.adbShell">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status></service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%emulatorConsoleName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.emulatorConsole">
+            id="org.eclipse.andmore.android.devices.services.emulatorConsole">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status>
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          name="%adbShellName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.adbShell">
+            id="org.eclipse.andmore.android.devices.services.adbShell">
          <status
-               endId="com.motorola.studio.android.remote.status.connected"
-               haltId="com.motorola.studio.android.remote.status.connected"
-               startId="com.motorola.studio.android.remote.status.connected">
+               endId="org.eclipse.andmore.android.remote.status.connected"
+               haltId="org.eclipse.andmore.android.remote.status.connected"
+               startId="org.eclipse.andmore.android.remote.status.connected">
          </status></service>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.console.ADBShellCommand"
-            id="com.motorola.studio.android.device.adb.shell"
+            defaultHandler="org.eclipse.andmore.android.devices.services.console.ADBShellCommand"
+            id="org.eclipse.andmore.android.device.adb.shell"
             name="%adbShellName">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.console.EmulatorConsoleCommand"
-            id="com.motorola.studio.android.device.emulator.console"
+            defaultHandler="org.eclipse.andmore.android.devices.services.console.EmulatorConsoleCommand"
+            id="org.eclipse.andmore.android.device.emulator.console"
             name="%emulatorConsoleName">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:com.motorola.studio.android.emulator.view.popup">
+            locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
-               commandId="com.motorola.studio.android.device.adb.shell"
+               commandId="org.eclipse.andmore.android.device.adb.shell"
                icon="icons/adb_shell.png"
                id="adb.shell"
                label="%adbShellName"
@@ -109,7 +109,7 @@
                tooltip="%adbShellDescription">
          </command>
          <command
-               commandId="com.motorola.studio.android.device.emulator.console"
+               commandId="org.eclipse.andmore.android.device.emulator.console"
                icon="icons/emulator_console.png"
                id="emulator.console"
                label="%emulatorConsoleName"
@@ -131,7 +131,7 @@
             description="%deployDescription"
             handler="org.eclipse.andmore.android.devices.services.deploy.DeployServiceHandler"
             icon="icons/deploy.png"
-            id="com.motorola.studio.android.devices.services.deployService"
+            id="org.eclipse.andmore.android.devices.services.deployService"
             interval="1000"
             name="%deployServiceName"
             parallelized="true"
@@ -150,7 +150,7 @@
          description="%uninstallAppServiceDescription"
          handler="org.eclipse.andmore.android.devices.services.deploy.UninstallAppServiceHandler"
          icon="icons/uninstall.png"
-         id="com.motorola.studio.android.devices.services.uninstallAppService"
+         id="org.eclipse.andmore.android.devices.services.uninstallAppService"
          name="%uninstallAppServiceName"
          parallelized="false"
          provider="%providerName"
@@ -159,111 +159,111 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%deployServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.deployService">
+            id="org.eclipse.andmore.android.devices.services.deployService">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status></service>
         
    </extension>
    
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%uninstallAppServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
     <service
-            id="com.motorola.studio.android.devices.services.uninstallAppService">
+            id="org.eclipse.andmore.android.devices.services.uninstallAppService">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status></service>
    </extension>
    
    <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%deployServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.deployService">
+            id="org.eclipse.andmore.android.devices.services.deployService">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status>
      </service>
    </extension>   
    
     <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%uninstallAppServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
     <service
-            id="com.motorola.studio.android.devices.services.uninstallAppService">
+            id="org.eclipse.andmore.android.devices.services.uninstallAppService">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status></service>
      </extension>
     <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          name="%deployServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.deployService">
+            id="org.eclipse.andmore.android.devices.services.deployService">
          <status
-               endId="com.motorola.studio.android.remote.status.connected"
-               haltId="com.motorola.studio.android.remote.status.connected"
-               startId="com.motorola.studio.android.remote.status.connected">
+               endId="org.eclipse.andmore.android.remote.status.connected"
+               haltId="org.eclipse.andmore.android.remote.status.connected"
+               startId="org.eclipse.andmore.android.remote.status.connected">
          </status>
       </service>
    </extension>   
  
     <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          name="%uninstallAppServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
     <service
-            id="com.motorola.studio.android.devices.services.uninstallAppService">
+            id="org.eclipse.andmore.android.devices.services.uninstallAppService">
          <status
-               endId="com.motorola.studio.android.remote.status.connected"
-               haltId="com.motorola.studio.android.remote.status.connected"
-               startId="com.motorola.studio.android.remote.status.connected">
+               endId="org.eclipse.andmore.android.remote.status.connected"
+               haltId="org.eclipse.andmore.android.remote.status.connected"
+               startId="org.eclipse.andmore.android.remote.status.connected">
          </status></service>
    </extension>  
    
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.deploy.DeployServiceCommand"
-            id="com.motorola.studio.android.device.install.app"
+            defaultHandler="org.eclipse.andmore.android.devices.services.deploy.DeployServiceCommand"
+            id="org.eclipse.andmore.android.device.install.app"
             name="%deployServiceName">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.deploy.UninstallAppServiceCommand"
-            id="com.motorola.studio.android.device.uninstall.app"
+            defaultHandler="org.eclipse.andmore.android.devices.services.deploy.UninstallAppServiceCommand"
+            id="org.eclipse.andmore.android.device.uninstall.app"
             name="%uninstallAppServiceName">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:com.motorola.studio.android.emulator.view.popup">
+            locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
-               commandId="com.motorola.studio.android.device.install.app"
+               commandId="org.eclipse.andmore.android.device.install.app"
                icon="icons/deploy.png"
                id="deploy.command"
                label="%deployServiceName"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.device.uninstall.app"
+               commandId="org.eclipse.andmore.android.device.uninstall.app"
                icon="icons/uninstall.png"
                id="uninstall.command"
                label="%uninstallAppServiceName"
@@ -274,9 +274,9 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="com.motorola.studio.android.devices.services.deploy.EmulatorTester"
+            class="org.eclipse.andmore.android.devices.services.deploy.EmulatorTester"
             id="hasActiveInstanceTester"
-            namespace="com.motorola.studio.android.emulator"
+            namespace="org.eclipse.andmore.android.emulator"
             properties="hasActiveInstance"
             type="java.lang.Object">
       </propertyTester>
@@ -293,7 +293,7 @@
             description="%takeScreenshotDescription"
             handler="org.eclipse.andmore.android.devices.services.ddms.ScreenshotServiceHandler"
             icon="icons/screenshot_16.jpg"
-            id="com.motorola.studio.android.devices.services.takescreenshot"
+            id="org.eclipse.andmore.android.devices.services.takescreenshot"
             name="%takeScreenshotServiceName"
             parallelized="true"
             provider="%providerName"
@@ -310,7 +310,7 @@
             description="%monkeyDescription"
             handler="org.eclipse.andmore.android.devices.services.ddms.MonkeyServiceHandler"
             icon="icons/monkey_16.png"
-            id="com.motorola.studio.android.devices.services.monkey"
+            id="org.eclipse.andmore.android.devices.services.monkey"
             name="%monkeyDescription"
             parallelized="false"
             provider="%providerName"
@@ -319,109 +319,109 @@
       </service>
    </extension>
 <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%takeScreenshotServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
     <service
-            id="com.motorola.studio.android.devices.services.takescreenshot">
+            id="org.eclipse.andmore.android.devices.services.takescreenshot">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status>
          </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%monkeyServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
     <service
-            id="com.motorola.studio.android.devices.services.monkey">
+            id="org.eclipse.andmore.android.devices.services.monkey">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status>
          </service>
    </extension>
    
     <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%takeScreenshotServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.takescreenshot">
+            id="org.eclipse.andmore.android.devices.services.takescreenshot">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status>
      </service>
    </extension>   
    <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%monkeyServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.monkey">
+            id="org.eclipse.andmore.android.devices.services.monkey">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status>
      </service>
    </extension>
     <extension
-         id="com.motorola.studio.android.remote.androidRemoteDevice"
+         id="org.eclipse.andmore.android.remote.androidRemoteDevice"
          name="%takeScreenshotServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.takescreenshot">
+            id="org.eclipse.andmore.android.devices.services.takescreenshot">
          <status
-               endId="com.motorola.studio.android.remote.status.connected"
-               haltId="com.motorola.studio.android.remote.status.connected"
-               startId="com.motorola.studio.android.remote.status.connected">
+               endId="org.eclipse.andmore.android.remote.status.connected"
+               haltId="org.eclipse.andmore.android.remote.status.connected"
+               startId="org.eclipse.andmore.android.remote.status.connected">
          </status>
       </service>
    </extension>
     <extension
-          id="com.motorola.studio.android.remote.androidRemoteDevice"
+          id="org.eclipse.andmore.android.remote.androidRemoteDevice"
           name="%monkeyServiceName"
           point="org.eclipse.sequoyah.device.framework.serviceDefinition">
        <service
-             id="com.motorola.studio.android.devices.services.monkey">
+             id="org.eclipse.andmore.android.devices.services.monkey">
           <status
-                endId="com.motorola.studio.android.remote.status.connected"
-                haltId="com.motorola.studio.android.remote.status.connected"
-                startId="com.motorola.studio.android.remote.status.connected">
+                endId="org.eclipse.andmore.android.remote.status.connected"
+                haltId="org.eclipse.andmore.android.remote.status.connected"
+                startId="org.eclipse.andmore.android.remote.status.connected">
           </status>
        </service>
     </extension>
      <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.ddms.ScreenshotServiceCommand"
-            id="com.motorola.studio.android.device.take.screenshot"
+            defaultHandler="org.eclipse.andmore.android.devices.services.ddms.ScreenshotServiceCommand"
+            id="org.eclipse.andmore.android.device.take.screenshot"
             name="%takeScreenshotServiceName">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.ddms.MonkeyServiceCommand"
-            id="com.motorola.studio.android.device.monkey"
+            defaultHandler="org.eclipse.andmore.android.devices.services.ddms.MonkeyServiceCommand"
+            id="org.eclipse.andmore.android.device.monkey"
             name="%monkeyDescription">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:com.motorola.studio.android.emulator.view.popup">
+            locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
-               commandId="com.motorola.studio.android.device.take.screenshot"
+               commandId="org.eclipse.andmore.android.device.take.screenshot"
                icon="icons/screenshot_16.jpg"
                id="takescreenshot.command"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.device.monkey"
+               commandId="org.eclipse.andmore.android.device.monkey"
                icon="icons/monkey_16.png"
                id="monkey.command"
                style="push">
@@ -441,7 +441,7 @@
             description="%langServiceDescription"
             handler="org.eclipse.andmore.android.devices.services.lang.LangServiceHandler"
             icon="resources/flag_small.png"
-            id="com.motorola.studio.android.devices.services.changeLanguageService"
+            id="org.eclipse.andmore.android.devices.services.changeLanguageService"
             name="%langServiceName"
             parallelized="true"
             provider="%providerName"
@@ -450,43 +450,43 @@
       </service>
    </extension>
    <extension
-         id="com.motorola.studio.android.emulator.androidDevice"
+         id="org.eclipse.andmore.android.emulator.androidDevice"
          name="%langServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.devices.services.changeLanguageService">
+            id="org.eclipse.andmore.android.devices.services.changeLanguageService">
          <status
-               endId="com.motorola.studio.android.emulator.status.online"
-               haltId="com.motorola.studio.android.emulator.status.online"
-               startId="com.motorola.studio.android.emulator.status.online">
+               endId="org.eclipse.andmore.android.emulator.status.online"
+               haltId="org.eclipse.andmore.android.emulator.status.online"
+               startId="org.eclipse.andmore.android.emulator.status.online">
          </status></service>
    </extension>
    <!-- <extension
-         id="com.motorola.studio.android.handset.androidHandset"
+         id="org.eclipse.andmore.android.handset.androidHandset"
          name="%deployServiceName"
          point="org.eclipse.sequoyah.device.framework.serviceDefinition">
       <service
-            id="com.motorola.studio.android.service.deploy.deployService">
+            id="org.eclipse.andmore.android.service.deploy.deployService">
          <status
-               endId="com.motorola.studio.android.handset.status.handsetonline"
-               haltId="com.motorola.studio.android.handset.status.handsetonline"
-               startId="com.motorola.studio.android.handset.status.handsetonline">
+               endId="org.eclipse.andmore.android.handset.status.handsetonline"
+               haltId="org.eclipse.andmore.android.handset.status.handsetonline"
+               startId="org.eclipse.andmore.android.handset.status.handsetonline">
          </status></service>
    </extension> --> 
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.devices.services.lang.LangServiceCommand"
-            id="com.motorola.studio.android.device.change.emulator.language"
+            defaultHandler="org.eclipse.andmore.android.devices.services.lang.LangServiceCommand"
+            id="org.eclipse.andmore.android.device.change.emulator.language"
             name="%langServiceName">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:com.motorola.studio.android.emulator.view.popup">
+            locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
-               commandId="com.motorola.studio.android.device.change.emulator.language"
+               commandId="org.eclipse.andmore.android.device.change.emulator.language"
                icon="resources/flag_small.png"
                id="lang.command"
                style="push">

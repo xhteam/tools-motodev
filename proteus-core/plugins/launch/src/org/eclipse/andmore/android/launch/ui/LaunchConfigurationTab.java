@@ -414,7 +414,7 @@ public class LaunchConfigurationTab extends AbstractLaunchConfigurationTab
             }
 
             protected static final String ACTIVITY_SELECTION_DIALOG_HELPID =
-                    "com.motorola.studio.android.launch.activitySelectionDialog"; //$NON-NLS-1$
+                    "org.eclipse.andmore.android.launch.activitySelectionDialog"; //$NON-NLS-1$
         });
 
         final Button noActivityButton = new Button(activityGroup, SWT.RADIO);

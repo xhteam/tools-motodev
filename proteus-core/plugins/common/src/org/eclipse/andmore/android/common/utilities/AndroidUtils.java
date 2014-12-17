@@ -44,7 +44,7 @@ import org.osgi.framework.Bundle;
 public class AndroidUtils
 {
     private static final String CLASS_COM_ANDROID_IDE_ECLIPSE_ADT_INTERNAL_SDK_ANDROID_TARGET_DATA =
-            "com.android.ide.eclipse.adt.internal.sdk.AndroidTargetData"; //$NON-NLS-1$
+            "org.eclipe.andmore.internal.sdk.AndroidTargetData"; //$NON-NLS-1$
 
     private static final String CLASS_COM_ANDROID_SDKLIB_I_ANDROID_TARGET =
             "com.android.sdklib.IAndroidTarget"; //$NON-NLS-1$
@@ -53,7 +53,7 @@ public class AndroidUtils
             "com.android.sdklib.AndroidVersion"; //$NON-NLS-1$
 
     private static final String CLASS_COM_ANDROID_IDE_ECLIPSE_ADT_INTERNAL_SDK_SDK =
-            "com.android.ide.eclipse.adt.internal.sdk.Sdk"; //$NON-NLS-1$
+            "org.eclipe.andmore.internal.sdk.Sdk"; //$NON-NLS-1$
 
     //Constants
     private static final String ANDROID_VERSION_API_LEVEL = "AndroidVersion.ApiLevel"; //$NON-NLS-1$
@@ -94,8 +94,8 @@ public class AndroidUtils
      */
     public static String getSDKPathByPreference()
     {
-        IEclipsePreferences pref = InstanceScope.INSTANCE.getNode("com.android.ide.eclipse.adt"); //$NON-NLS-1$
-        return pref.get("com.android.ide.eclipse.adt.sdk", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        IEclipsePreferences pref = InstanceScope.INSTANCE.getNode("org.eclipe.andmore"); //$NON-NLS-1$
+        return pref.get("org.eclipe.andmore.sdk", ""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

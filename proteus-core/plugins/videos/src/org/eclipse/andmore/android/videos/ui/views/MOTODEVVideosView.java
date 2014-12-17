@@ -92,7 +92,7 @@ public class MOTODEVVideosView extends ViewPart
     /*
      * The ID of the view as specified by the extension.
      */
-    public static final String ID = "com.motorola.studio.android.videos.views.MOTODEVVideosView";
+    public static final String ID = "org.eclipse.andmore.android.videos.views.MOTODEVVideosView";
 
     /*
      * View state

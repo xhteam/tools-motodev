@@ -86,7 +86,7 @@ public class TooltipDisplayConfigContriutionItem extends ControlContribution
      */
     public TooltipDisplayConfigContriutionItem()
     {
-        super("com.motorola.studio.android.codesnippets.tooltipDisplayConfig"); //$NON-NLS-1$
+        super("org.eclipse.andmore.android.codesnippets.tooltipDisplayConfig"); //$NON-NLS-1$
     }
 
     /* (non-Javadoc)

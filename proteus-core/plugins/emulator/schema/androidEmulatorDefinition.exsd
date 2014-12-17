@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.motorola.studio.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.android.emulator" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.motorola.studio.android.emulator" id="androidEmulatorDefinition" name="Android Emulator Definition"/>
+         <meta.schema plugin="org.eclipse.andmore.android.emulator" id="androidEmulatorDefinition" name="Android Emulator Definition"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -90,7 +90,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="com.motorola.studio.android.emulator.logic.AbstractStartAndroidEmulatorLogic:"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.andmore.android.emulator.logic.AbstractStartAndroidEmulatorLogic:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -105,7 +105,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.motorola.studio.android.emulator.core.model.IInputLogic"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.android.emulator.core.model.IInputLogic"/>
                </appInfo>
             </annotation>
          </attribute>

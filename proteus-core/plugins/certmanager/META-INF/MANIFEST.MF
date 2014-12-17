@@ -1,13 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorolamobility.studio.android.certmanager;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.certmanager;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.certmanager.CertificateManagerActivator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- com.motorola.studio.android.common,
+ org.eclipse.andmore.android.common,
  org.junit,
  org.eclipse.ltk.ui.refactoring,
  org.eclipse.equinox.security,

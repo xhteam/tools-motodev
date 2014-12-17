@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.android.ide.eclipse.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.android.ide.eclipse.ddms" id="toolsLocator" name="Tools Locator"/>
+         <meta.schema plugin="org.eclipse.andmore.ddms" id="toolsLocator" name="Tools Locator"/>
       </appInfo>
       <documentation>
          Extension Point to provide the location of SDK Tools to DDMS.
@@ -18,7 +18,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.android.ide.eclipse.ddms.IToolsLocator"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.ddms.IToolsLocator"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -76,8 +76,8 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         &lt;extension point=&quot;com.android.ide.eclipse.ddms.toolsLocator&quot;&gt;
-    &lt;locator class=&quot;com.android.ide.eclipse.adt.ToolsLocator&quot;/&gt;
+         &lt;extension point=&quot;org.eclipse.andmore.ddms.toolsLocator&quot;&gt;
+    &lt;locator class=&quot;org.eclipse.andmore.ToolsLocator&quot;/&gt;
 &lt;/extension&gt;
       </documentation>
    </annotation>

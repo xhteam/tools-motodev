@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorola.studio.android.handset;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.handset;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.handset.HandsetPlugin
 Bundle-Vendor: %providerName
-Require-Bundle: com.motorola.studio.android,
- com.motorola.studio.android.common,
+Require-Bundle: org.eclipse.andmore.android,
+ org.eclipse.andmore.android.common,
  org.eclipse.ui,
  org.eclipse.ui.console,
  org.eclipse.core.runtime,

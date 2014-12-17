@@ -28,10 +28,10 @@ public interface IDbMapperNode extends ITreeNode, IActionFilter
 {
 
     public static final String UNMAP_ACTIONFILTER_NAME =
-            "com.motorolamobility.studio.android.db.core.mappedDatabases"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.mappedDatabases"; //$NON-NLS-1$
 
     public static final String UNMAP_ACTIONFILTER_VALUE =
-            "com.motorolamobility.studio.android.db.core.atLeastOne"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.db.core.atLeastOne"; //$NON-NLS-1$
 
     public IStatus map(IPath dbFilePath);
 

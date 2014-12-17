@@ -49,12 +49,12 @@ public class AndroidPlugin extends AbstractUIPlugin
     /**
      *  The plug-in ID
      */
-    public static final String PLUGIN_ID = "com.motorola.studio.android";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android";
 
     /**
      * Studio for Android Perspective ID
      */
-    public static final String PERSPECTIVE_ID = "com.motorola.studio.android.perspective";
+    public static final String PERSPECTIVE_ID = "org.eclipse.andmore.android.perspective";
 
     /**
      * Nature of Android projects

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %plugin.name
-Bundle-SymbolicName: com.motorola.studio.android.installer;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.installer;singleton:=true
 Bundle-Version: 4.1.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.installer.InstallerPlugin
 Bundle-Vendor: %plugin.provider
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.equinox.p2.repository,
  org.eclipse.equinox.p2.operations,
  org.eclipse.equinox.p2.touchpoint.natives,
- com.motorola.studio.android.common,
+ org.eclipse.andmore.android.common,
  org.eclipse.jdt.launching,
  org.eclipse.andmore,
  org.apache.commons.httpclient,

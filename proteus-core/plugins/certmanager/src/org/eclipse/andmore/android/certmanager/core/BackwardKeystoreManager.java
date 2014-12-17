@@ -66,7 +66,7 @@ public class BackwardKeystoreManager
     /**
      * The constant contains the keystore password node on secure storage.
      */
-    private static final String KS_PASSWD_NODE = "com.motorola.studio.platform.tools.sign.core"; //$NON-NLS-1$
+    private static final String KS_PASSWD_NODE = "org.eclipse.andmore.platform.tools.sign.core"; //$NON-NLS-1$
 
     /**
      * The constant contains the keystore password attribute on secure storage.

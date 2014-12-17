@@ -27,7 +27,7 @@ public class LaunchPlugin extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.launch";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.launch";
 
     // The shared instance
     private static LaunchPlugin plugin;

@@ -52,10 +52,10 @@ public class DbCoreActivator extends AbstractUIPlugin
     private static final String DB_PROPERTY_TESTER_ATT_NAMESPACE = "namespace";
 
     private static final String DB_PROPERTY_TESTER_EXTENSION_ID =
-            "com.motorolamobility.studio.android.db.core.propertyTesters";
+            "org.eclipse.andmore.android.db.core.propertyTesters";
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorolamobility.studio.android.db.core"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.db.core"; //$NON-NLS-1$
 
     private static final String DB_TEMPLATE_PATH = "res/template.db"; //$NON-NLS-1$
 

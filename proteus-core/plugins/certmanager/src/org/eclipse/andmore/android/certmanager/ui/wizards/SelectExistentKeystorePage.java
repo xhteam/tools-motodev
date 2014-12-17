@@ -189,7 +189,7 @@ public class SelectExistentKeystorePage extends ImportKeystorePage
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.ui.wizards.ImportKeystorePage#importKeystore()
+     * @see org.eclipse.andmore.android.certmanager.ui.wizards.ImportKeystorePage#importKeystore()
      */
     @Override
     public boolean importKeystore()

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.motorola.studio.android.feature"
+      id="org.eclipse.andmore.android.feature"
       label="%feature.android.label"
       version="5.0.0.qualifier"
       provider-name="%feature.android.provider.name"
-      plugin="com.motorola.studio.android.product"
+      plugin="org.eclipse.andmore.android.product"
       os="linux,macosx,win32"
       ws="carbon,cocoa,gtk,win32"
       arch="ppc,x86,x86_64">
@@ -26,7 +26,7 @@
    </url>
 
    <includes
-         id="com.motorola.studio.android.basic.feature"
+         id="org.eclipse.andmore.android.basic.feature"
          version="0.0.0"/>
 
    <requires>
@@ -58,49 +58,49 @@
    </requires>
 
    <plugin
-         id="com.motorola.studio.android"
+         id="org.eclipse.andmore.android"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.emulator"
+         id="org.eclipse.andmore.android.emulator"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.launch"
+         id="org.eclipse.andmore.android.launch"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.packaging.ui"
+         id="org.eclipse.andmore.android.packaging.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.handset"
+         id="org.eclipse.andmore.android.handset"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.remote"
+         id="org.eclipse.andmore.android.remote"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.macosx"
+         id="org.eclipse.andmore.android.macosx"
          os="macosx"
          download-size="0"
          install-size="0"
@@ -109,7 +109,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.linux.x86"
+         id="org.eclipse.andmore.android.linux.x86"
          os="linux"
          arch="x86"
          download-size="0"
@@ -119,7 +119,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.linux.x86_64"
+         id="org.eclipse.andmore.android.linux.x86_64"
          os="linux"
          arch="x86_64"
          download-size="0"
@@ -129,7 +129,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.win32.x86"
+         id="org.eclipse.andmore.android.win32.x86"
          os="win32"
          ws="win32"
          arch="x86"
@@ -140,7 +140,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.win32.x86_64"
+         id="org.eclipse.andmore.android.win32.x86_64"
          os="win32"
          ws="win32"
          arch="x86_64"
@@ -151,42 +151,42 @@
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.mat"
+         id="org.eclipse.andmore.android.mat"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.devices.services"
+         id="org.eclipse.andmore.android.devices.services"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.videos"
+         id="org.eclipse.andmore.android.videos"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorolamobility.studio.android.db.devices"
+         id="org.eclipse.andmore.android.db.devices"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorola.studio.android.installer"
+         id="org.eclipse.andmore.android.installer"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.motorolamobility.studio.android.logger.collector"
+         id="org.eclipse.andmore.android.logger.collector"
          download-size="0"
          install-size="0"
          version="0.0.0"

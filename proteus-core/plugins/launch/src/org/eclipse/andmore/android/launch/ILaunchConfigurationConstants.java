@@ -93,7 +93,7 @@ public interface ILaunchConfigurationConstants
      * Eclipse standards.  
      */
     public final static String ATTR_DEVICE_INSTANCE_NAME =
-            "com.motorola.studio.android.launch.instanceName";
+            "org.eclipse.andmore.android.launch.instanceName";
 
     /**
      * Launch Configuration attribute ID: Instance Name (VM Name for ADT)

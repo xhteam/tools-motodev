@@ -34,7 +34,7 @@ import org.osgi.framework.BundleContext;
 public class HandsetPlugin extends AbstractUIPlugin
 {
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.handset";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.handset";
 
     public static final String HANDSET_DEVICE_TYPE_ID = PLUGIN_ID + ".androidHandset";
 

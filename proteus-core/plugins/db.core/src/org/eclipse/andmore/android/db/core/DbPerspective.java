@@ -30,7 +30,7 @@ public class DbPerspective implements IPerspectiveFactory
     private static String VIEW_TML_DEV_MGT =
             "org.eclipse.sequoyah.device.framework.ui.InstanceMgtView"; //$NON-NLS-1$
 
-    public static String VIEW_MOTODEV_DATABASE = "com.motorola.studio.android.db.databaseView"; //$NON-NLS-1$
+    public static String VIEW_MOTODEV_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
     private static String VIEW_FILE_EXPLORER =
             "com.android.ide.eclipse.ddms.views.FileExplorerView"; //$NON-NLS-1$
@@ -41,13 +41,13 @@ public class DbPerspective implements IPerspectiveFactory
 
     private static String ACTIONSET_NAVIGATE = "org.eclipse.ui.NavigateActionSet"; //$NON-NLS-1$
 
-    private static String PERSPECTIVE_MOTODEV = "com.motorola.studio.android.perspective"; //$NON-NLS-1$
+    private static String PERSPECTIVE_MOTODEV = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
 
     private static String VIEW_SNIPPETS =
             "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$
 
     private static String VIEW_ANDROID_EMULATOR =
-            "com.motorola.studio.android.emulator.androidView"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.emulator.androidView"; //$NON-NLS-1$
 
     /**
      * Creates the initial layout for a page.

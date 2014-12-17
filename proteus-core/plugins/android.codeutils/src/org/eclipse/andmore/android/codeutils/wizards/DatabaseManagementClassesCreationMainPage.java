@@ -240,7 +240,7 @@ public class DatabaseManagementClassesCreationMainPage extends NewTypeWizardPage
 
     private static final String ASSESTS_FOLDER = "assets";
 
-    private final String PLUGIN_ID = "com.motorola.studio.android.db"; //$NON-NLS-1$
+    private final String PLUGIN_ID = "org.eclipse.andmore.android.db"; //$NON-NLS-1$
 
     /* Fields */
 

@@ -55,7 +55,7 @@ public class ContentProviderDeployer
     /*
      * Plug-in Identifier
      */
-    private static final String PLUGIN_IDENTIFIER = "com.motorola.studio.android.codeutils";
+    private static final String PLUGIN_IDENTIFIER = "org.eclipse.andmore.android.codeutils";
 
     /**
      * Constant representing the location of the DataaseHelper class.

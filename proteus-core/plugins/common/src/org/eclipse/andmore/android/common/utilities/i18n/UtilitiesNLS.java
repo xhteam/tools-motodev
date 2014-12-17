@@ -25,7 +25,7 @@ public class UtilitiesNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.common.utilities.i18n.utilitiesNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.common.utilities.i18n.utilitiesNLS",
                 UtilitiesNLS.class);
     }
 

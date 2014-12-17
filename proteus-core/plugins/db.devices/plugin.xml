@@ -19,10 +19,10 @@
 
 <plugin>
    <extension
-         point="com.motorolamobility.studio.android.db.core.dbRootNode">
+         point="org.eclipse.andmore.android.db.core.dbRootNode">
       <rootNode
             class="org.eclipse.andmore.android.db.devices.model.DevicesRootNode"
-            id="com.motorolamobility.studio.android.db.devices.devicesRootNode"
+            id="org.eclipse.andmore.android.db.devices.devicesRootNode"
             name="%devicesNodeName">
       </rootNode>
    </extension>
@@ -30,46 +30,46 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.devices.ui.action.IDeviceNode"
-            objectClass="com.motorolamobility.studio.android.db.devices.model.IDeviceNode">
+            id="org.eclipse.andmore.android.db.devices.ui.action.IDeviceNode"
+            objectClass="org.eclipse.andmore.android.db.devices.model.IDeviceNode">
          <action
-               class="com.motorolamobility.studio.android.db.devices.ui.action.PopupMenuActionDelegate"
-               definitionId="com.motorolamobility.studio.android.db.core.refreshNode"
+               class="org.eclipse.andmore.android.db.devices.ui.action.PopupMenuActionDelegate"
+               definitionId="org.eclipse.andmore.android.db.core.refreshNode"
                enablesFor="1"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.schemaobjecteditor.ui/icons/refresh_from_server.gif"
-               id="com.motorolamobility.studio.android.db.devices.ui.action.refreshDeviceNode"
+               id="org.eclipse.andmore.android.db.devices.ui.action.refreshDeviceNode"
                label="%action_refresh_device_node"
-               menubarPath="com.motorolamobility.studio.android.db.devices.ui.action.IDeviceNodeGroup2">
+               menubarPath="org.eclipse.andmore.android.db.devices.ui.action.IDeviceNodeGroup2">
          </action>
          
       </objectContribution>
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.devices.ui.action.IDbMapperNode"
-            objectClass="com.motorolamobility.studio.android.db.devices.model.IDbDeviceMapperNode">
+            id="org.eclipse.andmore.android.db.devices.ui.action.IDbMapperNode"
+            objectClass="org.eclipse.andmore.android.db.devices.model.IDbDeviceMapperNode">
          <action
-               class="com.motorolamobility.studio.android.db.devices.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.db.devices.ui.action.PopupMenuActionDelegate"
                enablesFor="1"
                icon="icons/map.png"
-               id="com.motorolamobility.studio.android.db.devices.ui.action.mapDeviceDbNode"
+               id="org.eclipse.andmore.android.db.devices.ui.action.mapDeviceDbNode"
                label="%action_map_database"
-               overrideActionId="com.motorolamobility.studio.android.db.core.ui.action.mapDbNode">
+               overrideActionId="org.eclipse.andmore.android.db.core.ui.action.mapDbNode">
          </action>
       </objectContribution>      
       <objectContribution
             adaptable="false"
-            id="com.motorolamobility.studio.android.db.devices.ui.action.DeviceDbNode"
-            objectClass="com.motorolamobility.studio.android.db.devices.model.DeviceDbNode">
+            id="org.eclipse.andmore.android.db.devices.ui.action.DeviceDbNode"
+            objectClass="org.eclipse.andmore.android.db.devices.model.DeviceDbNode">
          <action
-               class="com.motorolamobility.studio.android.db.devices.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.db.devices.ui.action.PopupMenuActionDelegate"
                enablesFor="1"
                icon="icons/save_to_local_file.png"
-               id="com.motorolamobility.studio.android.db.devices.ui.action.saveToLocalFile"
+               id="org.eclipse.andmore.android.db.devices.ui.action.saveToLocalFile"
                label="%saveToLocalFile">
                <enablement>
                <objectState
-                     name="com.motorolamobility.studio.android.db.core.databaseConnection"
-                     value="com.motorolamobility.studio.android.db.core.databaseConnected">
+                     name="org.eclipse.andmore.android.db.core.databaseConnection"
+                     value="org.eclipse.andmore.android.db.core.databaseConnected">
                </objectState>
             </enablement>
          </action>
@@ -79,16 +79,16 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="popup:com.motorolamobility.studio.android.db.devices.ui.action.IDeviceNode?after=com.motorolamobility.studio.android.db.devices.ui.action.filterDbApplicationNode">
+            locationURI="popup:org.eclipse.andmore.android.db.devices.ui.action.IDeviceNode?after=org.eclipse.andmore.android.db.devices.ui.action.filterDbApplicationNode">
          <separator
-               name="com.motorolamobility.studio.android.db.devices.ui.action.IDeviceNodeGroup2">
+               name="org.eclipse.andmore.android.db.devices.ui.action.IDeviceNodeGroup2">
          </separator>
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="popup:com.motorola.studio.android.db.databaseView">
+            locationURI="popup:org.eclipse.andmore.android.db.databaseView">
          <command
-               commandId="com.motorolamobility.studio.android.db.devices.command.filterDbApplicationNode"
+               commandId="org.eclipse.andmore.android.db.devices.command.filterDbApplicationNode"
                label="%action_filter_db_application_node"
                style="toggle">
             <visibleWhen
@@ -102,7 +102,7 @@
                         ifEmpty="false"
                         operator="and">
                      <adapt
-                           type="com.motorolamobility.studio.android.db.devices.model.IDeviceNode">
+                           type="org.eclipse.andmore.android.db.devices.model.IDeviceNode">
                      </adapt>
                   </iterate>
                </with>
@@ -113,11 +113,11 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorolamobility.studio.android.db.devices.ui.action.FilterDbApplicationHandler"
-            id="com.motorolamobility.studio.android.db.devices.command.filterDbApplicationNode"
+            defaultHandler="org.eclipse.andmore.android.db.devices.ui.action.FilterDbApplicationHandler"
+            id="org.eclipse.andmore.android.db.devices.command.filterDbApplicationNode"
             name="%command_filter_db_application_node">
          <state
-               class="com.motorolamobility.studio.android.db.devices.ui.action.PersistentToggleState"
+               class="org.eclipse.andmore.android.db.devices.ui.action.PersistentToggleState"
                id="org.eclipse.ui.commands.toggleState">
          </state>
       </command>
@@ -126,9 +126,9 @@
    <extension
        point="org.eclipse.ui.preferencePages">
            <page
-               category="com.motorola.studio.platform.ui.preference"
-               class="com.motorolamobility.studio.android.db.devices.ui.preferences.DbPreferencePage"
-               id="com.motorola.studio.android.db.preferencepage"
+               category="org.eclipse.andmore.platform.ui.preference"
+               class="org.eclipse.andmore.android.db.devices.ui.preferences.DbPreferencePage"
+               id="org.eclipse.andmore.android.db.preferencepage"
                name="%preferencePageName">
            </page>
    </extension>

@@ -20,7 +20,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS
 {
     private static final String BUNDLE_NAME =
-            "com.motorola.studio.android.packaging.ui.i18n.messages"; //$NON-NLS-1$
+            "org.eclipse.andmore.android.packaging.ui.i18n.messages"; //$NON-NLS-1$
 
     public static String PACKAGE_EXPORT_WIZARD_AREA_UNSIGNEDPACKAGE_WARNING;
 

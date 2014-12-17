@@ -1,20 +1,20 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.motorolamobility.studio.android.db.core;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android.db.core;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.db.core.DbCoreActivator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.datatools.connectivity,
- com.motorola.studio.android.common,
+ org.eclipse.andmore.android.common,
  org.eclipse.core.resources,
  org.eclipse.datatools.connectivity.sqm.core,
  org.eclipse.datatools.modelbase.sql,
  org.junit,
  org.eclipse.datatools.sqltools.data.ui,
- com.motorola.studio.android.codeutils,
+ org.eclipse.andmore.android.codeutils,
  org.eclipse.datatools.sqltools.editor.core,
  org.eclipse.datatools.sqltools.result,
  org.eclipse.core.expressions,

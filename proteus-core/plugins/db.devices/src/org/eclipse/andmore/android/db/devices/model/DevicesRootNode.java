@@ -54,7 +54,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#canRefresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#canRefresh()
      */
     public IStatus canRefresh()
     {
@@ -83,7 +83,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @Override
     public void refresh()
@@ -101,7 +101,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode
 
     /*
      * (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -152,7 +152,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
@@ -161,7 +161,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#clean()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
      */
     @Override
     public void cleanUp()

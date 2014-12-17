@@ -24,7 +24,7 @@ public class ServicesNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.devices.services.i18n.servicesNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.devices.services.i18n.servicesNLS",
                 ServicesNLS.class);
     }
 

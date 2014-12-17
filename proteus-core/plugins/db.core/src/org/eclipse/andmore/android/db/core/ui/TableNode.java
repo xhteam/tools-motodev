@@ -79,7 +79,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#refresh()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -98,7 +98,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#isLeaf()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
      */
     @Override
     public boolean isLeaf()
@@ -107,7 +107,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.AbstractTreeNode#getIcon()
+     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
      */
     @Override
     public ImageDescriptor getIcon()
@@ -117,7 +117,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITableNode#sampleDbContents()
+     * @see org.eclipse.andmore.android.db.core.ui.ITableNode#sampleDbContents()
      */
     public void sampleDbContents()
     {
@@ -125,7 +125,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITableNode#extractData()
+     * @see org.eclipse.andmore.android.db.core.ui.ITableNode#extractData()
      */
     public void extractData()
     {
@@ -136,7 +136,7 @@ public class TableNode extends AbstractTreeNode implements ITableNode
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.db.core.ui.ITableNode#loadData()
+     * @see org.eclipse.andmore.android.db.core.ui.ITableNode#loadData()
      */
     public void loadData()
     {

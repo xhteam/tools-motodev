@@ -91,7 +91,7 @@ public class NewKeyBlock extends CertificateBlock
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.ui.composite.CertificateBlock#createCustomArea(org.eclipse.swt.widgets.Composite)
+     * @see org.eclipse.andmore.android.certmanager.ui.composite.CertificateBlock#createCustomArea(org.eclipse.swt.widgets.Composite)
      */
     @Override
     protected void createCustomArea(Composite parent)
@@ -160,7 +160,7 @@ public class NewKeyBlock extends CertificateBlock
     }
 
     /* (non-Javadoc)
-     * @see com.motorolamobility.studio.android.certmanager.ui.composite.CertificateBlock#decorateRequiredFields()
+     * @see org.eclipse.andmore.android.certmanager.ui.composite.CertificateBlock#decorateRequiredFields()
      */
     @Override
     protected void decorateRequiredFields()
@@ -180,11 +180,6 @@ public class NewKeyBlock extends CertificateBlock
                 && !WidgetsUtil.isNullOrEmpty(this.keyConfirmPassword);
     }
 
-    /*
-     * (non-Javadoc)
-     * @seecom.motorola.studio.platform.tools.common.ui.composite.BaseBlock#
-     * canFlipToNextPage()
-     */
     @Override
     public boolean canFlipToNextPage()
     {

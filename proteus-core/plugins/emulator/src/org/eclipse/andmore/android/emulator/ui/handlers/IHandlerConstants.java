@@ -24,12 +24,12 @@ public interface IHandlerConstants
      * Constant used in plugin.xml file to identify change orientation command
      */
     String CHANGE_EMULATOR_ORIENTATION_COMMAND =
-            "com.motorola.studio.android.emulator.ui.change.layout";
+            "org.eclipse.andmore.android.emulator.ui.change.layout";
 
     /**
      * Constant used in plugin.xml file to identify change zoom command
      */
-    String CHANGE_EMULATOR_ZOOM_COMMAND = "com.motorola.studio.android.emulator.ui.change.zoom";
+    String CHANGE_EMULATOR_ZOOM_COMMAND = "org.eclipse.andmore.android.emulator.ui.change.zoom";
 
     /**
      * Parameter that determines to which view the command will be applied

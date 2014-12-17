@@ -37,7 +37,7 @@ public class CommonPlugin extends AbstractUIPlugin
 {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "com.motorola.studio.android.common"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.common"; //$NON-NLS-1$
 
     private static final String JDBC_DRIVER_PATH = "res/androidjdbc.jar";
 

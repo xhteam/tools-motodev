@@ -18,19 +18,19 @@
 -->
 
 <plugin>
-	<extension-point id="com.motorola.studio.android.codeutils.sampleActivityDatabase" name="Add Android Sample Activity Page Based on Database" schema="schema/com.motorola.studio.android.sampleActivityDatabase.exsd"/>
+	<extension-point id="org.eclipse.andmore.android.codeutils.sampleActivityDatabase" name="Add Android Sample Activity Page Based on Database" schema="schema/sampleActivityDatabase.exsd"/>
    <extension
        point="org.eclipse.ui.newWizards">
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewActivityWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewActivityWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/new_activity_wiz.png"
-             id="com.motorola.studio.android.wizards.newActivityWizard"
+             id="org.eclipse.andmore.android.wizards.newActivityWizard"
              name="%android.wizard.activity"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.activity.description
@@ -38,14 +38,14 @@
        </wizard>
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewActivityBasedOnTemplateWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewActivityBasedOnTemplateWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/new_activity_template_wiz.png"
-             id="com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard"
+             id="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard"
              name="%android.wizard.activity.template"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.activity.template.description
@@ -53,14 +53,14 @@
        </wizard>
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewReceiverWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewReceiverWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/receiver.png"
-             id="com.motorola.studio.android.wizards.newReceiverWizard"
+             id="org.eclipse.andmore.android.wizards.newReceiverWizard"
              name="%android.wizard.receiver"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.receiver.description
@@ -68,14 +68,14 @@
        </wizard>
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewServiceWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewServiceWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/service_new.gif"
-             id="com.motorola.studio.android.wizards.newServiceWizard"
+             id="org.eclipse.andmore.android.wizards.newServiceWizard"
              name="%android.wizard.service"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.service.description
@@ -83,14 +83,14 @@
        </wizard>
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewProviderWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewProviderWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/provider.png"
-             id="com.motorola.studio.android.wizards.newProviderWizard"
+             id="org.eclipse.andmore.android.wizards.newProviderWizard"
              name="%android.wizard.provider"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.provider.description
@@ -98,14 +98,14 @@
        </wizard>
        <wizard
              canFinishEarly="false"
-             category="com.android.ide.eclipse.wizards.category"
-             class="com.motorola.studio.android.wizards.buildingblocks.NewWidgetProviderWizard"
-             finalPerspective="com.motorola.studio.android.perspective"
+             category="org.eclipse.andmore.wizards.category"
+             class="org.eclipse.andmore.android.wizards.buildingblocks.NewWidgetProviderWizard"
+             finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/widget_provider_block_wiz_toolbar.png"
-             id="com.motorola.studio.android.wizard.newWidgetProviderWizard"
+             id="org.eclipse.andmore.android.wizard.newWidgetProviderWizard"
              name="%android.wizard.widget.provider"
-             preferredPerspectives="com.motorola.studio.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
              project="false">
           <description>
              %android.wizard.widget.provider.description
@@ -115,33 +115,33 @@
 	<extension
                point="org.eclipse.ui.commands">
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewActivityWizard"
-                  id="com.motorola.studio.android.new.activity"
+                  defaultHandler="org.eclipse.andmore.android.command.NewActivityWizard"
+                  id="org.eclipse.andmore.android.new.activity"
                   name="%motodevmenu.new.activity">
             </command>
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewActivityBasedOnTemplateHandler"
-                  id="com.motorola.studio.android.new.activity.template"
+                  defaultHandler="org.eclipse.andmore.android.command.NewActivityBasedOnTemplateHandler"
+                  id="org.eclipse.andmore.android.new.activity.template"
                   name="%motodevmenu.autogeneratedcode.activity">
             </command>
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewBroadcastReceiverWizard"
-                  id="com.motorola.studio.android.new.broadcast.receiver"
+                  defaultHandler="org.eclipse.andmore.android.command.NewBroadcastReceiverWizard"
+                  id="org.eclipse.andmore.android.new.broadcast.receiver"
                   name="%motodevmenu.new.broadcastreceiver">
             </command>
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewContentProviderWizard"
-                  id="com.motorola.studio.android.new.content.provider"
+                  defaultHandler="org.eclipse.andmore.android.command.NewContentProviderWizard"
+                  id="org.eclipse.andmore.android.new.content.provider"
                   name="%motodevmenu.new.contentprovider">
             </command>
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewServiceWizard"
-                  id="com.motorola.studio.android.new.service"
+                  defaultHandler="org.eclipse.andmore.android.command.NewServiceWizard"
+                  id="org.eclipse.andmore.android.new.service"
                   name="%motodevmenu.new.service">
             </command>            
             <command
-                  defaultHandler="com.motorola.studio.android.command.NewWidgetProviderWizard"
-                  id="com.motorola.studio.android.new.widget.provider"
+                  defaultHandler="org.eclipse.andmore.android.command.NewWidgetProviderWizard"
+                  id="org.eclipse.andmore.android.new.widget.provider"
                   name="%motodevmenu.new.widget.provider">
             </command>            
 	</extension>
@@ -151,11 +151,11 @@
             allPopups="true"
             locationURI="popup:org.eclipse.jdt.ui.source.menu?endof=externalizeGroup">
 	     <separator
-               name="com.motorola.studio.android.fillcodeseparator1"
+               name="org.eclipse.andmore.android.fillcodeseparator1"
                visible="true">
          </separator>
          <command
-               commandId="com.motorola.studio.android.fillActivityBasedOnLayout"
+               commandId="org.eclipse.andmore.android.fillActivityBasedOnLayout"
                icon="icons/obj16/fill_code_from_layout_16x16.png"
                label="%Motodev_Studio_Fill_Activity_Based_On_Layout"
                style="push">
@@ -189,7 +189,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -203,7 +203,7 @@
             </visibleWhen>
          </command>
          <command
-               commandId="com.motorola.studio.android.fillSaveInstanceState"
+               commandId="org.eclipse.andmore.android.fillSaveInstanceState"
                label="%fill_save_instance_state_command_name"
                style="push"
                tooltip="%fill_save_instance_state_command_description">
@@ -237,7 +237,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -251,7 +251,7 @@
             </visibleWhen>
          </command>
          <command
-               commandId="com.motorola.studio.android.GenerateMenuCode"
+               commandId="org.eclipse.andmore.android.GenerateMenuCode"
                label="%Motodev_Studio_Generate_Menu_Code"
                style="push">
                <visibleWhen
@@ -284,7 +284,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -302,18 +302,18 @@
             allPopups="false"
             locationURI="menu:studioAndroidAutoGenerateCode">
          <command
-               commandId="com.motorola.studio.android.fillActivityBasedOnLayout"
+               commandId="org.eclipse.andmore.android.fillActivityBasedOnLayout"
                icon="icons/obj16/fill_code_from_layout_16x16.png"
                label="%Motodev_Studio_Fill_Activity_Based_On_Layout"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.fillSaveInstanceState"
+               commandId="org.eclipse.andmore.android.fillSaveInstanceState"
                label="%fill_save_instance_state_command_name"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.GenerateMenuCode"
+               commandId="org.eclipse.andmore.android.GenerateMenuCode"
                label="%Motodev_Studio_Generate_Menu_Code"
                style="push">
          </command>
@@ -321,35 +321,35 @@
       <menuContribution
             locationURI="menu:studioAndroidNewWizardsMenu">
          <separator
-               name="com.motorola.studio.android.afterNewProjectSeparator"
+               name="org.eclipse.andmore.android.afterNewProjectSeparator"
                visible="true">
          </separator>
          <command
-               commandId="com.motorola.studio.android.new.activity"
+               commandId="org.eclipse.andmore.android.new.activity"
                icon="icons/obj16/new_activity_wiz.png"
                label="%motodevmenu.new.activity"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.new.broadcast.receiver"
+               commandId="org.eclipse.andmore.android.new.broadcast.receiver"
                icon="icons/obj16/receiver.png"
                label="%motodevmenu.new.broadcastreceiver"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.new.content.provider"
+               commandId="org.eclipse.andmore.android.new.content.provider"
                icon="icons/obj16/provider.png"
                label="%motodevmenu.new.contentprovider"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.new.service"
+               commandId="org.eclipse.andmore.android.new.service"
                icon="icons/obj16/service_new.gif"
                label="%motodevmenu.new.service"
                style="push">
          </command>
          <command
-               commandId="com.motorola.studio.android.new.widget.provider"
+               commandId="org.eclipse.andmore.android.new.widget.provider"
                icon="icons/obj16/widget_provider_block_wiz_toolbar.png"
                label="%motodevmenu.new.widget.provider"
                style="push">
@@ -359,27 +359,27 @@
 	   <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorola.studio.android.generateviewbylayout.ui.GenerateViewBasedOnLayoutHandler"
-            id="com.motorola.studio.android.fillActivityBasedOnLayout"
+            defaultHandler="org.eclipse.andmore.android.generateviewbylayout.ui.GenerateViewBasedOnLayoutHandler"
+            id="org.eclipse.andmore.android.fillActivityBasedOnLayout"
             name="%Motodev_Studio_Fill_Activity_Based_On_Layout">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.generateviewbylayout.ui.FillOnSaveInstanceStateHandler"
+            defaultHandler="org.eclipse.andmore.android.generateviewbylayout.ui.FillOnSaveInstanceStateHandler"
             description="%fill_save_instance_state_command_description"
-            id="com.motorola.studio.android.fillSaveInstanceState"
+            id="org.eclipse.andmore.android.fillSaveInstanceState"
             name="%fill_save_instance_state_command_name">
       </command>
       <command
-            defaultHandler="com.motorola.studio.android.generatemenucode.ui.GenerateMenuCodeHandler"
-            id="com.motorola.studio.android.GenerateMenuCode"
+            defaultHandler="org.eclipse.andmore.android.generatemenucode.ui.GenerateMenuCodeHandler"
+            id="org.eclipse.andmore.android.GenerateMenuCode"
             name="%Motodev_Studio_Generate_Menu_Code">
       </command>
    </extension>
 	   <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="com.motorola.studio.android.generateviewbylayout.ui.GenerateViewBasedOnLayoutHandler"
-            commandId="com.motorola.studio.android.fillActivityBasedOnLayout">
+            class="org.eclipse.andmore.android.generateviewbylayout.ui.GenerateViewBasedOnLayoutHandler"
+            commandId="org.eclipse.andmore.android.fillActivityBasedOnLayout">
          <enabledWhen>
             <or>
                <and>
@@ -410,7 +410,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -434,8 +434,8 @@
             </with></activeWhen>
       </handler>
       <handler
-            class="com.motorola.studio.android.generateviewbylayout.ui.FillOnSaveInstanceStateHandler"
-            commandId="com.motorola.studio.android.fillSaveInstanceState">
+            class="org.eclipse.andmore.android.generateviewbylayout.ui.FillOnSaveInstanceStateHandler"
+            commandId="org.eclipse.andmore.android.fillSaveInstanceState">
          <activeWhen>
             <with
                   variable="activeWorkbenchWindow">
@@ -474,7 +474,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -492,8 +492,8 @@
          </enabledWhen>
       </handler>
       <handler
-            class="com.motorola.studio.android.generatemenucode.ui.GenerateMenuCodeHandler"
-            commandId="com.motorola.studio.android.GenerateMenuCode">
+            class="org.eclipse.andmore.android.generatemenucode.ui.GenerateMenuCodeHandler"
+            commandId="org.eclipse.andmore.android.GenerateMenuCode">
          <enabledWhen>
             <or>
                <and>
@@ -524,7 +524,7 @@
                            <test
                                  forcePluginActivation="true"
                                  property="org.eclipse.core.resources.projectNature"
-                                 value="com.android.ide.eclipse.adt.AndroidNature">
+                                 value="org.eclipse.andmore.AndroidNature">
                            </test>
                         </adapt>
                      </iterate>
@@ -549,7 +549,7 @@
       </handler>
    </extension>
     <extension
-          point="com.motorola.studio.android.codeutils.sampleActivityDatabase">
+          point="org.eclipse.andmore.android.codeutils.sampleActivityDatabase">
        <parameterCollector
              class="org.eclipse.andmore.android.codeutils.codegeneration.DatabaseListActivityGeneratorByTable">
        </parameterCollector>
@@ -563,7 +563,7 @@
                      id="studioAndroidAutoGenerateCode"
                      label="%motodevmenu.autogeneratedcode">
                   <command
-                        commandId="com.motorola.studio.android.new.activity.template"
+                        commandId="org.eclipse.andmore.android.new.activity.template"
                         icon="icons/obj16/new_activity_template_wiz.png"
                         label="%motodevmenu.autogeneratedcode.activity"
                         style="push">
@@ -576,43 +576,43 @@
        <perspectiveExtension
              targetID="org.eclipse.jdt.ui.JavaPerspective">
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newActivityWizard">
+                id="org.eclipse.andmore.android.wizards.newActivityWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard">
+                id="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newReceiverWizard">
+                id="org.eclipse.andmore.android.wizards.newReceiverWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newServiceWizard">
+                id="org.eclipse.andmore.android.wizards.newServiceWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newProviderWizard">
+                id="org.eclipse.andmore.android.wizards.newProviderWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizard.newWidgetProviderWizard">
+                id="org.eclipse.andmore.android.wizard.newWidgetProviderWizard">
           </newWizardShortcut>
        </perspectiveExtension>
        <perspectiveExtension
              targetID="org.eclipse.sequoyah.android.cdt.build.ui.perspective">
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newActivityWizard">
+                id="org.eclipse.andmore.android.wizards.newActivityWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard">
+                id="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newReceiverWizard">
+                id="org.eclipse.andmore.android.wizards.newReceiverWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newServiceWizard">
+                id="org.eclipse.andmore.android.wizards.newServiceWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizards.newProviderWizard">
+                id="org.eclipse.andmore.android.wizards.newProviderWizard">
           </newWizardShortcut>
           <newWizardShortcut
-                id="com.motorola.studio.android.wizard.newWidgetProviderWizard">
+                id="org.eclipse.andmore.android.wizard.newWidgetProviderWizard">
           </newWizardShortcut>
        </perspectiveExtension>
     </extension>
@@ -621,13 +621,13 @@
        <commonWizard
              menuGroupId="2newAndroidBuildingBlock"
              type="new"
-             wizardId="com.motorola.studio.android.wizards.newActivityWizard">
+             wizardId="org.eclipse.andmore.android.wizards.newActivityWizard">
           <enablement>
              <adapt
                    type="org.eclipse.core.resources.IProject">
                 <test
                       property="org.eclipse.core.resources.projectNature"
-                      value="com.android.ide.eclipse.adt.AndroidNature">
+                      value="org.eclipse.andmore.AndroidNature">
                 </test>
              </adapt>
           </enablement>
@@ -635,13 +635,13 @@
        <commonWizard
              menuGroupId="2newAndroidBuildingBlock"
              type="new"
-             wizardId="com.motorola.studio.android.wizards.newActivityBasedOnTemplateWizard">
+             wizardId="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard">
           <enablement>
              <adapt
                    type="org.eclipse.core.resources.IProject">
                 <test
                       property="org.eclipse.core.resources.projectNature"
-                      value="com.android.ide.eclipse.adt.AndroidNature">
+                      value="org.eclipse.andmore.AndroidNature">
                 </test>
              </adapt>
           </enablement>
@@ -649,13 +649,13 @@
        <commonWizard
              menuGroupId="2newAndroidBuildingBlock"
              type="new"
-             wizardId="com.motorola.studio.android.wizards.newReceiverWizard">
+             wizardId="org.eclipse.andmore.android.wizards.newReceiverWizard">
           <enablement>
              <adapt
                    type="org.eclipse.core.resources.IProject">
                 <test
                       property="org.eclipse.core.resources.projectNature"
-                      value="com.android.ide.eclipse.adt.AndroidNature">
+                      value="org.eclipse.andmore.AndroidNature">
                 </test>
              </adapt>
           </enablement>
@@ -663,13 +663,13 @@
        <commonWizard
              menuGroupId="2newAndroidBuildingBlock"
              type="new"
-             wizardId="com.motorola.studio.android.wizards.newServiceWizard">
+             wizardId="org.eclipse.andmore.android.wizards.newServiceWizard">
           <enablement>
              <adapt
                    type="org.eclipse.core.resources.IProject">
                 <test
                       property="org.eclipse.core.resources.projectNature"
-                      value="com.android.ide.eclipse.adt.AndroidNature">
+                      value="org.eclipse.andmore.AndroidNature">
                 </test>
              </adapt>
           </enablement>
@@ -677,13 +677,13 @@
        <commonWizard
              menuGroupId="2newAndroidBuildingBlock"
              type="new"
-             wizardId="com.motorola.studio.android.wizards.newProviderWizard">
+             wizardId="org.eclipse.andmore.android.wizards.newProviderWizard">
           <enablement>
              <adapt
                    type="org.eclipse.core.resources.IProject">
                 <test
                       property="org.eclipse.core.resources.projectNature"
-                      value="com.android.ide.eclipse.adt.AndroidNature">
+                      value="org.eclipse.andmore.AndroidNature">
                 </test>
              </adapt>
           </enablement>

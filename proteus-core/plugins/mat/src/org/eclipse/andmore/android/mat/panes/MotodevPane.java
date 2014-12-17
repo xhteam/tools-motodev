@@ -65,7 +65,7 @@ public class MotodevPane extends CompositeHeapEditorPane
     private static final String PANE_TITLE = MatNLS.Motodev_Pane_Title;
 
     // Pane ID
-    public final static String MOTODEV_PANE_ID = "com.motorola.studio.android.mat.MotodevPane";
+    public final static String MOTODEV_PANE_ID = "org.eclipse.andmore.android.mat.MotodevPane";
 
     private Action executeAction;
 

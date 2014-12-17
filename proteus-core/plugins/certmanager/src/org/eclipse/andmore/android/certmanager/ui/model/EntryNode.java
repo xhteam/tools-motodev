@@ -132,7 +132,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
     /*(non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #getKeyStoreNode()
      */
     @Override
@@ -145,7 +145,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
      * (non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #getAlias()
      */
     @Override
@@ -158,7 +158,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
      * (non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #isCertificateEntry()
      */
     @Override
@@ -171,7 +171,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
      * (non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #isKeyEntry()
      */
     @Override
@@ -217,7 +217,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
      * (non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #getKey(java.lang.String)
      */
     @Override
@@ -238,7 +238,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry
      * (non-Javadoc)
      * 
      * @see
-     * com.motorolamobility.studio.android.certmanager.ui.model.IKeyStoreEntry
+     * org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry
      * #getPrivateKey(java.lang.String)
      */
     @Override

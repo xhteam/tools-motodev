@@ -29,7 +29,7 @@ import org.osgi.framework.BundleContext;
 public class CertificateManagerActivator extends AbstractUIPlugin
 {
 
-    public static final String PLUGIN_ID = "com.motorolamobility.studio.android.certmanager"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.certmanager"; //$NON-NLS-1$
 
     public static final String UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID
             + ".unsign_external_pkg_wiz";

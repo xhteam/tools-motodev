@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin_Name
-Bundle-SymbolicName: com.motorola.studio.android;singleton:=true
+Bundle-SymbolicName: org.eclipse.andmore.android;singleton:=true
 Bundle-Version: 5.0.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.AndroidPlugin
 Bundle-Vendor: %Plugin_Vendor
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
- com.motorola.studio.android.common,
- com.motorolamobility.studio.android.logger.collector,
+ org.eclipse.andmore.android.common,
+ org.eclipse.andmore.android.logger.collector,
  org.eclipse.core.runtime,
  org.eclipse.core.filesystem,
  org.eclipse.andmore,

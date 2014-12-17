@@ -25,7 +25,7 @@ public class AndroidHandsetNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.handset.i18n.androidHandsetNLS",
+        NLS.initializeMessages("org.eclipse.andmore.android.handset.i18n.androidHandsetNLS",
                 AndroidHandsetNLS.class);
     }
 

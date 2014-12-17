@@ -26,7 +26,7 @@ public class AndroidNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.i18n.androidNLS", AndroidNLS.class);
+        NLS.initializeMessages("org.eclipse.andmore.android.i18n.androidNLS", AndroidNLS.class);
     }
 
     public static String AbstractDeviceDropSupportHandler_ApplicationsFailed;

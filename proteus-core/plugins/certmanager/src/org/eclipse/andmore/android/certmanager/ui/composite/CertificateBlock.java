@@ -117,11 +117,6 @@ public class CertificateBlock implements IBaseBlock
         }
     };
 
-    /*
-     * (non-Javadoc)
-     * @seecom.motorola.studio.android.wizards.BaseWizard#
-     * createContentPlugin(org.eclipse.swt.widgets.Composite)
-     */
     @Override
     public Composite createContent(Composite parent)
     {
@@ -353,10 +348,6 @@ public class CertificateBlock implements IBaseBlock
         return result;
     }
 
-    /**
-     * Returns true if there is no error message set, the alias is not empty and there is at least one detail field non empty.
-     * @see com.motorola.studio.platform.tools.common.ui.composite.BaseBlock#isPageComplete()
-     */
     @Override
     public boolean isPageComplete()
     {
@@ -370,22 +361,12 @@ public class CertificateBlock implements IBaseBlock
                             .isNullOrDeselected(this.comboCountry));
     }
 
-    /*
-     * (non-Javadoc)
-     * @seecom.motorola.studio.platform.tools.common.ui.composite.BaseBlock#
-     * canFlipToNextPage()
-     */
     @Override
     public boolean canFlipToNextPage()
     {
         return (getErrorMessage() == null) && isPageComplete();
     }
 
-    /*
-     * (non-Javadoc)
-     * @seecom.motorola.studio.platform.tools.common.ui.composite.BaseBlock#
-     * getErrorMessage()
-     */
     @Override
     public String getErrorMessage()
     {

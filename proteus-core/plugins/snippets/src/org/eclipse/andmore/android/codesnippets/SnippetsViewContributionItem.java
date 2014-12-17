@@ -38,7 +38,7 @@ public class SnippetsViewContributionItem extends ControlContribution
 
     public SnippetsViewContributionItem(SnippetsView view)
     {
-        super("com.motorola.studio.android.codesnippets.search");
+        super("org.eclipse.andmore.android.codesnippets.search");
         this.view = view;
     }
 

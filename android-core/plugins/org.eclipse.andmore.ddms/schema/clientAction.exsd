@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="com.android.ide.eclipse.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.andmore.ddms" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="com.android.ide.eclipse.ddms" id="clientAction" name="%extension-point.name.ClientAction"/>
+         <meta.schema plugin="org.eclipse.andmore.ddms" id="clientAction" name="%extension-point.name.ClientAction"/>
       </appInfo>
       <documentation>
          Extension point that allows adding custom actions to the DDMS Device Panel to act on the currently selected client (Dalvik VM).
@@ -18,7 +18,7 @@
 
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":com.android.ide.eclipse.ddms.IClientAction"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.andmore.ddms.IClientAction"/>
                </appInfo>
             </annotation>
          </attribute>

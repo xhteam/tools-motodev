@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <description>
-	Proteus for Android
+	Andmore for Android
    </description>
-   <feature id="com.motorola.studio.android.basic.feature" version="0.0.0" patch="false">
-      <category name="MotoDev Studio Plugin"/>
+   <feature id="org.eclipse.andmore.android.basic.feature" version="0.0.0" patch="false">
+      <category name="Andmore"/>
    </feature>
    
-   <feature id="com.motorola.studio.android.basic.feature.source" version="0.0.0">
-       <category name="Proteus Core SDK"/>
+   <feature id="org.eclipse.andmore.android.basic.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
    </feature>
    
-   <feature id="com.motorola.studio.android.feature" version="0.0.0">
-      <category name="MotoDev Studio"/>
+   <feature id="org.eclipse.andmore.android.feature" version="0.0.0">
+      <category name="Andmore"/>
    </feature>
    
-   <feature id="com.motorola.studio.android.feature.source" version="0.0.0">
-       <category name="Proteus Core SDK"/>
+   <feature id="org.eclipse.andmore.android.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
    </feature>
    
-   
-<!--   <feature id="org.eclipse.sequoyah" version="2.1.1">
-      <category name="MotoDev Studio Plugin"/>
-   </feature>
--->
+  
    <feature id="org.eclipse.andmore.feature" version="0.0.0">
        <category name="Andmore Android Core"/>
    </feature>
@@ -96,9 +92,9 @@
        </description>
    </category-def>
    
-   <category-def name="Proteus Core SDK" label="Proteus Core SDK">
+   <category-def name="Andmore Core SDK" label="Andmore Core SDK">
        <description>
-           Proteus Core Tools SDK
+           Andmore Core Tools SDK
        </description>
    </category-def>
 </site>

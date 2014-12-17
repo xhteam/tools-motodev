@@ -49,13 +49,13 @@ import org.osgi.framework.BundleContext;
 public class DeviceServicesPlugin extends AbstractUIPlugin
 {
 
-    public static final String PLUGIN_ID = "com.motorola.studio.android.devices.services";
+    public static final String PLUGIN_ID = "org.eclipse.andmore.android.devices.services";
 
     public static final String DEPLOY_SERVICE_ID =
-            "com.motorola.studio.android.devices.services.deployService";
+            "org.eclipse.andmore.android.devices.services.deployService";
 
     public static final String UNINSTALL_APP_SERVICE_ID =
-            "com.motorola.studio.android.devices.services.uninstallAppService";
+            "org.eclipse.andmore.android.devices.services.uninstallAppService";
 
     private static ServiceHandler deployServiceHandler = null;
 
@@ -64,10 +64,10 @@ public class DeviceServicesPlugin extends AbstractUIPlugin
     public static final boolean IS_WIN32 = Platform.getOS().equals(Platform.OS_WIN32);
 
     private static String EMULATOR_CONSOLE_SERVICE_ID =
-            "com.motorola.studio.android.devices.services.emulatorConsole";
+            "org.eclipse.andmore.android.devices.services.emulatorConsole";
 
     private static String ADB_SHELL_SERVICE_ID =
-            "com.motorola.studio.android.devices.services.adbShell";
+            "org.eclipse.andmore.android.devices.services.adbShell";
 
     private static DeviceServicesPlugin plugin;
 

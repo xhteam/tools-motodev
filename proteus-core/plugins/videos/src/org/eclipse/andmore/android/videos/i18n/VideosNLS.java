@@ -25,7 +25,7 @@ public class VideosNLS extends NLS
 {
     static
     {
-        NLS.initializeMessages("com.motorola.studio.android.videos.i18n.videosNLS", VideosNLS.class);
+        NLS.initializeMessages("org.eclipse.andmore.android.videos.i18n.videosNLS", VideosNLS.class);
     }
 
     public static String UI_Order_Most_Recent;
