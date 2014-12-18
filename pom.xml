@@ -14,12 +14,7 @@
 		<eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
 		<sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
-<!--		<eclipse-theme-site>http://eclipse-color-theme.github.com/update</eclipse-theme-site> -->
-<!--		<android-m2e-site>http://rgladwell.github.com/m2e-android/updates/master</android-m2e-site> -->
 		<m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
-<!--		<gradle-tooling-site>http://dist.springsource.com/release/TOOLS/gradle</gradle-tooling-site>
-		<m2e-extras>http://ifedorenko.github.io/m2e-extras/</m2e-extras>
--->
 	</properties>
 
 	<repositories>
@@ -47,7 +42,7 @@
 
 	<modules>
 		<module>android-core</module>
-		<module>proteus-core</module>
+		<module>andmore-core</module>
 	</modules>
 
 
@@ -78,11 +73,6 @@
 				<groupId>org.eclipse.tycho.extras</groupId>
 				<artifactId>tycho-source-feature-plugin</artifactId>
 			</plugin>
-<!--			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-document-bundle-plugin</artifactId>
-			</plugin>
--->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
@@ -123,15 +113,23 @@
 					</environments>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<findbugsXmlOutput>true</findbugsXmlOutput>
-					<failOnError>false</failOnError>
-				</configuration>
-				<executions>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+		     <id>findbugs</id>
+		     <build>
+		     	<plugins>
+		     		<plugin>
+				       <groupId>org.codehaus.mojo</groupId>
+				       <artifactId>findbugs-maven-plugin</artifactId>
+				       <version>3.0.0</version>
+				       <configuration>
+						<findbugsXmlOutput>true</findbugsXmlOutput>
+						<failOnError>false</failOnError>
+					    </configuration>
+					 <executions>
 					<execution>
 						<goals>
 							<goal>check</goal>
@@ -139,6 +137,8 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-	</build>
+		     	</plugins>
+		     </build>
+		</profile>
+	</profiles>
 </project>
