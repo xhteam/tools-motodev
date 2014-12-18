@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common Android Utilities
 Bundle-SymbolicName: org.eclipse.andmore.base;singleton:=true
-Bundle-Version: 23.0.3.qualifier
+Bundle-Version: 0.5.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy

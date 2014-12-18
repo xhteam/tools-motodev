@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.andmore.android.feature"
       label="%feature.android.label"
-      version="5.0.0.qualifier"
+      version="0.5.0.qualifier"
       provider-name="%feature.android.provider.name"
       plugin="org.eclipse.andmore.android.product"
       os="linux,macosx,win32"
@@ -21,19 +21,15 @@
       %feature.android.license
    </license>
 
-   <url>
-      <update label="MOTODEV Studio for Android Updates" url="https://studio-android.motodevupdate.com/android/4.1/"/>
-   </url>
-
    <includes
          id="org.eclipse.andmore.android.basic.feature"
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.eclipse.andmore.feature" version="15.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.andmore.hierarchyviewer.feature" version="15.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.andmore.ddms.feature" version="15.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.andmore.traceview.feature" version="15.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.andmore.feature" version="0.0.0"/>
+      <import feature="org.eclipse.andmore.hierarchyviewer.feature" version="0.0.0"/>
+      <import feature="org.eclipse.andmore.ddms.feature" version="0.0.0"/>
+      <import feature="org.eclipse.andmore.traceview.feature" version="0.0.0"/>
       <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.datatools.common.doc.user" version="1.8.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.datatools.sqltools.doc.user" version="1.8.0" match="greaterOrEqual"/>

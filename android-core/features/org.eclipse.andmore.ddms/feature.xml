@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.andmore.ddms.feature"
       label="Andmore Android DDMS"
-      version="23.0.3.qualifier"
+      version="0.5.0.qualifier"
       provider-name="Eclipse Foundation"
       plugin="org.eclipse.andmore.ddms">
 

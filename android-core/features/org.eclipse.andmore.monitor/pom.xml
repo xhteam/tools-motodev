@@ -10,7 +10,7 @@
 
     <parent>
         <relativePath>../../pom.xml</relativePath>
-        <groupId>adt.group</groupId>
+        <groupId>org.eclipse.andmore</groupId>
         <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: MOTODEV Studio Android Logger
+Bundle-Name: Andmore Android Logger
 Bundle-SymbolicName: org.eclipse.andmore.android.logger;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.logger.internal.Activator
-Bundle-Vendor: Motorola Mobility, Inc.
+Bundle-Vendor: Eclipse Foundation
 Export-Package: org.eclipse.andmore.android.logger
 Bundle-ClassPath: lib/log4j-1.2.14.jar,
  .

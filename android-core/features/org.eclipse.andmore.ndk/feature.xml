@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.andmore.ndk.feature"
       label="Android Native Development Tools"
-      version="23.0.3.qualifier"
+      version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation">
 
    <description>
