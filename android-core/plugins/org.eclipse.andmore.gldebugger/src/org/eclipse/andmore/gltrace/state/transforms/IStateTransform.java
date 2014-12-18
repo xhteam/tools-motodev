@@ -19,16 +19,17 @@ package org.eclipse.andmore.gltrace.state.transforms;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
- * This interface encapsulates a single change to the GL state. GL Calls that affect
- * multiple state variables would use a list of these state transformations.
+ * This interface encapsulates a single change to the GL state. GL Calls that
+ * affect multiple state variables would use a list of these state
+ * transformations.
  */
 public interface IStateTransform {
-    /** Apply this transformation on the given state. */
-    void apply(IGLProperty currentState);
+	/** Apply this transformation on the given state. */
+	void apply(IGLProperty currentState);
 
-    /** Revert this transformation from the given state. */
-    void revert(IGLProperty currentState);
+	/** Revert this transformation from the given state. */
+	void revert(IGLProperty currentState);
 
-    /** Obtain the property that will be affected by this transformation. */
-    IGLProperty getChangedProperty(IGLProperty currentState);
+	/** Obtain the property that will be affected by this transformation. */
+	IGLProperty getChangedProperty(IGLProperty currentState);
 }

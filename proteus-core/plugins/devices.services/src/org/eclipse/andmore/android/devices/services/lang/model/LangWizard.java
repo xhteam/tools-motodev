@@ -22,64 +22,62 @@ import org.eclipse.jface.wizard.Wizard;
 /**
  * Change Language Wizard used to change the device language configuration
  */
-public class LangWizard extends Wizard
-{
+public class LangWizard extends Wizard {
 
-    private final String WIZARD_IMAGE_PATH = "resources/flag.png";
+	private final String WIZARD_IMAGE_PATH = "resources/flag.png";
 
-    private LangWizardPage page;
+	private LangWizardPage page;
 
-    private final String[] currentLangAndCountry = null;
+	private final String[] currentLangAndCountry = null;
 
-    private String languageID;
+	private String languageID;
 
-    private String countryID;
+	private String countryID;
 
-    public LangWizard()
-    {
-        this.setWindowTitle(ServicesNLS.UI_Wizard_Title);
-        super.setDefaultPageImageDescriptor(DeviceServicesPlugin
-                .getImageDescriptor(WIZARD_IMAGE_PATH));
-    }
+	public LangWizard() {
+		this.setWindowTitle(ServicesNLS.UI_Wizard_Title);
+		super.setDefaultPageImageDescriptor(DeviceServicesPlugin.getImageDescriptor(WIZARD_IMAGE_PATH));
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        page = new LangWizardPage(currentLangAndCountry);
-        super.addPage(page);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		page = new LangWizardPage(currentLangAndCountry);
+		super.addPage(page);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#canFinish()
-     */
-    @Override
-    public boolean canFinish()
-    {
-        return page.isPageComplete();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
+	@Override
+	public boolean canFinish() {
+		return page.isPageComplete();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        languageID = Language.getIdFromName(page.getLanguage());
-        countryID = Country.getIdFromName(page.getCountry());
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		languageID = Language.getIdFromName(page.getLanguage());
+		countryID = Country.getIdFromName(page.getCountry());
 
-        return true;
-    }
+		return true;
+	}
 
-    public String getlanguageId()
-    {
-        return languageID;
-    }
+	public String getlanguageId() {
+		return languageID;
+	}
 
-    public String getcountryId()
-    {
-        return countryID;
-    }
+	public String getcountryId() {
+		return countryID;
+	}
 }

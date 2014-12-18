@@ -22,13 +22,12 @@ import org.eclipse.andmore.android.db.core.ui.IDbNode;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
 import org.eclipse.core.runtime.IStatus;
 
-public interface IDbCreatorNode extends ITreeNode
-{
+public interface IDbCreatorNode extends ITreeNode {
 
-    IStatus createDb(String dbName);
+	IStatus createDb(String dbName);
 
-    IStatus createDb(String dbName, List<TableModel> tables);
+	IStatus createDb(String dbName, List<TableModel> tables);
 
-    IStatus deleteDb(IDbNode dbNode);
+	IStatus deleteDb(IDbNode dbNode);
 
 }

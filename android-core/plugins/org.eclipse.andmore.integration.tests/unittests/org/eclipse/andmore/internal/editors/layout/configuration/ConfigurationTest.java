@@ -27,7 +27,6 @@ import com.android.sdklib.devices.Screen;
 import com.android.utils.StdLogger;
 
 import java.lang.reflect.Constructor;
-import java.util.EnumSet;
 import java.util.List;
 
 import junit.framework.TestCase;

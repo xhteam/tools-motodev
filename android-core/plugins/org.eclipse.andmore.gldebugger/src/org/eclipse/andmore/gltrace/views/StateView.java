@@ -21,36 +21,37 @@ import org.eclipse.andmore.gltrace.editors.StateViewPage;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * The StateView shows the GL state for the current active {@link GLFunctionTraceViewer}.
- * It behaves like the Eclipse Outline View: Each active editor provides the GL state content
- * to show via a {@link StateViewPage}. This class simply acts as a stack view showing the
+ * The StateView shows the GL state for the current active
+ * {@link GLFunctionTraceViewer}. It behaves like the Eclipse Outline View: Each
+ * active editor provides the GL state content to show via a
+ * {@link StateViewPage}. This class simply acts as a stack view showing the
  * state corresponding to whichever editor is active.
  */
 public class StateView extends GLPageBookView {
-    public static final String ID = "org.eclipse.andmore.gltrace.views.State"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.gltrace.views.State"; //$NON-NLS-1$
 
-    public StateView() {
-        super("Open (or select) a GL Trace file to view the GL State.");
-    }
+	public StateView() {
+		super("Open (or select) a GL Trace file to view the GL State.");
+	}
 
-    @Override
-    protected PageRec doCreatePage(IWorkbenchPart part) {
-        if (!(part instanceof GLFunctionTraceViewer)) {
-            return null;
-        }
+	@Override
+	protected PageRec doCreatePage(IWorkbenchPart part) {
+		if (!(part instanceof GLFunctionTraceViewer)) {
+			return null;
+		}
 
-        GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
-        StateViewPage page = viewer.getStateViewPage();
-        initPage(page);
-        page.createControl(getPageBook());
+		GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
+		StateViewPage page = viewer.getStateViewPage();
+		initPage(page);
+		page.createControl(getPageBook());
 
-        return new PageRec(part, page);
-    }
+		return new PageRec(part, page);
+	}
 
-    @Override
-    protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
-        StateViewPage v = (StateViewPage) pageRecord.page;
-        v.dispose();
-        pageRecord.dispose();
-    }
+	@Override
+	protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
+		StateViewPage v = (StateViewPage) pageRecord.page;
+		v.dispose();
+		pageRecord.dispose();
+	}
 }

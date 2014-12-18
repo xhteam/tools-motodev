@@ -26,39 +26,35 @@ import org.eclipse.andmore.gltrace.state.IGLProperty;
  * {@link GLStateType#ACTIVE_TEXTURE_UNIT} property.
  */
 public class TextureUnitPropertyAccessor implements IGLPropertyAccessor {
-    private final int mContextId;
-    private final IGLPropertyAccessor mActiveTextureAccessor;
-    private final GLStateType mTargetType;
+	private final int mContextId;
+	private final IGLPropertyAccessor mActiveTextureAccessor;
+	private final GLStateType mTargetType;
 
-    public TextureUnitPropertyAccessor(int contextId, GLStateType targetPropertyType) {
-        mContextId = contextId;
-        mTargetType = targetPropertyType;
+	public TextureUnitPropertyAccessor(int contextId, GLStateType targetPropertyType) {
+		mContextId = contextId;
+		mTargetType = targetPropertyType;
 
-        mActiveTextureAccessor = GLPropertyAccessor.makeAccessor(mContextId,
-                GLStateType.TEXTURE_STATE,
-                GLStateType.ACTIVE_TEXTURE_UNIT);
-    }
+		mActiveTextureAccessor = GLPropertyAccessor.makeAccessor(mContextId, GLStateType.TEXTURE_STATE,
+				GLStateType.ACTIVE_TEXTURE_UNIT);
+	}
 
-    @Override
-    public IGLProperty getProperty(IGLProperty state) {
-        // first extract the current active texture unit
-        IGLProperty activeTextureProperty = mActiveTextureAccessor.getProperty(state);
-        if (!(activeTextureProperty instanceof GLIntegerProperty)) {
-            return null;
-        }
-        Integer activeTexture = (Integer) activeTextureProperty.getValue();
+	@Override
+	public IGLProperty getProperty(IGLProperty state) {
+		// first extract the current active texture unit
+		IGLProperty activeTextureProperty = mActiveTextureAccessor.getProperty(state);
+		if (!(activeTextureProperty instanceof GLIntegerProperty)) {
+			return null;
+		}
+		Integer activeTexture = (Integer) activeTextureProperty.getValue();
 
-        // extract the required property for the current texture unit
-        IGLPropertyAccessor targetAccessor = GLPropertyAccessor.makeAccessor(mContextId,
-                GLStateType.TEXTURE_STATE,
-                GLStateType.TEXTURE_UNITS,
-                activeTexture,
-                mTargetType);
-        return targetAccessor.getProperty(state);
-    }
+		// extract the required property for the current texture unit
+		IGLPropertyAccessor targetAccessor = GLPropertyAccessor.makeAccessor(mContextId, GLStateType.TEXTURE_STATE,
+				GLStateType.TEXTURE_UNITS, activeTexture, mTargetType);
+		return targetAccessor.getProperty(state);
+	}
 
-    @Override
-    public String getPath() {
-        return String.format("TEXTURE_STATE/TEXTURE_UNITS/${activeTextureUnit}/%s", mTargetType);
-    }
+	@Override
+	public String getPath() {
+		return String.format("TEXTURE_STATE/TEXTURE_UNITS/${activeTextureUnit}/%s", mTargetType);
+	}
 }

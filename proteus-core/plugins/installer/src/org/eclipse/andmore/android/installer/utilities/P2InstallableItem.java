@@ -21,54 +21,51 @@ import org.eclipse.equinox.p2.ui.LicenseManager;
 import org.eclipse.equinox.p2.ui.ProvisioningUI;
 
 /**
- * Encapsulates the specific items from P2
- * such as controlling licenses accepted
+ * Encapsulates the specific items from P2 such as controlling licenses accepted
  */
-class P2InstallableItem extends InstallableItem
-{
-    @Override
-    public boolean hasLicenseNotAccepted()
-    {
-        LicenseManager manager = ProvisioningUI.getDefaultUI().getLicenseManager();
-        IInstallableUnit iu = (IInstallableUnit) getData();
-        for (ILicense license : iu.getLicenses())
-        {
-            if (!manager.isAccepted(license))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+class P2InstallableItem extends InstallableItem {
+	@Override
+	public boolean hasLicenseNotAccepted() {
+		LicenseManager manager = ProvisioningUI.getDefaultUI().getLicenseManager();
+		IInstallableUnit iu = (IInstallableUnit) getData();
+		for (ILicense license : iu.getLicenses()) {
+			if (!manager.isAccepted(license)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    @Override
-    public void acceptLicenses()
-    {
-        LicenseManager manager = ProvisioningUI.getDefaultUI().getLicenseManager();
-        IInstallableUnit iu = (IInstallableUnit) getData();
-        for (ILicense license : iu.getLicenses())
-        {
-            manager.accept(license);
-        }
-    }
+	@Override
+	public void acceptLicenses() {
+		LicenseManager manager = ProvisioningUI.getDefaultUI().getLicenseManager();
+		IInstallableUnit iu = (IInstallableUnit) getData();
+		for (ILicense license : iu.getLicenses()) {
+			manager.accept(license);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.installer.utilities.InstallableItem#hasPrerequrementsFulfilled()
-     */
-    @Override
-    public boolean hasPrerequirementsFulfilled()
-    {
-        // TODO Auto-generated method stub
-        return true;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.installer.utilities.InstallableItem#
+	 * hasPrerequrementsFulfilled()
+	 */
+	@Override
+	public boolean hasPrerequirementsFulfilled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.installer.utilities.InstallableItem#getMaxBufferSize()
-     */
-    @Override
-    public int getMaxBufferSize()
-    {
-        return 65536;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.installer.utilities.InstallableItem#
+	 * getMaxBufferSize()
+	 */
+	@Override
+	public int getMaxBufferSize() {
+		return 65536;
+	}
 
 }

@@ -21,81 +21,81 @@ import com.android.ddmlib.IShellOutputReceiver;
 import com.google.common.primitives.Bytes;
 
 public class SystraceTask implements Runnable {
-    private final IDevice mDevice;
-    private final String mOptions;
+	private final IDevice mDevice;
+	private final String mOptions;
 
-    private volatile boolean mCancel;
+	private volatile boolean mCancel;
 
-    private final Object mLock = new Object();
-    private String errorMessage;
-    private boolean mTraceComplete;
-    private byte[] mBuffer = new byte[1024];
-    private int mDataLength = 0;
+	private final Object mLock = new Object();
+	private String errorMessage;
+	private boolean mTraceComplete;
+	private byte[] mBuffer = new byte[1024];
+	private int mDataLength = 0;
 
-    public SystraceTask(IDevice device, String options) {
-        mDevice = device;
-        mOptions = options;
-    }
+	public SystraceTask(IDevice device, String options) {
+		mDevice = device;
+		mOptions = options;
+	}
 
-    @Override
-    public void run() {
-        try {
-            mDevice.executeShellCommand("atrace " + mOptions, new Receiver(), 0);
-        } catch (Exception e) {
-            synchronized (mLock) {
-                errorMessage = "Unexpected error while running atrace on device: " + e;
-            }
-        }
-    }
+	@Override
+	public void run() {
+		try {
+			mDevice.executeShellCommand("atrace " + mOptions, new Receiver(), 0);
+		} catch (Exception e) {
+			synchronized (mLock) {
+				errorMessage = "Unexpected error while running atrace on device: " + e;
+			}
+		}
+	}
 
-    public void cancel() {
-        mCancel = true;
-    }
+	public void cancel() {
+		mCancel = true;
+	}
 
-    public String getError() {
-        synchronized (mLock) {
-            return errorMessage;
-        }
-    }
+	public String getError() {
+		synchronized (mLock) {
+			return errorMessage;
+		}
+	}
 
-    public byte[] getAtraceOutput() {
-        synchronized (mLock) {
-            return mTraceComplete ? mBuffer : null;
-        }
-    }
+	public byte[] getAtraceOutput() {
+		synchronized (mLock) {
+			return mTraceComplete ? mBuffer : null;
+		}
+	}
 
-    private class Receiver implements IShellOutputReceiver {
-        @Override
-        public void addOutput(byte[] data, int offset, int length) {
-            synchronized (mLock) {
-                if (mDataLength + length > mBuffer.length) {
-                    mBuffer = Bytes.ensureCapacity(mBuffer, mDataLength + length + 1, 1024);
-                }
+	private class Receiver implements IShellOutputReceiver {
+		@Override
+		public void addOutput(byte[] data, int offset, int length) {
+			synchronized (mLock) {
+				if (mDataLength + length > mBuffer.length) {
+					mBuffer = Bytes.ensureCapacity(mBuffer, mDataLength + length + 1, 1024);
+				}
 
-                for (int i = 0; i < length; i++) {
-                    mBuffer[mDataLength + i] = data[offset + i];
-                }
-                mDataLength += length;
-            }
-        }
+				for (int i = 0; i < length; i++) {
+					mBuffer[mDataLength + i] = data[offset + i];
+				}
+				mDataLength += length;
+			}
+		}
 
-        @Override
-        public void flush() {
-            synchronized (mLock) {
-                // trim mBuffer to its final size
-                byte[] copy = new byte[mDataLength];
-                for (int i = 0; i < mDataLength; i++) {
-                    copy[i] = mBuffer[i];
-                }
-                mBuffer = copy;
+		@Override
+		public void flush() {
+			synchronized (mLock) {
+				// trim mBuffer to its final size
+				byte[] copy = new byte[mDataLength];
+				for (int i = 0; i < mDataLength; i++) {
+					copy[i] = mBuffer[i];
+				}
+				mBuffer = copy;
 
-                mTraceComplete = true;
-            }
-        }
+				mTraceComplete = true;
+			}
+		}
 
-        @Override
-        public boolean isCancelled() {
-            return mCancel;
-        }
-    }
+		@Override
+		public boolean isCancelled() {
+			return mCancel;
+		}
+	}
 }

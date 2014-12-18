@@ -19,34 +19,30 @@ package org.eclipse.andmore.android.wizards.monkey;
  * This interface holds the constants for MonkeyConfiguration
  */
 
-public interface IMonkeyConfigurationConstants
-{
+public interface IMonkeyConfigurationConstants {
 
-    public final static String LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID =
-            "monkeyLaunchConfigurationType";
+	public final static String LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID = "monkeyLaunchConfigurationType";
 
-    public final static String MOTODEV_APP_ICO = "icons/monkey/motodevapp.gif";
+	public final static String MOTODEV_APP_ICO = "icons/monkey/motodevapp.gif";
 
-    public final static String DEFAULT_VALUE = "";
+	public final static String DEFAULT_VALUE = "";
 
-    public final static String DEFAULT_COUNT_VALUE = "50";
+	public final static String DEFAULT_COUNT_VALUE = "50";
 
-    public final static String DEFAULT_VERBOSE_VALUE = "-v";
+	public final static String DEFAULT_VERBOSE_VALUE = "-v";
 
-    public final static boolean DEFAULT_BOOL_VALUE = false;
+	public final static boolean DEFAULT_BOOL_VALUE = false;
 
-    public final static String ATTR_DEVICE_INSTANCE_NAME =
-            "org.eclipse.andmore.android.monkey.instanceName";
+	public final static String ATTR_DEVICE_INSTANCE_NAME = "org.eclipse.andmore.android.monkey.instanceName";
 
-    public final static String ANDROID_CONSOLE_ID = "Android";
+	public final static String ANDROID_CONSOLE_ID = "Android";
 
-    public static final String ATTR_EVENT_COUNT_NAME = "";
+	public static final String ATTR_EVENT_COUNT_NAME = "";
 
-    public static final String ATTR_OTHER_CMDS = "org.eclipse.andmore.android.monkey.otherCmds";
+	public static final String ATTR_OTHER_CMDS = "org.eclipse.andmore.android.monkey.otherCmds";
 
-    public static final String ATTR_SELECTED_PACKAGES =
-            "org.eclipse.andmore.android.monkey.selectedPackages";
+	public static final String ATTR_SELECTED_PACKAGES = "org.eclipse.andmore.android.monkey.selectedPackages";
 
-    public static final String NEW_CONFIGURATION_NAME = "New_configuration";
+	public static final String NEW_CONFIGURATION_NAME = "New_configuration";
 
 }

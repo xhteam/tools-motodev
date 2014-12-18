@@ -17,5 +17,5 @@
 package org.eclipse.andmore.gltrace.state.transforms;
 
 public interface IPredicate {
-    boolean apply(Object value);
+	boolean apply(Object value);
 }

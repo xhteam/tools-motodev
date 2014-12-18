@@ -28,76 +28,74 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 /**
- * DESCRIPTION:
- * Selection Dialog with only opened MOTOMAGX projects  
- * <br>
- * RESPONSIBILITY:
- * Provides a Element Selection Dialog to select a MOTOMAGX project
- * <br>
- * COLABORATORS:
- * none
- * <br>
- * USAGE:
- * This should be instanced when the user must choose one of a MOTOMAGX project list
+ * DESCRIPTION: Selection Dialog with only opened MOTOMAGX projects <br>
+ * RESPONSIBILITY: Provides a Element Selection Dialog to select a MOTOMAGX
+ * project <br>
+ * COLABORATORS: none <br>
+ * USAGE: This should be instanced when the user must choose one of a MOTOMAGX
+ * project list
  */
-public class AndroidProjectsSelectionDialog extends ElementListSelectionDialog
-{
+public class AndroidProjectsSelectionDialog extends ElementListSelectionDialog {
 
-    private static final String PRJ_SELECTION_CONTEXT_HELP_ID =
-            LaunchPlugin.PLUGIN_ID + ".projectSelectionDialog";
+	private static final String PRJ_SELECTION_CONTEXT_HELP_ID = LaunchPlugin.PLUGIN_ID + ".projectSelectionDialog";
 
-    /**
-     * Create a new Project Selection Dialog
-     * @param parent the parent shell
-     * @param renderer the label provider
-     */
-    public AndroidProjectsSelectionDialog(Shell parent, ILabelProvider renderer)
-    {
-        super(parent, renderer);
-    }
+	/**
+	 * Create a new Project Selection Dialog
+	 * 
+	 * @param parent
+	 *            the parent shell
+	 * @param renderer
+	 *            the label provider
+	 */
+	public AndroidProjectsSelectionDialog(Shell parent, ILabelProvider renderer) {
+		super(parent, renderer);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.ElementListSelectionDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    protected Control createDialogArea(Composite parent)
-    {
-        Control control = super.createDialogArea(parent);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.ElementListSelectionDialog#createDialogArea(org
+	 * .eclipse.swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		Control control = super.createDialogArea(parent);
 
-        setHelpAvailable(true);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(control, PRJ_SELECTION_CONTEXT_HELP_ID);
-        return control;
-    }
+		setHelpAvailable(true);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(control, PRJ_SELECTION_CONTEXT_HELP_ID);
+		return control;
+	}
 
-    /**
-     * Creates a selection dialog with the workbench label provider
-     * @param parent The parent composite
-     */
-    public AndroidProjectsSelectionDialog(Shell parent)
-    {
-        super(parent, new WorkbenchLabelProvider());
-    }
+	/**
+	 * Creates a selection dialog with the workbench label provider
+	 * 
+	 * @param parent
+	 *            The parent composite
+	 */
+	public AndroidProjectsSelectionDialog(Shell parent) {
+		super(parent, new WorkbenchLabelProvider());
+	}
 
-    /**
-     * Sets the default elements: the list of all opened Studio for Android projects
-     */
-    public void setDefaultElements()
-    {
-        this.setElements(LaunchUtils.getSupportedProjects());
-    }
+	/**
+	 * Sets the default elements: the list of all opened Studio for Android
+	 * projects
+	 */
+	public void setDefaultElements() {
+		this.setElements(LaunchUtils.getSupportedProjects());
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.AbstractElementListSelectionDialog#open()
-     */
-    @Override
-    public int open()
-    {
-        this.setTitle(LaunchNLS.UI_LaunchComposite_SelectProjectScreenTitle);
-        this.setMessage(LaunchNLS.UI_LaunchComposite_SelectProjectScreenMessage);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.dialogs.AbstractElementListSelectionDialog#open()
+	 */
+	@Override
+	public int open() {
+		this.setTitle(LaunchNLS.UI_LaunchComposite_SelectProjectScreenTitle);
+		this.setMessage(LaunchNLS.UI_LaunchComposite_SelectProjectScreenMessage);
 
-        setDefaultElements();
-        return super.open();
-    }
+		setDefaultElements();
+		return super.open();
+	}
 }

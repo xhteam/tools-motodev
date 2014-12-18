@@ -23,61 +23,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaSourceRevealer {
-    private static final String SOURCE_REVEALER_EXTENSION_ID =
-            "org.eclipse.andmore.ddms.sourceRevealer"; //$NON-NLS-1$
+	private static final String SOURCE_REVEALER_EXTENSION_ID = "org.eclipse.andmore.ddms.sourceRevealer"; //$NON-NLS-1$
 
-    private static List<ISourceRevealer> sSourceRevealers = instantiateSourceRevealers();
+	private static List<ISourceRevealer> sSourceRevealers = instantiateSourceRevealers();
 
-    /** Instantiate all providers of the {@link #SOURCE_REVEALER_EXTENSION_ID} extension. */
-    private static List<ISourceRevealer> instantiateSourceRevealers() {
-        IConfigurationElement[] configElements =
-                DdmsPlugin.getDefault().findConfigElements(SOURCE_REVEALER_EXTENSION_ID);
+	/**
+	 * Instantiate all providers of the {@link #SOURCE_REVEALER_EXTENSION_ID}
+	 * extension.
+	 */
+	private static List<ISourceRevealer> instantiateSourceRevealers() {
+		IConfigurationElement[] configElements = DdmsPlugin.getDefault().findConfigElements(
+				SOURCE_REVEALER_EXTENSION_ID);
 
-        List<ISourceRevealer> providers = new ArrayList<ISourceRevealer>();
+		List<ISourceRevealer> providers = new ArrayList<ISourceRevealer>();
 
-        for (IConfigurationElement configElement : configElements) {
-            // instantiate the class
-            Object obj = null;
-            try {
-                obj = configElement.createExecutableExtension("class"); //$NON-NLS-1$
-            } catch (CoreException e) {
-                // ignore exception while instantiating this class.
-            }
+		for (IConfigurationElement configElement : configElements) {
+			// instantiate the class
+			Object obj = null;
+			try {
+				obj = configElement.createExecutableExtension("class"); //$NON-NLS-1$
+			} catch (CoreException e) {
+				// ignore exception while instantiating this class.
+			}
 
-            if (obj instanceof ISourceRevealer) {
-                providers.add((ISourceRevealer) obj);
-            }
-        }
+			if (obj instanceof ISourceRevealer) {
+				providers.add((ISourceRevealer) obj);
+			}
+		}
 
-        return providers;
-    }
+		return providers;
+	}
 
-    public static boolean reveal(String applicationName, String className, int line) {
-        for (ISourceRevealer revealer : sSourceRevealers) {
-            try {
-                if (revealer.reveal(applicationName, className, line)) {
-                    return true;
-                }
-            } catch (Throwable t) {
-                // ignore, we'll just not use this implementation.
-            }
-        }
+	public static boolean reveal(String applicationName, String className, int line) {
+		for (ISourceRevealer revealer : sSourceRevealers) {
+			try {
+				if (revealer.reveal(applicationName, className, line)) {
+					return true;
+				}
+			} catch (Throwable t) {
+				// ignore, we'll just not use this implementation.
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public static boolean revealMethod(String fqmn, String fileName, int linenumber,
-            String perspective) {
-        for (ISourceRevealer revealer : sSourceRevealers) {
-            try {
-                if (revealer.revealMethod(fqmn, fileName, linenumber, perspective)) {
-                    return true;
-                }
-            } catch (Throwable t) {
-                // ignore, we'll just not use this implementation.
-            }
-        }
+	public static boolean revealMethod(String fqmn, String fileName, int linenumber, String perspective) {
+		for (ISourceRevealer revealer : sSourceRevealers) {
+			try {
+				if (revealer.revealMethod(fqmn, fileName, linenumber, perspective)) {
+					return true;
+				}
+			} catch (Throwable t) {
+				// ignore, we'll just not use this implementation.
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

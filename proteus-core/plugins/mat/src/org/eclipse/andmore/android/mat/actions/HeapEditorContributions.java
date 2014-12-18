@@ -23,28 +23,27 @@ import org.eclipse.mat.ui.editor.IMultiPaneEditorContributor;
 import org.eclipse.mat.ui.editor.MultiPaneEditor;
 
 @SuppressWarnings("restriction")
-public class HeapEditorContributions implements IMultiPaneEditorContributor
-{
+public class HeapEditorContributions implements IMultiPaneEditorContributor {
 
-    private Action openMotodevPane;
+	private Action openMotodevPane;
 
-    public void contributeToToolbar(IToolBarManager manager)
-    {
-        manager.add(new Separator());
+	@Override
+	public void contributeToToolbar(IToolBarManager manager) {
+		manager.add(new Separator());
 
-        manager.add(openMotodevPane);
+		manager.add(openMotodevPane);
 
-    }
+	}
 
-    public void init(MultiPaneEditor editor)
-    {
-        openMotodevPane = new OpenMotodevPaneAction();
+	@Override
+	public void init(MultiPaneEditor editor) {
+		openMotodevPane = new OpenMotodevPaneAction();
 
-    }
+	}
 
-    public void dispose()
-    {
-        // do nothing
-    }
+	@Override
+	public void dispose() {
+		// do nothing
+	}
 
 }

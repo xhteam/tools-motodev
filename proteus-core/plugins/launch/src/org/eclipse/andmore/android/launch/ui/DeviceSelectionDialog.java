@@ -36,100 +36,81 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 /**
- * DESCRIPTION:
- * This class implements the device selection dialog
+ * DESCRIPTION: This class implements the device selection dialog
  *
- * RESPONSIBILITY:
- * Provides a dialog populated with the available device instances
+ * RESPONSIBILITY: Provides a dialog populated with the available device
+ * instances
  *
- * COLABORATORS:
- * None.
+ * COLABORATORS: None.
  *
- * USAGE:
- * This class is intended to be used by Eclipse only
+ * USAGE: This class is intended to be used by Eclipse only
  */
-public class DeviceSelectionDialog extends ElementListSelectionDialog
-{
-    private static final String DEV_SELECTION_CONTEXT_HELP_ID = LaunchPlugin.PLUGIN_ID
-            + ".deviceSelectionDialog";
+public class DeviceSelectionDialog extends ElementListSelectionDialog {
+	private static final String DEV_SELECTION_CONTEXT_HELP_ID = LaunchPlugin.PLUGIN_ID + ".deviceSelectionDialog";
 
-    /**
-    * Default constructor 
-    * 
-    * @param parent Parent shell
-    * @param description Dialog description
-    */
-    public DeviceSelectionDialog(Shell parent, String description, final IProject project)
-    {
-        super(parent, new LabelProvider()
-        {
-            @Override
-            public String getText(Object element)
-            {
-                String result = "";
-                if (element instanceof ISerialNumbered)
-                {
-                    ISerialNumbered serialNumbered = (ISerialNumbered) element;
-                    result = serialNumbered.getDeviceName();
-                    if (serialNumbered instanceof IAndroidEmulatorInstance)
-                    {
-                        IAndroidEmulatorInstance emulatorInstance =
-                                (IAndroidEmulatorInstance) serialNumbered;
-                        int emulatorApi = emulatorInstance.getAPILevel();
-                        String emulatorTarget = emulatorInstance.getTarget();
-                        result += " (" + emulatorTarget + ", Api version " + emulatorApi + ")";
-                    }
-                    else if (serialNumbered instanceof IInstance)
-                    {
-                        IInstance instance = (IInstance) serialNumbered;
-                        Properties properties = instance.getProperties();
-                        if (properties != null)
-                        {
-                            String target = properties.getProperty("ro.build.version.release"); //$NON-NLS-1$
-                            if (target != null)
-                            {
-                                result += " (Android " + target + ")";
-                            }
-                        }
-                    }
-                }
-                return result;
-            }
+	/**
+	 * Default constructor
+	 * 
+	 * @param parent
+	 *            Parent shell
+	 * @param description
+	 *            Dialog description
+	 */
+	public DeviceSelectionDialog(Shell parent, String description, final IProject project) {
+		super(parent, new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				String result = "";
+				if (element instanceof ISerialNumbered) {
+					ISerialNumbered serialNumbered = (ISerialNumbered) element;
+					result = serialNumbered.getDeviceName();
+					if (serialNumbered instanceof IAndroidEmulatorInstance) {
+						IAndroidEmulatorInstance emulatorInstance = (IAndroidEmulatorInstance) serialNumbered;
+						int emulatorApi = emulatorInstance.getAPILevel();
+						String emulatorTarget = emulatorInstance.getTarget();
+						result += " (" + emulatorTarget + ", Api version " + emulatorApi + ")";
+					} else if (serialNumbered instanceof IInstance) {
+						IInstance instance = (IInstance) serialNumbered;
+						Properties properties = instance.getProperties();
+						if (properties != null) {
+							String target = properties.getProperty("ro.build.version.release"); //$NON-NLS-1$
+							if (target != null) {
+								result += " (Android " + target + ")";
+							}
+						}
+					}
+				}
+				return result;
+			}
 
-            @Override
-            public Image getImage(Object element)
-            {
+			@Override
+			public Image getImage(Object element) {
 
-                Image img = null;
+				Image img = null;
 
-                ISerialNumbered serialNumbered = (ISerialNumbered) element;
-                IStatus compatible = LaunchUtils.isCompatible(project, serialNumbered);
+				ISerialNumbered serialNumbered = (ISerialNumbered) element;
+				IStatus compatible = LaunchUtils.isCompatible(project, serialNumbered);
 
-                // notify the warning state
-                if (compatible.getSeverity() == IStatus.WARNING)
-                {
-                    img =
-                            PlatformUI.getWorkbench().getSharedImages()
-                                    .getImage(ISharedImages.IMG_OBJS_WARN_TSK);
-                }
+				// notify the warning state
+				if (compatible.getSeverity() == IStatus.WARNING) {
+					img = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_WARN_TSK);
+				}
 
-                return img;
-            }
-        });
+				return img;
+			}
+		});
 
-        this.setTitle(LaunchNLS.UI_LaunchComposite_SelectDeviceScreenTitle);
-        this.setMessage(description);
+		this.setTitle(LaunchNLS.UI_LaunchComposite_SelectDeviceScreenTitle);
+		this.setMessage(description);
 
-        Collection<ISerialNumbered> instances = DevicesManager.getInstance().getAllDevicesSorted();
-        if ((project != null) && (instances != null) && (instances.size() > 0))
-        {
-            Collection<ISerialNumbered> filteredInstances =
-                    LaunchUtils.filterInstancesByProject(instances, project);
-            Object[] filteredInstancesArray = filteredInstances.toArray();
-            this.setElements(filteredInstancesArray);
-        }
+		Collection<ISerialNumbered> instances = DevicesManager.getInstance().getAllDevicesSorted();
+		if ((project != null) && (instances != null) && (instances.size() > 0)) {
+			Collection<ISerialNumbered> filteredInstances = LaunchUtils.filterInstancesByProject(instances, project);
+			Object[] filteredInstancesArray = filteredInstances.toArray();
+			this.setElements(filteredInstancesArray);
+		}
 
-        this.setHelpAvailable(true);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, DEV_SELECTION_CONTEXT_HELP_ID);
-    }
+		this.setHelpAvailable(true);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, DEV_SELECTION_CONTEXT_HELP_ID);
+	}
 }

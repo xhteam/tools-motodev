@@ -31,58 +31,58 @@ import org.eclipse.ui.IPerspectiveFactory;
 
 public class Perspective implements IPerspectiveFactory {
 
-    public static String ID = "org.eclipse.andmore.ddms.Perspective"; //$NON-NLS-1$
+	public static String ID = "org.eclipse.andmore.ddms.Perspective"; //$NON-NLS-1$
 
-    @Override
-    public void createInitialLayout(IPageLayout layout) {
-        // create a default layout that looks like the stand alone DDMS.
+	@Override
+	public void createInitialLayout(IPageLayout layout) {
+		// create a default layout that looks like the stand alone DDMS.
 
-        // no editor window
-        layout.setEditorAreaVisible(false);
+		// no editor window
+		layout.setEditorAreaVisible(false);
 
-        String editorArea = layout.getEditorArea();
-        IFolderLayout folder;
+		String editorArea = layout.getEditorArea();
+		IFolderLayout folder;
 
-        folder = layout.createFolder("logcat", IPageLayout.BOTTOM, 0.8f, //$NON-NLS-1$
-                editorArea);
-        folder.addPlaceholder(LogCatView.ID + ":*"); //$NON-NLS-1$
-        folder.addView(LogCatView.ID);
+		folder = layout.createFolder("logcat", IPageLayout.BOTTOM, 0.8f, //$NON-NLS-1$
+				editorArea);
+		folder.addPlaceholder(LogCatView.ID + ":*"); //$NON-NLS-1$
+		folder.addView(LogCatView.ID);
 
-        folder = layout.createFolder("devices", IPageLayout.LEFT, 0.3f, //$NON-NLS-1$
-                editorArea);
-        folder.addPlaceholder(DeviceView.ID + ":*"); //$NON-NLS-1$
-        folder.addView(DeviceView.ID);
+		folder = layout.createFolder("devices", IPageLayout.LEFT, 0.3f, //$NON-NLS-1$
+				editorArea);
+		folder.addPlaceholder(DeviceView.ID + ":*"); //$NON-NLS-1$
+		folder.addView(DeviceView.ID);
 
-        folder = layout.createFolder("ddms-detail", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
-                editorArea);
-        folder.addPlaceholder(ThreadView.ID + ":*"); //$NON-NLS-1$
-        folder.addView(ThreadView.ID);
-        folder.addView(HeapView.ID);
-        folder.addView(AllocTrackerView.ID);
-        folder.addView(NetworkStatisticsView.ID);
-        folder.addView(FileExplorerView.ID);
-        folder.addView(EmulatorControlView.ID);
-        folder.addView(SysInfoView.ID);
+		folder = layout.createFolder("ddms-detail", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
+				editorArea);
+		folder.addPlaceholder(ThreadView.ID + ":*"); //$NON-NLS-1$
+		folder.addView(ThreadView.ID);
+		folder.addView(HeapView.ID);
+		folder.addView(AllocTrackerView.ID);
+		folder.addView(NetworkStatisticsView.ID);
+		folder.addView(FileExplorerView.ID);
+		folder.addView(EmulatorControlView.ID);
+		folder.addView(SysInfoView.ID);
 
-        layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective"); //$NON-NLS-1$
-        layout.addPerspectiveShortcut("org.eclipse.debug.ui.DebugPerspective"); //$NON-NLS-1$
-        layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective"); //$NON-NLS-1$
+		layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective"); //$NON-NLS-1$
+		layout.addPerspectiveShortcut("org.eclipse.debug.ui.DebugPerspective"); //$NON-NLS-1$
+		layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective"); //$NON-NLS-1$
 
-        layout.addShowViewShortcut(DeviceView.ID);
-        layout.addShowViewShortcut(FileExplorerView.ID);
-        layout.addShowViewShortcut(HeapView.ID);
-        layout.addShowViewShortcut(AllocTrackerView.ID);
-        layout.addShowViewShortcut(LogCatView.ID);
-        layout.addShowViewShortcut(ThreadView.ID);
-        layout.addShowViewShortcut(NetworkStatisticsView.ID);
-        layout.addShowViewShortcut(SysInfoView.ID);
+		layout.addShowViewShortcut(DeviceView.ID);
+		layout.addShowViewShortcut(FileExplorerView.ID);
+		layout.addShowViewShortcut(HeapView.ID);
+		layout.addShowViewShortcut(AllocTrackerView.ID);
+		layout.addShowViewShortcut(LogCatView.ID);
+		layout.addShowViewShortcut(ThreadView.ID);
+		layout.addShowViewShortcut(NetworkStatisticsView.ID);
+		layout.addShowViewShortcut(SysInfoView.ID);
 
-        layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-        layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
-        layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-        layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-        layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
-        layout.addShowViewShortcut(IPageLayout.ID_PROGRESS_VIEW);
-        layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
-    }
+		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
+		layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
+		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
+		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
+		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+		layout.addShowViewShortcut(IPageLayout.ID_PROGRESS_VIEW);
+		layout.addShowViewShortcut(IPageLayout.ID_TASK_LIST);
+	}
 }

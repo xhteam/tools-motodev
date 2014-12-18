@@ -29,78 +29,76 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin
-{
+public class Activator extends AbstractUIPlugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.mat";
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.mat";
 
-    // The shared instance
-    private static Activator plugin;
+	// The shared instance
+	private static Activator plugin;
 
-    // Dump HPROF command handler
-    private static ServiceHandler dumpHPROFHandler = null;
+	// Dump HPROF command handler
+	private static ServiceHandler dumpHPROFHandler = null;
 
-    // Dump HPRFO service ID
-    private static final String SERVICE_DUMP_HPROF_ID = PLUGIN_ID + ".dumpHprofService";
+	// Dump HPRFO service ID
+	private static final String SERVICE_DUMP_HPROF_ID = PLUGIN_ID + ".dumpHprofService";
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        super.start(context);
-        plugin = this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		plugin = this;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static Activator getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static Activator getDefault() {
+		return plugin;
+	}
 
-    /**
-    * Retrieves the deploy service handler.
-    * 
-    * @return The currently registered stop service handler, or <null> if no handler is registered.
-    */
-    public static ServiceHandler getDumpHPROFHandler()
-    {
-        if (dumpHPROFHandler == null)
-        {
-            // find the appropriate service handler
-            IDeviceType device =
-                    DeviceTypeRegistry.getInstance().getDeviceTypeById(EmulatorPlugin.DEVICE_ID);
-            List<IService> services = device.getServices();
-            for (IService service : services)
-            {
-                IServiceHandler handler = service.getHandler();
-                if (handler.getService().getId().equals(SERVICE_DUMP_HPROF_ID))
-                {
-                    dumpHPROFHandler = (ServiceHandler) handler;
-                    break;
-                }
-            }
-        }
+	/**
+	 * Retrieves the deploy service handler.
+	 * 
+	 * @return The currently registered stop service handler, or <null> if no
+	 *         handler is registered.
+	 */
+	public static ServiceHandler getDumpHPROFHandler() {
+		if (dumpHPROFHandler == null) {
+			// find the appropriate service handler
+			IDeviceType device = DeviceTypeRegistry.getInstance().getDeviceTypeById(EmulatorPlugin.DEVICE_ID);
+			List<IService> services = device.getServices();
+			for (IService service : services) {
+				IServiceHandler handler = service.getHandler();
+				if (handler.getService().getId().equals(SERVICE_DUMP_HPROF_ID)) {
+					dumpHPROFHandler = (ServiceHandler) handler;
+					break;
+				}
+			}
+		}
 
-        return dumpHPROFHandler;
-    }
+		return dumpHPROFHandler;
+	}
 
 }

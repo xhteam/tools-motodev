@@ -28,24 +28,19 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 /**
  * The default handler for Test events with Monkey command.
  */
-public class MonkeyServiceCommand extends AbstractHandler implements IHandler
-{
+public class MonkeyServiceCommand extends AbstractHandler implements IHandler {
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IAndroidEmulatorInstance instance = AbstractAndroidView.getActiveInstance();
-        if (instance instanceof IInstance)
-        {
-            try
-            {
-                DeviceServicesPlugin.getMonkeyServiceHandler().run((IInstance) instance);
-            }
-            catch (SequoyahException e)
-            {
-                //do nothing
-            }
-        }
-        return null;
-    }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IAndroidEmulatorInstance instance = AbstractAndroidView.getActiveInstance();
+		if (instance instanceof IInstance) {
+			try {
+				DeviceServicesPlugin.getMonkeyServiceHandler().run((IInstance) instance);
+			} catch (SequoyahException e) {
+				// do nothing
+			}
+		}
+		return null;
+	}
 
 }

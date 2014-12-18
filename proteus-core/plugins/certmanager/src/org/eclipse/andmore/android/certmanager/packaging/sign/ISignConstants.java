@@ -16,62 +16,61 @@
 
 package org.eclipse.andmore.android.certmanager.packaging.sign;
 
-public interface ISignConstants
-{
-    /**
-     * md5 algorithm
-     */
-    public final String MD5 = "MD5";
+public interface ISignConstants {
+	/**
+	 * md5 algorithm
+	 */
+	public final String MD5 = "MD5";
 
-    /**
-     * rsa algorithm
-     */
-    public final String RSA = "RSA";
+	/**
+	 * rsa algorithm
+	 */
+	public final String RSA = "RSA";
 
-    /**
-     * dsa algorithm
-     */
-    public final String DSA = "DSA";
+	/**
+	 * dsa algorithm
+	 */
+	public final String DSA = "DSA";
 
-    /**
-     * sha1 algorithm
-     */
-    public final String SHA1 = "SHA1";
+	/**
+	 * sha1 algorithm
+	 */
+	public final String SHA1 = "SHA1";
 
-    /**
-     * algorithm connector
-     */
-    public final String ALGORITHM_CONNECTOR = "with";
+	/**
+	 * algorithm connector
+	 */
+	public final String ALGORITHM_CONNECTOR = "with";
 
-    /**
-     * Signature file name extension
-     */
-    public final String SIGNATURE_FILE_NAME_EXTENSION = ".SF";
+	/**
+	 * Signature file name extension
+	 */
+	public final String SIGNATURE_FILE_NAME_EXTENSION = ".SF";
 
-    /**
-     * Signature Version
-     */
-    public final String SIGNATURE_VERSION_KEY = "Signature-Version";
+	/**
+	 * Signature Version
+	 */
+	public final String SIGNATURE_VERSION_KEY = "Signature-Version";
 
-    public final String SIGNATURE_VERSION_VALUE = "1.0";
+	public final String SIGNATURE_VERSION_VALUE = "1.0";
 
-    /**
-     * Digest algorithm entry in manifest 
-     */
-    public final String SHA1_DIGEST = "SHA1-Digest";
+	/**
+	 * Digest algorithm entry in manifest
+	 */
+	public final String SHA1_DIGEST = "SHA1-Digest";
 
-    /**
-     * sha1-digest-manifest signature entry
-     */
-    public final String SHA1_DIGEST_MANIFEST = "SHA1-Digest-Manifest";
+	/**
+	 * sha1-digest-manifest signature entry
+	 */
+	public final String SHA1_DIGEST_MANIFEST = "SHA1-Digest-Manifest";
 
-    /**
-     * manifest main attributes signature entry
-     */
-    public final String SHA1_DIGEST_MANIFEST_MAIN = "SHA1-Digest-Manifest-Main-Attributes";
+	/**
+	 * manifest main attributes signature entry
+	 */
+	public final String SHA1_DIGEST_MANIFEST_MAIN = "SHA1-Digest-Manifest-Main-Attributes";
 
-    /**
-     * Name of the signature files (.SF and .RSA)
-     */
-    public final String SIGNATURE_FILE_NAME = "CERT";
+	/**
+	 * Name of the signature files (.SF and .RSA)
+	 */
+	public final String SIGNATURE_FILE_NAME = "CERT";
 }

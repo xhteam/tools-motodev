@@ -22,34 +22,29 @@ import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
- * DESCRIPTION:
- * This class builds the configuration tabs that are displayed when the user is
- * editing the configuration to run MOTODEV Studio for Android applications.
+ * DESCRIPTION: This class builds the configuration tabs that are displayed when
+ * the user is editing the configuration to run MOTODEV Studio for Android
+ * applications.
  *
- * RESPONSIBILITY:
- * Build the configuration tab of the "Run As" features.
+ * RESPONSIBILITY: Build the configuration tab of the "Run As" features.
  *
- * COLABORATORS:
- * << class relationship>
+ * COLABORATORS: << class relationship>
  *
- * USAGE:
- * Used only by the extension definition.
+ * USAGE: Used only by the extension definition.
  */
-public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup
-{
-    /**
-     *  Creates the tabs
-     *
-     * @param dialog dialog
-     * @param mode the launch mode
-     */
-    public void createTabs(ILaunchConfigurationDialog dialog, String mode)
-    {
-        ILaunchConfigurationTab mainLaunchTab = new LaunchConfigurationTab();
-        setTabs(new ILaunchConfigurationTab[]
-        {
-            mainLaunchTab, new CommonTab()
-        });
-    }
+public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
+	/**
+	 * Creates the tabs
+	 *
+	 * @param dialog
+	 *            dialog
+	 * @param mode
+	 *            the launch mode
+	 */
+	@Override
+	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
+		ILaunchConfigurationTab mainLaunchTab = new LaunchConfigurationTab();
+		setTabs(new ILaunchConfigurationTab[] { mainLaunchTab, new CommonTab() });
+	}
 
 }

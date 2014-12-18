@@ -28,56 +28,47 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class gets the current workspace selection and calls the wizard to Sign an existent package
+ * This class gets the current workspace selection and calls the wizard to Sign
+ * an existent package
  */
-public class SignCreatedPackageAction extends Action
-{
+public class SignCreatedPackageAction extends Action {
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.action.Action#run()
-     */
-    @Override
-    public void run()
-    {
-        IWorkbench workbench = PlatformUI.getWorkbench();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
+	@Override
+	public void run() {
+		IWorkbench workbench = PlatformUI.getWorkbench();
 
-        if ((workbench != null) && !workbench.isClosing())
-        {
+		if ((workbench != null) && !workbench.isClosing()) {
 
-            IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 
-            if (window != null)
-            {
-                ISelection selection = window.getSelectionService().getSelection();
-                IStructuredSelection structureSelection = null;
-                IKeyStore selectedIKeyStore = null;
-                IKeyStoreEntry selectedEntry = null;
-                if (selection instanceof IStructuredSelection)
-                {
-                    structureSelection = (IStructuredSelection) selection;
-                    Object selectedItem = structureSelection.getFirstElement();
-                    if (selectedItem instanceof IKeyStore)
-                    {
-                        selectedIKeyStore = (IKeyStore) selectedItem;
-                    }
-                    else if (selectedItem instanceof IKeyStoreEntry)
-                    {
-                        selectedEntry = (IKeyStoreEntry) selectedItem;
-                        selectedIKeyStore = selectedEntry.getKeyStoreNode();
-                    }
-                }
-                else
-                {
-                    structureSelection = new StructuredSelection();
-                }
-                WizardDialog dialog =
-                        new WizardDialog(window.getShell(), new SignExternalPackageWizard(
-                                structureSelection, selectedIKeyStore, selectedEntry));
-                dialog.open();
+			if (window != null) {
+				ISelection selection = window.getSelectionService().getSelection();
+				IStructuredSelection structureSelection = null;
+				IKeyStore selectedIKeyStore = null;
+				IKeyStoreEntry selectedEntry = null;
+				if (selection instanceof IStructuredSelection) {
+					structureSelection = (IStructuredSelection) selection;
+					Object selectedItem = structureSelection.getFirstElement();
+					if (selectedItem instanceof IKeyStore) {
+						selectedIKeyStore = (IKeyStore) selectedItem;
+					} else if (selectedItem instanceof IKeyStoreEntry) {
+						selectedEntry = (IKeyStoreEntry) selectedItem;
+						selectedIKeyStore = selectedEntry.getKeyStoreNode();
+					}
+				} else {
+					structureSelection = new StructuredSelection();
+				}
+				WizardDialog dialog = new WizardDialog(window.getShell(), new SignExternalPackageWizard(
+						structureSelection, selectedIKeyStore, selectedEntry));
+				dialog.open();
 
-            }
-        }
-    }
+			}
+		}
+	}
 
 }

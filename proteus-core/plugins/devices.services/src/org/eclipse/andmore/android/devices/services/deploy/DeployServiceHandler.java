@@ -32,77 +32,72 @@ import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
 /**
- * DESCRIPTION:
- * This class plugs the deploy procedure to a TmL service 
+ * DESCRIPTION: This class plugs the deploy procedure to a TmL service
  *
- * RESPONSIBILITY:
- * Implements the actions that will be triggered when
- * user chose to Install a Android Application on an
- * emulator instance.
+ * RESPONSIBILITY: Implements the actions that will be triggered when user chose
+ * to Install a Android Application on an emulator instance.
  *
- * COLABORATORS:
- * None.
+ * COLABORATORS: None.
  *
- * USAGE:
- * This class is intended to be used by Eclipse only 
+ * USAGE: This class is intended to be used by Eclipse only
  * */
-public class DeployServiceHandler extends ServiceHandler
-{
-    protected InstallPackageBean installBean = null;
+public class DeployServiceHandler extends ServiceHandler {
+	protected InstallPackageBean installBean = null;
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new DeployServiceHandler();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new DeployServiceHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        if (instance instanceof ISerialNumbered)
-        {
-            final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
-            Job j = new Job(ServicesNLS.JOB_Name_Install_Application + " (" + serialNumber + ")")
-            {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		if (instance instanceof ISerialNumbered) {
+			final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
+			Job j = new Job(ServicesNLS.JOB_Name_Install_Application + " (" + serialNumber + ")") {
 
-                @Override
-                protected IStatus run(IProgressMonitor monitor)
-                {
-                    return DDMSUtils.installPackage(serialNumber, installBean);
-                }
-            };
-            j.schedule();
-        }
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					return DDMSUtils.installPackage(serialNumber, installBean);
+				}
+			};
+			j.schedule();
+		}
 
-        return Status.OK_STATUS;
-    }
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        StudioLogger.info("Updating reset service");
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		StudioLogger.info("Updating reset service");
+		return Status.OK_STATUS;
+	}
 
-    @Override
-    public IStatus singleInit(List<IInstance> instances)
-    {
+	@Override
+	public IStatus singleInit(List<IInstance> instances) {
 
-        this.installBean = DDMSUtils.installPackageWizard();
+		this.installBean = DDMSUtils.installPackageWizard();
 
-        return super.singleInit(instances);
-    }
+		return super.singleInit(instances);
+	}
 }

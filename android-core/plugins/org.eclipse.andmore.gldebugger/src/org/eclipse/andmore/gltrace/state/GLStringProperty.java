@@ -17,46 +17,46 @@
 package org.eclipse.andmore.gltrace.state;
 
 public class GLStringProperty extends GLAbstractAtomicProperty {
-    private final String mDefaultValue;
-    private String mCurrentValue;
+	private final String mDefaultValue;
+	private String mCurrentValue;
 
-    public GLStringProperty(GLStateType type, String defaultValue) {
-        super(type);
+	public GLStringProperty(GLStateType type, String defaultValue) {
+		super(type);
 
-        mDefaultValue = mCurrentValue = defaultValue;
-    }
+		mDefaultValue = mCurrentValue = defaultValue;
+	}
 
-    @Override
-    public boolean isDefault() {
-        return mDefaultValue.equalsIgnoreCase(mCurrentValue);
-    }
+	@Override
+	public boolean isDefault() {
+		return mDefaultValue.equalsIgnoreCase(mCurrentValue);
+	}
 
-    @Override
-    public void setValue(Object value) {
-        if (value instanceof String) {
-            mCurrentValue = (String) value;
-        } else {
-            throw new IllegalArgumentException("Attempt to set non-string value for " //$NON-NLS-1$
-                    + getType());
-        }
-    }
+	@Override
+	public void setValue(Object value) {
+		if (value instanceof String) {
+			mCurrentValue = (String) value;
+		} else {
+			throw new IllegalArgumentException("Attempt to set non-string value for " //$NON-NLS-1$
+					+ getType());
+		}
+	}
 
-    public void setValue(String value) {
-        mCurrentValue = value;
-    }
+	public void setValue(String value) {
+		mCurrentValue = value;
+	}
 
-    @Override
-    public Object getValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public Object getValue() {
+		return mCurrentValue;
+	}
 
-    @Override
-    public String getStringValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public String getStringValue() {
+		return mCurrentValue;
+	}
 
-    @Override
-    public String toString() {
-        return getType() + "=" + getStringValue(); //$NON-NLS-1$
-    };
+	@Override
+	public String toString() {
+		return getType() + "=" + getStringValue(); //$NON-NLS-1$
+	};
 }

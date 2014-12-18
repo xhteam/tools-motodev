@@ -25,51 +25,39 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
 
 /**
- * This class is responsible to load the log collector contributor
- * extension point and read all needed information
+ * This class is responsible to load the log collector contributor extension
+ * point and read all needed information
  */
-public class LogCollectorExtensionLoader
-{
-    private static final String LOGGER_EXTENSION_POINT_ID =
-            "org.eclipse.andmore.android.logger.collector.log";
+public class LogCollectorExtensionLoader {
+	private static final String LOGGER_EXTENSION_POINT_ID = "org.eclipse.andmore.android.logger.collector.log";
 
-    private static final String LOG_FILE_ELEMENT = "logContribution";
+	private static final String LOG_FILE_ELEMENT = "logContribution";
 
-    private static final String LOG_FILE_ATTRIBUTE = "logFileImpl";
+	private static final String LOG_FILE_ATTRIBUTE = "logFileImpl";
 
-    public static ArrayList<ILogFile> getLogFiles()
-    {
-        ArrayList<ILogFile> logs = new ArrayList<ILogFile>();
-        IExtensionPoint point =
-                Platform.getExtensionRegistry().getExtensionPoint(LOGGER_EXTENSION_POINT_ID);
-        if (point != null)
-        {
-            IExtension[] extensions = point.getExtensions();
+	public static ArrayList<ILogFile> getLogFiles() {
+		ArrayList<ILogFile> logs = new ArrayList<ILogFile>();
+		IExtensionPoint point = Platform.getExtensionRegistry().getExtensionPoint(LOGGER_EXTENSION_POINT_ID);
+		if (point != null) {
+			IExtension[] extensions = point.getExtensions();
 
-            for (IExtension ext : extensions)
-            {
-                for (IConfigurationElement element : ext.getConfigurationElements())
-                {
-                    if (element.getName().equals(LOG_FILE_ELEMENT))
-                    {
-                        try
-                        {
-                            Object o = element.createExecutableExtension(LOG_FILE_ATTRIBUTE);
-                            if (o instanceof ILogFile)
-                            {
-                                logs.add((ILogFile) o);
-                            }
-                        }
-                        catch (CoreException e)
-                        {
-                            //do nothing
-                        }
-                    }
-                }
-            }
+			for (IExtension ext : extensions) {
+				for (IConfigurationElement element : ext.getConfigurationElements()) {
+					if (element.getName().equals(LOG_FILE_ELEMENT)) {
+						try {
+							Object o = element.createExecutableExtension(LOG_FILE_ATTRIBUTE);
+							if (o instanceof ILogFile) {
+								logs.add((ILogFile) o);
+							}
+						} catch (CoreException e) {
+							// do nothing
+						}
+					}
+				}
+			}
 
-        }
+		}
 
-        return logs;
-    }
+		return logs;
+	}
 }

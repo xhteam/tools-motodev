@@ -24,43 +24,40 @@ import org.eclipse.ui.IWorkbench;
 /**
  * Export Applications Wizard
  */
-public class PackageExportWizard extends Wizard implements IExportWizard
-{
-    private PackageExportWizardPage mainPage;
+public class PackageExportWizard extends Wizard implements IExportWizard {
+	private PackageExportWizardPage mainPage;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        return this.mainPage.finish();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		return this.mainPage.finish();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
-     * org.eclipse.jface.viewers.IStructuredSelection)
-     */
-    public void init(IWorkbench workbench, IStructuredSelection selection)
-    {
-        setWindowTitle(Messages.EXPORT_WIZARD_TILE); // NON-NLS-1
-        setNeedsProgressMonitor(true);
-        this.mainPage = new PackageExportWizardPage(Messages.EXPORT_WIZARD_TILE, selection, true); // NON-NLS-1}
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
+	 * org.eclipse.jface.viewers.IStructuredSelection)
+	 */
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		setWindowTitle(Messages.EXPORT_WIZARD_TILE); // NON-NLS-1
+		setNeedsProgressMonitor(true);
+		this.mainPage = new PackageExportWizardPage(Messages.EXPORT_WIZARD_TILE, selection, true); // NON-NLS-1}
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        super.addPages();
-        addPage(this.mainPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		super.addPages();
+		addPage(this.mainPage);
+	}
 }

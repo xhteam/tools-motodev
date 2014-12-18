@@ -25,24 +25,24 @@ import junit.framework.TestSuite;
 
 public class FuncTests extends TestSuite {
 
-    static final String FUNC_TEST_PACKAGE = "org.eclipse.andmore.tests.functests";
+	static final String FUNC_TEST_PACKAGE = "org.eclipse.andmore.tests.functests";
 
-    public FuncTests() {
+	public FuncTests() {
 
-    }
+	}
 
-    /**
-     * Returns a suite of test cases to be run.
-     * Needed for JUnit3 compliant command line test runner
-     */
-    public static TestSuite suite() {
-        TestSuite suite = new TestSuite();
+	/**
+	 * Returns a suite of test cases to be run. Needed for JUnit3 compliant
+	 * command line test runner
+	 */
+	public static TestSuite suite() {
+		TestSuite suite = new TestSuite();
 
-        // TODO: uncomment this when 'gen' folder error on create is fixed
-        // suite.addTestSuite(SampleProjectTest.class);
-        suite.addTestSuite(ApiDemosRenderingTest.class);
+		// TODO: uncomment this when 'gen' folder error on create is fixed
+		// suite.addTestSuite(SampleProjectTest.class);
+		suite.addTestSuite(ApiDemosRenderingTest.class);
 
-        return suite;
-    }
+		return suite;
+	}
 
 }

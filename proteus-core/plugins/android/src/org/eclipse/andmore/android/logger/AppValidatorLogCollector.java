@@ -28,30 +28,28 @@ import org.eclipse.core.runtime.Path;
 /**
  * Class to collect log from application validator
  */
-public class AppValidatorLogCollector implements ILogFile
-{
+public class AppValidatorLogCollector implements ILogFile {
 
-    public String getLogName()
-    {
-        return AndroidNLS.UI_Logger_ApplicationValidatorFolder;
-    }
+	@Override
+	public String getLogName() {
+		return AndroidNLS.UI_Logger_ApplicationValidatorFolder;
+	}
 
-    public List<IPath> getLogFilePath()
-    {
-        ArrayList<IPath> logs = new ArrayList<IPath>();
-        String userHomeProp = System.getProperty("user.home");
-        File userHomeFile = new File(userHomeProp, "appValidator.log");
-        if (userHomeFile.exists())
-        {
-            IPath path = new Path(userHomeFile.getAbsolutePath());
-            logs.add(path);
-        }
-        return logs;
-    }
+	@Override
+	public List<IPath> getLogFilePath() {
+		ArrayList<IPath> logs = new ArrayList<IPath>();
+		String userHomeProp = System.getProperty("user.home");
+		File userHomeFile = new File(userHomeProp, "appValidator.log");
+		if (userHomeFile.exists()) {
+			IPath path = new Path(userHomeFile.getAbsolutePath());
+			logs.add(path);
+		}
+		return logs;
+	}
 
-    public String getOutputSubfolderName()
-    {
-        return "ApplicationValidator";
-    }
+	@Override
+	public String getOutputSubfolderName() {
+		return "ApplicationValidator";
+	}
 
 }

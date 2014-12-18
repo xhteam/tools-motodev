@@ -34,90 +34,98 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class UsagePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
-    private static final int WRAP_WIDTH_PX = 200;
+	private static final int WRAP_WIDTH_PX = 200;
 
-    private BooleanFieldEditor mOptInCheckBox;
-    private DdmsPreferenceStore mStore = new DdmsPreferenceStore();
+	private BooleanFieldEditor mOptInCheckBox;
+	private DdmsPreferenceStore mStore = new DdmsPreferenceStore();
 
-    public UsagePreferencePage() {
-    }
+	public UsagePreferencePage() {
+	}
 
-    @Override
-    public void init(IWorkbench workbench) {
-        // pass
-    }
+	@Override
+	public void init(IWorkbench workbench) {
+		// pass
+	}
 
-    @Override
-    protected Control createContents(Composite parent) {
-        Composite top = new Composite(parent, SWT.NONE);
-        top.setLayout(new GridLayout(1, false));
-        top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+	@Override
+	protected Control createContents(Composite parent) {
+		Composite top = new Composite(parent, SWT.NONE);
+		top.setLayout(new GridLayout(1, false));
+		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        Label l = new Label(top, SWT.WRAP);
-        l.setText(SdkStatsPermissionDialog.BODY_TEXT);
-        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-        gd.widthHint = WRAP_WIDTH_PX;
-        l.setLayoutData(gd);
+		Label l = new Label(top, SWT.WRAP);
+		l.setText(SdkStatsPermissionDialog.BODY_TEXT);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.widthHint = WRAP_WIDTH_PX;
+		l.setLayoutData(gd);
 
-        Link privacyPolicyLink = new Link(top, SWT.WRAP);
-        gd = new GridData(GridData.FILL_HORIZONTAL);
-        gd.widthHint = WRAP_WIDTH_PX;
-        privacyPolicyLink.setLayoutData(gd);
-        privacyPolicyLink.setText(SdkStatsPermissionDialog.PRIVACY_POLICY_LINK_TEXT);
+		Link privacyPolicyLink = new Link(top, SWT.WRAP);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.widthHint = WRAP_WIDTH_PX;
+		privacyPolicyLink.setLayoutData(gd);
+		privacyPolicyLink.setText(SdkStatsPermissionDialog.PRIVACY_POLICY_LINK_TEXT);
 
-        privacyPolicyLink.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                SdkStatsPermissionDialog.openUrl(event.text);
-            }
-        });
+		privacyPolicyLink.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				SdkStatsPermissionDialog.openUrl(event.text);
+			}
+		});
 
-        mOptInCheckBox = new BooleanFieldEditor(DdmsPreferenceStore.PING_OPT_IN,
-                SdkStatsPermissionDialog.CHECKBOX_TEXT, top);
-        mOptInCheckBox.setPage(this);
-        mOptInCheckBox.setPreferenceStore(mStore.getPreferenceStore());
-        mOptInCheckBox.load();
+		mOptInCheckBox = new BooleanFieldEditor(DdmsPreferenceStore.PING_OPT_IN,
+				SdkStatsPermissionDialog.CHECKBOX_TEXT, top);
+		mOptInCheckBox.setPage(this);
+		mOptInCheckBox.setPreferenceStore(mStore.getPreferenceStore());
+		mOptInCheckBox.load();
 
-        return top;
-    }
+		return top;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#performCancel()
-     */
-    @Override
-    public boolean performCancel() {
-        mOptInCheckBox.load();
-        return super.performCancel();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performCancel()
+	 */
+	@Override
+	public boolean performCancel() {
+		mOptInCheckBox.load();
+		return super.performCancel();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
-     */
-    @Override
-    protected void performDefaults() {
-        mOptInCheckBox.loadDefault();
-        super.performDefaults();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
+	 */
+	@Override
+	protected void performDefaults() {
+		mOptInCheckBox.loadDefault();
+		super.performDefaults();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#performOk()
-     */
-    @Override
-    public boolean performOk() {
-        save();
-        return super.performOk();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performOk()
+	 */
+	@Override
+	public boolean performOk() {
+		save();
+		return super.performOk();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#performApply()
-     */
-    @Override
-    protected void performApply() {
-        save();
-        super.performApply();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performApply()
+	 */
+	@Override
+	protected void performApply() {
+		save();
+		super.performApply();
+	}
 
-    private void save() {
-        mStore.setPingOptIn(mOptInCheckBox.getBooleanValue());
-    }
+	private void save() {
+		mStore.setPingOptIn(mOptInCheckBox.getBooleanValue());
+	}
 }

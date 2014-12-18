@@ -21,19 +21,19 @@ import org.eclipse.andmore.gltrace.widgets.ImageCanvas;
 import org.eclipse.jface.action.Action;
 
 public class FitToCanvasAction extends Action {
-    private ImageCanvas mImageCanvas;
+	private ImageCanvas mImageCanvas;
 
-    public FitToCanvasAction(boolean fitByDefault, ImageCanvas canvas) {
-        super("Fit to Canvas", GlTracePlugin.getImageDescriptor("/icons/zoomfit.png")); //$NON-NLS-2$
-        setToolTipText("Fit Image to Canvas");
-        mImageCanvas = canvas;
+	public FitToCanvasAction(boolean fitByDefault, ImageCanvas canvas) {
+		super("Fit to Canvas", GlTracePlugin.getImageDescriptor("/icons/zoomfit.png")); //$NON-NLS-2$
+		setToolTipText("Fit Image to Canvas");
+		mImageCanvas = canvas;
 
-        setChecked(fitByDefault);
-        mImageCanvas.setFitToCanvas(fitByDefault);
-    }
+		setChecked(fitByDefault);
+		mImageCanvas.setFitToCanvas(fitByDefault);
+	}
 
-    @Override
-    public void run() {
-        mImageCanvas.setFitToCanvas(isChecked());
-    }
+	@Override
+	public void run() {
+		mImageCanvas.setFitToCanvas(isChecked());
+	}
 }

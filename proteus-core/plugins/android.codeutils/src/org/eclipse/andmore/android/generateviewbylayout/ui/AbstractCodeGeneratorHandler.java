@@ -51,244 +51,197 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 /**
- * Abstract command handler to deal with selection of items in the Package Explorer view or Text Editors 
+ * Abstract command handler to deal with selection of items in the Package
+ * Explorer view or Text Editors
  */
-public abstract class AbstractCodeGeneratorHandler extends AbstractHandler
-{
+public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 
-    protected static SelectionBean resolveSelection(ExecutionEvent event) throws ExecutionException
-    {
-        SelectionBean selectionBean = new SelectionBean();
-        ITextEditor editor = null;
-        IFileEditorInput fileEditorInput = null;
+	protected static SelectionBean resolveSelection(ExecutionEvent event) throws ExecutionException {
+		SelectionBean selectionBean = new SelectionBean();
+		ITextEditor editor = null;
+		IFileEditorInput fileEditorInput = null;
 
-        ISelection selection = HandlerUtil.getCurrentSelection(event);
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
 
-        // case where the selection comes from the Text Editor
-        if (selection instanceof TextSelection)
-        {
-            editor = (ITextEditor) HandlerUtil.getActiveEditorChecked(event);
-            if (editor.getEditorInput() instanceof IFileEditorInput)
-            {
-                fileEditorInput = (IFileEditorInput) editor.getEditorInput();
-                selectionBean.setJavaFile(fileEditorInput.getFile());
-            }
-        }
-        else if (selection instanceof IStructuredSelection)
-        {
-            Iterator<?> selectionIterator = ((IStructuredSelection) selection).iterator();
-            Object selectedObject = selectionIterator.next();
+		// case where the selection comes from the Text Editor
+		if (selection instanceof TextSelection) {
+			editor = (ITextEditor) HandlerUtil.getActiveEditorChecked(event);
+			if (editor.getEditorInput() instanceof IFileEditorInput) {
+				fileEditorInput = (IFileEditorInput) editor.getEditorInput();
+				selectionBean.setJavaFile(fileEditorInput.getFile());
+			}
+		} else if (selection instanceof IStructuredSelection) {
+			Iterator<?> selectionIterator = ((IStructuredSelection) selection).iterator();
+			Object selectedObject = selectionIterator.next();
 
-            // case where the selection comes from the package explorer
-            if (selectedObject instanceof IFile)
-            {
-                selectionBean.setJavaFile((IFile) selectedObject);
-            }
+			// case where the selection comes from the package explorer
+			if (selectedObject instanceof IFile) {
+				selectionBean.setJavaFile((IFile) selectedObject);
+			}
 
-            // again, case where the selection comes from the package explorer
-            else if (selectedObject instanceof ICompilationUnit)
-            {
-                ICompilationUnit compilationUnit = (ICompilationUnit) selectedObject;
-                selectionBean.setJavaFile((IFile) compilationUnit.getResource());
-            }
+			// again, case where the selection comes from the package explorer
+			else if (selectedObject instanceof ICompilationUnit) {
+				ICompilationUnit compilationUnit = (ICompilationUnit) selectedObject;
+				selectionBean.setJavaFile((IFile) compilationUnit.getResource());
+			}
 
-            // case where the selection comes from a project
-            else if (selectedObject instanceof IAdaptable)
-            {
-                try
-                {
-                    IResource resource =
-                            (IResource) ((IAdaptable) selectedObject).getAdapter(IResource.class);
-                    selectionBean.setJavaProject(resource.getProject());
-                    selectionBean.setProject(true);
-                }
-                catch (Exception ex)
-                {
-                    StudioLogger.error(AbstractCodeGeneratorHandler.class,
-                            "Error retrieving class information", ex);
-                    throw new RuntimeException("Error retrieving class information", ex);
-                }
-            }
-        }
+			// case where the selection comes from a project
+			else if (selectedObject instanceof IAdaptable) {
+				try {
+					IResource resource = (IResource) ((IAdaptable) selectedObject).getAdapter(IResource.class);
+					selectionBean.setJavaProject(resource.getProject());
+					selectionBean.setProject(true);
+				} catch (Exception ex) {
+					StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", ex);
+					throw new RuntimeException("Error retrieving class information", ex);
+				}
+			}
+		}
 
-        // just check classes in case classes were selected, not project
-        if (!selectionBean.isProject())
-        {
-            try
-            {
-                // the selected class must be either an Activity or a Fragment
-                selectionBean.setAllowedClassInstance(JDTUtils.isSubclass(
-                        selectionBean.getJavaFile(), "android.app.Activity") //$NON-NLS-1$
-                        || JDTUtils.isFragmentSubclass(selectionBean.getJavaFile())
-                        || JDTUtils.isCompatibilityFragmentSubclass(selectionBean.getJavaFile()));
-            }
-            catch (JavaModelException jme)
-            {
-                StudioLogger.error(AbstractCodeGeneratorHandler.class,
-                        "Error retrieving class information", jme);
-                throw new RuntimeException("Error retrieving class information", jme);
-            }
-        }
-        return selectionBean;
-    }
+		// just check classes in case classes were selected, not project
+		if (!selectionBean.isProject()) {
+			try {
+				// the selected class must be either an Activity or a Fragment
+				selectionBean.setAllowedClassInstance(JDTUtils.isSubclass(selectionBean.getJavaFile(),
+						"android.app.Activity") //$NON-NLS-1$
+						|| JDTUtils.isFragmentSubclass(selectionBean.getJavaFile())
+						|| JDTUtils.isCompatibilityFragmentSubclass(selectionBean.getJavaFile()));
+			} catch (JavaModelException jme) {
+				StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", jme);
+				throw new RuntimeException("Error retrieving class information", jme);
+			}
+		}
+		return selectionBean;
+	}
 
-    protected static void executeCodeGenerationWizard(ExecutionEvent event, IFile javaFile,
-            final IProject javaProject, final AbstractLayoutItemsDialog layoutDialog)
-    {
-        final JavaModifierBasedOnLayout modifier = new JavaModifierBasedOnLayout();
+	protected static void executeCodeGenerationWizard(ExecutionEvent event, IFile javaFile, final IProject javaProject,
+			final AbstractLayoutItemsDialog layoutDialog) {
+		final JavaModifierBasedOnLayout modifier = new JavaModifierBasedOnLayout();
 
-        layoutDialog.init(modifier, javaProject, javaFile);
+		layoutDialog.init(modifier, javaProject, javaFile);
 
-        int status = layoutDialog.open();
-        if (status == Window.OK)
-        {
-            ICompilationUnit compilationUnit = layoutDialog.getJavaFile();
-            IEditorPart editor = null;
-            try
-            {
-                editor = JavaUI.openInEditor(compilationUnit);
-            }
-            catch (Exception e)
-            {
-                StudioLogger
-                        .warn(AbstractCodeGeneratorHandler.class,
-                                "Unable to open editor or bring it to front for Java file while trying to generate code from layout xml file", //$NON-NLS-1$
-                                e);
-            }
-            final ProgressMonitorDialog dialog = new ProgressMonitorDialog(layoutDialog.getShell());
-            final IEditorPart editorPart = editor;
+		int status = layoutDialog.open();
+		if (status == Window.OK) {
+			ICompilationUnit compilationUnit = layoutDialog.getJavaFile();
+			IEditorPart editor = null;
+			try {
+				editor = JavaUI.openInEditor(compilationUnit);
+			} catch (Exception e) {
+				StudioLogger
+						.warn(AbstractCodeGeneratorHandler.class,
+								"Unable to open editor or bring it to front for Java file while trying to generate code from layout xml file", //$NON-NLS-1$
+								e);
+			}
+			final ProgressMonitorDialog dialog = new ProgressMonitorDialog(layoutDialog.getShell());
+			final IEditorPart editorPart = editor;
 
-            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-            {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-                public void run()
-                {
-                    try
-                    {
+				@Override
+				public void run() {
+					try {
 
-                        dialog.run(true, false, new IRunnableWithProgress()
-                        {
+						dialog.run(true, false, new IRunnableWithProgress() {
 
-                            public void run(IProgressMonitor monitor)
-                                    throws InvocationTargetException, InterruptedException
-                            {
-                                try
-                                {
+							@Override
+							public void run(IProgressMonitor monitor) throws InvocationTargetException,
+									InterruptedException {
+								try {
 
-                                    // collect usage data - UDC
-                                    StudioLogger.collectUsageData(
-                                            UsageDataConstants.WHAT_VIEW_BY_LAYOUT_EXEC,
-                                            UsageDataConstants.KIND_VIEW_BY_LAYOUT_EXEC,
-                                            "View by layout feature executed.", //$NON-NLS-1$
-                                            CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator
-                                                    .getDefault().getBundle().getVersion()
-                                                    .toString());
-                                    modifier.insertCode(monitor, editorPart);
-                                }
+									// collect usage data - UDC
+									StudioLogger.collectUsageData(UsageDataConstants.WHAT_VIEW_BY_LAYOUT_EXEC,
+											UsageDataConstants.KIND_VIEW_BY_LAYOUT_EXEC,
+											"View by layout feature executed.", //$NON-NLS-1$
+											CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle()
+													.getVersion().toString());
+									modifier.insertCode(monitor, editorPart);
+								}
 
-                                catch (final JavaModelException e)
-                                {
-                                    final MultiStatus errorStatus =
-                                            new MultiStatus(
-                                                    CodeUtilsActivator.PLUGIN_ID,
-                                                    IStatus.ERROR,
-                                                    "Error inserting code on activity/fragment based on layout",
-                                                    null);
-                                    errorStatus.merge(e.getStatus());
+								catch (final JavaModelException e) {
+									final MultiStatus errorStatus = new MultiStatus(CodeUtilsActivator.PLUGIN_ID,
+											IStatus.ERROR, "Error inserting code on activity/fragment based on layout",
+											null);
+									errorStatus.merge(e.getStatus());
 
-                                    PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-                                    {
+									PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-                                        public void run()
-                                        {
-                                            IStatus mostSevere =
-                                                    EclipseUtils.findMostSevereError(errorStatus);
-                                            ErrorDialog
-                                                    .openError(
-                                                            PlatformUI.getWorkbench().getDisplay()
-                                                                    .getActiveShell(),
-                                                            "Error inserting code on activity/fragment based on layout",
-                                                            e.getMessage(), mostSevere);
-                                        }
-                                    });
-                                    StudioLogger.error(this.getClass(),
-                                            "Error inserting code on activity/fragment based on layout"
-                                                    + ": " + e.getMessage()); //$NON-NLS-1$
-                                }
-                            }
-                        });
-                    }
-                    catch (Exception e)
-                    {
-                        StudioLogger.error(this.getClass(),
-                                "Error inserting code on activity/fragment based on layout"
-                                        + ": " + e.getMessage()); //$NON-NLS-1$
-                    }
-                }
-            });
-        }
-    }
+										@Override
+										public void run() {
+											IStatus mostSevere = EclipseUtils.findMostSevereError(errorStatus);
+											ErrorDialog.openError(PlatformUI.getWorkbench().getDisplay()
+													.getActiveShell(),
+													"Error inserting code on activity/fragment based on layout",
+													e.getMessage(), mostSevere);
+										}
+									});
+									StudioLogger.error(
+											this.getClass(),
+											"Error inserting code on activity/fragment based on layout"
+													+ ": " + e.getMessage()); //$NON-NLS-1$
+								}
+							}
+						});
+					} catch (Exception e) {
+						StudioLogger.error(this.getClass(), "Error inserting code on activity/fragment based on layout"
+								+ ": " + e.getMessage()); //$NON-NLS-1$
+					}
+				}
+			});
+		}
+	}
 
 }
 
-class SelectionBean
-{
-    private boolean isProject = false;
+class SelectionBean {
+	private boolean isProject = false;
 
-    private boolean isAllowedClassInstance = false;
+	private boolean isAllowedClassInstance = false;
 
-    private IFile javaFile = null;
+	private IFile javaFile = null;
 
-    private IProject javaProject = null;
+	private IProject javaProject = null;
 
-    public boolean isProject()
-    {
-        return isProject;
-    }
+	public boolean isProject() {
+		return isProject;
+	}
 
-    public void setProject(boolean isProject)
-    {
-        this.isProject = isProject;
-    }
+	public void setProject(boolean isProject) {
+		this.isProject = isProject;
+	}
 
-    /**
-     * @return true if activity or fragment, false otherwise
-     */
-    public boolean isAllowedClassInstance()
-    {
-        return isAllowedClassInstance;
-    }
+	/**
+	 * @return true if activity or fragment, false otherwise
+	 */
+	public boolean isAllowedClassInstance() {
+		return isAllowedClassInstance;
+	}
 
-    public void setAllowedClassInstance(boolean isAllowedClassInstance)
-    {
-        this.isAllowedClassInstance = isAllowedClassInstance;
-    }
+	public void setAllowedClassInstance(boolean isAllowedClassInstance) {
+		this.isAllowedClassInstance = isAllowedClassInstance;
+	}
 
-    /**    
-     * @return selected Android file (Activity or Fragment)
-     */
-    public IFile getJavaFile()
-    {
-        return javaFile;
-    }
+	/**
+	 * @return selected Android file (Activity or Fragment)
+	 */
+	public IFile getJavaFile() {
+		return javaFile;
+	}
 
-    public void setJavaFile(IFile javaFile)
-    {
-        this.javaFile = javaFile;
-        javaProject = javaFile.getProject();
-    }
+	public void setJavaFile(IFile javaFile) {
+		this.javaFile = javaFile;
+		javaProject = javaFile.getProject();
+	}
 
-    /**
-     * @return the project where the Android file (Activity or Fragment) is located
-     */
-    public IProject getJavaProject()
-    {
-        return javaProject;
-    }
+	/**
+	 * @return the project where the Android file (Activity or Fragment) is
+	 *         located
+	 */
+	public IProject getJavaProject() {
+		return javaProject;
+	}
 
-    public void setJavaProject(IProject javaProject)
-    {
-        this.javaProject = javaProject;
-    }
+	public void setJavaProject(IProject javaProject) {
+		this.javaProject = javaProject;
+	}
 
 }

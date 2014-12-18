@@ -208,7 +208,7 @@ public final class AndroidManifestDescriptors implements IDescriptorProvider {
         overrideClassName(overrides, "service",  SdkConstants.CLASS_SERVICE);          //$NON-NLS-1$
         overrideClassName(overrides, "provider", SdkConstants.CLASS_CONTENTPROVIDER);  //$NON-NLS-1$
         overrideClassName(overrides, "instrumentation",
-                                                 SdkConstants.CLASS_INSTRUMENTATION);  //$NON-NLS-1$
+                                                 SdkConstants.CLASS_INSTRUMENTATION);  
 
         // -- list element nodes already created --
         // These elements are referenced by already opened editors, so we want to update them

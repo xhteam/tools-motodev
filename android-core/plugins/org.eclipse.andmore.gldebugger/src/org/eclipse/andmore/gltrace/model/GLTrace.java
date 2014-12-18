@@ -32,88 +32,86 @@ import java.util.List;
 
 /** GLTrace is the in memory model of a OpenGL trace file. */
 public class GLTrace {
-    private static final TraceFileReader sTraceFileReader = new TraceFileReader();
+	private static final TraceFileReader sTraceFileReader = new TraceFileReader();
 
-    /** Information regarding the trace file. */
-    private final TraceFileInfo mTraceFileInfo;
+	/** Information regarding the trace file. */
+	private final TraceFileInfo mTraceFileInfo;
 
-    /** List of frames in the trace. */
-    private final List<GLFrame> mGLFrames;
+	/** List of frames in the trace. */
+	private final List<GLFrame> mGLFrames;
 
-    /** List of GL Calls comprising the trace. */
-    private final List<GLCall> mGLCalls;
+	/** List of GL Calls comprising the trace. */
+	private final List<GLCall> mGLCalls;
 
-    /** List of context ids used by the application. */
-    private List<Integer> mContextIds;
+	/** List of context ids used by the application. */
+	private List<Integer> mContextIds;
 
-    public GLTrace(TraceFileInfo traceFileInfo, List<GLFrame> glFrames, List<GLCall> glCalls,
-            List<Integer> contextIds) {
-        mTraceFileInfo = traceFileInfo;
-        mGLFrames = glFrames;
-        mGLCalls = glCalls;
-        mContextIds = contextIds;
-    }
+	public GLTrace(TraceFileInfo traceFileInfo, List<GLFrame> glFrames, List<GLCall> glCalls, List<Integer> contextIds) {
+		mTraceFileInfo = traceFileInfo;
+		mGLFrames = glFrames;
+		mGLCalls = glCalls;
+		mContextIds = contextIds;
+	}
 
-    public List<GLFrame> getFrames() {
-        return mGLFrames;
-    }
+	public List<GLFrame> getFrames() {
+		return mGLFrames;
+	}
 
-    public GLFrame getFrame(int i) {
-        return mGLFrames.get(i);
-    }
+	public GLFrame getFrame(int i) {
+		return mGLFrames.get(i);
+	}
 
-    public List<GLCall> getGLCalls() {
-        return mGLCalls;
-    }
+	public List<GLCall> getGLCalls() {
+		return mGLCalls;
+	}
 
-    public List<GLCall> getGLCallsForFrame(int frameIndex) {
-        if (frameIndex >= mGLFrames.size()) {
-            return Collections.emptyList();
-        }
+	public List<GLCall> getGLCallsForFrame(int frameIndex) {
+		if (frameIndex >= mGLFrames.size()) {
+			return Collections.emptyList();
+		}
 
-        GLFrame frame = mGLFrames.get(frameIndex);
-        return mGLCalls.subList(frame.getStartIndex(), frame.getEndIndex());
-    }
+		GLFrame frame = mGLFrames.get(frameIndex);
+		return mGLCalls.subList(frame.getStartIndex(), frame.getEndIndex());
+	}
 
-    public Image getImage(GLCall c) {
-        if (!c.hasFb()) {
-            return null;
-        }
+	public Image getImage(GLCall c) {
+		if (!c.hasFb()) {
+			return null;
+		}
 
-        if (isTraceFileModified()) {
-            return null;
-        }
+		if (isTraceFileModified()) {
+			return null;
+		}
 
-        RandomAccessFile file;
-        try {
-            file = new RandomAccessFile(mTraceFileInfo.getPath(), "r"); //$NON-NLS-1$
-        } catch (FileNotFoundException e1) {
-            return null;
-        }
+		RandomAccessFile file;
+		try {
+			file = new RandomAccessFile(mTraceFileInfo.getPath(), "r"); //$NON-NLS-1$
+		} catch (FileNotFoundException e1) {
+			return null;
+		}
 
-        GLMessage m = null;
-        try {
-            m = sTraceFileReader.getMessageAtOffset(file, c.getOffsetInTraceFile());
-        } catch (Exception e) {
-            return null;
-        } finally {
-            try {
-                file.close();
-            } catch (IOException e) {
-                // ignore exception while closing file
-            }
-        }
+		GLMessage m = null;
+		try {
+			m = sTraceFileReader.getMessageAtOffset(file, c.getOffsetInTraceFile());
+		} catch (Exception e) {
+			return null;
+		} finally {
+			try {
+				file.close();
+			} catch (IOException e) {
+				// ignore exception while closing file
+			}
+		}
 
-        return ProtoBufUtils.getImage(Display.getCurrent(), m);
-    }
+		return ProtoBufUtils.getImage(Display.getCurrent(), m);
+	}
 
-    private boolean isTraceFileModified() {
-        File f = new File(mTraceFileInfo.getPath());
-        return f.length() != mTraceFileInfo.getSize()
-                || f.lastModified() != mTraceFileInfo.getLastModificationTime();
-    }
+	private boolean isTraceFileModified() {
+		File f = new File(mTraceFileInfo.getPath());
+		return f.length() != mTraceFileInfo.getSize() || f.lastModified() != mTraceFileInfo.getLastModificationTime();
+	}
 
-    public List<Integer> getContexts() {
-        return mContextIds;
-    }
+	public List<Integer> getContexts() {
+		return mContextIds;
+	}
 }

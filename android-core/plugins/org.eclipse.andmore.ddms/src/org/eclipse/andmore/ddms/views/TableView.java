@@ -33,69 +33,71 @@ import org.eclipse.ui.actions.ActionFactory;
  */
 public abstract class TableView extends SelectionDependentViewPart {
 
-    /** Activator for the current Table that has the focus */
-    IFocusedTableActivator mActivator = null;
+	/** Activator for the current Table that has the focus */
+	IFocusedTableActivator mActivator = null;
 
-    private Clipboard mClipboard;
+	private Clipboard mClipboard;
 
-    private Action mCopyAction;
-    private Action mSelectAllAction;
+	private Action mCopyAction;
+	private Action mSelectAllAction;
 
-    /**
-     * Setup the listener for the Table objects of <code>Panel</code>, and setup
-     * the copy and select all actions.
-     *
-     * @param panel The panel to setup
-     * @param parent The parent composite of the Panel's content.
-     */
-    void setupTableFocusListener(TablePanel panel, Composite parent) {
-        panel.setTableFocusListener(new ITableFocusListener() {
-            @Override
-            public void focusGained(IFocusedTableActivator activator) {
-                mActivator = activator;
-                mCopyAction.setEnabled(true);
-                mSelectAllAction.setEnabled(true);
-            }
+	/**
+	 * Setup the listener for the Table objects of <code>Panel</code>, and setup
+	 * the copy and select all actions.
+	 *
+	 * @param panel
+	 *            The panel to setup
+	 * @param parent
+	 *            The parent composite of the Panel's content.
+	 */
+	void setupTableFocusListener(TablePanel panel, Composite parent) {
+		panel.setTableFocusListener(new ITableFocusListener() {
+			@Override
+			public void focusGained(IFocusedTableActivator activator) {
+				mActivator = activator;
+				mCopyAction.setEnabled(true);
+				mSelectAllAction.setEnabled(true);
+			}
 
-            @Override
-            public void focusLost(IFocusedTableActivator activator) {
-                if (activator == mActivator) {
-                    mActivator = null;
-                    mCopyAction.setEnabled(false);
-                    mSelectAllAction.setEnabled(false);
-                }
-            }
-        });
+			@Override
+			public void focusLost(IFocusedTableActivator activator) {
+				if (activator == mActivator) {
+					mActivator = null;
+					mCopyAction.setEnabled(false);
+					mSelectAllAction.setEnabled(false);
+				}
+			}
+		});
 
-        // setup the copy action
-        mClipboard = new Clipboard(parent.getDisplay());
-        IActionBars actionBars = getViewSite().getActionBars();
-        actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(),
-                mCopyAction = new Action(Messages.TableView_Copy) {
-                    @Override
-                    public void run() {
-                        if (mActivator != null) {
-                            mActivator.copy(mClipboard);
-                        }
-                    }
-                });
+		// setup the copy action
+		mClipboard = new Clipboard(parent.getDisplay());
+		IActionBars actionBars = getViewSite().getActionBars();
+		actionBars.setGlobalActionHandler(ActionFactory.COPY.getId(),
+				mCopyAction = new Action(Messages.TableView_Copy) {
+					@Override
+					public void run() {
+						if (mActivator != null) {
+							mActivator.copy(mClipboard);
+						}
+					}
+				});
 
-        // setup the select all action
-        actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(),
-                mSelectAllAction = new Action(Messages.TableView_Select_All) {
-                    @Override
-                    public void run() {
-                        if (mActivator != null) {
-                            mActivator.selectAll();
-                        }
-                    }
-                });
+		// setup the select all action
+		actionBars.setGlobalActionHandler(ActionFactory.SELECT_ALL.getId(), mSelectAllAction = new Action(
+				Messages.TableView_Select_All) {
+			@Override
+			public void run() {
+				if (mActivator != null) {
+					mActivator.selectAll();
+				}
+			}
+		});
 
-    }
+	}
 
-    @Override
-    public void dispose() {
-        super.dispose();
-        mClipboard.dispose();
-    }
+	@Override
+	public void dispose() {
+		super.dispose();
+		mClipboard.dispose();
+	}
 }

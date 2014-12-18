@@ -58,7 +58,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         IDragElement[] elements = TestDragElement.create(TestDragElement.create(
                 "android.widget.Button", new Rect(0, 0, 100, 80)).id("@+id/Button01"));
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
-        Map<String, Pair<String, String>> ids = new BaseLayoutRule().collectIds(idMap, elements);
+        new BaseLayoutRule();
+		Map<String, Pair<String, String>> ids = BaseLayoutRule.collectIds(idMap, elements);
         assertEquals(1, ids.size());
         assertEquals("@+id/Button01", ids.keySet().iterator().next());
     }
@@ -73,7 +74,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
                 "@+id/Button01"));
 
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
-        Map<String, Pair<String, String>> ids = new BaseLayoutRule().collectIds(idMap, elements);
+        new BaseLayoutRule();
+		Map<String, Pair<String, String>> ids = BaseLayoutRule.collectIds(idMap, elements);
         assertEquals(0, ids.size());
     }
 
@@ -81,9 +83,12 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
      * Test {@link BaseLayoutRule#normalizeId(String)}
      */
     public final void testNormalizeId() {
-        assertEquals("foo", new BaseLayoutRule().normalizeId("foo"));
-        assertEquals("@+id/name", new BaseLayoutRule().normalizeId("@id/name"));
-        assertEquals("@+id/name", new BaseLayoutRule().normalizeId("@+id/name"));
+        new BaseLayoutRule();
+		assertEquals("foo", BaseLayoutRule.normalizeId("foo"));
+        new BaseLayoutRule();
+		assertEquals("@+id/name", BaseLayoutRule.normalizeId("@id/name"));
+        new BaseLayoutRule();
+		assertEquals("@+id/name", BaseLayoutRule.normalizeId("@+id/name"));
     }
 
     /**
@@ -94,7 +99,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         INode node = TestNode.create("android.widget.Button").id("@+id/Button012").add(
                 TestNode.create("android.widget.Button").id("@+id/Button2"));
 
-        new BaseLayoutRule().collectExistingIds(node, existing);
+        new BaseLayoutRule();
+		BaseLayoutRule.collectExistingIds(node, existing);
 
         assertEquals(2, existing.size());
         assertContainsSame(Arrays.asList("@+id/Button2", "@+id/Button012"), existing);
@@ -108,7 +114,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
 
         IDragElement[] elements = createSampleElements();
-        Map<String, Pair<String, String>> ids = new BaseLayoutRule().collectIds(idMap, elements);
+        new BaseLayoutRule();
+		Map<String, Pair<String, String>> ids = BaseLayoutRule.collectIds(idMap, elements);
         assertEquals(5, ids.size());
         assertContainsSame(Arrays.asList("@+id/Button01", "@+id/Button02", "@+id/Button011",
                 "@+id/Button012", "@+id/LinearLayout01"), ids.keySet());
@@ -127,12 +134,12 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
         BaseLayoutRule baseLayout = new BaseLayoutRule();
         IDragElement[] elements = createSampleElements();
-        baseLayout.collectIds(idMap, elements);
+        BaseLayoutRule.collectIds(idMap, elements);
         INode node = TestNode.create("android.widget.Button").id("@+id/Button012").add(
                 TestNode.create("android.widget.Button").id("@+id/Button2"));
 
         assertEquals(5, idMap.size());
-        Map<String, Pair<String, String>> remapped = baseLayout.remapIds(node, idMap);
+        Map<String, Pair<String, String>> remapped = BaseLayoutRule.remapIds(node, idMap);
         // 4 original from the sample elements, plus overlap with one
         // (Button012) - one new
         // button added in
@@ -152,7 +159,7 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         INode node = TestNode.create("android.widget.Button").id("@+id/Button012").add(
                 TestNode.create("android.widget.Button").id("@+id/Button2"));
 
-        Map<String, Pair<String, String>> idMap = baseLayout.getDropIdMap(node, elements, true);
+        Map<String, Pair<String, String>> idMap = BaseLayoutRule.getDropIdMap(node, elements, true);
         assertContainsSame(Arrays.asList("@+id/Button01", "@+id/Button012", "@+id/Button011",
                 "@id/Button012", "@+id/Button02", "@+id/LinearLayout01"), idMap
                 .keySet());
@@ -173,7 +180,7 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         // No references in this test case
         Map<String, Pair<String, String>> idMap = null;
 
-        layout.addAttributes(newNode, oldElement, idMap, filter);
+        BaseLayoutRule.addAttributes(newNode, oldElement, idMap, filter);
         assertEquals("value", newNode.getStringAttr("u", "key"));
         assertEquals("nothiddenvalue", newNode.getStringAttr("u", "nothidden"));
     }
@@ -201,23 +208,23 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         // No references in this test case
         Map<String, Pair<String, String>> idMap = null;
 
-        layout.addAttributes(newNode, oldElement, idMap, filter);
+        BaseLayoutRule.addAttributes(newNode, oldElement, idMap, filter);
         assertEquals("value", newNode.getStringAttr("u", "key"));
     }
 
     public final void testFindNewId() {
         BaseLayoutRule baseLayout = new BaseLayoutRule();
         Set<String> existing = new HashSet<String>();
-        assertEquals("@+id/Widget01", baseLayout.findNewId("a.w.Widget", existing));
+        assertEquals("@+id/Widget01", BaseLayoutRule.findNewId("a.w.Widget", existing));
 
         existing.add("@+id/Widget01");
-        assertEquals("@+id/Widget02", baseLayout.findNewId("a.w.Widget", existing));
+        assertEquals("@+id/Widget02", BaseLayoutRule.findNewId("a.w.Widget", existing));
 
         existing.add("@+id/Widget02");
-        assertEquals("@+id/Widget03", baseLayout.findNewId("a.w.Widget", existing));
+        assertEquals("@+id/Widget03", BaseLayoutRule.findNewId("a.w.Widget", existing));
 
         existing.remove("@+id/Widget02");
-        assertEquals("@+id/Widget02", baseLayout.findNewId("a.w.Widget", existing));
+        assertEquals("@+id/Widget02", BaseLayoutRule.findNewId("a.w.Widget", existing));
     }
 
     public final void testDefaultAttributeFilter() {
@@ -238,7 +245,7 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         INode newNode = TestNode.create("a.w.B").id("@+id/foo");
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
         BaseLayoutRule layout = new BaseLayoutRule();
-        layout.addInnerElements(newNode, oldElement, idMap);
+        BaseLayoutRule.addInnerElements(newNode, oldElement, idMap);
         assertEquals(2, newNode.getChildren().length);
 
         assertEquals("value2b", newNode.getChildren()[1].getStringAttr("uri", "childprop2b"));

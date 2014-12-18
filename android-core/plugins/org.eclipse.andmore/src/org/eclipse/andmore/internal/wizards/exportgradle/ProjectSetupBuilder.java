@@ -335,7 +335,7 @@ public class ProjectSetupBuilder {
         final int count = Math.min(path1.segmentCount(), path2.segmentCount());
         for (int i = 0; i < count; i++) {
             if (path1.segment(i).equals(path2.segment(i))) {
-                result = result.append(Path.SEPARATOR + path2.segment(i));
+                result = result.append(IPath.SEPARATOR + path2.segment(i));
             }
         }
         return result;

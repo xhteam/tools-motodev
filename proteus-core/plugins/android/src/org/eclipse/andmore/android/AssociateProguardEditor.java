@@ -30,43 +30,41 @@ import org.eclipse.ui.internal.registry.FileEditorMapping;
  * Associates Proguard editor to proguard.cfg file on studio start-up.
  */
 @SuppressWarnings("restriction")
-public class AssociateProguardEditor implements IStartup
-{
-    // The plug-in ID
-    public static final String EDITOR_ID = "net.certiv.proguarddt.editor.ProGuardDTEditor"; //$NON-NLS-1$
+public class AssociateProguardEditor implements IStartup {
+	// The plug-in ID
+	public static final String EDITOR_ID = "net.certiv.proguarddt.editor.ProGuardDTEditor"; //$NON-NLS-1$
 
-    public void earlyStartup()
-    {
-        PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-        {
+	@Override
+	public void earlyStartup() {
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-            public void run()
-            {
-                try
-                {
-                    if (!System.getProperty("java.version").startsWith("1.5"))
-                    {
-                        //code valid for Java 1.6 or higher 
-                        EditorRegistry registry =
-                                (EditorRegistry) WorkbenchPlugin.getDefault().getEditorRegistry(); // cast to allow save to be called
-                        FileEditorMapping[] mappings =
-                                (FileEditorMapping[]) registry.getFileEditorMappings();
-                        List<FileEditorMapping> listMappings = new ArrayList<FileEditorMapping>();
-                        listMappings.addAll(Arrays.asList(mappings));
-                        listMappings.add(new FileEditorMapping("proguard", "cfg"));
-                        FileEditorMapping[] newMappings =
-                                listMappings.toArray(new FileEditorMapping[0]);
-                        registry.setFileEditorMappings(newMappings);
+			@Override
+			public void run() {
+				try {
+					if (!System.getProperty("java.version").startsWith("1.5")) {
+						// code valid for Java 1.6 or higher
+						EditorRegistry registry = (EditorRegistry) WorkbenchPlugin.getDefault().getEditorRegistry(); // cast
+																														// to
+																														// allow
+																														// save
+																														// to
+																														// be
+																														// called
+						FileEditorMapping[] mappings = (FileEditorMapping[]) registry.getFileEditorMappings();
+						List<FileEditorMapping> listMappings = new ArrayList<FileEditorMapping>();
+						listMappings.addAll(Arrays.asList(mappings));
+						listMappings.add(new FileEditorMapping("proguard", "cfg"));
+						FileEditorMapping[] newMappings = listMappings.toArray(new FileEditorMapping[0]);
+						registry.setFileEditorMappings(newMappings);
 
-                        registry.setDefaultEditor("proguard.cfg", EDITOR_ID);
-                        registry.saveAssociations();
-                    }
-                }
-                catch (Throwable t)
-                {
-                    //do nothing - let association for proguard.cfg file to be with text editor
-                }
-            }
-        });
-    }
+						registry.setDefaultEditor("proguard.cfg", EDITOR_ID);
+						registry.saveAssociations();
+					}
+				} catch (Throwable t) {
+					// do nothing - let association for proguard.cfg file to be
+					// with text editor
+				}
+			}
+		});
+	}
 }

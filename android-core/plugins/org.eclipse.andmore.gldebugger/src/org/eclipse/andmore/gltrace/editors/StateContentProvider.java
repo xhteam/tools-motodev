@@ -24,51 +24,51 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 public class StateContentProvider implements ITreeContentProvider {
-    @Override
-    public void dispose() {
-    }
+	@Override
+	public void dispose() {
+	}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 
-    @Override
-    public Object[] getElements(Object inputElement) {
-        return getChildren(inputElement);
-    }
+	@Override
+	public Object[] getElements(Object inputElement) {
+		return getChildren(inputElement);
+	}
 
-    @Override
-    public Object[] getChildren(Object parentElement) {
-        if (parentElement instanceof GLListProperty) {
-            return ((GLListProperty) parentElement).getList().toArray();
-        }
+	@Override
+	public Object[] getChildren(Object parentElement) {
+		if (parentElement instanceof GLListProperty) {
+			return ((GLListProperty) parentElement).getList().toArray();
+		}
 
-        if (parentElement instanceof GLCompositeProperty) {
-            return ((GLCompositeProperty) parentElement).getProperties().toArray();
-        }
+		if (parentElement instanceof GLCompositeProperty) {
+			return ((GLCompositeProperty) parentElement).getProperties().toArray();
+		}
 
-        if (parentElement instanceof GLSparseArrayProperty) {
-            return ((GLSparseArrayProperty) parentElement).getValues().toArray();
-        }
+		if (parentElement instanceof GLSparseArrayProperty) {
+			return ((GLSparseArrayProperty) parentElement).getValues().toArray();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Object getParent(Object element) {
-        if (element instanceof IGLProperty) {
-            return ((IGLProperty) element).getParent();
-        }
+	@Override
+	public Object getParent(Object element) {
+		if (element instanceof IGLProperty) {
+			return ((IGLProperty) element).getParent();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public boolean hasChildren(Object element) {
-        if (element instanceof IGLProperty) {
-            return ((IGLProperty) element).isComposite();
-        }
+	@Override
+	public boolean hasChildren(Object element) {
+		if (element instanceof IGLProperty) {
+			return ((IGLProperty) element).isComposite();
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

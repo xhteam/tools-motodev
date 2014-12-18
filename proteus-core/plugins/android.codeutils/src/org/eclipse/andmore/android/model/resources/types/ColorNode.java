@@ -20,24 +20,26 @@ package org.eclipse.andmore.android.model.resources.types;
  * 
  * Format: <color name="ColorName">Color Value</color>
  */
-public class ColorNode extends AbstractSimpleNameResourceNode
-{
-    /**
-     * Default constructor
-     * 
-     * @param name The color name. It must not be null.
-     */
-    public ColorNode(String name)
-    {
-        super(name);
-    }
+public class ColorNode extends AbstractSimpleNameResourceNode {
+	/**
+	 * Default constructor
+	 * 
+	 * @param name
+	 *            The color name. It must not be null.
+	 */
+	public ColorNode(String name) {
+		super(name);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.types.AbstractResourceNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.Color;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * #getNodeType()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.Color;
+	}
 }

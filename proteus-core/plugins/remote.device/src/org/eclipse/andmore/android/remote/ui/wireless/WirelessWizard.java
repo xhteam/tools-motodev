@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.ISerialNumbered;
 import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -34,132 +35,115 @@ import org.eclipse.jface.wizard.Wizard;
 /**
  * Switch to Wireless Connection Mode.
  */
-public class WirelessWizard extends Wizard
-{
-    // Wizard icon
-    private final String WIRELESS_WIZARD_IMAGE_PATH = "icons/wireless_wizard-icon-64x64.png"; //$NON-NLS-1$
+public class WirelessWizard extends Wizard {
+	// Wizard icon
+	private final String WIRELESS_WIZARD_IMAGE_PATH = "icons/wireless_wizard-icon-64x64.png"; //$NON-NLS-1$
 
-    WirelessDeviceWizardPage informationPage;
+	WirelessDeviceWizardPage informationPage;
 
-    private ISerialNumbered instance;
+	private ISerialNumbered instance;
 
-    private String host;
+	private String host;
 
-    private IProgressMonitor monitor;
+	private IProgressMonitor monitor;
 
-    /**
-     * Default constructor. 
-     */
-    public WirelessWizard()
-    {
-        super.setDefaultPageImageDescriptor(RemoteDevicePlugin
-                .getImageDescriptor(WIRELESS_WIZARD_IMAGE_PATH));
-        this.setWindowTitle(RemoteDeviceNLS.UI_WirelessWizard_Name);
-        setNeedsProgressMonitor(true);
-    }
+	/**
+	 * Default constructor.
+	 */
+	public WirelessWizard() {
+		super.setDefaultPageImageDescriptor(RemoteDevicePlugin.getImageDescriptor(WIRELESS_WIZARD_IMAGE_PATH));
+		this.setWindowTitle(RemoteDeviceNLS.UI_WirelessWizard_Name);
+		setNeedsProgressMonitor(true);
+	}
 
-    @Override
-    public void addPages()
-    {
-        informationPage = new WirelessDeviceWizardPage();
-        addPage(informationPage);
-    }
+	@Override
+	public void addPages() {
+		informationPage = new WirelessDeviceWizardPage();
+		addPage(informationPage);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        boolean isProcessOK = true;
-        try
-        {
-            // execute connection switch and show success message in case everything went fine 
-            getContainer().run(true, true, new SwitchFromUSBAndConnectToWirelessRunnable(this));
-            EclipseUtils.showInformationDialog(
-                    RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
-                    RemoteDeviceNLS.WirelessWizard_WirelessDeviceCreatedSuccessfully);
-            StudioLogger.collectUsageData(StudioLogger.WHAT_REMOTE_WIRELESS,
-                    StudioLogger.KIND_REMOTE_DEVICE, StudioLogger.DESCRIPTION_DEFAULT,
-                    RemoteDevicePlugin.PLUGIN_ID, RemoteDevicePlugin.getDefault().getBundle()
-                            .getVersion().toString());
-        }
-        catch (InvocationTargetException ite)
-        {
-            // treat case where something went wrong - log, show an error message and set the wizard flag
-            StudioLogger.error(this.getClass(), "Problems switching device to TCP/IP.", ite); //$NON-NLS-1$
-            IStatus status =
-                    new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID,
-                            ite.getTargetException() != null ? ite.getTargetException()
-                                    .getMessage() : ite.getMessage());
-            EclipseUtils.showErrorDialog(
-                    RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
-                    RemoteDeviceNLS.WirelessWizard_MsgErrorProblemsSwitchingDeviceToTCPIP, status);
-            isProcessOK = false;
-        }
-        catch (InterruptedException ie)
-        {
-            // action was canceled by the user, therefore do not close the wizard
-            isProcessOK = false;
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		boolean isProcessOK = true;
+		try {
+			// execute connection switch and show success message in case
+			// everything went fine
+			getContainer().run(true, true, new SwitchFromUSBAndConnectToWirelessRunnable(this));
+			EclipseUtils.showInformationDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
+					RemoteDeviceNLS.WirelessWizard_WirelessDeviceCreatedSuccessfully);
+			StudioLogger.collectUsageData(UsageDataConstants.WHAT_REMOTE_WIRELESS,
+					UsageDataConstants.KIND_REMOTE_DEVICE, UsageDataConstants.DESCRIPTION_DEFAULT,
+					RemoteDevicePlugin.PLUGIN_ID, RemoteDevicePlugin.getDefault().getBundle().getVersion().toString());
+		} catch (InvocationTargetException ite) {
+			// treat case where something went wrong - log, show an error
+			// message and set the wizard flag
+			StudioLogger.error(this.getClass(), "Problems switching device to TCP/IP.", ite); //$NON-NLS-1$
+			IStatus status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, ite.getTargetException() != null ? ite
+					.getTargetException().getMessage() : ite.getMessage());
+			EclipseUtils.showErrorDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
+					RemoteDeviceNLS.WirelessWizard_MsgErrorProblemsSwitchingDeviceToTCPIP, status);
+			isProcessOK = false;
+		} catch (InterruptedException ie) {
+			// action was canceled by the user, therefore do not close the
+			// wizard
+			isProcessOK = false;
+		}
 
-        return isProcessOK;
-    }
+		return isProcessOK;
+	}
 
-    public void setInstance(ISerialNumbered instance)
-    {
-        this.instance = instance;
-    }
+	public void setInstance(ISerialNumbered instance) {
+		this.instance = instance;
+	}
 
-    public ISerialNumbered getInstance()
-    {
-        return instance;
-    }
+	public ISerialNumbered getInstance() {
+		return instance;
+	}
 
-    /**
-     * @return the monitor
-     */
-    public IProgressMonitor getProgressMonitor()
-    {
-        return monitor;
-    }
+	/**
+	 * @return the monitor
+	 */
+	public IProgressMonitor getProgressMonitor() {
+		return monitor;
+	}
 
-    /**
-     * @param monitor the monitor to set
-     */
-    public void setProgressMonitor(IProgressMonitor monitor)
-    {
-        this.monitor = monitor;
-    }
+	/**
+	 * @param monitor
+	 *            the monitor to set
+	 */
+	public void setProgressMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
+	}
 
-    /**
-     * Get the {@link Properties} associated with this {@link Wizard}.
-     * 
-     * @return Return the related {@link Properties}.
-     */
-    public Properties getProperties()
-    {
-        return informationPage != null ? informationPage.getProperties() : null;
-    }
+	/**
+	 * Get the {@link Properties} associated with this {@link Wizard}.
+	 * 
+	 * @return Return the related {@link Properties}.
+	 */
+	public Properties getProperties() {
+		return informationPage != null ? informationPage.getProperties() : null;
+	}
 
-    /**
-     * @param host
-     */
-    public void setIp(String host)
-    {
-        this.host = host;
-    }
+	/**
+	 * @param host
+	 */
+	public void setIp(String host) {
+		this.host = host;
+	}
 
-    /**
-     * @param host
-     */
-    public String getIp()
-    {
-        return host;
-    }
+	/**
+	 * @param host
+	 */
+	public String getIp() {
+		return host;
+	}
 
-    public String getDeviceName()
-    {
-        return informationPage.getDeviceName();
-    }
+	public String getDeviceName() {
+		return informationPage.getDeviceName();
+	}
 }

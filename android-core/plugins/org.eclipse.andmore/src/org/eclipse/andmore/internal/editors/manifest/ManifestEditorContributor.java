@@ -34,6 +34,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionConstants;
  * TODO: Doesn't look like we need this. Remove it if not needed.
  * @deprecated
  */
+@Deprecated
 final class ManifestEditorContributor extends MultiPageEditorActionBarContributor {
     private IEditorPart mActiveEditorPart;
 
@@ -44,7 +45,8 @@ final class ManifestEditorContributor extends MultiPageEditorActionBarContributo
      * it's not being used. As noted in constructor, should be removed if not used.
      * @deprecated
      */
-    private ManifestEditorContributor() {
+    @Deprecated
+	private ManifestEditorContributor() {
         super();
     }
 

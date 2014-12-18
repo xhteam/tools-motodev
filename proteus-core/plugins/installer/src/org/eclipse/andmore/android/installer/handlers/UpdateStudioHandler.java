@@ -24,59 +24,53 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.IHandlerListener;
 import org.eclipse.core.runtime.jobs.Job;
 
-public class UpdateStudioHandler implements IHandler
-{
+public class UpdateStudioHandler implements IHandler {
 
-    public void addHandlerListener(IHandlerListener handlerListener)
-    {
-        // Nothing to do
+	@Override
+	public void addHandlerListener(IHandlerListener handlerListener) {
+		// Nothing to do
 
-    }
+	}
 
-    public void dispose()
-    {
-        // Nothing to do
+	@Override
+	public void dispose() {
+		// Nothing to do
 
-    }
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        Job progressJob = UpdateStudioJob.getInstance();
+		Job progressJob = UpdateStudioJob.getInstance();
 
-        if ((progressJob != null)
-                && ((progressJob.getState() == Job.WAITING) || (progressJob.getState() == Job.RUNNING)))
-        {
-            EclipseUtils.showInformationDialog(InstallerNLS.UpdateStudio_UpdateAlreadyRunningTitle,
-                    InstallerNLS.UpdateStudio_UpdateAlreadyRunningMsg);
-        }
-        else
-        {
-            progressJob =
-                    UpdateStudioJob
-                            .createJob(InstallerNLS.UpdateStudio_CheckingForUpdatesJobDescription);
-            progressJob.setUser(true);
-            progressJob.schedule();
-        }
+		if ((progressJob != null)
+				&& ((progressJob.getState() == Job.WAITING) || (progressJob.getState() == Job.RUNNING))) {
+			EclipseUtils.showInformationDialog(InstallerNLS.UpdateStudio_UpdateAlreadyRunningTitle,
+					InstallerNLS.UpdateStudio_UpdateAlreadyRunningMsg);
+		} else {
+			progressJob = UpdateStudioJob.createJob(InstallerNLS.UpdateStudio_CheckingForUpdatesJobDescription);
+			progressJob.setUser(true);
+			progressJob.schedule();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public boolean isEnabled()
-    {
+	@Override
+	public boolean isEnabled() {
 
-        return true;
-    }
+		return true;
+	}
 
-    public boolean isHandled()
-    {
+	@Override
+	public boolean isHandled() {
 
-        return true;
-    }
+		return true;
+	}
 
-    public void removeHandlerListener(IHandlerListener handlerListener)
-    {
-        // Nothing to do
-    }
+	@Override
+	public void removeHandlerListener(IHandlerListener handlerListener) {
+		// Nothing to do
+	}
 
 }

@@ -28,50 +28,45 @@ import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
 /**
- * Command to open  the MOTODEV Web Resources in a Web Browser Editor
+ * Command to open the MOTODEV Web Resources in a Web Browser Editor
  */
-public class OpenWebResources extends AbstractHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        if (!Platform.getOS().equals(Platform.OS_LINUX))
-        {
-            IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-            if (activeWindow != null)
-            {
-                IWorkbenchPage activePage = activeWindow.getActivePage();
-                MotodevStudioAndroidPerspective.openStudioInfoOnWebBrowserEditor(activePage);
-            }
-        }
-        else
-        {
+public class OpenWebResources extends AbstractHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		if (!Platform.getOS().equals(Platform.OS_LINUX)) {
+			IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			if (activeWindow != null) {
+				IWorkbenchPage activePage = activeWindow.getActivePage();
+				MotodevStudioAndroidPerspective.openStudioInfoOnWebBrowserEditor(activePage);
+			}
+		} else {
 
-            IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+			IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 
-            /*
-             * open the browser
-             */
-            IWebBrowser browser;
-            try
-            {
-                browser =
-                        browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR
-                                | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV", null, null);
+			/*
+			 * open the browser
+			 */
+			IWebBrowser browser;
+			try {
+				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV",
+						null, null);
 
-                browser.openURL(MotodevStudioAndroidPerspective.getWebResourcesURL());
+				browser.openURL(MotodevStudioAndroidPerspective.getWebResourcesURL());
 
-            }
-            catch (PartInitException e)
-            {
-                StudioLogger.error("Error opening the Web Resources page: " + e.getMessage());
-            }
+			} catch (PartInitException e) {
+				StudioLogger.error("Error opening the Web Resources page: " + e.getMessage());
+			}
 
-        }
-        return null;
-    }
+		}
+		return null;
+	}
 
 }

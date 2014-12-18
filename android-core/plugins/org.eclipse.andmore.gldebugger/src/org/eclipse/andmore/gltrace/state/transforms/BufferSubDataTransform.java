@@ -22,55 +22,55 @@ import org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.Function;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
- * A {@link BufferSubDataTransform} updates a portion of the buffer data as specified by
- * the {@link Function#glBufferSubData} function.
+ * A {@link BufferSubDataTransform} updates a portion of the buffer data as
+ * specified by the {@link Function#glBufferSubData} function.
  */
 public class BufferSubDataTransform implements IStateTransform {
-    private final IGLPropertyAccessor mAccessor;
-    private final int mOffset;
+	private final IGLPropertyAccessor mAccessor;
+	private final int mOffset;
 
-    private final byte[] mSubData;
-    private byte[] mOldData;
-    private byte[] mNewData;
+	private final byte[] mSubData;
+	private byte[] mOldData;
+	private byte[] mNewData;
 
-    public BufferSubDataTransform(IGLPropertyAccessor accessor, int offset, byte[] data) {
-        mAccessor = accessor;
-        mOffset = offset;
-        mSubData = data;
-    }
+	public BufferSubDataTransform(IGLPropertyAccessor accessor, int offset, byte[] data) {
+		mAccessor = accessor;
+		mOffset = offset;
+		mSubData = data;
+	}
 
-    @Override
-    public void apply(IGLProperty state) {
-        IGLProperty property = mAccessor.getProperty(state);
-        mOldData = (byte[]) property.getValue();
+	@Override
+	public void apply(IGLProperty state) {
+		IGLProperty property = mAccessor.getProperty(state);
+		mOldData = (byte[]) property.getValue();
 
-        if (mOldData != null) {
-            mNewData = new byte[mOldData.length];
-            ByteBuffer bb = ByteBuffer.wrap(mNewData);
+		if (mOldData != null) {
+			mNewData = new byte[mOldData.length];
+			ByteBuffer bb = ByteBuffer.wrap(mNewData);
 
-            // copy all of the old buffer
-            bb.put(mOldData);
-            bb.rewind();
+			// copy all of the old buffer
+			bb.put(mOldData);
+			bb.rewind();
 
-            // update with the sub buffer data at specified offset
-            bb.position(mOffset);
-            bb.put(mSubData);
-        }
+			// update with the sub buffer data at specified offset
+			bb.position(mOffset);
+			bb.put(mSubData);
+		}
 
-        property.setValue(mNewData);
-    }
+		property.setValue(mNewData);
+	}
 
-    @Override
-    public void revert(IGLProperty state) {
-        if (mOldData != null) {
-            IGLProperty property = mAccessor.getProperty(state);
-            property.setValue(mOldData);
-            mOldData = null;
-        }
-    }
+	@Override
+	public void revert(IGLProperty state) {
+		if (mOldData != null) {
+			IGLProperty property = mAccessor.getProperty(state);
+			property.setValue(mOldData);
+			mOldData = null;
+		}
+	}
 
-    @Override
-    public IGLProperty getChangedProperty(IGLProperty state) {
-        return mAccessor.getProperty(state);
-    }
+	@Override
+	public IGLProperty getChangedProperty(IGLProperty state) {
+		return mAccessor.getProperty(state);
+	}
 }

@@ -33,88 +33,80 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * Package Export Wizard Page
  * 
  */
-public class PackageExportWizardPage extends WizardPage implements Listener
-{
-    private PackageExportWizardArea dialogArea;
+public class PackageExportWizardPage extends WizardPage implements Listener {
+	private PackageExportWizardArea dialogArea;
 
-    private final IStructuredSelection structuredSelection;
+	private final IStructuredSelection structuredSelection;
 
-    private final boolean signEnabled;
+	private final boolean signEnabled;
 
-    /**
-     * Wizard page constructor.
-     * 
-     * @param pageName
-     * @param selection
-     */
-    public PackageExportWizardPage(String pageName, IStructuredSelection selection,
-            boolean signEnabled)
-    {
-        super(pageName);
-        this.structuredSelection = selection;
-        this.signEnabled = signEnabled;
-        setTitle(pageName); // NON-NLS-1
+	/**
+	 * Wizard page constructor.
+	 * 
+	 * @param pageName
+	 * @param selection
+	 */
+	public PackageExportWizardPage(String pageName, IStructuredSelection selection, boolean signEnabled) {
+		super(pageName);
+		this.structuredSelection = selection;
+		this.signEnabled = signEnabled;
+		setTitle(pageName); // NON-NLS-1
 
-        ImageDescriptor imageDescriptor =
-                AbstractUIPlugin.imageDescriptorFromPlugin(PackagingUIPlugin.PLUGIN_ID,
-                        PackagingUIPlugin.EXPORT_WIZARD_ICON);
+		ImageDescriptor imageDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(PackagingUIPlugin.PLUGIN_ID,
+				PackagingUIPlugin.EXPORT_WIZARD_ICON);
 
-        if (imageDescriptor != null)
-        {
-            setImageDescriptor(imageDescriptor);
-        }
+		if (imageDescriptor != null) {
+			setImageDescriptor(imageDescriptor);
+		}
 
-        setDescription(Messages.EXPORT_WIZARD_DESCRIPTION);
-    }
+		setDescription(Messages.EXPORT_WIZARD_DESCRIPTION);
+	}
 
-    /**
-     * Create the Wizard page control
-     * 
-     * @param parent
-     *            the parent composite
-     */
-    public void createControl(Composite parent)
-    {
-        Composite mainComposite = new Composite(parent, SWT.NONE);
-        mainComposite.setLayout(new GridLayout());
-        mainComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        mainComposite.addListener(SWT.Modify, this);
+	/**
+	 * Create the Wizard page control
+	 * 
+	 * @param parent
+	 *            the parent composite
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		Composite mainComposite = new Composite(parent, SWT.NONE);
+		mainComposite.setLayout(new GridLayout());
+		mainComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		mainComposite.addListener(SWT.Modify, this);
 
-        this.dialogArea =
-                new PackageExportWizardArea(structuredSelection, mainComposite, this.signEnabled);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(mainComposite,
-                PackagingUIPlugin.PACKAGING_WIZARD_CONTEXT_HELP_ID);
-        this.setControl(mainComposite);
+		this.dialogArea = new PackageExportWizardArea(structuredSelection, mainComposite, this.signEnabled);
+		PlatformUI.getWorkbench().getHelpSystem()
+				.setHelp(mainComposite, PackagingUIPlugin.PACKAGING_WIZARD_CONTEXT_HELP_ID);
+		this.setControl(mainComposite);
 
-    }
+	}
 
-    /**
-     * Override the method isPageComplete
-     */
-    @Override
-    public boolean isPageComplete()
-    {
-        boolean pageComplete = this.dialogArea.canFinish();
-        setMessage(this.dialogArea.getMessage(), this.dialogArea.getSeverity());
-        return pageComplete;
-    }
+	/**
+	 * Override the method isPageComplete
+	 */
+	@Override
+	public boolean isPageComplete() {
+		boolean pageComplete = this.dialogArea.canFinish();
+		setMessage(this.dialogArea.getMessage(), this.dialogArea.getSeverity());
+		return pageComplete;
+	}
 
-    /**
-     * Delegates the finish operation to Dialog Implementation.
-     */
-    public boolean finish()
-    {
-        return this.dialogArea.performFinish();
-    }
+	/**
+	 * Delegates the finish operation to Dialog Implementation.
+	 */
+	public boolean finish() {
+		return this.dialogArea.performFinish();
+	}
 
-    /**
-     * Event Handler
-     * 
-     * @param event
-     */
-    public void handleEvent(Event event)
-    {
-        this.getContainer().updateButtons();
-        setMessage(this.dialogArea.getMessage(), this.dialogArea.getSeverity());
-    }
+	/**
+	 * Event Handler
+	 * 
+	 * @param event
+	 */
+	@Override
+	public void handleEvent(Event event) {
+		this.getContainer().updateButtons();
+		setMessage(this.dialogArea.getMessage(), this.dialogArea.getSeverity());
+	}
 }

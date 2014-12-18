@@ -19,13 +19,13 @@ package org.eclipse.andmore.gltrace.state.transforms;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
- * An {@link IGLPropertyAccessor} provides an interface to extract
- * a specific property from a composite property.
+ * An {@link IGLPropertyAccessor} provides an interface to extract a specific
+ * property from a composite property.
  */
 public interface IGLPropertyAccessor {
-    /** Obtain a specific property from the given state. */
-    IGLProperty getProperty(IGLProperty state);
+	/** Obtain a specific property from the given state. */
+	IGLProperty getProperty(IGLProperty state);
 
-    /** Returns the string representation of this property accessor. */
-    String getPath();
+	/** Returns the string representation of this property accessor. */
+	String getPath();
 }

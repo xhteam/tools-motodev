@@ -37,145 +37,141 @@ import org.eclipse.ui.part.ViewPart;
 
 public class FileExplorerView extends ViewPart implements ISelectionListener {
 
-    public static final String ID = "org.eclipse.andmore.ddms.views.FileExplorerView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.ddms.views.FileExplorerView"; //$NON-NLS-1$
 
-    private final static String COLUMN_NAME =
-            DdmsPlugin.PLUGIN_ID + ".explorer.name"; //$NON-NLS-1S
-    private final static String COLUMN_SIZE =
-            DdmsPlugin.PLUGIN_ID + ".explorer.size"; //$NON-NLS-1S
-    private final static String COLUMN_DATE =
-            DdmsPlugin.PLUGIN_ID + ".explorer.data"; //$NON-NLS-1S
-    private final static String COLUMN_TIME =
-            DdmsPlugin.PLUGIN_ID + ".explorer.time"; //$NON-NLS-1S
-    private final static String COLUMN_PERMISSIONS =
-            DdmsPlugin.PLUGIN_ID + ".explorer.permissions"; //$NON-NLS-1S
-    private final static String COLUMN_INFO =
-            DdmsPlugin.PLUGIN_ID + ".explorer.info"; //$NON-NLS-1$
+	private final static String COLUMN_NAME = DdmsPlugin.PLUGIN_ID + ".explorer.name"; //$NON-NLS-1S
+	private final static String COLUMN_SIZE = DdmsPlugin.PLUGIN_ID + ".explorer.size"; //$NON-NLS-1S
+	private final static String COLUMN_DATE = DdmsPlugin.PLUGIN_ID + ".explorer.data"; //$NON-NLS-1S
+	private final static String COLUMN_TIME = DdmsPlugin.PLUGIN_ID + ".explorer.time"; //$NON-NLS-1S
+	private final static String COLUMN_PERMISSIONS = DdmsPlugin.PLUGIN_ID + ".explorer.permissions"; //$NON-NLS-1S
+	private final static String COLUMN_INFO = DdmsPlugin.PLUGIN_ID + ".explorer.info"; //$NON-NLS-1$
 
-    private DeviceExplorer mExplorer;
+	private DeviceExplorer mExplorer;
 
-    public FileExplorerView() {
-    }
+	public FileExplorerView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
+	@Override
+	public void createPartControl(Composite parent) {
+		ImageLoader loader = ImageLoader.getDdmUiLibLoader();
 
-        DeviceExplorer.COLUMN_NAME = COLUMN_NAME;
-        DeviceExplorer.COLUMN_SIZE = COLUMN_SIZE;
-        DeviceExplorer.COLUMN_DATE = COLUMN_DATE;
-        DeviceExplorer.COLUMN_TIME = COLUMN_TIME;
-        DeviceExplorer.COLUMN_PERMISSIONS = COLUMN_PERMISSIONS;
-        DeviceExplorer.COLUMN_INFO = COLUMN_INFO;
+		DeviceExplorer.COLUMN_NAME = COLUMN_NAME;
+		DeviceExplorer.COLUMN_SIZE = COLUMN_SIZE;
+		DeviceExplorer.COLUMN_DATE = COLUMN_DATE;
+		DeviceExplorer.COLUMN_TIME = COLUMN_TIME;
+		DeviceExplorer.COLUMN_PERMISSIONS = COLUMN_PERMISSIONS;
+		DeviceExplorer.COLUMN_INFO = COLUMN_INFO;
 
-        // device explorer
-        mExplorer = new DeviceExplorer();
+		// device explorer
+		mExplorer = new DeviceExplorer();
 
-        mExplorer.setCustomImages(
-                PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE),
-                PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER),
-                null /* apk image */,
-                PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT)
-                );
+		mExplorer.setCustomImages(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE),
+				PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER), null /*
+																										 * apk
+																										 * image
+																										 */, PlatformUI
+						.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT));
 
-        // creates the actions
-        CommonAction pushAction = new CommonAction(Messages.FileExplorerView_Push_File) {
-            @Override
-            public void run() {
-                mExplorer.pushIntoSelection();
-            }
-        };
-        pushAction.setToolTipText(Messages.FileExplorerView_Push_File_Onto_Device);
-        pushAction.setImageDescriptor(loader.loadDescriptor("push.png")); //$NON-NLS-1$
-        pushAction.setEnabled(false);
+		// creates the actions
+		CommonAction pushAction = new CommonAction(Messages.FileExplorerView_Push_File) {
+			@Override
+			public void run() {
+				mExplorer.pushIntoSelection();
+			}
+		};
+		pushAction.setToolTipText(Messages.FileExplorerView_Push_File_Onto_Device);
+		pushAction.setImageDescriptor(loader.loadDescriptor("push.png")); //$NON-NLS-1$
+		pushAction.setEnabled(false);
 
-        CommonAction pullAction = new CommonAction(Messages.FileExplorerView_Pull_File) {
-            @Override
-            public void run() {
-                mExplorer.pullSelection();
-            }
-        };
-        pullAction.setToolTipText(Messages.FileExplorerView_Pull_File_From_File);
-        pullAction.setImageDescriptor(loader.loadDescriptor("pull.png")); //$NON-NLS-1$
-        pullAction.setEnabled(false);
+		CommonAction pullAction = new CommonAction(Messages.FileExplorerView_Pull_File) {
+			@Override
+			public void run() {
+				mExplorer.pullSelection();
+			}
+		};
+		pullAction.setToolTipText(Messages.FileExplorerView_Pull_File_From_File);
+		pullAction.setImageDescriptor(loader.loadDescriptor("pull.png")); //$NON-NLS-1$
+		pullAction.setEnabled(false);
 
-        CommonAction deleteAction = new CommonAction(Messages.FileExplorerView_Delete) {
-            @Override
-            public void run() {
-                mExplorer.deleteSelection();
-            }
-        };
-        deleteAction.setToolTipText(Messages.FileExplorerView_Delete_The_Selection);
-        deleteAction.setImageDescriptor(loader.loadDescriptor("delete.png")); //$NON-NLS-1$
-        deleteAction.setEnabled(false);
+		CommonAction deleteAction = new CommonAction(Messages.FileExplorerView_Delete) {
+			@Override
+			public void run() {
+				mExplorer.deleteSelection();
+			}
+		};
+		deleteAction.setToolTipText(Messages.FileExplorerView_Delete_The_Selection);
+		deleteAction.setImageDescriptor(loader.loadDescriptor("delete.png")); //$NON-NLS-1$
+		deleteAction.setEnabled(false);
 
-        CommonAction createNewFolderAction = new CommonAction("New Folder") {
-            @Override
-            public void run() {
-                mExplorer.createNewFolderInSelection();
-            }
-        };
-        createNewFolderAction.setToolTipText("New Folder");
-        createNewFolderAction.setImageDescriptor(loader.loadDescriptor("add.png")); //$NON-NLS-1$
-        createNewFolderAction.setEnabled(false);
+		CommonAction createNewFolderAction = new CommonAction("New Folder") {
+			@Override
+			public void run() {
+				mExplorer.createNewFolderInSelection();
+			}
+		};
+		createNewFolderAction.setToolTipText("New Folder");
+		createNewFolderAction.setImageDescriptor(loader.loadDescriptor("add.png")); //$NON-NLS-1$
+		createNewFolderAction.setEnabled(false);
 
-        // set up the actions in the explorer
-        mExplorer.setActions(pushAction, pullAction, deleteAction, createNewFolderAction);
+		// set up the actions in the explorer
+		mExplorer.setActions(pushAction, pullAction, deleteAction, createNewFolderAction);
 
-        // and in the ui
-        IActionBars actionBars = getViewSite().getActionBars();
-        IMenuManager menuManager = actionBars.getMenuManager();
-        IToolBarManager toolBarManager = actionBars.getToolBarManager();
+		// and in the ui
+		IActionBars actionBars = getViewSite().getActionBars();
+		IMenuManager menuManager = actionBars.getMenuManager();
+		IToolBarManager toolBarManager = actionBars.getToolBarManager();
 
-        menuManager.add(pullAction);
-        menuManager.add(pushAction);
-        menuManager.add(new Separator());
-        menuManager.add(deleteAction);
-        menuManager.add(new Separator());
-        menuManager.add(createNewFolderAction);
+		menuManager.add(pullAction);
+		menuManager.add(pushAction);
+		menuManager.add(new Separator());
+		menuManager.add(deleteAction);
+		menuManager.add(new Separator());
+		menuManager.add(createNewFolderAction);
 
-        toolBarManager.add(pullAction);
-        toolBarManager.add(pushAction);
-        toolBarManager.add(new Separator());
-        toolBarManager.add(deleteAction);
-        toolBarManager.add(new Separator());
-        toolBarManager.add(createNewFolderAction);
+		toolBarManager.add(pullAction);
+		toolBarManager.add(pushAction);
+		toolBarManager.add(new Separator());
+		toolBarManager.add(deleteAction);
+		toolBarManager.add(new Separator());
+		toolBarManager.add(createNewFolderAction);
 
-        mExplorer.createPanel(parent);
+		mExplorer.createPanel(parent);
 
-        DdmsPlugin.getDefault().addSelectionListener(this);
-    }
+		DdmsPlugin.getDefault().addSelectionListener(this);
+	}
 
-    @Override
-    public void setFocus() {
-        mExplorer.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mExplorer.setFocus();
+	}
 
-    /**
-     * Sent when a new {@link Client} is selected.
-     *
-     * @param selectedClient The selected client.
-     */
-    @Override
-    public void selectionChanged(Client selectedClient) {
-        // pass
-    }
+	/**
+	 * Sent when a new {@link Client} is selected.
+	 *
+	 * @param selectedClient
+	 *            The selected client.
+	 */
+	@Override
+	public void selectionChanged(Client selectedClient) {
+		// pass
+	}
 
-    /**
-     * Sent when a new {@link Device} is selected.
-     *
-     * @param selectedDevice the selected device.
-     */
-    @Override
-    public void selectionChanged(IDevice selectedDevice) {
-        mExplorer.switchDevice(selectedDevice);
-    }
+	/**
+	 * Sent when a new {@link Device} is selected.
+	 *
+	 * @param selectedDevice
+	 *            the selected device.
+	 */
+	@Override
+	public void selectionChanged(IDevice selectedDevice) {
+		mExplorer.switchDevice(selectedDevice);
+	}
 
-    /**
-     * Sent when there is no current selection.
-     */
-    public void selectionRemoved() {
+	/**
+	 * Sent when there is no current selection.
+	 */
+	public void selectionRemoved() {
 
-    }
+	}
 
 }

@@ -21,31 +21,36 @@ package org.eclipse.andmore.gltrace.model;
  * for each OpenGL frame.
  */
 public class GLFrame {
-    private final int mIndex;
-    private final int mStartCallIndex;
-    private final int mEndCallIndex;
+	private final int mIndex;
+	private final int mStartCallIndex;
+	private final int mEndCallIndex;
 
-    /**
-     * Construct a {@link GLFrame} given the range of {@link GLCall}s spanning this frame.
-     * @param frameIndex index of this frame in the trace.
-     * @param startCallIndex index of the first call in this frame (inclusive).
-     * @param endCallIndex index of the last call in this frame (exclusive).
-     */
-    public GLFrame(int frameIndex, int startCallIndex, int endCallIndex) {
-        mIndex = frameIndex;
-        mStartCallIndex = startCallIndex;
-        mEndCallIndex = endCallIndex;
-    }
+	/**
+	 * Construct a {@link GLFrame} given the range of {@link GLCall}s spanning
+	 * this frame.
+	 * 
+	 * @param frameIndex
+	 *            index of this frame in the trace.
+	 * @param startCallIndex
+	 *            index of the first call in this frame (inclusive).
+	 * @param endCallIndex
+	 *            index of the last call in this frame (exclusive).
+	 */
+	public GLFrame(int frameIndex, int startCallIndex, int endCallIndex) {
+		mIndex = frameIndex;
+		mStartCallIndex = startCallIndex;
+		mEndCallIndex = endCallIndex;
+	}
 
-    public int getIndex() {
-        return mIndex;
-    }
+	public int getIndex() {
+		return mIndex;
+	}
 
-    public int getStartIndex() {
-        return mStartCallIndex;
-    }
+	public int getStartIndex() {
+		return mStartCallIndex;
+	}
 
-    public int getEndIndex() {
-        return mEndCallIndex;
-    }
+	public int getEndIndex() {
+		return mEndCallIndex;
+	}
 }

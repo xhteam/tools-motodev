@@ -24,15 +24,13 @@ import org.eclipse.core.commands.IHandler;
 /**
  * Handler to execute the refresh operation.
  * */
-public class RefreshHandler extends AbstractHandler2 implements IHandler
-{
+public class RefreshHandler extends AbstractHandler2 implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        KeyStoreModelEventManager.getInstance().fireEvent(getSelection().get(0), EventType.REFRESH);
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		KeyStoreModelEventManager.getInstance().fireEvent(getSelection().get(0), EventType.REFRESH);
 
-        return null;
-    }
+		return null;
+	}
 
 }

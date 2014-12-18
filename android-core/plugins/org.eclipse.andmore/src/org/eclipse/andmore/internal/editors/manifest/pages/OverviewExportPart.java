@@ -31,6 +31,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -45,7 +46,7 @@ final class OverviewExportPart extends ManifestSectionPart {
 
     public OverviewExportPart(OverviewPage overviewPage, final Composite body, FormToolkit toolkit,
             ManifestEditor editor) {
-        super(body, toolkit, Section.TWISTIE | Section.EXPANDED, true /* description */);
+        super(body, toolkit, ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED, true /* description */);
         mOverviewPage = overviewPage;
         Section section = getSection();
         section.setText("Exporting");

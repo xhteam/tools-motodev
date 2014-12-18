@@ -22,6 +22,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
 import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.ActivityBasedOnTemplate;
 import org.eclipse.andmore.android.model.BuildingBlockModel;
@@ -42,177 +43,154 @@ import org.eclipse.ui.IWorkbench;
 /**
  * Class that implements the Activity Wizard
  */
-public class NewActivityBasedOnTemplateWizard extends NewBuildingBlocksWizard
-{
-    private static final String WIZBAN_ICON = "icons/wizban/new_activity_template_wiz.png"; //$NON-NLS-1$
+public class NewActivityBasedOnTemplateWizard extends NewBuildingBlocksWizard {
+	private static final String WIZBAN_ICON = "icons/wizban/new_activity_template_wiz.png"; //$NON-NLS-1$
 
-    private final ActivityBasedOnTemplate activity = new ActivityBasedOnTemplate();
+	private final ActivityBasedOnTemplate activity = new ActivityBasedOnTemplate();
 
-    /*
-     * IRunnableWithProgress object to create the activity
-     */
-    private class DoSave implements IRunnableWithProgress
-    {
-        AndroidException exception = null;
+	/*
+	 * IRunnableWithProgress object to create the activity
+	 */
+	private class DoSave implements IRunnableWithProgress {
+		AndroidException exception = null;
 
-        boolean saved = false;
+		boolean saved = false;
 
-        public void run(IProgressMonitor monitor) throws InvocationTargetException,
-                InterruptedException
-        {
-            try
-            {
-                saved = getBuildingBlock().save(getContainer(), monitor);
-                getBuildingBlock().getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-                getBuildingBlock().getProject().build(IncrementalProjectBuilder.INCREMENTAL_BUILD,
-                        monitor);
-            }
-            catch (CoreException ce)
-            {
-                //build failed - show a warning message
-                StudioLogger.error(this.getClass(), ce.getMessage(), ce);
-                EclipseUtils
-                        .showWarningDialog(
-                                CodeUtilsNLS.UI_NewActivityWizard_TitleNewActivityWizard,
-                                CodeUtilsNLS.NewActivityWizard_MessageSomeProblemsOccurredWhileBuildingProject);
-            }
-            catch (AndroidException e)
-            {
-                exception = e;
-            }
-        }
-    }
+		@Override
+		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+			try {
+				saved = getBuildingBlock().save(getContainer(), monitor);
+				getBuildingBlock().getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				getBuildingBlock().getProject().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor);
+			} catch (CoreException ce) {
+				// build failed - show a warning message
+				StudioLogger.error(this.getClass(), ce.getMessage(), ce);
+				EclipseUtils.showWarningDialog(CodeUtilsNLS.UI_NewActivityWizard_TitleNewActivityWizard,
+						CodeUtilsNLS.NewActivityWizard_MessageSomeProblemsOccurredWhileBuildingProject);
+			} catch (AndroidException e) {
+				exception = e;
+			}
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#canFinish()
-     */
-    @Override
-    public boolean canFinish()
-    {
-        return (!activity.needMoreInformation())
-                && !(getContainer().getCurrentPage() instanceof ActivitySampleSelectionPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
+	@Override
+	public boolean canFinish() {
+		return (!activity.needMoreInformation())
+				&& !(getContainer().getCurrentPage() instanceof ActivitySampleSelectionPage);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        boolean saved = false;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		boolean saved = false;
 
-        try
-        {
-            DoSave doSave = new DoSave();
+		try {
+			DoSave doSave = new DoSave();
 
-            getContainer().run(false, false, doSave);
+			getContainer().run(false, false, doSave);
 
-            if (doSave.exception != null)
-            {
-                throw doSave.exception;
-            }
-            else
-            {
-                saved = doSave.saved;
-            }
-        }
-        catch (Exception e)
-        {
-            IStatus status =
-                    new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
-            EclipseUtils.showErrorDialog(CodeUtilsNLS.UI_GenericErrorDialogTitle,
-                    CodeUtilsNLS.ERR_BuildingBlockCreation_ErrorMessage, status);
-        }
+			if (doSave.exception != null) {
+				throw doSave.exception;
+			} else {
+				saved = doSave.saved;
+			}
+		} catch (Exception e) {
+			IStatus status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
+			EclipseUtils.showErrorDialog(CodeUtilsNLS.UI_GenericErrorDialogTitle,
+					CodeUtilsNLS.ERR_BuildingBlockCreation_ErrorMessage, status);
+		}
 
-        if (saved)
-        {
-            ICompilationUnit javaFile =
-                    getBuildingBlock().getPackageFragment().getCompilationUnit(
-                            getBuildingBlock().getName() + ".java"); //$NON-NLS-1$
+		if (saved) {
+			ICompilationUnit javaFile = getBuildingBlock().getPackageFragment().getCompilationUnit(
+					getBuildingBlock().getName() + ".java"); //$NON-NLS-1$
 
-            if ((javaFile != null) && javaFile.exists())
-            {
-                try
-                {
-                    JavaUI.openInEditor(javaFile);
-                }
-                catch (Exception e)
-                {
-                    // Do nothing
-                    StudioLogger.error(NewActivityBasedOnTemplateWizard.class,
-                            "Could not open the activity " //$NON-NLS-1$
-                                    + getBuildingBlock().getName() + " on an editor.", e); //$NON-NLS-1$
-                }
-            }
-        }
+			if ((javaFile != null) && javaFile.exists()) {
+				try {
+					JavaUI.openInEditor(javaFile);
+				} catch (Exception e) {
+					// Do nothing
+					StudioLogger.error(NewActivityBasedOnTemplateWizard.class, "Could not open the activity " //$NON-NLS-1$
+							+ getBuildingBlock().getName() + " on an editor.", e); //$NON-NLS-1$
+				}
+			}
+		}
 
-        if (saved)
-        {
-            // Collecting usage data for statistical purposes
-            try
-            {
-                StudioLogger.collectUsageData(StudioLogger.WHAT_BUILDINGBLOCK_ACTIVITY,
-                        StudioLogger.KIND_BUILDINGBLOCK, StudioLogger.DESCRIPTION_DEFAULT,
-                        CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle()
-                                .getVersion().toString());
-            }
-            catch (Throwable e)
-            {
-                //Do nothing, but error on the log should never prevent app from working
-            }
-        }
-        return saved;
-    }
+		if (saved) {
+			// Collecting usage data for statistical purposes
+			try {
+				StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_ACTIVITY,
+						UsageDataConstants.KIND_BUILDINGBLOCK, UsageDataConstants.DESCRIPTION_DEFAULT,
+						CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion()
+								.toString());
+			} catch (Throwable e) {
+				// Do nothing, but error on the log should never prevent app
+				// from working
+			}
+		}
+		return saved;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-     */
-    public void init(IWorkbench workbench, IStructuredSelection selection)
-    {
-        setWindowTitle(CodeUtilsNLS.UI_NewActivityWizard_TitleNewActivityBasedOnTemplateWizard);
-        setNeedsProgressMonitor(true);
-        setDefaultPageImageDescriptor(CodeUtilsActivator.getImageDescriptor(WIZBAN_ICON));
-        activity.configure(selection);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
+	 * org.eclipse.jface.viewers.IStructuredSelection)
+	 */
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		setWindowTitle(CodeUtilsNLS.UI_NewActivityWizard_TitleNewActivityBasedOnTemplateWizard);
+		setNeedsProgressMonitor(true);
+		setDefaultPageImageDescriptor(CodeUtilsActivator.getImageDescriptor(WIZBAN_ICON));
+		activity.configure(selection);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        addPage(new ActivitySampleSelectionPage(activity));
-        addPage(new NewActivityBasedOnTemplatePage(activity));
-        IDatabaseSampleActivityParametersWizardCollector collector =
-                activity.getDatabaseSampleActivityParametersWizardCollector();
-        if (collector != null)
-        {
-            List<IWizardPage> contributedPageList = collector.getWizardPages();
-            if (contributedPageList != null)
-            {
-                for (IWizardPage page : contributedPageList)
-                {
-                    if (page instanceof NewBuildingBlocksWizardPage)
-                    {
-                        //there is page to select parameters for activity creation
-                        NewBuildingBlocksWizardPage buildBlockPage =
-                                (NewBuildingBlocksWizardPage) page;
-                        buildBlockPage.setBuildBlock(activity);
-                        addPage(buildBlockPage);
-                    }
-                }
-            }
-        }
-        addPage(new NewActivityWizardListTemplatesPage(activity));
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		addPage(new ActivitySampleSelectionPage(activity));
+		addPage(new NewActivityBasedOnTemplatePage(activity));
+		IDatabaseSampleActivityParametersWizardCollector collector = activity
+				.getDatabaseSampleActivityParametersWizardCollector();
+		if (collector != null) {
+			List<IWizardPage> contributedPageList = collector.getWizardPages();
+			if (contributedPageList != null) {
+				for (IWizardPage page : contributedPageList) {
+					if (page instanceof NewBuildingBlocksWizardPage) {
+						// there is page to select parameters for activity
+						// creation
+						NewBuildingBlocksWizardPage buildBlockPage = (NewBuildingBlocksWizardPage) page;
+						buildBlockPage.setBuildBlock(activity);
+						addPage(buildBlockPage);
+					}
+				}
+			}
+		}
+		addPage(new NewActivityWizardListTemplatesPage(activity));
 
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard#getBuildingBlock()
-     */
-    @Override
-    protected BuildingBlockModel getBuildingBlock()
-    {
-        return activity;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * #getBuildingBlock()
+	 */
+	@Override
+	protected BuildingBlockModel getBuildingBlock() {
+		return activity;
+	}
 }

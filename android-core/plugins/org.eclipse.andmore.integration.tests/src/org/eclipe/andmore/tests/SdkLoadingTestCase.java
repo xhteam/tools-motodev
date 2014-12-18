@@ -30,87 +30,90 @@ import org.eclipse.core.runtime.NullProgressMonitor;
  */
 public abstract class SdkLoadingTestCase extends SdkTestCase {
 
-    private Sdk mSdk;
+	private Sdk mSdk;
 
-    protected SdkLoadingTestCase() {
-    }
+	protected SdkLoadingTestCase() {
+	}
 
-    /**
-     * Retrieve the {@link Sdk} under test.
-     */
+	/**
+	 * Retrieve the {@link Sdk} under test.
+	 */
 	protected Sdk getSdk() {
-        if (mSdk == null) {
-            mSdk = loadSdk();
-            assertNotNull(mSdk);
-            validateSdk(mSdk);
-        }
-        return mSdk;
-    }
+		if (mSdk == null) {
+			mSdk = loadSdk();
+			assertNotNull(mSdk);
+			validateSdk(mSdk);
+		}
+		return mSdk;
+	}
 
-    /**
-     * Gets the current SDK from ADT, waiting if necessary.
-     */
-    private Sdk loadSdk() {
-        AdtPlugin adt = AdtPlugin.getDefault();
+	/**
+	 * Gets the current SDK from ADT, waiting if necessary.
+	 */
+	private Sdk loadSdk() {
+		AdtPlugin adt = AdtPlugin.getDefault();
 
-        // We'll never get an AdtPlugin object when running this with the
-        // non-Eclipse jUnit test runner.
-        if (adt == null) {
-            return null;
-        }
+		// We'll never get an AdtPlugin object when running this with the
+		// non-Eclipse jUnit test runner.
+		if (adt == null) {
+			return null;
+		}
 
-        // We'll never break out of the SDK load-wait-loop if the AdtPlugin doesn't
-        // actually have a valid SDK location because it won't have started an async load:
-        String sdkLocation = AdtPrefs.getPrefs().getOsSdkFolder();
-        assertTrue("No valid SDK installation is set; for tests you typically need to set the"
-                + " environment variable ADT_TEST_SDK_PATH to point to an SDK folder",
-                sdkLocation != null && sdkLocation.length() > 0);
+		// We'll never break out of the SDK load-wait-loop if the AdtPlugin
+		// doesn't
+		// actually have a valid SDK location because it won't have started an
+		// async load:
+		String sdkLocation = AdtPrefs.getPrefs().getOsSdkFolder();
+		assertTrue("No valid SDK installation is set; for tests you typically need to set the"
+				+ " environment variable ADT_TEST_SDK_PATH to point to an SDK folder", sdkLocation != null
+				&& sdkLocation.length() > 0);
 
-        Object sdkLock = Sdk.getLock();
-        LoadStatus loadStatus = LoadStatus.LOADING;
-        // wait for ADT to load the SDK on a separate thread
-        // loop max of 600 times * 200 ms =  2 minutes
-        final int maxWait = 600;
-        for (int i=0; i < maxWait && loadStatus == LoadStatus.LOADING; i++) {
-            try {
-                Thread.sleep(200);
-            }
-            catch (InterruptedException e) {
-                // ignore
-            }
-            synchronized (sdkLock) {
-                loadStatus = adt.getSdkLoadStatus();
-            }
-        }
-        Sdk sdk = null;
-        synchronized (sdkLock) {
-            assertEquals(LoadStatus.LOADED, loadStatus);
-            sdk = Sdk.getCurrent();
-        }
-        assertNotNull(sdk);
-        return sdk;
-    }
+		Object sdkLock = Sdk.getLock();
+		LoadStatus loadStatus = LoadStatus.LOADING;
+		// wait for ADT to load the SDK on a separate thread
+		// loop max of 600 times * 200 ms = 2 minutes
+		final int maxWait = 600;
+		for (int i = 0; i < maxWait && loadStatus == LoadStatus.LOADING; i++) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// ignore
+			}
+			synchronized (sdkLock) {
+				loadStatus = adt.getSdkLoadStatus();
+			}
+		}
+		Sdk sdk = null;
+		synchronized (sdkLock) {
+			assertEquals(LoadStatus.LOADED, loadStatus);
+			sdk = Sdk.getCurrent();
+		}
+		assertNotNull(sdk);
+		return sdk;
+	}
 
 	protected boolean validateSdk(IAndroidTarget target) {
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * Checks that the provided sdk contains one or more valid targets.
-     * @param sdk the {@link Sdk} to validate.
-     */
-    private void validateSdk(Sdk sdk) {
-        assertTrue("sdk has no targets", sdk.getTargets().length > 0);
-        for (IAndroidTarget target : sdk.getTargets()) {
-            if (!validateSdk(target)) {
-                continue;
-            }
-            if (false) { // This takes forEVER
-            IStatus status = new AndroidTargetParser(target).run(new NullProgressMonitor());
-            if (status.getCode() != IStatus.OK) {
-                fail("Failed to parse targets data");
-            }
-            }
-        }
-    }
+	/**
+	 * Checks that the provided sdk contains one or more valid targets.
+	 * 
+	 * @param sdk
+	 *            the {@link Sdk} to validate.
+	 */
+	private void validateSdk(Sdk sdk) {
+		assertTrue("sdk has no targets", sdk.getTargets().length > 0);
+		for (IAndroidTarget target : sdk.getTargets()) {
+			if (!validateSdk(target)) {
+				continue;
+			}
+			if (false) { // This takes forEVER
+				IStatus status = new AndroidTargetParser(target).run(new NullProgressMonitor());
+				if (status.getCode() != IStatus.OK) {
+					fail("Failed to parse targets data");
+				}
+			}
+		}
+	}
 }

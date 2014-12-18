@@ -30,58 +30,47 @@ import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 
 /**
  * Handler to execute the change keystore type wizard.
  * */
-public class ChangeKeyStoreTypeHandler extends AbstractHandler2
-{
+public class ChangeKeyStoreTypeHandler extends AbstractHandler2 {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        ITreeNode node = getSelection().get(0);
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		ITreeNode node = getSelection().get(0);
 
-        if (node instanceof IKeyStore)
-        {
-            ConvertKeyStoreTypeDialog dialog =
-                    new ConvertKeyStoreTypeDialog(PlatformUI.getWorkbench()
-                            .getModalDialogShellProvider().getShell(), (IKeyStore) node);
-            int diagStatus = dialog.open();
-            if (diagStatus == Dialog.OK)
-            {
-                IKeyStore keyStore = dialog.getKeyStore();
-                String newType = dialog.getNewType();
-                Map<String, String> aliases = dialog.getAliases();
-                String password = dialog.getKeystorePassword();
+		if (node instanceof IKeyStore) {
+			ConvertKeyStoreTypeDialog dialog = new ConvertKeyStoreTypeDialog(PlatformUI.getWorkbench()
+					.getModalDialogShellProvider().getShell(), (IKeyStore) node);
+			int diagStatus = dialog.open();
+			if (diagStatus == Window.OK) {
+				IKeyStore keyStore = dialog.getKeyStore();
+				String newType = dialog.getNewType();
+				Map<String, String> aliases = dialog.getAliases();
+				String password = dialog.getKeystorePassword();
 
-                File keyStoreFile = keyStore.getFile();
-                try
-                {
-                    if (password != null)
-                    {
-                        //user entered some password
-                        KeyStoreUtils.changeKeyStoreType(keyStoreFile, password.toCharArray(),
-                                keyStore.getType(), newType, aliases);
-                        keyStore.setType(newType);
-                        keyStore.forceReload(password.toCharArray(), false);
-                        KeyStoreModelEventManager.getInstance().fireEvent((ITreeNode) keyStore,
-                                EventType.UPDATE);
+				File keyStoreFile = keyStore.getFile();
+				try {
+					if (password != null) {
+						// user entered some password
+						KeyStoreUtils.changeKeyStoreType(keyStoreFile, password.toCharArray(), keyStore.getType(),
+								newType, aliases);
+						keyStore.setType(newType);
+						keyStore.forceReload(password.toCharArray(), false);
+						KeyStoreModelEventManager.getInstance().fireEvent((ITreeNode) keyStore, EventType.UPDATE);
 
-                    }
-                }
-                catch (KeyStoreManagerException e)
-                {
-                    EclipseUtils.showErrorDialog(e);
-                }
-                catch (InvalidPasswordException e)
-                {
-                    EclipseUtils.showErrorDialog(e);
-                }
-            }
-        }
+					}
+				} catch (KeyStoreManagerException e) {
+					EclipseUtils.showErrorDialog(e);
+				} catch (InvalidPasswordException e) {
+					EclipseUtils.showErrorDialog(e);
+				}
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

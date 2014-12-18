@@ -31,75 +31,73 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
  * This class is declared by the plugin.xml for the Android Handsets
  * declaration.
  */
-public class AndroidHandsetInstance extends AbstractMobileInstance implements ISerialNumbered,
-        IWorkbenchAdapter
-{
+public class AndroidHandsetInstance extends AbstractMobileInstance implements ISerialNumbered, IWorkbenchAdapter {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.motorola.studio.android.adt.ISerialNumbered#getSerialNumber()
-     */
-    public String getSerialNumber()
-    {
-        return getName();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.adt.ISerialNumbered#getSerialNumber()
+	 */
+	@Override
+	public String getSerialNumber() {
+		return getName();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.motorola.studio.android.adt.ISerialNumbered#getDeviceName()
-     */
-    public String getDeviceName()
-    {
-        return getName();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.adt.ISerialNumbered#getDeviceName()
+	 */
+	@Override
+	public String getDeviceName() {
+		return getName();
+	}
 
-    public String getFullName()
-    {
-        return getName();
-    }
+	@Override
+	public String getFullName() {
+		return getName();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.model.IWorkbenchAdapter#getChildren(java.lang.Object)
-     */
-    public Object[] getChildren(Object arg0)
-    {
-        return new Object[0];
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.model.IWorkbenchAdapter#getChildren(java.lang.Object)
+	 */
+	@Override
+	public Object[] getChildren(Object arg0) {
+		return new Object[0];
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.ui.model.IWorkbenchAdapter#getImageDescriptor(java.lang.Object
-     * )
-     */
-    public ImageDescriptor getImageDescriptor(Object arg0)
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.model.IWorkbenchAdapter#getImageDescriptor(java.lang.Object
+	 * )
+	 */
+	@Override
+	public ImageDescriptor getImageDescriptor(Object arg0) {
+		return null;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.model.IWorkbenchAdapter#getLabel(java.lang.Object)
-     */
-    public String getLabel(Object arg0)
-    {
-        return getName();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.model.IWorkbenchAdapter#getLabel(java.lang.Object)
+	 */
+	@Override
+	public String getLabel(Object arg0) {
+		return getName();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.model.IWorkbenchAdapter#getParent(java.lang.Object)
-     */
-    public Object getParent(Object arg0)
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.model.IWorkbenchAdapter#getParent(java.lang.Object)
+	 */
+	@Override
+	public Object getParent(Object arg0) {
+		return null;
+	}
 
 }

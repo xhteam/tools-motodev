@@ -32,6 +32,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -59,7 +60,7 @@ final class ApplicationToggle extends UiElementPart {
         super(body, toolkit, editor, applicationUiNode,
                 "Application Toggle",
                 null, /* description */
-                Section.TWISTIE | Section.EXPANDED);
+                ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
     }
 
     @Override

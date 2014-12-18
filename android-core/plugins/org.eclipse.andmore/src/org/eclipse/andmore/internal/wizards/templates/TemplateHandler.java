@@ -70,7 +70,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ltk.core.refactoring.Change;
@@ -100,7 +99,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1211,7 +1209,7 @@ class TemplateHandler {
             return null;
         }
         if (!template.isSupported()) {
-            String versionString = (String) AdtPlugin.getDefault().getBundle().getHeaders().get(
+            String versionString = AdtPlugin.getDefault().getBundle().getHeaders().get(
                     Constants.BUNDLE_VERSION);
             Version version = new Version(versionString);
             return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,

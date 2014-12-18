@@ -18,12 +18,11 @@ package org.eclipse.andmore.android.devices.services.deploy;
 import org.eclipse.andmore.android.emulator.ui.view.AbstractAndroidView;
 import org.eclipse.core.expressions.PropertyTester;
 
-public class EmulatorTester extends PropertyTester
-{
+public class EmulatorTester extends PropertyTester {
 
-    public boolean test(Object receiver, String property, Object[] args, Object expectedValue)
-    {
-        return AbstractAndroidView.getActiveInstance() != null;
-    }
+	@Override
+	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
+		return AbstractAndroidView.getActiveInstance() != null;
+	}
 
 }

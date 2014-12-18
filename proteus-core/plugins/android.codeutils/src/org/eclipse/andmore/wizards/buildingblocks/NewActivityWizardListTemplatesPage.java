@@ -44,339 +44,307 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * New activity wizard sample page.
  */
-public class NewActivityWizardListTemplatesPage extends NewLauncherWizardPage
-{
+public class NewActivityWizardListTemplatesPage extends NewLauncherWizardPage {
 
-    private TreeViewer treeViewer;
+	private TreeViewer treeViewer;
 
-    private Label imgLabel;
+	private Label imgLabel;
 
-    private Label descriptionLabel;
+	private Label descriptionLabel;
 
-    private String content[];
+	private String content[];
 
-    private static final String NEW_ACTIVITY_HELP = CodeUtilsActivator.PLUGIN_ID + ".newactivity";
+	private static final String NEW_ACTIVITY_HELP = CodeUtilsActivator.PLUGIN_ID + ".newactivity";
 
-    private static Image androidImg = null;
+	private static Image androidImg = null;
 
-    public static final String PAGE_NAME = "List Activities Page";
+	public static final String PAGE_NAME = "List Activities Page";
 
-    //private boolean canFlip = false;
+	// private boolean canFlip = false;
 
-    /*
-     * Listener to update description pane whenever this page is open
-     */
-    private class PageChangeListener implements IPageChangedListener
-    {
-        public void pageChanged(PageChangedEvent event)
-        {
-            if ((event.getSelectedPage() == NewActivityWizardListTemplatesPage.this))
-            {
-                if (!treeViewer.getSelection().isEmpty())
-                {
-                    updateTreeViewAfterSelection(treeViewer.getSelection());
-                }
-    
-                NewActivityWizardListTemplatesPage.this.getControl().update();
-                ((NewActivityWizardListTemplatesPage) event.getSelectedPage())
-                        .updateDescriptionPane();
-            }
-        }
-    }
+	/*
+	 * Listener to update description pane whenever this page is open
+	 */
+	private class PageChangeListener implements IPageChangedListener {
+		@Override
+		public void pageChanged(PageChangedEvent event) {
+			if ((event.getSelectedPage() == NewActivityWizardListTemplatesPage.this)) {
+				if (!treeViewer.getSelection().isEmpty()) {
+					updateTreeViewAfterSelection(treeViewer.getSelection());
+				}
 
-    protected NewActivityWizardListTemplatesPage(ActivityBasedOnTemplate activity)
-    {
-        super(activity, PAGE_NAME);
+				NewActivityWizardListTemplatesPage.this.getControl().update();
+				((NewActivityWizardListTemplatesPage) event.getSelectedPage()).updateDescriptionPane();
+			}
+		}
+	}
 
-        activity.evaluateSamplesList(ActivityBasedOnTemplate.SAMPLE_CATEGORY.LIST_ACTIVITIES_CATEGORY);
+	protected NewActivityWizardListTemplatesPage(ActivityBasedOnTemplate activity) {
+		super(activity, PAGE_NAME);
 
-        ImageDescriptor descr =
-                CodeUtilsActivator.imageDescriptorFromPlugin(CodeUtilsActivator.PLUGIN_ID,
-                        "icons/device_refresh_on.png");
-        androidImg = descr.createImage();
-    }
+		activity.evaluateSamplesList(ActivityBasedOnTemplate.SAMPLE_CATEGORY.LIST_ACTIVITIES_CATEGORY);
 
-    /*
-     * (non-Javadoc)
-     * */
-    @Override
-    public boolean canFlipToNextPage()
-    {
-        return getBuildBlock().isListActivitySelected();
-    }
+		ImageDescriptor descr = AbstractUIPlugin.imageDescriptorFromPlugin(CodeUtilsActivator.PLUGIN_ID,
+				"icons/device_refresh_on.png");
+		androidImg = descr.createImage();
+	}
 
-    @Override
-    public IWizardPage getNextPage()
-    {
-        return this.getWizard().getPage(CodeUtilsNLS.UI_NewActivityMainPage_PageTitle);
-    }
+	/*
+	 * (non-Javadoc)
+	 */
+	@Override
+	public boolean canFlipToNextPage() {
+		return getBuildBlock().isListActivitySelected();
+	}
 
-    @Override
-    public IWizardPage getPreviousPage()
-    {
-        return this.getWizard().getPage(ActivitySampleSelectionPage.PAGE_NAME);
-    }
+	@Override
+	public IWizardPage getNextPage() {
+		return this.getWizard().getPage(CodeUtilsNLS.UI_NewActivityMainPage_PageTitle);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard#getBuildBlock()
-     */
-    @Override
-    public ActivityBasedOnTemplate getBuildBlock()
-    {
-        return (ActivityBasedOnTemplate) super.getBuildBlock();
-    }
+	@Override
+	public IWizardPage getPreviousPage() {
+		return this.getWizard().getPage(ActivitySampleSelectionPage.PAGE_NAME);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getMethods()
-     */
-    @Override
-    protected Method[] getMethods()
-    {
-        Method onCreateMethod = new Method(getBuildBlock().getOnStartMessage())
-        {
-            @Override
-            public void handle(boolean selection)
-            {
-                getBuildBlock().setOnStart(selection);
-            }
-        };
-        return new Method[]
-        {
-            onCreateMethod
-        };
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * #getBuildBlock()
+	 */
+	@Override
+	public ActivityBasedOnTemplate getBuildBlock() {
+		return (ActivityBasedOnTemplate) super.getBuildBlock();
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#createIntermediateControls(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    protected void createExtendedControls(Composite parent)
-    {
-        Composite mainComposite = new Composite(parent, SWT.FILL);
-        mainComposite.setLayout(new GridLayout(2, false));
-        mainComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getMethods()
+	 */
+	@Override
+	protected Method[] getMethods() {
+		Method onCreateMethod = new Method(getBuildBlock().getOnStartMessage()) {
+			@Override
+			public void handle(boolean selection) {
+				getBuildBlock().setOnStart(selection);
+			}
+		};
+		return new Method[] { onCreateMethod };
+	}
 
-        // Samples Tree Label
-        Label itemsTableLabel = new Label(mainComposite, SWT.NONE);
-        itemsTableLabel
-                .setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 2, 1));
-        itemsTableLabel.setText(CodeUtilsNLS.UI_SampleSelectionPage_SamplesTreeLabel);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage
+	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
+	 */
+	@Override
+	protected void createExtendedControls(Composite parent) {
+		Composite mainComposite = new Composite(parent, SWT.FILL);
+		mainComposite.setLayout(new GridLayout(2, false));
+		mainComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        // Samples Tree Viewer
-        treeViewer = new TreeViewer(mainComposite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
-        treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-        treeViewer.setLabelProvider(new LabelProvider()
-        {
-            @Override
-            public Image getImage(Object obj)
-            {
-                return androidImg;
-            }
+		// Samples Tree Label
+		Label itemsTableLabel = new Label(mainComposite, SWT.NONE);
+		itemsTableLabel.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 2, 1));
+		itemsTableLabel.setText(CodeUtilsNLS.UI_SampleSelectionPage_SamplesTreeLabel);
 
-            @Override
-            public String getText(Object element)
-            {
-                return element.toString();
-            }
-        });
+		// Samples Tree Viewer
+		treeViewer = new TreeViewer(mainComposite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		treeViewer.setLabelProvider(new LabelProvider() {
+			@Override
+			public Image getImage(Object obj) {
+				return androidImg;
+			}
 
-        content = new String[getBuildBlock().getListActivitiesSamples().size()];
+			@Override
+			public String getText(Object element) {
+				return element.toString();
+			}
+		});
 
-        int i = 0;
-        for (String currentSample : getBuildBlock().getListActivitiesSamples().keySet())
-        {
-            content[i] = currentSample;
-            i++;
-        }
+		content = new String[getBuildBlock().getListActivitiesSamples().size()];
 
-        //sets tree content and icon
-        treeViewer.setContentProvider(new SampleTreeContentProvider(content));
-        treeViewer.setInput(content);
+		int i = 0;
+		for (String currentSample : getBuildBlock().getListActivitiesSamples().keySet()) {
+			content[i] = currentSample;
+			i++;
+		}
 
-        final Group previewGroup = new Group(mainComposite, SWT.NONE);
-        previewGroup.setText(CodeUtilsNLS.UI_ListActivityPage_Preview);
-        previewGroup.setLayout(new GridLayout(1, false));
-        previewGroup.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, true, 1, 1));
+		// sets tree content and icon
+		treeViewer.setContentProvider(new SampleTreeContentProvider(content));
+		treeViewer.setInput(content);
 
-        imgLabel = new Label(previewGroup, SWT.NONE);
-        imgLabel.setImage(null);
+		final Group previewGroup = new Group(mainComposite, SWT.NONE);
+		previewGroup.setText(CodeUtilsNLS.UI_ListActivityPage_Preview);
+		previewGroup.setLayout(new GridLayout(1, false));
+		previewGroup.setLayoutData(new GridData(GridData.FILL, GridData.FILL, false, true, 1, 1));
 
-        GridData imageLabelData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        imageLabelData.widthHint = 200;
-        imgLabel.setLayoutData(imageLabelData);
+		imgLabel = new Label(previewGroup, SWT.NONE);
+		imgLabel.setImage(null);
 
-        final Group descriptionGroup = new Group(mainComposite, SWT.NONE);
+		GridData imageLabelData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		imageLabelData.widthHint = 200;
+		imgLabel.setLayoutData(imageLabelData);
 
-        treeViewer.addSelectionChangedListener(new ISelectionChangedListener()
-        {
-            public void selectionChanged(SelectionChangedEvent e)
-            {
-                updateTreeViewAfterSelection(e.getSelection());
+		final Group descriptionGroup = new Group(mainComposite, SWT.NONE);
 
-                updateDescriptionPane();
-                getWizard().getContainer().updateButtons();
-            }
-        });
+		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent e) {
+				updateTreeViewAfterSelection(e.getSelection());
 
-        //sort tree
-        treeViewer.setComparator(new ViewerComparator());
-        treeViewer.expandAll();
+				updateDescriptionPane();
+				getWizard().getContainer().updateButtons();
+			}
+		});
 
-        //description pane
-        descriptionGroup.setText(CodeUtilsNLS.UI_SampleSelectionPage_SamplesDescriptionPane);
-        descriptionGroup.setLayout(new GridLayout(1, false));
-        descriptionGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false, 2,
-                1));
+		// sort tree
+		treeViewer.setComparator(new ViewerComparator());
+		treeViewer.expandAll();
 
-        ScrolledComposite scroll = new ScrolledComposite(descriptionGroup, SWT.V_SCROLL);
-        GridData scrollData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        scroll.setLayoutData(scrollData);
-        scroll.setMinSize(100, 140);
+		// description pane
+		descriptionGroup.setText(CodeUtilsNLS.UI_SampleSelectionPage_SamplesDescriptionPane);
+		descriptionGroup.setLayout(new GridLayout(1, false));
+		descriptionGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false, 2, 1));
 
-        descriptionLabel = new Label(scroll, SWT.FILL | SWT.WRAP);
-        descriptionLabel.setText("");
+		ScrolledComposite scroll = new ScrolledComposite(descriptionGroup, SWT.V_SCROLL);
+		GridData scrollData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		scroll.setLayoutData(scrollData);
+		scroll.setMinSize(100, 140);
 
-        scroll.setContent(descriptionLabel);
+		descriptionLabel = new Label(scroll, SWT.FILL | SWT.WRAP);
+		descriptionLabel.setText("");
 
-        // Add a listener to the wizard to listen for page changes
-        if (getContainer() instanceof IPageChangeProvider)
-        {
-            ((IPageChangeProvider) getContainer()).addPageChangedListener(new PageChangeListener());
-        }
+		scroll.setContent(descriptionLabel);
 
-        setControl(mainComposite);
-    }
+		// Add a listener to the wizard to listen for page changes
+		if (getContainer() instanceof IPageChangeProvider) {
+			((IPageChangeProvider) getContainer()).addPageChangedListener(new PageChangeListener());
+		}
 
-    private void updateTreeViewAfterSelection(ISelection selection)
-    {
-        String template = selection.toString();
+		setControl(mainComposite);
+	}
 
-        getBuildBlock().setSample(template.substring(1, template.length() - 1));
+	private void updateTreeViewAfterSelection(ISelection selection) {
+		String template = selection.toString();
 
-        //condition to enable finish button
-        getBuildBlock().setIsListActivitySelected(true);
-        //category of sample, used to load the correct files
-        getBuildBlock().setSampleCategoty(
-                ActivityBasedOnTemplate.SAMPLE_CATEGORY.LIST_ACTIVITIES_CATEGORY);
+		getBuildBlock().setSample(template.substring(1, template.length() - 1));
 
-        String strPreview = getBuildBlock().getSamplePreview();
-        if (strPreview != null)
-        {
-            URL url = null;
-            try
-            {
-                //loads the selected sample preview image
-                url =
-                        FileLocator.toFileURL(CodeUtilsActivator
-                                .getDefault()
-                                .getBundle()
-                                .getEntry(
-                                        ActivityBasedOnTemplate.ACTIVITY_SAMPLES_FOLDER
-                                                + IPath.SEPARATOR + strPreview));
+		// condition to enable finish button
+		getBuildBlock().setIsListActivitySelected(true);
+		// category of sample, used to load the correct files
+		getBuildBlock().setSampleCategoty(ActivityBasedOnTemplate.SAMPLE_CATEGORY.LIST_ACTIVITIES_CATEGORY);
 
-                ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
-                Image image = imageDesc.createImage();
+		String strPreview = getBuildBlock().getSamplePreview();
+		if (strPreview != null) {
+			URL url = null;
+			try {
+				// loads the selected sample preview image
+				url = FileLocator.toFileURL(CodeUtilsActivator.getDefault().getBundle()
+						.getEntry(ActivityBasedOnTemplate.ACTIVITY_SAMPLES_FOLDER + IPath.SEPARATOR + strPreview));
 
-                Image previousImage = imgLabel.getImage();
-                if (previousImage != null)
-                {
-                    previousImage.dispose();
-                }
+				ImageDescriptor imageDesc = ImageDescriptor.createFromURL(url);
+				Image image = imageDesc.createImage();
 
-                imgLabel.setImage(image);
-            }
-            catch (Exception ex)
-            {
-                imgLabel.setImage(null);
-            }
-        }
-        else
-        {
-            imgLabel.setImage(null);
-        }
-    }
+				Image previousImage = imgLabel.getImage();
+				if (previousImage != null) {
+					previousImage.dispose();
+				}
 
-    /*
-     * Updates selected label description
-     */
-    private void updateDescriptionPane()
-    {
-        if (getBuildBlock().isListActivitySelected())
-        {
-            descriptionLabel.setText(getBuildBlock().getSampleDescription());
-        }
-        else
-        {
-            descriptionLabel.setText("");
-            imgLabel.setImage(null);
-        }
-        descriptionLabel.update();
-        descriptionLabel.setSize(descriptionLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-        descriptionLabel.getParent().layout();
-    }
+				imgLabel.setImage(image);
+			} catch (Exception ex) {
+				imgLabel.setImage(null);
+			}
+		} else {
+			imgLabel.setImage(null);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getDefaultMessage()
-     */
-    @Override
-    public String getDefaultMessage()
-    {
-        return CodeUtilsNLS.UI_NewActivityMainPage_DescriptionCreateActivityBasedOnTemplate;
-    }
+	/*
+	 * Updates selected label description
+	 */
+	private void updateDescriptionPane() {
+		if (getBuildBlock().isListActivitySelected()) {
+			descriptionLabel.setText(getBuildBlock().getSampleDescription());
+		} else {
+			descriptionLabel.setText("");
+			imgLabel.setImage(null);
+		}
+		descriptionLabel.update();
+		descriptionLabel.setSize(descriptionLabel.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		descriptionLabel.getParent().layout();
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getWizardTitle()
-     */
-    @Override
-    public String getWizardTitle()
-    {
-        return CodeUtilsNLS.UI_ListActivityPage_TitleWizard;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getDefaultMessage()
+	 */
+	@Override
+	public String getDefaultMessage() {
+		return CodeUtilsNLS.UI_NewActivityMainPage_DescriptionCreateActivityBasedOnTemplate;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage#getIntentFiltersActions()
-     */
-    @Override
-    protected String[] getIntentFiltersActions()
-    {
-        String[] intentFiltersActions = new String[0];
-        try
-        {
-            intentFiltersActions = AndroidUtils.getActivityActions(getBuildBlock().getProject());
-        }
-        catch (AndroidException e)
-        {
-            setErrorMessage(e.getMessage());
-        }
-        return intentFiltersActions;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getWizardTitle()
+	 */
+	@Override
+	public String getWizardTitle() {
+		return CodeUtilsNLS.UI_ListActivityPage_TitleWizard;
+	}
 
-    /**
-     * Gets the help ID to be used for attaching
-     * context sensitive help. 
-     * 
-     * Classes that extends this class and want to set
-     * their on help should override this method
-     */
-    @Override
-    protected String getHelpId()
-    {
-        return NEW_ACTIVITY_HELP;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * #getIntentFiltersActions()
+	 */
+	@Override
+	protected String[] getIntentFiltersActions() {
+		String[] intentFiltersActions = new String[0];
+		try {
+			intentFiltersActions = AndroidUtils.getActivityActions(getBuildBlock().getProject());
+		} catch (AndroidException e) {
+			setErrorMessage(e.getMessage());
+		}
+		return intentFiltersActions;
+	}
 
-    /**
-     * Returns true if page has header false otherwise
-     * 
-     * @return true if page has header false otherwise
-     */
-    @Override
-    public boolean hasHeader()
-    {
-        return false;
-    }
+	/**
+	 * Gets the help ID to be used for attaching context sensitive help.
+	 * 
+	 * Classes that extends this class and want to set their on help should
+	 * override this method
+	 */
+	@Override
+	protected String getHelpId() {
+		return NEW_ACTIVITY_HELP;
+	}
+
+	/**
+	 * Returns true if page has header false otherwise
+	 * 
+	 * @return true if page has header false otherwise
+	 */
+	@Override
+	public boolean hasHeader() {
+		return false;
+	}
 }

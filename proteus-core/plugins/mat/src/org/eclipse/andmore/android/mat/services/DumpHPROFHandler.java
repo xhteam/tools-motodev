@@ -29,65 +29,48 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
-public class DumpHPROFHandler extends ServiceHandler
-{
+public class DumpHPROFHandler extends ServiceHandler {
 
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new DumpHPROFHandler();
-    }
+	@Override
+	public IServiceHandler newInstance() {
+		return new DumpHPROFHandler();
+	}
 
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor monitor)
-    {
-        IStatus status = Status.OK_STATUS;
-        if (instance instanceof ISerialNumbered)
-        {
-            ISerialNumbered serialNumbered = (ISerialNumbered) instance;
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor monitor) {
+		IStatus status = Status.OK_STATUS;
+		if (instance instanceof ISerialNumbered) {
+			ISerialNumbered serialNumbered = (ISerialNumbered) instance;
 
-            final String serialNumber = serialNumbered.getSerialNumber();
-            int deviceApiVersion = DDMSUtils.getDeviceApiVersion(serialNumber);
+			final String serialNumber = serialNumbered.getSerialNumber();
+			int deviceApiVersion = DDMSUtils.getDeviceApiVersion(serialNumber);
 
-            if (deviceApiVersion > 0)
-            {
-                if (deviceApiVersion > 2)
-                {
+			if (deviceApiVersion > 0) {
+				if (deviceApiVersion > 2) {
 
-                    Job job = new Job(MatNLS.JOB_Name_Dump_Hprof)
-                    {
-                        @Override
-                        protected IStatus run(IProgressMonitor monitor)
-                        {
-                            return DDMSUtils.dumpHPROF(serialNumber, monitor);
-                        }
+					Job job = new Job(MatNLS.JOB_Name_Dump_Hprof) {
+						@Override
+						protected IStatus run(IProgressMonitor monitor) {
+							return DDMSUtils.dumpHPROF(serialNumber, monitor);
+						}
 
-                    };
-                    job.setUser(true);
-                    job.schedule();
-                }
-                else
-                {
-                    status =
-                            new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                                    MatNLS.DumpHPROFHandler_UNSUPPORTED_DEVICE);
-                }
-            }
-            else
-            {
-                status =
-                        new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-                                MatNLS.DumpHPROFHandler_DEVICE_NOT_READY);
-            }
+					};
+					job.setUser(true);
+					job.schedule();
+				} else {
+					status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, MatNLS.DumpHPROFHandler_UNSUPPORTED_DEVICE);
+				}
+			} else {
+				status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, MatNLS.DumpHPROFHandler_DEVICE_NOT_READY);
+			}
 
-        }
-        return status;
-    }
+		}
+		return status;
+	}
 
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 
 }

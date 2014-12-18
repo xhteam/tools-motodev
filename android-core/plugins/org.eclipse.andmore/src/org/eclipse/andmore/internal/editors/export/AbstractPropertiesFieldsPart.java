@@ -29,6 +29,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -50,7 +51,7 @@ abstract class AbstractPropertiesFieldsPart extends ManifestSectionPart {
     private boolean mInternalTextUpdate = false;
 
     public AbstractPropertiesFieldsPart(Composite body, FormToolkit toolkit, ExportEditor editor) {
-        super(body, toolkit, Section.TWISTIE | Section.EXPANDED, true /* description */);
+        super(body, toolkit, ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED, true /* description */);
         mEditor = editor;
     }
 

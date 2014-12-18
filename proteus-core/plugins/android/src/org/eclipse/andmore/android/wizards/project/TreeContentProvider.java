@@ -27,98 +27,103 @@ import com.android.sdklib.IAndroidTarget;
  * Class that implements a content provider for the Samples Tree viewers.
  */
 @SuppressWarnings("restriction")
-class TreeContentProvider implements ITreeContentProvider
-{
-    AndroidProject project = null;
+class TreeContentProvider implements ITreeContentProvider {
+	AndroidProject project = null;
 
-    public TreeContentProvider(AndroidProject project)
-    {
-        this.project = project;
-    }
+	public TreeContentProvider(AndroidProject project) {
+		this.project = project;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-     */
-    public Object[] getChildren(Object arg0)
-    {
-        Object[] objects;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.
+	 * Object)
+	 */
+	@Override
+	public Object[] getChildren(Object arg0) {
+		Object[] objects;
 
-        if (arg0 instanceof IAndroidTarget)
-        {
-            objects = SdkUtils.getSamples((IAndroidTarget) arg0);
-        }
-        else
-        {
-            objects = new Object[0];
-        }
-        return objects;
-    }
+		if (arg0 instanceof IAndroidTarget) {
+			objects = SdkUtils.getSamples((IAndroidTarget) arg0);
+		} else {
+			objects = new Object[0];
+		}
+		return objects;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
-     */
-    public Object getParent(Object arg0)
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object
+	 * )
+	 */
+	@Override
+	public Object getParent(Object arg0) {
+		return null;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
-     */
-    public boolean hasChildren(Object arg0)
-    {
-        Object[] obj = getChildren(arg0);
-        return obj == null ? false : obj.length > 0;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.
+	 * Object)
+	 */
+	@Override
+	public boolean hasChildren(Object arg0) {
+		Object[] obj = getChildren(arg0);
+		return obj == null ? false : obj.length > 0;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-     */
-    public Object[] getElements(Object arg0)
-    {
-        Object[] objs = null;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java
+	 * .lang.Object)
+	 */
+	@Override
+	public Object[] getElements(Object arg0) {
+		Object[] objs = null;
 
-        if (arg0 instanceof Sdk)
-        {
-            Sdk sdk = (Sdk) arg0;
-            Object[] targets = SdkUtils.getTargets(sdk);
-            if (targets.length > 0)
-            {
-                for (IAndroidTarget target : (IAndroidTarget[]) targets)
-                {
-                    if (target.equals(project.getSdkTarget()))
-                    {
-                        objs = SdkUtils.getSamples(target);
-                    }
-                }
-            }
-            else
-            {
-                objs = new Object[0];
-            }
-        }
-        return objs;
-    }
+		if (arg0 instanceof Sdk) {
+			Sdk sdk = (Sdk) arg0;
+			Object[] targets = SdkUtils.getTargets(sdk);
+			if (targets.length > 0) {
+				for (IAndroidTarget target : (IAndroidTarget[]) targets) {
+					if (target.equals(project.getSdkTarget())) {
+						objs = SdkUtils.getSamples(target);
+					}
+				}
+			} else {
+				objs = new Object[0];
+			}
+		}
+		return objs;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.IContentProvider#dispose()
-     */
-    public void dispose()
-    {
-        //do nothing        
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// do nothing
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-     */
-    public void inputChanged(Viewer arg0, Object arg1, Object arg2)
-    {
-        //do nothing
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface
+	 * .viewers.Viewer, java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
+		// do nothing
+	}
 }

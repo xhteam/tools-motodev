@@ -27,36 +27,31 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This abstract handler adds convenient methods, like methods to retrieve the current selection.
+ * This abstract handler adds convenient methods, like methods to retrieve the
+ * current selection.
  */
-public abstract class AbstractHandler2 extends AbstractHandler implements IHandler2
-{
+public abstract class AbstractHandler2 extends AbstractHandler implements IHandler2 {
 
-    /**
-     * Retrieves the list of selected nodes.
-     * */
-    @SuppressWarnings("unchecked")
-    protected List<ITreeNode> getSelection()
-    {
-        List<ITreeNode> selectedNodes = new ArrayList<ITreeNode>(1);
-        ISelection selection =
-                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
-                        .getSelection();
-        if (selection instanceof IStructuredSelection)
-        {
-            IStructuredSelection treeSelection = (IStructuredSelection) selection;
-            List<Object> selectedElements = treeSelection.toList();
+	/**
+	 * Retrieves the list of selected nodes.
+	 * */
+	@SuppressWarnings("unchecked")
+	protected List<ITreeNode> getSelection() {
+		List<ITreeNode> selectedNodes = new ArrayList<ITreeNode>(1);
+		ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
+				.getSelection();
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection treeSelection = (IStructuredSelection) selection;
+			List<Object> selectedElements = treeSelection.toList();
 
-            for (Object selectedObject : selectedElements)
-            {
-                if (selectedObject instanceof ITreeNode)
-                {
-                    selectedNodes.add((ITreeNode) selectedObject);
-                }
-            }
-        }
+			for (Object selectedObject : selectedElements) {
+				if (selectedObject instanceof ITreeNode) {
+					selectedNodes.add((ITreeNode) selectedObject);
+				}
+			}
+		}
 
-        return selectedNodes;
-    }
+		return selectedNodes;
+	}
 
 }

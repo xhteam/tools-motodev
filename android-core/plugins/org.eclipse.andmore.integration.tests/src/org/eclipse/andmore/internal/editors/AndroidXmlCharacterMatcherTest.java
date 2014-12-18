@@ -29,117 +29,90 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 
 @SuppressWarnings("restriction")
 public class AndroidXmlCharacterMatcherTest extends AdtProjectTest {
-    public void testGotoMatchingFwd1() throws Exception {
-        checkGotoMatching(
-                "<app^lication android:icon",
-                "^</application>");
-    }
+	public void testGotoMatchingFwd1() throws Exception {
+		checkGotoMatching("<app^lication android:icon", "^</application>");
+	}
 
-    public void testGotoMatchingFwd2() throws Exception {
-        checkGotoMatching(
-                "^<application android:icon",
-                "^</application>");
-    }
+	public void testGotoMatchingFwd2() throws Exception {
+		checkGotoMatching("^<application android:icon", "^</application>");
+	}
 
-    public void testGotoMatchingFwd3() throws Exception {
-        checkGotoMatching(
-                "<application^ android:icon",
-                "^</application>");
-    }
+	public void testGotoMatchingFwd3() throws Exception {
+		checkGotoMatching("<application^ android:icon", "^</application>");
+	}
 
-    public void testGotoMatchingBwd1() throws Exception {
-        checkGotoMatching(
-                "^</application>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd1() throws Exception {
+		checkGotoMatching("^</application>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingBwd2() throws Exception {
-        checkGotoMatching(
-                "<^/application>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd2() throws Exception {
+		checkGotoMatching("<^/application>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingBwd3() throws Exception {
-        checkGotoMatching(
-                "</^application>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd3() throws Exception {
+		checkGotoMatching("</^application>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingBwd4() throws Exception {
-        checkGotoMatching(
-                "</app^lication>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd4() throws Exception {
+		checkGotoMatching("</app^lication>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingBwd5() throws Exception {
-        checkGotoMatching(
-                "</^application>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd5() throws Exception {
+		checkGotoMatching("</^application>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingBwd6() throws Exception {
-        checkGotoMatching(
-                "</^application>",
-                "^<application android:icon");
-    }
+	public void testGotoMatchingBwd6() throws Exception {
+		checkGotoMatching("</^application>", "^<application android:icon");
+	}
 
-    public void testGotoMatchingFwd4() throws Exception {
-        checkGotoMatching(
-                "<intent-filter^>",
-                "^</intent-filter>");
-    }
+	public void testGotoMatchingFwd4() throws Exception {
+		checkGotoMatching("<intent-filter^>", "^</intent-filter>");
+	}
 
-    public void testGotoMatchingFwd5() throws Exception {
-        checkGotoMatching(
-                "<intent-filter>^",
-                "^</intent-filter>");
-    }
+	public void testGotoMatchingFwd5() throws Exception {
+		checkGotoMatching("<intent-filter>^", "^</intent-filter>");
+	}
 
-    public void testGotoMatchingFallback() throws Exception {
-        // Character matching is done by the superclass; ensure that fallback to the
-        // other XML matchers is working
-        checkGotoMatching(
-                "android:icon=^\"@drawable/icon\"",
-                "android:icon=\"@drawable/icon^\"");
-    }
+	public void testGotoMatchingFallback() throws Exception {
+		// Character matching is done by the superclass; ensure that fallback to
+		// the
+		// other XML matchers is working
+		checkGotoMatching("android:icon=^\"@drawable/icon\"", "android:icon=\"@drawable/icon^\"");
+	}
 
-    private void checkGotoMatching(IFile file, String caretBefore,
-            String caretAfter) throws Exception {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        assertNotNull(page);
-        IEditorPart editor = IDE.openEditor(page, file);
-        assertTrue(editor instanceof AndroidXmlEditor);
-        AndroidXmlEditor layoutEditor = (AndroidXmlEditor) editor;
-        ISourceViewer viewer = layoutEditor.getStructuredSourceViewer();
+	private void checkGotoMatching(IFile file, String caretBefore, String caretAfter) throws Exception {
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		assertNotNull(page);
+		IEditorPart editor = IDE.openEditor(page, file);
+		assertTrue(editor instanceof AndroidXmlEditor);
+		AndroidXmlEditor layoutEditor = (AndroidXmlEditor) editor;
+		ISourceViewer viewer = layoutEditor.getStructuredSourceViewer();
 
-        int caretPosBefore = updateCaret(viewer, caretBefore);
+		int caretPosBefore = updateCaret(viewer, caretBefore);
 
-        AndroidXmlCharacterMatcher matcher = new AndroidXmlCharacterMatcher();
-        IStructuredDocument document = layoutEditor.getStructuredDocument();
+		AndroidXmlCharacterMatcher matcher = new AndroidXmlCharacterMatcher();
+		IStructuredDocument document = layoutEditor.getStructuredDocument();
 
-        IRegion match = matcher.match(document, caretPosBefore);
-        assertNotNull(match);
+		IRegion match = matcher.match(document, caretPosBefore);
+		assertNotNull(match);
 
-        String text = document.get();
-        final String after = stripCaret(caretAfter);
-        int index = text.indexOf(after);
-        int caretPosAfter = match.getOffset() - index;
-        String textWithCaret = after.substring(0, caretPosAfter)
-                + "^" + after.substring(caretPosAfter);
+		String text = document.get();
+		final String after = stripCaret(caretAfter);
+		int index = text.indexOf(after);
+		int caretPosAfter = match.getOffset() - index;
+		String textWithCaret = after.substring(0, caretPosAfter) + "^" + after.substring(caretPosAfter);
 
-        assertEquals(caretAfter, textWithCaret);
-    }
+		assertEquals(caretAfter, textWithCaret);
+	}
 
-    private static String stripCaret(String s) {
-        int index = s.indexOf('^');
-        assertTrue(index != -1);
-        return s.substring(0, index) + s.substring(index + 1);
-    }
+	private static String stripCaret(String s) {
+		int index = s.indexOf('^');
+		assertTrue(index != -1);
+		return s.substring(0, index) + s.substring(index + 1);
+	}
 
-    private void checkGotoMatching(String caretBefore,
-            String caretAfter) throws Exception {
-        checkGotoMatching(
-                getTestDataFile(getProject(), "manifest.xml", "AndroidManifest.xml", true),
-                caretBefore, caretAfter);
-    }
+	private void checkGotoMatching(String caretBefore, String caretAfter) throws Exception {
+		checkGotoMatching(getTestDataFile(getProject(), "manifest.xml", "AndroidManifest.xml", true), caretBefore,
+				caretAfter);
+	}
 }

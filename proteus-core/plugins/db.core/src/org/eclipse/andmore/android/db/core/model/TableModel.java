@@ -22,163 +22,137 @@ import java.util.List;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 
 /**
- *  This class represents a database table
+ * This class represents a database table
  */
-public class TableModel
-{
+public class TableModel {
 
-    private String name = "SampleTable";
+	private String name = "SampleTable";
 
-    private List<Field> fields;
+	private List<Field> fields;
 
-    public TableModel()
-    {
-        fields = new LinkedList<Field>();
-    }
+	public TableModel() {
+		fields = new LinkedList<Field>();
+	}
 
-    /**
-     * Creates a new Table representation
-     * @param name The table name
-     * @param fields The table fields
-     */
-    public TableModel(String name, List<Field> fields)
-    {
-        this.name = name;
-        this.fields = fields;
-    }
+	/**
+	 * Creates a new Table representation
+	 * 
+	 * @param name
+	 *            The table name
+	 * @param fields
+	 *            The table fields
+	 */
+	public TableModel(String name, List<Field> fields) {
+		this.name = name;
+		this.fields = fields;
+	}
 
-    /**
-     * @return the name
-     */
-    public String getName()
-    {
-        return name;
-    }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @return the fields
-     */
-    public List<Field> getFields()
-    {
-        return fields;
-    }
+	/**
+	 * @return the fields
+	 */
+	public List<Field> getFields() {
+		return fields;
+	}
 
-    /**
-     * @param fields the fields to set
-     */
-    public void setFields(List<Field> fields)
-    {
-        this.fields = fields;
-    }
+	/**
+	 * @param fields
+	 *            the fields to set
+	 */
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
 
-    public void addField(Field field)
-    {
-        fields.add(field);
+	public void addField(Field field) {
+		fields.add(field);
 
-    }
+	}
 
-    public void removeField(Field field)
-    {
-        fields.remove(field);
+	public void removeField(Field field) {
+		fields.remove(field);
 
-    }
+	}
 
-    /**
-     * Validates the name to be different from SQLite keywords.
-     * Reference: http://www.sqlite.org/lang_keywords.html
-     * 
-     * @param name
-     *            The table name
-     * @return True is a valid table name, false otherwise
-     */
-    public static boolean validateName(String name)
-    {
+	/**
+	 * Validates the name to be different from SQLite keywords. Reference:
+	 * http://www.sqlite.org/lang_keywords.html
+	 * 
+	 * @param name
+	 *            The table name
+	 * @return True is a valid table name, false otherwise
+	 */
+	public static boolean validateName(String name) {
 
-        boolean isValid = true;
-        String[] keywords =
-                {
-                        "ABORT", "ACTION", "ADD", "AFTER", "ALL", "ALTER", "ANALYZE", "AND", "AS",
-                        "ASC", "ATTACH", "AUTOINCREMENT", "BEFORE", "BEGIN", "BETWEEN", "BY",
-                        "CASCADE", "CASE", "CAST", "CHECK", "COLLATE", "COLUMN", "COMMIT",
-                        "CONFLICT", "CONSTRAINT", "CREATE", "CROSS", "CURRENT_DATE",
-                        "CURRENT_TIME", "CURRENT_TIMESTAMP", "DATABASE", "DEFAULT", "DEFERRABLE",
-                        "DEFERRED", "DELETE", "DESC", "DETACH", "DISTINCT", "DROP", "EACH", "ELSE",
-                        "END", "ESCAPE", "EXCEPT", "EXCLUSIVE", "EXISTS", "EXPLAIN", "FAIL", "FOR",
-                        "FOREIGN", "FROM", "FULL", "GLOB", "GROUP", "HAVING", "IF", "IGNORE",
-                        "IMMEDIATE", "IN", "INDEX", "INDEXED", "INITIALLY", "INNER", "INSERT",
-                        "INSTEAD", "INTERSECT", "INTO", "IS", "ISNULL", "JOIN", "KEY", "LEFT",
-                        "LIKE", "LIMIT", "MATCH", "NATURAL", "NO", "NOT", "NOTNULL", "NULL", "OF",
-                        "OFFSET", "ON", "OR", "ORDER", "OUTER", "PLAN", "PRAGMA", "PRIMARY",
-                        "QUERY", "RAISE", "REFERENCES", "REGEXP", "REINDEX", "RELEASE", "RENAME",
-                        "REPLACE", "RESTRICT", "RIGHT", "ROLLBACK", "ROW", "SAVEPOINT", "SELECT",
-                        "SET", "TABLE", "TEMP", "TEMPORARY", "THEN", "TO", "TRANSACTION",
-                        "TRIGGER", "UNION", "UNIQUE", "UPDATE", "USING", "VACUUM", "VALUES",
-                        "VIEW", "VIRTUAL", "WHEN", "WHERE"
-                };
+		boolean isValid = true;
+		String[] keywords = { "ABORT", "ACTION", "ADD", "AFTER", "ALL", "ALTER", "ANALYZE", "AND", "AS", "ASC",
+				"ATTACH", "AUTOINCREMENT", "BEFORE", "BEGIN", "BETWEEN", "BY", "CASCADE", "CASE", "CAST", "CHECK",
+				"COLLATE", "COLUMN", "COMMIT", "CONFLICT", "CONSTRAINT", "CREATE", "CROSS", "CURRENT_DATE",
+				"CURRENT_TIME", "CURRENT_TIMESTAMP", "DATABASE", "DEFAULT", "DEFERRABLE", "DEFERRED", "DELETE", "DESC",
+				"DETACH", "DISTINCT", "DROP", "EACH", "ELSE", "END", "ESCAPE", "EXCEPT", "EXCLUSIVE", "EXISTS",
+				"EXPLAIN", "FAIL", "FOR", "FOREIGN", "FROM", "FULL", "GLOB", "GROUP", "HAVING", "IF", "IGNORE",
+				"IMMEDIATE", "IN", "INDEX", "INDEXED", "INITIALLY", "INNER", "INSERT", "INSTEAD", "INTERSECT", "INTO",
+				"IS", "ISNULL", "JOIN", "KEY", "LEFT", "LIKE", "LIMIT", "MATCH", "NATURAL", "NO", "NOT", "NOTNULL",
+				"NULL", "OF", "OFFSET", "ON", "OR", "ORDER", "OUTER", "PLAN", "PRAGMA", "PRIMARY", "QUERY", "RAISE",
+				"REFERENCES", "REGEXP", "REINDEX", "RELEASE", "RENAME", "REPLACE", "RESTRICT", "RIGHT", "ROLLBACK",
+				"ROW", "SAVEPOINT", "SELECT", "SET", "TABLE", "TEMP", "TEMPORARY", "THEN", "TO", "TRANSACTION",
+				"TRIGGER", "UNION", "UNIQUE", "UPDATE", "USING", "VACUUM", "VALUES", "VIEW", "VIRTUAL", "WHEN", "WHERE" };
 
-        for (String keyword : keywords)
-        {
-            // Found. It is a keyword
-            if (keyword.toLowerCase().compareTo(name.toLowerCase()) == 0)
-            {
-                isValid = false;
-            }
-        }
+		for (String keyword : keywords) {
+			// Found. It is a keyword
+			if (keyword.toLowerCase().compareTo(name.toLowerCase()) == 0) {
+				isValid = false;
+			}
+		}
 
-        return isValid;
-    }
+		return isValid;
+	}
 
-    public String getErrorMessage()
-    {
+	public String getErrorMessage() {
 
-        Iterator<Field> it = fields.iterator();
-        String msg = null;
+		Iterator<Field> it = fields.iterator();
+		String msg = null;
 
-        while (it.hasNext() && (msg == null))
-        {
-            Field field = it.next();
+		while (it.hasNext() && (msg == null)) {
+			Field field = it.next();
 
-            msg = field.getErrorMessage();
+			msg = field.getErrorMessage();
 
-            if ((msg == null) && field.getName().trim().contains(" ")) //$NON-NLS-1$
-            {
-                msg = DbCoreNLS.Table_ErrorUnamedColumns;
-            }
-            else if (msg == null)
-            {
+			if ((msg == null) && field.getName().trim().contains(" ")) //$NON-NLS-1$
+			{
+				msg = DbCoreNLS.Table_ErrorUnamedColumns;
+			} else if (msg == null) {
 
-                Iterator<Field> iterator = fields.iterator();
+				Iterator<Field> iterator = fields.iterator();
 
-                while (iterator.hasNext() && (msg == null))
-                {
-                    Field testField = iterator.next();
-                    if (field != testField)
-                    {
-                        if (field.getName().equalsIgnoreCase(testField.getName()))
-                        {
-                            msg = DbCoreNLS.Table_ErrorConflictingNames + field.getName() + ", " //$NON-NLS-2$
-                                    + testField.getName();
-                        }
-                        else if (field.isPrimaryKey() && testField.isPrimaryKey())
-                        {
-                            msg =
-                                    DbCoreNLS.Table_ErrorMoreThanOnePrimaryKey + field.getName()
-                                            + ", " + testField.getName(); //$NON-NLS-1$
-                        }
+				while (iterator.hasNext() && (msg == null)) {
+					Field testField = iterator.next();
+					if (field != testField) {
+						if (field.getName().equalsIgnoreCase(testField.getName())) {
+							msg = DbCoreNLS.Table_ErrorConflictingNames + field.getName() + ", " + testField.getName();
+						} else if (field.isPrimaryKey() && testField.isPrimaryKey()) {
+							msg = DbCoreNLS.Table_ErrorMoreThanOnePrimaryKey + field.getName()
+									+ ", " + testField.getName(); //$NON-NLS-1$
+						}
 
-                    }
+					}
 
-                }
-            }
-        }
-        return msg;
-    }
+				}
+			}
+		}
+		return msg;
+	}
 }

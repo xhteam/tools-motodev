@@ -25,31 +25,29 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 
-public class ExportWizardHandler extends AbstractHandler
-{
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        ISelection selection =
-                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
-                        .getSelection();
-        IStructuredSelection structuredSel = new StructuredSelection();
-        if (selection instanceof IStructuredSelection)
-        {
-            structuredSel = (IStructuredSelection) selection;
-        }
+public class ExportWizardHandler extends AbstractHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands
+	 * .ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
+				.getSelection();
+		IStructuredSelection structuredSel = new StructuredSelection();
+		if (selection instanceof IStructuredSelection) {
+			structuredSel = (IStructuredSelection) selection;
+		}
 
-        PackageExportWizard export = new PackageExportWizard();
-        export.init(PlatformUI.getWorkbench(), structuredSel);
+		PackageExportWizard export = new PackageExportWizard();
+		export.init(PlatformUI.getWorkbench(), structuredSel);
 
-        WizardDialog dialog =
-                new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-                        export);
-        dialog.open();
+		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), export);
+		dialog.open();
 
-        return null;
-    }
+		return null;
+	}
 }

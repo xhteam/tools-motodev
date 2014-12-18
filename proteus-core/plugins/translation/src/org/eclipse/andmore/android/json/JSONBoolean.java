@@ -17,61 +17,48 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public class JSONBoolean extends JSONValue
-{
-    public final boolean value;
+public class JSONBoolean extends JSONValue {
+	public final boolean value;
 
-    public JSONBoolean(boolean value)
-    {
-        this.value = value;
-    }
+	public JSONBoolean(boolean value) {
+		this.value = value;
+	}
 
-    @Override
-    public Object getValue()
-    {
-        return value;
-    }
+	@Override
+	public Object getValue() {
+		return value;
+	}
 
-    static JSONValue parseValues(List<Character> json)
-    {
-        boolean parsed = false;
-        boolean value = false;
+	static JSONValue parseValues(List<Character> json) {
+		boolean parsed = false;
+		boolean value = false;
 
-        while (!parsed)
-        {
-            Character next = json.get(0);
+		while (!parsed) {
+			Character next = json.get(0);
 
-            if (next == 't' && json.get(1) == 'r' && json.get(2) == 'u' && json.get(3) == 'e')
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    json.remove(0);
-                }
-                parsed = true;
-                value = true;
-            }
-            else if (next == 'f' && json.get(1) == 'a' && json.get(2) == 'l' && json.get(3) == 's'
-                    && json.get(4) == 'e')
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    json.remove(0);
-                }
-                parsed = true;
-            }
-            else
-            {
-                throw new IllegalArgumentException();
-            }
+			if (next == 't' && json.get(1) == 'r' && json.get(2) == 'u' && json.get(3) == 'e') {
+				for (int i = 0; i < 4; i++) {
+					json.remove(0);
+				}
+				parsed = true;
+				value = true;
+			} else if (next == 'f' && json.get(1) == 'a' && json.get(2) == 'l' && json.get(3) == 's'
+					&& json.get(4) == 'e') {
+				for (int i = 0; i < 5; i++) {
+					json.remove(0);
+				}
+				parsed = true;
+			} else {
+				throw new IllegalArgumentException();
+			}
 
-        }
-        return new JSONBoolean(value);
-    }
+		}
+		return new JSONBoolean(value);
+	}
 
-    @Override
-    public String toString()
-    {
-        return Boolean.toString(value);
-    }
+	@Override
+	public String toString() {
+		return Boolean.toString(value);
+	}
 
 }

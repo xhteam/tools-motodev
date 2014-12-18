@@ -30,43 +30,34 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 /**
  * Performs launch for a Monkey Launch Configuration.
  */
-public class MonkeyConfigurationDelegate implements ILaunchConfigurationDelegate
-{
+public class MonkeyConfigurationDelegate implements ILaunchConfigurationDelegate {
 
-    public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch,
-            IProgressMonitor monitor) throws CoreException
-    {
-        String deviceName =
-                configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_DEVICE_INSTANCE_NAME,
-                        (String) null);
-        ISerialNumbered serialNumber = DevicesManager.getInstance().getDeviceByName(deviceName);
+	@Override
+	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
+			throws CoreException {
+		String deviceName = configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_DEVICE_INSTANCE_NAME,
+				(String) null);
+		ISerialNumbered serialNumber = DevicesManager.getInstance().getDeviceByName(deviceName);
 
-        String otherCmds =
-                configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS,
-                        (String) null)
-                        + " "
-                        + configuration.getAttribute(
-                                IMonkeyConfigurationConstants.ATTR_EVENT_COUNT_NAME, (String) null);
+		String otherCmds = configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS, (String) null)
+				+ " " + configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_EVENT_COUNT_NAME, (String) null);
 
-        if (serialNumber != null)
-        {
+		if (serialNumber != null) {
 
-            ArrayList<String> t = new ArrayList<String>();
+			ArrayList<String> t = new ArrayList<String>();
 
-            List<String> defaultValue = null;
-            List<String> c =
-            		configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES, defaultValue);
-            if (c != null)
-            {
-                for (int i = 0; i < c.size(); i++)
-                {
-                    t.add((String) c.get(i));
-                }
-            }
+			List<String> defaultValue = null;
+			List<String> c = configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_SELECTED_PACKAGES,
+					defaultValue);
+			if (c != null) {
+				for (int i = 0; i < c.size(); i++) {
+					t.add(c.get(i));
+				}
+			}
 
-            DDMSUtils.runMonkey(serialNumber.getSerialNumber(), t, otherCmds);
+			DDMSUtils.runMonkey(serialNumber.getSerialNumber(), t, otherCmds);
 
-        }
-    }
+		}
+	}
 
 }

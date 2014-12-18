@@ -23,70 +23,64 @@ import org.eclipse.ui.IPlaceholderFolderLayout;
 /**
  * The MOTODEV Database Perspective factory
  */
-public class DbPerspective implements IPerspectiveFactory
-{
-    private static String VIEW_SQL_RESULTS = "org.eclipse.datatools.sqltools.result.resultView"; //$NON-NLS-1$
+public class DbPerspective implements IPerspectiveFactory {
+	private static String VIEW_SQL_RESULTS = "org.eclipse.datatools.sqltools.result.resultView"; //$NON-NLS-1$
 
-    private static String VIEW_TML_DEV_MGT =
-            "org.eclipse.sequoyah.device.framework.ui.InstanceMgtView"; //$NON-NLS-1$
+	private static String VIEW_TML_DEV_MGT = "org.eclipse.sequoyah.device.framework.ui.InstanceMgtView"; //$NON-NLS-1$
 
-    public static String VIEW_MOTODEV_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
+	public static String VIEW_MOTODEV_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
-    private static String VIEW_FILE_EXPLORER =
-            "com.android.ide.eclipse.ddms.views.FileExplorerView"; //$NON-NLS-1$
+	private static String VIEW_FILE_EXPLORER = "com.android.ide.eclipse.ddms.views.FileExplorerView"; //$NON-NLS-1$
 
-    private static String VIEW_CONSOLE = "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
+	private static String VIEW_CONSOLE = "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
 
-    private static String ACTIONSET_LAUNCH = "org.eclipse.debug.ui.launchActionSet"; //$NON-NLS-1$
+	private static String ACTIONSET_LAUNCH = "org.eclipse.debug.ui.launchActionSet"; //$NON-NLS-1$
 
-    private static String ACTIONSET_NAVIGATE = "org.eclipse.ui.NavigateActionSet"; //$NON-NLS-1$
+	private static String ACTIONSET_NAVIGATE = "org.eclipse.ui.NavigateActionSet"; //$NON-NLS-1$
 
-    private static String PERSPECTIVE_MOTODEV = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
+	private static String PERSPECTIVE_MOTODEV = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
 
-    private static String VIEW_SNIPPETS =
-            "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$
+	private static String VIEW_SNIPPETS = "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$
 
-    private static String VIEW_ANDROID_EMULATOR =
-            "org.eclipse.andmore.android.emulator.androidView"; //$NON-NLS-1$
+	private static String VIEW_ANDROID_EMULATOR = "org.eclipse.andmore.android.emulator.androidView"; //$NON-NLS-1$
 
-    /**
-     * Creates the initial layout for a page.
-     *
-     * @param layout the page layout
-     *
-     * @see IPerspectiveFactory#createInitialLayout(IPageLayout)
-     */
-    public void createInitialLayout(IPageLayout layout)
-    {
-        String editorArea = layout.getEditorArea();
-        layout.setEditorAreaVisible(true);
+	/**
+	 * Creates the initial layout for a page.
+	 *
+	 * @param layout
+	 *            the page layout
+	 *
+	 * @see IPerspectiveFactory#createInitialLayout(IPageLayout)
+	 */
+	@Override
+	public void createInitialLayout(IPageLayout layout) {
+		String editorArea = layout.getEditorArea();
+		layout.setEditorAreaVisible(true);
 
-        IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
-        left.addView(VIEW_MOTODEV_DATABASE);
+		IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
+		left.addView(VIEW_MOTODEV_DATABASE);
 
-        IFolderLayout leftBottom =
-                layout.createFolder("leftBottom", IPageLayout.BOTTOM, 0.59f, "left"); //$NON-NLS-1$ //$NON-NLS-2$
-        leftBottom.addView(VIEW_SNIPPETS);
+		IFolderLayout leftBottom = layout.createFolder("leftBottom", IPageLayout.BOTTOM, 0.59f, "left"); //$NON-NLS-1$ //$NON-NLS-2$
+		leftBottom.addView(VIEW_SNIPPETS);
 
-        IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.7f, editorArea); //$NON-NLS-1$
-        bottom.addView(VIEW_SQL_RESULTS);
-        bottom.addView(VIEW_TML_DEV_MGT);
-        bottom.addView(VIEW_CONSOLE);
+		IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, 0.7f, editorArea); //$NON-NLS-1$
+		bottom.addView(VIEW_SQL_RESULTS);
+		bottom.addView(VIEW_TML_DEV_MGT);
+		bottom.addView(VIEW_CONSOLE);
 
-        IPlaceholderFolderLayout right =
-                layout.createPlaceholderFolder("right", IPageLayout.RIGHT, 0.7f, editorArea); //$NON-NLS-1$
-        right.addPlaceholder(VIEW_FILE_EXPLORER);
-        right.addPlaceholder(VIEW_ANDROID_EMULATOR);
+		IPlaceholderFolderLayout right = layout.createPlaceholderFolder("right", IPageLayout.RIGHT, 0.7f, editorArea); //$NON-NLS-1$
+		right.addPlaceholder(VIEW_FILE_EXPLORER);
+		right.addPlaceholder(VIEW_ANDROID_EMULATOR);
 
-        layout.addActionSet(ACTIONSET_LAUNCH);
-        layout.addActionSet(ACTIONSET_NAVIGATE);
+		layout.addActionSet(ACTIONSET_LAUNCH);
+		layout.addActionSet(ACTIONSET_NAVIGATE);
 
-        layout.addShowViewShortcut(VIEW_MOTODEV_DATABASE);
-        layout.addShowViewShortcut(VIEW_SQL_RESULTS);
-        layout.addShowViewShortcut(VIEW_TML_DEV_MGT);
-        layout.addShowViewShortcut(VIEW_FILE_EXPLORER);
-        layout.addShowViewShortcut(VIEW_CONSOLE);
+		layout.addShowViewShortcut(VIEW_MOTODEV_DATABASE);
+		layout.addShowViewShortcut(VIEW_SQL_RESULTS);
+		layout.addShowViewShortcut(VIEW_TML_DEV_MGT);
+		layout.addShowViewShortcut(VIEW_FILE_EXPLORER);
+		layout.addShowViewShortcut(VIEW_CONSOLE);
 
-        layout.addPerspectiveShortcut(PERSPECTIVE_MOTODEV);
-    }
+		layout.addPerspectiveShortcut(PERSPECTIVE_MOTODEV);
+	}
 }

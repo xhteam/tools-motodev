@@ -18,35 +18,34 @@ package org.eclipse.andmore.android.nativeos;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
-public interface INativeUI
-{
-    public String getDefaultUseVnc();
+public interface INativeUI {
+	public String getDefaultUseVnc();
 
-    public String getDefaultCommandLine();
+	public String getDefaultCommandLine();
 
-    public long getWindowHandle(String windowName);
+	public long getWindowHandle(String windowName);
 
-    public long getWindowProperties(long windowHandle);
+	public long getWindowProperties(long windowHandle);
 
-    public void setWindowProperties(long windowHandle, long originalProperties);
+	public void setWindowProperties(long windowHandle, long originalProperties);
 
-    public long embedWindow(long windowHandle, Composite composite);
+	public long embedWindow(long windowHandle, Composite composite);
 
-    public void unembedWindow(long windowHandle, long originalParent);
+	public void unembedWindow(long windowHandle, long originalParent);
 
-    public Point getWindowSize(long originalParentHandle, long windowHandle);
+	public Point getWindowSize(long originalParentHandle, long windowHandle);
 
-    public void setWindowStyle(long windowHandle);
+	public void setWindowStyle(long windowHandle);
 
-    public void hideWindow(long windowHandle);
+	public void hideWindow(long windowHandle);
 
-    public void showWindow(long windowHandle);
+	public void showWindow(long windowHandle);
 
-    public void restoreWindow(long windowHandle);
+	public void restoreWindow(long windowHandle);
 
-    public void sendNextLayoutCommand(long originalParent, long windowHandle);
+	public void sendNextLayoutCommand(long originalParent, long windowHandle);
 
-    public boolean isWindowEnabled(long windowHandle);
+	public boolean isWindowEnabled(long windowHandle);
 
-    public void setWindowFocus(long windowHandle);
+	public void setWindowFocus(long windowHandle);
 }

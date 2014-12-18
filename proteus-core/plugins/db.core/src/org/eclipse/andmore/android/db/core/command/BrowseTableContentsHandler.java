@@ -25,54 +25,52 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 
 /**
- * This class implements the command to browse a table content using an instance of {@link TableNode} object.
+ * This class implements the command to browse a table content using an instance
+ * of {@link TableNode} object.
  */
-public class BrowseTableContentsHandler extends AbstractHandler implements IHandler
-{
+public class BrowseTableContentsHandler extends AbstractHandler implements IHandler {
 
-    private ITableNode tableNode = null;
+	private ITableNode tableNode = null;
 
-    public BrowseTableContentsHandler()
-    {
-    }
+	public BrowseTableContentsHandler() {
+	}
 
-    public BrowseTableContentsHandler(ITableNode tableNode)
-    {
-        this.tableNode = tableNode;
-    }
+	public BrowseTableContentsHandler(ITableNode tableNode) {
+		this.tableNode = tableNode;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        if (tableNode == null)
-        {
-            tableNode = getSelectedItem();
-        }
+		if (tableNode == null) {
+			tableNode = getSelectedItem();
+		}
 
-        if (tableNode != null)
-        {
-            tableNode.browseTableContents();
-            tableNode = null; //clear selected node to force getSelectedItem to be called when calling via toolbar
-        }
+		if (tableNode != null) {
+			tableNode.browseTableContents();
+			tableNode = null; // clear selected node to force getSelectedItem to
+								// be called when calling via toolbar
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    private ITableNode getSelectedItem()
-    {
-        ITableNode selectedNode = null;
-        ITreeNode selectedItem =
-                DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+	private ITableNode getSelectedItem() {
+		ITableNode selectedNode = null;
+		ITreeNode selectedItem = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
 
-        if (selectedItem instanceof ITableNode)
-        {
-            selectedNode = (ITableNode) selectedItem;
-        }
+		if (selectedItem instanceof ITableNode) {
+			selectedNode = (ITableNode) selectedItem;
+		}
 
-        return selectedNode;
-    }
+		return selectedNode;
+	}
 
 }

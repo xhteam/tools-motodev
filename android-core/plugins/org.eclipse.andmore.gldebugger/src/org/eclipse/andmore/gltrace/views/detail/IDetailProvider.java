@@ -23,16 +23,18 @@ import org.eclipse.swt.widgets.Control;
 import java.util.List;
 
 public interface IDetailProvider {
-    /** Create the controls to display the details. */
-    void createControl(Composite parent);
+	/** Create the controls to display the details. */
+	void createControl(Composite parent);
 
-    /** Dispose off any created controls. */
-    void disposeControl();
+	/** Dispose off any created controls. */
+	void disposeControl();
 
-    /** Obtain the top level control used by this detail provider. */
-    Control getControl();
+	/** Obtain the top level control used by this detail provider. */
+	Control getControl();
 
-
-    /** Obtain a list of tool bar items to be displayed when this provider is active. */
-    List<IContributionItem> getToolBarItems();
+	/**
+	 * Obtain a list of tool bar items to be displayed when this provider is
+	 * active.
+	 */
+	List<IContributionItem> getToolBarItems();
 }

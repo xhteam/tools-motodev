@@ -26,120 +26,118 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class CertificateManagerActivator extends AbstractUIPlugin
-{
+public class CertificateManagerActivator extends AbstractUIPlugin {
 
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.certmanager"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.certmanager"; //$NON-NLS-1$
 
-    public static final String UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID
-            + ".unsign_external_pkg_wiz";
+	public static final String UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID + ".unsign_external_pkg_wiz";
 
-    public static final String REMOVE_SIGNATURE_WIZ_BAN = "icons/wizban/unsign_package_wiz.png";
+	public static final String REMOVE_SIGNATURE_WIZ_BAN = "icons/wizban/unsign_package_wiz.png";
 
-    public static final String SIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID
-            + ".sign_external_pkg_wiz";
+	public static final String SIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID + ".sign_external_pkg_wiz";
 
-    public static final String SIGNATURE_WIZ_BAN = "icons/wizban/sign_package_wiz.png";
+	public static final String SIGNATURE_WIZ_BAN = "icons/wizban/sign_package_wiz.png";
 
-    /**
-     * The manifest version
-     */
-    public static final String MANIFEST_VERSION = "1.0";
+	/**
+	 * The manifest version
+	 */
+	public static final String MANIFEST_VERSION = "1.0";
 
-    /**
-     * Manifest attribute created by
-     */
-    public static final String CREATED_BY_FIELD = "Created-By";
+	/**
+	 * Manifest attribute created by
+	 */
+	public static final String CREATED_BY_FIELD = "Created-By";
 
-    /**
-     * Value of Created by attribute
-     */
-    public static final String CREATED_BY_FIELD_VALUE = "MOTODEV Studio for Android";
+	/**
+	 * Value of Created by attribute
+	 */
+	public static final String CREATED_BY_FIELD_VALUE = "MOTODEV Studio for Android";
 
-    /**
-     * Package metainf directory name
-     */
-    public static final String METAFILES_DIR = "META-INF";
+	/**
+	 * Package metainf directory name
+	 */
+	public static final String METAFILES_DIR = "META-INF";
 
-    /**
-     * The package manifest file name
-     */
-    public static final String MANIFEST_FILE_NAME = "MANIFEST.MF";
+	/**
+	 * The package manifest file name
+	 */
+	public static final String MANIFEST_FILE_NAME = "MANIFEST.MF";
 
-    /**
-     * Jar separator
-     */
-    public static final String JAR_SEPARATOR = "/";
+	/**
+	 * Jar separator
+	 */
+	public static final String JAR_SEPARATOR = "/";
 
-    /**
-     * Prefix to be used in temp files.
-     * */
-    public static final String TEMP_FILE_PREFIX = "tmppkg_";
+	/**
+	 * Prefix to be used in temp files.
+	 * */
+	public static final String TEMP_FILE_PREFIX = "tmppkg_";
 
-    /**
-     * The package extension.
-     */
-    public static final String PACKAGE_EXTENSION = "apk";
+	/**
+	 * The package extension.
+	 */
+	public static final String PACKAGE_EXTENSION = "apk";
 
-    /**
-     * The default package destination extension
-     */
-    public static final String PACKAGE_PROJECT_DESTINATION = "dist";
+	/**
+	 * The default package destination extension
+	 */
+	public static final String PACKAGE_PROJECT_DESTINATION = "dist";
 
-    // The shared instance
-    private static CertificateManagerActivator plugin;
+	// The shared instance
+	private static CertificateManagerActivator plugin;
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(CertificateManagerActivator.class,
-                "Starting MOTODEV Studio for Android Key Manager Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(CertificateManagerActivator.class,
+				"Starting MOTODEV Studio for Android Key Manager Plugin...");
 
-        super.start(context);
-        plugin = this;
+		super.start(context);
+		plugin = this;
 
-        StudioLogger.debug(CertificateManagerActivator.class,
-                "MOTODEV Studio for Android Key Manager Plugin started.");
-    }
+		StudioLogger.debug(CertificateManagerActivator.class, "MOTODEV Studio for Android Key Manager Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static CertificateManagerActivator getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static CertificateManagerActivator getDefault() {
+		return plugin;
+	}
 
-    /**
-     * The certificate manager plugin declares one view that is used to show the keystores.
-     * */
-    public static KeystoreManagerView getKeyStoremManagerView()
-    {
-        IViewPart view = EclipseUtils.getActiveView(KeystoreManagerView.ID);
+	/**
+	 * The certificate manager plugin declares one view that is used to show the
+	 * keystores.
+	 * */
+	public static KeystoreManagerView getKeyStoremManagerView() {
+		IViewPart view = EclipseUtils.getActiveView(KeystoreManagerView.ID);
 
-        if (view instanceof KeystoreManagerView)
-        {
-            return (KeystoreManagerView) view;
-        }
+		if (view instanceof KeystoreManagerView) {
+			return (KeystoreManagerView) view;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 }

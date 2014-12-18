@@ -20,57 +20,56 @@ import org.eclipse.andmore.android.common.log.StudioLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-public class TranslationPlugin extends AbstractUIPlugin
-{
+public class TranslationPlugin extends AbstractUIPlugin {
 
-    /**
-     *  The plug-in ID
-     */
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.translation";
+	/**
+	 * The plug-in ID
+	 */
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.translation";
 
-    // The shared instance
-    private static TranslationPlugin plugin;
+	// The shared instance
+	private static TranslationPlugin plugin;
 
-    public TranslationPlugin()
-    {
-        plugin = this;
-    }
+	public TranslationPlugin() {
+		plugin = this;
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static TranslationPlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static TranslationPlugin getDefault() {
+		return plugin;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(TranslationPlugin.class,
-                "Starting MOTODEV Studio for Android Translation Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(TranslationPlugin.class, "Starting MOTODEV Studio for Android Translation Plugin...");
 
-        super.start(context);
+		super.start(context);
 
-        StudioLogger.debug(TranslationPlugin.class,
-                "MOTODEV Studio for Android Translation Plugin started.");
-    }
+		StudioLogger.debug(TranslationPlugin.class, "MOTODEV Studio for Android Translation Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
 
 }

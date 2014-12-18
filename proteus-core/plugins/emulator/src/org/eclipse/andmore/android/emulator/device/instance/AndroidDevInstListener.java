@@ -27,103 +27,79 @@ import org.eclipse.sequoyah.device.framework.events.InstanceEvent;
 import org.eclipse.sequoyah.device.framework.model.IInstance;
 
 /**
- * DESCRIPTION:
- * Implementation of IInstanceListener for device related actions that depend
- * on the TmL instance registry state. 
- * <br>
- * RESPONSIBILITY:
- * Guarantee that the emulator views are updated
- * Run the initialization service when an instance is loaded
- * <br>
- * COLABORATORS:
- * None.
- * <br>
- * USAGE:
- * This class shall be used by Eclipse only.
+ * DESCRIPTION: Implementation of IInstanceListener for device related actions
+ * that depend on the TmL instance registry state. <br>
+ * RESPONSIBILITY: Guarantee that the emulator views are updated Run the
+ * initialization service when an instance is loaded <br>
+ * COLABORATORS: None. <br>
+ * USAGE: This class shall be used by Eclipse only.
  */
-public class AndroidDevInstListener extends InstanceAdapter
-{
+public class AndroidDevInstListener extends InstanceAdapter {
 
-    /**
-     * @see IInstanceListener#instanceLoaded(InstanceEvent)
-     */
-    @Override
-    public void instanceLoaded(InstanceEvent e)
-    {
-        IInstance instance = e.getInstance();
+	/**
+	 * @see IInstanceListener#instanceLoaded(InstanceEvent)
+	 */
+	@Override
+	public void instanceLoaded(InstanceEvent e) {
+		IInstance instance = e.getInstance();
 
-        if (instance instanceof IAndroidEmulatorInstance)
-        {
-            // The service definition defined (by convention) that 
-            // stopped-dirty is the success state, and not available 
-            // is the failure state. The exception is being thrown for
-            // the framework to set the state correctly. 
-            if (instance.getStatus().equals(DevicePlugin.SEQUOYAH_STATUS_OFF))
-            {
-                instance.setStatus(EmulatorPlugin.STATUS_NOT_AVAILABLE);
-            }
-        }
-    }
+		if (instance instanceof IAndroidEmulatorInstance) {
+			// The service definition defined (by convention) that
+			// stopped-dirty is the success state, and not available
+			// is the failure state. The exception is being thrown for
+			// the framework to set the state correctly.
+			if (instance.getStatus().equals(DevicePlugin.SEQUOYAH_STATUS_OFF)) {
+				instance.setStatus(EmulatorPlugin.STATUS_NOT_AVAILABLE);
+			}
+		}
+	}
 
-    /**
-     * @see IInstanceListener#instanceDeleted(InstanceEvent)
-     */
-    @Override
-    public void instanceDeleted(InstanceEvent ev)
-    {
-        IInstance instance = ev.getInstance();
-        if (instance instanceof AndroidDeviceInstance)
-        {
-            SdkUtils.deleteVm(instance.getName());
-        }
-    }
+	/**
+	 * @see IInstanceListener#instanceDeleted(InstanceEvent)
+	 */
+	@Override
+	public void instanceDeleted(InstanceEvent ev) {
+		IInstance instance = ev.getInstance();
+		if (instance instanceof AndroidDeviceInstance) {
+			SdkUtils.deleteVm(instance.getName());
+		}
+	}
 
-    /**
-     * @see IInstanceListener#instanceTransitioned(InstanceEvent)
-     */
-    @Override
-    public void instanceTransitioned(InstanceEvent e)
-    {
-        IInstance instance = e.getInstance();
+	/**
+	 * @see IInstanceListener#instanceTransitioned(InstanceEvent)
+	 */
+	@Override
+	public void instanceTransitioned(InstanceEvent e) {
+		IInstance instance = e.getInstance();
 
-        if (instance instanceof AndroidDeviceInstance)
-        {
-            final AndroidDeviceInstance androidDevice = (AndroidDeviceInstance) instance;
-            StudioLogger.info("The android device instance status was updated: " + instance
-                    + " Status: " + instance.getStatus());
+		if (instance instanceof AndroidDeviceInstance) {
+			final AndroidDeviceInstance androidDevice = (AndroidDeviceInstance) instance;
+			StudioLogger.info("The android device instance status was updated: " + instance + " Status: "
+					+ instance.getStatus());
 
-            if (androidDevice.isStarted())
-            {
-                String transitionId = e.getTransitionId();
-                if ((transitionId != null)
-                        && transitionId.equals("org.eclipse.andmore.android.emulator.startService"))
-                {
-                    // If it is coming from other state than the started, 
-                    // connect to VNC server
-                    StudioLogger
-                            .info("The emulator "
-                                    + instance
-                                    + " transitioned to started state. Try to estabilish a VNC connection...");
+			if (androidDevice.isStarted()) {
+				String transitionId = e.getTransitionId();
+				if ((transitionId != null) && transitionId.equals("org.eclipse.andmore.android.emulator.startService")) {
+					// If it is coming from other state than the started,
+					// connect to VNC server
+					StudioLogger.info("The emulator " + instance
+							+ " transitioned to started state. Try to estabilish a VNC connection...");
 
-                    new Thread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            AbstractAndroidView.showView();
-                            EmulatorCoreUtils.refreshEmulatorViews();
-                        }
-                    }).start();
-                }
-            }
-            else if (instance.getStatus().equals(EmulatorPlugin.STATUS_OFFLINE))
-            {
-                androidDevice.resetRuntimeVariables();
-                EmulatorCoreUtils.refreshEmulatorViews();
-            }
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							AbstractAndroidView.showView();
+							EmulatorCoreUtils.refreshEmulatorViews();
+						}
+					}).start();
+				}
+			} else if (instance.getStatus().equals(EmulatorPlugin.STATUS_OFFLINE)) {
+				androidDevice.resetRuntimeVariables();
+				EmulatorCoreUtils.refreshEmulatorViews();
+			}
 
-        }
+		}
 
-    }
+	}
 
 }

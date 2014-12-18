@@ -27,36 +27,32 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.StandardJavaElementContentProvider;
 
 /**
- * Class that implements a Content Provider for the project selection
- * on the New Project Wizard
+ * Class that implements a Content Provider for the project selection on the New
+ * Project Wizard
  */
-class ElementTreeContentProvider extends StandardJavaElementContentProvider
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jdt.ui.StandardJavaElementContentProvider#getJavaProjects(org.eclipse.jdt.core.IJavaModel)
-     */
-    @Override
-    protected Object[] getJavaProjects(IJavaModel jm) throws JavaModelException
-    {
-        Object[] javaProjects = super.getJavaProjects(jm);
-        List<Object> androidProjects = new ArrayList<Object>();
-        for (Object obj : javaProjects)
-        {
-            try
-            {
-                if ((obj instanceof IJavaProject)
-                        && ((IJavaProject) obj).getProject().hasNature(
-                                IAndroidConstants.ANDROID_NATURE))
-                {
-                    androidProjects.add(obj);
-                }
-            }
-            catch (CoreException ce)
-            {
-                StudioLogger.error(ElementTreeContentProvider.class, ce.getLocalizedMessage(), ce);
-            }
+class ElementTreeContentProvider extends StandardJavaElementContentProvider {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jdt.ui.StandardJavaElementContentProvider#getJavaProjects
+	 * (org.eclipse.jdt.core.IJavaModel)
+	 */
+	@Override
+	protected Object[] getJavaProjects(IJavaModel jm) throws JavaModelException {
+		Object[] javaProjects = super.getJavaProjects(jm);
+		List<Object> androidProjects = new ArrayList<Object>();
+		for (Object obj : javaProjects) {
+			try {
+				if ((obj instanceof IJavaProject)
+						&& ((IJavaProject) obj).getProject().hasNature(IAndroidConstants.ANDROID_NATURE)) {
+					androidProjects.add(obj);
+				}
+			} catch (CoreException ce) {
+				StudioLogger.error(ElementTreeContentProvider.class, ce.getLocalizedMessage(), ce);
+			}
 
-        }
-        return androidProjects.toArray();
-    }
+		}
+		return androidProjects.toArray();
+	}
 }

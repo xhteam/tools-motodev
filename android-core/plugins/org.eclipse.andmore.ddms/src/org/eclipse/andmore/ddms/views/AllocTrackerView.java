@@ -22,26 +22,26 @@ import org.eclipse.swt.widgets.Composite;
 
 public class AllocTrackerView extends TableView {
 
-    public static final String ID = "org.eclipse.andmore.ddms.views.AllocTrackerView"; //$NON-NLS-1$
-    private AllocationPanel mPanel;
+	public static final String ID = "org.eclipse.andmore.ddms.views.AllocTrackerView"; //$NON-NLS-1$
+	private AllocationPanel mPanel;
 
-    public AllocTrackerView() {
-    }
+	public AllocTrackerView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new AllocationPanel();
-        mPanel.createPanel(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new AllocationPanel();
+		mPanel.createPanel(parent);
 
-        setSelectionDependentPanel(mPanel);
+		setSelectionDependentPanel(mPanel);
 
-        // listen to focus changes for table(s) of the panel.
-        setupTableFocusListener(mPanel, parent);
-    }
+		// listen to focus changes for table(s) of the panel.
+		setupTableFocusListener(mPanel, parent);
+	}
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 
 }

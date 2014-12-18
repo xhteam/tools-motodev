@@ -570,7 +570,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
 
                     return Status.OK_STATUS;
                 } catch (Exception e) {
-                    return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, Status.ERROR,
+                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
                             "Failed", e); //$NON-NLS-1$
                 } finally {
                     if (monitor != null) {

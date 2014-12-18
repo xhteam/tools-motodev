@@ -21,47 +21,39 @@ import org.eclipse.andmore.gltrace.state.GLStateType;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 public class CurrentProgramPropertyAccessor implements IGLPropertyAccessor {
-    private final int mContextId;
-    private final GLStateType mStateCategory;
-    private final int mLocation;
-    private final GLStateType mStateType;
-    private final IGLPropertyAccessor mCurrentProgramAccessor;
+	private final int mContextId;
+	private final GLStateType mStateCategory;
+	private final int mLocation;
+	private final GLStateType mStateType;
+	private final IGLPropertyAccessor mCurrentProgramAccessor;
 
-    public CurrentProgramPropertyAccessor(int contextid, GLStateType stateCategory,
-            int location, GLStateType stateType) {
-        mContextId = contextid;
-        mStateCategory = stateCategory;
-        mLocation = location;
-        mStateType = stateType;
+	public CurrentProgramPropertyAccessor(int contextid, GLStateType stateCategory, int location, GLStateType stateType) {
+		mContextId = contextid;
+		mStateCategory = stateCategory;
+		mLocation = location;
+		mStateType = stateType;
 
-        mCurrentProgramAccessor = GLPropertyAccessor.makeAccessor(contextid,
-                GLStateType.PROGRAM_STATE,
-                GLStateType.CURRENT_PROGRAM);
-    }
+		mCurrentProgramAccessor = GLPropertyAccessor.makeAccessor(contextid, GLStateType.PROGRAM_STATE,
+				GLStateType.CURRENT_PROGRAM);
+	}
 
-    @Override
-    public IGLProperty getProperty(IGLProperty state) {
-        // obtain the current program
-        IGLProperty currentProgramProperty = mCurrentProgramAccessor.getProperty(state);
-        if (!(currentProgramProperty instanceof GLIntegerProperty)) {
-            return null;
-        }
+	@Override
+	public IGLProperty getProperty(IGLProperty state) {
+		// obtain the current program
+		IGLProperty currentProgramProperty = mCurrentProgramAccessor.getProperty(state);
+		if (!(currentProgramProperty instanceof GLIntegerProperty)) {
+			return null;
+		}
 
-        Integer program = (Integer) currentProgramProperty.getValue();
+		Integer program = (Integer) currentProgramProperty.getValue();
 
-        // now access the required program property
-        return GLPropertyAccessor.makeAccessor(mContextId,
-                                               GLStateType.PROGRAM_STATE,
-                                               GLStateType.PROGRAMS,
-                                               program,
-                                               mStateCategory,
-                                               Integer.valueOf(mLocation),
-                                               mStateType).getProperty(state);
-    }
+		// now access the required program property
+		return GLPropertyAccessor.makeAccessor(mContextId, GLStateType.PROGRAM_STATE, GLStateType.PROGRAMS, program,
+				mStateCategory, Integer.valueOf(mLocation), mStateType).getProperty(state);
+	}
 
-    @Override
-    public String getPath() {
-        return String.format("PROGRAM_STATE/PROGRAMS/${program}/%s/%d/%s",
-                mStateCategory, mLocation, mStateType);
-    }
+	@Override
+	public String getPath() {
+		return String.format("PROGRAM_STATE/PROGRAMS/${program}/%s/%d/%s", mStateCategory, mLocation, mStateType);
+	}
 }

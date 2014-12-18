@@ -17,6 +17,7 @@
 package org.eclipse.andmore.internal.editors.export;
 
 import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.internal.editors.AndroidTextEditor;
 import org.eclipse.andmore.internal.editors.ui.SectionHelper.ManifestSectionPart;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.swt.SWT;
@@ -25,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -38,7 +40,7 @@ final class ExportLinksPart extends ManifestSectionPart {
     private FormText mFormText;
 
     public ExportLinksPart(Composite body, FormToolkit toolkit, ExportEditor editor) {
-        super(body, toolkit, Section.TWISTIE | Section.EXPANDED, true /* description */);
+        super(body, toolkit, ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED, true /* description */);
         Section section = getSection();
         section.setText("Links");
         section.setDescription("TODO SOME TEXT HERE. You can also edit the XML directly.");
@@ -55,7 +57,7 @@ final class ExportLinksPart extends ManifestSectionPart {
         buf.append("</li>"); //$NON-NLS-1$
 
         buf.append(String.format("<li style=\"image\" value=\"android_img\"><a href=\"page:%1$s\">", //$NON-NLS-1$
-                ExportEditor.TEXT_EDITOR_ID));
+                AndroidTextEditor.TEXT_EDITOR_ID));
         buf.append("XML Source");
         buf.append("</a>"); //$NON-NLS-1$
         buf.append(": Directly edit the AndroidManifest.xml file.");

@@ -31,70 +31,68 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SystraceVersionDetector implements IRunnableWithProgress {
-    public static final int SYSTRACE_V1 = 1;
-    public static final int SYSTRACE_V2 = 2;
+	public static final int SYSTRACE_V1 = 1;
+	public static final int SYSTRACE_V2 = 2;
 
-    private final IDevice mDevice;
-    private List<SystraceTag> mTags;
+	private final IDevice mDevice;
+	private List<SystraceTag> mTags;
 
-    public SystraceVersionDetector(IDevice device) {
-        mDevice = device;
-    }
+	public SystraceVersionDetector(IDevice device) {
+		mDevice = device;
+	}
 
-    @Override
-    public void run(IProgressMonitor monitor) throws InvocationTargetException,
-            InterruptedException {
-        monitor.beginTask("Checking systrace version on device..",
-                IProgressMonitor.UNKNOWN);
+	@Override
+	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+		monitor.beginTask("Checking systrace version on device..", IProgressMonitor.UNKNOWN);
 
-        CountDownLatch setTagLatch = new CountDownLatch(1);
-        CollectingOutputReceiver receiver = new CollectingOutputReceiver(setTagLatch);
-        try {
-            String cmd = "atrace --list_categories";
-            mDevice.executeShellCommand(cmd, receiver);
-            setTagLatch.await(5, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            throw new InvocationTargetException(e);
-        }
+		CountDownLatch setTagLatch = new CountDownLatch(1);
+		CollectingOutputReceiver receiver = new CollectingOutputReceiver(setTagLatch);
+		try {
+			String cmd = "atrace --list_categories";
+			mDevice.executeShellCommand(cmd, receiver);
+			setTagLatch.await(5, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			throw new InvocationTargetException(e);
+		}
 
-        String shellOutput = receiver.getOutput();
-        mTags = parseSupportedTags(shellOutput);
+		String shellOutput = receiver.getOutput();
+		mTags = parseSupportedTags(shellOutput);
 
-        monitor.done();
-    }
+		monitor.done();
+	}
 
-    public int getVersion() {
-        if (mTags == null) {
-            return SYSTRACE_V1;
-        } else {
-            return SYSTRACE_V2;
-        }
-    }
+	public int getVersion() {
+		if (mTags == null) {
+			return SYSTRACE_V1;
+		} else {
+			return SYSTRACE_V2;
+		}
+	}
 
-    public List<SystraceTag> getTags() {
-        return mTags;
-    }
+	public List<SystraceTag> getTags() {
+		return mTags;
+	}
 
-    private List<SystraceTag> parseSupportedTags(String listCategoriesOutput) {
-        if (listCategoriesOutput == null) {
-            return null;
-        }
+	private List<SystraceTag> parseSupportedTags(String listCategoriesOutput) {
+		if (listCategoriesOutput == null) {
+			return null;
+		}
 
-        if (listCategoriesOutput.contains("unknown option")) {
-            return null;
-        }
+		if (listCategoriesOutput.contains("unknown option")) {
+			return null;
+		}
 
-        String[] categories = listCategoriesOutput.split("\n");
-        List<SystraceTag> tags = new ArrayList<SystraceTag>(categories.length);
+		String[] categories = listCategoriesOutput.split("\n");
+		List<SystraceTag> tags = new ArrayList<SystraceTag>(categories.length);
 
-        Pattern p = Pattern.compile("([^-]+) - (.*)"); //$NON-NLS-1$
-        for (String category : categories) {
-            Matcher m = p.matcher(category);
-            if (m.find()) {
-                tags.add(new SystraceTag(m.group(1).trim(), m.group(2).trim()));
-            }
-        }
+		Pattern p = Pattern.compile("([^-]+) - (.*)"); //$NON-NLS-1$
+		for (String category : categories) {
+			Matcher m = p.matcher(category);
+			if (m.find()) {
+				tags.add(new SystraceTag(m.group(1).trim(), m.group(2).trim()));
+			}
+		}
 
-        return tags;
-    }
+		return tags;
+	}
 }

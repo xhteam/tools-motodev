@@ -40,183 +40,166 @@ import org.eclipse.text.edits.TextEdit;
 /**
  * Class used to create an Android Activity building block class
  */
-public class ActivityClass extends JavaClass
-{
-    public static final String ACTIVITY_SUPERCLASS = "android.app.Activity";
+public class ActivityClass extends JavaClass {
+	public static final String ACTIVITY_SUPERCLASS = "android.app.Activity";
 
-    private static final String[] BUNDLE_CLASS = getFQNAsArray("android.os.Bundle");
+	private static final String[] BUNDLE_CLASS = getFQNAsArray("android.os.Bundle");
 
-    protected static final String ONCREATE_METHOD_NAME = "onCreate";
+	protected static final String ONCREATE_METHOD_NAME = "onCreate";
 
-    protected static final String ONSTART_METHOD_NAME = "onStart";
+	protected static final String ONSTART_METHOD_NAME = "onStart";
 
-    private ASTRewrite rewrite = null;
+	private ASTRewrite rewrite = null;
 
-    /**
-     * The constructor
-     * 
-     * @param className The simple class name
-     * @param packageName The full-qualified class package name
-     * @param addOnStart If true, adds the OnStart method to the activity class
-     */
-    public ActivityClass(String className, String packageName, boolean addOnStart)
-    {
-        super(className, packageName, ACTIVITY_SUPERCLASS);
-        addBasicActivityInfo();
+	/**
+	 * The constructor
+	 * 
+	 * @param className
+	 *            The simple class name
+	 * @param packageName
+	 *            The full-qualified class package name
+	 * @param addOnStart
+	 *            If true, adds the OnStart method to the activity class
+	 */
+	public ActivityClass(String className, String packageName, boolean addOnStart) {
+		super(className, packageName, ACTIVITY_SUPERCLASS);
+		addBasicActivityInfo();
 
-        if (addOnStart)
-        {
-            addOnStartMethod();
-        }
-    }
+		if (addOnStart) {
+			addOnStartMethod();
+		}
+	}
 
-    /**
-     * Adds basic information to the activity class
-     */
-    private void addBasicActivityInfo()
-    {
-        addOnCreateMethod();
+	/**
+	 * Adds basic information to the activity class
+	 */
+	private void addBasicActivityInfo() {
+		addOnCreateMethod();
 
-        // Adds JavaDoc to elements
-        addComment(classDecl, CodeUtilsNLS.MODEL_ActivityClass_ActivityDescription);
-    }
+		// Adds JavaDoc to elements
+		addComment(classDecl, CodeUtilsNLS.MODEL_ActivityClass_ActivityDescription);
+	}
 
-    /**
-     * Adds the onCreate method to the activity class
-     */
-    @SuppressWarnings("unchecked")
-    private void addOnCreateMethod()
-    {
-        // Adds import for Bundle
-        ImportDeclaration intentImport = ast.newImportDeclaration();
-        intentImport.setName(ast.newName(BUNDLE_CLASS));
-        compUnit.imports().add(intentImport);
+	/**
+	 * Adds the onCreate method to the activity class
+	 */
+	@SuppressWarnings("unchecked")
+	private void addOnCreateMethod() {
+		// Adds import for Bundle
+		ImportDeclaration intentImport = ast.newImportDeclaration();
+		intentImport.setName(ast.newName(BUNDLE_CLASS));
+		compUnit.imports().add(intentImport);
 
-        MethodDeclaration onCreateMethod = ast.newMethodDeclaration();
-        onCreateMethod.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
-        onCreateMethod.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-        onCreateMethod.setName(ast.newSimpleName(ONCREATE_METHOD_NAME));
-        addMethodParameter(onCreateMethod, "savedInstanceState",
-                ast.newSimpleType(ast.newSimpleName(getName(BUNDLE_CLASS))));
-        addEmptyBlock(onCreateMethod);
-        addSuperInvocation(onCreateMethod);
-        classDecl.bodyDeclarations().add(onCreateMethod);
+		MethodDeclaration onCreateMethod = ast.newMethodDeclaration();
+		onCreateMethod.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
+		onCreateMethod.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
+		onCreateMethod.setName(ast.newSimpleName(ONCREATE_METHOD_NAME));
+		addMethodParameter(onCreateMethod, "savedInstanceState",
+				ast.newSimpleType(ast.newSimpleName(getName(BUNDLE_CLASS))));
+		addEmptyBlock(onCreateMethod);
+		addSuperInvocation(onCreateMethod);
+		classDecl.bodyDeclarations().add(onCreateMethod);
 
-        // Adds JavaDoc to the method
-        addComment(onCreateMethod, CodeUtilsNLS.MODEL_ActivityClass_OnCreateMethodDescription);
-        addMethodReference(onCreateMethod, ACTIVITY_SUPERCLASS, ONCREATE_METHOD_NAME, new Type[]
-        {
-            ast.newSimpleType(ast.newSimpleName(getName(BUNDLE_CLASS)))
-        });
-    }
+		// Adds JavaDoc to the method
+		addComment(onCreateMethod, CodeUtilsNLS.MODEL_ActivityClass_OnCreateMethodDescription);
+		addMethodReference(onCreateMethod, ACTIVITY_SUPERCLASS, ONCREATE_METHOD_NAME,
+				new Type[] { ast.newSimpleType(ast.newSimpleName(getName(BUNDLE_CLASS))) });
+	}
 
-    /**
-     * Adds the onStart method to the activity class
-     */
-    @SuppressWarnings("unchecked")
-    private void addOnStartMethod()
-    {
-        MethodDeclaration onStartMethod = ast.newMethodDeclaration();
-        onStartMethod.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
-        onStartMethod.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-        onStartMethod.setName(ast.newSimpleName(ONSTART_METHOD_NAME));
-        addEmptyBlock(onStartMethod);
-        addSuperInvocation(onStartMethod);
-        classDecl.bodyDeclarations().add(onStartMethod);
+	/**
+	 * Adds the onStart method to the activity class
+	 */
+	@SuppressWarnings("unchecked")
+	private void addOnStartMethod() {
+		MethodDeclaration onStartMethod = ast.newMethodDeclaration();
+		onStartMethod.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
+		onStartMethod.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
+		onStartMethod.setName(ast.newSimpleName(ONSTART_METHOD_NAME));
+		addEmptyBlock(onStartMethod);
+		addSuperInvocation(onStartMethod);
+		classDecl.bodyDeclarations().add(onStartMethod);
 
-        // Adds JavaDoc to the method
-        addComment(onStartMethod, CodeUtilsNLS.MODEL_ActivityClass_OnStartMethodDescription);
-        addMethodReference(onStartMethod, ACTIVITY_SUPERCLASS, ONSTART_METHOD_NAME, null);
-    }
+		// Adds JavaDoc to the method
+		addComment(onStartMethod, CodeUtilsNLS.MODEL_ActivityClass_OnStartMethodDescription);
+		addMethodReference(onStartMethod, ACTIVITY_SUPERCLASS, ONSTART_METHOD_NAME, null);
+	}
 
-    /**
-     * Adds a "super.method(arguments...)" statement inside the given method body
-     * 
-     * @param method The method declaration
-     */
-    @SuppressWarnings("unchecked")
-    private void addSuperInvocation(MethodDeclaration method)
-    {
-        SuperMethodInvocation superInv = ast.newSuperMethodInvocation();
-        superInv.setName(ast.newSimpleName(method.getName().toString()));
-        for (Object param : method.parameters())
-        {
-            if (param instanceof SingleVariableDeclaration)
-            {
-                SingleVariableDeclaration vd = (SingleVariableDeclaration) param;
-                String varName = vd.getName().toString();
-                superInv.arguments().add(ast.newSimpleName(varName));
-            }
-        }
-        method.getBody().statements().add(ast.newExpressionStatement(superInv));
-    }
+	/**
+	 * Adds a "super.method(arguments...)" statement inside the given method
+	 * body
+	 * 
+	 * @param method
+	 *            The method declaration
+	 */
+	@SuppressWarnings("unchecked")
+	private void addSuperInvocation(MethodDeclaration method) {
+		SuperMethodInvocation superInv = ast.newSuperMethodInvocation();
+		superInv.setName(ast.newSimpleName(method.getName().toString()));
+		for (Object param : method.parameters()) {
+			if (param instanceof SingleVariableDeclaration) {
+				SingleVariableDeclaration vd = (SingleVariableDeclaration) param;
+				String varName = vd.getName().toString();
+				superInv.arguments().add(ast.newSimpleName(varName));
+			}
+		}
+		method.getBody().statements().add(ast.newExpressionStatement(superInv));
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.java.JavaClass#addComments()
-     */
-    @Override
-    protected void addComments() throws AndroidException
-    {
-        ASTNode todoComment;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.java.JavaClass#addComments()
+	 */
+	@Override
+	protected void addComments() throws AndroidException {
+		ASTNode todoComment;
 
-        ASTParser parser = ASTParser.newParser(AST.JLS3);
-        parser.setSource(document.get().toCharArray());
+		ASTParser parser = ASTParser.newParser(AST.JLS3);
+		parser.setSource(document.get().toCharArray());
 
-        compUnit = (CompilationUnit) parser.createAST(null);
-        ast = compUnit.getAST();
-        rewrite = ASTRewrite.create(ast);
+		compUnit = (CompilationUnit) parser.createAST(null);
+		ast = compUnit.getAST();
+		rewrite = ASTRewrite.create(ast);
 
-        todoComment =
-                rewrite.createStringPlaceholder(CodeUtilsNLS.MODEL_Common_ToDoPutYourCodeHere,
-                        ASTNode.EMPTY_STATEMENT);
+		todoComment = rewrite.createStringPlaceholder(CodeUtilsNLS.MODEL_Common_ToDoPutYourCodeHere,
+				ASTNode.EMPTY_STATEMENT);
 
-        TypeDeclaration activityClass = (TypeDeclaration) compUnit.types().get(0);
-        MethodDeclaration method;
-        Block block;
+		TypeDeclaration activityClass = (TypeDeclaration) compUnit.types().get(0);
+		MethodDeclaration method;
+		Block block;
 
-        // Adds the Override annotation and ToDo comment to all overridden methods
-        for (int i = 0; i < activityClass.bodyDeclarations().size(); i++)
-        {
-            method = (MethodDeclaration) activityClass.bodyDeclarations().get(i);
+		// Adds the Override annotation and ToDo comment to all overridden
+		// methods
+		for (int i = 0; i < activityClass.bodyDeclarations().size(); i++) {
+			method = (MethodDeclaration) activityClass.bodyDeclarations().get(i);
 
-            // Adds the Override annotation
-            rewrite.getListRewrite(method, method.getModifiersProperty()).insertFirst(
-                    OVERRIDE_ANNOTATION, null);
+			// Adds the Override annotation
+			rewrite.getListRewrite(method, method.getModifiersProperty()).insertFirst(OVERRIDE_ANNOTATION, null);
 
-            // Adds the ToDo comment
-            block = method.getBody();
-            rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY).insertLast(todoComment, null);
-        }
+			// Adds the ToDo comment
+			block = method.getBody();
+			rewrite.getListRewrite(block, Block.STATEMENTS_PROPERTY).insertLast(todoComment, null);
+		}
 
-        try
-        {
-            // Writes the modifications
-            TextEdit modifications = rewrite.rewriteAST(document, null);
-            modifications.apply(document);
-        }
-        catch (IllegalArgumentException e)
-        {
-            String errMsg =
-                    NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
+		try {
+			// Writes the modifications
+			TextEdit modifications = rewrite.rewriteAST(document, null);
+			modifications.apply(document);
+		} catch (IllegalArgumentException e) {
+			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-            StudioLogger.error(ActivityClass.class, errMsg, e);
-            throw new AndroidException(errMsg);
-        }
-        catch (MalformedTreeException e)
-        {
-            String errMsg =
-                    NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
+			StudioLogger.error(ActivityClass.class, errMsg, e);
+			throw new AndroidException(errMsg);
+		} catch (MalformedTreeException e) {
+			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-            StudioLogger.error(ActivityClass.class, errMsg, e);
-            throw new AndroidException(errMsg);
-        }
-        catch (BadLocationException e)
-        {
-            String errMsg =
-                    NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
+			StudioLogger.error(ActivityClass.class, errMsg, e);
+			throw new AndroidException(errMsg);
+		} catch (BadLocationException e) {
+			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-            StudioLogger.error(ActivityClass.class, errMsg, e);
-            throw new AndroidException(errMsg);
-        }
-    }
+			StudioLogger.error(ActivityClass.class, errMsg, e);
+			throw new AndroidException(errMsg);
+		}
+	}
 }

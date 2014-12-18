@@ -39,102 +39,95 @@ import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 /**
  * Service handler responsible for disconnecting from a remote device.
  */
-public class DisconnectFromRemoteHandler extends ServiceHandler
-{
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new DisconnectFromRemoteHandler();
-    }
+public class DisconnectFromRemoteHandler extends ServiceHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new DisconnectFromRemoteHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        StudioLogger
-                .debug("TmL Disconnect from Remote Device Service: start disconnecting from remote device: "
-                        + instance);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		StudioLogger.debug("TmL Disconnect from Remote Device Service: start disconnecting from remote device: "
+				+ instance);
 
-        if (arguments != null)
-        {
-            if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue())
-            {
-                StudioLogger.debug("TmL Disconnect from Remote Device Service: dummy transition");
-                setSuffix(instance);
-                return Status.OK_STATUS;
-            }
-        }
+		if (arguments != null) {
+			if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue()) {
+				StudioLogger.debug("TmL Disconnect from Remote Device Service: dummy transition");
+				setSuffix(instance);
+				return Status.OK_STATUS;
+			}
+		}
 
-        IStatus status = Status.OK_STATUS;
+		IStatus status = Status.OK_STATUS;
 
-        /*
-         * Call ADB disconnect
-         */
-        Properties prop = instance.getProperties();
-        String host = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
-        String port = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
-        String timeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
+		/*
+		 * Call ADB disconnect
+		 */
+		Properties prop = instance.getProperties();
+		String host = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
+		String port = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
+		String timeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
 
-        try
-        {
-            status =
-                    DDMSFacade.disconnectTcpIp((ISerialNumbered) instance, host, port,
-                            Integer.parseInt(timeout), monitor);
-        }
-        catch (IOException e)
-        {
-            return new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID,
-                    RemoteDeviceNLS.ERR_DisconnectToRemote_AdbStart);
-        }
+		try {
+			status = DDMSFacade.disconnectTcpIp((ISerialNumbered) instance, host, port, Integer.parseInt(timeout),
+					monitor);
+		} catch (IOException e) {
+			return new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID,
+					RemoteDeviceNLS.ERR_DisconnectToRemote_AdbStart);
+		}
 
-        /* ------------------------------------------------------------ */
+		/* ------------------------------------------------------------ */
 
-        if (status.getSeverity() == IStatus.OK)
-        {
-            setSuffix(instance);
-        }
+		if (status.getSeverity() == IStatus.OK) {
+			setSuffix(instance);
+		}
 
-        StudioLogger
-                .debug("TmL Disconnect from Remote Device Service: finish disconnecting from remote device. status: "
-                        + status.getSeverity());
+		StudioLogger
+				.debug("TmL Disconnect from Remote Device Service: finish disconnecting from remote device. status: "
+						+ status.getSeverity());
 
-        return status;
-    }
+		return status;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * Set the suffix to null - i.e. no suffix
-     * 
-     * @param instance the instance from which the suffix will be removed
-     */
-    private void setSuffix(IInstance instance)
-    {
-        if (instance != null)
-        {
-            StudioLogger
-                    .debug("TmL Disconnect from Remote Device Service: removing suffix from instance "
-                            + instance.getName());
-            instance.setNameSuffix(null);
-            InstanceEventManager.getInstance().notifyListeners(
-                    new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
-        }
-    }
+	/*
+	 * Set the suffix to null - i.e. no suffix
+	 * 
+	 * @param instance the instance from which the suffix will be removed
+	 */
+	private void setSuffix(IInstance instance) {
+		if (instance != null) {
+			StudioLogger.debug("TmL Disconnect from Remote Device Service: removing suffix from instance "
+					+ instance.getName());
+			instance.setNameSuffix(null);
+			InstanceEventManager.getInstance().notifyListeners(
+					new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
+		}
+	}
 
 }

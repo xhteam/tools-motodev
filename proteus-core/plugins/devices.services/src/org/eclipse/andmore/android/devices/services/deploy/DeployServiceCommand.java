@@ -27,27 +27,21 @@ import org.eclipse.sequoyah.device.common.utilities.exception.SequoyahException;
 import org.eclipse.sequoyah.device.framework.manager.ServiceManager;
 import org.eclipse.sequoyah.device.framework.model.IInstance;
 
-public class DeployServiceCommand extends AbstractHandler
-{
+public class DeployServiceCommand extends AbstractHandler {
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IAndroidEmulatorInstance emulatorInstance = AbstractAndroidView.getActiveInstance();
-        if (emulatorInstance instanceof IInstance)
-        {
-            try
-            {
-                IInstance instance = (IInstance) emulatorInstance;
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IAndroidEmulatorInstance emulatorInstance = AbstractAndroidView.getActiveInstance();
+		if (emulatorInstance instanceof IInstance) {
+			try {
+				IInstance instance = (IInstance) emulatorInstance;
 
-                ServiceManager.runServices(Arrays.asList(instance),
-                        DeviceServicesPlugin.DEPLOY_SERVICE_ID);
-            }
-            catch (SequoyahException e)
-            {
-                //do nothing
-            }
-        }
-        return null;
-    }
+				ServiceManager.runServices(Arrays.asList(instance), DeviceServicesPlugin.DEPLOY_SERVICE_ID);
+			} catch (SequoyahException e) {
+				// do nothing
+			}
+		}
+		return null;
+	}
 
 }

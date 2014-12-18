@@ -57,6 +57,7 @@ import com.android.ide.common.api.IViewMetadata.FillPreference;
 
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
+import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.common.layout.GravityHelper;
 import org.eclipse.andmore.common.layout.GridLayoutRule;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
@@ -898,11 +899,11 @@ class GridLayoutConverter {
                                 String value = attr.getValue();
                                 if (value.startsWith(ID_PREFIX)
                                         || value.startsWith(NEW_ID_PREFIX)) {
-                                    String targetName = BaseLayoutRule.stripIdPrefix(value);
+                                    String targetName = BaseViewRule.stripIdPrefix(value);
                                     Element target = null;
                                     for (Element c : children) {
                                         String id = VisualRefactoring.getId(c);
-                                        if (targetName.equals(BaseLayoutRule.stripIdPrefix(id))) {
+                                        if (targetName.equals(BaseViewRule.stripIdPrefix(id))) {
                                             target = c;
                                             break;
                                         }

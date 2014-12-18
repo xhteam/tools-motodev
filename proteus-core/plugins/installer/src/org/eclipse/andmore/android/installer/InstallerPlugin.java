@@ -29,95 +29,86 @@ import org.eclipse.equinox.p2.ui.Policy;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-public class InstallerPlugin extends AbstractUIPlugin
-{
+public class InstallerPlugin extends AbstractUIPlugin {
 
-    private static InstallerPlugin plugin;
+	private static InstallerPlugin plugin;
 
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.installer"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.installer"; //$NON-NLS-1$
 
-    private static final String CONTRIBUTED_PAGE_EXTENSION_POINT_ID = PLUGIN_ID + ".configuration"; //$NON-NLS-1$
+	private static final String CONTRIBUTED_PAGE_EXTENSION_POINT_ID = PLUGIN_ID + ".configuration"; //$NON-NLS-1$
 
-    private static final String CONTRIBUTED_PAGE_EXTENSION_ELEMENT = "page"; //$NON-NLS-1$
+	private static final String CONTRIBUTED_PAGE_EXTENSION_ELEMENT = "page"; //$NON-NLS-1$
 
-    public static final String CONTRIBUTED_PAGE_EXTENSION_PAGENAME = "name"; //$NON-NLS-1$
+	public static final String CONTRIBUTED_PAGE_EXTENSION_PAGENAME = "name"; //$NON-NLS-1$
 
-    public static final String CONTRIBUTED_PAGE_EXTENSION_PAGEDESCRIPTION = "description"; //$NON-NLS-1$
+	public static final String CONTRIBUTED_PAGE_EXTENSION_PAGEDESCRIPTION = "description"; //$NON-NLS-1$
 
-    public static final String CONTRIBUTED_PAGE_EXTENSION_PAGEID = "id"; //$NON-NLS-1$
+	public static final String CONTRIBUTED_PAGE_EXTENSION_PAGEID = "id"; //$NON-NLS-1$
 
-    public static final String CONTRIBUTED_PAGE_EXTENSION_PAGECLASS = "class"; //$NON-NLS-1$
+	public static final String CONTRIBUTED_PAGE_EXTENSION_PAGECLASS = "class"; //$NON-NLS-1$
 
-    public static final String DEFAULT_P2_PROFILE_NAME = "MOTODEV_Profile_Android"; //$NON-NLS-1$
+	public static final String DEFAULT_P2_PROFILE_NAME = "MOTODEV_Profile_Android"; //$NON-NLS-1$
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        super.start(context);
-        plugin = this;
-        if (canRegisterPolicy())
-        {
-            Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
-            serviceProperties.put("service.ranking", new Integer(1500));
-            context.registerService(Policy.class.getName(), new MotodevPolicy(), serviceProperties);
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		plugin = this;
+		if (canRegisterPolicy()) {
+			Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
+			serviceProperties.put("service.ranking", new Integer(1500));
+			context.registerService(Policy.class.getName(), new MotodevPolicy(), serviceProperties);
+		}
+	}
 
-    private boolean canRegisterPolicy()
-    {
-        return "org.eclipse.andmore.android.product.android".equals(Platform.getProduct().getId());
-    }
+	private boolean canRegisterPolicy() {
+		return "org.eclipse.andmore.android.product.android".equals(Platform.getProduct().getId());
+	}
 
-    /**
-     * Return the BundleContext for this bundle.
-     * 
-     * @return BundleContext
-     */
-    public static BundleContext getContext()
-    {
-        return plugin.getBundle().getBundleContext();
-    }
+	/**
+	 * Return the BundleContext for this bundle.
+	 * 
+	 * @return BundleContext
+	 */
+	public static BundleContext getContext() {
+		return plugin.getBundle().getBundleContext();
+	}
 
-    /**
-     * Return the plugin instance.
-     * 
-     * @return the plugin instance
-     */
-    public static InstallerPlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Return the plugin instance.
+	 * 
+	 * @return the plugin instance
+	 */
+	public static InstallerPlugin getDefault() {
+		return plugin;
+	}
 
-    /**
-     * Retrieve the map of configuration elements of contribution pages
-     * @return the elements of contribution pages, where the Key is the id of the page declared on extension
-     */
-    public static Map<String, IConfigurationElement> loadContributedPages()
-    {
-        Map<String, IConfigurationElement> pages =
-                new LinkedHashMap<String, IConfigurationElement>();
-        IExtensionRegistry registry = Platform.getExtensionRegistry();
-        if (registry != null)
-        {
-            IExtensionPoint extensionPoint =
-                    registry.getExtensionPoint(CONTRIBUTED_PAGE_EXTENSION_POINT_ID);
-            for (IExtension extension : extensionPoint.getExtensions())
-            {
-                for (IConfigurationElement configElement : extension.getConfigurationElements())
-                {
-                    if (configElement.getName().equals(CONTRIBUTED_PAGE_EXTENSION_ELEMENT))
-                    {
-                        pages.put(configElement.getAttribute(CONTRIBUTED_PAGE_EXTENSION_PAGEID),
-                                configElement);
-                    }
-                }
-            }
-        }
+	/**
+	 * Retrieve the map of configuration elements of contribution pages
+	 * 
+	 * @return the elements of contribution pages, where the Key is the id of
+	 *         the page declared on extension
+	 */
+	public static Map<String, IConfigurationElement> loadContributedPages() {
+		Map<String, IConfigurationElement> pages = new LinkedHashMap<String, IConfigurationElement>();
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		if (registry != null) {
+			IExtensionPoint extensionPoint = registry.getExtensionPoint(CONTRIBUTED_PAGE_EXTENSION_POINT_ID);
+			for (IExtension extension : extensionPoint.getExtensions()) {
+				for (IConfigurationElement configElement : extension.getConfigurationElements()) {
+					if (configElement.getName().equals(CONTRIBUTED_PAGE_EXTENSION_ELEMENT)) {
+						pages.put(configElement.getAttribute(CONTRIBUTED_PAGE_EXTENSION_PAGEID), configElement);
+					}
+				}
+			}
+		}
 
-        return pages;
-    }
+		return pages;
+	}
 }

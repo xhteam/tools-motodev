@@ -28,29 +28,29 @@ import org.eclipse.core.runtime.IProgressMonitor;
 /**
  * Methods to interface with ADT plug-in.
  */
-public class AdtUtils
-{
+public class AdtUtils {
 
-    /**
-     * Exports APK in release mode, signing the package with the given certificate/key
-     * @throws CoreException 
-     */
-    public static void exportReleaseApk(IProject project, File outputFile, PrivateKey key,
-            X509Certificate certificate, IProgressMonitor monitor) throws CoreException
-    {
-        ExportHelper exportHelper = new ExportHelper();
-        ExportHelper.exportReleaseApk(project, outputFile, key, certificate, monitor);
-    }
+	/**
+	 * Exports APK in release mode, signing the package with the given
+	 * certificate/key
+	 * 
+	 * @throws CoreException
+	 */
+	public static void exportReleaseApk(IProject project, File outputFile, PrivateKey key, X509Certificate certificate,
+			IProgressMonitor monitor) throws CoreException {
+		ExportHelper exportHelper = new ExportHelper();
+		ExportHelper.exportReleaseApk(project, outputFile, key, certificate, monitor);
+	}
 
-    /**
-     * Exports APK in release mode, without signing
-     * @throws CoreException 
-     */
-    public static void exportUnsignedReleaseApk(IProject project, File outputFile,
-            IProgressMonitor monitor) throws CoreException
-    {
-        ExportHelper exportHelper = new ExportHelper();
-        ExportHelper.exportReleaseApk(project, outputFile, null, null, monitor);
-    }
+	/**
+	 * Exports APK in release mode, without signing
+	 * 
+	 * @throws CoreException
+	 */
+	public static void exportUnsignedReleaseApk(IProject project, File outputFile, IProgressMonitor monitor)
+			throws CoreException {
+		ExportHelper exportHelper = new ExportHelper();
+		ExportHelper.exportReleaseApk(project, outputFile, null, null, monitor);
+	}
 
 }

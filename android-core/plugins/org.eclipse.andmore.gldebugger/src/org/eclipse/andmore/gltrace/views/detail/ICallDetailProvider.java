@@ -20,12 +20,12 @@ import org.eclipse.andmore.gltrace.model.GLCall;
 import org.eclipse.andmore.gltrace.model.GLTrace;
 
 public interface ICallDetailProvider extends IDetailProvider {
-    /** Is this provider applicable for given {@link GLCall}? */
-    boolean isApplicable(GLCall call);
+	/** Is this provider applicable for given {@link GLCall}? */
+	boolean isApplicable(GLCall call);
 
-    /**
-     * Update the detail view for given {@link GLCall} that is part of the given
-     * {@link GLTrace}.
-     */
-    void updateControl(GLTrace trace, GLCall call);
+	/**
+	 * Update the detail view for given {@link GLCall} that is part of the given
+	 * {@link GLTrace}.
+	 */
+	void updateControl(GLTrace trace, GLCall call);
 }

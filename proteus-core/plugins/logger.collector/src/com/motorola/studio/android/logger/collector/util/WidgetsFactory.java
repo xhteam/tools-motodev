@@ -37,409 +37,415 @@ import org.eclipse.swt.widgets.TreeItem;
 /**
  * Class factory to create widgets.
  */
-public class WidgetsFactory
-{
+public class WidgetsFactory {
 
-    /**
-     * Create a new composite with two columns.
-     * 
-     * @param parent The parent composite.
-     * @return A composite with two columns.
-     */
-    public static Composite createComposite(Composite parent)
-    {
-        Composite toReturn = new Composite(parent, SWT.NULL);
-        toReturn.setLayout(createGridLayout());
-        toReturn.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+	/**
+	 * Create a new composite with two columns.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return A composite with two columns.
+	 */
+	public static Composite createComposite(Composite parent) {
+		Composite toReturn = new Composite(parent, SWT.NULL);
+		toReturn.setLayout(createGridLayout());
+		toReturn.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Create a new composite with the given column count.
-     * 
-     * @param parent The parent composite.
-     * @param numColumns The column count for the new composite.
-     * @return A composite with the given column count.
-     */
-    public static Composite createComposite(Composite parent, int numColumns)
-    {
-        Composite toReturn = createComposite(parent);
-        ((GridLayout) toReturn.getLayout()).numColumns = numColumns;
+	/**
+	 * Create a new composite with the given column count.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param numColumns
+	 *            The column count for the new composite.
+	 * @return A composite with the given column count.
+	 */
+	public static Composite createComposite(Composite parent, int numColumns) {
+		Composite toReturn = createComposite(parent);
+		((GridLayout) toReturn.getLayout()).numColumns = numColumns;
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new line.
-     * 
-     * @param parent The parent composite.
-     * @return A label with a line.
-     */
-    public static Label createLine(Composite parent)
-    {
-        Label toReturn = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.BOLD);
-        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
-        gridData.horizontalSpan = ((GridLayout) parent.getLayout()).numColumns;
-        toReturn.setLayoutData(gridData);
+	/**
+	 * Creates a new line.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return A label with a line.
+	 */
+	public static Label createLine(Composite parent) {
+		Label toReturn = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.BOLD);
+		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.horizontalSpan = ((GridLayout) parent.getLayout()).numColumns;
+		toReturn.setLayoutData(gridData);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new GridLayout with two columns.
-     * 
-     * @return A new GridLayout with two columns.
-     */
-    public static GridLayout createGridLayout()
-    {
-        GridLayout toReturn = new GridLayout();
-        toReturn.numColumns = 2;
-        toReturn.makeColumnsEqualWidth = false;
-        toReturn.marginWidth = 0;
-        toReturn.marginHeight = 0;
+	/**
+	 * Creates a new GridLayout with two columns.
+	 * 
+	 * @return A new GridLayout with two columns.
+	 */
+	public static GridLayout createGridLayout() {
+		GridLayout toReturn = new GridLayout();
+		toReturn.numColumns = 2;
+		toReturn.makeColumnsEqualWidth = false;
+		toReturn.marginWidth = 0;
+		toReturn.marginHeight = 0;
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new GridLayout with the given number of columns.
-     * 
-     * @return A new GridLayout with the given number of columns.
-     */
-    public static GridLayout createGridLayout(int numColumns)
-    {
-        GridLayout toReturn = new GridLayout();
-        toReturn.numColumns = numColumns;
-        toReturn.makeColumnsEqualWidth = false;
-        toReturn.marginWidth = 0;
-        toReturn.marginHeight = 0;
+	/**
+	 * Creates a new GridLayout with the given number of columns.
+	 * 
+	 * @return A new GridLayout with the given number of columns.
+	 */
+	public static GridLayout createGridLayout(int numColumns) {
+		GridLayout toReturn = new GridLayout();
+		toReturn.numColumns = numColumns;
+		toReturn.makeColumnsEqualWidth = false;
+		toReturn.marginWidth = 0;
+		toReturn.marginHeight = 0;
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new GridLayout with the given number of columns for the given
-     * composite.
-     * 
-     * @return A new GridLayout with the given number of columns for the given
-     *         composite.
-     */
-    public static GridLayout createGridLayout(int numColumns, Composite composite)
-    {
-        GridLayout toReturn = new GridLayout();
-        toReturn.numColumns = numColumns;
-        toReturn.makeColumnsEqualWidth = false;
-        toReturn.marginWidth = 0;
-        toReturn.marginHeight = 0;
+	/**
+	 * Creates a new GridLayout with the given number of columns for the given
+	 * composite.
+	 * 
+	 * @return A new GridLayout with the given number of columns for the given
+	 *         composite.
+	 */
+	public static GridLayout createGridLayout(int numColumns, Composite composite) {
+		GridLayout toReturn = new GridLayout();
+		toReturn.numColumns = numColumns;
+		toReturn.makeColumnsEqualWidth = false;
+		toReturn.marginWidth = 0;
+		toReturn.marginHeight = 0;
 
-        composite.setLayout(toReturn);
-        return toReturn;
-    }
+		composite.setLayout(toReturn);
+		return toReturn;
+	}
 
-    /**
-     * Creates a new label.
-     * 
-     * @param parent The parent composite.
-     * @param text Text used in label.
-     * @return A new label
-     */
-    public static Label createLabel(Composite parent, String text)
-    {
-        return createLabel(parent, text, SWT.NONE);
-    }
+	/**
+	 * Creates a new label.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param text
+	 *            Text used in label.
+	 * @return A new label
+	 */
+	public static Label createLabel(Composite parent, String text) {
+		return createLabel(parent, text, SWT.NONE);
+	}
 
-    /**
-     * Creates a new label.
-     * 
-     * @param parent The parent composite.
-     * @param text Text used in label.
-     * @param style The style used in label.
-     * @return A new label
-     */
-    public static Label createLabel(Composite parent, String text, int style)
-    {
-        Label toReturn = new Label(parent, style);
-        if (text != null)
-        {
-            toReturn.setText(text);
-        }
-        toReturn.setFont(parent.getFont());
+	/**
+	 * Creates a new label.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param text
+	 *            Text used in label.
+	 * @param style
+	 *            The style used in label.
+	 * @return A new label
+	 */
+	public static Label createLabel(Composite parent, String text, int style) {
+		Label toReturn = new Label(parent, style);
+		if (text != null) {
+			toReturn.setText(text);
+		}
+		toReturn.setFont(parent.getFont());
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new combo.
-     * 
-     * @param parent The parent composite.
-     * @return The new combo
-     */
-    public static Combo createCombo(Composite parent)
-    {
-        Combo toReturn = new Combo(parent, SWT.READ_ONLY);
-        GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
-        data.horizontalSpan = 1;
-        toReturn.setLayoutData(data);
+	/**
+	 * Creates a new combo.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return The new combo
+	 */
+	public static Combo createCombo(Composite parent) {
+		Combo toReturn = new Combo(parent, SWT.READ_ONLY);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
+		data.horizontalSpan = 1;
+		toReturn.setLayoutData(data);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates two labels used to show a read only value in screens.
-     * 
-     * @param parent The parent composite.
-     * @param text The text used in both labels.
-     * @return The label that will show a read only value.
-     */
-    public static Label createValueLabel(Composite parent, String text)
-    {
-        createLabel(parent, text);
+	/**
+	 * Creates two labels used to show a read only value in screens.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param text
+	 *            The text used in both labels.
+	 * @return The label that will show a read only value.
+	 */
+	public static Label createValueLabel(Composite parent, String text) {
+		createLabel(parent, text);
 
-        return createLabel(parent, null);
-    }
+		return createLabel(parent, null);
+	}
 
-    /**
-     * Creates a new button.
-     * 
-     * @param parent The parent composite.
-     * @param text The text of the button.
-     * @return A new button
-     */
-    public static Button createButton(Composite parent, String text)
-    {
-        Button toReturn = new Button(parent, SWT.PUSH);
-        toReturn.setFont(parent.getFont());
-        toReturn.setText(text);
-        toReturn.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+	/**
+	 * Creates a new button.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param text
+	 *            The text of the button.
+	 * @return A new button
+	 */
+	public static Button createButton(Composite parent, String text) {
+		Button toReturn = new Button(parent, SWT.PUSH);
+		toReturn.setFont(parent.getFont());
+		toReturn.setText(text);
+		toReturn.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new table widget.
-     * 
-     * @param parent The parent composite.
-     * @return The new table
-     */
-    public static Table createTable(Composite parent)
-    {
-        Table toReturn =
-                new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION
-                        | SWT.BORDER);
-        GridData data = new GridData(GridData.FILL_BOTH);
-        data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
-        data.heightHint = toReturn.getItemHeight();
-        data.horizontalSpan = 1;
-        toReturn.setLayoutData(data);
+	/**
+	 * Creates a new table widget.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return The new table
+	 */
+	public static Table createTable(Composite parent) {
+		Table toReturn = new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION | SWT.BORDER);
+		GridData data = new GridData(GridData.FILL_BOTH);
+		data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
+		data.heightHint = toReturn.getItemHeight();
+		data.horizontalSpan = 1;
+		toReturn.setLayoutData(data);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new table widget.
-     * 
-     * @param parent The parent composite.
-     * @return The new table
-     */
-    public static Table createTableMultiSelection(Composite parent)
-    {
-        Table toReturn =
-                new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER
-                        | SWT.MULTI);
-        GridData data = new GridData(GridData.FILL_BOTH);
-        data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
-        data.heightHint = toReturn.getItemHeight();
-        data.horizontalSpan = 1;
-        toReturn.setLayoutData(data);
+	/**
+	 * Creates a new table widget.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return The new table
+	 */
+	public static Table createTableMultiSelection(Composite parent) {
+		Table toReturn = new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER | SWT.MULTI);
+		GridData data = new GridData(GridData.FILL_BOTH);
+		data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
+		data.heightHint = toReturn.getItemHeight();
+		data.horizontalSpan = 1;
+		toReturn.setLayoutData(data);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new table column.
-     * 
-     * @param table The table of the column.
-     * @param text The column text.
-     * @return A new table column
-     */
-    public static TableColumn createTableColumn(Table table, String text)
-    {
-        TableColumn toReturn = new TableColumn(table, SWT.NONE);
-        toReturn.setText(text);
+	/**
+	 * Creates a new table column.
+	 * 
+	 * @param table
+	 *            The table of the column.
+	 * @param text
+	 *            The column text.
+	 * @return A new table column
+	 */
+	public static TableColumn createTableColumn(Table table, String text) {
+		TableColumn toReturn = new TableColumn(table, SWT.NONE);
+		toReturn.setText(text);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new table item.
-     * 
-     * @param table The table of the table item.
-     * @param image The image of the item.
-     * @param s The text of the item.
-     * @return The new table item.
-     */
-    public static TableItem createTableItem(Table table, Image image, String s)
-    {
-        TableItem toReturn = new TableItem(table, SWT.NONE);
-        toReturn.setText(s);
-        if (image != null)
-        {
-            toReturn.setImage(image);
-        }
+	/**
+	 * Creates a new table item.
+	 * 
+	 * @param table
+	 *            The table of the table item.
+	 * @param image
+	 *            The image of the item.
+	 * @param s
+	 *            The text of the item.
+	 * @return The new table item.
+	 */
+	public static TableItem createTableItem(Table table, Image image, String s) {
+		TableItem toReturn = new TableItem(table, SWT.NONE);
+		toReturn.setText(s);
+		if (image != null) {
+			toReturn.setImage(image);
+		}
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a collection of table items.
-     * 
-     * @param table The table of the table item.
-     * @param image The image of the item.
-     * @param s The text of the item.
-     * @return The new table item.
-     */
-    public static TableItem createTableItem(Table table, Image image, String... s)
-    {
-        TableItem toReturn = new TableItem(table, SWT.NONE);
-        toReturn.setText(s);
-        if (image != null)
-        {
-            toReturn.setImage(image);
-        }
+	/**
+	 * Creates a collection of table items.
+	 * 
+	 * @param table
+	 *            The table of the table item.
+	 * @param image
+	 *            The image of the item.
+	 * @param s
+	 *            The text of the item.
+	 * @return The new table item.
+	 */
+	public static TableItem createTableItem(Table table, Image image, String... s) {
+		TableItem toReturn = new TableItem(table, SWT.NONE);
+		toReturn.setText(s);
+		if (image != null) {
+			toReturn.setImage(image);
+		}
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new text.
-     * 
-     * @param parent The parent composite.
-     * @return The new text.
-     */
-    public static Text createText(Composite parent)
-    {
-        Text toReturn = new Text(parent, SWT.BORDER);
-        GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
-        toReturn.setLayoutData(data);
+	/**
+	 * Creates a new text.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return The new text.
+	 */
+	public static Text createText(Composite parent) {
+		Text toReturn = new Text(parent, SWT.BORDER);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
+		toReturn.setLayoutData(data);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new tree item. If the text parameter is null, it will appear is
-     * after the field parameter.
-     * 
-     * @param itemParent The parent tree item
-     * @param image The image of the tree item.
-     * @param field The field.
-     * @param text The text of the tree item.
-     * @return The new tree item.
-     */
-    public static TreeItem createTreeItem(TreeItem itemParent, Image image, String field,
-            String text)
-    {
-        TreeItem toReturn = new TreeItem(itemParent, 0);
-        toReturn.setText((text == null) ? field : field + " (" + text + ")"); //$NON-NLS-1$ //$NON-NLS-2$
-        toReturn.setImage(image);
-        toReturn.setExpanded(true);
+	/**
+	 * Creates a new tree item. If the text parameter is null, it will appear is
+	 * after the field parameter.
+	 * 
+	 * @param itemParent
+	 *            The parent tree item
+	 * @param image
+	 *            The image of the tree item.
+	 * @param field
+	 *            The field.
+	 * @param text
+	 *            The text of the tree item.
+	 * @return The new tree item.
+	 */
+	public static TreeItem createTreeItem(TreeItem itemParent, Image image, String field, String text) {
+		TreeItem toReturn = new TreeItem(itemParent, 0);
+		toReturn.setText((text == null) ? field : field + " (" + text + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+		toReturn.setImage(image);
+		toReturn.setExpanded(true);
 
-        return toReturn;
-    }
+		return toReturn;
+	}
 
-    /**
-     * Creates a new horizontal tool bar.
-     * 
-     * @param parent The parent tool bar item.
-     * @return A new tool bar item.
-     */
-    public static ToolBar createHorizontalToolBar(Composite parent)
-    {
-        return new ToolBar(parent, SWT.HORIZONTAL);
-    }
+	/**
+	 * Creates a new horizontal tool bar.
+	 * 
+	 * @param parent
+	 *            The parent tool bar item.
+	 * @return A new tool bar item.
+	 */
+	public static ToolBar createHorizontalToolBar(Composite parent) {
+		return new ToolBar(parent, SWT.HORIZONTAL);
+	}
 
-    /**
-     * Creates a new tool item like a push button
-     * 
-     * @param toolBar The parent tool bar item.
-     * @return A new tool item.
-     */
-    public static ToolItem createPushToolItem(ToolBar toolBar)
-    {
-        return new ToolItem(toolBar, SWT.PUSH);
-    }
+	/**
+	 * Creates a new tool item like a push button
+	 * 
+	 * @param toolBar
+	 *            The parent tool bar item.
+	 * @return A new tool item.
+	 */
+	public static ToolItem createPushToolItem(ToolBar toolBar) {
+		return new ToolItem(toolBar, SWT.PUSH);
+	}
 
-    /**
-     * Creates a titled group.
-     * 
-     * @param parent The parent composite
-     * @param title The desired title.
-     * @return The titled group
-     */
-    public static Group createTitledGroup(Composite parent, String title)
-    {
-        Group toReturn = new Group(parent, SWT.SHADOW_NONE);
-        toReturn.setText(title);
-        toReturn.setLayout(new GridLayout());
-        toReturn.setLayoutData(new GridData(GridData.FILL_BOTH));
-        return toReturn;
-    }
+	/**
+	 * Creates a titled group.
+	 * 
+	 * @param parent
+	 *            The parent composite
+	 * @param title
+	 *            The desired title.
+	 * @return The titled group
+	 */
+	public static Group createTitledGroup(Composite parent, String title) {
+		Group toReturn = new Group(parent, SWT.SHADOW_NONE);
+		toReturn.setText(title);
+		toReturn.setLayout(new GridLayout());
+		toReturn.setLayoutData(new GridData(GridData.FILL_BOTH));
+		return toReturn;
+	}
 
-    /**
-     * Creates a titled group with the given number of columns.
-     * 
-     * @param parent The parent composite.
-     * @param title The group title.
-     * @param numColumns The number of columns.
-     * @return The created group.
-     */
-    public static Group createTitledGroup(Composite parent, String title, int numColumns)
-    {
-        Group toReturn = new Group(parent, SWT.SHADOW_NONE);
-        toReturn.setText(title);
-        GridLayout layout = createGridLayout(numColumns);
-        toReturn.setLayout(layout);
-        return toReturn;
-    }
+	/**
+	 * Creates a titled group with the given number of columns.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @param title
+	 *            The group title.
+	 * @param numColumns
+	 *            The number of columns.
+	 * @return The created group.
+	 */
+	public static Group createTitledGroup(Composite parent, String title, int numColumns) {
+		Group toReturn = new Group(parent, SWT.SHADOW_NONE);
+		toReturn.setText(title);
+		GridLayout layout = createGridLayout(numColumns);
+		toReturn.setLayout(layout);
+		return toReturn;
+	}
 
-    /**
-     * Creates a group
-     * 
-     * @param parent The parent composite
-     * @return The group
-     */
-    public static Group createGroup(Composite parent)
-    {
-        Group toReturn = new Group(parent, SWT.SHADOW_NONE);
-        return toReturn;
-    }
+	/**
+	 * Creates a group
+	 * 
+	 * @param parent
+	 *            The parent composite
+	 * @return The group
+	 */
+	public static Group createGroup(Composite parent) {
+		Group toReturn = new Group(parent, SWT.SHADOW_NONE);
+		return toReturn;
+	}
 
-    /**
-     * Creates a radio button
-     * 
-     * @param parent The parent composite
-     * @param text The given text.
-     * @return The radio button
-     */
-    public static Button createRadioButton(Composite parent, String text)
-    {
-        Button toReturn = new Button(parent, SWT.RADIO);
-        toReturn.setText(text);
-        toReturn.setLayoutData(new GridData(GridData.FILL_BOTH));
-        return toReturn;
-    }
+	/**
+	 * Creates a radio button
+	 * 
+	 * @param parent
+	 *            The parent composite
+	 * @param text
+	 *            The given text.
+	 * @return The radio button
+	 */
+	public static Button createRadioButton(Composite parent, String text) {
+		Button toReturn = new Button(parent, SWT.RADIO);
+		toReturn.setText(text);
+		toReturn.setLayoutData(new GridData(GridData.FILL_BOTH));
+		return toReturn;
+	}
 
-    /**
-     * Creates a list.
-     * 
-     * @param parent The parent composite.
-     * @return The list.
-     */
-    public static List createList(Composite parent)
-    {
-        return new List(parent, SWT.BORDER | SWT.SINGLE);
-    }
+	/**
+	 * Creates a list.
+	 * 
+	 * @param parent
+	 *            The parent composite.
+	 * @return The list.
+	 */
+	public static List createList(Composite parent) {
+		return new List(parent, SWT.BORDER | SWT.SINGLE);
+	}
 
 }

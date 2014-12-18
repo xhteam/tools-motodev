@@ -22,6 +22,7 @@ import static com.android.SdkConstants.TOOLS_PREFIX;
 import static com.android.SdkConstants.TOOLS_URI;
 
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
+import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -44,68 +45,68 @@ import org.w3c.dom.Node;
 /**
  *
  */
-@SuppressWarnings({"restriction", "javadoc", "deprecation"}) // XML DOM model
+@SuppressWarnings({ "restriction", "javadoc", "deprecation" })
+// XML DOM model
 public class LayoutMetadataTest extends AdtProjectTest {
 
-    public void testMetadata1() throws Exception {
-        Pair<IDocument, UiElementNode> pair = getNode("metadata.xml", "listView1");
-        UiElementNode uiNode = pair.getSecond();
-        Node node = uiNode.getXmlNode();
+	public void testMetadata1() throws Exception {
+		Pair<IDocument, UiElementNode> pair = getNode("metadata.xml", "listView1");
+		UiElementNode uiNode = pair.getSecond();
+		Node node = uiNode.getXmlNode();
 
-        assertNull(LayoutMetadata.getProperty(node, "foo"));
+		assertNull(LayoutMetadata.getProperty(node, "foo"));
 
-        Element element = (Element) node;
-        String prefix = XmlUtils.lookupNamespacePrefix(element, TOOLS_URI, null, false);
-        if (prefix == null) {
-            // Add in new prefix...
-            prefix = XmlUtils.lookupNamespacePrefix(element,
-                    TOOLS_URI, TOOLS_PREFIX, true);
-        }
-        element.setAttribute(prefix + ':' + "foo", "bar");
-    }
+		Element element = (Element) node;
+		String prefix = XmlUtils.lookupNamespacePrefix(element, TOOLS_URI, null, false);
+		if (prefix == null) {
+			// Add in new prefix...
+			prefix = XmlUtils.lookupNamespacePrefix(element, TOOLS_URI, TOOLS_PREFIX, true);
+		}
+		element.setAttribute(prefix + ':' + "foo", "bar");
+	}
 
-    // ==== Test utilities ====
+	// ==== Test utilities ====
 
-    private static String getText(IDocument document, Node node) throws Exception {
-        IndexedRegion region = (IndexedRegion) node;
-        // This often returns the wrong value:
-        //int length = region.getLength();
-        int length = region.getEndOffset() - region.getStartOffset();
-        return document.get(region.getStartOffset(), length);
-    }
+	private static String getText(IDocument document, Node node) throws Exception {
+		IndexedRegion region = (IndexedRegion) node;
+		// This often returns the wrong value:
+		// int length = region.getLength();
+		int length = region.getEndOffset() - region.getStartOffset();
+		return document.get(region.getStartOffset(), length);
+	}
 
-    private Pair<IDocument, UiElementNode> getNode(String filename, String targetId)
-            throws Exception, PartInitException {
-        IFile file = getLayoutFile(getProject(), filename);
-        AdtPlugin.openFile(file, null);
-        IEditorPart newEditor = AdtUtils.getActiveEditor();
-        assertTrue(newEditor instanceof AndroidXmlEditor);
-        AndroidXmlEditor xmlEditor = (AndroidXmlEditor) newEditor;
-        IStructuredDocument document = xmlEditor.getStructuredDocument();
-        UiElementNode root = xmlEditor.getUiRootNode();
-        assertNotNull(root);
-        UiElementNode node = findById(root, targetId);
-        assertNotNull(node);
-        Pair<IDocument, UiElementNode> pair = Pair.<IDocument, UiElementNode>of(document, node);
-        return pair;
-    }
+	private Pair<IDocument, UiElementNode> getNode(String filename, String targetId) throws Exception,
+			PartInitException {
+		IFile file = getLayoutFile(getProject(), filename);
+		AdtPlugin.openFile(file, null);
+		IEditorPart newEditor = AdtUtils.getActiveEditor();
+		assertTrue(newEditor instanceof AndroidXmlEditor);
+		AndroidXmlEditor xmlEditor = (AndroidXmlEditor) newEditor;
+		IStructuredDocument document = xmlEditor.getStructuredDocument();
+		UiElementNode root = xmlEditor.getUiRootNode();
+		assertNotNull(root);
+		UiElementNode node = findById(root, targetId);
+		assertNotNull(node);
+		Pair<IDocument, UiElementNode> pair = Pair.<IDocument, UiElementNode> of(document, node);
+		return pair;
+	}
 
-    private static UiElementNode findById(UiElementNode node, String targetId) {
-        assertFalse(targetId.startsWith(NEW_ID_PREFIX));
-        assertFalse(targetId.startsWith(ID_PREFIX));
+	private static UiElementNode findById(UiElementNode node, String targetId) {
+		assertFalse(targetId.startsWith(NEW_ID_PREFIX));
+		assertFalse(targetId.startsWith(ID_PREFIX));
 
-        String id = node.getAttributeValue(ATTR_ID);
-        if (id != null && targetId.equals(BaseLayoutRule.stripIdPrefix(id))) {
-            return node;
-        }
+		String id = node.getAttributeValue(ATTR_ID);
+		if (id != null && targetId.equals(BaseViewRule.stripIdPrefix(id))) {
+			return node;
+		}
 
-        for (UiElementNode child : node.getUiChildren()) {
-            UiElementNode result = findById(child, targetId);
-            if (result != null) {
-                return result;
-            }
-        }
+		for (UiElementNode child : node.getUiChildren()) {
+			UiElementNode result = findById(child, targetId);
+			if (result != null) {
+				return result;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

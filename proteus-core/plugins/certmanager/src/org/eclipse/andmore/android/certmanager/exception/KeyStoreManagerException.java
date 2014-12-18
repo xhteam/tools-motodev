@@ -22,32 +22,28 @@ import org.eclipse.andmore.android.common.exception.AndroidException;
  * Exception thrown when trying to access the {@link KeyStoreManager}.
  * */
 @SuppressWarnings("serial")
-public class KeyStoreManagerException extends AndroidException
-{
-    /*
-     * Create a new empty exception.
-     * */
-    @SuppressWarnings("unused")
-    private KeyStoreManagerException()
-    {
-        //prevent methods to throw this exception without further information
-    }
+public class KeyStoreManagerException extends AndroidException {
+	/*
+	 * Create a new empty exception.
+	 */
+	@SuppressWarnings("unused")
+	private KeyStoreManagerException() {
+		// prevent methods to throw this exception without further information
+	}
 
-    /**
-     * Create a new exception with a message indicating the problem.
-     * */
-    public KeyStoreManagerException(String message)
-    {
-        super(message);
-    }
+	/**
+	 * Create a new exception with a message indicating the problem.
+	 * */
+	public KeyStoreManagerException(String message) {
+		super(message);
+	}
 
-    /**
-     * Create a new exception with a message indicating the problem,
-     * and append some other exception that is being replaced by this one.
-     * */
-    public KeyStoreManagerException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+	/**
+	 * Create a new exception with a message indicating the problem, and append
+	 * some other exception that is being replaced by this one.
+	 * */
+	public KeyStoreManagerException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }

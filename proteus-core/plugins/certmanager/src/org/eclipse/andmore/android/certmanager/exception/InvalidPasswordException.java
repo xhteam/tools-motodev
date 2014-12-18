@@ -21,33 +21,29 @@ import org.eclipse.andmore.android.common.exception.AndroidException;
  * Exception thrown when the password to access a keystore is invalid or wrong.
  * */
 @SuppressWarnings("serial")
-public class InvalidPasswordException extends AndroidException
-{
+public class InvalidPasswordException extends AndroidException {
 
-    /*
-     * Create a new empty exception.
-     * */
-    @SuppressWarnings("unused")
-    private InvalidPasswordException()
-    {
-        //prevent methods to throw this exception without further information        
-    }
+	/*
+	 * Create a new empty exception.
+	 */
+	@SuppressWarnings("unused")
+	private InvalidPasswordException() {
+		// prevent methods to throw this exception without further information
+	}
 
-    /**
-     * Create a new exception with a message indicating the problem.
-     * */
-    public InvalidPasswordException(String message)
-    {
-        super(message);
-    }
+	/**
+	 * Create a new exception with a message indicating the problem.
+	 * */
+	public InvalidPasswordException(String message) {
+		super(message);
+	}
 
-    /**
-     * Create a new exception with a message indicating the problem,
-     * and append some other exception that is being replaced by this one.
-     * */
-    public InvalidPasswordException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+	/**
+	 * Create a new exception with a message indicating the problem, and append
+	 * some other exception that is being replaced by this one.
+	 * */
+	public InvalidPasswordException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }

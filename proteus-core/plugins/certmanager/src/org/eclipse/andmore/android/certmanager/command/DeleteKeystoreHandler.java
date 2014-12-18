@@ -28,92 +28,82 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler2;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class deletes the keystore from the tree of the {@link KeystoreManagerView}
+ * This class deletes the keystore from the tree of the
+ * {@link KeystoreManagerView}
  * */
-public class DeleteKeystoreHandler extends AbstractHandler2 implements IHandler2
-{
+public class DeleteKeystoreHandler extends AbstractHandler2 implements IHandler2 {
 
-    private static boolean toggleState = false;
+	private static boolean toggleState = false;
 
-    /*
-     * Question dialog confirming deletion of the keystore with a toggle
-     * asking if the keystore should also be deleted from the filesystem
-     * @return true if the deletion is confirmed, false otherwise and true in the
-     * toggleState if it can also be deleted from the filesystem, false otherwise
-     */
-    private boolean showQuestion(List<ITreeNode> nodesToDelete)
-    {
+	/*
+	 * Question dialog confirming deletion of the keystore with a toggle asking
+	 * if the keystore should also be deleted from the filesystem
+	 * 
+	 * @return true if the deletion is confirmed, false otherwise and true in
+	 * the toggleState if it can also be deleted from the filesystem, false
+	 * otherwise
+	 */
+	private boolean showQuestion(List<ITreeNode> nodesToDelete) {
 
-        final Boolean[] reply = new Boolean[2];
+		final Boolean[] reply = new Boolean[2];
 
-        final String keystoreName =
-                nodesToDelete.size() == 1 ? nodesToDelete.get(0).getName() : null;
+		final String keystoreName = nodesToDelete.size() == 1 ? nodesToDelete.get(0).getName() : null;
 
-        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                IWorkbench workbench = PlatformUI.getWorkbench();
-                IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();
-                Shell shell = ww.getShell();
+		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IWorkbench workbench = PlatformUI.getWorkbench();
+				IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();
+				Shell shell = ww.getShell();
 
-                MessageDialogWithToggle dialog =
-                        MessageDialogWithToggle
-                                .openYesNoQuestion(
-                                        shell,
-                                        CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Title,
-                                        keystoreName != null
-                                                ? CertificateManagerNLS
-                                                        .bind(CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Description,
-                                                                keystoreName)
-                                                : CertificateManagerNLS.DeleteKeystoreHandler_Delete_Selected_Keystores,
-                                        CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Toggle,
-                                        false, null, null);
-                reply[0] = (dialog.getReturnCode() == IDialogConstants.YES_ID);
-                reply[1] = dialog.getToggleState();
-            }
-        });
+				MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(
+						shell,
+						CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Title,
+						keystoreName != null ? NLS.bind(
+								CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Description,
+								keystoreName) : CertificateManagerNLS.DeleteKeystoreHandler_Delete_Selected_Keystores,
+						CertificateManagerNLS.DeleteKeystoreHandler_ConfirmationQuestionDialog_Toggle, false, null,
+						null);
+				reply[0] = (dialog.getReturnCode() == IDialogConstants.YES_ID);
+				reply[1] = dialog.getToggleState();
+			}
+		});
 
-        toggleState = reply[1];
+		toggleState = reply[1];
 
-        return reply[0];
-    }
+		return reply[0];
+	}
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        List<ITreeNode> nodesToDelete = getSelection();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		List<ITreeNode> nodesToDelete = getSelection();
 
-        if (!nodesToDelete.isEmpty())
-        {
-            boolean shouldProceed = showQuestion(nodesToDelete);
-            if (shouldProceed)
-            {
-                for (ITreeNode node2Delete : nodesToDelete)
-                {
-                    KeyStoreNode keyStoreNode = (KeyStoreNode) node2Delete;
+		if (!nodesToDelete.isEmpty()) {
+			boolean shouldProceed = showQuestion(nodesToDelete);
+			if (shouldProceed) {
+				for (ITreeNode node2Delete : nodesToDelete) {
+					KeyStoreNode keyStoreNode = (KeyStoreNode) node2Delete;
 
-                    // remove from the tree
-                    SigningAndKeysModelManager.getInstance().unmapKeyStore(keyStoreNode);
+					// remove from the tree
+					SigningAndKeysModelManager.getInstance().unmapKeyStore(keyStoreNode);
 
-                    if (toggleState)
-                    {
-                        keyStoreNode.getFile().delete();
-                    }
-                }
-            }
-        }
+					if (toggleState) {
+						keyStoreNode.getFile().delete();
+					}
+				}
+			}
+		}
 
-        nodesToDelete.clear();
+		nodesToDelete.clear();
 
-        return null;
-    }
+		return null;
+	}
 
 }

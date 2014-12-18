@@ -40,85 +40,81 @@ import java.util.List;
 
 public class SimpleFile extends ProcessRunner {
 
-    private static final class FileOp {
-        public String source;
-        public String destination;
-    }
+	private static final class FileOp {
+		public String source;
+		public String destination;
+	}
 
-    @Override
-    public void process(TemplateCore template, ProcessArgument[] args, String processId,
-            IProgressMonitor monitor)
-            throws ProcessFailureException {
+	@Override
+	public void process(TemplateCore template, ProcessArgument[] args, String processId, IProgressMonitor monitor)
+			throws ProcessFailureException {
 
-        // Fetch the args
-        String projectName = null;
-        List<FileOp> fileOps = new ArrayList<FileOp>();
+		// Fetch the args
+		String projectName = null;
+		List<FileOp> fileOps = new ArrayList<FileOp>();
 
-        for (ProcessArgument arg : args) {
-            if (arg.getName().equals("projectName")) //$NON-NLS-1$
-                projectName = arg.getSimpleValue();
-            else if (arg.getName().equals("files")) { //$NON-NLS-1$
-                ProcessArgument[][] files = arg.getComplexArrayValue();
-                for (ProcessArgument[] file : files) {
-                    FileOp op = new FileOp();
-                    for (ProcessArgument fileArg : file) {
-                        if (fileArg.getName().equals("source")) //$NON-NLS-1$
-                            op.source = fileArg.getSimpleValue();
-                        else if (fileArg.getName().equals("destination")) //$NON-NLS-1$
-                            op.destination = fileArg.getSimpleValue();
-                    }
-                    if (op.source == null || op.destination == null)
-                        throw new ProcessFailureException(Messages.SimpleFile_Bad_file_operation);
-                    fileOps.add(op);
-                }
-            }
-        }
+		for (ProcessArgument arg : args) {
+			if (arg.getName().equals("projectName")) //$NON-NLS-1$
+				projectName = arg.getSimpleValue();
+			else if (arg.getName().equals("files")) { //$NON-NLS-1$
+				ProcessArgument[][] files = arg.getComplexArrayValue();
+				for (ProcessArgument[] file : files) {
+					FileOp op = new FileOp();
+					for (ProcessArgument fileArg : file) {
+						if (fileArg.getName().equals("source")) //$NON-NLS-1$
+							op.source = fileArg.getSimpleValue();
+						else if (fileArg.getName().equals("destination")) //$NON-NLS-1$
+							op.destination = fileArg.getSimpleValue();
+					}
+					if (op.source == null || op.destination == null)
+						throw new ProcessFailureException(Messages.SimpleFile_Bad_file_operation);
+					fileOps.add(op);
+				}
+			}
+		}
 
-        if (projectName == null)
-            throw new ProcessFailureException(Messages.SimpleFile_No_project_name);
-        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-        if (!project.exists())
-            throw new ProcessFailureException(Messages.SimpleFile_Project_does_not_exist);
+		if (projectName == null)
+			throw new ProcessFailureException(Messages.SimpleFile_No_project_name);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		if (!project.exists())
+			throw new ProcessFailureException(Messages.SimpleFile_Project_does_not_exist);
 
-        // Find bundle to find source files
-        Bundle bundle = Activator.getBundle(template.getTemplateInfo().getPluginId());
-        if (bundle == null)
-            throw new ProcessFailureException(Messages.SimpleFile_Bundle_not_found);
+		// Find bundle to find source files
+		Bundle bundle = Activator.getBundle(template.getTemplateInfo().getPluginId());
+		if (bundle == null)
+			throw new ProcessFailureException(Messages.SimpleFile_Bundle_not_found);
 
-        try {
-            for (FileOp op : fileOps) {
-                IFile destFile = project.getFile(new Path(op.destination));
-                if (destFile.exists())
-                    // don't overwrite files if they exist already
-                    continue;
+		try {
+			for (FileOp op : fileOps) {
+				IFile destFile = project.getFile(new Path(op.destination));
+				if (destFile.exists())
+					// don't overwrite files if they exist already
+					continue;
 
-                // Make sure parent folders are created
-                mkDirs(project, destFile.getParent(), monitor);
+				// Make sure parent folders are created
+				mkDirs(project, destFile.getParent(), monitor);
 
-                URL sourceURL = FileLocator.find(bundle, new Path(op.source), null);
-                if (sourceURL == null)
-                    throw new ProcessFailureException(Messages.SimpleFile_Could_not_fine_source
-                            + op.source);
+				URL sourceURL = FileLocator.find(bundle, new Path(op.source), null);
+				if (sourceURL == null)
+					throw new ProcessFailureException(Messages.SimpleFile_Could_not_fine_source + op.source);
 
-                TemplatedInputStream in = new TemplatedInputStream(sourceURL.openStream(),
-                        template.getValueStore());
-                destFile.create(in, true, monitor);
-                in.close();
-            }
-        } catch (IOException e) {
-            throw new ProcessFailureException(e);
-        } catch (CoreException e) {
-            throw new ProcessFailureException(e);
-        }
+				TemplatedInputStream in = new TemplatedInputStream(sourceURL.openStream(), template.getValueStore());
+				destFile.create(in, true, monitor);
+				in.close();
+			}
+		} catch (IOException e) {
+			throw new ProcessFailureException(e);
+		} catch (CoreException e) {
+			throw new ProcessFailureException(e);
+		}
 
-    }
+	}
 
-    private void mkDirs(IProject project, IContainer container, IProgressMonitor monitor)
-            throws CoreException {
-        if (container.exists())
-            return;
-        mkDirs(project, container.getParent(), monitor);
-        ((IFolder) container).create(true, true, monitor);
-    }
+	private void mkDirs(IProject project, IContainer container, IProgressMonitor monitor) throws CoreException {
+		if (container.exists())
+			return;
+		mkDirs(project, container.getParent(), monitor);
+		((IFolder) container).create(true, true, monitor);
+	}
 
 }

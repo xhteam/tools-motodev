@@ -17,9 +17,8 @@ package org.eclipse.andmore.android.db.core.ui;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
-public interface ISaveStateTreeNode extends ITreeNode
-{
-    void saveState(IEclipsePreferences preferences);
+public interface ISaveStateTreeNode extends ITreeNode {
+	void saveState(IEclipsePreferences preferences);
 
-    void restoreState(IEclipsePreferences preferences);
+	void restoreState(IEclipsePreferences preferences);
 }

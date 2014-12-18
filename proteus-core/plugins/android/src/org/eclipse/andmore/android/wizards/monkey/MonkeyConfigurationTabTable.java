@@ -33,100 +33,88 @@ import org.eclipse.swt.widgets.TableItem;
  * Table with loading info for monkey.
  */
 public class MonkeyConfigurationTabTable extends
-        TableWithLoadingInfo<MonkeyConfigurationTab, Map<String, String>, String>
-{
+		TableWithLoadingInfo<MonkeyConfigurationTab, Map<String, String>, String> {
 
-    /**
-     * @see TableWithLoadingInfo#TableWithLoadingInfo(Composite, int, String, Object)
-     */
-    public MonkeyConfigurationTabTable(Composite parent, int style, String animatedTextLabel,
-            MonkeyConfigurationTab callingPage)
-    {
-        super(parent, style, animatedTextLabel, callingPage);
-    }
+	/**
+	 * @see TableWithLoadingInfo#TableWithLoadingInfo(Composite, int, String,
+	 *      Object)
+	 */
+	public MonkeyConfigurationTabTable(Composite parent, int style, String animatedTextLabel,
+			MonkeyConfigurationTab callingPage) {
+		super(parent, style, animatedTextLabel, callingPage);
+	}
 
-    /**
-     * Populates the table with available packages.
-     *  
-     * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#addTableData(Object)
-     */
-    @Override
-    protected void addTableData(Map<String, String> elementList)
-    {
-        // retrieve the available packages
-        Map<String, String> availablePackages = elementList;
-        // retrieve the monkey wizard page
-        MonkeyConfigurationTab monkeyWizardPage = getCallingPage();
-        // get the list of selected packages preference
-        List<?> selectedPackagesPreference = monkeyWizardPage.getSelectedPackagesPreference();
-        // get the table to be populated
-        Table table = getTable();
-        // iterate through the available packages
-        String packageName = null;
-        String packagePath = null;
-        Iterator<String> it = availablePackages.keySet().iterator();
-        while (it.hasNext())
-        {
-            // the the package name and path
-            packageName = it.next();
-            packagePath = availablePackages.get(packageName);
-            if (!monkeyWizardPage.isFilterSystem() || !packagePath.toLowerCase().contains("system"))
-            {
-                // add data
-                TableItem item = new TableItem(table, SWT.NONE);
-                item.setText(0, packageName);
-                item.setText(1, packagePath.contains("system")
-                        ? AndroidNLS.UninstallAppWizardPage_SystemLabel
-                        : AndroidNLS.UninstallAppWizardPage_UserLabel);
-                if (selectedPackagesPreference != null)
-                {
-                    if (selectedPackagesPreference.contains(packageName))
-                    {
-                        item.setChecked(true);
-                        getTable().select(table.getItemCount() - 1);
-                    }
-                }
+	/**
+	 * Populates the table with available packages.
+	 * 
+	 * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#addTableData(Object)
+	 */
+	@Override
+	protected void addTableData(Map<String, String> elementList) {
+		// retrieve the available packages
+		Map<String, String> availablePackages = elementList;
+		// retrieve the monkey wizard page
+		MonkeyConfigurationTab monkeyWizardPage = getCallingPage();
+		// get the list of selected packages preference
+		List<?> selectedPackagesPreference = monkeyWizardPage.getSelectedPackagesPreference();
+		// get the table to be populated
+		Table table = getTable();
+		// iterate through the available packages
+		String packageName = null;
+		String packagePath = null;
+		Iterator<String> it = availablePackages.keySet().iterator();
+		while (it.hasNext()) {
+			// the the package name and path
+			packageName = it.next();
+			packagePath = availablePackages.get(packageName);
+			if (!monkeyWizardPage.isFilterSystem() || !packagePath.toLowerCase().contains("system")) {
+				// add data
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(0, packageName);
+				item.setText(1, packagePath.contains("system") ? AndroidNLS.UninstallAppWizardPage_SystemLabel
+						: AndroidNLS.UninstallAppWizardPage_UserLabel);
+				if (selectedPackagesPreference != null) {
+					if (selectedPackagesPreference.contains(packageName)) {
+						item.setChecked(true);
+						getTable().select(table.getItemCount() - 1);
+					}
+				}
 
-            }
-        }
-    }
+			}
+		}
+	}
 
-    /**
-     * Get the List of installed packages from the device based on its serial number.
-     *  
-     * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#callServiceForRetrievingDataToPopulateTable(java.lang.Object)
-     */
-    @Override
-    protected Map<String, String> callServiceForRetrievingDataToPopulateTable(String serialNumber)
-    {
-        // installed packages to be returned
-        Map<String, String> installedPackages = null;
-        // based on the serial number, the the installed packages
-        if (serialNumber != null)
-        {
-            try
-            {
-                installedPackages = DDMSUtils.listInstalledPackages(serialNumber);
-            }
-            catch (IOException e)
-            {
-                installedPackages = new HashMap<String, String>(0);
-            }
-        }
-        return installedPackages;
-    }
+	/**
+	 * Get the List of installed packages from the device based on its serial
+	 * number.
+	 * 
+	 * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#callServiceForRetrievingDataToPopulateTable(java.lang.Object)
+	 */
+	@Override
+	protected Map<String, String> callServiceForRetrievingDataToPopulateTable(String serialNumber) {
+		// installed packages to be returned
+		Map<String, String> installedPackages = null;
+		// based on the serial number, the the installed packages
+		if (serialNumber != null) {
+			try {
+				installedPackages = DDMSUtils.listInstalledPackages(serialNumber);
+			} catch (IOException e) {
+				installedPackages = new HashMap<String, String>(0);
+			}
+		}
+		return installedPackages;
+	}
 
-    /** 
-     * Update the Launching configuration dialog.
-     * 
-     * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#executeOperationsAfterTableIsPopulated()
-     */
-    @Override
-    protected void executeOperationsAfterTableIsPopulated()
-    {
-        // update the launching configuration dialog
-        MonkeyConfigurationTab monkeyWizardPage = getCallingPage();
-        monkeyWizardPage.callUpdateLaunchConfigurationDialog();
-    }
+	/**
+	 * Update the Launching configuration dialog.
+	 * 
+	 * @see org.eclipse.andmore.android.wizards.elements.TableWithLoadingInfo#executeOperationsAfterTableIsPopulated()
+	 */
+	@Override
+	protected void executeOperationsAfterTableIsPopulated() {
+		// update the launching configuration dialog
+		MonkeyConfigurationTab monkeyWizardPage = getCallingPage();
+		monkeyWizardPage.callUpdateLaunchConfigurationDialog();
+	}
 
 }

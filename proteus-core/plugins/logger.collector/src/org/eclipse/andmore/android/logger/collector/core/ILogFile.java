@@ -21,28 +21,30 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 
 /**
- * This interface is used by any features that wants to 
- * have a log file contribution within collect log files feature
+ * This interface is used by any features that wants to have a log file
+ * contribution within collect log files feature
  */
-public interface ILogFile
-{
-    /**
-     * Get the name of 
-     * @return the name that will be displayed by the user
-     */
-    public String getLogName();
+public interface ILogFile {
+	/**
+	 * Get the name of
+	 * 
+	 * @return the name that will be displayed by the user
+	 */
+	public String getLogName();
 
-    /**
-     * Get the full path of the log file
-     * @return
-     */
-    public List<IPath> getLogFilePath();
+	/**
+	 * Get the full path of the log file
+	 * 
+	 * @return
+	 */
+	public List<IPath> getLogFilePath();
 
-    /**
-     * Tell to the log collector where the log should be placed within
-     * log package
-     * @return the sub dir to put all declared log files
-     */
-    public String getOutputSubfolderName();
+	/**
+	 * Tell to the log collector where the log should be placed within log
+	 * package
+	 * 
+	 * @return the sub dir to put all declared log files
+	 */
+	public String getOutputSubfolderName();
 
 }

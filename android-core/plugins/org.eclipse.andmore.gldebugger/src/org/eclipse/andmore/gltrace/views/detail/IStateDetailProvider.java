@@ -19,9 +19,9 @@ package org.eclipse.andmore.gltrace.views.detail;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 public interface IStateDetailProvider extends IDetailProvider {
-    /** Is this provider applicable for given GL state property? */
-    boolean isApplicable(IGLProperty state);
+	/** Is this provider applicable for given GL state property? */
+	boolean isApplicable(IGLProperty state);
 
-    /** Update the detail view for given GL state property. */
-    void updateControl(IGLProperty state);
+	/** Update the detail view for given GL state property. */
+	void updateControl(IGLProperty state);
 }

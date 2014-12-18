@@ -28,130 +28,133 @@ import org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.Function;
 
 /** A class that streams data received from a socket into the trace file. */
 public class TraceFileWriter {
-    private DataInputStream mInputStream;
-    private DataOutputStream mOutputStream;
-    private Thread mReceiverThread;
+	private DataInputStream mInputStream;
+	private DataOutputStream mOutputStream;
+	private Thread mReceiverThread;
 
-    private int mFileSize = 0;
-    private int mFrameCount = 0;
+	private int mFileSize = 0;
+	private int mFrameCount = 0;
 
-    /**
-     * Construct a trace file writer.
-     * @param fos output stream to write trace data to
-     * @param is input stream from which trace data is read
-     */
-    public TraceFileWriter(FileOutputStream fos, DataInputStream is) {
-        mOutputStream = new DataOutputStream(fos);
-        mInputStream = is;
-    }
+	/**
+	 * Construct a trace file writer.
+	 * 
+	 * @param fos
+	 *            output stream to write trace data to
+	 * @param is
+	 *            input stream from which trace data is read
+	 */
+	public TraceFileWriter(FileOutputStream fos, DataInputStream is) {
+		mOutputStream = new DataOutputStream(fos);
+		mInputStream = is;
+	}
 
-    public void start() {
-        // launch thread
-        mReceiverThread = new Thread(new GLTraceReceiverTask());
-        mReceiverThread.setName("GL Trace Receiver");
-        mReceiverThread.start();
-    }
+	public void start() {
+		// launch thread
+		mReceiverThread = new Thread(new GLTraceReceiverTask());
+		mReceiverThread.setName("GL Trace Receiver");
+		mReceiverThread.start();
+	}
 
-    public void stopTracing() {
-        // close socket to stop the receiver thread
-        try {
-            mInputStream.close();
-        } catch (IOException e) {
-            // ignore exception while closing socket
-        }
+	public void stopTracing() {
+		// close socket to stop the receiver thread
+		try {
+			mInputStream.close();
+		} catch (IOException e) {
+			// ignore exception while closing socket
+		}
 
-        // wait for receiver to complete
-        try {
-            mReceiverThread.join();
-        } catch (InterruptedException e1) {
-            // ignore, this cannot be interrupted
-        }
+		// wait for receiver to complete
+		try {
+			mReceiverThread.join();
+		} catch (InterruptedException e1) {
+			// ignore, this cannot be interrupted
+		}
 
-        // close stream
-        try {
-            mOutputStream.close();
-        } catch (IOException e) {
-            // ignore error while closing stream
-        }
-    }
+		// close stream
+		try {
+			mOutputStream.close();
+		} catch (IOException e) {
+			// ignore error while closing stream
+		}
+	}
 
-    /**
-     * The GLTraceReceiverTask collects trace data from the device and writes it
-     * into a file while collecting some stats on the way.
-     */
-    private class GLTraceReceiverTask implements Runnable {
-        @Override
-        public void run() {
-            while (true) {
-                byte[] buffer = readTraceData(mInputStream);
-                if (buffer == null) {
-                    break;
-                }
+	/**
+	 * The GLTraceReceiverTask collects trace data from the device and writes it
+	 * into a file while collecting some stats on the way.
+	 */
+	private class GLTraceReceiverTask implements Runnable {
+		@Override
+		public void run() {
+			while (true) {
+				byte[] buffer = readTraceData(mInputStream);
+				if (buffer == null) {
+					break;
+				}
 
-                try {
-                    writeTraceData(buffer, mOutputStream);
-                } catch (IOException e) {
-                    break;
-                }
+				try {
+					writeTraceData(buffer, mOutputStream);
+				} catch (IOException e) {
+					break;
+				}
 
-                updateTraceStats(buffer);
-            }
-        }
-    }
+				updateTraceStats(buffer);
+			}
+		}
+	}
 
-    private byte[] readTraceData(DataInputStream dis) {
-        int len;
-        try {
-            len = dis.readInt();
-        } catch (IOException e1) {
-            return null;
-        }
-        len = Integer.reverseBytes(len);    // readInt is big endian, we want little endian
+	private byte[] readTraceData(DataInputStream dis) {
+		int len;
+		try {
+			len = dis.readInt();
+		} catch (IOException e1) {
+			return null;
+		}
+		len = Integer.reverseBytes(len); // readInt is big endian, we want
+											// little endian
 
-        byte[] buffer = new byte[len];
-        int readLen = 0;
-        while (readLen < len) {
-            try {
-                int read = dis.read(buffer, readLen, len - readLen);
-                if (read < 0) {
-                    return null;
-                } else {
-                    readLen += read;
-                }
-            } catch (IOException e) {
-                return null;
-            }
-        }
+		byte[] buffer = new byte[len];
+		int readLen = 0;
+		while (readLen < len) {
+			try {
+				int read = dis.read(buffer, readLen, len - readLen);
+				if (read < 0) {
+					return null;
+				} else {
+					readLen += read;
+				}
+			} catch (IOException e) {
+				return null;
+			}
+		}
 
-        return buffer;
-    }
+		return buffer;
+	}
 
+	private void writeTraceData(byte[] buffer, DataOutputStream stream) throws IOException {
+		stream.writeInt(buffer.length);
+		stream.write(buffer);
+	}
 
-    private void writeTraceData(byte[] buffer, DataOutputStream stream) throws IOException {
-        stream.writeInt(buffer.length);
-        stream.write(buffer);
-    }
+	private void updateTraceStats(byte[] buffer) {
+		GLMessage msg = null;
+		try {
+			msg = GLMessage.parseFrom(buffer);
+		} catch (InvalidProtocolBufferException e) {
+			return;
+		}
 
-    private void updateTraceStats(byte[] buffer) {
-        GLMessage msg = null;
-        try {
-            msg = GLMessage.parseFrom(buffer);
-        } catch (InvalidProtocolBufferException e) {
-            return;
-        }
+		mFileSize += buffer.length;
 
-        mFileSize += buffer.length;
+		if (msg.getFunction() == Function.eglSwapBuffers) {
+			mFrameCount++;
+		}
+	}
 
-        if (msg.getFunction() == Function.eglSwapBuffers) {
-            mFrameCount++;
-        }
-    }
+	public int getCurrentFileSize() {
+		return mFileSize;
+	}
 
-    public int getCurrentFileSize() {
-        return mFileSize;
-    }
-
-    public int getCurrentFrameCount() {
-        return mFrameCount;
-    }
+	public int getCurrentFrameCount() {
+		return mFrameCount;
+	}
 }

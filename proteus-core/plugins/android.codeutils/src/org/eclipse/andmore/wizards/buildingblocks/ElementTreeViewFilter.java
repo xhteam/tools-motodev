@@ -24,48 +24,40 @@ import org.eclipse.jdt.internal.ui.wizards.TypedViewerFilter;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * Class that implements a View Filter for the package selection
- * on the New Project Wizard
+ * Class that implements a View Filter for the package selection on the New
+ * Project Wizard
  */
 @SuppressWarnings("restriction")
-class ElementTreeViewFilter extends TypedViewerFilter
-{
-    private static Class<?>[] acceptedClasses = new Class[]
-    {
-            IJavaModel.class, IPackageFragmentRoot.class, IJavaProject.class
-    };
+class ElementTreeViewFilter extends TypedViewerFilter {
+	private static Class<?>[] acceptedClasses = new Class[] { IJavaModel.class, IPackageFragmentRoot.class,
+			IJavaProject.class };
 
-    /**
-     * Default constructor
-     */
-    public ElementTreeViewFilter()
-    {
-        super(acceptedClasses);
-    }
+	/**
+	 * Default constructor
+	 */
+	public ElementTreeViewFilter() {
+		super(acceptedClasses);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jdt.internal.ui.wizards.TypedViewerFilter#select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-     */
-    @Override
-    public boolean select(Viewer viewer, Object parent, Object element)
-    {
-        boolean select = false;
-        if (element instanceof IPackageFragmentRoot)
-        {
-            try
-            {
-                select =
-                        (((IPackageFragmentRoot) element).getKind() == IPackageFragmentRoot.K_SOURCE);
-            }
-            catch (JavaModelException e)
-            {
-                StudioLogger.error(ElementTreeViewFilter.class, e.getLocalizedMessage(), e);
-            }
-        }
-        else
-        {
-            select = super.select(viewer, parent, element);
-        }
-        return select;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jdt.internal.ui.wizards.TypedViewerFilter#select(org.eclipse
+	 * .jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public boolean select(Viewer viewer, Object parent, Object element) {
+		boolean select = false;
+		if (element instanceof IPackageFragmentRoot) {
+			try {
+				select = (((IPackageFragmentRoot) element).getKind() == IPackageFragmentRoot.K_SOURCE);
+			} catch (JavaModelException e) {
+				StudioLogger.error(ElementTreeViewFilter.class, e.getLocalizedMessage(), e);
+			}
+		} else {
+			select = super.select(viewer, parent, element);
+		}
+		return select;
+	}
 }

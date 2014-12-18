@@ -24,42 +24,36 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-public class LogCatColorsPage extends FieldEditorPreferencePage
-                                            implements IWorkbenchPreferencePage {
-    public LogCatColorsPage() {
-        super(GRID);
-        setPreferenceStore(DdmsPlugin.getDefault().getPreferenceStore());
-    }
+public class LogCatColorsPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+	public LogCatColorsPage() {
+		super(GRID);
+		setPreferenceStore(DdmsPlugin.getDefault().getPreferenceStore());
+	}
 
-    @Override
-    public void init(IWorkbench workbench) {
-    }
+	@Override
+	public void init(IWorkbench workbench) {
+	}
 
-    @Override
-    protected void createFieldEditors() {
-        // colors preference for different log levels
-        ColorFieldEditor cfe = new ColorFieldEditor(LogCatPanel.VERBOSE_COLOR_PREFKEY,
-                "Verbose Log Message Color", getFieldEditorParent());
-        addField(cfe);
+	@Override
+	protected void createFieldEditors() {
+		// colors preference for different log levels
+		ColorFieldEditor cfe = new ColorFieldEditor(LogCatPanel.VERBOSE_COLOR_PREFKEY, "Verbose Log Message Color",
+				getFieldEditorParent());
+		addField(cfe);
 
-        cfe = new ColorFieldEditor(LogCatPanel.DEBUG_COLOR_PREFKEY, "Debug Log Message Color",
-                getFieldEditorParent());
-        addField(cfe);
+		cfe = new ColorFieldEditor(LogCatPanel.DEBUG_COLOR_PREFKEY, "Debug Log Message Color", getFieldEditorParent());
+		addField(cfe);
 
-        cfe = new ColorFieldEditor(LogCatPanel.INFO_COLOR_PREFKEY, "Info Log Message Color",
-                getFieldEditorParent());
-        addField(cfe);
+		cfe = new ColorFieldEditor(LogCatPanel.INFO_COLOR_PREFKEY, "Info Log Message Color", getFieldEditorParent());
+		addField(cfe);
 
-        cfe = new ColorFieldEditor(LogCatPanel.WARN_COLOR_PREFKEY, "Warning Log Message Color",
-                getFieldEditorParent());
-        addField(cfe);
+		cfe = new ColorFieldEditor(LogCatPanel.WARN_COLOR_PREFKEY, "Warning Log Message Color", getFieldEditorParent());
+		addField(cfe);
 
-        cfe = new ColorFieldEditor(LogCatPanel.ERROR_COLOR_PREFKEY, "Error Log Message Color",
-                getFieldEditorParent());
-        addField(cfe);
+		cfe = new ColorFieldEditor(LogCatPanel.ERROR_COLOR_PREFKEY, "Error Log Message Color", getFieldEditorParent());
+		addField(cfe);
 
-        cfe = new ColorFieldEditor(LogCatPanel.ASSERT_COLOR_PREFKEY, "Assert Log Message Color",
-                getFieldEditorParent());
-        addField(cfe);
-    }
+		cfe = new ColorFieldEditor(LogCatPanel.ASSERT_COLOR_PREFKEY, "Assert Log Message Color", getFieldEditorParent());
+		addField(cfe);
+	}
 }

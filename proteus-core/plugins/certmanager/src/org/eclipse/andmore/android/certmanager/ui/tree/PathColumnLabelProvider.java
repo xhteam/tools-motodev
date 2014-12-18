@@ -18,19 +18,19 @@ package org.eclipse.andmore.android.certmanager.ui.tree;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-public class PathColumnLabelProvider extends ColumnLabelProvider
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        if (element instanceof KeyStoreNode)
-        {
-            KeyStoreNode keyStoreModel = (KeyStoreNode) element;
-            return keyStoreModel.getFile().getAbsolutePath();
-        }
-        return ""; //other items do not need to show this column with data
-    }
+public class PathColumnLabelProvider extends ColumnLabelProvider {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		if (element instanceof KeyStoreNode) {
+			KeyStoreNode keyStoreModel = (KeyStoreNode) element;
+			return keyStoreModel.getFile().getAbsolutePath();
+		}
+		return ""; // other items do not need to show this column with data
+	}
 }

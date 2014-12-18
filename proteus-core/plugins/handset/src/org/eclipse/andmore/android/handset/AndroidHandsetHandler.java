@@ -20,34 +20,27 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.sequoyah.device.framework.model.handler.IDeviceHandler;
 
 /**
- * DESCRIPTION:
- * <br>
- * This class represents a TmL IDeviceHandler for Android Handsets.
- * <br>
- * RESPONSIBILITY:
- * <br>
- * - Create an IInstance object for Android Handsets
- * <br>
- * COLABORATORS:
- * <br>
- * IDeviceHandler: implements this interface
- * <br>
- * USAGE:
- * <br>
- * This class is declared by the plugin.xml for the Android Handsets declaration.
+ * DESCRIPTION: <br>
+ * This class represents a TmL IDeviceHandler for Android Handsets. <br>
+ * RESPONSIBILITY: <br>
+ * - Create an IInstance object for Android Handsets <br>
+ * COLABORATORS: <br>
+ * IDeviceHandler: implements this interface <br>
+ * USAGE: <br>
+ * This class is declared by the plugin.xml for the Android Handsets
+ * declaration.
  */
-public class AndroidHandsetHandler implements IDeviceHandler
-{
-    public IInstance createDeviceInstance(String id)
-    {
-        IInstance instance = new AndroidHandsetInstance();
-        instance.setId(id);
-        return instance;
-    }
+public class AndroidHandsetHandler implements IDeviceHandler {
+	@Override
+	public IInstance createDeviceInstance(String id) {
+		IInstance instance = new AndroidHandsetInstance();
+		instance.setId(id);
+		return instance;
+	}
 
-    public IDeviceLauncher createDeviceLauncher(IInstance arg0)
-    {
-        return null;
-    }
+	@Override
+	public IDeviceLauncher createDeviceLauncher(IInstance arg0) {
+		return null;
+	}
 
 }

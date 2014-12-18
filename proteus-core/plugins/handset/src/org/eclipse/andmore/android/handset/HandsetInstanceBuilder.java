@@ -21,78 +21,74 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.sequoyah.device.framework.model.IInstanceBuilder;
 
 /**
- * DESCRIPTION:
- * <br>
- * This class knows how to build TmL instances of handsets
- * <br>
- * RESPONSIBILITY:
- * <br>
- * Creates TmL instances of handsets
- * <br>
- * COLABORATORS:
- * <br>
- * None
- * <br>
- * USAGE:
- * <br>
+ * DESCRIPTION: <br>
+ * This class knows how to build TmL instances of handsets <br>
+ * RESPONSIBILITY: <br>
+ * Creates TmL instances of handsets <br>
+ * COLABORATORS: <br>
+ * None <br>
+ * USAGE: <br>
  * This class is intended to be used by TmL only
  */
-public class HandsetInstanceBuilder implements IInstanceBuilder
-{
-    private final Properties properties;
+public class HandsetInstanceBuilder implements IInstanceBuilder {
+	private final Properties properties;
 
-    private final String name;
+	private final String name;
 
-    /**
-     * Creates a new Instance Builder with the given information.
-     * 
-     * @param instanceName the name of the instance to be created using this builder
-     * @param properties the properties of the instance to be created using this builder
-     */
-    public HandsetInstanceBuilder(String instanceName, Properties properties)
-    {
-        this.properties = properties;
-        this.name = instanceName;
-    }
+	/**
+	 * Creates a new Instance Builder with the given information.
+	 * 
+	 * @param instanceName
+	 *            the name of the instance to be created using this builder
+	 * @param properties
+	 *            the properties of the instance to be created using this
+	 *            builder
+	 */
+	public HandsetInstanceBuilder(String instanceName, Properties properties) {
+		this.properties = properties;
+		this.name = instanceName;
+	}
 
-    /**
-     * Always returns <code>null</code> since this information does
-     * not make sense for Android Handset Instances.
-     */
-    public IPath getLocationPath()
-    {
-        return null;
-    }
+	/**
+	 * Always returns <code>null</code> since this information does not make
+	 * sense for Android Handset Instances.
+	 */
+	@Override
+	public IPath getLocationPath() {
+		return null;
+	}
 
-    /**
-     * Retrieves the name of the instance to be created using this builder
-     * 
-     * @return the name of the instance to be created using this builder
-     */
-    public String getProjectName()
-    {
-        return name;
-    }
+	/**
+	 * Retrieves the name of the instance to be created using this builder
+	 * 
+	 * @return the name of the instance to be created using this builder
+	 */
+	@Override
+	public String getProjectName() {
+		return name;
+	}
 
-    /**
-     * Retrieves the properties of the instance to be created using this builder
-     * 
-     * @return the properties of the instance to be created using this builder
-     */
-    public Properties getProperties()
-    {
-        return properties;
-    }
+	/**
+	 * Retrieves the properties of the instance to be created using this builder
+	 * 
+	 * @return the properties of the instance to be created using this builder
+	 */
+	@Override
+	public Properties getProperties() {
+		return properties;
+	}
 
-    /**
-     * Retrieves the value of the give property key.
-     * 
-     * @param key the key of the property
-     * 
-     * @return the value for the property for the instance to be created using this builder
-     */
-    public String getProperty(String key)
-    {
-        return properties.getProperty(key);
-    }
+	/**
+	 * Retrieves the value of the give property key.
+	 * 
+	 * @param key
+	 *            the key of the property
+	 * 
+	 * @return the value for the property for the instance to be created using
+	 *         this builder
+	 */
+	@Override
+	public String getProperty(String key) {
+		return properties.getProperty(key);
+	}
 }

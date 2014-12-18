@@ -30,66 +30,62 @@ import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
 /**
- * DESCRIPTION:
- * This class plugs the deploy procedure to a TmL service 
+ * DESCRIPTION: This class plugs the deploy procedure to a TmL service
  *
- * RESPONSIBILITY:
- * Implements the actions that will be triggered when
- * user chose to Install a Android Application on an
- * emulator instance.
+ * RESPONSIBILITY: Implements the actions that will be triggered when user chose
+ * to Install a Android Application on an emulator instance.
  *
- * COLABORATORS:
- * None.
+ * COLABORATORS: None.
  *
- * USAGE:
- * This class is intended to be used by Eclipse only 
+ * USAGE: This class is intended to be used by Eclipse only
  * */
-public class UninstallAppServiceHandler extends ServiceHandler
-{
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new UninstallAppServiceHandler();
-    }
+public class UninstallAppServiceHandler extends ServiceHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new UninstallAppServiceHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        if (instance instanceof ISerialNumbered)
-        {
-            final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
-            Job j = new Job(ServicesNLS.JOB_Name_Uninstall_Application)
-            {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		if (instance instanceof ISerialNumbered) {
+			final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
+			Job j = new Job(ServicesNLS.JOB_Name_Uninstall_Application) {
 
-                @Override
-                protected IStatus run(IProgressMonitor monitor)
-                {
-                    return DDMSUtils.uninstallPackage(serialNumber);
-                }
-            };
-            j.schedule();
-        }
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					return DDMSUtils.uninstallPackage(serialNumber);
+				}
+			};
+			j.schedule();
+		}
 
-        return Status.OK_STATUS;
-    }
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        StudioLogger.info("Updating reset service");
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		StudioLogger.info("Updating reset service");
+		return Status.OK_STATUS;
+	}
 }

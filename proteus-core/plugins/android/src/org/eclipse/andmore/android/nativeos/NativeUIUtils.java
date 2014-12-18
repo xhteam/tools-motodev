@@ -20,112 +20,89 @@ import org.eclipse.andmore.android.common.log.StudioLogger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
-public class NativeUIUtils
-{
-    private static INativeUI instance;
+public class NativeUIUtils {
+	private static INativeUI instance;
 
-    private NativeUIUtils()
-    {
+	private NativeUIUtils() {
 
-    }
+	}
 
-    public static INativeUI getInstance()
-    {
-        if (instance == null)
-        {
-            instance = (INativeUI) getClass("org.eclipse.andmore.android.nativeos.NativeUI");
-        }
-        return instance;
-    }
+	public static INativeUI getInstance() {
+		if (instance == null) {
+			instance = (INativeUI) getClass("org.eclipse.andmore.android.nativeos.NativeUI");
+		}
+		return instance;
+	}
 
-    public static Object getClass(String nameClass)
-    {
-        try
-        {
-            return (Class.forName(nameClass)).newInstance();
-        }
-        catch (Exception ex)
-        {
-            StudioLogger.error(NativeUIUtils.class,
-                    "Error resolving OS dependent class for native windows feature", ex);
-            return null;
-        }
-    }
+	public static Object getClass(String nameClass) {
+		try {
+			return (Class.forName(nameClass)).newInstance();
+		} catch (Exception ex) {
+			StudioLogger
+					.error(NativeUIUtils.class, "Error resolving OS dependent class for native windows feature", ex);
+			return null;
+		}
+	}
 
-    public static String getDefaultCommandLine()
-    {
-        return getInstance().getDefaultCommandLine();
-    }
+	public static String getDefaultCommandLine() {
+		return getInstance().getDefaultCommandLine();
+	}
 
-    public static String getDefaultUseVnc()
-    {
-        return getInstance().getDefaultUseVnc();
-    }
+	public static String getDefaultUseVnc() {
+		return getInstance().getDefaultUseVnc();
+	}
 
-    public static long getWindowHandle(String avdName, int instancePort)
-    {
-        String windowName = SdkUtils.getEmulatorWindowName(avdName, instancePort);
-        return getInstance().getWindowHandle(windowName);
-    }
+	public static long getWindowHandle(String avdName, int instancePort) {
+		String windowName = SdkUtils.getEmulatorWindowName(avdName, instancePort);
+		return getInstance().getWindowHandle(windowName);
+	}
 
-    public static long getWindowProperties(long windowHandle)
-    {
-        return getInstance().getWindowProperties(windowHandle);
-    }
+	public static long getWindowProperties(long windowHandle) {
+		return getInstance().getWindowProperties(windowHandle);
+	}
 
-    public static Point getWindowSize(long originalParentHandle, long windowHandle)
-    {
-        return getInstance().getWindowSize(originalParentHandle, windowHandle);
-    }
+	public static Point getWindowSize(long originalParentHandle, long windowHandle) {
+		return getInstance().getWindowSize(originalParentHandle, windowHandle);
+	}
 
-    public static void hideWindow(long windowHandle)
-    {
-        getInstance().hideWindow(windowHandle);
-    }
+	public static void hideWindow(long windowHandle) {
+		getInstance().hideWindow(windowHandle);
+	}
 
-    public static boolean isWindowEnabled(long windowHandle)
-    {
-        return getInstance().isWindowEnabled(windowHandle);
-    }
+	public static boolean isWindowEnabled(long windowHandle) {
+		return getInstance().isWindowEnabled(windowHandle);
+	}
 
-    public static void restoreWindow(long windowHandle)
-    {
-        getInstance().restoreWindow(windowHandle);
-    }
+	public static void restoreWindow(long windowHandle) {
+		getInstance().restoreWindow(windowHandle);
+	}
 
-    public static void sendNextLayoutCommand(long originalParent, long windowHandle)
-    {
-        getInstance().sendNextLayoutCommand(originalParent, windowHandle);
-    }
+	public static void sendNextLayoutCommand(long originalParent, long windowHandle) {
+		getInstance().sendNextLayoutCommand(originalParent, windowHandle);
+	}
 
-    public static void setWindowFocus(long windowHandle)
-    {
-        getInstance().setWindowFocus(windowHandle);
-    }
+	public static void setWindowFocus(long windowHandle) {
+		getInstance().setWindowFocus(windowHandle);
+	}
 
-    public static long embedWindow(long windowHandle, Composite composite)
-    {
-        return getInstance().embedWindow(windowHandle, composite);
-    }
+	public static long embedWindow(long windowHandle, Composite composite) {
+		return getInstance().embedWindow(windowHandle, composite);
+	}
 
-    public static void unembedWindow(long windowHandle, long originalParent)
-    {
-        getInstance().unembedWindow(windowHandle, originalParent);
-    }
+	public static void unembedWindow(long windowHandle, long originalParent) {
+		getInstance().unembedWindow(windowHandle, originalParent);
+	}
 
-    public static void setWindowProperties(long windowHandle, long originalProperties)
-    {
-        getInstance().setWindowProperties(windowHandle, originalProperties);
-    }
+	public static void setWindowProperties(long windowHandle, long originalProperties) {
+		getInstance().setWindowProperties(windowHandle, originalProperties);
+	}
 
-    public static void setWindowStyle(long windowHandle)
-    {
-        getInstance().setWindowStyle(windowHandle);
-    }
+	public static void setWindowStyle(long windowHandle) {
+		getInstance().setWindowStyle(windowHandle);
+	}
 
-    public static void showWindow(long windowHandle)
-    {
-        getInstance().showWindow(windowHandle);
-    }
+	public static void showWindow(long windowHandle) {
+		getInstance().showWindow(windowHandle);
+	}
 
 }

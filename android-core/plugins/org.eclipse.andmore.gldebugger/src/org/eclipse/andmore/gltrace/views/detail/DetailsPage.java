@@ -41,191 +41,187 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DetailsPage extends Page implements ISelectionListener {
-    private GLTrace mTrace;
+	private GLTrace mTrace;
 
-    private IToolBarManager mToolBarManager;
-    private Composite mTopComposite;
-    private StackLayout mStackLayout;
-    private Composite mBlankComposite;
+	private IToolBarManager mToolBarManager;
+	private Composite mTopComposite;
+	private StackLayout mStackLayout;
+	private Composite mBlankComposite;
 
-    private List<IDetailProvider> mDetailProviders = Arrays.asList(
-            new ShaderSourceDetailsProvider(),
-            new ShaderUniformDetailsProvider(),
-            new TextureImageDetailsProvider(),
-            new VboDetailProvider(),
-            new GlDrawCallDetailProvider(),
-            new VertexAttribPointerDataDetailProvider());
+	private List<IDetailProvider> mDetailProviders = Arrays.asList(new ShaderSourceDetailsProvider(),
+			new ShaderUniformDetailsProvider(), new TextureImageDetailsProvider(), new VboDetailProvider(),
+			new GlDrawCallDetailProvider(), new VertexAttribPointerDataDetailProvider());
 
-    public DetailsPage(GLTrace trace) {
-        mTrace = trace;
-    }
+	public DetailsPage(GLTrace trace) {
+		mTrace = trace;
+	}
 
-    public void setInput(GLTrace trace) {
-        mTrace = trace;
-    }
+	public void setInput(GLTrace trace) {
+		mTrace = trace;
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        mTopComposite = new Composite(parent, SWT.NONE);
-        mStackLayout = new StackLayout();
-        mTopComposite.setLayout(mStackLayout);
-        mTopComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+	@Override
+	public void createControl(Composite parent) {
+		mTopComposite = new Composite(parent, SWT.NONE);
+		mStackLayout = new StackLayout();
+		mTopComposite.setLayout(mStackLayout);
+		mTopComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        mBlankComposite = new Composite(mTopComposite, SWT.NONE);
+		mBlankComposite = new Composite(mTopComposite, SWT.NONE);
 
-        mToolBarManager = getSite().getActionBars().getToolBarManager();
+		mToolBarManager = getSite().getActionBars().getToolBarManager();
 
-        for (IDetailProvider provider : mDetailProviders) {
-            provider.createControl(mTopComposite);
+		for (IDetailProvider provider : mDetailProviders) {
+			provider.createControl(mTopComposite);
 
-            for (IContributionItem item: provider.getToolBarItems()) {
-                mToolBarManager.add(item);
-            }
-        }
+			for (IContributionItem item : provider.getToolBarItems()) {
+				mToolBarManager.add(item);
+			}
+		}
 
-        setDetailsProvider(null);
-    }
+		setDetailsProvider(null);
+	}
 
-    private void setDetailsProvider(IDetailProvider provider) {
-        for (IContributionItem item: mToolBarManager.getItems()) {
-            item.setVisible(false);
-        }
+	private void setDetailsProvider(IDetailProvider provider) {
+		for (IContributionItem item : mToolBarManager.getItems()) {
+			item.setVisible(false);
+		}
 
-        if (provider == null) {
-            setTopControl(mBlankComposite);
-        } else {
-            setTopControl(provider.getControl());
+		if (provider == null) {
+			setTopControl(mBlankComposite);
+		} else {
+			setTopControl(provider.getControl());
 
-            for (IContributionItem item: provider.getToolBarItems()) {
-                item.setVisible(true);
-            }
-        }
+			for (IContributionItem item : provider.getToolBarItems()) {
+				item.setVisible(true);
+			}
+		}
 
-        mToolBarManager.update(true);
-    }
+		mToolBarManager.update(true);
+	}
 
-    private void setTopControl(Control c) {
-        mStackLayout.topControl = c;
-        mTopComposite.layout();
-    }
+	private void setTopControl(Control c) {
+		mStackLayout.topControl = c;
+		mTopComposite.layout();
+	}
 
-    @Override
-    public Control getControl() {
-        return mTopComposite;
-    }
+	@Override
+	public Control getControl() {
+		return mTopComposite;
+	}
 
-    @Override
-    public void init(IPageSite pageSite) {
-        super.init(pageSite);
-        pageSite.getPage().addSelectionListener(this);
-    }
+	@Override
+	public void init(IPageSite pageSite) {
+		super.init(pageSite);
+		pageSite.getPage().addSelectionListener(this);
+	}
 
-    @Override
-    public void dispose() {
-        getSite().getPage().removeSelectionListener(this);
+	@Override
+	public void dispose() {
+		getSite().getPage().removeSelectionListener(this);
 
-        for (IDetailProvider provider : mDetailProviders) {
-            provider.disposeControl();
-        }
+		for (IDetailProvider provider : mDetailProviders) {
+			provider.disposeControl();
+		}
 
-        super.dispose();
-    }
+		super.dispose();
+	}
 
-    @Override
-    public void setFocus() {
-    }
+	@Override
+	public void setFocus() {
+	}
 
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        if (part instanceof GLFunctionTraceViewer) {
-            GLCall selectedCall = getSelectedCall((GLFunctionTraceViewer) part, selection);
-            if (selectedCall == null) {
-                return;
-            }
+	@Override
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		if (part instanceof GLFunctionTraceViewer) {
+			GLCall selectedCall = getSelectedCall((GLFunctionTraceViewer) part, selection);
+			if (selectedCall == null) {
+				return;
+			}
 
-            callSelected(selectedCall);
-            return;
-        } else if (part instanceof StateView) {
-            IGLProperty selectedProperty = getSelectedProperty((StateView) part, selection);
-            if (selectedProperty == null) {
-                return;
-            }
+			callSelected(selectedCall);
+			return;
+		} else if (part instanceof StateView) {
+			IGLProperty selectedProperty = getSelectedProperty((StateView) part, selection);
+			if (selectedProperty == null) {
+				return;
+			}
 
-            stateVariableSelected(selectedProperty);
-            return;
-        }
+			stateVariableSelected(selectedProperty);
+			return;
+		}
 
-        return;
-    }
+		return;
+	}
 
-    private void stateVariableSelected(IGLProperty property) {
-        for (IDetailProvider p : mDetailProviders) {
-            if (!(p instanceof IStateDetailProvider)) {
-                continue;
-            }
+	private void stateVariableSelected(IGLProperty property) {
+		for (IDetailProvider p : mDetailProviders) {
+			if (!(p instanceof IStateDetailProvider)) {
+				continue;
+			}
 
-            IStateDetailProvider sp = (IStateDetailProvider) p;
-            if (sp.isApplicable(property)) {
-                sp.updateControl(property);
-                setDetailsProvider(sp);
-                return;
-            }
-        }
+			IStateDetailProvider sp = (IStateDetailProvider) p;
+			if (sp.isApplicable(property)) {
+				sp.updateControl(property);
+				setDetailsProvider(sp);
+				return;
+			}
+		}
 
-        setDetailsProvider(null);
-        return;
-    }
+		setDetailsProvider(null);
+		return;
+	}
 
-    private void callSelected(GLCall selectedCall) {
-        for (IDetailProvider p : mDetailProviders) {
-            if (!(p instanceof ICallDetailProvider)) {
-                continue;
-            }
+	private void callSelected(GLCall selectedCall) {
+		for (IDetailProvider p : mDetailProviders) {
+			if (!(p instanceof ICallDetailProvider)) {
+				continue;
+			}
 
-            ICallDetailProvider cp = (ICallDetailProvider) p;
-            if (cp.isApplicable(selectedCall)) {
-                cp.updateControl(mTrace, selectedCall);
-                setDetailsProvider(cp);
-                return;
-            }
-        }
+			ICallDetailProvider cp = (ICallDetailProvider) p;
+			if (cp.isApplicable(selectedCall)) {
+				cp.updateControl(mTrace, selectedCall);
+				setDetailsProvider(cp);
+				return;
+			}
+		}
 
-        setDetailsProvider(null);
-        return;
-    }
+		setDetailsProvider(null);
+		return;
+	}
 
-    private GLCall getSelectedCall(GLFunctionTraceViewer part, ISelection selection) {
-        if (part.getTrace() != mTrace) {
-            return null;
-        }
+	private GLCall getSelectedCall(GLFunctionTraceViewer part, ISelection selection) {
+		if (part.getTrace() != mTrace) {
+			return null;
+		}
 
-        if (!(selection instanceof TreeSelection)) {
-            return null;
-        }
+		if (!(selection instanceof TreeSelection)) {
+			return null;
+		}
 
-        Object data = ((TreeSelection) selection).getFirstElement();
-        if (data instanceof GLCallNode) {
-            return ((GLCallNode) data).getCall();
-        } else {
-            return null;
-        }
-    }
+		Object data = ((TreeSelection) selection).getFirstElement();
+		if (data instanceof GLCallNode) {
+			return ((GLCallNode) data).getCall();
+		} else {
+			return null;
+		}
+	}
 
-    private IGLProperty getSelectedProperty(StateView view, ISelection selection) {
-        if (!(selection instanceof IStructuredSelection)) {
-            return null;
-        }
+	private IGLProperty getSelectedProperty(StateView view, ISelection selection) {
+		if (!(selection instanceof IStructuredSelection)) {
+			return null;
+		}
 
-        IStructuredSelection ssel = (IStructuredSelection) selection;
-        @SuppressWarnings("rawtypes")
-        List objects = ssel.toList();
-        if (objects.size() > 0) {
-            Object data = objects.get(0);
-            if (data instanceof IGLProperty) {
-                return (IGLProperty) data;
-            }
-        }
+		IStructuredSelection ssel = (IStructuredSelection) selection;
+		@SuppressWarnings("rawtypes")
+		List objects = ssel.toList();
+		if (objects.size() > 0) {
+			Object data = objects.get(0);
+			if (data instanceof IGLProperty) {
+				return (IGLProperty) data;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

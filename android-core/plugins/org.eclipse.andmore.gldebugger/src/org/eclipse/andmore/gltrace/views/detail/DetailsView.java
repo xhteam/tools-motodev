@@ -21,31 +21,31 @@ import org.eclipse.andmore.gltrace.views.GLPageBookView;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class DetailsView extends GLPageBookView {
-    public static final String ID = "org.eclipse.andmore.gltrace.views.Details"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.gltrace.views.Details"; //$NON-NLS-1$
 
-    public DetailsView() {
-        super(""); //$NON-NLS-1$
-    }
+	public DetailsView() {
+		super(""); //$NON-NLS-1$
+	}
 
-    @Override
-    protected PageRec doCreatePage(IWorkbenchPart part) {
-        if (!(part instanceof GLFunctionTraceViewer)) {
-            return null;
-        }
+	@Override
+	protected PageRec doCreatePage(IWorkbenchPart part) {
+		if (!(part instanceof GLFunctionTraceViewer)) {
+			return null;
+		}
 
-        GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
-        DetailsPage page = viewer.getDetailsPage();
+		GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
+		DetailsPage page = viewer.getDetailsPage();
 
-        initPage(page);
-        page.createControl(getPageBook());
+		initPage(page);
+		page.createControl(getPageBook());
 
-        return new PageRec(part, page);
-    }
+		return new PageRec(part, page);
+	}
 
-    @Override
-    protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
-        DetailsPage page = (DetailsPage) pageRecord.page;
-        page.dispose();
-        pageRecord.dispose();
-    }
+	@Override
+	protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
+		DetailsPage page = (DetailsPage) pageRecord.page;
+		page.dispose();
+		pageRecord.dispose();
+	}
 }

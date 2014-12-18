@@ -25,6 +25,7 @@ import org.eclipse.andmore.android.wizards.elements.SdkTargetSelector;
 import org.eclipse.andmore.android.wizards.elements.WidgetLocationGroup;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -39,157 +40,155 @@ import org.eclipse.ui.PlatformUI;
 /**
  * Class that represents the main page in the New Widget Project Wizard
  */
-public class NewAndroidWidgetProjectMainPage extends WizardPage
-{
+public class NewAndroidWidgetProjectMainPage extends WizardPage {
 
-    private static final String PAGE_NAME = "Main Page";
+	private static final String PAGE_NAME = "Main Page";
 
-    private final AndroidProject project;
+	private final AndroidProject project;
 
-    private final String NEW_WIDGET_PROJECT_HELP = AndroidPlugin.PLUGIN_ID + ".newwdgproj";
+	private final String NEW_WIDGET_PROJECT_HELP = AndroidPlugin.PLUGIN_ID + ".newwdgproj";
 
-    /**
-     * Listener for the wizard changes
-     */
-    private final Listener modelListener = new Listener()
-    {
-        public void handleEvent(Event arg0)
-        {
-            IStatus status = project.getStatus();
-            int severity = status.getSeverity();
-            setPageComplete(severity != IStatus.ERROR);
+	/**
+	 * Listener for the wizard changes
+	 */
+	private final Listener modelListener = new Listener() {
+		@Override
+		public void handleEvent(Event arg0) {
+			IStatus status = project.getStatus();
+			int severity = status.getSeverity();
+			setPageComplete(severity != IStatus.ERROR);
 
-            int msgType;
-            switch (severity)
-            {
-                case IStatus.OK:
-                    msgType = DialogPage.NONE;
-                    break;
-                case IStatus.ERROR:
-                    msgType = DialogPage.ERROR;
-                    break;
-                case IStatus.WARNING:
-                    msgType = DialogPage.WARNING;
-                    break;
-                default:
-                    msgType = DialogPage.NONE;
-                    break;
-            }
-            String defaultMessage =
-                    AndroidNLS.UI_NewAndroidWidgetProjectMainPage_SubtitleCreateProject;
-            setMessage(status.isOK() ? defaultMessage : status.getMessage(), msgType);
-        }
-    };
+			int msgType;
+			switch (severity) {
+			case IStatus.OK:
+				msgType = IMessageProvider.NONE;
+				break;
+			case IStatus.ERROR:
+				msgType = IMessageProvider.ERROR;
+				break;
+			case IStatus.WARNING:
+				msgType = IMessageProvider.WARNING;
+				break;
+			default:
+				msgType = IMessageProvider.NONE;
+				break;
+			}
+			String defaultMessage = AndroidNLS.UI_NewAndroidWidgetProjectMainPage_SubtitleCreateProject;
+			setMessage(status.isOK() ? defaultMessage : status.getMessage(), msgType);
+		}
+	};
 
-    /**
-     * Constructor
-     * 
-     * @param project The selected project 
-     */
-    public NewAndroidWidgetProjectMainPage(AndroidProject project)
-    {
-        super(PAGE_NAME);
-        this.project = project;
-        setTitle(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_TitleCreateProject);
-        setDescription(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_WizardProjectDescription);
-        setPageComplete(false);
+	/**
+	 * Constructor
+	 * 
+	 * @param project
+	 *            The selected project
+	 */
+	public NewAndroidWidgetProjectMainPage(AndroidProject project) {
+		super(PAGE_NAME);
+		this.project = project;
+		setTitle(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_TitleCreateProject);
+		setDescription(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_WizardProjectDescription);
+		setPageComplete(false);
 
-    }
+	}
 
-    /**
-     * Create the page SWT controls.
-     * 
-     * @param parent The parent composite
-     */
-    public void createControl(Composite parent)
-    {
-        Composite composite = new Composite(parent, SWT.NULL);
-        composite.setFont(parent.getFont());
+	/**
+	 * Create the page SWT controls.
+	 * 
+	 * @param parent
+	 *            The parent composite
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NULL);
+		composite.setFont(parent.getFont());
 
-        initializeDialogUnits(parent);
+		initializeDialogUnits(parent);
 
-        composite.setLayout(new GridLayout());
-        composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		composite.setLayout(new GridLayout());
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        //only put the project and location groups: no vertical resize, no vertical style
+		// only put the project and location groups: no vertical resize, no
+		// vertical style
 
-        ProjectNameGroup projectNameGroup = new ProjectNameGroup(composite, project);
-        projectNameGroup.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
+		ProjectNameGroup projectNameGroup = new ProjectNameGroup(composite, project);
+		projectNameGroup.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
 
-        // Create Location Group
-        Group groupForLocation = new Group(composite, SWT.SHADOW_ETCHED_IN);
-        // Layout has 1 column
-        groupForLocation.setLayout(new GridLayout());
-        groupForLocation.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
-        groupForLocation.setFont(composite.getFont());
-        groupForLocation.setText(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_LabelContents);
+		// Create Location Group
+		Group groupForLocation = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		// Layout has 1 column
+		groupForLocation.setLayout(new GridLayout());
+		groupForLocation.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
+		groupForLocation.setFont(composite.getFont());
+		groupForLocation.setText(AndroidNLS.UI_NewAndroidWidgetProjectMainPage_LabelContents);
 
-        WidgetLocationGroup locationGroup =
-                new WidgetLocationGroup(groupForLocation, project, this);
-        // End of Location Group
+		WidgetLocationGroup locationGroup = new WidgetLocationGroup(groupForLocation, project, this);
+		// End of Location Group
 
-        // Create SDK Group
-        //create sdk group with vertical resize, grabbing excedding space
-        Group groupForTarget = new Group(composite, SWT.SHADOW_ETCHED_IN);
-        groupForTarget.setLayout(new GridLayout());
-        groupForTarget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        groupForTarget.setFont(composite.getFont());
-        groupForTarget.setText(AndroidNLS.UI_NewAndroidProjectMainPage_LabelTarget);
+		// Create SDK Group
+		// create sdk group with vertical resize, grabbing excedding space
+		Group groupForTarget = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		groupForTarget.setLayout(new GridLayout());
+		groupForTarget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		groupForTarget.setFont(composite.getFont());
+		groupForTarget.setText(AndroidNLS.UI_NewAndroidProjectMainPage_LabelTarget);
 
-        final SdkTargetSelector mSdkTargetSelector = new SdkTargetSelector(groupForTarget, project);
-        //End of Target Creation
+		final SdkTargetSelector mSdkTargetSelector = new SdkTargetSelector(groupForTarget, project);
+		// End of Target Creation
 
-        // Create Package Group
-        Group group = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		// Create Package Group
+		Group group = new Group(composite, SWT.SHADOW_ETCHED_IN);
 
-        // Layout has 1 column
-        group.setLayout(new GridLayout());
-        group.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
-        group.setFont(composite.getFont());
-        group.setText(AndroidNLS.UI_NewAndroidProjectMainPage_LabelApplication);
+		// Layout has 1 column
+		group.setLayout(new GridLayout());
+		group.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
+		group.setFont(composite.getFont());
+		group.setText(AndroidNLS.UI_NewAndroidProjectMainPage_LabelApplication);
 
-        final ApplicationGroup applicationGroup = new ApplicationGroup(group, project);
+		final ApplicationGroup applicationGroup = new ApplicationGroup(group, project);
 
-        Listener listener = new Listener()
-        {
+		Listener listener = new Listener() {
 
-            public void handleEvent(Event arg0)
-            {
-                applicationGroup.updateDefaultName();
-                applicationGroup.updateMinSdkVersion();
-                getContainer().updateButtons();
-            }
-        };
+			@Override
+			public void handleEvent(Event arg0) {
+				applicationGroup.updateDefaultName();
+				applicationGroup.updateMinSdkVersion();
+				getContainer().updateButtons();
+			}
+		};
 
-        projectNameGroup.addListener(IWizardModel.MODIFIED, modelListener);
-        projectNameGroup.addListener(IWizardModel.MODIFIED, listener);
-        locationGroup.addListener(IWizardModel.MODIFIED, listener);
-        locationGroup.addListener(IWizardModel.MODIFIED, modelListener);
-        applicationGroup.addListener(IWizardModel.MODIFIED, modelListener);
-        mSdkTargetSelector.addListener(IWizardModel.MODIFIED, modelListener);
-        mSdkTargetSelector.addListener(IWizardModel.MODIFIED, listener);
+		projectNameGroup.addListener(IWizardModel.MODIFIED, modelListener);
+		projectNameGroup.addListener(IWizardModel.MODIFIED, listener);
+		locationGroup.addListener(IWizardModel.MODIFIED, listener);
+		locationGroup.addListener(IWizardModel.MODIFIED, modelListener);
+		applicationGroup.addListener(IWizardModel.MODIFIED, modelListener);
+		mSdkTargetSelector.addListener(IWizardModel.MODIFIED, modelListener);
+		mSdkTargetSelector.addListener(IWizardModel.MODIFIED, listener);
 
-        //create application group with no vertical resize
-        setPageComplete(false);
+		// create application group with no vertical resize
+		setPageComplete(false);
 
-        // Show description the first time
-        setErrorMessage(null);
-        setMessage(null);
+		// Show description the first time
+		setErrorMessage(null);
+		setMessage(null);
 
-        projectNameGroup.forceFocus();
-        setControl(composite);
-        composite.layout(true);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, NEW_WIDGET_PROJECT_HELP);
-    }
+		projectNameGroup.forceFocus();
+		setControl(composite);
+		composite.layout(true);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, NEW_WIDGET_PROJECT_HELP);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.DialogPage#setButtonLayoutData(org.eclipse.swt.widgets.Button)
-     */
-    @Override
-    public GridData setButtonLayoutData(Button button)
-    {
-        return super.setButtonLayoutData(button);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.dialogs.DialogPage#setButtonLayoutData(org.eclipse.
+	 * swt.widgets.Button)
+	 */
+	@Override
+	public GridData setButtonLayoutData(Button button) {
+		return super.setButtonLayoutData(button);
+	}
 
 }

@@ -22,21 +22,20 @@ import org.eclipse.swt.widgets.Composite;
 
 public class EmulatorControlView extends SelectionDependentViewPart {
 
-    public static final String ID =
-        "org.eclipse.andmore.ddms.views.EmulatorControlView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.ddms.views.EmulatorControlView"; //$NON-NLS-1$
 
-    private EmulatorControlPanel mPanel;
+	private EmulatorControlPanel mPanel;
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new EmulatorControlPanel();
-        mPanel.createPanel(parent);
-        setSelectionDependentPanel(mPanel);
-    }
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new EmulatorControlPanel();
+		mPanel.createPanel(parent);
+		setSelectionDependentPanel(mPanel);
+	}
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 
 }

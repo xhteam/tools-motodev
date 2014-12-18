@@ -20,52 +20,44 @@ import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class EntryDummyNode extends AbstractTreeNode implements ITreeNode
-{
+public class EntryDummyNode extends AbstractTreeNode implements ITreeNode {
 
-    public static final String DUMMY_NODE_ID = "DUMMY_NODE";
+	public static final String DUMMY_NODE_ID = "DUMMY_NODE";
 
-    String alias = DUMMY_NODE_ID;
+	String alias = DUMMY_NODE_ID;
 
-    public EntryDummyNode(ITreeNode keyStoreModel)
-    {
-        setParent(keyStoreModel);
-        alias = DUMMY_NODE_ID;
-    }
+	public EntryDummyNode(ITreeNode keyStoreModel) {
+		setParent(keyStoreModel);
+		alias = DUMMY_NODE_ID;
+	}
 
-    @Override
-    public void refresh()
-    {
-        //default implementation does nothing.
-    }
+	@Override
+	public void refresh() {
+		// default implementation does nothing.
+	}
 
-    @Override
-    public String getId()
-    {
-        return DUMMY_NODE_ID;
-    }
+	@Override
+	public String getId() {
+		return DUMMY_NODE_ID;
+	}
 
-    @Override
-    public String getName()
-    {
-        return "No Keys found";
-    }
+	@Override
+	public String getName() {
+		return "No Keys found";
+	}
 
-    @Override
-    public ImageDescriptor getIcon()
-    {
-        return null;
-    }
+	@Override
+	public ImageDescriptor getIcon() {
+		return null;
+	}
 
-    @Override
-    public boolean isLeaf()
-    {
-        return true;
-    }
+	@Override
+	public boolean isLeaf() {
+		return true;
+	}
 
-    @Override
-    public List<ITreeNode> getChildren()
-    {
-        return Collections.emptyList();
-    }
+	@Override
+	public List<ITreeNode> getChildren() {
+		return Collections.emptyList();
+	}
 }

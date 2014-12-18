@@ -26,56 +26,56 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * This class represents the root preference page (MOTODEV Studio), implemented
  * according User Interface Standards.
  */
-public class MotodevStudioPreference extends PreferencePage implements IWorkbenchPreferencePage
-{
+public class MotodevStudioPreference extends PreferencePage implements IWorkbenchPreferencePage {
 
-    /**
-     * Default constructor
-     */
-    public MotodevStudioPreference()
-    {
-        // Empty
-    }
+	/**
+	 * Default constructor
+	 */
+	public MotodevStudioPreference() {
+		// Empty
+	}
 
-    /**
-     * Constructor
-     * 
-     * @param title The preference page title
-     */
-    public MotodevStudioPreference(String title)
-    {
-        super(title);
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param title
+	 *            The preference page title
+	 */
+	public MotodevStudioPreference(String title) {
+		super(title);
+	}
 
-    /**
-     * Constructor
-     * 
-     * @param title The preference page title
-     * @param image The prefence page image
-     */
-    public MotodevStudioPreference(String title, ImageDescriptor image)
-    {
-        super(title, image);
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param title
+	 *            The preference page title
+	 * @param image
+	 *            The prefence page image
+	 */
+	public MotodevStudioPreference(String title, ImageDescriptor image) {
+		super(title, image);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.eclipse.jface.preference.PreferencePage#createContents(Composite)
-     */
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        noDefaultAndApplyButton();
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.preference.PreferencePage#createContents(Composite)
+	 */
+	@Override
+	protected Control createContents(Composite parent) {
+		noDefaultAndApplyButton();
+		return null;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchPreferencePage#init(IWorkbench)
-     */
-    public void init(IWorkbench workbench)
-    {
-        // Empty
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(IWorkbench)
+	 */
+	@Override
+	public void init(IWorkbench workbench) {
+		// Empty
+	}
 }

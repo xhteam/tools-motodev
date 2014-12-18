@@ -28,38 +28,37 @@ import org.eclipse.ui.IPerspectiveFactory;
 
 public class TreeViewPerspective implements IPerspectiveFactory {
 
-    public static final String ID = "org.eclipse.andmore.hierarchyviewer.TreeViewPerspective"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.TreeViewPerspective"; //$NON-NLS-1$
 
-    @Override
-    public void createInitialLayout(IPageLayout layout) {
-        layout.setEditorAreaVisible(false);
+	@Override
+	public void createInitialLayout(IPageLayout layout) {
+		layout.setEditorAreaVisible(false);
 
-        String editorArea = layout.getEditorArea();
-        IFolderLayout folder;
+		String editorArea = layout.getEditorArea();
+		IFolderLayout folder;
 
-        folder = layout.createFolder("properties", IPageLayout.LEFT, 0.10f, editorArea); //$NON-NLS-1$
-        folder.addView(DeviceSelectorView.ID);
-        folder.addView(PropertyView.ID);
+		folder = layout.createFolder("properties", IPageLayout.LEFT, 0.10f, editorArea); //$NON-NLS-1$
+		folder.addView(DeviceSelectorView.ID);
+		folder.addView(PropertyView.ID);
 
-        folder = layout.createFolder("main", IPageLayout.RIGHT, 0.24f, "properties"); //$NON-NLS-1$ //$NON-NLS-2$
-        folder.addView(TreeViewView.ID);
+		folder = layout.createFolder("main", IPageLayout.RIGHT, 0.24f, "properties"); //$NON-NLS-1$ //$NON-NLS-2$
+		folder.addView(TreeViewView.ID);
 
-        folder = layout.createFolder("panel-top", IPageLayout.RIGHT, 0.7f, "main"); //$NON-NLS-1$ //$NON-NLS-2$
-        folder.addView(TreeOverviewView.ID);
+		folder = layout.createFolder("panel-top", IPageLayout.RIGHT, 0.7f, "main"); //$NON-NLS-1$ //$NON-NLS-2$
+		folder.addView(TreeOverviewView.ID);
 
+		folder = layout.createFolder("panel-bottom", IPageLayout.BOTTOM, 0.5f, "panel-top"); //$NON-NLS-1$ //$NON-NLS-2$
+		folder.addView(LayoutView.ID);
 
-        folder = layout.createFolder("panel-bottom", IPageLayout.BOTTOM, 0.5f, "panel-top"); //$NON-NLS-1$ //$NON-NLS-2$
-        folder.addView(LayoutView.ID);
+		layout.addShowViewShortcut(DeviceSelectorView.ID);
+		layout.addShowViewShortcut(PropertyView.ID);
+		layout.addShowViewShortcut(TreeOverviewView.ID);
+		layout.addShowViewShortcut(LayoutView.ID);
+		layout.addShowViewShortcut(TreeViewView.ID);
 
-        layout.addShowViewShortcut(DeviceSelectorView.ID);
-        layout.addShowViewShortcut(PropertyView.ID);
-        layout.addShowViewShortcut(TreeOverviewView.ID);
-        layout.addShowViewShortcut(LayoutView.ID);
-        layout.addShowViewShortcut(TreeViewView.ID);
-
-        layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective"); //$NON-NLS-1$
-        layout.addPerspectiveShortcut(PixelPerfectPespective.ID);
-        layout.addPerspectiveShortcut(Perspective.ID);
-    }
+		layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective"); //$NON-NLS-1$
+		layout.addPerspectiveShortcut(PixelPerfectPespective.ID);
+		layout.addPerspectiveShortcut(Perspective.ID);
+	}
 
 }

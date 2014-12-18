@@ -28,107 +28,103 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.PlatformUI;
 
-public class DumpHPROFWizardPage extends WizardPage
-{
+public class DumpHPROFWizardPage extends WizardPage {
 
-    /**
-     * Page name
-     */
-    private static final String PAGE_NAME = "Dump HPROF page"; //$NON-NLS-1$
+	/**
+	 * Page name
+	 */
+	private static final String PAGE_NAME = "Dump HPROF page"; //$NON-NLS-1$
 
-    /**
-     * SWT table control
-     */
-    private DumpHPROFTable appsTable;
+	/**
+	 * SWT table control
+	 */
+	private DumpHPROFTable appsTable;
 
-    /**
-     * Serial Number
-     */
-    private final String serialNumber;
+	/**
+	 * Serial Number
+	 */
+	private final String serialNumber;
 
-    /**
-     * Help Id
-     */
-    private static final String helpContextId = AndroidPlugin.PLUGIN_ID + ".dump_hprof"; //$NON-NLS-1$
+	/**
+	 * Help Id
+	 */
+	private static final String helpContextId = AndroidPlugin.PLUGIN_ID + ".dump_hprof"; //$NON-NLS-1$
 
-    /**
-     * Constructor
-     * 
-     * @param serialNumber Serial Number.
-     */
-    public DumpHPROFWizardPage(String serialNumber)
-    {
-        super(PAGE_NAME);
-        this.serialNumber = serialNumber;
-        setTitle(AndroidNLS.DumpHprofPage_PageTitle);
-        setDescription(AndroidNLS.DumpHprofPage_PageDescription);
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param serialNumber
+	 *            Serial Number.
+	 */
+	public DumpHPROFWizardPage(String serialNumber) {
+		super(PAGE_NAME);
+		this.serialNumber = serialNumber;
+		setTitle(AndroidNLS.DumpHprofPage_PageTitle);
+		setDescription(AndroidNLS.DumpHprofPage_PageDescription);
+	}
 
-    public void createControl(Composite parent)
-    {
-        this.initializeDialogUnits(parent);
+	@Override
+	public void createControl(Composite parent) {
+		this.initializeDialogUnits(parent);
 
-        Composite mainComposite = new Composite(parent, SWT.FILL);
-        mainComposite.setLayout(new GridLayout());
+		Composite mainComposite = new Composite(parent, SWT.FILL);
+		mainComposite.setLayout(new GridLayout());
 
-        // Running apps table
-        appsTable =
-                new DumpHPROFTable(mainComposite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION,
-                        AndroidNLS.DumpHPROFWizardPage__Message_LoadingRunningApplications, this);
+		// Running apps table
+		appsTable = new DumpHPROFTable(mainComposite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION,
+				AndroidNLS.DumpHPROFWizardPage__Message_LoadingRunningApplications, this);
 
-        appsTable.setTableHeaderVisible(true);
+		appsTable.setTableHeaderVisible(true);
 
-        GridData layoutData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        appsTable.setLayoutData(layoutData);
+		GridData layoutData = new GridData(GridData.FILL, GridData.FILL, true, true);
+		appsTable.setLayoutData(layoutData);
 
-        TableColumn appNameColumn = appsTable.addTableColumn(SWT.CENTER);
-        appNameColumn.setText(AndroidNLS.DumpHprofPage_ColumnAppName);
+		TableColumn appNameColumn = appsTable.addTableColumn(SWT.CENTER);
+		appNameColumn.setText(AndroidNLS.DumpHprofPage_ColumnAppName);
 
-        appNameColumn.setWidth(this.convertWidthInCharsToPixels(70));
-        appNameColumn.addSelectionListener(new TableItemSortStringSetActionListener());
+		appNameColumn.setWidth(this.convertWidthInCharsToPixels(70));
+		appNameColumn.addSelectionListener(new TableItemSortStringSetActionListener());
 
-        appsTable.setTableLinesVisible(false);
-        appsTable.addTableSelectionListener(new SelectionListener()
-        {
+		appsTable.setTableLinesVisible(false);
+		appsTable.addTableSelectionListener(new SelectionListener() {
 
-            public void widgetSelected(SelectionEvent e)
-            {
-                validatePage();
-            }
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				validatePage();
+			}
 
-            public void widgetDefaultSelected(SelectionEvent e)
-            {
-                //do nothing
-            }
-        });
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// do nothing
+			}
+		});
 
-        appsTable.populateTableAsynchronously(serialNumber);
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(mainComposite, helpContextId);
-        validatePage();
-        setControl(mainComposite);
-    }
+		appsTable.populateTableAsynchronously(serialNumber);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(mainComposite, helpContextId);
+		validatePage();
+		setControl(mainComposite);
+	}
 
-    /**
-     * Validates the page
-     */
-    private void validatePage()
-    {
-        setPageComplete(appsTable.getTable().getSelection().length > 0);
-    }
+	/**
+	 * Validates the page
+	 */
+	private void validatePage() {
+		setPageComplete(appsTable.getTable().getSelection().length > 0);
+	}
 
-    /**
-     * Get the selected application. This will be used to generate the HPROF file
-     * @return
-     */
-    public String getSelectedApp()
-    {
-        String selectedApp = null;
+	/**
+	 * Get the selected application. This will be used to generate the HPROF
+	 * file
+	 * 
+	 * @return
+	 */
+	public String getSelectedApp() {
+		String selectedApp = null;
 
-        if (appsTable.getTableSelectionCont() == 1)
-        {
-            selectedApp = appsTable.getTableSelection()[0].getText(0);
-        }
+		if (appsTable.getTableSelectionCont() == 1) {
+			selectedApp = appsTable.getTableSelection()[0].getText(0);
+		}
 
-        return selectedApp;
-    }
+		return selectedApp;
+	}
 }

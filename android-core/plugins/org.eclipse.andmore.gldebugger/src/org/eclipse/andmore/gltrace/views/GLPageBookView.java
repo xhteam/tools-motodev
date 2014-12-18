@@ -28,55 +28,56 @@ import org.eclipse.ui.part.PageBookView;
 
 /**
  * {@link GLPageBookView} is an abstract {@link PageBookView} that can be used
- * to provide page book view's whose main part is a {@link GLFunctionTraceViewer}.
+ * to provide page book view's whose main part is a
+ * {@link GLFunctionTraceViewer}.
  */
 public abstract class GLPageBookView extends PageBookView {
-    private final String mDefaultMessage;
+	private final String mDefaultMessage;
 
-    public GLPageBookView(String defaultMessage) {
-        super();
+	public GLPageBookView(String defaultMessage) {
+		super();
 
-        mDefaultMessage = defaultMessage;
-    }
+		mDefaultMessage = defaultMessage;
+	}
 
-    @Override
-    protected IPage createDefaultPage(PageBook book) {
-        MessagePage page = new MessagePage();
-        initPage(page);
-        page.createControl(book);
-        page.setMessage(mDefaultMessage);
-        return page;
-    }
+	@Override
+	protected IPage createDefaultPage(PageBook book) {
+		MessagePage page = new MessagePage();
+		initPage(page);
+		page.createControl(book);
+		page.setMessage(mDefaultMessage);
+		return page;
+	}
 
-    @Override
-    protected IWorkbenchPart getBootstrapPart() {
-        IWorkbenchPage page = getSite().getPage();
-        if (page != null) {
-            return page.getActiveEditor();
-        }
+	@Override
+	protected IWorkbenchPart getBootstrapPart() {
+		IWorkbenchPage page = getSite().getPage();
+		if (page != null) {
+			return page.getActiveEditor();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    protected boolean isImportant(IWorkbenchPart part) {
-        return part instanceof GLFunctionTraceViewer;
-    }
+	@Override
+	protected boolean isImportant(IWorkbenchPart part) {
+		return part instanceof GLFunctionTraceViewer;
+	}
 
-    @Override
-    public void partBroughtToTop(IWorkbenchPart part) {
-        partActivated(part);
-    }
+	@Override
+	public void partBroughtToTop(IWorkbenchPart part) {
+		partActivated(part);
+	}
 
-    @Override
-    protected void showPageRec(PageRec pageRec) {
-        IPageSite pageSite = getPageSite(pageRec.page);
-        if (pageRec.page instanceof ISelectionProvider) {
-            pageSite.setSelectionProvider((ISelectionProvider) pageRec.page);
-        } else {
-            pageSite.setSelectionProvider(null); // clear selection provider
-        }
+	@Override
+	protected void showPageRec(PageRec pageRec) {
+		IPageSite pageSite = getPageSite(pageRec.page);
+		if (pageRec.page instanceof ISelectionProvider) {
+			pageSite.setSelectionProvider((ISelectionProvider) pageRec.page);
+		} else {
+			pageSite.setSelectionProvider(null); // clear selection provider
+		}
 
-        super.showPageRec(pageRec);
-    }
+		super.showPageRec(pageRec);
+	}
 }

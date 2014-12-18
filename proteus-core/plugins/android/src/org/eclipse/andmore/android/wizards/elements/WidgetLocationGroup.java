@@ -37,164 +37,144 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * Class that implements the Location group to be used in the New Widget Project Wizard
+ * Class that implements the Location group to be used in the New Widget Project
+ * Wizard
  */
-public class WidgetLocationGroup extends Composite
-{
-    final private AndroidProject project;
+public class WidgetLocationGroup extends Composite {
+	final private AndroidProject project;
 
-    final private NewAndroidWidgetProjectMainPage page;
+	final private NewAndroidWidgetProjectMainPage page;
 
-    private String lastSourcePathValue = null;
+	private String lastSourcePathValue = null;
 
-    /**
-     * Constructor
-     * 
-     * @param parent
-     * @param project
-     * @param page
-     */
-    public WidgetLocationGroup(Composite parent, AndroidProject project,
-            NewAndroidWidgetProjectMainPage page)
-    {
-        super(parent, SWT.SHADOW_ETCHED_IN);
-        this.project = project;
-        this.page = page;
-        setLayout(new GridLayout());
-        setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        createControl(this);
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param parent
+	 * @param project
+	 * @param page
+	 */
+	public WidgetLocationGroup(Composite parent, AndroidProject project, NewAndroidWidgetProjectMainPage page) {
+		super(parent, SWT.SHADOW_ETCHED_IN);
+		this.project = project;
+		this.page = page;
+		setLayout(new GridLayout());
+		setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		createControl(this);
+	}
 
-    /**
-     * Create Controls
-     * 
-     * @param parent
-     */
-    private void createControl(Composite parent)
-    {
-        final Button useDefaultLocation = new Button(this, SWT.CHECK);
-        useDefaultLocation.setText(AndroidNLS.UI_LocationGroup_UseDefaultLocationCheckLabel);
-        useDefaultLocation.setSelection(true);
+	/**
+	 * Create Controls
+	 * 
+	 * @param parent
+	 */
+	private void createControl(Composite parent) {
+		final Button useDefaultLocation = new Button(this, SWT.CHECK);
+		useDefaultLocation.setText(AndroidNLS.UI_LocationGroup_UseDefaultLocationCheckLabel);
+		useDefaultLocation.setSelection(true);
 
-        Composite location_group = new Composite(this, SWT.NONE);
-        location_group.setLayout(new GridLayout(4, false));
-        location_group.setLayoutData(new GridData(GridData.FILL_BOTH));
-        location_group.setFont(parent.getFont());
+		Composite location_group = new Composite(this, SWT.NONE);
+		location_group.setLayout(new GridLayout(4, false));
+		location_group.setLayoutData(new GridData(GridData.FILL_BOTH));
+		location_group.setFont(parent.getFont());
 
-        Label locationLabel = new Label(location_group, SWT.NONE);
-        locationLabel.setText(AndroidNLS.UI_LocationGroup_LocationLabel);
+		Label locationLabel = new Label(location_group, SWT.NONE);
+		locationLabel.setText(AndroidNLS.UI_LocationGroup_LocationLabel);
 
-        final Text projectPath = new Text(location_group, SWT.BORDER);
-        GridData data = new GridData(GridData.FILL, GridData.BEGINNING, true, false, 2, 1);
-        projectPath.setLayoutData(data);
-        projectPath.setFont(parent.getFont());
-        projectPath.setText(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
-        projectPath.setEnabled(false);
-        projectPath.addListener(SWT.Modify, new Listener()
-        {
-            public void handleEvent(Event event)
-            {
-                if (projectPath.isEnabled())
-                {
-                    project.setLocation(projectPath.getText());
-                    notifyListeners(IWizardModel.MODIFIED, new Event());
-                }
-            }
-        });
+		final Text projectPath = new Text(location_group, SWT.BORDER);
+		GridData data = new GridData(GridData.FILL, GridData.BEGINNING, true, false, 2, 1);
+		projectPath.setLayoutData(data);
+		projectPath.setFont(parent.getFont());
+		projectPath.setText(ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString());
+		projectPath.setEnabled(false);
+		projectPath.addListener(SWT.Modify, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				if (projectPath.isEnabled()) {
+					project.setLocation(projectPath.getText());
+					notifyListeners(IWizardModel.MODIFIED, new Event());
+				}
+			}
+		});
 
-        final Button browseButton = new Button(location_group, SWT.PUSH);
-        browseButton.setText(AndroidNLS.UI_General_BrowseButtonLabel);
-        browseButton.setEnabled(false);
-        page.setButtonLayoutData(browseButton);
-        browseButton.addSelectionListener(new SelectionAdapter()
-        {
-            @Override
-            public void widgetSelected(SelectionEvent e)
-            {
+		final Button browseButton = new Button(location_group, SWT.PUSH);
+		browseButton.setText(AndroidNLS.UI_General_BrowseButtonLabel);
+		browseButton.setEnabled(false);
+		page.setButtonLayoutData(browseButton);
+		browseButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
 
-                String existing_dir = project.getLocation();
+				String existing_dir = project.getLocation();
 
-                // Disable the path if it doesn't exist
-                if (existing_dir != null
-                        && (existing_dir.length() == 0 || !new File(existing_dir).exists()))
-                {
-                    existing_dir = null;
-                }
+				// Disable the path if it doesn't exist
+				if (existing_dir != null && (existing_dir.length() == 0 || !new File(existing_dir).exists())) {
+					existing_dir = null;
+				}
 
-                DirectoryDialog dd = new DirectoryDialog(projectPath.getShell());
-                dd.setMessage(AndroidNLS.UI_LocationGroup_BrowseDialogMessage);
-                dd.setFilterPath(existing_dir);
-                String customLocation = dd.open();
-                if (customLocation != null)
-                {
-                    projectPath.setText(customLocation);
-                }
-            }
-        });
+				DirectoryDialog dd = new DirectoryDialog(projectPath.getShell());
+				dd.setMessage(AndroidNLS.UI_LocationGroup_BrowseDialogMessage);
+				dd.setFilterPath(existing_dir);
+				String customLocation = dd.open();
+				if (customLocation != null) {
+					projectPath.setText(customLocation);
+				}
+			}
+		});
 
-        // Listen to the default location checkbox.
+		// Listen to the default location checkbox.
 
-        SelectionListener location_listener = new SelectionAdapter()
-        {
-            @Override
-            public void widgetSelected(SelectionEvent e)
-            {
+		SelectionListener location_listener = new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
 
-                boolean useDefault = useDefaultLocation.getSelection();
+				boolean useDefault = useDefaultLocation.getSelection();
 
-                String path;
-                if (useDefault)
-                {
-                    path = project.getDefaultLocation();
-                }
-                else
-                {
-                    path = project.getLocation();
-                }
-                boolean enablePath = !useDefault;
-                projectPath.setEnabled(enablePath);
-                browseButton.setEnabled(enablePath);
+				String path;
+				if (useDefault) {
+					path = project.getDefaultLocation();
+				} else {
+					path = project.getLocation();
+				}
+				boolean enablePath = !useDefault;
+				projectPath.setEnabled(enablePath);
+				browseButton.setEnabled(enablePath);
 
-                project.setUseDefaultLocation(useDefault);
+				project.setUseDefaultLocation(useDefault);
 
-                if (enablePath && (path == null || path.length() == 0))
-                {
-                    projectPath.setText(""); //$NON-NLS-1$
-                    projectPath.setFocus();
-                }
-                else
-                {
-                    projectPath.setText(path);
-                }
+				if (enablePath && (path == null || path.length() == 0)) {
+					projectPath.setText(""); //$NON-NLS-1$
+					projectPath.setFocus();
+				} else {
+					projectPath.setText(path);
+				}
 
-                notifyListeners(IWizardModel.MODIFIED, new Event());
-            }
+				notifyListeners(IWizardModel.MODIFIED, new Event());
+			}
 
-        };
+		};
 
-        useDefaultLocation.addSelectionListener(location_listener);
-    }
+		useDefaultLocation.addSelectionListener(location_listener);
+	}
 
-    /**
-     * Get last path value defined by the user for the
-     * "Create from existing source" case
-     * 
-     * @return The last path value defined by the user.
-     */
-    public String getLastSourcePath()
-    {
-        return this.lastSourcePathValue;
-    }
+	/**
+	 * Get last path value defined by the user for the
+	 * "Create from existing source" case
+	 * 
+	 * @return The last path value defined by the user.
+	 */
+	public String getLastSourcePath() {
+		return this.lastSourcePathValue;
+	}
 
-    /**
-     * Set the last path value defined by the user for the
-     * "Create from existing source" case
-     * 
-     * @param path
-     *            - The last path defined by the user
-     */
-    public void setLastSourcePath(String path)
-    {
-        this.lastSourcePathValue = path;
-    }
+	/**
+	 * Set the last path value defined by the user for the
+	 * "Create from existing source" case
+	 * 
+	 * @param path
+	 *            - The last path defined by the user
+	 */
+	public void setLastSourcePath(String path) {
+		this.lastSourcePathValue = path;
+	}
 }

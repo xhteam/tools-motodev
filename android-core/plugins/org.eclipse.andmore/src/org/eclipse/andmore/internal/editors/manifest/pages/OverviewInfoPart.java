@@ -23,6 +23,7 @@ import org.eclipse.andmore.internal.editors.ui.UiElementPart;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -39,7 +40,7 @@ final class OverviewInfoPart extends UiElementPart {
                 getManifestUiNode(editor),  // uiElementNode
                 "Manifest General Attributes", // section title
                 "Defines general information about the AndroidManifest.xml", // section description
-                Section.TWISTIE | Section.EXPANDED);
+                ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
     }
 
     /**

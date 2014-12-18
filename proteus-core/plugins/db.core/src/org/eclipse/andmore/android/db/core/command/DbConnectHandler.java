@@ -25,30 +25,29 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 
 /**
- * This class implements the command to connect to a database using an IDbNode object.
+ * This class implements the command to connect to a database using an IDbNode
+ * object.
  * */
-public class DbConnectHandler extends AbstractHandler implements IHandler
-{
+public class DbConnectHandler extends AbstractHandler implements IHandler {
 
-    private IDbNode dbNode;
+	private IDbNode dbNode;
 
-    public DbConnectHandler()
-    {
+	public DbConnectHandler() {
 
-    }
+	}
 
-    public DbConnectHandler(IDbNode dbNode)
-    {
-        this.dbNode = dbNode;
-    }
+	public DbConnectHandler(IDbNode dbNode) {
+		this.dbNode = dbNode;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see  org.eclipse.core.commands.IHandler#execute(ExecutionEvent)
-     * */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        DatabaseModelEventManager.getInstance().fireEvent(dbNode, EVENT_TYPE.EXPAND);
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.commands.IHandler#execute(ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		DatabaseModelEventManager.getInstance().fireEvent(dbNode, EVENT_TYPE.EXPAND);
+		return null;
+	}
 }

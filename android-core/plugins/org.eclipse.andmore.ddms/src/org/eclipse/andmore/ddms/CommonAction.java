@@ -26,45 +26,46 @@ import org.eclipse.jface.resource.ImageDescriptor;
  */
 public class CommonAction extends Action implements ICommonAction {
 
-    private Runnable mRunnable;
+	private Runnable mRunnable;
 
-    public CommonAction() {
-        super();
-    }
+	public CommonAction() {
+		super();
+	}
 
-    public CommonAction(String text) {
-        super(text);
-    }
+	public CommonAction(String text) {
+		super(text);
+	}
 
-    /**
-     * @param text
-     * @param image
-     */
-    public CommonAction(String text, ImageDescriptor image) {
-        super(text, image);
-    }
+	/**
+	 * @param text
+	 * @param image
+	 */
+	public CommonAction(String text, ImageDescriptor image) {
+		super(text, image);
+	}
 
-    /**
-     * @param text
-     * @param style
-     */
-    public CommonAction(String text, int style) {
-        super(text, style);
-    }
+	/**
+	 * @param text
+	 * @param style
+	 */
+	public CommonAction(String text, int style) {
+		super(text, style);
+	}
 
-    @Override
-    public void run() {
-        if (mRunnable != null) {
-            mRunnable.run();
-        }
-    }
+	@Override
+	public void run() {
+		if (mRunnable != null) {
+			mRunnable.run();
+		}
+	}
 
-    /**
-     * Sets the {@link Runnable}.
-     * @see ICommonAction#setRunnable(Runnable)
-     */
-    @Override
-    public void setRunnable(Runnable runnable) {
-        mRunnable = runnable;
-    }
+	/**
+	 * Sets the {@link Runnable}.
+	 * 
+	 * @see ICommonAction#setRunnable(Runnable)
+	 */
+	@Override
+	public void setRunnable(Runnable runnable) {
+		mRunnable = runnable;
+	}
 }

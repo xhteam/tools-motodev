@@ -37,148 +37,124 @@ import org.eclipse.swt.dnd.FileTransfer;
 import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.ui.PlatformUI;
 
-public abstract class AbstractDeviceDropSupportHandler implements IDeviceTypeDropSupport
-{
+public abstract class AbstractDeviceDropSupportHandler implements IDeviceTypeDropSupport {
 
-    private DropTargetEvent lastEvent = null;
+	private DropTargetEvent lastEvent = null;
 
-    private List<File> availableAPKs = null;
+	private List<File> availableAPKs = null;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#canDrop
-     * (org.eclipse.sequoyah.device.framework.model.IInstance,
-     * org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
-     */
-    public boolean canDrop(IInstance instance, TransferData data, DropTargetEvent event)
-    {
-        return (((getFiles(event) != null) && (getFiles(event).size() > 0)) || !Platform.OS_WIN32
-                .equals(Platform.getOS()));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#canDrop
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
+	 */
+	@Override
+	public boolean canDrop(IInstance instance, TransferData data, DropTargetEvent event) {
+		return (((getFiles(event) != null) && (getFiles(event).size() > 0)) || !Platform.OS_WIN32.equals(Platform
+				.getOS()));
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#drop
-     * (org.eclipse.sequoyah.device.framework.model.IInstance,
-     * org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
-     */
-    public void drop(final IInstance instance, TransferData data, DropTargetEvent event)
-    {
-        final List<File> files = getFiles(event);
-        Job installApksJob =
-                new Job(AndroidNLS.AbstractDeviceDropSupportHandler_InstallingApksJobName)
-                {
-                    @Override
-                    protected IStatus run(IProgressMonitor monitor)
-                    {
-                        final List<File> failedFiles = new ArrayList<File>();
-                        availableAPKs = null;
-                        if (files != null)
-                        {
-                            for (File apk : files)
-                            {
-                                IStatus installationStatus = installAPK(apk, instance);
-                                if (!installationStatus.isOK())
-                                {
-                                    failedFiles.add(apk);
-                                }
-                            }
-                        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#drop
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
+	 */
+	@Override
+	public void drop(final IInstance instance, TransferData data, DropTargetEvent event) {
+		final List<File> files = getFiles(event);
+		Job installApksJob = new Job(AndroidNLS.AbstractDeviceDropSupportHandler_InstallingApksJobName) {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				final List<File> failedFiles = new ArrayList<File>();
+				availableAPKs = null;
+				if (files != null) {
+					for (File apk : files) {
+						IStatus installationStatus = installAPK(apk, instance);
+						if (!installationStatus.isOK()) {
+							failedFiles.add(apk);
+						}
+					}
+				}
 
-                        if (failedFiles.size() > 0)
-                        {
-                            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-                            {
-                                public void run()
-                                {
-                                    StringBuilder builder = new StringBuilder();
+				if (failedFiles.size() > 0) {
+					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+						@Override
+						public void run() {
+							StringBuilder builder = new StringBuilder();
 
-                                    builder.append(AndroidNLS.AbstractDeviceDropSupportHandler_ApplicationsFailed);
-                                    builder.append("\n"); //$NON-NLS-1$
-                                    for (File f : failedFiles)
-                                    {
-                                        builder.append("\n"); //$NON-NLS-1$
-                                        builder.append(f.getName());
-                                    }
-                                    MessageDialog.openInformation(PlatformUI.getWorkbench()
-                                            .getActiveWorkbenchWindow().getShell(),
-                                            AndroidNLS.UI_InstallApp_InstallApp, builder.toString());
+							builder.append(AndroidNLS.AbstractDeviceDropSupportHandler_ApplicationsFailed);
+							builder.append("\n"); //$NON-NLS-1$
+							for (File f : failedFiles) {
+								builder.append("\n"); //$NON-NLS-1$
+								builder.append(f.getName());
+							}
+							MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+									.getShell(), AndroidNLS.UI_InstallApp_InstallApp, builder.toString());
 
-                                }
-                            });
-                        }
+						}
+					});
+				}
 
-                        return Status.OK_STATUS;
-                    }
-                };
+				return Status.OK_STATUS;
+			}
+		};
 
-        installApksJob.schedule();
-        lastEvent = null;
-    }
+		installApksJob.schedule();
+		lastEvent = null;
+	}
 
-    private synchronized IStatus installAPK(File apk, final IInstance instance)
-    {
-        final InstallPackageBean installBean = new InstallPackageBean();
-        installBean.setCanOverwrite(INSTALL_TYPE.UNINSTALL);
-        installBean.setPackagePath(apk.getAbsolutePath());
+	private synchronized IStatus installAPK(File apk, final IInstance instance) {
+		final InstallPackageBean installBean = new InstallPackageBean();
+		installBean.setCanOverwrite(INSTALL_TYPE.UNINSTALL);
+		installBean.setPackagePath(apk.getAbsolutePath());
 
-        return DDMSUtils.installPackage(DDMSFacade.getSerialNumberByName(instance.getName()),
-                installBean);
+		return DDMSUtils.installPackage(DDMSFacade.getSerialNumberByName(instance.getName()), installBean);
 
-    }
+	}
 
-    protected List<File> getFiles(DropTargetEvent event)
-    {
+	protected List<File> getFiles(DropTargetEvent event) {
 
-        if ((lastEvent == null) || (lastEvent != event))
-        {
-            lastEvent = event;
-            availableAPKs = new ArrayList<File>();
+		if ((lastEvent == null) || (lastEvent != event)) {
+			lastEvent = event;
+			availableAPKs = new ArrayList<File>();
 
-            if (FileTransfer.getInstance().isSupportedType(event.currentDataType))
-            {
-                String[] files =
-                        (String[]) FileTransfer.getInstance().nativeToJava(event.currentDataType);
+			if (FileTransfer.getInstance().isSupportedType(event.currentDataType)) {
+				String[] files = (String[]) FileTransfer.getInstance().nativeToJava(event.currentDataType);
 
-                // On MacOSX the files are not available until drop
-                if (files == null)
-                {
-                    try
-                    {
-                        files = (String[]) event.data;
-                    }
-                    catch (Exception e)
-                    {
-                        // do nothing
-                        files = null;
-                    }
-                }
+				// On MacOSX the files are not available until drop
+				if (files == null) {
+					try {
+						files = (String[]) event.data;
+					} catch (Exception e) {
+						// do nothing
+						files = null;
+					}
+				}
 
-                if (files != null)
-                {
+				if (files != null) {
 
-                    for (int i = 0; (i < files.length); i++)
-                    {
-                        String filePath = files[i];
-                        if (filePath.toLowerCase().endsWith(".apk")) //$NON-NLS-1$
-                        {
-                            File f = new File(filePath);
-                            if (f.exists() && f.isFile() && f.canRead())
-                            {
-                                availableAPKs.add(f);
-                            }
-                        }
-                    }
-                }
+					for (int i = 0; (i < files.length); i++) {
+						String filePath = files[i];
+						if (filePath.toLowerCase().endsWith(".apk")) //$NON-NLS-1$
+						{
+							File f = new File(filePath);
+							if (f.exists() && f.isFile() && f.canRead()) {
+								availableAPKs.add(f);
+							}
+						}
+					}
+				}
 
-            }
+			}
 
-        }
+		}
 
-        return availableAPKs;
-    }
+		return availableAPKs;
+	}
 }

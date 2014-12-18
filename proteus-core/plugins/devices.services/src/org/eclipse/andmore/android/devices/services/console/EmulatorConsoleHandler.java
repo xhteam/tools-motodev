@@ -43,191 +43,159 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Class responsible to implement the handler for the service
- * "Emulator Console"
+ * Class responsible to implement the handler for the service "Emulator Console"
  */
-public class EmulatorConsoleHandler extends ServiceHandler
-{
-    private static final Map<String, Integer> consolesCache = new HashMap<String, Integer>();
+public class EmulatorConsoleHandler extends ServiceHandler {
+	private static final Map<String, Integer> consolesCache = new HashMap<String, Integer>();
 
-    private static final Map<String, TelnetFrameworkAndroid> telnetsCache =
-            new HashMap<String, TelnetFrameworkAndroid>();
+	private static final Map<String, TelnetFrameworkAndroid> telnetsCache = new HashMap<String, TelnetFrameworkAndroid>();
 
-    private final IConsoleKilledListener listener = new IConsoleKilledListener()
-    {
-        public void consoleKilled(String name)
-        {
-            if (telnetsCache.containsKey(name))
-            {
-                TelnetFrameworkAndroid telnet = telnetsCache.get(name);
-                if (telnet.isConnected())
-                {
-                    try
-                    {
-                        telnet.disconnect();
-                    }
-                    catch (IOException e)
-                    {
-                        EclipseUtils
-                                .showInformationDialog(
-                                        ServicesNLS.GEN_Warning,
-                                        ServicesNLS.WARN_EmulatorConsoleHandler_CouldNotCloseTheConsoleConnection);
-                    }
-                }
-                telnetsCache.remove(name);
-                DeviceServicesPlugin.removeConsoleKilledListener(listener);
-            }
-        }
-    };
+	private final IConsoleKilledListener listener = new IConsoleKilledListener() {
+		@Override
+		public void consoleKilled(String name) {
+			if (telnetsCache.containsKey(name)) {
+				TelnetFrameworkAndroid telnet = telnetsCache.get(name);
+				if (telnet.isConnected()) {
+					try {
+						telnet.disconnect();
+					} catch (IOException e) {
+						EclipseUtils.showInformationDialog(ServicesNLS.GEN_Warning,
+								ServicesNLS.WARN_EmulatorConsoleHandler_CouldNotCloseTheConsoleConnection);
+					}
+				}
+				telnetsCache.remove(name);
+				DeviceServicesPlugin.removeConsoleKilledListener(listener);
+			}
+		}
+	};
 
-    public static final String CONSOLE_NAME = "Emulator Console";
+	public static final String CONSOLE_NAME = "Emulator Console";
 
-    private static final String LOCALHOST = "localhost";
+	private static final String LOCALHOST = "localhost";
 
-    /**
-     * Constructor
-     */
-    public EmulatorConsoleHandler()
-    {
+	/**
+	 * Constructor
+	 */
+	public EmulatorConsoleHandler() {
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new EmulatorConsoleHandler();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new EmulatorConsoleHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(final IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        IStatus status = Status.OK_STATUS;
-        if (instance instanceof ISerialNumbered)
-        {
-            // Retrieve the emulator port from its serial number
-            Pattern pattern = Pattern.compile("emulator-([0-9]+)");
-            final String[] serialNumber = new String[1];
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(final IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		IStatus status = Status.OK_STATUS;
+		if (instance instanceof ISerialNumbered) {
+			// Retrieve the emulator port from its serial number
+			Pattern pattern = Pattern.compile("emulator-([0-9]+)");
+			final String[] serialNumber = new String[1];
 
-            serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
-            if (serialNumber[0] == null)
-            {
-                PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable()
-                {
+			serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
+			if (serialNumber[0] == null) {
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
-                    public void run()
-                    {
-                        ProgressMonitorDialog dialog =
-                                new ProgressMonitorDialog(new Shell(PlatformUI.getWorkbench()
-                                        .getDisplay()));
-                        try
-                        {
-                            dialog.run(false, false, new IRunnableWithProgress()
-                            {
+					@Override
+					public void run() {
+						ProgressMonitorDialog dialog = new ProgressMonitorDialog(new Shell(PlatformUI.getWorkbench()
+								.getDisplay()));
+						try {
+							dialog.run(false, false, new IRunnableWithProgress() {
 
-                                public void run(IProgressMonitor monitor)
-                                        throws InvocationTargetException, InterruptedException
-                                {
-                                    int limit = 20;
+								@Override
+								public void run(IProgressMonitor monitor) throws InvocationTargetException,
+										InterruptedException {
+									int limit = 20;
 
-                                    SubMonitor theMonitor = SubMonitor.convert(monitor);
-                                    theMonitor.beginTask(
-                                            ServicesNLS.ADBShellHandler_WaitingDeviceToLoad, limit);
+									SubMonitor theMonitor = SubMonitor.convert(monitor);
+									theMonitor.beginTask(ServicesNLS.ADBShellHandler_WaitingDeviceToLoad, limit);
 
-                                    int times = 0;
+									int times = 0;
 
-                                    while ((serialNumber[0] == null) && (times < limit))
-                                    {
-                                        theMonitor.worked(1);
-                                        Thread.sleep(500);
-                                        serialNumber[0] =
-                                                ((ISerialNumbered) instance).getSerialNumber();
-                                        times++;
-                                    }
+									while ((serialNumber[0] == null) && (times < limit)) {
+										theMonitor.worked(1);
+										Thread.sleep(500);
+										serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
+										times++;
+									}
 
-                                    theMonitor.setWorkRemaining(0);
-                                }
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            //do nothing
-                        }
-                    }
-                });
-            }
+									theMonitor.setWorkRemaining(0);
+								}
+							});
+						} catch (Exception e) {
+							// do nothing
+						}
+					}
+				});
+			}
 
-            // Fix a condition that Studio holds the UI thread forever 
-            if (serialNumber[0] == null)
-            {
-                status =
-                        new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                                ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotOpenTheConsoleShell);
-                return status;
-            }
+			// Fix a condition that Studio holds the UI thread forever
+			if (serialNumber[0] == null) {
+				status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+						ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotOpenTheConsoleShell);
+				return status;
+			}
 
-            Matcher matcher = pattern.matcher(serialNumber[0]);
-            if (matcher.matches())
-            {
-                String port = matcher.group(1);
-                final TelnetFrameworkAndroid telnet = new TelnetFrameworkAndroid();
-                try
-                {
-                    Integer i = consolesCache.get(serialNumber[0]);
-                    i = (i == null ? 1 : ++i);
-                    consolesCache.put(serialNumber[0], i);
+			Matcher matcher = pattern.matcher(serialNumber[0]);
+			if (matcher.matches()) {
+				String port = matcher.group(1);
+				final TelnetFrameworkAndroid telnet = new TelnetFrameworkAndroid();
+				try {
+					Integer i = consolesCache.get(serialNumber[0]);
+					i = (i == null ? 1 : ++i);
+					consolesCache.put(serialNumber[0], i);
 
-                    telnet.connect(LOCALHOST, Integer.parseInt(port));
-                    InputStream in = telnet.getInputStream();
-                    OutputStream out = telnet.getOutputStream();
+					telnet.connect(LOCALHOST, Integer.parseInt(port));
+					InputStream in = telnet.getInputStream();
+					OutputStream out = telnet.getOutputStream();
 
-                    String consoleName = CONSOLE_NAME + " - " + serialNumber[0];
+					String consoleName = CONSOLE_NAME + " - " + serialNumber[0];
 
-                    if (i != null)
-                    {
-                        consoleName += " (" + i + ")";
-                    }
+					if (i != null) {
+						consoleName += " (" + i + ")";
+					}
 
-                    telnetsCache.put(consoleName, telnet);
-                    DeviceServicesPlugin.addConsoleKilledListener(listener);
-                    DeviceServicesPlugin.redirectStreamsToConsole(in, out, consoleName);
-                }
-                catch (IOException e)
-                {
-                    status =
-                            new Status(
-                                    IStatus.ERROR,
-                                    DeviceServicesPlugin.PLUGIN_ID,
-                                    ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotOpenTheConsoleShell,
-                                    e);
-                }
-            }
-        }
-        else
-        {
-            status =
-                    new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                            ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotRetrieveTheEmulatorPort);
-        }
+					telnetsCache.put(consoleName, telnet);
+					DeviceServicesPlugin.addConsoleKilledListener(listener);
+					DeviceServicesPlugin.redirectStreamsToConsole(in, out, consoleName);
+				} catch (IOException e) {
+					status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+							ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotOpenTheConsoleShell, e);
+				}
+			}
+		} else {
+			status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+					ServicesNLS.ERR_EmulatorConsoleHandler_CouldNotRetrieveTheEmulatorPort);
+		}
 
-        return status;
-    }
+		return status;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
 }

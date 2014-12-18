@@ -19,65 +19,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the &lt;menu&gt; element from menu.xml 
+ * Represents the &lt;menu&gt; element from menu.xml
  */
-public class MenuNode extends AbstractMenuNode
-{
-    private final List<MenuItemNode> menuItems = new ArrayList<MenuItemNode>();
+public class MenuNode extends AbstractMenuNode {
+	private final List<MenuItemNode> menuItems = new ArrayList<MenuItemNode>();
 
-    private final List<GroupNode> groups = new ArrayList<GroupNode>();
+	private final List<GroupNode> groups = new ArrayList<GroupNode>();
 
-    /**
-     * Adds {@link MenuItemNode} into menuItems list 
-     * or adds {@link GroupNode} into groups list.
-     * @param node 
-     */
-    public void add(AbstractMenuNode node)
-    {
-        if (node instanceof MenuItemNode)
-        {
-            MenuItemNode menuItemNode = (MenuItemNode) node;
-            menuItems.add(menuItemNode);
-        }
-        else if (node instanceof GroupNode)
-        {
-            GroupNode groupNode = (GroupNode) node;
-            groups.add(groupNode);
-        }
-    }
+	/**
+	 * Adds {@link MenuItemNode} into menuItems list or adds {@link GroupNode}
+	 * into groups list.
+	 * 
+	 * @param node
+	 */
+	public void add(AbstractMenuNode node) {
+		if (node instanceof MenuItemNode) {
+			MenuItemNode menuItemNode = (MenuItemNode) node;
+			menuItems.add(menuItemNode);
+		} else if (node instanceof GroupNode) {
+			GroupNode groupNode = (GroupNode) node;
+			groups.add(groupNode);
+		}
+	}
 
-    /**
-     * Navigates into menu items and groups to deeply collect all menu items available in this root menu node 
-     * @return list of {@link MenuItemNode}
-     */
-    public List<MenuItemNode> getAllMenuItems()
-    {
-        //adding direct menu items
-        List<MenuItemNode> menuItemNodes = new ArrayList<MenuItemNode>();
-        menuItemNodes.addAll(menuItems);
+	/**
+	 * Navigates into menu items and groups to deeply collect all menu items
+	 * available in this root menu node
+	 * 
+	 * @return list of {@link MenuItemNode}
+	 */
+	public List<MenuItemNode> getAllMenuItems() {
+		// adding direct menu items
+		List<MenuItemNode> menuItemNodes = new ArrayList<MenuItemNode>();
+		menuItemNodes.addAll(menuItems);
 
-        //adding inner menu items from internal menu items
-        for (MenuItemNode node : menuItems)
-        {
-            if (node.getSubMenu() != null)
-            {
-                //has submenu => add all items inside submenu
-                menuItemNodes.addAll(node.getSubMenu().getAllMenuItems());
-            }
-        }
-        //adding inner menu items from groups
-        for (GroupNode group : groups)
-        {
-            for (MenuItemNode node : group.getMenuItems())
-            {
-                menuItemNodes.add(node);
-                if (node.getSubMenu() != null)
-                {
-                    //has submenu => add all items inside submenu
-                    menuItemNodes.addAll(node.getSubMenu().getAllMenuItems());
-                }
-            }
-        }
-        return menuItemNodes;
-    }
+		// adding inner menu items from internal menu items
+		for (MenuItemNode node : menuItems) {
+			if (node.getSubMenu() != null) {
+				// has submenu => add all items inside submenu
+				menuItemNodes.addAll(node.getSubMenu().getAllMenuItems());
+			}
+		}
+		// adding inner menu items from groups
+		for (GroupNode group : groups) {
+			for (MenuItemNode node : group.getMenuItems()) {
+				menuItemNodes.add(node);
+				if (node.getSubMenu() != null) {
+					// has submenu => add all items inside submenu
+					menuItemNodes.addAll(node.getSubMenu().getAllMenuItems());
+				}
+			}
+		}
+		return menuItemNodes;
+	}
 }

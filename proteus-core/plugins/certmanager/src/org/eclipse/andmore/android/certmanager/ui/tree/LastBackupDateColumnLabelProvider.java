@@ -21,25 +21,23 @@ import java.util.Locale;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-public class LastBackupDateColumnLabelProvider extends ColumnLabelProvider
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        if (element instanceof IKeyStore)
-        {
-            IKeyStore iKeyStore = (IKeyStore) element;
+public class LastBackupDateColumnLabelProvider extends ColumnLabelProvider {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		if (element instanceof IKeyStore) {
+			IKeyStore iKeyStore = (IKeyStore) element;
 
-            if (iKeyStore.getLastBackupDate() != null)
-            {
-                SimpleDateFormat formatter =
-                        new SimpleDateFormat("MMM dd yyyy HH:mm:ss", Locale.getDefault());
-                return formatter.format(iKeyStore.getLastBackupDate());
-            }
-        }
-        return "";
-    }
+			if (iKeyStore.getLastBackupDate() != null) {
+				SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy HH:mm:ss", Locale.getDefault());
+				return formatter.format(iKeyStore.getLastBackupDate());
+			}
+		}
+		return "";
+	}
 }

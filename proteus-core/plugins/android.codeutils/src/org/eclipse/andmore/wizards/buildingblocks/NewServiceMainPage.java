@@ -22,89 +22,87 @@ import org.eclipse.andmore.android.model.Service;
 /**
  * Class that implements the Service Wizard Main Page.
  */
-public class NewServiceMainPage extends NewBuildingBlocksWizardPage
-{
+public class NewServiceMainPage extends NewBuildingBlocksWizardPage {
 
-    private static final String NEW_SERVICE_HELP = CodeUtilsActivator.PLUGIN_ID + ".newservice";
+	private static final String NEW_SERVICE_HELP = CodeUtilsActivator.PLUGIN_ID + ".newservice";
 
-    /**
-     * Default constructor
-     * 
-     * @param service The service wizard model
-     */
-    public NewServiceMainPage(Service service)
-    {
-        super(service, CodeUtilsNLS.UI_NewServiceMainPage_WizardTitle);
-    }
+	/**
+	 * Default constructor
+	 * 
+	 * @param service
+	 *            The service wizard model
+	 */
+	public NewServiceMainPage(Service service) {
+		super(service, CodeUtilsNLS.UI_NewServiceMainPage_WizardTitle);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getBuildBlock()
-     */
-    @Override
-    public Service getBuildBlock()
-    {
-        return (Service) super.getBuildBlock();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getBuildBlock()
+	 */
+	@Override
+	public Service getBuildBlock() {
+		return (Service) super.getBuildBlock();
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getMethods()
-     */
-    @Override
-    protected Method[] getMethods()
-    {
-        Method onCreateMethod = new Method(getBuildBlock().getOnCreateMessage())
-        {
-            @Override
-            public void handle(boolean selection)
-            {
-                getBuildBlock().setOnCreateMethod(selection);
-            }
-        };
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getMethods()
+	 */
+	@Override
+	protected Method[] getMethods() {
+		Method onCreateMethod = new Method(getBuildBlock().getOnCreateMessage()) {
+			@Override
+			public void handle(boolean selection) {
+				getBuildBlock().setOnCreateMethod(selection);
+			}
+		};
 
-        Method onStartMethod = new Method(getBuildBlock().getOnStartMessage())
-        {
-            @Override
-            public void handle(boolean selection)
-            {
-                getBuildBlock().setOnStartMethod(selection);
-            }
-        };
+		Method onStartMethod = new Method(getBuildBlock().getOnStartMessage()) {
+			@Override
+			public void handle(boolean selection) {
+				getBuildBlock().setOnStartMethod(selection);
+			}
+		};
 
-        Method[] methods = new Method[]
-        {
-                onCreateMethod, onStartMethod
-        };
-        return methods;
-    }
+		Method[] methods = new Method[] { onCreateMethod, onStartMethod };
+		return methods;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getDefaultMessage()
-     */
-    @Override
-    public String getDefaultMessage()
-    {
-        return CodeUtilsNLS.UI_NewServiceMainPage_SubtitleCreateService;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getDefaultMessage()
+	 */
+	@Override
+	public String getDefaultMessage() {
+		return CodeUtilsNLS.UI_NewServiceMainPage_SubtitleCreateService;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getWizardTitle()
-     */
-    @Override
-    public String getWizardTitle()
-    {
-        return CodeUtilsNLS.UI_NewServiceMainPage_TitleService;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getWizardTitle()
+	 */
+	@Override
+	public String getWizardTitle() {
+		return CodeUtilsNLS.UI_NewServiceMainPage_TitleService;
+	}
 
-    /**
-     * Gets the help ID to be used for attaching
-     * context sensitive help. 
-     * 
-     * Classes that extends this class and want to set
-     * their on help should override this method
-     */
-    @Override
-    protected String getHelpId()
-    {
-        return NEW_SERVICE_HELP;
-    }
+	/**
+	 * Gets the help ID to be used for attaching context sensitive help.
+	 * 
+	 * Classes that extends this class and want to set their on help should
+	 * override this method
+	 */
+	@Override
+	protected String getHelpId() {
+		return NEW_SERVICE_HELP;
+	}
 }

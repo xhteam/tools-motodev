@@ -22,24 +22,22 @@ import org.eclipse.core.runtime.Status;
 /**
  * Status for Android Plugin.
  */
-public class AndroidStatus extends Status
-{
-    /**
-     * Constructor for "OK" Status
-     */
-    public AndroidStatus()
-    {
-        super(IStatus.OK, AndroidPlugin.PLUGIN_ID, null);
-    }
+public class AndroidStatus extends Status {
+	/**
+	 * Constructor for "OK" Status
+	 */
+	public AndroidStatus() {
+		super(IStatus.OK, AndroidPlugin.PLUGIN_ID, null);
+	}
 
-    /**
-     * Constructor for others status.
-     * @param severity
-     * @param msg
-     */
-    public AndroidStatus(int severity, String msg)
-    {
-        super(severity, AndroidPlugin.PLUGIN_ID, msg);
-    }
+	/**
+	 * Constructor for others status.
+	 * 
+	 * @param severity
+	 * @param msg
+	 */
+	public AndroidStatus(int severity, String msg) {
+		super(severity, AndroidPlugin.PLUGIN_ID, msg);
+	}
 
 }

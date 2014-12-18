@@ -17,25 +17,25 @@
 package org.eclipse.andmore.gltrace;
 
 public class TraceFileInfo {
-    private final String mPath;
-    private final long mSize;
-    private final long mLastModified;
+	private final String mPath;
+	private final long mSize;
+	private final long mLastModified;
 
-    public TraceFileInfo(String path, long size, long lastModified) {
-        mPath = path;
-        mSize = size;
-        mLastModified = lastModified;
-    }
+	public TraceFileInfo(String path, long size, long lastModified) {
+		mPath = path;
+		mSize = size;
+		mLastModified = lastModified;
+	}
 
-    public String getPath() {
-        return mPath;
-    }
+	public String getPath() {
+		return mPath;
+	}
 
-    public long getSize() {
-        return mSize;
-    }
+	public long getSize() {
+		return mSize;
+	}
 
-    public long getLastModificationTime() {
-        return mLastModified;
-    }
+	public long getLastModificationTime() {
+		return mLastModified;
+	}
 }

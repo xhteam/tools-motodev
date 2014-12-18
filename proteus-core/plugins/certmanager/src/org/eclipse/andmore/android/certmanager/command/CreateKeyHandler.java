@@ -26,24 +26,22 @@ import org.eclipse.core.commands.IHandler;
 /**
  * Handler to execute the create key wizard.
  */
-public class CreateKeyHandler extends AbstractHandler2 implements IHandler
-{
+public class CreateKeyHandler extends AbstractHandler2 implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        //retrieves the first element of the selection
-        //note that this command should be enabled only when selection.count == 1.
-        ITreeNode node = getSelection().get(0);
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		// retrieves the first element of the selection
+		// note that this command should be enabled only when selection.count ==
+		// 1.
+		ITreeNode node = getSelection().get(0);
 
-        if (node instanceof IKeyStore)
-        {
-            //get keystore where to create the new key
-            final IKeyStore keyStore = (IKeyStore) node;
-            CreateKeyWizard createKeyWizard = new CreateKeyWizard(keyStore);
-            WidgetsUtil.runWizard(createKeyWizard);
-        }
+		if (node instanceof IKeyStore) {
+			// get keystore where to create the new key
+			final IKeyStore keyStore = (IKeyStore) node;
+			CreateKeyWizard createKeyWizard = new CreateKeyWizard(keyStore);
+			WidgetsUtil.runWizard(createKeyWizard);
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

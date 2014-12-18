@@ -19,46 +19,47 @@ import org.eclipse.andmore.android.Sample;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.model.AndroidProject;
 import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 /**
- * Class that implements a Selection Adapter for the 
- * Sample Selection Page
+ * Class that implements a Selection Adapter for the Sample Selection Page
  */
-class SamplesSelectionAdapter extends SelectionAdapter
-{
-    private final SampleSelectionPage sampleSelectionPage;
+class SamplesSelectionAdapter extends SelectionAdapter {
+	private final SampleSelectionPage sampleSelectionPage;
 
-    private final AndroidProject project;
+	private final AndroidProject project;
 
-    /**
-     * Default constructor
-     * 
-     * @param sampleSelectionPage The sample selection page
-     * @param treeViewer The tree viewer of the selection adapter
-     * @param project The project
-     */
-    public SamplesSelectionAdapter(SampleSelectionPage sampleSelectionPage, AndroidProject project)
-    {
-        this.sampleSelectionPage = sampleSelectionPage;
-        this.project = project;
+	/**
+	 * Default constructor
+	 * 
+	 * @param sampleSelectionPage
+	 *            The sample selection page
+	 * @param treeViewer
+	 *            The tree viewer of the selection adapter
+	 * @param project
+	 *            The project
+	 */
+	public SamplesSelectionAdapter(SampleSelectionPage sampleSelectionPage, AndroidProject project) {
+		this.sampleSelectionPage = sampleSelectionPage;
+		this.project = project;
 
-        sampleSelectionPage.setMessage(AndroidNLS.UI_SampleSelectionPage_WizardDescription,
-                DialogPage.NONE);
-    }
+		sampleSelectionPage.setMessage(AndroidNLS.UI_SampleSelectionPage_WizardDescription, IMessageProvider.NONE);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-     */
-    @Override
-    public void widgetSelected(SelectionEvent e)
-    {
-        if (e.item != null)
-        {
-            project.setSample((Sample) e.item.getData());
-            sampleSelectionPage.getWizard().getContainer().updateButtons();
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt
+	 * .events.SelectionEvent)
+	 */
+	@Override
+	public void widgetSelected(SelectionEvent e) {
+		if (e.item != null) {
+			project.setSample((Sample) e.item.getData());
+			sampleSelectionPage.getWizard().getContainer().updateButtons();
+		}
+	}
 }

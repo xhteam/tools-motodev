@@ -26,131 +26,107 @@ import org.junit.Test;
 /**
  * See {@link SaveStateManager}
  */
-public class SaveStateManagerTest extends TestCase
-{
-    private static final String JKS = "JKS";
+public class SaveStateManagerTest extends TestCase {
+	private static final String JKS = "JKS";
 
-    SaveStateManager manager;
+	SaveStateManager manager;
 
-    File adtKeystoreFile = null;
+	File adtKeystoreFile = null;
 
-    File motodevKeystoreFile = null;
+	File motodevKeystoreFile = null;
 
-    /* (non-Javadoc)
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception
-    {
-        manager = SaveStateManager.getInstance();
-        adtKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\adt.keystore");
-        motodevKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\motodev.keystore");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		manager = SaveStateManager.getInstance();
+		adtKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\adt.keystore");
+		motodevKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\motodev.keystore");
 
-        super.setUp();
-    }
+		super.setUp();
+	}
 
-    @Override
-    protected void tearDown() throws Exception
-    {
-        super.tearDown();
-        manager.removeEntry(adtKeystoreFile);
-        manager.removeEntry(motodevKeystoreFile);
-    }
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		manager.removeEntry(adtKeystoreFile);
+		manager.removeEntry(motodevKeystoreFile);
+	}
 
-    @Test
-    public void testAddEntryWithoutBackupDate()
-    {
-        try
-        {
-            manager.addEntry(adtKeystoreFile, JKS);
+	@Test
+	public void testAddEntryWithoutBackupDate() {
+		try {
+			manager.addEntry(adtKeystoreFile, JKS);
 
-            SaveStateManager.ViewStateEntry entry = manager.getEntry(adtKeystoreFile);
+			SaveStateManager.ViewStateEntry entry = manager.getEntry(adtKeystoreFile);
 
-            assert ((entry != null) && (entry.getKeystoreFile() != null) && entry.getKeystoreFile()
-                    .equals(adtKeystoreFile));
-            assert ((entry != null) && (entry.getKeystoreType() != null) && entry.getKeystoreType()
-                    .equals(JKS));
-        }
-        catch (Exception e)
-        {
-            //error
-            assert (false);
-        }
-    }
+			assert ((entry != null) && (entry.getKeystoreFile() != null) && entry.getKeystoreFile().equals(
+					adtKeystoreFile));
+			assert ((entry != null) && (entry.getKeystoreType() != null) && entry.getKeystoreType().equals(JKS));
+		} catch (Exception e) {
+			// error
+			assert (false);
+		}
+	}
 
-    @Test
-    public void testListKeystoresMapped()
-    {
-        try
-        {
-            manager.addEntry(adtKeystoreFile, JKS);
-            manager.addEntry(motodevKeystoreFile, "JKS");
+	@Test
+	public void testListKeystoresMapped() {
+		try {
+			manager.addEntry(adtKeystoreFile, JKS);
+			manager.addEntry(motodevKeystoreFile, "JKS");
 
-            assert ((manager.getMappedKeystores() != null)
-                    && (manager.getMappedKeystores().size() == 2)
-                    && manager.getMappedKeystores().contains(adtKeystoreFile) && manager
-                    .getMappedKeystores().contains(motodevKeystoreFile));
-        }
-        catch (Exception e)
-        {
-            //error
-            assert (false);
-        }
-    }
+			assert ((manager.getMappedKeystores() != null) && (manager.getMappedKeystores().size() == 2)
+					&& manager.getMappedKeystores().contains(adtKeystoreFile) && manager.getMappedKeystores().contains(
+					motodevKeystoreFile));
+		} catch (Exception e) {
+			// error
+			assert (false);
+		}
+	}
 
-    @Test
-    public void testSetBackupDate()
-    {
-        try
-        {
-            Date date = Calendar.getInstance().getTime();
-            manager.addEntry(adtKeystoreFile, JKS);
-            manager.setBackupDate(adtKeystoreFile, date);
+	@Test
+	public void testSetBackupDate() {
+		try {
+			Date date = Calendar.getInstance().getTime();
+			manager.addEntry(adtKeystoreFile, JKS);
+			manager.setBackupDate(adtKeystoreFile, date);
 
-            SaveStateManager.ViewStateEntry entry = manager.getEntry(adtKeystoreFile);
+			SaveStateManager.ViewStateEntry entry = manager.getEntry(adtKeystoreFile);
 
-            assert ((entry != null) && (entry.getBackupDate() != null) && entry.getBackupDate()
-                    .equals(date));
-        }
-        catch (Exception e)
-        {
-            //error
-            assert (false);
-        }
-    }
+			assert ((entry != null) && (entry.getBackupDate() != null) && entry.getBackupDate().equals(date));
+		} catch (Exception e) {
+			// error
+			assert (false);
+		}
+	}
 
-    @Test
-    public void testIsMappedKeystore()
-    {
-        try
-        {
-            manager.addEntry(adtKeystoreFile, JKS);
-            boolean result = manager.isKeystoreMapped(adtKeystoreFile);
-            assert (result == true);
-        }
-        catch (Exception e)
-        {
-            //error
-            assert (false);
-        }
-    }
+	@Test
+	public void testIsMappedKeystore() {
+		try {
+			manager.addEntry(adtKeystoreFile, JKS);
+			boolean result = manager.isKeystoreMapped(adtKeystoreFile);
+			assert (result == true);
+		} catch (Exception e) {
+			// error
+			assert (false);
+		}
+	}
 
-    @Test
-    public void testRemoveEntry()
-    {
-        try
-        {
-            manager.addEntry(motodevKeystoreFile, "JKS");
-            assert (manager.isKeystoreMapped(motodevKeystoreFile) == true);
+	@Test
+	public void testRemoveEntry() {
+		try {
+			manager.addEntry(motodevKeystoreFile, "JKS");
+			assert (manager.isKeystoreMapped(motodevKeystoreFile) == true);
 
-            manager.removeEntry(motodevKeystoreFile);
-            assert (manager.isKeystoreMapped(motodevKeystoreFile) == false);
-        }
-        catch (Exception e)
-        {
-            //error
-            assert (false);
-        }
-    }
+			manager.removeEntry(motodevKeystoreFile);
+			assert (manager.isKeystoreMapped(motodevKeystoreFile) == false);
+		} catch (Exception e) {
+			// error
+			assert (false);
+		}
+	}
 
 }

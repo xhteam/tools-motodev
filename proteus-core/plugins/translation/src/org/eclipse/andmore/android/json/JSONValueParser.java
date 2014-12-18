@@ -17,58 +17,41 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public class JSONValueParser
-{
-    private JSONValueParser()
-    {
-    };
+public class JSONValueParser {
+	private JSONValueParser() {
+	};
 
-    static JSONValue parse(List<Character> json)
-    {
-        JSONValue value = null;
+	static JSONValue parse(List<Character> json) {
+		JSONValue value = null;
 
-        boolean parsed = false;
+		boolean parsed = false;
 
-        while (!parsed)
-        {
-            Character next = json.get(0);
+		while (!parsed) {
+			Character next = json.get(0);
 
-            if (next == '{')
-            {
-                value = JSONObject.parse(json);
-                parsed = true;
-            }
-            else if (next == '[')
-            {
-                value = JSONArray.parse(json);
-                parsed = true;
-            }
-            else if (next == '"')
-            {
-                value = JSONString.parse(json);
-                parsed = true;
-            }
-            else if (next == 'n')
-            {
-                value = JSONNull.parse(json);
-                parsed = true;
-            }
-            else if (next == 't' || next == 'f')
-            {
-                value = JSONBoolean.parse(json);
-                parsed = true;
-            }
-            else if (next >= 48 && next <= 57)
-            {
-                value = JSONNumber.parse(json);
-                parsed = true;
-            }
-            else if (next == ' ' || next == '\r' || next == '\n')
-            {
-                json.remove(0);
-            }
+			if (next == '{') {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next == '[') {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next == '"') {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next == 'n') {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next == 't' || next == 'f') {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next >= 48 && next <= 57) {
+				value = JSONValue.parse(json);
+				parsed = true;
+			} else if (next == ' ' || next == '\r' || next == '\n') {
+				json.remove(0);
+			}
 
-        }
-        return value;
-    }
+		}
+		return value;
+	}
 }

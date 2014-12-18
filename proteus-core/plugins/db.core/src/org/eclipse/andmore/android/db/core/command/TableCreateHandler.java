@@ -31,122 +31,107 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.datatools.modelbase.sql.tables.Table;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-public class TableCreateHandler extends AbstractHandler
-{
-    private ITableCreatorNode tableCreatorNode = null;
+public class TableCreateHandler extends AbstractHandler {
+	private ITableCreatorNode tableCreatorNode = null;
 
-    public TableCreateHandler()
-    {
-    }
+	public TableCreateHandler() {
+	}
 
-    public TableCreateHandler(ITableCreatorNode tableCreatorNode)
-    {
-        this.tableCreatorNode = tableCreatorNode;
-    }
+	public TableCreateHandler(ITableCreatorNode tableCreatorNode) {
+		this.tableCreatorNode = tableCreatorNode;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        if (tableCreatorNode == null)
-        {
-            tableCreatorNode = getSelectedItem();
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		if (tableCreatorNode == null) {
+			tableCreatorNode = getSelectedItem();
+		}
 
-        //tableCreatorNode may be null if the action come from toolbar
-        //and the selected item is not an ITableCreatorNode
-        if (tableCreatorNode != null)
-        {
-            Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		// tableCreatorNode may be null if the action come from toolbar
+		// and the selected item is not an ITableCreatorNode
+		if (tableCreatorNode != null) {
+			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
-            boolean tableAdded = false;
+			boolean tableAdded = false;
 
-            // loop used to validate the new table name. If it already exists 
-            // tell the user and open the table wizard again.
-            while (!tableAdded)
-            {
-                //repeat while table not added and dialog not cancelled 
-                CreateTableWizard createTableWizard = new CreateTableWizard();
-                Set<String> notAllowedNames = getNotAllowedNames(tableCreatorNode.getTables());
-                createTableWizard.setNotAllowedNames(notAllowedNames);
-                WizardDialog dialog = new WizardDialog(shell, createTableWizard);
-                dialog.open();
+			// loop used to validate the new table name. If it already exists
+			// tell the user and open the table wizard again.
+			while (!tableAdded) {
+				// repeat while table not added and dialog not cancelled
+				CreateTableWizard createTableWizard = new CreateTableWizard();
+				Set<String> notAllowedNames = getNotAllowedNames(tableCreatorNode.getTables());
+				createTableWizard.setNotAllowedNames(notAllowedNames);
+				WizardDialog dialog = new WizardDialog(shell, createTableWizard);
+				dialog.open();
 
-                if (dialog.getReturnCode() == Dialog.OK)
-                {
-                    TableModel newTable = createTableWizard.getTable();
-                    if (newTable != null)
-                    {
-                        boolean tableNameAlreadyExists = false;
-                        for (Table table : tableCreatorNode.getTables())
-                        {
-                            if (table.getName().equalsIgnoreCase(newTable.getName()))
-                            {
-                                tableNameAlreadyExists = true;
-                                break;
-                            }
-                        }
-                        if (!tableNameAlreadyExists)
-                        {
-                            tableCreatorNode.createTable(newTable);
-                            tableCreatorNode = null; //clear selected node to force getSelectedItem to be called when calling via toolbar
-                            tableAdded = true;
-                        }
-                        else
-                        {
-                            //notify error that table already exists
-                            MessageDialog
-                                    .openError(
-                                            PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                                                    .getShell(),
-                                            DbCoreNLS.CreateDatabaseWizardPage_Table_Already_Exists_Title,
-                                            NLS.bind(
-                                                    DbCoreNLS.CreateDatabaseWizardPage_Table_Already_Exists_Msg,
-                                                    newTable.getName()));
-                        }
-                    }
-                }
-                else
-                {
-                    //exit the loop if the user cancel dialog
-                    break;
-                }
-            }
+				if (dialog.getReturnCode() == Window.OK) {
+					TableModel newTable = createTableWizard.getTable();
+					if (newTable != null) {
+						boolean tableNameAlreadyExists = false;
+						for (Table table : tableCreatorNode.getTables()) {
+							if (table.getName().equalsIgnoreCase(newTable.getName())) {
+								tableNameAlreadyExists = true;
+								break;
+							}
+						}
+						if (!tableNameAlreadyExists) {
+							tableCreatorNode.createTable(newTable);
+							tableCreatorNode = null; // clear selected node to
+														// force getSelectedItem
+														// to be called when
+														// calling via toolbar
+							tableAdded = true;
+						} else {
+							// notify error that table already exists
+							MessageDialog.openError(
+									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+									DbCoreNLS.CreateDatabaseWizardPage_Table_Already_Exists_Title,
+									NLS.bind(DbCoreNLS.CreateDatabaseWizardPage_Table_Already_Exists_Msg,
+											newTable.getName()));
+						}
+					}
+				} else {
+					// exit the loop if the user cancel dialog
+					break;
+				}
+			}
 
-        }
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    private ITableCreatorNode getSelectedItem()
-    {
-        ITableCreatorNode selectedNode = null;
-        ITreeNode selectedItem =
-                DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+	private ITableCreatorNode getSelectedItem() {
+		ITableCreatorNode selectedNode = null;
+		ITreeNode selectedItem = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
 
-        if (selectedItem instanceof ITableCreatorNode)
-        {
-            selectedNode = (ITableCreatorNode) selectedItem;
-        }
+		if (selectedItem instanceof ITableCreatorNode) {
+			selectedNode = (ITableCreatorNode) selectedItem;
+		}
 
-        return selectedNode;
-    }
+		return selectedNode;
+	}
 
-    private Set<String> getNotAllowedNames(List<Table> list)
-    {
+	private Set<String> getNotAllowedNames(List<Table> list) {
 
-        Set<String> names = new HashSet<String>();
+		Set<String> names = new HashSet<String>();
 
-        for (Table table : list)
-        {
-            names.add(table.getName().toUpperCase());
-        }
-        return names;
-    }
+		for (Table table : list) {
+			names.add(table.getName().toUpperCase());
+		}
+		return names;
+	}
 }

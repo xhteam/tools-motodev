@@ -28,104 +28,79 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 
-public class RefreshNodeHandler extends AbstractHandler implements IHandler
-{
+public class RefreshNodeHandler extends AbstractHandler implements IHandler {
 
-    private ITreeNode node;
+	private ITreeNode node;
 
-    public RefreshNodeHandler()
-    {
-    }
+	public RefreshNodeHandler() {
+	}
 
-    public RefreshNodeHandler(ITreeNode node)
-    {
-        this.node = node;
-    }
+	public RefreshNodeHandler(ITreeNode node) {
+		this.node = node;
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        if (node == null)
-        {
-            node = getSelectedItem();
-        }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		if (node == null) {
+			node = getSelectedItem();
+		}
 
-        Runnable asyncRefresh = new Runnable()
-        {
+		Runnable asyncRefresh = new Runnable() {
 
-            public void run()
-            {
-                if (node != null)
-                {
-                    boolean canRefresh = false;
-                    boolean canRefreshInput = true;
+			@Override
+			public void run() {
+				if (node != null) {
+					boolean canRefresh = false;
+					boolean canRefreshInput = true;
 
-                    IStatus status = node.canRefresh();
-                    if (status.isOK())
-                    {
-                        canRefresh = true;
-                    }
-                    else
-                    {
-                        if ((status instanceof CanRefreshStatus)
-                                && status.matches(CanRefreshStatus.ASK_USER))
-                        {
-                            if (status.matches(CanRefreshStatus.ASK_USER
-                                    | CanRefreshStatus.CANCELABLE))
-                            {
-                                int dialogResults =
-                                        EclipseUtils
-                                                .showQuestionWithCancelDialog(
-                                                        NLS.bind(
-                                                                DbCoreNLS.RefreshNodeHandler_RefreshingNode_Msg_Title,
-                                                                node.getName()), status
-                                                                .getMessage());
-                                if (dialogResults != SWT.CANCEL)
-                                {
-                                    canRefreshInput = dialogResults == SWT.YES;
-                                    canRefresh = true;
-                                }
-                            }
-                            else
-                            {
-                                canRefresh =
-                                        EclipseUtils
-                                                .showQuestionDialog(
-                                                        NLS.bind(
-                                                                DbCoreNLS.RefreshNodeHandler_RefreshingNode_Msg_Title,
-                                                                node.getName()), status
-                                                                .getMessage());
-                            }
-                        }
-                        else
-                        {
-                            EclipseUtils.showErrorDialog(NLS.bind(
-                                    DbCoreNLS.RefreshNodeHandler_RefreshingNode_Error_Msg,
-                                    node.getName()), status.getMessage(), status);
-                        }
-                    }
+					IStatus status = node.canRefresh();
+					if (status.isOK()) {
+						canRefresh = true;
+					} else {
+						if ((status instanceof CanRefreshStatus) && status.matches(CanRefreshStatus.ASK_USER)) {
+							if (status.matches(CanRefreshStatus.ASK_USER | CanRefreshStatus.CANCELABLE)) {
+								int dialogResults = EclipseUtils
+										.showQuestionWithCancelDialog(
+												NLS.bind(DbCoreNLS.RefreshNodeHandler_RefreshingNode_Msg_Title,
+														node.getName()), status.getMessage());
+								if (dialogResults != SWT.CANCEL) {
+									canRefreshInput = dialogResults == SWT.YES;
+									canRefresh = true;
+								}
+							} else {
+								canRefresh = EclipseUtils
+										.showQuestionDialog(
+												NLS.bind(DbCoreNLS.RefreshNodeHandler_RefreshingNode_Msg_Title,
+														node.getName()), status.getMessage());
+							}
+						} else {
+							EclipseUtils.showErrorDialog(
+									NLS.bind(DbCoreNLS.RefreshNodeHandler_RefreshingNode_Error_Msg, node.getName()),
+									status.getMessage(), status);
+						}
+					}
 
-                    if (canRefresh)
-                    {
-                        node.refreshAsync(canRefreshInput);
-                        node = null; //clear selected node to force getSelectedItem to be called when calling via toolbar
-                    }
+					if (canRefresh) {
+						node.refreshAsync(canRefreshInput);
+						node = null; // clear selected node to force
+										// getSelectedItem to be called when
+										// calling via toolbar
+					}
 
-                }
+				}
 
-            }
-        };
-        Thread refreshThread = new Thread(asyncRefresh);
-        refreshThread.start();
+			}
+		};
+		Thread refreshThread = new Thread(asyncRefresh);
+		refreshThread.start();
 
-        return null;
-    }
+		return null;
+	}
 
-    private ITreeNode getSelectedItem()
-    {
-        ITreeNode selectedNode =
-                DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+	private ITreeNode getSelectedItem() {
+		ITreeNode selectedNode = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
 
-        return selectedNode;
-    }
+		return selectedNode;
+	}
 
 }

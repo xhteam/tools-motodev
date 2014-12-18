@@ -22,51 +22,44 @@ import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.jface.wizard.Wizard;
 
-public class UninstallAppWizard extends Wizard
-{
-    private UninstallAppWizardPage mainPage = null;
+public class UninstallAppWizard extends Wizard {
+	private UninstallAppWizardPage mainPage = null;
 
-    private List<String> packagesToUninstall = null;
+	private List<String> packagesToUninstall = null;
 
-    private Map<String, String> availablePackages = null;
+	private Map<String, String> availablePackages = null;
 
-    private final String WIZARD_IMAGE_PATH = "icons/wizban/undeploy_wizard.png"; //$NON-NLS-1$
+	private final String WIZARD_IMAGE_PATH = "icons/wizban/undeploy_wizard.png"; //$NON-NLS-1$
 
-    public UninstallAppWizard()
-    {
-        setWindowTitle(AndroidNLS.UninstallAppWizardPage_PageTitle);
-        super.setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_IMAGE_PATH));
-        setHelpAvailable(false);
-    }
+	public UninstallAppWizard() {
+		setWindowTitle(AndroidNLS.UninstallAppWizardPage_PageTitle);
+		super.setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_IMAGE_PATH));
+		setHelpAvailable(false);
+	}
 
-    @Override
-    public void addPages()
-    {
-        mainPage = new UninstallAppWizardPage(availablePackages);
-        addPage(mainPage);
-    }
+	@Override
+	public void addPages() {
+		mainPage = new UninstallAppWizardPage(availablePackages);
+		addPage(mainPage);
+	}
 
-    @Override
-    public boolean performFinish()
-    {
-        packagesToUninstall = mainPage.getPackageList();
-        return packagesToUninstall.size() > 0;
-    }
+	@Override
+	public boolean performFinish() {
+		packagesToUninstall = mainPage.getPackageList();
+		return packagesToUninstall.size() > 0;
+	}
 
-    public void init(Map<String, String> applicationList)
-    {
-        availablePackages = applicationList;
-    }
+	public void init(Map<String, String> applicationList) {
+		availablePackages = applicationList;
+	}
 
-    public void setAvailablePackages(Map<String, String> applicationList)
-    {
-        init(applicationList);
-        mainPage.setAvailablePackages(applicationList);
-    }
+	public void setAvailablePackages(Map<String, String> applicationList) {
+		init(applicationList);
+		mainPage.setAvailablePackages(applicationList);
+	}
 
-    public List<String> getSelectedPackages()
-    {
-        return packagesToUninstall;
-    }
+	public List<String> getSelectedPackages() {
+		return packagesToUninstall;
+	}
 
 }

@@ -28,23 +28,21 @@ import org.eclipse.ui.PlatformUI;
 /**
  * Handler to execute the create keystore wizard.
  * */
-public class CreateKeystoreHandler extends AbstractHandler implements IHandler2
-{
+public class CreateKeystoreHandler extends AbstractHandler implements IHandler2 {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
-        CreateKeystoreWizard createKeystoreWizard = new CreateKeystoreWizard();
+		CreateKeystoreWizard createKeystoreWizard = new CreateKeystoreWizard();
 
-        WizardDialog dialog = new WizardDialog(shell, createKeystoreWizard);
+		WizardDialog dialog = new WizardDialog(shell, createKeystoreWizard);
 
-        //open the wizard to create keystores
-        //the result doesn't need to be handled as it is self-contained
-        dialog.create();
-        dialog.open();
+		// open the wizard to create keystores
+		// the result doesn't need to be handled as it is self-contained
+		dialog.create();
+		dialog.open();
 
-        return null;
-    }
+		return null;
+	}
 }

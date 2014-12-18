@@ -17,49 +17,40 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public class JSONNumber extends JSONValue
-{
+public class JSONNumber extends JSONValue {
 
-    private final int value;
+	private final int value;
 
-    public JSONNumber(int value)
-    {
-        this.value = value;
-    }
+	public JSONNumber(int value) {
+		this.value = value;
+	}
 
-    @Override
-    public Object getValue()
-    {
-        return value;
-    }
+	@Override
+	public Object getValue() {
+		return value;
+	}
 
-    static JSONValue parseValues(List<Character> json)
-    {
-        boolean parsed = false;
-        StringBuilder number = new StringBuilder();
+	static JSONValue parseValues(List<Character> json) {
+		boolean parsed = false;
+		StringBuilder number = new StringBuilder();
 
-        while (!parsed)
-        {
-            Character next = json.get(0);
-            if (next >= 48 && next <= 57)
-            {
-                json.remove(0);
-                number.append(next);
-            }
-            else
-            {
-                parsed = true;
-            }
-        }
+		while (!parsed) {
+			Character next = json.get(0);
+			if (next >= 48 && next <= 57) {
+				json.remove(0);
+				number.append(next);
+			} else {
+				parsed = true;
+			}
+		}
 
-        return new JSONNumber(Integer.parseInt(number.toString()));
+		return new JSONNumber(Integer.parseInt(number.toString()));
 
-    }
+	}
 
-    @Override
-    public String toString()
-    {
-        return Integer.toString(value);
-    }
+	@Override
+	public String toString() {
+		return Integer.toString(value);
+	}
 
 }

@@ -22,80 +22,76 @@ import org.eclipse.andmore.android.wizards.BaseWizard;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Wizard to create an Android key.
  */
-public class CreateKeyWizard extends BaseWizard
-{
+public class CreateKeyWizard extends BaseWizard {
 
-    private static final String WIZARD_BANNER = "icons/wizban/create_key_wiz.png"; //$NON-NLS-1$
+	private static final String WIZARD_BANNER = "icons/wizban/create_key_wiz.png"; //$NON-NLS-1$
 
-    private boolean success = false;
+	private boolean success = false;
 
-    /**
-     * Wizard page to allow the user to inform the key pair alias and
-     * distinguished name.
-     */
-    private final CreateKeyWizardPage createkeyWizardPage;
+	/**
+	 * Wizard page to allow the user to inform the key pair alias and
+	 * distinguished name.
+	 */
+	private final CreateKeyWizardPage createkeyWizardPage;
 
-    public CreateKeyWizard(IKeyStore keystore)
-    {
-        setupWizardUi();
-        createkeyWizardPage = new CreateKeyWizardPage(keystore);
-    }
+	public CreateKeyWizard(IKeyStore keystore) {
+		setupWizardUi();
+		createkeyWizardPage = new CreateKeyWizardPage(keystore);
+	}
 
-    public CreateKeyWizard(IKeyStore keystore, String keystorePassword,
-            IJobChangeListener createKeyJobListener)
-    {
-        setupWizardUi();
-        createkeyWizardPage =
-                new CreateKeyWizardPage(keystore, keystorePassword, createKeyJobListener);
-    }
+	public CreateKeyWizard(IKeyStore keystore, String keystorePassword, IJobChangeListener createKeyJobListener) {
+		setupWizardUi();
+		createkeyWizardPage = new CreateKeyWizardPage(keystore, keystorePassword, createKeyJobListener);
+	}
 
-    private void setupWizardUi()
-    {
-        setWindowTitle(CertificateManagerNLS.CreateSelfSignedCertificateWizardPage_Title);
-        setDefaultPageImageDescriptor(CertificateManagerActivator.imageDescriptorFromPlugin(
-                CertificateManagerActivator.PLUGIN_ID, WIZARD_BANNER));
-    }
+	private void setupWizardUi() {
+		setWindowTitle(CertificateManagerNLS.CreateSelfSignedCertificateWizardPage_Title);
+		setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(CertificateManagerActivator.PLUGIN_ID,
+				WIZARD_BANNER));
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    public void createPageControls(Composite pageContainer)
-    {
-        super.createPageControls(pageContainer);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createPageControls(Composite pageContainer) {
+		super.createPageControls(pageContainer);
 
-        //the shell has the same help as its single page
-        PlatformUI.getWorkbench().getHelpSystem()
-                .setHelp(getShell(), CreateKeyWizardPage.CREATE_SELF_SIGNED_CERTIFICATE_HELP_ID);
-    }
+		// the shell has the same help as its single page
+		PlatformUI.getWorkbench().getHelpSystem()
+				.setHelp(getShell(), CreateKeyWizardPage.CREATE_SELF_SIGNED_CERTIFICATE_HELP_ID);
+	}
 
-    @Override
-    protected boolean doPerformFinish()
-    {
-        success = createkeyWizardPage.createKey();
-        return success;
-    }
+	@Override
+	protected boolean doPerformFinish() {
+		success = createkeyWizardPage.createKey();
+		return success;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        super.addPages();
-        addPage(createkeyWizardPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		super.addPages();
+		addPage(createkeyWizardPage);
+	}
 
-    /**
-     * Returns the alias of the just created key or null otherwise.
-     */
-    public String getAlias()
-    {
-        return success ? createkeyWizardPage.getTrueAlias() : null;
-    }
+	/**
+	 * Returns the alias of the just created key or null otherwise.
+	 */
+	public String getAlias() {
+		return success ? createkeyWizardPage.getTrueAlias() : null;
+	}
 }

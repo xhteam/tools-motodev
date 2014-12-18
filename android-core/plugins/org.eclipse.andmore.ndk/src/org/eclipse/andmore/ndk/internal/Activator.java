@@ -32,53 +32,53 @@ import java.net.URL;
  */
 public class Activator extends AbstractUIPlugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.ndk"; //$NON-NLS-1$
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.ndk"; //$NON-NLS-1$
 
-    // The shared instance
-    private static Activator mPlugin;
+	// The shared instance
+	private static Activator mPlugin;
 
-    @Override
-    public void start(BundleContext context) throws Exception {
-        super.start(context);
-        mPlugin = this;
-    }
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		mPlugin = this;
+	}
 
-    @Override
-    public void stop(BundleContext context) throws Exception {
-        mPlugin = null;
-        super.stop(context);
-    }
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		mPlugin = null;
+		super.stop(context);
+	}
 
-    public static Activator getDefault() {
-        return mPlugin;
-    }
+	public static Activator getDefault() {
+		return mPlugin;
+	}
 
-    public static <T> T getService(Class<T> clazz) {
-        BundleContext context = mPlugin.getBundle().getBundleContext();
-        ServiceReference ref = context.getServiceReference(clazz.getName());
-        return (ref != null) ? (T) context.getService(ref) : null;
-    }
+	public static <T> T getService(Class<T> clazz) {
+		BundleContext context = mPlugin.getBundle().getBundleContext();
+		ServiceReference ref = context.getServiceReference(clazz.getName());
+		return (ref != null) ? (T) context.getService(ref) : null;
+	}
 
-    public static Bundle getBundle(String id) {
-        for (Bundle bundle : mPlugin.getBundle().getBundleContext().getBundles()) {
-            if (bundle.getSymbolicName().equals(id)) {
-                return bundle;
-            }
-        }
-        return null;
-    }
+	public static Bundle getBundle(String id) {
+		for (Bundle bundle : mPlugin.getBundle().getBundleContext().getBundles()) {
+			if (bundle.getSymbolicName().equals(id)) {
+				return bundle;
+			}
+		}
+		return null;
+	}
 
-    public static IStatus newStatus(Exception e) {
-        return new Status(IStatus.ERROR, PLUGIN_ID, e.getMessage(), e);
-    }
+	public static IStatus newStatus(Exception e) {
+		return new Status(IStatus.ERROR, PLUGIN_ID, e.getMessage(), e);
+	}
 
-    public static void log(Exception e) {
-        mPlugin.getLog().log(newStatus(e));
-    }
+	public static void log(Exception e) {
+		mPlugin.getLog().log(newStatus(e));
+	}
 
-    public static URL findFile(IPath path) {
-        return FileLocator.find(mPlugin.getBundle(), path, null);
-    }
+	public static URL findFile(IPath path) {
+		return FileLocator.find(mPlugin.getBundle(), path, null);
+	}
 
 }

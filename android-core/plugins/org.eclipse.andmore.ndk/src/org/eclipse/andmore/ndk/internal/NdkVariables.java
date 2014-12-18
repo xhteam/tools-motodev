@@ -18,14 +18,18 @@ package org.eclipse.andmore.ndk.internal;
 
 /** Eclipse variables that are understood by the NDK while launching programs. */
 public class NdkVariables {
-    /** Variable that expands to the full path of NDK's ABI specific gdb. */
-    public static final String NDK_GDB = "NdkGdb";
+	/** Variable that expands to the full path of NDK's ABI specific gdb. */
+	public static final String NDK_GDB = "NdkGdb";
 
-    /** Variable that expands to point to the full path of the project used in the launch
-     * configuration. */
-    public static final String NDK_PROJECT = "NdkProject";
+	/**
+	 * Variable that expands to point to the full path of the project used in
+	 * the launch configuration.
+	 */
+	public static final String NDK_PROJECT = "NdkProject";
 
-    /** Variable that indicates the ABI that is compatible between the device and the
-     * application being launched. */
-    public static final String NDK_COMPAT_ABI = "NdkCompatAbi";
+	/**
+	 * Variable that indicates the ABI that is compatible between the device and
+	 * the application being launched.
+	 */
+	public static final String NDK_COMPAT_ABI = "NdkCompatAbi";
 }

@@ -19,45 +19,45 @@ package org.eclipse.andmore.ndk.internal;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
-    private static final String BUNDLE_NAME = "org.eclipse.andmore.ndk.internal.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.andmore.ndk.internal.messages"; //$NON-NLS-1$
 
-    public static String AddNativeWizardPage_Description;
+	public static String AddNativeWizardPage_Description;
 
-    public static String AddNativeWizardPage_LibraryName;
+	public static String AddNativeWizardPage_LibraryName;
 
-    public static String AddNativeWizardPage_Location_not_valid;
+	public static String AddNativeWizardPage_Location_not_valid;
 
-    public static String AddNativeWizardPage_Title;
+	public static String AddNativeWizardPage_Title;
 
-    public static String NDKPreferencePage_Location;
+	public static String NDKPreferencePage_Location;
 
-    public static String NDKPreferencePage_not_a_valid_directory;
+	public static String NDKPreferencePage_not_a_valid_directory;
 
-    public static String NDKPreferencePage_not_a_valid_NDK_directory;
+	public static String NDKPreferencePage_not_a_valid_NDK_directory;
 
-    public static String NDKPreferencePage_Preferences;
+	public static String NDKPreferencePage_Preferences;
 
-    public static String SetFolders_Missing_project_name;
+	public static String SetFolders_Missing_project_name;
 
-    public static String SetFolders_No_folders;
+	public static String SetFolders_No_folders;
 
-    public static String SetFolders_Project_does_not_exist;
+	public static String SetFolders_Project_does_not_exist;
 
-    public static String SimpleFile_Bad_file_operation;
+	public static String SimpleFile_Bad_file_operation;
 
-    public static String SimpleFile_Bundle_not_found;
+	public static String SimpleFile_Bundle_not_found;
 
-    public static String SimpleFile_Could_not_fine_source;
+	public static String SimpleFile_Could_not_fine_source;
 
-    public static String SimpleFile_No_project_name;
+	public static String SimpleFile_No_project_name;
 
-    public static String SimpleFile_Project_does_not_exist;
+	public static String SimpleFile_Project_does_not_exist;
 
-    static {
-        // initialize resource bundle
-        NLS.initializeMessages(BUNDLE_NAME, Messages.class);
-    }
+	static {
+		// initialize resource bundle
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
 
-    private Messages() {
-    }
+	private Messages() {
+	}
 }

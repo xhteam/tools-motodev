@@ -34,89 +34,86 @@ import org.eclipse.ui.PartInitException;
 
 public class HierarchyViewerPluginDirector extends HierarchyViewerDirector {
 
-    public static HierarchyViewerDirector createDirector() {
-        return sDirector = new HierarchyViewerPluginDirector();
-    }
+	public static HierarchyViewerDirector createDirector() {
+		return sDirector = new HierarchyViewerPluginDirector();
+	}
 
-    @Override
-    public void executeInBackground(final String taskName, final Runnable task) {
-        Job job = new Job(taskName) {
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                task.run();
-                return Status.OK_STATUS;
-            }
-        };
-        job.setPriority(Job.SHORT);
-        job.setRule(mSchedulingRule);
-        job.schedule();
-    }
+	@Override
+	public void executeInBackground(final String taskName, final Runnable task) {
+		Job job = new Job(taskName) {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				task.run();
+				return Status.OK_STATUS;
+			}
+		};
+		job.setPriority(Job.SHORT);
+		job.setRule(mSchedulingRule);
+		job.schedule();
+	}
 
-    private ISchedulingRule mSchedulingRule = new ISchedulingRule() {
-        @Override
-        public boolean contains(ISchedulingRule rule) {
-            return rule == this;
-        }
+	private ISchedulingRule mSchedulingRule = new ISchedulingRule() {
+		@Override
+		public boolean contains(ISchedulingRule rule) {
+			return rule == this;
+		}
 
-        @Override
-        public boolean isConflicting(ISchedulingRule rule) {
-            return rule == this;
-        }
+		@Override
+		public boolean isConflicting(ISchedulingRule rule) {
+			return rule == this;
+		}
 
-    };
+	};
 
-    @Override
-    public String getAdbLocation() {
-        return HierarchyViewerPlugin.getPlugin().getPreferenceStore().getString(
-                HierarchyViewerPlugin.ADB_LOCATION);
-    }
+	@Override
+	public String getAdbLocation() {
+		return HierarchyViewerPlugin.getPlugin().getPreferenceStore().getString(HierarchyViewerPlugin.ADB_LOCATION);
+	}
 
-    @Override
-    public void loadViewTreeData(Window window) {
-        super.loadViewTreeData(window);
+	@Override
+	public void loadViewTreeData(Window window) {
+		super.loadViewTreeData(window);
 
-        // The windows tab hides the property tab, so let's bring the property
-        // tab
-        // forward.
+		// The windows tab hides the property tab, so let's bring the property
+		// tab
+		// forward.
 
-        IWorkbenchWindow[] windows =
-                HierarchyViewerPlugin.getPlugin().getWorkbench().getWorkbenchWindows();
-        for (IWorkbenchWindow currentWindow : windows) {
-            IWorkbenchPage page = currentWindow.getActivePage();
-            if (page.getPerspective().getId().equals(TreeViewPerspective.ID)) {
-                try {
-                    IWorkbenchPart part = page.findView(PropertyView.ID);
-                    if (part != null) {
-                        page.showView(PropertyView.ID);
-                    }
-                } catch (PartInitException e) {
+		IWorkbenchWindow[] windows = HierarchyViewerPlugin.getPlugin().getWorkbench().getWorkbenchWindows();
+		for (IWorkbenchWindow currentWindow : windows) {
+			IWorkbenchPage page = currentWindow.getActivePage();
+			if (page.getPerspective().getId().equals(TreeViewPerspective.ID)) {
+				try {
+					IWorkbenchPart part = page.findView(PropertyView.ID);
+					if (part != null) {
+						page.showView(PropertyView.ID);
+					}
+				} catch (PartInitException e) {
 
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 
-    @Override
-    public void loadPixelPerfectData(IHvDevice device) {
-        super.loadPixelPerfectData(device);
+	@Override
+	public void loadPixelPerfectData(IHvDevice device) {
+		super.loadPixelPerfectData(device);
 
-        // The windows tab hides the tree tab, so let's bring the tree tab
-        // forward.
+		// The windows tab hides the tree tab, so let's bring the tree tab
+		// forward.
 
-        IWorkbenchWindow[] windows =
-                HierarchyViewerPlugin.getPlugin().getWorkbench().getWorkbenchWindows();
-        for (IWorkbenchWindow window : windows) {
-            IWorkbenchPage page = window.getActivePage();
-            if (page.getPerspective().getId().equals(PixelPerfectPespective.ID)) {
-                try {
-                    IWorkbenchPart part = page.findView(PixelPerfectTreeView.ID);
-                    if (part != null) {
-                        page.showView(PixelPerfectTreeView.ID);
-                    }
-                } catch (PartInitException e) {
+		IWorkbenchWindow[] windows = HierarchyViewerPlugin.getPlugin().getWorkbench().getWorkbenchWindows();
+		for (IWorkbenchWindow window : windows) {
+			IWorkbenchPage page = window.getActivePage();
+			if (page.getPerspective().getId().equals(PixelPerfectPespective.ID)) {
+				try {
+					IWorkbenchPart part = page.findView(PixelPerfectTreeView.ID);
+					if (part != null) {
+						page.showView(PixelPerfectTreeView.ID);
+					}
+				} catch (PartInitException e) {
 
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }

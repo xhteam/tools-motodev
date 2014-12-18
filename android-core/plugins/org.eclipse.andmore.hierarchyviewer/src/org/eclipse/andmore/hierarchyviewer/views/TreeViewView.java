@@ -41,63 +41,62 @@ import org.eclipse.ui.part.ViewPart;
 // Awesome name.
 public class TreeViewView extends ViewPart {
 
-    public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.TreeViewView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.TreeViewView"; //$NON-NLS-1$
 
-    private TreeView mTreeView;
+	private TreeView mTreeView;
 
-    @Override
-    public void createPartControl(Composite parent) {
-        GridLayout layout = new GridLayout();
-        layout.marginWidth = layout.marginHeight = 0;
-        layout.horizontalSpacing = layout.verticalSpacing = 0;
-        parent.setLayout(layout);
+	@Override
+	public void createPartControl(Composite parent) {
+		GridLayout layout = new GridLayout();
+		layout.marginWidth = layout.marginHeight = 0;
+		layout.horizontalSpacing = layout.verticalSpacing = 0;
+		parent.setLayout(layout);
 
-        Composite treeViewContainer = new Composite(parent, SWT.BORDER);
-        treeViewContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
-        treeViewContainer.setLayout(new FillLayout());
+		Composite treeViewContainer = new Composite(parent, SWT.BORDER);
+		treeViewContainer.setLayoutData(new GridData(GridData.FILL_BOTH));
+		treeViewContainer.setLayout(new FillLayout());
 
-        mTreeView = new TreeView(treeViewContainer);
+		mTreeView = new TreeView(treeViewContainer);
 
-        TreeViewControls treeViewControls = new TreeViewControls(parent);
-        treeViewControls.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		TreeViewControls treeViewControls = new TreeViewControls(parent);
+		treeViewControls.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        placeActions();
-    }
+		placeActions();
+	}
 
-    public void placeActions() {
-        IActionBars actionBars = getViewSite().getActionBars();
+	public void placeActions() {
+		IActionBars actionBars = getViewSite().getActionBars();
 
-        IMenuManager mm = actionBars.getMenuManager();
-        mm.removeAll();
-        mm.add(SaveTreeViewAction.getAction(getSite().getShell()));
-        mm.add(CapturePSDAction.getAction(getSite().getShell()));
-        mm.add(new Separator());
-        mm.add(RefreshViewAction.getAction());
-        mm.add(DisplayViewAction.getAction(getSite().getShell()));
-        mm.add(new Separator());
-        mm.add(InvalidateAction.getAction());
-        mm.add(RequestLayoutAction.getAction());
-        mm.add(DumpDisplayListAction.getAction());
-        mm.add(ProfileNodesAction.getAction());
+		IMenuManager mm = actionBars.getMenuManager();
+		mm.removeAll();
+		mm.add(SaveTreeViewAction.getAction(getSite().getShell()));
+		mm.add(CapturePSDAction.getAction(getSite().getShell()));
+		mm.add(new Separator());
+		mm.add(RefreshViewAction.getAction());
+		mm.add(DisplayViewAction.getAction(getSite().getShell()));
+		mm.add(new Separator());
+		mm.add(InvalidateAction.getAction());
+		mm.add(RequestLayoutAction.getAction());
+		mm.add(DumpDisplayListAction.getAction());
+		mm.add(ProfileNodesAction.getAction());
 
-        IToolBarManager tm = actionBars.getToolBarManager();
-        tm.removeAll();
-        tm.add(SaveTreeViewAction.getAction(getSite().getShell()));
-        tm.add(CapturePSDAction.getAction(getSite().getShell()));
-        tm.add(new Separator());
-        tm.add(RefreshViewAction.getAction());
-        tm.add(DisplayViewAction.getAction(getSite().getShell()));
-        tm.add(new Separator());
-        tm.add(InvalidateAction.getAction());
-        tm.add(RequestLayoutAction.getAction());
-        tm.add(DumpDisplayListAction.getAction());
-        tm.add(ProfileNodesAction.getAction());
-    }
+		IToolBarManager tm = actionBars.getToolBarManager();
+		tm.removeAll();
+		tm.add(SaveTreeViewAction.getAction(getSite().getShell()));
+		tm.add(CapturePSDAction.getAction(getSite().getShell()));
+		tm.add(new Separator());
+		tm.add(RefreshViewAction.getAction());
+		tm.add(DisplayViewAction.getAction(getSite().getShell()));
+		tm.add(new Separator());
+		tm.add(InvalidateAction.getAction());
+		tm.add(RequestLayoutAction.getAction());
+		tm.add(DumpDisplayListAction.getAction());
+		tm.add(ProfileNodesAction.getAction());
+	}
 
-
-    @Override
-    public void setFocus() {
-        mTreeView.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mTreeView.setFocus();
+	}
 
 }

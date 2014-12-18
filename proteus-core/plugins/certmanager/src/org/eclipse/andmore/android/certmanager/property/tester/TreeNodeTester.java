@@ -19,31 +19,29 @@ import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 import org.eclipse.core.expressions.PropertyTester;
 
 /**
- * Property testers are used via extension point to test object's state properties.
- * This tester checks {@link ITreeNode} properties. 
+ * Property testers are used via extension point to test object's state
+ * properties. This tester checks {@link ITreeNode} properties.
  * */
-public class TreeNodeTester extends PropertyTester
-{
+public class TreeNodeTester extends PropertyTester {
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.core.expressions.IPropertyTester#test(Object,String,Object[],Object)
-     */
-    @Override
-    public boolean test(Object receiver, String property, Object[] args, Object expectedValue)
-    {
-        boolean result = false;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.expressions.IPropertyTester#test(Object,String,Object
+	 * [],Object)
+	 */
+	@Override
+	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
+		boolean result = false;
 
-        if (receiver instanceof ITreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) receiver;
-            result =
-                    treeNode.testAttribute(receiver,
-                            ITreeNode.PROP_NAMESPACE.concat("." + property),
-                            expectedValue.toString());
-        }
+		if (receiver instanceof ITreeNode) {
+			ITreeNode treeNode = (ITreeNode) receiver;
+			result = treeNode.testAttribute(receiver, ITreeNode.PROP_NAMESPACE.concat("." + property),
+					expectedValue.toString());
+		}
 
-        return result;
-    }
+		return result;
+	}
 
 }

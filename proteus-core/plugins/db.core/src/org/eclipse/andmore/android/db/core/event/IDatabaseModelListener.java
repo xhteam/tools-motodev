@@ -15,47 +15,72 @@
  */
 package org.eclipse.andmore.android.db.core.event;
 
-public interface IDatabaseModelListener
-{
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#ADD} of the addition of a new node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be added.
-     */
-    public void handleNodeAdditionEvent(DatabaseModelEvent databaseModelEvent);
+public interface IDatabaseModelListener {
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#ADD} of the
+	 * addition of a new node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be added.
+	 */
+	public void handleNodeAdditionEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#REMOVE} of the removal of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be removed.
-     */
-    public void handleNodeRemovalEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#REMOVE} of the
+	 * removal of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be removed.
+	 */
+	public void handleNodeRemovalEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#UPDATE} of the update of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be updated.
-     */
-    public void handleNodeUpdateEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#UPDATE} of the
+	 * update of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be updated.
+	 */
+	public void handleNodeUpdateEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#CLEAR} of the clear of the children of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the parent node to clear its children.
-     */
-    public void handleNodeClearEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#CLEAR} of the
+	 * clear of the children of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the
+	 *            parent node to clear its children.
+	 */
+	public void handleNodeClearEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#CLEAR} of the refresh of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be refreshed.
-     */
-    public void handleNodeRefreshEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#CLEAR} of the
+	 * refresh of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be refreshed.
+	 */
+	public void handleNodeRefreshEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#EXPAND} of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be expanded.
-     */
-    public void handleNodeExpandEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#EXPAND} of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be expanded.
+	 */
+	public void handleNodeExpandEvent(DatabaseModelEvent databaseModelEvent);
 
-    /**
-     * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#SELECT} of a node. 
-     * @param databaseModelEvent {@link DatabaseModelEvent#getTreeNodeItem()} contains the node to be selected.
-     */
-    public void handleNodeSelectEvent(DatabaseModelEvent databaseModelEvent);
+	/**
+	 * Handles the event {@link DatabaseModelEvent#EVENT_TYPE#SELECT} of a node.
+	 * 
+	 * @param databaseModelEvent
+	 *            {@link DatabaseModelEvent#getTreeNodeItem()} contains the node
+	 *            to be selected.
+	 */
+	public void handleNodeSelectEvent(DatabaseModelEvent databaseModelEvent);
 }

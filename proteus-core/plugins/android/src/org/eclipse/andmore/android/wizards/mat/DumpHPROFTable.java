@@ -26,59 +26,52 @@ import org.eclipse.swt.widgets.TableItem;
 /**
  * This table is used for Dump HPROF.
  */
-public class DumpHPROFTable extends
-        TableWithLoadingInfo<DumpHPROFWizardPage, Collection<String>, String>
-{
+public class DumpHPROFTable extends TableWithLoadingInfo<DumpHPROFWizardPage, Collection<String>, String> {
 
-    /**
-     * @see DumpHPROFTable#DumpHPROFTable(Composite, int, String, Object, boolean, Object)
-     */
-    public DumpHPROFTable(Composite parent, int style, String animatedTextLabel,
-            DumpHPROFWizardPage callingPage)
-    {
-        super(parent, style, animatedTextLabel, callingPage);
-    }
+	/**
+	 * @see DumpHPROFTable#DumpHPROFTable(Composite, int, String, Object,
+	 *      boolean, Object)
+	 */
+	public DumpHPROFTable(Composite parent, int style, String animatedTextLabel, DumpHPROFWizardPage callingPage) {
+		super(parent, style, animatedTextLabel, callingPage);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.elements.tablewithloadinginfo.TableWithLoadingInfo#addTableData(java.util.Collection)
-     */
-    @Override
-    protected void addTableData(Collection<String> elementList)
-    {
-        Collection<String> runningApps = getElementList();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.elements.tablewithloadinginfo.
+	 * TableWithLoadingInfo#addTableData(java.util.Collection)
+	 */
+	@Override
+	protected void addTableData(Collection<String> elementList) {
+		Collection<String> runningApps = getElementList();
 
-        // Populate table with the info
-        if (runningApps != null)
-        {
-            for (String appName : runningApps)
-            {
-                TableItem item = new TableItem(getTable(), SWT.NONE);
-                if (appName != null)
-                {
-                    item.setText(0, appName);
-                }
-            }
-        }
-    }
+		// Populate table with the info
+		if (runningApps != null) {
+			for (String appName : runningApps) {
+				TableItem item = new TableItem(getTable(), SWT.NONE);
+				if (appName != null) {
+					item.setText(0, appName);
+				}
+			}
+		}
+	}
 
-    /**
-     * Set the wizard page completion status after data is added to 
-     * the page.
-     */
-    @Override
-    protected void executeOperationsAfterTableIsPopulated()
-    {
-        // set the page to completed
-        getCallingPage().setPageComplete(getTable().getSelection().length > 0);
-    }
+	/**
+	 * Set the wizard page completion status after data is added to the page.
+	 */
+	@Override
+	protected void executeOperationsAfterTableIsPopulated() {
+		// set the page to completed
+		getCallingPage().setPageComplete(getTable().getSelection().length > 0);
+	}
 
-    /**
-     * Retrieve all running applications given a serial number. 
-     */
-    @Override
-    protected Collection<String> callServiceForRetrievingDataToPopulateTable(String serialNumber)
-    {
-        // get the running applications
-        return DDMSFacade.getRunningApplications(serialNumber);
-    }
+	/**
+	 * Retrieve all running applications given a serial number.
+	 */
+	@Override
+	protected Collection<String> callServiceForRetrievingDataToPopulateTable(String serialNumber) {
+		// get the running applications
+		return DDMSFacade.getRunningApplications(serialNumber);
+	}
 }

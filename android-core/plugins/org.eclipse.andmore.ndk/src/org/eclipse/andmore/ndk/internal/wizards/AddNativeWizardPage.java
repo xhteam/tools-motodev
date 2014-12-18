@@ -30,52 +30,52 @@ import java.util.Map;
 
 public class AddNativeWizardPage extends WizardPage {
 
-    private final String defaultLibraryName;
+	private final String defaultLibraryName;
 
-    private Text libraryNameText;
+	private Text libraryNameText;
 
-    public AddNativeWizardPage(Map<String, String> templateArgs) {
-        super("addNativeWizardPage"); //$NON-NLS-1$
-        setDescription(Messages.AddNativeWizardPage_Description);
-        setTitle(Messages.AddNativeWizardPage_Title);
+	public AddNativeWizardPage(Map<String, String> templateArgs) {
+		super("addNativeWizardPage"); //$NON-NLS-1$
+		setDescription(Messages.AddNativeWizardPage_Description);
+		setTitle(Messages.AddNativeWizardPage_Title);
 
-        defaultLibraryName = templateArgs.get(NdkManager.LIBRARY_NAME);
-        if (!NdkManager.isNdkLocationValid()) {
-            setErrorMessage(Messages.AddNativeWizardPage_Location_not_valid);
-        }
-    }
+		defaultLibraryName = templateArgs.get(NdkManager.LIBRARY_NAME);
+		if (!NdkManager.isNdkLocationValid()) {
+			setErrorMessage(Messages.AddNativeWizardPage_Location_not_valid);
+		}
+	}
 
-    @Override
-    public boolean isPageComplete() {
-        return NdkManager.isNdkLocationValid();
-    }
+	@Override
+	public boolean isPageComplete() {
+		return NdkManager.isNdkLocationValid();
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        Composite container = new Composite(parent, SWT.NULL);
-        setControl(container);
-        container.setLayout(new GridLayout(2, false));
+	@Override
+	public void createControl(Composite parent) {
+		Composite container = new Composite(parent, SWT.NULL);
+		setControl(container);
+		container.setLayout(new GridLayout(2, false));
 
-        Label lblLibraryName = new Label(container, SWT.NONE);
-        lblLibraryName.setText(Messages.AddNativeWizardPage_LibraryName);
+		Label lblLibraryName = new Label(container, SWT.NONE);
+		lblLibraryName.setText(Messages.AddNativeWizardPage_LibraryName);
 
-        Composite composite = new Composite(container, SWT.NONE);
-        composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        composite.setLayout(new GridLayout(3, false));
+		Composite composite = new Composite(container, SWT.NONE);
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		composite.setLayout(new GridLayout(3, false));
 
-        Label lblLib = new Label(composite, SWT.NONE);
-        lblLib.setText("lib"); //$NON-NLS-1$
+		Label lblLib = new Label(composite, SWT.NONE);
+		lblLib.setText("lib"); //$NON-NLS-1$
 
-        libraryNameText = new Text(composite, SWT.BORDER);
-        libraryNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        libraryNameText.setText(defaultLibraryName);
+		libraryNameText = new Text(composite, SWT.BORDER);
+		libraryNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		libraryNameText.setText(defaultLibraryName);
 
-        Label lblso = new Label(composite, SWT.NONE);
-        lblso.setText(".so"); //$NON-NLS-1$
-    }
+		Label lblso = new Label(composite, SWT.NONE);
+		lblso.setText(".so"); //$NON-NLS-1$
+	}
 
-    public void updateArgs(Map<String, String> templateArgs) {
-        templateArgs.put(NdkManager.LIBRARY_NAME, libraryNameText.getText());
-    }
+	public void updateArgs(Map<String, String> templateArgs) {
+		templateArgs.put(NdkManager.LIBRARY_NAME, libraryNameText.getText());
+	}
 
 }

@@ -22,6 +22,7 @@ import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Name;
@@ -167,7 +168,7 @@ public class RenamePackageAction implements IObjectActionDelegate {
         try {
             op.run(AdtPlugin.getShell(), package_name_refactoring.getName());
         } catch (InterruptedException e) {
-            Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
             AdtPlugin.getDefault().getLog().log(s);
         }
     }

@@ -32,105 +32,107 @@ import java.util.List;
 @SuppressWarnings("javadoc")
 public class ChangeLayoutRefactoringTest extends RefactoringTest {
 
-    public void testChangeLayout1a() throws Exception {
-        // Test a basic layout which performs some nesting -- tests basic grid layout conversion
-        checkRefactoring("sample1a.xml", true);
-    }
+	public void testChangeLayout1a() throws Exception {
+		// Test a basic layout which performs some nesting -- tests basic grid
+		// layout conversion
+		checkRefactoring("sample1a.xml", true);
+	}
 
-    public void testChangeLayout1b() throws Exception {
-        // Same as 1a, but with different formatting to look for edit handling to for example
-        // remove a line that is made empty when its only attribute is removed
-        checkRefactoring("sample1b.xml", true);
-    }
+	public void testChangeLayout1b() throws Exception {
+		// Same as 1a, but with different formatting to look for edit handling
+		// to for example
+		// remove a line that is made empty when its only attribute is removed
+		checkRefactoring("sample1b.xml", true);
+	}
 
-    public void testChangeLayout2() throws Exception {
-        // Test code which analyzes an embedded RelativeLayout
-        checkRefactoring("sample2.xml", true);
-    }
+	public void testChangeLayout2() throws Exception {
+		// Test code which analyzes an embedded RelativeLayout
+		checkRefactoring("sample2.xml", true);
+	}
 
-    public void testChangeLayout3() throws Exception {
-        // Test handling of LinearLayout "weight" attributes on its children: the child with
-        // weight > 0 should fill and subsequent children attach on the bottom/right
-        checkRefactoring("sample3.xml", true);
-    }
+	public void testChangeLayout3() throws Exception {
+		// Test handling of LinearLayout "weight" attributes on its children:
+		// the child with
+		// weight > 0 should fill and subsequent children attach on the
+		// bottom/right
+		checkRefactoring("sample3.xml", true);
+	}
 
-    public void testChangeLayout4() throws Exception {
-        checkRefactoring("sample4.xml", true);
-    }
+	public void testChangeLayout4() throws Exception {
+		checkRefactoring("sample4.xml", true);
+	}
 
-    public void testChangeLayout5() throws Exception {
-        // Test handling of LinearLayout "gravity" attributes on its children
-        checkRefactoring("sample5.xml", true);
-    }
+	public void testChangeLayout5() throws Exception {
+		// Test handling of LinearLayout "gravity" attributes on its children
+		checkRefactoring("sample5.xml", true);
+	}
 
-    public void testChangeLayout6() throws Exception {
-        // Check handling of the LinearLayout "baseline" attribute
-        checkRefactoring("sample6.xml", true);
-    }
+	public void testChangeLayout6() throws Exception {
+		// Check handling of the LinearLayout "baseline" attribute
+		checkRefactoring("sample6.xml", true);
+	}
 
-    public void testGridLayout1() throws Exception {
-        checkRefactoring(FQCN_GRID_LAYOUT, "sample1a.xml", true);
-    }
+	public void testGridLayout1() throws Exception {
+		checkRefactoring(FQCN_GRID_LAYOUT, "sample1a.xml", true);
+	}
 
-    public void testGridLayout2() throws Exception {
-        // Test code which analyzes an embedded RelativeLayout
-        checkRefactoring(FQCN_GRID_LAYOUT, "sample2.xml", true);
-    }
+	public void testGridLayout2() throws Exception {
+		// Test code which analyzes an embedded RelativeLayout
+		checkRefactoring(FQCN_GRID_LAYOUT, "sample2.xml", true);
+	}
 
-    public void testGridLayout5() throws Exception {
-        // Test handling of LinearLayout "gravity" attributes on its children
-        checkRefactoring(FQCN_GRID_LAYOUT, "sample5.xml", true);
-    }
+	public void testGridLayout5() throws Exception {
+		// Test handling of LinearLayout "gravity" attributes on its children
+		checkRefactoring(FQCN_GRID_LAYOUT, "sample5.xml", true);
+	}
 
-    public void testConvertToGrid() throws Exception {
-        checkRefactoring(FQCN_GRID_LAYOUT, "sample9.xml", true);
-    }
+	public void testConvertToGrid() throws Exception {
+		checkRefactoring(FQCN_GRID_LAYOUT, "sample9.xml", true);
+	}
 
-    public void testConvertFromGrid() throws Exception {
-        checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true);
-    }
+	public void testConvertFromGrid() throws Exception {
+		checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true);
+	}
 
-    private void checkRefactoring(String basename, boolean flatten) throws Exception {
-        checkRefactoring(FQCN_RELATIVE_LAYOUT, basename, flatten);
-    }
+	private void checkRefactoring(String basename, boolean flatten) throws Exception {
+		checkRefactoring(FQCN_RELATIVE_LAYOUT, basename, flatten);
+	}
 
-    public void testInitialAttributes() throws Exception {
-        checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true, "android:orientation=vertical");
-    }
+	public void testInitialAttributes() throws Exception {
+		checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true, "android:orientation=vertical");
+	}
 
-    public void testInsertSpacer() throws Exception {
-        checkRefactoring(FQCN_GRID_LAYOUT, "sample11.xml", true);
-    }
+	public void testInsertSpacer() throws Exception {
+		checkRefactoring(FQCN_GRID_LAYOUT, "sample11.xml", true);
+	}
 
-    private void checkRefactoring(String newLayoutType, String basename,
-            boolean flatten) throws Exception {
-        checkRefactoring(newLayoutType, basename, flatten, null);
-    }
+	private void checkRefactoring(String newLayoutType, String basename, boolean flatten) throws Exception {
+		checkRefactoring(newLayoutType, basename, flatten, null);
+	}
 
-    @Override
-    protected int getMinSdk() {
-        return 14;
-    }
+	@Override
+	protected int getMinSdk() {
+		return 14;
+	}
 
-    private void checkRefactoring(String newLayoutType, String basename,
-            boolean flatten, String initialAttributes) throws Exception {
-        IFile file = getLayoutFile(getProject(), basename);
-        TestContext info = setupTestContext(file, basename);
-        TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
-        CanvasViewInfo rootView = info.mRootView;
-        Element element = info.mElement;
+	private void checkRefactoring(String newLayoutType, String basename, boolean flatten, String initialAttributes)
+			throws Exception {
+		IFile file = getLayoutFile(getProject(), basename);
+		TestContext info = setupTestContext(file, basename);
+		TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
+		CanvasViewInfo rootView = info.mRootView;
+		Element element = info.mElement;
 
-        List<Element> selectedElements = Collections.singletonList(element);
-        ChangeLayoutRefactoring refactoring = new ChangeLayoutRefactoring(selectedElements,
-                layoutEditor);
-        refactoring.setFlatten(flatten);
-        refactoring.setType(newLayoutType);
-        if (initialAttributes != null) {
-            refactoring.setInitializedAttributes(initialAttributes);
-        }
-        refactoring.setRootView(rootView);
+		List<Element> selectedElements = Collections.singletonList(element);
+		ChangeLayoutRefactoring refactoring = new ChangeLayoutRefactoring(selectedElements, layoutEditor);
+		refactoring.setFlatten(flatten);
+		refactoring.setType(newLayoutType);
+		if (initialAttributes != null) {
+			refactoring.setInitializedAttributes(initialAttributes);
+		}
+		refactoring.setRootView(rootView);
 
-        List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
-        checkEdits(basename, changes);
-    }
+		List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
+		checkEdits(basename, changes);
+	}
 }

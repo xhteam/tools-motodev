@@ -51,6 +51,7 @@ import org.eclipse.jdt.internal.junit.launcher.JUnitMigrationDelegate;
 import org.eclipse.jdt.internal.junit.launcher.TestKindRegistry;
 import org.eclipse.jdt.internal.junit.launcher.TestSelectionDialog;
 import org.eclipse.jdt.internal.junit.ui.JUnitMessages;
+import org.eclipse.jdt.internal.junit.util.CoreTestSearchEngine;
 import org.eclipse.jdt.internal.junit.util.LayoutUtil;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 import org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator;
@@ -735,7 +736,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
     }
 
     private void validateJavaProject(IJavaProject javaProject) {
-        if (!TestSearchEngine.hasTestCaseType(javaProject)) {
+        if (!CoreTestSearchEngine.hasTestCaseType(javaProject)) {
             setErrorMessage(JUnitMessages.JUnitLaunchConfigurationTab_error_testcasenotonpath);
             return;
         }

@@ -19,44 +19,63 @@ package org.eclipse.andmore.android.certmanager.event;
 import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 
 /**
- * This interface must be implemented by listeners to events occurred on the {@link ITreeNode}. 
+ * This interface must be implemented by listeners to events occurred on the
+ * {@link ITreeNode}.
  */
-public interface IKeyStoreModelListener
-{
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to add a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be added.
-     */
-    public void handleNodeAdditionEvent(KeyStoreModelEvent keyStoreModeEvent);
+public interface IKeyStoreModelListener {
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to add a node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be added.
+	 */
+	public void handleNodeAdditionEvent(KeyStoreModelEvent keyStoreModeEvent);
 
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to remove a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be added.
-     */
-    public void handleNodeRemovalEvent(KeyStoreModelEvent keyStoreModeEvent);
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to remove a node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be added.
+	 */
+	public void handleNodeRemovalEvent(KeyStoreModelEvent keyStoreModeEvent);
 
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to update a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be added.
-     */
-    public void handleNodeUpdateEvent(KeyStoreModelEvent keyStoreModeEvent);
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to update a node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be added.
+	 */
+	public void handleNodeUpdateEvent(KeyStoreModelEvent keyStoreModeEvent);
 
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to collapse a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be collapsed.
-     */
-    public void handleNodeCollapseEvent(KeyStoreModelEvent keyStoreModelEvent);
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to collapse a
+	 * node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be collapsed.
+	 */
+	public void handleNodeCollapseEvent(KeyStoreModelEvent keyStoreModelEvent);
 
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to refresh a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be refreshed.
-     */
-    public void handleNodeRefreshEvent(KeyStoreModelEvent keyStoreModelEvent);
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to refresh a node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be refreshed.
+	 */
+	public void handleNodeRefreshEvent(KeyStoreModelEvent keyStoreModelEvent);
 
-    /**
-     * Handles the event {@link KeyStoreModelEvent#EventType} to clear a node. 
-     * @param keyStoreModelEvent {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node to be cleared.
-     */
-    public void handleNodeClearEvent(KeyStoreModelEvent keyStoreModelEvent);
+	/**
+	 * Handles the event {@link KeyStoreModelEvent#EventType} to clear a node.
+	 * 
+	 * @param keyStoreModelEvent
+	 *            {@link KeyStoreModelEvent#getTreeNodeItem()} contains the node
+	 *            to be cleared.
+	 */
+	public void handleNodeClearEvent(KeyStoreModelEvent keyStoreModelEvent);
 
 }

@@ -31,89 +31,83 @@ import org.eclipse.core.runtime.Status;
  * Utility methods for downloading and installing updates
  * 
  */
-public class InstallManager implements IInstallManager
-{
+public class InstallManager implements IInstallManager {
 
-    private static InstallManager instance;
+	private static InstallManager instance;
 
-    P2Installer p2Installer = new P2Installer();
+	P2Installer p2Installer = new P2Installer();
 
-    /*
-     * This class is a singleton.
-     */
-    private InstallManager()
-    {
-        //Do nothing, singleton class.
-    }
+	/*
+	 * This class is a singleton.
+	 */
+	private InstallManager() {
+		// Do nothing, singleton class.
+	}
 
-    /**
-     * Returns an instance of the Install Manager
-     * @return
-     */
-    public static synchronized IInstallManager getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new InstallManager();
-        }
-        return instance;
-    }
+	/**
+	 * Returns an instance of the Install Manager
+	 * 
+	 * @return
+	 */
+	public static synchronized IInstallManager getInstance() {
+		if (instance == null) {
+			instance = new InstallManager();
+		}
+		return instance;
+	}
 
-    /**
-     * Updates studio in one single operation based in a link to look
-     * for the available updates. The backend parameter 
-     * tells the manager how to look for updates on the site (for instance 
-     * a P2 update site).
-     * 
-     * IMPORTANT: the method listAllAvailableUpdates MUST be called first
-     */
-    public IStatus updateStudio(List<URI> links, BACKEND backEnd, IProgressMonitor monitor)
-    {
-        Status status =
-                new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
-                        InstallerNLS.InstallManager_Could_Not_Find_Proper_Backend, null);
+	/**
+	 * Updates studio in one single operation based in a link to look for the
+	 * available updates. The backend parameter tells the manager how to look
+	 * for updates on the site (for instance a P2 update site).
+	 * 
+	 * IMPORTANT: the method listAllAvailableUpdates MUST be called first
+	 */
+	@Override
+	public IStatus updateStudio(List<URI> links, BACKEND backEnd, IProgressMonitor monitor) {
+		Status status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
+				InstallerNLS.InstallManager_Could_Not_Find_Proper_Backend, null);
 
-        switch (backEnd)
-        {
-            case P2:
-            {
-                return p2Installer.updateStudio(monitor);
-            }
+		switch (backEnd) {
+		case P2: {
+			return p2Installer.updateStudio(monitor);
+		}
 
-            default:
-            {
-                StudioLogger.debug(this, "updateStudio felt back to default.");
-                break;
-            }
-        }
+		default: {
+			StudioLogger.debug(this, "updateStudio felt back to default.");
+			break;
+		}
+		}
 
-        return status;
-    }
+		return status;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.installer.utilities.IInstallManager#listAllAvailableUpdates(java.util.Collection, java.util.List, com.motorola.studio.android.installer.utilities.IInstallManager.CATEGORY, com.motorola.studio.android.installer.utilities.IInstallManager.BACKEND, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    public IStatus listAllAvailableUpdates(Collection<InstallableItem> listToFill, List<URI> links,
-            CATEGORY category, BACKEND backEnd, IProgressMonitor monitor) throws InstallerException
-    {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.installer.utilities.IInstallManager#
+	 * listAllAvailableUpdates(java.util.Collection, java.util.List,
+	 * com.motorola.studio.android.installer.utilities.IInstallManager.CATEGORY,
+	 * com.motorola.studio.android.installer.utilities.IInstallManager.BACKEND,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus listAllAvailableUpdates(Collection<InstallableItem> listToFill, List<URI> links, CATEGORY category,
+			BACKEND backEnd, IProgressMonitor monitor) throws InstallerException {
 
-        IStatus status = null;
-        switch (backEnd)
-        {
-            case P2:
-                status =
-                        p2Installer.listAllAvailableUpdates(listToFill, links, category, backEnd,
-                                monitor);
-                break;
+		IStatus status = null;
+		switch (backEnd) {
+		case P2:
+			status = p2Installer.listAllAvailableUpdates(listToFill, links, category, backEnd, monitor);
+			break;
 
-            default:
-            {
-                StudioLogger.debug(this, "listAllAvailableUpdates felt back to default.");
-                break;
-            }
-        }
-        return status;
+		default: {
+			StudioLogger.debug(this, "listAllAvailableUpdates felt back to default.");
+			break;
+		}
+		}
+		return status;
 
-    }
+	}
 
 }

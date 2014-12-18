@@ -26,73 +26,78 @@ import org.eclipse.datatools.modelbase.sql.tables.Table;
 
 /**
  * 
- * Base class with common methods to generate persistence classes. 
+ * Base class with common methods to generate persistence classes.
  *
  */
-public abstract class AbstractCodeGeneratorByTable
-{
-    /** 
-     * Table name that will not generate a class as it is android specific table.
-     */
-    public String ANDROID_METADATA = "ANDROID_METADATA";
+public abstract class AbstractCodeGeneratorByTable {
+	/**
+	 * Table name that will not generate a class as it is android specific
+	 * table.
+	 */
+	public String ANDROID_METADATA = "ANDROID_METADATA";
 
-    /** 
-     * Table name that will not generate a class as it is android specific table.
-     */
-    public String SQLITE_SEQUENCES = "sqlite_sequence";
+	/**
+	 * Table name that will not generate a class as it is android specific
+	 * table.
+	 */
+	public String SQLITE_SEQUENCES = "sqlite_sequence";
 
-    private Table table;
+	private Table table;
 
-    /**
-     * Constructor that initializes the {@link org.eclipse.datatools.modelbase.sql.tables.Table Table} that will have its code generated.
-     * */
-    public AbstractCodeGeneratorByTable(Table table)
-    {
-        this.table = table;
-    }
+	/**
+	 * Constructor that initializes the
+	 * {@link org.eclipse.datatools.modelbase.sql.tables.Table Table} that will
+	 * have its code generated.
+	 * */
+	public AbstractCodeGeneratorByTable(Table table) {
+		this.table = table;
+	}
 
-    public Table getTable()
-    {
-        return table;
-    }
+	public Table getTable() {
+		return table;
+	}
 
-    public void setTable(Table table)
-    {
-        this.table = table;
-    }
+	public void setTable(Table table) {
+		this.table = table;
+	}
 
-    /**
-     * Content provider package name (based on project name).
-     * @param project The project in which the table is contained. 
-     * @return The package name that will hold the generated classes.
-     * @throws CoreException Exception thrown in case there are problems handling the android project.
-     * @throws AndroidException Exception thrown in case there are problems handling the android project.
-     */
-    protected String getPackageName(IProject project) throws AndroidException, CoreException
-    {
-        // get android application name
-        AndroidManifestFile androidManifestFile =
-                AndroidProjectManifestFile.getFromProject(project);
-        ManifestNode manifestNode =
-                androidManifestFile != null ? androidManifestFile.getManifestNode() : null;
-        String appNamespace = manifestNode.getPackageName().toLowerCase();
-        // return the android application name along with a persistence constant
-        return appNamespace + ".persistence";
-    }
+	/**
+	 * Content provider package name (based on project name).
+	 * 
+	 * @param project
+	 *            The project in which the table is contained.
+	 * @return The package name that will hold the generated classes.
+	 * @throws CoreException
+	 *             Exception thrown in case there are problems handling the
+	 *             android project.
+	 * @throws AndroidException
+	 *             Exception thrown in case there are problems handling the
+	 *             android project.
+	 */
+	protected String getPackageName(IProject project) throws AndroidException, CoreException {
+		// get android application name
+		AndroidManifestFile androidManifestFile = AndroidProjectManifestFile.getFromProject(project);
+		ManifestNode manifestNode = androidManifestFile != null ? androidManifestFile.getManifestNode() : null;
+		String appNamespace = manifestNode.getPackageName().toLowerCase();
+		// return the android application name along with a persistence constant
+		return appNamespace + ".persistence";
+	}
 
-    protected String getTableName()
-    {
-        return table.getName();
-    }
+	protected String getTableName() {
+		return table.getName();
+	}
 
-    /**
-     * Authority to access content URI (it is based on package name and content provider name). 
-     * @param packageName The package name that compounds the authority.
-     * @param contentProviderName The content provider that compounds the authority.
-     * @return The authority URI.
-     */
-    protected String getAuthority(String packageName, String contentProviderName)
-    {
-        return packageName + "." + contentProviderName.toLowerCase();
-    }
+	/**
+	 * Authority to access content URI (it is based on package name and content
+	 * provider name).
+	 * 
+	 * @param packageName
+	 *            The package name that compounds the authority.
+	 * @param contentProviderName
+	 *            The content provider that compounds the authority.
+	 * @return The authority URI.
+	 */
+	protected String getAuthority(String packageName, String contentProviderName) {
+		return packageName + "." + contentProviderName.toLowerCase();
+	}
 }

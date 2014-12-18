@@ -22,155 +22,159 @@ import java.util.Map;
 import org.eclipse.core.runtime.IStatus;
 
 /**
- * Class that represents a <grant-uri-permission> node on AndroidManifest.xml file
+ * Class that represents a <grant-uri-permission> node on AndroidManifest.xml
+ * file
  */
-public class GrantUriPermissionNode extends AndroidManifestNode implements
-        IAndroidManifestProperties
-{
-    static
-    {
-        defaultProperties.add(PROP_PATH);
-        defaultProperties.add(PROP_PATHPREFIX);
-        defaultProperties.add(PROP_PATHPATTERN);
-    }
+public class GrantUriPermissionNode extends AndroidManifestNode implements IAndroidManifestProperties {
+	static {
+		defaultProperties.add(PROP_PATH);
+		defaultProperties.add(PROP_PATHPREFIX);
+		defaultProperties.add(PROP_PATHPATTERN);
+	}
 
-    /**
-     * The path property
-     */
-    private String propPath = null;
+	/**
+	 * The path property
+	 */
+	private String propPath = null;
 
-    /**
-     * The pathPrefix property
-     */
-    private String propPathPrefix = null;
+	/**
+	 * The pathPrefix property
+	 */
+	private String propPathPrefix = null;
 
-    /**
-     * The pathPattern property
-     */
-    private String propPathPattern = null;
+	/**
+	 * The pathPattern property
+	 */
+	private String propPathPattern = null;
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#canContains(com.motorola.studio.android.model.manifest.dom.AndroidManifestNode.NodeType)
-     */
-    @Override
-    protected boolean canContains(NodeType nodeType)
-    {
-        // Always returns false. This node can not contain children.
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * canContains
+	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * .NodeType)
+	 */
+	@Override
+	protected boolean canContains(NodeType nodeType) {
+		// Always returns false. This node can not contain children.
+		return false;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#getNodeProperties()
-     */
-    @Override
-    public Map<String, String> getNodeProperties()
-    {
-        properties.clear();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * getNodeProperties()
+	 */
+	@Override
+	public Map<String, String> getNodeProperties() {
+		properties.clear();
 
-        if ((propPath != null) && (propPath.trim().length() > 0))
-        {
-            properties.put(PROP_PATH, propPath);
-        }
+		if ((propPath != null) && (propPath.trim().length() > 0)) {
+			properties.put(PROP_PATH, propPath);
+		}
 
-        if ((propPathPattern != null) && (propPathPattern.trim().length() > 0))
-        {
-            properties.put(PROP_PATHPATTERN, propPathPattern);
-        }
+		if ((propPathPattern != null) && (propPathPattern.trim().length() > 0)) {
+			properties.put(PROP_PATHPATTERN, propPathPattern);
+		}
 
-        if ((propPathPrefix != null) && (propPathPrefix.trim().length() > 0))
-        {
-            properties.put(PROP_PATHPREFIX, propPathPrefix);
-        }
+		if ((propPathPrefix != null) && (propPathPrefix.trim().length() > 0)) {
+			properties.put(PROP_PATHPREFIX, propPathPrefix);
+		}
 
-        return properties;
-    }
+		return properties;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.GrantUriPermission;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * getNodeType()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.GrantUriPermission;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#isNodeValid()
-     */
-    @Override
-    protected boolean isNodeValid()
-    {
-        return ((propPath != null) && (propPath.trim().length() > 0))
-                || ((propPathPattern != null) && (propPathPattern.trim().length() > 0))
-                || ((propPathPrefix != null) && (propPathPrefix.trim().length() > 0));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * isNodeValid()
+	 */
+	@Override
+	protected boolean isNodeValid() {
+		return ((propPath != null) && (propPath.trim().length() > 0))
+				|| ((propPathPattern != null) && (propPathPattern.trim().length() > 0))
+				|| ((propPathPrefix != null) && (propPathPrefix.trim().length() > 0));
+	}
 
-    /**
-     * Gets the path property value
-     * 
-     * @return the path property value
-     */
-    public String getPath()
-    {
-        return propPath;
-    }
+	/**
+	 * Gets the path property value
+	 * 
+	 * @return the path property value
+	 */
+	public String getPath() {
+		return propPath;
+	}
 
-    /**
-     * Sets the path property value. Set it to null to remove it.
-     * 
-     * @param path the path property value
-     */
-    public void setPath(String path)
-    {
-        this.propPath = path;
-    }
+	/**
+	 * Sets the path property value. Set it to null to remove it.
+	 * 
+	 * @param path
+	 *            the path property value
+	 */
+	public void setPath(String path) {
+		this.propPath = path;
+	}
 
-    /**
-     * Gets the pathPrefix property value
-     * 
-     * @return the pathPrefix property value
-     */
-    public String getPathPrefix()
-    {
-        return propPathPrefix;
-    }
+	/**
+	 * Gets the pathPrefix property value
+	 * 
+	 * @return the pathPrefix property value
+	 */
+	public String getPathPrefix() {
+		return propPathPrefix;
+	}
 
-    /**
-     * Sets the pathPrefix property value. Set it to null to remove it.
-     * 
-     * @param pathPrefix the pathPrefix property value
-     */
-    public void setPathPrefix(String pathPrefix)
-    {
-        this.propPathPrefix = pathPrefix;
-    }
+	/**
+	 * Sets the pathPrefix property value. Set it to null to remove it.
+	 * 
+	 * @param pathPrefix
+	 *            the pathPrefix property value
+	 */
+	public void setPathPrefix(String pathPrefix) {
+		this.propPathPrefix = pathPrefix;
+	}
 
-    /**
-     * Gets the pathPattern property value
-     * 
-     * @return the pathPattern property value
-     */
-    public String getPathPattern()
-    {
-        return propPathPattern;
-    }
+	/**
+	 * Gets the pathPattern property value
+	 * 
+	 * @return the pathPattern property value
+	 */
+	public String getPathPattern() {
+		return propPathPattern;
+	}
 
-    /**
-     * Sets the pathPattern property value. Set it to null to remove it.
-     * 
-     * @param pathPattern the pathPattern property value
-     */
-    public void setPathPattern(String pathPattern)
-    {
-        this.propPathPattern = pathPattern;
-    }
+	/**
+	 * Sets the pathPattern property value. Set it to null to remove it.
+	 * 
+	 * @param pathPattern
+	 *            the pathPattern property value
+	 */
+	public void setPathPattern(String pathPattern) {
+		this.propPathPattern = pathPattern;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#getSpecificNodeErrors()
-     */
-    @Override
-    protected List<IStatus> getSpecificNodeProblems()
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * getSpecificNodeErrors()
+	 */
+	@Override
+	protected List<IStatus> getSpecificNodeProblems() {
+		return null;
+	}
 }

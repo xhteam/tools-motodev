@@ -23,17 +23,13 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.sourcelookup.SourceLookupTab;
 
 public class NdkGdbLaunchConfigTabGroups extends AbstractLaunchConfigurationTabGroup {
-    public NdkGdbLaunchConfigTabGroups() {
-    }
+	public NdkGdbLaunchConfigTabGroups() {
+	}
 
-    @Override
-    public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-        ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
-                new NdkMainLaunchConfigTab(),
-                new NdkDebuggerTab(),
-                new SourceLookupTab(),
-                new CommonTab()
-            };
-        setTabs(tabs);
-    }
+	@Override
+	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
+		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new NdkMainLaunchConfigTab(),
+				new NdkDebuggerTab(), new SourceLookupTab(), new CommonTab() };
+		setTabs(tabs);
+	}
 }

@@ -25,50 +25,40 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.osgi.util.NLS;
 
-public class DeleteTableHandler extends AbstractHandler implements IHandler
-{
+public class DeleteTableHandler extends AbstractHandler implements IHandler {
 
-    private ITreeNode node;
+	private ITreeNode node;
 
-    public DeleteTableHandler()
-    {
-    }
+	public DeleteTableHandler() {
+	}
 
-    public DeleteTableHandler(ITreeNode node)
-    {
-        this.node = node;
-    }
+	public DeleteTableHandler(ITreeNode node) {
+		this.node = node;
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        if (node instanceof ITableNode)
-        {
-            ITableNode tableNode = (ITableNode) node;
-            IDbNode dbNode = (IDbNode) tableNode.getParent();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		if (node instanceof ITableNode) {
+			ITableNode tableNode = (ITableNode) node;
+			IDbNode dbNode = (IDbNode) tableNode.getParent();
 
-            boolean shouldProceed =
-                    EclipseUtils
-                            .showQuestionDialog(
-                                    DbCoreNLS.DeleteTableHandler_ConfirmationQuestionDialog_Title,
-                                    DbCoreNLS
-                                            .bind(DbCoreNLS.DeleteTableHandler_ConfirmationQuestionDialog_Description,
-                                                    node.getName()));
+			boolean shouldProceed = EclipseUtils.showQuestionDialog(
+					DbCoreNLS.DeleteTableHandler_ConfirmationQuestionDialog_Title,
+					NLS.bind(DbCoreNLS.DeleteTableHandler_ConfirmationQuestionDialog_Description, node.getName()));
 
-            if (shouldProceed)
-            {
-                IStatus status = dbNode.deleteTable(tableNode);
+			if (shouldProceed) {
+				IStatus status = dbNode.deleteTable(tableNode);
 
-                if ((status != null) && !status.isOK())
-                {
-                    //something went wrong when deleting the table...
-                    EclipseUtils.showErrorDialog(DbCoreNLS.DbNode_CouldNotDeleteTable,
-                            status.getMessage());
-                }
+				if ((status != null) && !status.isOK()) {
+					// something went wrong when deleting the table...
+					EclipseUtils.showErrorDialog(DbCoreNLS.DbNode_CouldNotDeleteTable, status.getMessage());
+				}
 
-            }
-        }
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

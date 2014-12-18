@@ -35,101 +35,85 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * DESCRIPTION: 
- * This class represents the preference page for Android Emulator.
- * It only gives to the user the option to reset all dialog configuration 
+ * DESCRIPTION: This class represents the preference page for Android Emulator.
+ * It only gives to the user the option to reset all dialog configuration
  * clearing all 'Do not show me again' settings and showing all hidden dialogs
- * again. 
- * <br>
- * RESPONSIBILITY:
- * Create the preference page for Android Emulator.
- * <br>
- * COLABORATORS:
- * none
- * <br>
- * USAGE: 
- * The plugin.xml file links this class to the corresponding preference page
- * extension point.
+ * again. <br>
+ * RESPONSIBILITY: Create the preference page for Android Emulator. <br>
+ * COLABORATORS: none <br>
+ * USAGE: The plugin.xml file links this class to the corresponding preference
+ * page extension point.
  * 
  * @see PreferencePage
  * @see IWorkbenchPreferencePage
  */
-public class AndroidPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
-{
-    private final String PREFERENCE_PAGE_HELP = AndroidPlugin.PLUGIN_ID
-            + ".preference-android-emulator"; //$NON-NLS-1$
+public class AndroidPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+	private final String PREFERENCE_PAGE_HELP = AndroidPlugin.PLUGIN_ID + ".preference-android-emulator"; //$NON-NLS-1$
 
-    private boolean cleanActionRequired = false;
+	private boolean cleanActionRequired = false;
 
-    /**
-     * @see PreferencePage#createContents(Composite)
-     */
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, PREFERENCE_PAGE_HELP);
+	/**
+	 * @see PreferencePage#createContents(Composite)
+	 */
+	@Override
+	protected Control createContents(Composite parent) {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, PREFERENCE_PAGE_HELP);
 
-        Composite entryTable = new Composite(parent, SWT.NULL);
-        GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
-        entryTable.setLayoutData(data);
+		Composite entryTable = new Composite(parent, SWT.NULL);
+		GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
+		entryTable.setLayoutData(data);
 
-        GridLayout layout = new GridLayout();
-        entryTable.setLayout(layout);
+		GridLayout layout = new GridLayout();
+		entryTable.setLayout(layout);
 
-        layout = new GridLayout(2, false);
+		layout = new GridLayout(2, false);
 
-        Group dontAskGroup = new Group(entryTable, SWT.NONE);
-        dontAskGroup.setLayout(layout);
-        dontAskGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-        dontAskGroup.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Title);
+		Group dontAskGroup = new Group(entryTable, SWT.NONE);
+		dontAskGroup.setLayout(layout);
+		dontAskGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		dontAskGroup.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Title);
 
-        Label label = new Label(dontAskGroup, SWT.WRAP);
-        label.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Message);
-        data = new GridData(SWT.FILL, SWT.CENTER, true, false);
-        data.widthHint = 100;
-        label.setLayoutData(data);
+		Label label = new Label(dontAskGroup, SWT.WRAP);
+		label.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Message);
+		data = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		data.widthHint = 100;
+		label.setLayoutData(data);
 
-        Button clearButton = new Button(dontAskGroup, SWT.PUSH);
-        clearButton.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Button);
-        data = new GridData(SWT.CENTER, SWT.CENTER, false, false);
-        data.widthHint = 80;
-        clearButton.setLayoutData(data);
-        clearButton.addSelectionListener(new SelectionAdapter()
-        {
-            @Override
-            public void widgetSelected(SelectionEvent e)
-            {
-                cleanActionRequired =
-                        EclipseUtils.displayPrompt(PlatformUI.getWorkbench().getDisplay(),
-                                AndroidNLS.UI_Preferences_Dialogs_Group_Title,
-                                AndroidNLS.UI_Preferences_Dialogs_Clean_Message);
-                ;
-            }
-        });
-        clearButton.pack();
+		Button clearButton = new Button(dontAskGroup, SWT.PUSH);
+		clearButton.setText(AndroidNLS.UI_Preferences_Dialogs_Group_Button);
+		data = new GridData(SWT.CENTER, SWT.CENTER, false, false);
+		data.widthHint = 80;
+		clearButton.setLayoutData(data);
+		clearButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				cleanActionRequired = EclipseUtils.displayPrompt(PlatformUI.getWorkbench().getDisplay(),
+						AndroidNLS.UI_Preferences_Dialogs_Group_Title, AndroidNLS.UI_Preferences_Dialogs_Clean_Message);
+				;
+			}
+		});
+		clearButton.pack();
 
-        return entryTable;
-    }
+		return entryTable;
+	}
 
-    /**
-     * @see IWorkbenchPreferencePage#init(IWorkbench)
-     */
-    public void init(IWorkbench workbench)
-    {
-        noDefaultAndApplyButton();
-    }
+	/**
+	 * @see IWorkbenchPreferencePage#init(IWorkbench)
+	 */
+	@Override
+	public void init(IWorkbench workbench) {
+		noDefaultAndApplyButton();
+	}
 
-    /**
-     * @see PreferencePage#performOk()
-     */
-    @Override
-    public boolean performOk()
-    {
-        if (cleanActionRequired)
-        {
-            DialogWithToggleUtils.resetAllDialogsConfiguration();
-        }
+	/**
+	 * @see PreferencePage#performOk()
+	 */
+	@Override
+	public boolean performOk() {
+		if (cleanActionRequired) {
+			DialogWithToggleUtils.resetAllDialogsConfiguration();
+		}
 
-        return super.performOk();
-    }
+		return super.performOk();
+	}
 }

@@ -25,31 +25,27 @@ import org.eclipse.ui.handlers.HandlerUtil;
 /**
  * Handler to modify source code (activity / fragment) based on layout xml
  */
-public class GenerateViewBasedOnLayoutHandler extends AbstractCodeGeneratorHandler
-{
-    /**
-     * Open {@link ChooseLayoutItemsDialog} dialog to select the items to generate code for (depending on the selected layout on combo box).
-     * After finish button click, it modifies Android source code (depending on Activity or Fragment selected). 
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        SelectionBean selectionBean = resolveSelection(event);
+public class GenerateViewBasedOnLayoutHandler extends AbstractCodeGeneratorHandler {
+	/**
+	 * Open {@link ChooseLayoutItemsDialog} dialog to select the items to
+	 * generate code for (depending on the selected layout on combo box). After
+	 * finish button click, it modifies Android source code (depending on
+	 * Activity or Fragment selected).
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		SelectionBean selectionBean = resolveSelection(event);
 
-        if (selectionBean.isProject() || selectionBean.isAllowedClassInstance())
-        {
-            final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-            executeCodeGenerationWizard(event, selectionBean.getJavaFile(),
-                    selectionBean.getJavaProject(), new ChooseLayoutItemsDialog(window.getShell()));
-        }
-        else
-        {
-            EclipseUtils
-                    .showErrorDialog(
-                            CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_FillJavaActivityBasedOnLayout,
-                            CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_SelectedClassNeitherActivityFragment);
-        }
+		if (selectionBean.isProject() || selectionBean.isAllowedClassInstance()) {
+			final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+			executeCodeGenerationWizard(event, selectionBean.getJavaFile(), selectionBean.getJavaProject(),
+					new ChooseLayoutItemsDialog(window.getShell()));
+		} else {
+			EclipseUtils.showErrorDialog(CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_FillJavaActivityBasedOnLayout,
+					CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_SelectedClassNeitherActivityFragment);
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 }

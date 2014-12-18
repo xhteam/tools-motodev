@@ -27,59 +27,50 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-public class MapDatabaseHandler extends AbstractHandler implements IHandler
-{
+public class MapDatabaseHandler extends AbstractHandler implements IHandler {
 
-    private IDbMapperNode dbMapperNode;
+	private IDbMapperNode dbMapperNode;
 
-    public MapDatabaseHandler()
-    {
-    }
+	public MapDatabaseHandler() {
+	}
 
-    public MapDatabaseHandler(IDbMapperNode node)
-    {
-        this.dbMapperNode = node;
-    }
+	public MapDatabaseHandler(IDbMapperNode node) {
+		this.dbMapperNode = node;
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        if (dbMapperNode != null)
-        {
-            IPath dbFilePath = null;
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		if (dbMapperNode != null) {
+			IPath dbFilePath = null;
 
-            Shell shell = Display.getCurrent().getActiveShell();
+			Shell shell = Display.getCurrent().getActiveShell();
 
-            FileDialog dialog = new FileDialog(shell);
-            String[] filterExt =
-            {
-                    "*.db", "*.*" //$NON-NLS-1$ //$NON-NLS-2$
-            };
-            dialog.setFilterExtensions(filterExt);
+			FileDialog dialog = new FileDialog(shell);
+			String[] filterExt = { "*.db", "*.*" //$NON-NLS-1$ //$NON-NLS-2$
+			};
+			dialog.setFilterExtensions(filterExt);
 
-            String dbFilePathString = dialog.open();
+			String dbFilePathString = dialog.open();
 
-            if (dbFilePathString != null)
-            {
-                File dbFile = new File(dbFilePathString);
-                dbFilePath = new Path(dbFile.getAbsolutePath());
+			if (dbFilePathString != null) {
+				File dbFile = new File(dbFilePathString);
+				dbFilePath = new Path(dbFile.getAbsolutePath());
 
-                if (dbFile.exists() && DbModel.isValidSQLiteDatabase(dbFile))
-                {
-                    dbMapperNode.map(dbFilePath);
-                }
-                else
-                {
-                    //Notify db does not exist or it is invalid
-                    EclipseUtils.showErrorDialog(DbCoreNLS.MapDatabaseHandler_Title_Error,
-                            DbCoreNLS.bind(DbCoreNLS.Invalid_Db_Error, dbFilePath));
-                }
-            }
-        }
-        return null;
-    }
+				if (dbFile.exists() && DbModel.isValidSQLiteDatabase(dbFile)) {
+					dbMapperNode.map(dbFilePath);
+				} else {
+					// Notify db does not exist or it is invalid
+					EclipseUtils.showErrorDialog(DbCoreNLS.MapDatabaseHandler_Title_Error,
+							NLS.bind(DbCoreNLS.Invalid_Db_Error, dbFilePath));
+				}
+			}
+		}
+		return null;
+	}
 
 }

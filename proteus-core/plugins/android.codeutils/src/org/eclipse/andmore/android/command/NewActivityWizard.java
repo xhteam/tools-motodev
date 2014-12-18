@@ -21,15 +21,18 @@ import org.eclipse.core.commands.ExecutionException;
 /**
  * Command to open the New Activity wizard through the MOTODEV menu
  */
-public class NewActivityWizard extends NewWizardHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewActivityWizard());
+public class NewActivityWizard extends NewWizardHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewActivityWizard());
 
-        return null;
-    }
+		return null;
+	}
 }

@@ -16,10 +16,9 @@
 package org.eclipse.andmore.android.db.core.ui;
 
 /**
- * Interface that identifies a root node on the tree.
- * Initial version is empty since it was initially created to reuse popup menu commands.
+ * Interface that identifies a root node on the tree. Initial version is empty
+ * since it was initially created to reuse popup menu commands.
  */
-public interface IRootNode extends ITreeNode
-{
+public interface IRootNode extends ITreeNode {
 
 }

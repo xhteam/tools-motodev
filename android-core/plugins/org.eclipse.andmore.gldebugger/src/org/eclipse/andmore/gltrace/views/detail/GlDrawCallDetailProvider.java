@@ -31,51 +31,50 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GlDrawCallDetailProvider implements ICallDetailProvider {
-    private ImageCanvas mImageCanvas;
-    private FitToCanvasAction mFitToCanvasAction;
-    private SaveImageAction mSaveImageAction;
-    private List<IContributionItem> mToolBarItems;
+	private ImageCanvas mImageCanvas;
+	private FitToCanvasAction mFitToCanvasAction;
+	private SaveImageAction mSaveImageAction;
+	private List<IContributionItem> mToolBarItems;
 
-    @Override
-    public boolean isApplicable(GLCall call) {
-        return (call.getFunction() == Function.glDrawArrays
-                || call.getFunction() == Function.glDrawElements) && call.hasFb();
-    }
+	@Override
+	public boolean isApplicable(GLCall call) {
+		return (call.getFunction() == Function.glDrawArrays || call.getFunction() == Function.glDrawElements)
+				&& call.hasFb();
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        mImageCanvas = new ImageCanvas(parent);
-        mImageCanvas.setFitToCanvas(false);
+	@Override
+	public void createControl(Composite parent) {
+		mImageCanvas = new ImageCanvas(parent);
+		mImageCanvas.setFitToCanvas(false);
 
-        mFitToCanvasAction = new FitToCanvasAction(false, mImageCanvas);
-        mSaveImageAction = new SaveImageAction(mImageCanvas);
+		mFitToCanvasAction = new FitToCanvasAction(false, mImageCanvas);
+		mSaveImageAction = new SaveImageAction(mImageCanvas);
 
-        mToolBarItems = Arrays.asList(
-                (IContributionItem) new ActionContributionItem(mFitToCanvasAction),
-                (IContributionItem) new ActionContributionItem(mSaveImageAction));
-    }
+		mToolBarItems = Arrays.asList((IContributionItem) new ActionContributionItem(mFitToCanvasAction),
+				(IContributionItem) new ActionContributionItem(mSaveImageAction));
+	}
 
-    @Override
-    public void disposeControl() {
-        if (mImageCanvas != null) {
-            mImageCanvas.dispose();
-            mImageCanvas = null;
-        }
-    }
+	@Override
+	public void disposeControl() {
+		if (mImageCanvas != null) {
+			mImageCanvas.dispose();
+			mImageCanvas = null;
+		}
+	}
 
-    @Override
-    public Control getControl() {
-        return mImageCanvas;
-    }
+	@Override
+	public Control getControl() {
+		return mImageCanvas;
+	}
 
-    @Override
-    public void updateControl(GLTrace trace, GLCall call) {
-        mImageCanvas.setImage(trace.getImage(call));
-        mImageCanvas.setFitToCanvas(true);
-    }
+	@Override
+	public void updateControl(GLTrace trace, GLCall call) {
+		mImageCanvas.setImage(trace.getImage(call));
+		mImageCanvas.setFitToCanvas(true);
+	}
 
-    @Override
-    public List<IContributionItem> getToolBarItems() {
-        return mToolBarItems;
-    }
+	@Override
+	public List<IContributionItem> getToolBarItems() {
+		return mToolBarItems;
+	}
 }

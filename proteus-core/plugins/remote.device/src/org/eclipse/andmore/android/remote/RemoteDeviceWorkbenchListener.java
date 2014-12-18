@@ -28,57 +28,50 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchListener;
 
 /**
- * Class to implement the IWorkbenchListener that will check if
- * there are connected Remote Devices when the uses tries to close Studio.
- * The user will be prompted whether he wants to disconnect them or not.
+ * Class to implement the IWorkbenchListener that will check if there are
+ * connected Remote Devices when the uses tries to close Studio. The user will
+ * be prompted whether he wants to disconnect them or not.
  */
-public class RemoteDeviceWorkbenchListener implements IWorkbenchListener
-{
+public class RemoteDeviceWorkbenchListener implements IWorkbenchListener {
 
-    public void postShutdown(IWorkbench workbench)
-    {
-        // Nothing to do.   
-    }
+	@Override
+	public void postShutdown(IWorkbench workbench) {
+		// Nothing to do.
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchListener#preShutdown(org.eclipse.ui.IWorkbench, boolean)
-     */
-    public boolean preShutdown(IWorkbench workbench, boolean forced)
-    {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IWorkbenchListener#preShutdown(org.eclipse.ui.IWorkbench,
+	 * boolean)
+	 */
+	@Override
+	public boolean preShutdown(IWorkbench workbench, boolean forced) {
 
-        Collection<ISerialNumbered> connectedDevices =
-                DevicesManager.getInstance().getOnlineDevicesByType(RemoteDeviceInstance.class);
+		Collection<ISerialNumbered> connectedDevices = DevicesManager.getInstance().getOnlineDevicesByType(
+				RemoteDeviceInstance.class);
 
-        if (connectedDevices.size() > 0)
-        {
+		if (connectedDevices.size() > 0) {
 
-            boolean disconnectRemoteInstances =
-                    DialogWithToggleUtils
-                            .showQuestion(
-                                    RemoteDeviceConstants.DISCONNECT_ALL_REMOTE_DEVICES_IN_SHUTDOWN_KEY_PREFERENCE,
-                                    RemoteDeviceNLS.QUESTION_ConnectedRemoteDevicesOnClose_Title,
-                                    RemoteDeviceNLS.QUESTION_ConnectedRemoteDevicesOnClose_Text);
+			boolean disconnectRemoteInstances = DialogWithToggleUtils.showQuestion(
+					RemoteDeviceConstants.DISCONNECT_ALL_REMOTE_DEVICES_IN_SHUTDOWN_KEY_PREFERENCE,
+					RemoteDeviceNLS.QUESTION_ConnectedRemoteDevicesOnClose_Title,
+					RemoteDeviceNLS.QUESTION_ConnectedRemoteDevicesOnClose_Text);
 
-            if (disconnectRemoteInstances)
-            {
-                for (ISerialNumbered device : connectedDevices)
-                {
-                    try
-                    {
-                        RemoteDevicePlugin.getDisconnectServiceHandler().run(
-                                (RemoteDeviceInstance) device);
-                    }
-                    catch (SequoyahException e)
-                    {
-                        StudioLogger
-                                .error("Error when trying to disconnect Remote Devices on Studio shutdown: "
-                                        + e.getMessage());
-                    }
-                }
-            }
+			if (disconnectRemoteInstances) {
+				for (ISerialNumbered device : connectedDevices) {
+					try {
+						RemoteDevicePlugin.getDisconnectServiceHandler().run((RemoteDeviceInstance) device);
+					} catch (SequoyahException e) {
+						StudioLogger.error("Error when trying to disconnect Remote Devices on Studio shutdown: "
+								+ e.getMessage());
+					}
+				}
+			}
 
-        }
+		}
 
-        return true;
-    }
+		return true;
+	}
 }

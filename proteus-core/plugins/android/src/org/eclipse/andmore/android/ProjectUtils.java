@@ -26,47 +26,46 @@ import org.eclipse.jdt.core.JavaModelException;
 /**
  * Class that contains useful methods to handle with Android Projects
  */
-public class ProjectUtils
-{
-    /**
-     * Fixes an Android project (a project with errors)
-     * 
-     * @param project the project to be fixed
-     * 
-     * @throws JavaModelException
-     */
-    public static void fixProject(IProject project) throws JavaModelException
-    {
-        ProjectHelper.fixProject(project);
-    }
+public class ProjectUtils {
+	/**
+	 * Fixes an Android project (a project with errors)
+	 * 
+	 * @param project
+	 *            the project to be fixed
+	 * 
+	 * @throws JavaModelException
+	 */
+	public static void fixProject(IProject project) throws JavaModelException {
+		ProjectHelper.fixProject(project);
+	}
 
-    /**
-     * Sets the Android Project natures to a project
-     * 
-     * @param project The project
-     * @param monitor The progress monitor
-     * 
-     * @throws CoreException
-     */
-    public static void setupAndroidNatures(IProject project, IProgressMonitor monitor)
-            throws CoreException
-    {
-        // Add the Java and android nature to the project
-        AndroidNature.setupProjectNatures(project, monitor, true);
-    }
+	/**
+	 * Sets the Android Project natures to a project
+	 * 
+	 * @param project
+	 *            The project
+	 * @param monitor
+	 *            The progress monitor
+	 * 
+	 * @throws CoreException
+	 */
+	public static void setupAndroidNatures(IProject project, IProgressMonitor monitor) throws CoreException {
+		// Add the Java and android nature to the project
+		AndroidNature.setupProjectNatures(project, monitor, true);
+	}
 
-    /**
-     * Adds a new entry to a set of classpath entries
-     * 
-     * @param entries the classpath entries
-     * @param newSourceEntry the new entry to add
-     * 
-     * @return the new set of classpath
-     */
-    public static IClasspathEntry[] addEntryToClasspath(IClasspathEntry[] entries,
-            IClasspathEntry newSourceEntry)
-    {
-        return ProjectHelper.addEntryToClasspath(entries, newSourceEntry);
-    }
+	/**
+	 * Adds a new entry to a set of classpath entries
+	 * 
+	 * @param entries
+	 *            the classpath entries
+	 * @param newSourceEntry
+	 *            the new entry to add
+	 * 
+	 * @return the new set of classpath
+	 */
+	public static IClasspathEntry[] addEntryToClasspath(IClasspathEntry[] entries, IClasspathEntry newSourceEntry) {
+		return ProjectHelper.addEntryToClasspath(entries, newSourceEntry);
+	}
 
 }

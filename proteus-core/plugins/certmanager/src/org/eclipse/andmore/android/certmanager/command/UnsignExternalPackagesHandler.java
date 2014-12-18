@@ -25,15 +25,13 @@ import org.eclipse.jface.action.Action;
 /**
  * Handler to execute the unsign package wizard.
  * */
-public class UnsignExternalPackagesHandler extends AbstractHandler implements IHandler
-{
+public class UnsignExternalPackagesHandler extends AbstractHandler implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        Action action = new RemoveSignatureAction();
-        action.run();
-        return null;
-    }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		Action action = new RemoveSignatureAction();
+		action.run();
+		return null;
+	}
 
 }

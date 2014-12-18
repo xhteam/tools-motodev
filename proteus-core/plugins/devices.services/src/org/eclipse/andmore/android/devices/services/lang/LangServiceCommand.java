@@ -30,29 +30,27 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 /**
  * Open Change language wizard
  */
-public class LangServiceCommand extends AbstractHandler
-{
+public class LangServiceCommand extends AbstractHandler {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IAndroidEmulatorInstance emulatorInstance = AbstractAndroidView.getActiveInstance();
-        if (emulatorInstance instanceof IInstance)
-        {
-            try
-            {
-                IInstance instance = (IInstance) emulatorInstance;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands
+	 * .ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IAndroidEmulatorInstance emulatorInstance = AbstractAndroidView.getActiveInstance();
+		if (emulatorInstance instanceof IInstance) {
+			try {
+				IInstance instance = (IInstance) emulatorInstance;
 
-                ServiceManager.runServices(Arrays.asList(instance),
-                        DeviceServicesPlugin.ANDROID_LANG_SERVICE_ID);
-            }
-            catch (SequoyahException e)
-            {
-                //do nothing
-            }
-        }
-        return null;
-    }
+				ServiceManager.runServices(Arrays.asList(instance), DeviceServicesPlugin.ANDROID_LANG_SERVICE_ID);
+			} catch (SequoyahException e) {
+				// do nothing
+			}
+		}
+		return null;
+	}
 }

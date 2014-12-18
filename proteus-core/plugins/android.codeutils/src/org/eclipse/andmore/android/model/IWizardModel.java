@@ -22,36 +22,34 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardContainer;
 
 /**
- * Controller interface. It should communicate with the Wizard UI 
- * to create on workspace the wizard output.  
+ * Controller interface. It should communicate with the Wizard UI to create on
+ * workspace the wizard output.
  */
-public interface IWizardModel
-{
-    public static final int MODIFIED = 1546;
+public interface IWizardModel {
+	public static final int MODIFIED = 1546;
 
-    /**
-     * Return the Model Status.
-     * This Status must contains the 
-     * {@link IStatus#getSeverity()} 
-     * according with the needed 
-     * values, and must contain the 
-     * message for not OK Status.
-     * 
-     * @return The Model Status
-     */
-    public IStatus getStatus();
+	/**
+	 * Return the Model Status. This Status must contains the
+	 * {@link IStatus#getSeverity()} according with the needed values, and must
+	 * contain the message for not OK Status.
+	 * 
+	 * @return The Model Status
+	 */
+	public IStatus getStatus();
 
-    /**
-     * Save Contents in Workspace;
-     * @return True if it succeeds, false otherwise. 
-     * @throws AndroidException
-     */
-    boolean save(IWizardContainer container, IProgressMonitor monitor) throws AndroidException;
+	/**
+	 * Save Contents in Workspace;
+	 * 
+	 * @return True if it succeeds, false otherwise.
+	 * @throws AndroidException
+	 */
+	boolean save(IWizardContainer container, IProgressMonitor monitor) throws AndroidException;
 
-    /**
-     * Check if need more information to finish.
-     * @see IWizard#canFinish()
-     * @return True if more information is needed to finish the page. 
-     */
-    boolean needMoreInformation();
+	/**
+	 * Check if need more information to finish.
+	 * 
+	 * @see IWizard#canFinish()
+	 * @return True if more information is needed to finish the page.
+	 */
+	boolean needMoreInformation();
 }

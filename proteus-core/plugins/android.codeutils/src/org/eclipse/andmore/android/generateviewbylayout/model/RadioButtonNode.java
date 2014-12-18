@@ -16,25 +16,22 @@
 package org.eclipse.andmore.android.generateviewbylayout.model;
 
 /**
- * Extends {@link LayoutNode} to describe save/restore method names and the name of the node type
- * (specific from RadioButton)
+ * Extends {@link LayoutNode} to describe save/restore method names and the name
+ * of the node type (specific from RadioButton)
  */
-public class RadioButtonNode extends LayoutNode
-{
+public class RadioButtonNode extends LayoutNode {
 
-    public RadioButtonNode()
-    {
-        properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setChecked.name());
-        properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.isChecked.name());
-        properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putBoolean.name());
-        properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getBoolean.name());
-        properties.put(ViewProperties.ViewStateValueType, Boolean.class.toString());
-    }
+	public RadioButtonNode() {
+		properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setChecked.name());
+		properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.isChecked.name());
+		properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putBoolean.name());
+		properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getBoolean.name());
+		properties.put(ViewProperties.ViewStateValueType, Boolean.class.toString());
+	}
 
-    @Override
-    public String getNodeType()
-    {
-        return LayoutNodeViewType.RadioButton.name();
-    }
+	@Override
+	public String getNodeType() {
+		return LayoutNodeViewType.RadioButton.name();
+	}
 
 }

@@ -30,38 +30,37 @@ import org.eclipse.ui.part.ViewPart;
 
 public class PixelPerfectView extends ViewPart {
 
-    public static final String ID =
-            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectView"; //$NON-NLS-1$
 
-    private PixelPerfect mPixelPerfect;
+	private PixelPerfect mPixelPerfect;
 
-    @Override
-    public void createPartControl(Composite parent) {
-        parent.setLayout(new FillLayout());
-        mPixelPerfect = new PixelPerfect(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		parent.setLayout(new FillLayout());
+		mPixelPerfect = new PixelPerfect(parent);
 
-        placeActions();
-    }
+		placeActions();
+	}
 
-    private void placeActions() {
-        IActionBars actionBars = getViewSite().getActionBars();
+	private void placeActions() {
+		IActionBars actionBars = getViewSite().getActionBars();
 
-        IMenuManager mm = actionBars.getMenuManager();
-        mm.removeAll();
-        mm.add(SavePixelPerfectAction.getAction(getSite().getShell()));
-        mm.add(RefreshPixelPerfectAction.getAction());
-        mm.add(LoadOverlayAction.getAction(getSite().getShell()));
+		IMenuManager mm = actionBars.getMenuManager();
+		mm.removeAll();
+		mm.add(SavePixelPerfectAction.getAction(getSite().getShell()));
+		mm.add(RefreshPixelPerfectAction.getAction());
+		mm.add(LoadOverlayAction.getAction(getSite().getShell()));
 
-        IToolBarManager tm = actionBars.getToolBarManager();
-        tm.removeAll();
-        tm.add(SavePixelPerfectAction.getAction(getSite().getShell()));
-        tm.add(RefreshPixelPerfectAction.getAction());
-        tm.add(LoadOverlayAction.getAction(getSite().getShell()));
-    }
+		IToolBarManager tm = actionBars.getToolBarManager();
+		tm.removeAll();
+		tm.add(SavePixelPerfectAction.getAction(getSite().getShell()));
+		tm.add(RefreshPixelPerfectAction.getAction());
+		tm.add(LoadOverlayAction.getAction(getSite().getShell()));
+	}
 
-    @Override
-    public void setFocus() {
-        mPixelPerfect.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPixelPerfect.setFocus();
+	}
 
 }

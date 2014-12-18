@@ -33,44 +33,45 @@ import org.eclipse.ui.ide.IDE;
 
 public class TraceviewLauncher implements ITraceviewLauncher {
 
-    @Override
-    public boolean openFile(String osPath) {
-        final IFileStore fileStore =  EFS.getLocalFileSystem().getStore(new Path(osPath));
-        if (!fileStore.fetchInfo().isDirectory() && fileStore.fetchInfo().exists()) {
-            // before we open the file in an editor window, we make sure the current
-            // workbench page has an editor area (typically the ddms perspective doesn't).
-            final IWorkbench workbench = PlatformUI.getWorkbench();
-            Display display = workbench.getDisplay();
-            final boolean[] result = new boolean[] { false };
-            display.syncExec(new Runnable() {
-                @Override
-                public void run() {
-                    IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-                    IWorkbenchPage page = window.getActivePage();
-                    if (page.isEditorAreaVisible() == false) {
-                        IAdaptable input;
-                        if (page != null)
-                            input= page.getInput();
-                        else
-                            input= ResourcesPlugin.getWorkspace().getRoot();
-                        try {
-                            workbench.showPerspective("org.eclipse.debug.ui.DebugPerspective",
-                                    window, input);
-                        } catch (WorkbenchException e) {
-                        }
-                    }
+	@Override
+	public boolean openFile(String osPath) {
+		final IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(osPath));
+		if (!fileStore.fetchInfo().isDirectory() && fileStore.fetchInfo().exists()) {
+			// before we open the file in an editor window, we make sure the
+			// current
+			// workbench page has an editor area (typically the ddms perspective
+			// doesn't).
+			final IWorkbench workbench = PlatformUI.getWorkbench();
+			Display display = workbench.getDisplay();
+			final boolean[] result = new boolean[] { false };
+			display.syncExec(new Runnable() {
+				@Override
+				public void run() {
+					IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+					IWorkbenchPage page = window.getActivePage();
+					if (page.isEditorAreaVisible() == false) {
+						IAdaptable input;
+						if (page != null)
+							input = page.getInput();
+						else
+							input = ResourcesPlugin.getWorkspace().getRoot();
+						try {
+							workbench.showPerspective("org.eclipse.debug.ui.DebugPerspective", window, input);
+						} catch (WorkbenchException e) {
+						}
+					}
 
-                    try {
-                        result[0] = IDE.openEditorOnFileStore(page, fileStore) != null;
-                    } catch (PartInitException e) {
-                        // return false below
-                    }
-                }
-            });
+					try {
+						result[0] = IDE.openEditorOnFileStore(page, fileStore) != null;
+					} catch (PartInitException e) {
+						// return false below
+					}
+				}
+			});
 
-            return result[0];
-        }
+			return result[0];
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

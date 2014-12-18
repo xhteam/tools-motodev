@@ -26,37 +26,33 @@ import org.eclipse.equinox.p2.operations.ProfileChangeOperation;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- *  This class replaces the P2 Policy on MOTODEV Studio. This is responsible to verify if writing on the current install directory is writable.
- *  A error message is displayed if this occurs and the operation is aborted. 
+ * This class replaces the P2 Policy on MOTODEV Studio. This is responsible to
+ * verify if writing on the current install directory is writable. A error
+ * message is displayed if this occurs and the operation is aborted.
  */
 @SuppressWarnings("restriction")
-public class MotodevPolicy extends SDKPolicy
-{
+public class MotodevPolicy extends SDKPolicy {
 
-    @Override
-    public boolean continueWorkingWithOperation(ProfileChangeOperation operation, Shell shell)
-    {
-        boolean canContinue = super.continueWorkingWithOperation(operation, shell);
+	@Override
+	public boolean continueWorkingWithOperation(ProfileChangeOperation operation, Shell shell) {
+		boolean canContinue = super.continueWorkingWithOperation(operation, shell);
 
-        if (canContinue)
-        {
-            //Check if it's possible to write on the current workbench location                
-            //If not... display a message and return false.
+		if (canContinue) {
+			// Check if it's possible to write on the current workbench location
+			// If not... display a message and return false.
 
-            String installLocation = Platform.getInstallLocation().getURL().getFile();
-            File tmpFile = new File(installLocation + File.separator + "erase.me"); //$NON-NLS-1$
-            boolean canWrite = false;
-            canWrite = FileUtil.canWrite(tmpFile);
+			String installLocation = Platform.getInstallLocation().getURL().getFile();
+			File tmpFile = new File(installLocation + File.separator + "erase.me"); //$NON-NLS-1$
+			boolean canWrite = false;
+			canWrite = FileUtil.canWrite(tmpFile);
 
-            if (!canWrite)
-            {
-                EclipseUtils.showErrorDialog(
-                        InstallerNLS.MotodevPolicy_Insufficient_Permissions_Title,
-                        InstallerNLS.MotodevPolicy_Insufficient_Permissions_Message);
-                canContinue = false;
-            }
-        }
+			if (!canWrite) {
+				EclipseUtils.showErrorDialog(InstallerNLS.MotodevPolicy_Insufficient_Permissions_Title,
+						InstallerNLS.MotodevPolicy_Insufficient_Permissions_Message);
+				canContinue = false;
+			}
+		}
 
-        return canContinue;
-    }
+		return canContinue;
+	}
 }

@@ -17,20 +17,20 @@
 package org.eclipse.andmore.gltrace.state.transforms;
 
 public class Predicates {
-    private static class IntegerPropertyEqualsPredicate implements IPredicate {
-        private int mExpected;
+	private static class IntegerPropertyEqualsPredicate implements IPredicate {
+		private int mExpected;
 
-        public IntegerPropertyEqualsPredicate(Integer expected) {
-            mExpected = expected.intValue();
-        }
+		public IntegerPropertyEqualsPredicate(Integer expected) {
+			mExpected = expected.intValue();
+		}
 
-        @Override
-        public boolean apply(Object value) {
-            return value instanceof Integer && ((Integer) value).intValue() == mExpected;
-        }
-    }
+		@Override
+		public boolean apply(Object value) {
+			return value instanceof Integer && ((Integer) value).intValue() == mExpected;
+		}
+	}
 
-    public static IPredicate matchesInteger(int expected) {
-        return new IntegerPropertyEqualsPredicate(expected);
-    }
+	public static IPredicate matchesInteger(int expected) {
+		return new IntegerPropertyEqualsPredicate(expected);
+	}
 }

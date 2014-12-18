@@ -23,95 +23,95 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IActionFilter;
 
-public interface ITreeNode extends IActionFilter
-{
+public interface ITreeNode extends IActionFilter {
 
-    public static final String PROP_VALUE_NODE_STATUS_OK =
-            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusOk"; //$NON-NLS-1$
+	public static final String PROP_VALUE_NODE_STATUS_OK = "org.eclipse.andmore.android.certmanager.core.property.nodeStatusOk"; //$NON-NLS-1$
 
-    public static final String PROP_VALUE_NODE_STATUS_KEYSTORE_TYPE_OK =
-            "org.eclipse.andmore.android.certmanager.core.property.keystoreTypeOk"; //$NON-NLS-1$
+	public static final String PROP_VALUE_NODE_STATUS_KEYSTORE_TYPE_OK = "org.eclipse.andmore.android.certmanager.core.property.keystoreTypeOk"; //$NON-NLS-1$
 
-    /**
-     * Property value used to check if the node has an error status.
-     */
-    public static final String PROP_VALUE_NODE_STATUS_ERROR =
-            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusError"; //$NON-NLS-1$
+	/**
+	 * Property value used to check if the node has an error status.
+	 */
+	public static final String PROP_VALUE_NODE_STATUS_ERROR = "org.eclipse.andmore.android.certmanager.core.property.nodeStatusError"; //$NON-NLS-1$
 
-    public static final String PROP_VALUE_NODE_STATUS_WARNING =
-            "org.eclipse.andmore.android.certmanager.core.property.nodeStatusWarning"; //$NON-NLS-1$
+	public static final String PROP_VALUE_NODE_STATUS_WARNING = "org.eclipse.andmore.android.certmanager.core.property.nodeStatusWarning"; //$NON-NLS-1$
 
-    /**
-     * Property name used to test the status of the node. 
-     */
-    public static final String PROP_NAME_NODE_STATUS =
-            "org.eclipse.andmore.android.certmanager.core.property.nodeStatus"; //$NON-NLS-1$
+	/**
+	 * Property name used to test the status of the node.
+	 */
+	public static final String PROP_NAME_NODE_STATUS = "org.eclipse.andmore.android.certmanager.core.property.nodeStatus"; //$NON-NLS-1$
 
-    public static final String PROP_NAMESPACE =
-            "org.eclipse.andmore.android.certmanager.core.property";
+	public static final String PROP_NAMESPACE = "org.eclipse.andmore.android.certmanager.core.property";
 
-    /**
-     * Method responsible to reload the node itself and its children 
-     */
-    void refresh() throws KeyStoreManagerException;
+	/**
+	 * Method responsible to reload the node itself and its children
+	 */
+	void refresh() throws KeyStoreManagerException;
 
-    /**
-     * @return the id
-     */
-    String getId();
+	/**
+	 * @return the id
+	 */
+	String getId();
 
-    /**
-     * @return the name
-     */
-    String getName();
+	/**
+	 * @return the name
+	 */
+	String getName();
 
-    /**
-     * @return the icon
-     */
-    ImageDescriptor getIcon();
+	/**
+	 * @return the icon
+	 */
+	ImageDescriptor getIcon();
 
-    /**
-     * @return true if it does not accept a child, false otherwise
-     */
-    boolean isLeaf();
+	/**
+	 * @return true if it does not accept a child, false otherwise
+	 */
+	boolean isLeaf();
 
-    /**
-     * Set the node Status, allowing the tree to decorate itself on errors.
-     * Is status is ERROR the icon will be decorated with a error image and tooltip will be replaced by status.getMessage() if available.
-     * @param status
-     */
-    void setNodeStatus(IStatus status);
+	/**
+	 * Set the node Status, allowing the tree to decorate itself on errors. Is
+	 * status is ERROR the icon will be decorated with a error image and tooltip
+	 * will be replaced by status.getMessage() if available.
+	 * 
+	 * @param status
+	 */
+	void setNodeStatus(IStatus status);
 
-    /**
-     * Retrieves the current node status.
-     * @return
-     */
-    IStatus getNodeStatus();
+	/**
+	 * Retrieves the current node status.
+	 * 
+	 * @return
+	 */
+	IStatus getNodeStatus();
 
-    /**
-     * Set the tooltip to be displayed for this node.
-     * @param tooltip
-     */
-    void setTooltip(String tooltip);
+	/**
+	 * Set the tooltip to be displayed for this node.
+	 * 
+	 * @param tooltip
+	 */
+	void setTooltip(String tooltip);
 
-    /**
-     * @return this node tooltip text
-     */
-    String getTooltip();
+	/**
+	 * @return this node tooltip text
+	 */
+	String getTooltip();
 
-    /**
-     * Get parent of the tree node
-     * @return null if it is the tree root, non-null if is a child node
-     */
-    ITreeNode getParent();
+	/**
+	 * Get parent of the tree node
+	 * 
+	 * @return null if it is the tree root, non-null if is a child node
+	 */
+	ITreeNode getParent();
 
-    /**
-     * Retrieves list of children (without any filter)
-     * @return collection of {@link ITreeNode} that are child of this abstract tree node  
-     * @throws KeyStoreException 
-     * @throws KeyStoreManagerException 
-     */
-    List<ITreeNode> getChildren() throws KeyStoreManagerException;
+	/**
+	 * Retrieves list of children (without any filter)
+	 * 
+	 * @return collection of {@link ITreeNode} that are child of this abstract
+	 *         tree node
+	 * @throws KeyStoreException
+	 * @throws KeyStoreManagerException
+	 */
+	List<ITreeNode> getChildren() throws KeyStoreManagerException;
 
-    void addChild(ITreeNode newChild) throws KeyStoreManagerException;
+	void addChild(ITreeNode newChild) throws KeyStoreManagerException;
 }

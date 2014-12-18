@@ -32,37 +32,32 @@ import org.eclipse.ui.PlatformUI;
 /**
  * This class implements the command to display certificate properties
  * */
-public class CertificatePropertiesHandler extends AbstractHandler2 implements IHandler
-{
+public class CertificatePropertiesHandler extends AbstractHandler2 implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        //retrieves the first element of the selection
-        //note that this command should be enabled only when selection.count == 1.
-        ITreeNode node = getSelection().get(0);
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		// retrieves the first element of the selection
+		// note that this command should be enabled only when selection.count ==
+		// 1.
+		ITreeNode node = getSelection().get(0);
 
-        if (node instanceof IKeyStoreEntry)
-        {
-            final EntryNode keyStoreEntry = (EntryNode) node;
-            PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    IWorkbench workbench = PlatformUI.getWorkbench();
-                    IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();
-                    Shell shell = ww.getShell();
+		if (node instanceof IKeyStoreEntry) {
+			final EntryNode keyStoreEntry = (EntryNode) node;
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					IWorkbench workbench = PlatformUI.getWorkbench();
+					IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();
+					Shell shell = ww.getShell();
 
-                    CertificateInfoDialog dialog =
-                            new CertificateInfoDialog(shell, new KeyPropertiesBlock(),
-                                    keyStoreEntry);
+					CertificateInfoDialog dialog = new CertificateInfoDialog(shell, new KeyPropertiesBlock(),
+							keyStoreEntry);
 
-                    dialog.open();
-                }
-            });
-        }
+					dialog.open();
+				}
+			});
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

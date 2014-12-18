@@ -36,65 +36,59 @@ import org.eclipse.ui.dialogs.PropertyPage;
  * 
  * @author xrgc84
  */
-public class AndroidPropertiesPage extends PropertyPage implements IWorkbenchPropertyPage
-{
+public class AndroidPropertiesPage extends PropertyPage implements IWorkbenchPropertyPage {
 
-    // the Android Handset Instance to which this Property Page applies
-    private ISerialNumbered androidIntance;
+	// the Android Handset Instance to which this Property Page applies
+	private ISerialNumbered androidIntance;
 
-    @Override
-    public void setElement(IAdaptable element)
-    {
+	@Override
+	public void setElement(IAdaptable element) {
 
-        this.androidIntance = (ISerialNumbered) element;
+		this.androidIntance = (ISerialNumbered) element;
 
-        super.setElement(element);
-    }
+		super.setElement(element);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse
-     * .swt.widgets.Composite)
-     */
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        ((PreferenceDialog) this.getContainer()).getTreeViewer().expandAll();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse
+	 * .swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createContents(Composite parent) {
+		((PreferenceDialog) this.getContainer()).getTreeViewer().expandAll();
 
-        final Composite parentComposite = new Composite(parent, SWT.NONE);
-        parentComposite.setLayout(new GridLayout(2, false));
-        parentComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		final Composite parentComposite = new Composite(parent, SWT.NONE);
+		parentComposite.setLayout(new GridLayout(2, false));
+		parentComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        Label serialNumberLabel = new Label(parentComposite, SWT.NONE);
-        serialNumberLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_SerialNumberLabel);
-        Label serialNumberValue = new Label(parentComposite, SWT.NONE);
-        serialNumberValue.setText(this.androidIntance.getSerialNumber());
+		Label serialNumberLabel = new Label(parentComposite, SWT.NONE);
+		serialNumberLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_SerialNumberLabel);
+		Label serialNumberValue = new Label(parentComposite, SWT.NONE);
+		serialNumberValue.setText(this.androidIntance.getSerialNumber());
 
-        Label targetLabel = new Label(parentComposite, SWT.NONE);
-        targetLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_AndroidVersionLabel);
-        Label targetValue = new Label(parentComposite, SWT.NONE);
+		Label targetLabel = new Label(parentComposite, SWT.NONE);
+		targetLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_AndroidVersionLabel);
+		Label targetValue = new Label(parentComposite, SWT.NONE);
 
-        Label apiLabel = new Label(parentComposite, SWT.NONE);
-        apiLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_APIVersionLabel);
-        Label apiValue = new Label(parentComposite, SWT.NONE);
+		Label apiLabel = new Label(parentComposite, SWT.NONE);
+		apiLabel.setText(AndroidHandsetNLS.AndroidPropertiesPage_APIVersionLabel);
+		Label apiValue = new Label(parentComposite, SWT.NONE);
 
-        Properties propValues = ((IInstance) androidIntance).getProperties();
-        if ((propValues != null) && !propValues.isEmpty())
-        {
-            apiValue.setText(propValues.getProperty("ro.build.version.sdk")); //$NON-NLS-1$
-            targetValue.setText(propValues.getProperty("ro.build.version.release")); //$NON-NLS-1$
-        }
-        else
-        {
-            apiValue.setText(AndroidHandsetNLS.AndroidPropertiesPage_NA);
-            targetValue.setText(AndroidHandsetNLS.AndroidPropertiesPage_NA);
-        }
-        parentComposite.pack();
+		Properties propValues = ((IInstance) androidIntance).getProperties();
+		if ((propValues != null) && !propValues.isEmpty()) {
+			apiValue.setText(propValues.getProperty("ro.build.version.sdk")); //$NON-NLS-1$
+			targetValue.setText(propValues.getProperty("ro.build.version.release")); //$NON-NLS-1$
+		} else {
+			apiValue.setText(AndroidHandsetNLS.AndroidPropertiesPage_NA);
+			targetValue.setText(AndroidHandsetNLS.AndroidPropertiesPage_NA);
+		}
+		parentComposite.pack();
 
-        noDefaultAndApplyButton();
-        return parentComposite;
+		noDefaultAndApplyButton();
+		return parentComposite;
 
-    }
+	}
 }

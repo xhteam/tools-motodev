@@ -23,62 +23,63 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class PackagingUIPlugin extends AbstractUIPlugin
-{
+public class PackagingUIPlugin extends AbstractUIPlugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.packaging.ui";
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.packaging.ui";
 
-    public static final String EXPORT_WIZARD_ICON = "icons/wizban/export_android_package.png";
+	public static final String EXPORT_WIZARD_ICON = "icons/wizban/export_android_package.png";
 
-    public static final String PACKAGING_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID + ".packaging_help";
+	public static final String PACKAGING_WIZARD_CONTEXT_HELP_ID = PLUGIN_ID + ".packaging_help";
 
-    public static final String SIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID =
-            PackagingUIPlugin.PLUGIN_ID + ".sign_external_pkg_wiz";
+	public static final String SIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PackagingUIPlugin.PLUGIN_ID
+			+ ".sign_external_pkg_wiz";
 
-    public static final String UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID =
-            PackagingUIPlugin.PLUGIN_ID + ".unsign_external_pkg_wiz";
+	public static final String UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID = PackagingUIPlugin.PLUGIN_ID
+			+ ".unsign_external_pkg_wiz";
 
-    public static final int PROGRESS_MONITOR_MULTIPLIER = 100;
+	public static final int PROGRESS_MONITOR_MULTIPLIER = 100;
 
-    // The shared instance
-    private static PackagingUIPlugin plugin;
+	// The shared instance
+	private static PackagingUIPlugin plugin;
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(PackagingUIPlugin.class,
-                "Starting MOTODEV Android Packaging UI Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(PackagingUIPlugin.class, "Starting MOTODEV Android Packaging UI Plugin...");
 
-        super.start(context);
-        plugin = this;
+		super.start(context);
+		plugin = this;
 
-        StudioLogger.debug(PackagingUIPlugin.class, "MOTODEV Android Packaging UI Plugin started.");
-    }
+		StudioLogger.debug(PackagingUIPlugin.class, "MOTODEV Android Packaging UI Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static PackagingUIPlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static PackagingUIPlugin getDefault() {
+		return plugin;
+	}
 
 }

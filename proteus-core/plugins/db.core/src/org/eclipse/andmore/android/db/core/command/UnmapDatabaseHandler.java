@@ -34,73 +34,63 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
-public class UnmapDatabaseHandler extends AbstractHandler implements IHandler
-{
+public class UnmapDatabaseHandler extends AbstractHandler implements IHandler {
 
-    private IDbMapperNode dbMapperNode;
+	private IDbMapperNode dbMapperNode;
 
-    public UnmapDatabaseHandler()
-    {
+	public UnmapDatabaseHandler() {
 
-    }
+	}
 
-    public UnmapDatabaseHandler(IDbMapperNode node)
-    {
-        this.dbMapperNode = node;
-    }
+	public UnmapDatabaseHandler(IDbMapperNode node) {
+		this.dbMapperNode = node;
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        List<ITreeNode> mappedDbNodes = dbMapperNode.getChildren();
-        List<ITreeNode> dbNodesToUnmap = null;
-        if (!mappedDbNodes.isEmpty())
-        {
-            dbNodesToUnmap = queryDbPath(mappedDbNodes);
-        }
-        IStatus status = dbMapperNode.unmap(dbNodesToUnmap);
-        if ((status.getCode() != IStatus.CANCEL) && !status.isOK())
-        {
-            EclipseUtils.showErrorDialog(DbCoreNLS.UnmapDatabaseHandler_Error_Title,
-                    DbCoreNLS.UnmapDatabaseHandler_Error_Description, status);
-        }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		List<ITreeNode> mappedDbNodes = dbMapperNode.getChildren();
+		List<ITreeNode> dbNodesToUnmap = null;
+		if (!mappedDbNodes.isEmpty()) {
+			dbNodesToUnmap = queryDbPath(mappedDbNodes);
+		}
+		IStatus status = dbMapperNode.unmap(dbNodesToUnmap);
+		if ((status.getCode() != IStatus.CANCEL) && !status.isOK()) {
+			EclipseUtils.showErrorDialog(DbCoreNLS.UnmapDatabaseHandler_Error_Title,
+					DbCoreNLS.UnmapDatabaseHandler_Error_Description, status);
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    @SuppressWarnings(
-    {
-            "unchecked", "rawtypes"
-    })
-    private List<ITreeNode> queryDbPath(List<ITreeNode> mappedDbNodes)
-    {
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private List<ITreeNode> queryDbPath(List<ITreeNode> mappedDbNodes) {
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
-        ElementListSelectionDialog listDialog =
-                new ElementListSelectionDialog(shell, new LabelProvider()
-                {
-                    /* (non-Javadoc)
-                     * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
-                     */
-                    @Override
-                    public String getText(Object element)
-                    {
-                        if (element instanceof IDbNode)
-                        {
-                            IDbNode dbNode = (IDbNode) element;
-                            return dbNode.getName();
-                        }
-                        return super.getText(element);
-                    }
-                });
-        listDialog.setElements(mappedDbNodes.toArray());
-        listDialog.setTitle(DbCoreNLS.UI_UnmapDatabaseAction_Title);
-        listDialog.setBlockOnOpen(true);
-        listDialog.setMultipleSelection(true);
-        listDialog.open();
-        Object[] result = listDialog.getResult();
-        List asList = Arrays.asList(result);
-        List<ITreeNode> checkedList = Collections.checkedList(asList, ITreeNode.class);
-        return checkedList;
-    }
+		ElementListSelectionDialog listDialog = new ElementListSelectionDialog(shell, new LabelProvider() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+			 */
+			@Override
+			public String getText(Object element) {
+				if (element instanceof IDbNode) {
+					IDbNode dbNode = (IDbNode) element;
+					return dbNode.getName();
+				}
+				return super.getText(element);
+			}
+		});
+		listDialog.setElements(mappedDbNodes.toArray());
+		listDialog.setTitle(DbCoreNLS.UI_UnmapDatabaseAction_Title);
+		listDialog.setBlockOnOpen(true);
+		listDialog.setMultipleSelection(true);
+		listDialog.open();
+		Object[] result = listDialog.getResult();
+		List asList = Arrays.asList(result);
+		List<ITreeNode> checkedList = Collections.checkedList(asList, ITreeNode.class);
+		return checkedList;
+	}
 
 }

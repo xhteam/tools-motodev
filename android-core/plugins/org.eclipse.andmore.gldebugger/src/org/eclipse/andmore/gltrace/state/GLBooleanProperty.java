@@ -16,49 +16,48 @@
 
 package org.eclipse.andmore.gltrace.state;
 
-
 /** Properties that hold boolean values. */
 public final class GLBooleanProperty extends GLAbstractAtomicProperty {
-    private final Boolean mDefaultValue;
-    private Boolean mCurrentValue;
+	private final Boolean mDefaultValue;
+	private Boolean mCurrentValue;
 
-    public GLBooleanProperty(GLStateType name, Boolean defaultValue) {
-        super(name);
+	public GLBooleanProperty(GLStateType name, Boolean defaultValue) {
+		super(name);
 
-        mDefaultValue = mCurrentValue = defaultValue;
-    }
+		mDefaultValue = mCurrentValue = defaultValue;
+	}
 
-    @Override
-    public boolean isDefault() {
-        return mDefaultValue != null & mDefaultValue.equals(mCurrentValue);
-    }
+	@Override
+	public boolean isDefault() {
+		return mDefaultValue != null & mDefaultValue.equals(mCurrentValue);
+	}
 
-    public void setValue(Boolean newValue) {
-        mCurrentValue = newValue;
-    }
+	public void setValue(Boolean newValue) {
+		mCurrentValue = newValue;
+	}
 
-    @Override
-    public String getStringValue() {
-        return mCurrentValue.toString();
-    }
+	@Override
+	public String getStringValue() {
+		return mCurrentValue.toString();
+	}
 
-    @Override
-    public String toString() {
-        return getType() + "=" + getStringValue(); //$NON-NLS-1$
-    }
+	@Override
+	public String toString() {
+		return getType() + "=" + getStringValue(); //$NON-NLS-1$
+	}
 
-    @Override
-    public void setValue(Object value) {
-        if (value instanceof Boolean) {
-            mCurrentValue = (Boolean) value;
-        } else {
-            throw new IllegalArgumentException("Attempt to set non-boolean value for " //$NON-NLS-1$
-                    + getType());
-        }
-    }
+	@Override
+	public void setValue(Object value) {
+		if (value instanceof Boolean) {
+			mCurrentValue = (Boolean) value;
+		} else {
+			throw new IllegalArgumentException("Attempt to set non-boolean value for " //$NON-NLS-1$
+					+ getType());
+		}
+	}
 
-    @Override
-    public Object getValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public Object getValue() {
+		return mCurrentValue;
+	}
 }

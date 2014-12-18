@@ -16,16 +16,15 @@
 package org.eclipse.andmore.android.generatemenucode.model;
 
 /**
- * Represents an abstraction for the nodes from menu.xml (to treat them uniformly in some return methods)
+ * Represents an abstraction for the nodes from menu.xml (to treat them
+ * uniformly in some return methods)
  */
-public abstract class AbstractMenuNode
-{
-    /**
-     * XML elements available inside menu.xml 
-     */
-    public static enum MenuNodeType
-    {
-        menu, item, group
-    }
+public abstract class AbstractMenuNode {
+	/**
+	 * XML elements available inside menu.xml
+	 */
+	public static enum MenuNodeType {
+		menu, item, group
+	}
 
 }

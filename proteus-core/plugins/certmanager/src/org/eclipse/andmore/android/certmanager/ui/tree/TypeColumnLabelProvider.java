@@ -18,21 +18,21 @@ package org.eclipse.andmore.android.certmanager.ui.tree;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-public class TypeColumnLabelProvider extends ColumnLabelProvider
-{
+public class TypeColumnLabelProvider extends ColumnLabelProvider {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        if (element instanceof IKeyStore)
-        {
-            IKeyStore iKeyStore = (IKeyStore) element;
-            return iKeyStore.getType();
-        }
-        return ""; //other items do not need to show this column with data
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		if (element instanceof IKeyStore) {
+			IKeyStore iKeyStore = (IKeyStore) element;
+			return iKeyStore.getType();
+		}
+		return ""; // other items do not need to show this column with data
+	}
 
 }

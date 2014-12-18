@@ -20,81 +20,80 @@ import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.datatools.modelbase.sql.tables.Column;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public class ColumnNode extends AbstractTreeNode implements IDataSampler
-{
-    private boolean isPrimKey = false;
+public class ColumnNode extends AbstractTreeNode implements IDataSampler {
+	private boolean isPrimKey = false;
 
-    private final Column column;
+	private final Column column;
 
-    private final DbModel model;
+	private final DbModel model;
 
-    /**
-     * @param column
-     * @param tableNode
-     */
-    public ColumnNode(Column column, DbModel model, ITreeNode parent)
-    {
-        super(parent);
-        this.column = column;
-        this.model = model;
-        setId(column.getName());
+	/**
+	 * @param column
+	 * @param tableNode
+	 */
+	public ColumnNode(Column column, DbModel model, ITreeNode parent) {
+		super(parent);
+		this.column = column;
+		this.model = model;
+		setId(column.getName());
 
-        StringBuilder nameBuilder =
-                column.getDataType() != null ? new StringBuilder(column.getName() + " [" //$NON-NLS-1$
-                        + column.getDataType().getName()) : new StringBuilder(column.getName()
-                        + " [" + DbCoreNLS.ColumnNode_UnknownType); //$NON-NLS-1$
-        if (column.isPartOfPrimaryKey())
-        {
-            nameBuilder.append(" PK"); //$NON-NLS-1$
-            isPrimKey = true;
-        }
-        nameBuilder.append("]"); //$NON-NLS-1$
-        setName(nameBuilder.toString());
-    }
+		StringBuilder nameBuilder = column.getDataType() != null ? new StringBuilder(column.getName() + " [" //$NON-NLS-1$
+				+ column.getDataType().getName()) : new StringBuilder(column.getName()
+				+ " [" + DbCoreNLS.ColumnNode_UnknownType); //$NON-NLS-1$
+		if (column.isPartOfPrimaryKey()) {
+			nameBuilder.append(" PK"); //$NON-NLS-1$
+			isPrimKey = true;
+		}
+		nameBuilder.append("]"); //$NON-NLS-1$
+		setName(nameBuilder.toString());
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
-     */
-    @Override
-    public void refresh()
-    {
-        // Do nothing!
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
+	 */
+	@Override
+	public void refresh() {
+		// Do nothing!
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
-     */
-    @Override
-    public boolean isLeaf()
-    {
-        return true;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
+	 */
+	@Override
+	public boolean isLeaf() {
+		return true;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
-     */
-    @Override
-    public ImageDescriptor getIcon()
-    {
-        String iconPath;
-        if (isPrimKey)
-        {
-            iconPath = "icons/pkColumn.gif"; //$NON-NLS-1$
-        }
-        else
-        {
-            iconPath = "icons/columns.gif"; //$NON-NLS-1$
-        }
-        return getSpecificIcon("org.eclipse.datatools.connectivity.sqm.core.ui", //$NON-NLS-1$
-                iconPath);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
+	 */
+	@Override
+	public ImageDescriptor getIcon() {
+		String iconPath;
+		if (isPrimKey) {
+			iconPath = "icons/pkColumn.gif"; //$NON-NLS-1$
+		} else {
+			iconPath = "icons/columns.gif"; //$NON-NLS-1$
+		}
+		return getSpecificIcon("org.eclipse.datatools.connectivity.sqm.core.ui", //$NON-NLS-1$
+				iconPath);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.IDataSampler#sampleDbContents()
-     */
-    public void sampleDbContents()
-    {
-        model.sampleContents(column);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.andmore.android.db.core.ui.IDataSampler#sampleDbContents()
+	 */
+	@Override
+	public void sampleDbContents() {
+		model.sampleContents(column);
+	}
 
 }

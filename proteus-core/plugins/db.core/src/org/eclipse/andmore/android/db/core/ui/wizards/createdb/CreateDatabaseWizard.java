@@ -30,138 +30,123 @@ import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class CreateDatabaseWizard extends Wizard
-{
-    private static final String WIZBAN_ICON = "icons/wizban/create_database_ban.png"; //$NON-NLS-1$
+public class CreateDatabaseWizard extends Wizard {
+	private static final String WIZBAN_ICON = "icons/wizban/create_database_ban.png"; //$NON-NLS-1$
 
-    //it is an old plugin because of backward compatibility
-    private static final String DB_PERSPECTIVE = "org.eclipse.andmore.android.db.perspective"; //$NON-NLS-1$
+	// it is an old plugin because of backward compatibility
+	private static final String DB_PERSPECTIVE = "org.eclipse.andmore.android.db.perspective"; //$NON-NLS-1$
 
-    private static final String SWITCH_MOTODEV_DATABASE_PERSPECTIVE =
-            "switch.perspective.to.motodevstudio.database"; //$NON-NLS-1$
+	private static final String SWITCH_MOTODEV_DATABASE_PERSPECTIVE = "switch.perspective.to.motodevstudio.database"; //$NON-NLS-1$
 
-    private final List<String> alreadyAvailableDbs;
+	private final List<String> alreadyAvailableDbs;
 
-    private CreateDatabaseWizardPage createDatabaseWizardPage;
+	private CreateDatabaseWizardPage createDatabaseWizardPage;
 
-    private String dbName;
+	private String dbName;
 
-    private List<TableModel> tables;
+	private List<TableModel> tables;
 
-    public CreateDatabaseWizard(final List<String> alreadyAvailableDbs)
-    {
-        this.alreadyAvailableDbs = alreadyAvailableDbs;
+	public CreateDatabaseWizard(final List<String> alreadyAvailableDbs) {
+		this.alreadyAvailableDbs = alreadyAvailableDbs;
 
-        setWindowTitle(DbCoreNLS.CreateDatabaseWizardPage_UI_PageTitle);
-        setDefaultPageImageDescriptor(DbCoreActivator.imageDescriptorFromPlugin(
-                DbCoreActivator.PLUGIN_ID, WIZBAN_ICON));
-        setNeedsProgressMonitor(true);
-    }
+		setWindowTitle(DbCoreNLS.CreateDatabaseWizardPage_UI_PageTitle);
+		setDefaultPageImageDescriptor(AbstractUIPlugin
+				.imageDescriptorFromPlugin(DbCoreActivator.PLUGIN_ID, WIZBAN_ICON));
+		setNeedsProgressMonitor(true);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        createDatabaseWizardPage = new CreateDatabaseWizardPage(alreadyAvailableDbs);
-        addPage(createDatabaseWizardPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		createDatabaseWizardPage = new CreateDatabaseWizardPage(alreadyAvailableDbs);
+		addPage(createDatabaseWizardPage);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        dbName = createDatabaseWizardPage.getDatabaseName();
-        tables = createDatabaseWizardPage.getTables();
-        boolean canProceed = (dbName != null) && !"".equals(dbName); //$NON-NLS-1$
-        if (canProceed)
-        {
-            changePerspective();
-        }
-        return canProceed; //$NON-NLS-1$
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		dbName = createDatabaseWizardPage.getDatabaseName();
+		tables = createDatabaseWizardPage.getTables();
+		boolean canProceed = (dbName != null) && !"".equals(dbName); //$NON-NLS-1$
+		if (canProceed) {
+			changePerspective();
+		}
+		return canProceed;
+	}
 
-    /**
-     * @return the dbName
-     */
-    public String getDbName()
-    {
-        return dbName;
-    }
+	/**
+	 * @return the dbName
+	 */
+	public String getDbName() {
+		return dbName;
+	}
 
-    /**
-     * @return the tables
-     */
-    public List<TableModel> getTables()
-    {
-        return tables;
-    }
+	/**
+	 * @return the tables
+	 */
+	public List<TableModel> getTables() {
+		return tables;
+	}
 
-    private boolean confirmPerspectiveSwitch(IWorkbenchWindow window,
-            IPerspectiveDescriptor perspective)
-    {
-        IPreferenceStore store = DbCoreActivator.getDefault().getPreferenceStore();
-        String preference = store.getString(SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
+	private boolean confirmPerspectiveSwitch(IWorkbenchWindow window, IPerspectiveDescriptor perspective) {
+		IPreferenceStore store = DbCoreActivator.getDefault().getPreferenceStore();
+		String preference = store.getString(SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
 
-        if (preference.equals("")) //$NON-NLS-1$
-        {
-            store.setValue(SWITCH_MOTODEV_DATABASE_PERSPECTIVE, MessageDialogWithToggle.PROMPT);
-            preference = MessageDialogWithToggle.PROMPT;
-        }
+		if (preference.equals("")) //$NON-NLS-1$
+		{
+			store.setValue(SWITCH_MOTODEV_DATABASE_PERSPECTIVE, MessageDialogWithToggle.PROMPT);
+			preference = MessageDialogWithToggle.PROMPT;
+		}
 
-        boolean result;
+		boolean result;
 
-        if (MessageDialogWithToggle.ALWAYS.equals(preference))
-        {
-            result = true;
-        }
-        else if (MessageDialogWithToggle.NEVER.equals(preference))
-        {
-            result = false;
-        }
-        else
-        {
-            MessageDialogWithToggle dialog =
-                    MessageDialogWithToggle.openYesNoQuestion(window.getShell(),
-                            DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveTitle,
-                            DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveQuestion, null,
-                            false, store, SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
-            int dialogResult = dialog.getReturnCode();
+		if (MessageDialogWithToggle.ALWAYS.equals(preference)) {
+			result = true;
+		} else if (MessageDialogWithToggle.NEVER.equals(preference)) {
+			result = false;
+		} else {
+			MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(window.getShell(),
+					DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveTitle,
+					DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveQuestion, null, false, store,
+					SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
+			int dialogResult = dialog.getReturnCode();
 
-            result = dialogResult == IDialogConstants.YES_ID;
-        }
+			result = dialogResult == IDialogConstants.YES_ID;
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * Changes the perspective
-     * 
-     */
-    private void changePerspective()
-    {
-        IPerspectiveRegistry reg = PlatformUI.getWorkbench().getPerspectiveRegistry();
-        IPerspectiveDescriptor perspective = reg.findPerspectiveWithId(DB_PERSPECTIVE);
+	/**
+	 * Changes the perspective
+	 * 
+	 */
+	private void changePerspective() {
+		IPerspectiveRegistry reg = PlatformUI.getWorkbench().getPerspectiveRegistry();
+		IPerspectiveDescriptor perspective = reg.findPerspectiveWithId(DB_PERSPECTIVE);
 
-        IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        IWorkbenchPage page = window.getActivePage();
-        if (page != null)
-        {
-            IPerspectiveDescriptor currentPersp = page.getPerspective();
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		if (page != null) {
+			IPerspectiveDescriptor currentPersp = page.getPerspective();
 
-            if ((currentPersp != null) && !DB_PERSPECTIVE.contains(currentPersp.getId()))
-            {
-                boolean changePerspective = confirmPerspectiveSwitch(window, perspective);
-                if (changePerspective)
-                {
-                    page.setPerspective(perspective);
-                }
-            }
-        }
-    }
+			if ((currentPersp != null) && !DB_PERSPECTIVE.contains(currentPersp.getId())) {
+				boolean changePerspective = confirmPerspectiveSwitch(window, perspective);
+				if (changePerspective) {
+					page.setPerspective(perspective);
+				}
+			}
+		}
+	}
 
 }

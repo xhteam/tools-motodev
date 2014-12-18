@@ -49,7 +49,7 @@ public class FingerprintUtils {
         StringBuffer sb = new StringBuffer();
         int len = value.length;
         for (int i = 0; i < len; i++) {
-            int num = ((int) value[i]) & 0xff;
+            int num = (value[i]) & 0xff;
             if (num < 0x10) {
                 sb.append('0');
             }

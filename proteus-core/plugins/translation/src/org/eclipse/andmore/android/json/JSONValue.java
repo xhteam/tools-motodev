@@ -17,12 +17,10 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public abstract class JSONValue
-{
-    public abstract Object getValue();
+public abstract class JSONValue {
+	public abstract Object getValue();
 
-    static JSONValue parse(List<Character> json)
-    {
-        return null;
-    }
+	static JSONValue parse(List<Character> json) {
+		return null;
+	}
 }

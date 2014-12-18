@@ -29,46 +29,45 @@ import java.util.Map;
 
 public class NdkManager {
 
-    public static final String NDK_LOCATION = "ndkLocation"; //$NON-NLS-1$
+	public static final String NDK_LOCATION = "ndkLocation"; //$NON-NLS-1$
 
-    public static final String LIBRARY_NAME = "libraryName"; //$NON-NLS-1$
+	public static final String LIBRARY_NAME = "libraryName"; //$NON-NLS-1$
 
-    public static String getNdkLocation() {
-        return Activator.getDefault().getPreferenceStore().getString(NDK_LOCATION);
-    }
+	public static String getNdkLocation() {
+		return Activator.getDefault().getPreferenceStore().getString(NDK_LOCATION);
+	}
 
-    public static boolean isNdkLocationValid() {
-        String location = getNdkLocation();
-        if (location.length() == 0)
-            return false;
+	public static boolean isNdkLocationValid() {
+		String location = getNdkLocation();
+		if (location.length() == 0)
+			return false;
 
-        return isValidNdkLocation(location);
-    }
+		return isValidNdkLocation(location);
+	}
 
-    public static boolean isValidNdkLocation(String location) {
-        File dir = new File(location);
-        if (!dir.isDirectory())
-            return false;
+	public static boolean isValidNdkLocation(String location) {
+		File dir = new File(location);
+		if (!dir.isDirectory())
+			return false;
 
-        // Must contain the ndk-build script which we call to build
-        if (!new File(dir, "ndk-build").isFile()) //$NON-NLS-1$
-            return false;
+		// Must contain the ndk-build script which we call to build
+		if (!new File(dir, "ndk-build").isFile()) //$NON-NLS-1$
+			return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    public static void addNativeSupport(final IProject project, Map<String, String> templateArgs,
-            IProgressMonitor monitor)
-            throws CoreException {
-        // Launch our template to set up the project contents
-        TemplateCore template = TemplateEngine.getDefault().getTemplateById("AddNdkSupport"); //$NON-NLS-1$
-        Map<String, String> valueStore = template.getValueStore();
-        valueStore.put("projectName", project.getName()); //$NON-NLS-1$
-        valueStore.putAll(templateArgs);
-        template.executeTemplateProcesses(monitor, false);
+	public static void addNativeSupport(final IProject project, Map<String, String> templateArgs,
+			IProgressMonitor monitor) throws CoreException {
+		// Launch our template to set up the project contents
+		TemplateCore template = TemplateEngine.getDefault().getTemplateById("AddNdkSupport"); //$NON-NLS-1$
+		Map<String, String> valueStore = template.getValueStore();
+		valueStore.put("projectName", project.getName()); //$NON-NLS-1$
+		valueStore.putAll(templateArgs);
+		template.executeTemplateProcesses(monitor, false);
 
-        // refresh project resources
-        project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(monitor, 10));
-    }
+		// refresh project resources
+		project.refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(monitor, 10));
+	}
 
 }

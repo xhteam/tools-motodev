@@ -69,8 +69,7 @@ public class SdkUtils {
 
 	public static final String USERIMAGE_FILENAME = "userdata-qemu.img"; //$NON-NLS-1$
 
-	public static final String[] STATEDATA_FILENAMES = {
-			"cache.img", "userdata.img", "emulator-user.ini" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	public static final String[] STATEDATA_FILENAMES = { "cache.img", "userdata.img", "emulator-user.ini" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	};
 
 	public static final String EMU_CONFIG_SKIN_NAME_PROPERTY = "skin.name"; //$NON-NLS-1$
@@ -124,8 +123,7 @@ public class SdkUtils {
 	public static String getTargetAAPTPath(IAndroidTarget target) {
 		IAndroidTarget realTarget = null;
 		if (target == null) {
-			StudioLogger.warn(SdkUtils.class,
-					"Trying to find a suitable aapt application to use"); //$NON-NLS-1$
+			StudioLogger.warn(SdkUtils.class, "Trying to find a suitable aapt application to use"); //$NON-NLS-1$
 			IAndroidTarget[] allTargets = Sdk.getCurrent().getTargets();
 			if (allTargets.length > 0) {
 				realTarget = allTargets[0];
@@ -139,13 +137,10 @@ public class SdkUtils {
 		}
 
 		if (realTarget == null) {
-			StudioLogger
-					.warn(SdkUtils.class,
-							"No aapt executable found: do you have an Android platform installed?"); //$NON-NLS-1$
+			StudioLogger.warn(SdkUtils.class, "No aapt executable found: do you have an Android platform installed?"); //$NON-NLS-1$
 		}
 
-		return realTarget != null ? realTarget
-				.getPath(IAndroidTarget.ANDROID_JAR) : null;
+		return realTarget != null ? realTarget.getPath(IAndroidTarget.ANDROID_JAR) : null;
 	}
 
 	/**
@@ -321,13 +316,11 @@ public class SdkUtils {
 			p.load(configFileStream);
 			skin = p.getProperty(EMU_CONFIG_SKIN_NAME_PROPERTY);
 		} catch (FileNotFoundException e) {
-			StudioLogger
-					.error(SdkUtils.class,
-							"Error getting VM skin definition. Could not find file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
+			StudioLogger.error(SdkUtils.class,
+					"Error getting VM skin definition. Could not find file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
 		} catch (IOException e) {
-			StudioLogger
-					.error(SdkUtils.class,
-							"Error getting VM skin definition. Could not access file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
+			StudioLogger.error(SdkUtils.class,
+					"Error getting VM skin definition. Could not access file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
 		} finally {
 			if (configFileStream != null) {
 				try {
@@ -385,8 +378,7 @@ public class SdkUtils {
 	 * 
 	 * @throws CoreException
 	 */
-	public static AvdInfo createVm(String folder, String name,
-			IAndroidTarget target, String abiType, String skinName,
+	public static AvdInfo createVm(String folder, String name, IAndroidTarget target, String abiType, String skinName,
 			String useSnapshot, String sdCard) throws CoreException
 
 	{
@@ -403,19 +395,17 @@ public class SdkUtils {
 		 * IAndroidTarget target, String skinName, String sdcard, Map
 		 * hardwareConfig)
 		 */
-		
-		//TODO: FIX ME commented out for now.
+
+		// TODO: FIX ME commented out for now.
 		vmInfo = null;
-//		vmInfo = vmManager.createAvd(new File(folder), name, target, abiType,
-//				skinName, sdCard, null, Boolean.parseBoolean(useSnapshot),
-//				true, false, NullSdkLogger.getLogger());
+		// vmInfo = vmManager.createAvd(new File(folder), name, target, abiType,
+		// skinName, sdCard, null, Boolean.parseBoolean(useSnapshot),
+		// true, false, NullSdkLogger.getLogger());
 
 		if (vmInfo == null) {
-			String errMsg = NLS.bind(
-					AndroidNLS.EXC_SdkUtils_CannotCreateTheVMInstance, name);
+			String errMsg = NLS.bind(AndroidNLS.EXC_SdkUtils_CannotCreateTheVMInstance, name);
 
-			IStatus status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
-					errMsg);
+			IStatus status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, errMsg);
 			throw new CoreException(status);
 		}
 
@@ -431,12 +421,10 @@ public class SdkUtils {
 	public static void deleteVm(String name) {
 
 		AvdManager vmManager = SdkUtils.getVmManager();
-		AvdInfo avdToDelete = vmManager != null ? vmManager.getAvd(name, false)
-				: null;
+		AvdInfo avdToDelete = vmManager != null ? vmManager.getAvd(name, false) : null;
 		if (avdToDelete != null) {
 			try {
-				if ((avdToDelete.getIniFile() != null)
-						&& avdToDelete.getIniFile().exists()) {
+				if ((avdToDelete.getIniFile() != null) && avdToDelete.getIniFile().exists()) {
 					avdToDelete.getIniFile().delete();
 				}
 				String path = avdToDelete.getDataFolderPath();
@@ -519,8 +507,7 @@ public class SdkUtils {
 			stateDataFiles = new ArrayList<File>();
 
 			for (int i = 0; i < STATEDATA_FILENAMES.length; i++) {
-				stateDataFiles
-						.add(new File(userdataDir, STATEDATA_FILENAMES[i]));
+				stateDataFiles.add(new File(userdataDir, STATEDATA_FILENAMES[i]));
 			}
 		}
 
@@ -597,9 +584,8 @@ public class SdkUtils {
 		try {
 			Sdk.getCurrent().initProject(project, target);
 		} catch (Exception e) {
-			StudioLogger.error(SdkUtils.class,
-					"Error associating project " + project.getName() //$NON-NLS-1$
-							+ " with target " + target.getName()); //$NON-NLS-1$
+			StudioLogger.error(SdkUtils.class, "Error associating project " + project.getName() //$NON-NLS-1$
+					+ " with target " + target.getName()); //$NON-NLS-1$
 		}
 	}
 
@@ -630,20 +616,16 @@ public class SdkUtils {
 	public static String getMinSdkVersion(IProject project) {
 		String minSdkVersion = "";
 		try {
-			AndroidManifestFile androidManifestFile = AndroidProjectManifestFile
-					.getFromProject(project);
-			UsesSDKNode usesSdkNode = (UsesSDKNode) androidManifestFile
-					.getNode(AndroidManifestNode.NodeType.UsesSdk);
+			AndroidManifestFile androidManifestFile = AndroidProjectManifestFile.getFromProject(project);
+			UsesSDKNode usesSdkNode = (UsesSDKNode) androidManifestFile.getNode(AndroidManifestNode.NodeType.UsesSdk);
 			if (usesSdkNode != null) {
 				minSdkVersion = usesSdkNode.getMinSdkVersion();
 			}
 
 		} catch (AndroidException e) {
-			StudioLogger.error("Error getting min sdk version. "
-					+ e.getMessage());
+			StudioLogger.error("Error getting min sdk version. " + e.getMessage());
 		} catch (CoreException e) {
-			StudioLogger.error("Error getting min sdk version. "
-					+ e.getMessage());
+			StudioLogger.error("Error getting min sdk version. " + e.getMessage());
 		}
 		return minSdkVersion;
 	}
@@ -661,12 +643,10 @@ public class SdkUtils {
 
 		if ((project != null) && project.isOpen()) {
 			IAndroidTarget target = SdkUtils.getTarget(project);
-			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(
-					target);
+			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(target);
 
 			if (targetData != null) {
-				attributeValues = targetData.getAttributeValues(
-						"action", "android:name", "activity"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				attributeValues = targetData.getAttributeValues("action", "android:name", "activity"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 		}
 
@@ -686,12 +666,10 @@ public class SdkUtils {
 
 		if ((project != null) && project.isOpen()) {
 			IAndroidTarget target = SdkUtils.getTarget(project);
-			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(
-					target);
+			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(target);
 
 			if (targetData != null) {
-				attributeValues = targetData.getAttributeValues(
-						"action", "android:name", "service"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				attributeValues = targetData.getAttributeValues("action", "android:name", "service"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 		}
 
@@ -711,12 +689,10 @@ public class SdkUtils {
 
 		if ((project != null) && project.isOpen()) {
 			IAndroidTarget target = SdkUtils.getTarget(project);
-			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(
-					target);
+			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(target);
 
 			if (targetData != null) {
-				attributeValues = targetData.getAttributeValues(
-						"action", "android:name", "receiver"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				attributeValues = targetData.getAttributeValues("action", "android:name", "receiver"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 		}
 
@@ -736,12 +712,10 @@ public class SdkUtils {
 
 		if ((project != null) && project.isOpen()) {
 			IAndroidTarget target = SdkUtils.getTarget(project);
-			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(
-					target);
+			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(target);
 
 			if (targetData != null) {
-				attributeValues = targetData.getAttributeValues(
-						"category", "android:name"); //$NON-NLS-1$ //$NON-NLS-2$
+				attributeValues = targetData.getAttributeValues("category", "android:name"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 
@@ -793,8 +767,7 @@ public class SdkUtils {
 	 *            the project
 	 * @return the APK configurations
 	 */
-	public static Map<String, String> getAPKConfigurationsForProject(
-			IProject project) {
+	public static Map<String, String> getAPKConfigurationsForProject(IProject project) {
 
 		Map<String, String> apkConfigurations = null;
 
@@ -829,6 +802,7 @@ public class SdkUtils {
 
 		// check if the folder contains the oms jar
 		FilenameFilter omsFilenameFilter = new FilenameFilter() {
+			@Override
 			public boolean accept(File arg0, String arg1) {
 				return arg1.equals(IAndroidConstants.OPHONE_JAR);
 			}
@@ -858,6 +832,7 @@ public class SdkUtils {
 		// check if the folder contains the oms jar
 		FilenameFilter jilFilenameFilter = new FilenameFilter() {
 
+			@Override
 			public boolean accept(File arg0, String arg1) {
 				return arg1.equals(IAndroidConstants.JIL_JAR);
 			}
@@ -891,8 +866,7 @@ public class SdkUtils {
 	}
 
 	public static boolean isLibraryProject(IProject project) {
-		return Sdk.getProjectState(project) != null ? Sdk.getProjectState(
-				project).isLibrary() : false;
+		return Sdk.getProjectState(project) != null ? Sdk.getProjectState(project).isLibrary() : false;
 	}
 
 	/**
@@ -905,12 +879,10 @@ public class SdkUtils {
 
 		if ((project != null) && project.isOpen()) {
 			IAndroidTarget target = SdkUtils.getTarget(project);
-			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(
-					target);
+			AndroidTargetData targetData = Sdk.getCurrent().getTargetData(target);
 
 			if (targetData != null) {
-				attributeValues = targetData.getAttributeValues(
-						"uses-permission", "android:name"); //$NON-NLS-1$ //$NON-NLS-2$
+				attributeValues = targetData.getAttributeValues("uses-permission", "android:name"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 
@@ -929,8 +901,7 @@ public class SdkUtils {
 
 		AvdManager avdManager = Sdk.getCurrent().getAvdManager();
 		Display display = PlatformUI.getWorkbench().getDisplay();
-		ILogger log = new MessageBoxLog(String.format(
-				"Result of updating AVD '%s':", avdInfo.getName()), //$NON-NLS-1$
+		ILogger log = new MessageBoxLog(String.format("Result of updating AVD '%s':", avdInfo.getName()), //$NON-NLS-1$
 				display, false);
 		try {
 			avdManager.updateAvd(avdInfo, log);
@@ -941,8 +912,7 @@ public class SdkUtils {
 			SdkUtils.reloadAvds();
 
 		} catch (IOException e) {
-			status = new Status(Status.ERROR, AndroidPlugin.PLUGIN_ID,
-					AndroidNLS.SdkUtils_COULD_NOT_REPAIR_AVD, e);
+			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, AndroidNLS.SdkUtils_COULD_NOT_REPAIR_AVD, e);
 		}
 
 		return status;
@@ -953,24 +923,28 @@ public class SdkUtils {
 		target.getDefaultSkin().getName();
 		return target != null ? target.getDefaultSkin().getName() : "HVGA";
 	}
-	
+
 	/**
-     * Returns the full absolute OS path to a skin specified by name for a given target.
-     * @param skinName The name of the skin to find. Case-sensitive.
-     * @param target The target where to find the skin.
-     * @return a {@link File} that may or may not actually exist.
-     */
-    public static File getSkinFolder(String skinName, IAndroidTarget target) {
-        String path = target.getPath(IAndroidTarget.SKINS);
-        File skin = new File(path, skinName);
+	 * Returns the full absolute OS path to a skin specified by name for a given
+	 * target.
+	 * 
+	 * @param skinName
+	 *            The name of the skin to find. Case-sensitive.
+	 * @param target
+	 *            The target where to find the skin.
+	 * @return a {@link File} that may or may not actually exist.
+	 */
+	public static File getSkinFolder(String skinName, IAndroidTarget target) {
+		String path = target.getPath(IAndroidTarget.SKINS);
+		File skin = new File(path, skinName);
 
-        if (skin.exists() == false && target.isPlatform() == false) {
-            target = target.getParent();
+		if (skin.exists() == false && target.isPlatform() == false) {
+			target = target.getParent();
 
-            path = target.getPath(IAndroidTarget.SKINS);
-            skin = new File(path, skinName);
-        }
+			path = target.getPath(IAndroidTarget.SKINS);
+			skin = new File(path, skinName);
+		}
 
-        return skin;
-    }
+		return skin;
+	}
 }

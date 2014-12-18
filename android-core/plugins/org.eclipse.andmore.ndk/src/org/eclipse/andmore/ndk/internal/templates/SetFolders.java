@@ -37,68 +37,66 @@ import java.util.List;
 
 public class SetFolders extends ProcessRunner {
 
-    @Override
-    public void process(TemplateCore template, ProcessArgument[] args, String processId,
-            IProgressMonitor monitor)
-            throws ProcessFailureException {
-        String projectName = null;
-        String[] sourceFolders = null;
-        String[] outputFolders = null;
+	@Override
+	public void process(TemplateCore template, ProcessArgument[] args, String processId, IProgressMonitor monitor)
+			throws ProcessFailureException {
+		String projectName = null;
+		String[] sourceFolders = null;
+		String[] outputFolders = null;
 
-        for (ProcessArgument arg : args) {
-            String argName = arg.getName();
-            if (argName.equals("projectName")) { //$NON-NLS-1$
-                projectName = arg.getSimpleValue();
-            } else if (argName.equals("sourceFolders")) { //$NON-NLS-1$
-                sourceFolders = arg.getSimpleArrayValue();
-            } else if (argName.equals("outputFolders")) { //$NON-NLS-1$
-                outputFolders = arg.getSimpleArrayValue();
-            }
-        }
+		for (ProcessArgument arg : args) {
+			String argName = arg.getName();
+			if (argName.equals("projectName")) { //$NON-NLS-1$
+				projectName = arg.getSimpleValue();
+			} else if (argName.equals("sourceFolders")) { //$NON-NLS-1$
+				sourceFolders = arg.getSimpleArrayValue();
+			} else if (argName.equals("outputFolders")) { //$NON-NLS-1$
+				outputFolders = arg.getSimpleArrayValue();
+			}
+		}
 
-        // Get the project
-        if (projectName == null)
-            throw new ProcessFailureException(Messages.SetFolders_Missing_project_name);
+		// Get the project
+		if (projectName == null)
+			throw new ProcessFailureException(Messages.SetFolders_Missing_project_name);
 
-        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-        if (!project.exists())
-            throw new ProcessFailureException(Messages.SetFolders_Project_does_not_exist);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		if (!project.exists())
+			throw new ProcessFailureException(Messages.SetFolders_Project_does_not_exist);
 
-        // Create the folders
-        if (sourceFolders == null && outputFolders == null)
-            throw new ProcessFailureException(Messages.SetFolders_No_folders);
+		// Create the folders
+		if (sourceFolders == null && outputFolders == null)
+			throw new ProcessFailureException(Messages.SetFolders_No_folders);
 
-        try {
-            // Add them in
-            ICProject cproject = CCorePlugin.getDefault().getCoreModel().create(project);
-            IPathEntry[] pathEntries = cproject.getRawPathEntries();
-            List<IPathEntry> newEntries = new ArrayList<IPathEntry>(pathEntries.length);
-            for (IPathEntry pathEntry : pathEntries) {
-                // remove the old source and output entries
-                if (pathEntry.getEntryKind() != IPathEntry.CDT_SOURCE
-                        && pathEntry.getEntryKind() != IPathEntry.CDT_OUTPUT) {
-                    newEntries.add(pathEntry);
-                }
-            }
-            if (sourceFolders != null)
-                for (String sourceFolder : sourceFolders) {
-                    IFolder folder = project.getFolder(new Path(sourceFolder));
-                    if (!folder.exists())
-                        folder.create(true, true, monitor);
-                    newEntries.add(CoreModel.newSourceEntry(folder.getFullPath()));
-                }
-            if (outputFolders != null)
-                for (String outputFolder : outputFolders) {
-                    IFolder folder = project.getFolder(new Path(outputFolder));
-                    if (!folder.exists())
-                        folder.create(true, true, monitor);
-                    newEntries.add(CoreModel.newOutputEntry(folder.getFullPath()));
-                }
-            cproject.setRawPathEntries(newEntries.toArray(new IPathEntry[newEntries.size()]),
-                    monitor);
-        } catch (CoreException e) {
-            throw new ProcessFailureException(e);
-        }
-    }
+		try {
+			// Add them in
+			ICProject cproject = CCorePlugin.getDefault().getCoreModel().create(project);
+			IPathEntry[] pathEntries = cproject.getRawPathEntries();
+			List<IPathEntry> newEntries = new ArrayList<IPathEntry>(pathEntries.length);
+			for (IPathEntry pathEntry : pathEntries) {
+				// remove the old source and output entries
+				if (pathEntry.getEntryKind() != IPathEntry.CDT_SOURCE
+						&& pathEntry.getEntryKind() != IPathEntry.CDT_OUTPUT) {
+					newEntries.add(pathEntry);
+				}
+			}
+			if (sourceFolders != null)
+				for (String sourceFolder : sourceFolders) {
+					IFolder folder = project.getFolder(new Path(sourceFolder));
+					if (!folder.exists())
+						folder.create(true, true, monitor);
+					newEntries.add(CoreModel.newSourceEntry(folder.getFullPath()));
+				}
+			if (outputFolders != null)
+				for (String outputFolder : outputFolders) {
+					IFolder folder = project.getFolder(new Path(outputFolder));
+					if (!folder.exists())
+						folder.create(true, true, monitor);
+					newEntries.add(CoreModel.newOutputEntry(folder.getFullPath()));
+				}
+			cproject.setRawPathEntries(newEntries.toArray(new IPathEntry[newEntries.size()]), monitor);
+		} catch (CoreException e) {
+			throw new ProcessFailureException(e);
+		}
+	}
 
 }

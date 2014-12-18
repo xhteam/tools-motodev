@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -49,7 +50,7 @@ final class ApplicationAttributesPart extends UiElementPart {
         super(body, toolkit, editor, applicationUiNode,
                 "Application Attributes", // section title
                 "Defines the attributes specific to the application.", // section description
-                Section.TWISTIE | Section.EXPANDED);
+                ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED);
     }
 
     /**

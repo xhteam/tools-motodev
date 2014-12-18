@@ -18,43 +18,44 @@ package org.eclipse.andmore.android.db.core.ui;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-public final class LoadingNode extends AbstractTreeNode
-{
+public final class LoadingNode extends AbstractTreeNode {
 
-    public static String ID = "LOADING_NODE"; //$NON-NLS-1$
+	public static String ID = "LOADING_NODE"; //$NON-NLS-1$
 
-    public LoadingNode(ITreeNode parent)
-    {
-        super(parent);
-        setName(DbCoreNLS.LoadingNode_nodeName);
-    }
+	public LoadingNode(ITreeNode parent) {
+		super(parent);
+		setName(DbCoreNLS.LoadingNode_nodeName);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
-     */
-    @Override
-    public ImageDescriptor getIcon()
-    {
-        return getSpecificIcon("org.eclipse.datatools.connectivity.sqm.core.ui", //$NON-NLS-1$
-                "icons/refresh.gif"); //$NON-NLS-1$
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
+	 */
+	@Override
+	public ImageDescriptor getIcon() {
+		return getSpecificIcon("org.eclipse.datatools.connectivity.sqm.core.ui", //$NON-NLS-1$
+				"icons/refresh.gif"); //$NON-NLS-1$
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
-     */
-    @Override
-    public void refresh()
-    {
-        //Does Nothing!
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
+	 */
+	@Override
+	public void refresh() {
+		// Does Nothing!
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
-     */
-    @Override
-    public boolean isLeaf()
-    {
-        return true;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
+	 */
+	@Override
+	public boolean isLeaf() {
+		return true;
+	}
 
 }

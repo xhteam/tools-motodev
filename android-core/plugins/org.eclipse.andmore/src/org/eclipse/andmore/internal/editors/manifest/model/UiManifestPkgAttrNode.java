@@ -295,7 +295,7 @@ public class UiManifestPkgAttrNode extends UiTextAttributeNode {
 
         NewProjectAction npwAction = new NewProjectAction();
         npwAction.run(null /*action*/);
-        if (npwAction.getDialogResult() == Dialog.OK) {
+        if (npwAction.getDialogResult() == Window.OK) {
             NewProjectWizard npw = (NewProjectWizard) npwAction.getWizard();
             String name = npw.getPackageName();
             if (name != null && name.length() > 0) {

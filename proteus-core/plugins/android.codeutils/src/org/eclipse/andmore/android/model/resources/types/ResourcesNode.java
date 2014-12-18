@@ -18,45 +18,47 @@ package org.eclipse.andmore.android.model.resources.types;
 /**
  * Class that represents a <resources> node on a resource file
  *
- * Format: <resources>
- *             <string ...>
- *             <color ...>
- *             <drawable ...>
- *             <dimen ...>
- *         </resources>        
+ * Format: <resources> <string ...> <color ...> <drawable ...> <dimen ...>
+ * </resources>
  */
-public class ResourcesNode extends AbstractResourceNode
-{
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#canAddChildNode(com.motorola.studio.android.model.resources.AbstractResourceNode)
-     */
-    @Override
-    protected boolean canAddChildNode(AbstractResourceNode node)
-    {
-        NodeType nodeType = node.getNodeType();
-        boolean canAdd =
-                (nodeType == NodeType.String) || (nodeType == NodeType.Color)
-                        || (nodeType == NodeType.Dimen) || (nodeType == NodeType.Drawable);
+public class ResourcesNode extends AbstractResourceNode {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * canAddChildNode
+	 * (com.motorola.studio.android.model.resources.AbstractResourceNode)
+	 */
+	@Override
+	protected boolean canAddChildNode(AbstractResourceNode node) {
+		NodeType nodeType = node.getNodeType();
+		boolean canAdd = (nodeType == NodeType.String) || (nodeType == NodeType.Color) || (nodeType == NodeType.Dimen)
+				|| (nodeType == NodeType.Drawable);
 
-        return canAdd;
-    }
+		return canAdd;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.Resources;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType
+	 * ()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.Resources;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#isAttributeValid(java.lang.String)
-     */
-    @Override
-    protected boolean isAttributeValid(String attributeName)
-    {
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * isAttributeValid(java.lang.String)
+	 */
+	@Override
+	protected boolean isAttributeValid(String attributeName) {
+		return false;
+	}
 
 }

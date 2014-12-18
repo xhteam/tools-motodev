@@ -25,40 +25,44 @@ import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
 /**
- * Service handler responsible for initializing a remote device.
- * Is simply change to status from OFF to the initial state (Disconnected).
+ * Service handler responsible for initializing a remote device. Is simply
+ * change to status from OFF to the initial state (Disconnected).
  */
-public class InitRemoteHandler extends ServiceHandler
-{
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new InitRemoteHandler();
-    }
+public class InitRemoteHandler extends ServiceHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new InitRemoteHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        // just let the status be changed
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		// just let the status be changed
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
 }

@@ -21,46 +21,46 @@ import com.google.common.base.Joiner;
 import java.util.List;
 
 public class GLObjectProperty extends GLAbstractAtomicProperty {
-    private final Object mDefaultValue;
-    private Object mCurrentValue;
+	private final Object mDefaultValue;
+	private Object mCurrentValue;
 
-    private static final Joiner JOINER = Joiner.on(", ");   //$NON-NLS-1$
+	private static final Joiner JOINER = Joiner.on(", "); //$NON-NLS-1$
 
-    public GLObjectProperty(GLStateType type, Object defaultValue) {
-        super(type);
+	public GLObjectProperty(GLStateType type, Object defaultValue) {
+		super(type);
 
-        mDefaultValue = mCurrentValue = defaultValue;
-    }
+		mDefaultValue = mCurrentValue = defaultValue;
+	}
 
-    @Override
-    public boolean isDefault() {
-        return mDefaultValue != null & mDefaultValue.equals(mCurrentValue);
-    }
+	@Override
+	public boolean isDefault() {
+		return mDefaultValue != null & mDefaultValue.equals(mCurrentValue);
+	}
 
-    @Override
-    public void setValue(Object newValue) {
-        mCurrentValue = newValue;
-    }
+	@Override
+	public void setValue(Object newValue) {
+		mCurrentValue = newValue;
+	}
 
-    @Override
-    public String getStringValue() {
-        if (mCurrentValue == null) {
-            return "null";
-        } else {
-            if (mCurrentValue instanceof List<?>) {
-                return "[" + JOINER.join((List<?>) mCurrentValue) + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-            }
-            return mCurrentValue.toString();
-        }
-    }
+	@Override
+	public String getStringValue() {
+		if (mCurrentValue == null) {
+			return "null";
+		} else {
+			if (mCurrentValue instanceof List<?>) {
+				return "[" + JOINER.join((List<?>) mCurrentValue) + "]"; //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			return mCurrentValue.toString();
+		}
+	}
 
-    @Override
-    public String toString() {
-        return getType() + "=" + getStringValue(); //$NON-NLS-1$
-    }
+	@Override
+	public String toString() {
+		return getType() + "=" + getStringValue(); //$NON-NLS-1$
+	}
 
-    @Override
-    public Object getValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public Object getValue() {
+		return mCurrentValue;
+	}
 }

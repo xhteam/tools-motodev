@@ -23,10 +23,10 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 public class NdkPreferenceInitializer extends AbstractPreferenceInitializer {
 
-    @Override
-    public void initializeDefaultPreferences() {
-        IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 
-        store.setDefault(NdkManager.NDK_LOCATION, ""); //$NON-NLS-1$
-    }
+		store.setDefault(NdkManager.NDK_LOCATION, ""); //$NON-NLS-1$
+	}
 }

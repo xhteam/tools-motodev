@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -49,148 +50,130 @@ import com.motorola.studio.android.localization.translators.GoogleTranslatorCons
 import com.motorola.studio.android.localization.translators.TranslationPlugin;
 import com.motorola.studio.android.localization.translators.i18n.TranslateNLS;
 
-public class TranslationPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
-{
-    private final String GOOGLE_APIS_CONSOLE_LINK = "http://code.google.com/apis/console/"; //$NON-NLS-1$
+public class TranslationPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+	private final String GOOGLE_APIS_CONSOLE_LINK = "http://code.google.com/apis/console/"; //$NON-NLS-1$
 
-    private Text apiKeyText;
+	private Text apiKeyText;
 
-    private String apiKeyValue;
+	private String apiKeyValue;
 
-    public void init(IWorkbench workbench)
-    {
-        noDefaultAndApplyButton();
-    }
+	@Override
+	public void init(IWorkbench workbench) {
+		noDefaultAndApplyButton();
+	}
 
-    @Override
-    public boolean performOk()
-    {
-        InstanceScope scope = (InstanceScope) InstanceScope.INSTANCE;
-        IEclipsePreferences prefs = scope.getNode(TranslationPlugin.PLUGIN_ID);
-        if (apiKeyValue.trim().length() == 0)
-        {
-            prefs.remove(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE);
-        }
-        else
-        {
-            prefs.put(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE, apiKeyValue.trim());
-        }
+	@Override
+	public boolean performOk() {
+		InstanceScope scope = (InstanceScope) InstanceScope.INSTANCE;
+		IEclipsePreferences prefs = scope.getNode(TranslationPlugin.PLUGIN_ID);
+		if (apiKeyValue.trim().length() == 0) {
+			prefs.remove(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE);
+		} else {
+			prefs.put(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE, apiKeyValue.trim());
+		}
 
-        try
-        {
-            prefs.flush();
-        }
-        catch (BackingStoreException e)
-        {
-            //do nothing
-        }
+		try {
+			prefs.flush();
+		} catch (BackingStoreException e) {
+			// do nothing
+		}
 
-        return super.performOk();
-    }
+		return super.performOk();
+	}
 
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        Composite entryTable = new Composite(parent, SWT.NULL);
-        GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
-        entryTable.setLayoutData(data);
+	@Override
+	protected Control createContents(Composite parent) {
+		Composite entryTable = new Composite(parent, SWT.NULL);
+		GridData data = new GridData(SWT.FILL, SWT.TOP, true, false);
+		entryTable.setLayoutData(data);
 
-        GridLayout layout = new GridLayout();
-        entryTable.setLayout(layout);
+		GridLayout layout = new GridLayout();
+		entryTable.setLayout(layout);
 
-        layout = new GridLayout(2, false);
+		layout = new GridLayout(2, false);
 
-        layout = new GridLayout(2, false);
-        Group translatorAPIGroup = new Group(entryTable, SWT.NONE);
-        translatorAPIGroup.setLayout(layout);
-        translatorAPIGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-        translatorAPIGroup.setText(TranslateNLS.AndroidPreferencePage_googleApiKey_GroupLabel);
+		layout = new GridLayout(2, false);
+		Group translatorAPIGroup = new Group(entryTable, SWT.NONE);
+		translatorAPIGroup.setLayout(layout);
+		translatorAPIGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+		translatorAPIGroup.setText(TranslateNLS.AndroidPreferencePage_googleApiKey_GroupLabel);
 
-        Link noteLabel = new Link(translatorAPIGroup, SWT.WRAP);
-        noteLabel.setText(TranslateNLS.bind(TranslateNLS.AndroidPreferencePage_googleApiKey_Note,
-                GOOGLE_APIS_CONSOLE_LINK));
-        data = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
-        data.widthHint = 450;
-        noteLabel.setLayoutData(data);
+		Link noteLabel = new Link(translatorAPIGroup, SWT.WRAP);
+		noteLabel.setText(NLS.bind(TranslateNLS.AndroidPreferencePage_googleApiKey_Note, GOOGLE_APIS_CONSOLE_LINK));
+		data = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
+		data.widthHint = 450;
+		noteLabel.setLayoutData(data);
 
-        noteLabel.addSelectionListener(new SelectionAdapter()
-        {
-            /* (non-Javadoc)
-             * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-             */
-            @Override
-            public void widgetSelected(SelectionEvent e)
-            {
-                IWorkbenchBrowserSupport browserSupport =
-                        PlatformUI.getWorkbench().getBrowserSupport();
+		noteLabel.addSelectionListener(new SelectionAdapter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
+			 * .swt.events.SelectionEvent)
+			 */
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 
-                /*
-                 * open the browser
-                 */
-                IWebBrowser browser;
-                try
-                {
-                    browser =
-                            browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                    | IWorkbenchBrowserSupport.NAVIGATION_BAR
-                                    | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV", null, null); //$NON-NLS-1$
+				/*
+				 * open the browser
+				 */
+				IWebBrowser browser;
+				try {
+					browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+							| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL,
+							"MOTODEV", null, null); //$NON-NLS-1$
 
-                    browser.openURL(new URL(GOOGLE_APIS_CONSOLE_LINK));
-                }
-                catch (PartInitException ex)
-                {
-                    StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
-                            + ex.getMessage());
-                }
-                catch (MalformedURLException ex)
-                {
-                    StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
-                            + ex.getMessage());
-                }
-            }
-        });
+					browser.openURL(new URL(GOOGLE_APIS_CONSOLE_LINK));
+				} catch (PartInitException ex) {
+					StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
+							+ ex.getMessage());
+				} catch (MalformedURLException ex) {
+					StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
+							+ ex.getMessage());
+				}
+			}
+		});
 
-        Label apiKeyLabel = new Label(translatorAPIGroup, SWT.NONE);
-        apiKeyLabel.setText(TranslateNLS.AndroidPreferencePage_googleApiKey_Label);
-        data = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-        apiKeyLabel.setLayoutData(data);
+		Label apiKeyLabel = new Label(translatorAPIGroup, SWT.NONE);
+		apiKeyLabel.setText(TranslateNLS.AndroidPreferencePage_googleApiKey_Label);
+		data = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		apiKeyLabel.setLayoutData(data);
 
-        apiKeyText = new Text(translatorAPIGroup, SWT.BORDER);
-        apiKeyValue = getApiKey();
-        apiKeyText.setText(apiKeyValue);
-        apiKeyText.setToolTipText(TranslateNLS.AndroidPreferencePage_googleApiKey_Tooltip);
-        data = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-        apiKeyText.setLayoutData(data);
-        apiKeyText.addModifyListener(new ModifyListener()
-        {
-            public void modifyText(ModifyEvent e)
-            {
-                apiKeyValue = apiKeyText.getText();
+		apiKeyText = new Text(translatorAPIGroup, SWT.BORDER);
+		apiKeyValue = getApiKey();
+		apiKeyText.setText(apiKeyValue);
+		apiKeyText.setToolTipText(TranslateNLS.AndroidPreferencePage_googleApiKey_Tooltip);
+		data = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		apiKeyText.setLayoutData(data);
+		apiKeyText.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				apiKeyValue = apiKeyText.getText();
 
-            }
-        });
+			}
+		});
 
-        return entryTable;
-    }
+		return entryTable;
+	}
 
-    /**
-     * get the apikey
-     * @return the apikey or an empty string for the default one
-     */
-    private static String getApiKey()
-    {
-        String apiKey = ""; //$NON-NLS-1$
-        IPreferenceStore prefStore = TranslationPlugin.getDefault().getPreferenceStore();
-        if (!prefStore.isDefault(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE))
-        {
-            apiKey = prefStore.getString(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE);
-            if (apiKey == null)
-            {
-                apiKey = ""; //$NON-NLS-1$
-            }
-        }
+	/**
+	 * get the apikey
+	 * 
+	 * @return the apikey or an empty string for the default one
+	 */
+	private static String getApiKey() {
+		String apiKey = ""; //$NON-NLS-1$
+		IPreferenceStore prefStore = TranslationPlugin.getDefault().getPreferenceStore();
+		if (!prefStore.isDefault(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE)) {
+			apiKey = prefStore.getString(GoogleTranslatorConstants.API_KEY_VALUE_PREFERENCE);
+			if (apiKey == null) {
+				apiKey = ""; //$NON-NLS-1$
+			}
+		}
 
-        return apiKey;
-    }
+		return apiKey;
+	}
 
 }

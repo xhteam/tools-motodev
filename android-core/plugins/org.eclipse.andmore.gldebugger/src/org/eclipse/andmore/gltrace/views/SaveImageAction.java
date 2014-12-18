@@ -26,33 +26,32 @@ import org.eclipse.ui.PlatformUI;
 import java.io.File;
 
 public class SaveImageAction extends Action {
-    private static String sLastUsedPath;
+	private static String sLastUsedPath;
 
-    private ImageCanvas mImageCanvas;
+	private ImageCanvas mImageCanvas;
 
-    public SaveImageAction(ImageCanvas canvas) {
-        super("Save Image",
-                PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                        ISharedImages.IMG_ETOOL_SAVEAS_EDIT));
-        setToolTipText("Save Image");
-        mImageCanvas = canvas;
-    }
+	public SaveImageAction(ImageCanvas canvas) {
+		super("Save Image", PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(ISharedImages.IMG_ETOOL_SAVEAS_EDIT));
+		setToolTipText("Save Image");
+		mImageCanvas = canvas;
+	}
 
-    @Override
-    public void run() {
-        FileDialog fd = new FileDialog(mImageCanvas.getShell(), SWT.SAVE);
-        fd.setFilterExtensions(new String[] { "*.png" });
-        if (sLastUsedPath != null) {
-            fd.setFilterPath(sLastUsedPath);
-        }
+	@Override
+	public void run() {
+		FileDialog fd = new FileDialog(mImageCanvas.getShell(), SWT.SAVE);
+		fd.setFilterExtensions(new String[] { "*.png" });
+		if (sLastUsedPath != null) {
+			fd.setFilterPath(sLastUsedPath);
+		}
 
-        String path = fd.open();
-        if (path == null) {
-            return;
-        }
+		String path = fd.open();
+		if (path == null) {
+			return;
+		}
 
-        File f = new File(path);
-        sLastUsedPath = f.getParent();
-        mImageCanvas.exportImageTo(f);
-    }
+		File f = new File(path);
+		sLastUsedPath = f.getParent();
+		mImageCanvas.exportImageTo(f);
+	}
 }

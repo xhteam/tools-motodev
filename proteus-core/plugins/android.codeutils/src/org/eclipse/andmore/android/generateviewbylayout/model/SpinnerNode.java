@@ -16,26 +16,22 @@
 package org.eclipse.andmore.android.generateviewbylayout.model;
 
 /**
- * Extends {@link LayoutNode} to describe save/restore method names and the name of the node type
- * (specific from Spinner)
+ * Extends {@link LayoutNode} to describe save/restore method names and the name
+ * of the node type (specific from Spinner)
  */
-public class SpinnerNode extends LayoutNode
-{
+public class SpinnerNode extends LayoutNode {
 
-    public SpinnerNode()
-    {
-        properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setSelection.name());
-        properties.put(ViewProperties.ViewStateGetMethod,
-                ViewGetMethods.getSelectedItemPosition.name());
-        properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putInt.name());
-        properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getInt.name());
-        properties.put(ViewProperties.ViewStateValueType, Integer.class.toString());
-    }
+	public SpinnerNode() {
+		properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setSelection.name());
+		properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.getSelectedItemPosition.name());
+		properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putInt.name());
+		properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getInt.name());
+		properties.put(ViewProperties.ViewStateValueType, Integer.class.toString());
+	}
 
-    @Override
-    public String getNodeType()
-    {
-        return LayoutNodeViewType.Spinner.name();
-    }
+	@Override
+	public String getNodeType() {
+		return LayoutNodeViewType.Spinner.name();
+	}
 
 }

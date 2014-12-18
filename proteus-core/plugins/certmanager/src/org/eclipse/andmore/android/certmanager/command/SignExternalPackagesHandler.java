@@ -24,15 +24,13 @@ import org.eclipse.jface.action.Action;
 /**
  * Handler to execute the sign package wizard.
  * */
-public class SignExternalPackagesHandler extends AbstractHandler2 implements IHandler2
-{
+public class SignExternalPackagesHandler extends AbstractHandler2 implements IHandler2 {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        Action action = new SignCreatedPackageAction();
-        action.run();
-        return null;
-    }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		Action action = new SignCreatedPackageAction();
+		action.run();
+		return null;
+	}
 
 }

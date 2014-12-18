@@ -25,11 +25,10 @@ import org.eclipse.datatools.modelbase.sql.tables.Table;
 /**
  * Represents a node that can create tables
  */
-public interface ITableCreatorNode extends ITreeNode
-{
+public interface ITableCreatorNode extends ITreeNode {
 
-    IStatus createTable(TableModel table);
+	IStatus createTable(TableModel table);
 
-    List<Table> getTables();
+	List<Table> getTables();
 
 }

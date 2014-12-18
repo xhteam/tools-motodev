@@ -32,91 +32,89 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
  * Model representing the code generator data needed to generate code for menu.
  * You MUST call init before using the object.
  */
-public class CodeGeneratorDataBasedOnMenu extends AbstractCodeGeneratorData
-{
-    private MenuFile menuFile;
+public class CodeGeneratorDataBasedOnMenu extends AbstractCodeGeneratorData {
+	private MenuFile menuFile;
 
-    private BasicCodeVisitor codeVisitor;
+	private BasicCodeVisitor codeVisitor;
 
-    private ICompilationUnit iCompilationUnit;
+	private ICompilationUnit iCompilationUnit;
 
-    private CompilationUnit compilationUnit;
+	private CompilationUnit compilationUnit;
 
-    /**
-     * Creates {@link MenuFile} representation for the menu.xml
-     * @param menuName name of the menu
-     * @param menu file (full path) to menu.xml
-     * @throws AndroidException if an error occurs parsing menu.xml
-     */
-    public void init(String menuName, File menu) throws AndroidException
-    {
-        menuFile = new MenuFile(menuName, menu);
-    }
+	/**
+	 * Creates {@link MenuFile} representation for the menu.xml
+	 * 
+	 * @param menuName
+	 *            name of the menu
+	 * @param menu
+	 *            file (full path) to menu.xml
+	 * @throws AndroidException
+	 *             if an error occurs parsing menu.xml
+	 */
+	public void init(String menuName, File menu) throws AndroidException {
+		menuFile = new MenuFile(menuName, menu);
+	}
 
-    /**
-     * Get Menu Items that are not declared in the code yet 
-     * @return list of Menu items from menu file (only ones with id set).
-     */
-    public List<MenuItemNode> getMenuItemsNodes()
-    {
-        return menuFile.getRootMenuNode() != null ? menuFile.getRootMenuNode().getAllMenuItems()
-                : new ArrayList<MenuItemNode>(0);
-    }
+	/**
+	 * Get Menu Items that are not declared in the code yet
+	 * 
+	 * @return list of Menu items from menu file (only ones with id set).
+	 */
+	public List<MenuItemNode> getMenuItemsNodes() {
+		return menuFile.getRootMenuNode() != null ? menuFile.getRootMenuNode().getAllMenuItems()
+				: new ArrayList<MenuItemNode>(0);
+	}
 
-    /**
-     * @return the representation from {@link MenuFile}
-     */
-    public MenuFile getMenuFile()
-    {
-        return menuFile;
-    }
+	/**
+	 * @return the representation from {@link MenuFile}
+	 */
+	public MenuFile getMenuFile() {
+		return menuFile;
+	}
 
-    @Override
-    public IResource getResource()
-    {
-        return compilationUnit.getJavaElement().getResource();
-    }
+	@Override
+	public IResource getResource() {
+		return compilationUnit.getJavaElement().getResource();
+	}
 
-    @Override
-    public ICompilationUnit getICompilationUnit()
-    {
-        return iCompilationUnit;
-    }
+	@Override
+	public ICompilationUnit getICompilationUnit() {
+		return iCompilationUnit;
+	}
 
-    @Override
-    public CompilationUnit getCompilationUnit()
-    {
-        return compilationUnit;
-    }
+	@Override
+	public CompilationUnit getCompilationUnit() {
+		return compilationUnit;
+	}
 
-    @Override
-    public BasicCodeVisitor getAbstractCodeVisitor()
-    {
-        return codeVisitor;
-    }
+	@Override
+	public BasicCodeVisitor getAbstractCodeVisitor() {
+		return codeVisitor;
+	}
 
-    /**
-     * Sets {@link BasicCodeVisitor} responsible to avoid code duplication or identify menu already inflated
-     * @param visitor
-     */
-    public void setAbstractCodeVisitor(BasicCodeVisitor visitor)
-    {
-        this.codeVisitor = visitor;
-    }
+	/**
+	 * Sets {@link BasicCodeVisitor} responsible to avoid code duplication or
+	 * identify menu already inflated
+	 * 
+	 * @param visitor
+	 */
+	public void setAbstractCodeVisitor(BasicCodeVisitor visitor) {
+		this.codeVisitor = visitor;
+	}
 
-    /**
-     * @param iCompilationUnit the iCompilationUnit to set
-     */
-    public void setICompilationUnit(ICompilationUnit iCompilationUnit)
-    {
-        this.iCompilationUnit = iCompilationUnit;
-    }
+	/**
+	 * @param iCompilationUnit
+	 *            the iCompilationUnit to set
+	 */
+	public void setICompilationUnit(ICompilationUnit iCompilationUnit) {
+		this.iCompilationUnit = iCompilationUnit;
+	}
 
-    /**
-     * @param compilationUnit the compilationUnit to set
-     */
-    public void setCompilationUnit(CompilationUnit compilationUnit)
-    {
-        this.compilationUnit = compilationUnit;
-    }
+	/**
+	 * @param compilationUnit
+	 *            the compilationUnit to set
+	 */
+	public void setCompilationUnit(CompilationUnit compilationUnit) {
+		this.compilationUnit = compilationUnit;
+	}
 }

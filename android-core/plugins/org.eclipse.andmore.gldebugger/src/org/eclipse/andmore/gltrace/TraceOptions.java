@@ -17,39 +17,38 @@
 package org.eclipse.andmore.gltrace;
 
 public class TraceOptions {
-    /** Device on which the application should be run. */
-    public final String device;
+	/** Device on which the application should be run. */
+	public final String device;
 
-    /** Application to trace. */
-    public final String appToTrace;
+	/** Application to trace. */
+	public final String appToTrace;
 
-    /** Activity to trace. */
-    public final String activityToTrace;
+	/** Activity to trace. */
+	public final String activityToTrace;
 
-    public final boolean isActivityNameFullyQualified;
+	public final boolean isActivityNameFullyQualified;
 
-    /** Path where the trace file should be saved. */
-    public final String traceDestination;
+	/** Path where the trace file should be saved. */
+	public final String traceDestination;
 
-    /** Flag indicating whether Framebuffer should be captured on eglSwap() */
-    public final boolean collectFbOnEglSwap;
+	/** Flag indicating whether Framebuffer should be captured on eglSwap() */
+	public final boolean collectFbOnEglSwap;
 
-    /** Flag indicating whether Framebuffer should be captured on glDraw*() */
-    public final boolean collectFbOnGlDraw;
+	/** Flag indicating whether Framebuffer should be captured on glDraw*() */
+	public final boolean collectFbOnGlDraw;
 
-    /** Flag indicating whether texture data should be captured on glTexImage*() */
-    public final boolean collectTextureData;
+	/** Flag indicating whether texture data should be captured on glTexImage*() */
+	public final boolean collectTextureData;
 
-    public TraceOptions(String device, String appPackage, String activity,
-            boolean isActivityNameFullyQualified, String destinationPath,
-            boolean collectFbOnEglSwap, boolean collectFbOnGlDraw, boolean collectTextureData) {
-        this.device = device;
-        this.appToTrace = appPackage;
-        this.activityToTrace = activity;
-        this.isActivityNameFullyQualified = isActivityNameFullyQualified;
-        this.traceDestination = destinationPath;
-        this.collectFbOnEglSwap = collectFbOnEglSwap;
-        this.collectFbOnGlDraw = collectFbOnGlDraw;
-        this.collectTextureData = collectTextureData;
-    }
+	public TraceOptions(String device, String appPackage, String activity, boolean isActivityNameFullyQualified,
+			String destinationPath, boolean collectFbOnEglSwap, boolean collectFbOnGlDraw, boolean collectTextureData) {
+		this.device = device;
+		this.appToTrace = appPackage;
+		this.activityToTrace = activity;
+		this.isActivityNameFullyQualified = isActivityNameFullyQualified;
+		this.traceDestination = destinationPath;
+		this.collectFbOnEglSwap = collectFbOnEglSwap;
+		this.collectFbOnGlDraw = collectFbOnGlDraw;
+		this.collectTextureData = collectTextureData;
+	}
 }

@@ -39,114 +39,102 @@ import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 /**
  * Service handler responsible for connecting to a remote device
  */
-public class ConnectToRemoteHandler extends ServiceHandler
-{
+public class ConnectToRemoteHandler extends ServiceHandler {
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new ConnectToRemoteHandler();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new ConnectToRemoteHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
 
-        StudioLogger
-                .debug("TmL Connect to Remote Device Service: start connecting to remote device: "
-                        + instance);
+		StudioLogger.debug("TmL Connect to Remote Device Service: start connecting to remote device: " + instance);
 
-        if (arguments != null)
-        {
-            if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue())
-            {
-                StudioLogger.debug("TmL Connect to Remote Device Service: dummy transition");
-                setSuffix(instance);
-                return Status.OK_STATUS;
-            }
-        }
+		if (arguments != null) {
+			if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue()) {
+				StudioLogger.debug("TmL Connect to Remote Device Service: dummy transition");
+				setSuffix(instance);
+				return Status.OK_STATUS;
+			}
+		}
 
-        IStatus status = Status.OK_STATUS;
+		IStatus status = Status.OK_STATUS;
 
-        /*
-         * Call ADB connect
-         */
-        Properties prop = instance.getProperties();
-        String host = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
-        String port = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
-        String timeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
+		/*
+		 * Call ADB connect
+		 */
+		Properties prop = instance.getProperties();
+		String host = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
+		String port = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
+		String timeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
 
-        try
-        {
-            status =
-                    DDMSFacade.connectTcpIp((ISerialNumbered) instance, host, port,
-                            Integer.parseInt(timeout), monitor);
-        }
-        catch (IOException e)
-        {
-            return new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID,
-                    RemoteDeviceNLS.ERR_ConnectToRemote_AdbStart);
-        }
+		try {
+			status = DDMSFacade
+					.connectTcpIp((ISerialNumbered) instance, host, port, Integer.parseInt(timeout), monitor);
+		} catch (IOException e) {
+			return new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID, RemoteDeviceNLS.ERR_ConnectToRemote_AdbStart);
+		}
 
-        /* ------------------------------------------------------------ */
+		/* ------------------------------------------------------------ */
 
-        if (status.getSeverity() == IStatus.OK)
-        {
-            setSuffix(instance);
-        }
-        else
-        {
-            instance.setNameSuffix(null);
-            InstanceEventManager.getInstance().notifyListeners(
-                    new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
-        }
+		if (status.getSeverity() == IStatus.OK) {
+			setSuffix(instance);
+		} else {
+			instance.setNameSuffix(null);
+			InstanceEventManager.getInstance().notifyListeners(
+					new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
+		}
 
-        StudioLogger
-                .debug("TmL Connect to Remote Device Service: finish connecting to remote device. status: "
-                        + status.getSeverity());
+		StudioLogger.debug("TmL Connect to Remote Device Service: finish connecting to remote device. status: "
+				+ status.getSeverity());
 
-        return status;
-    }
+		return status;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance instance, IProgressMonitor monitor)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * Set the instance suffix (its serial number)
-     * 
-     * @param instance the instance to which the suffix will be added
-     */
-    private void setSuffix(IInstance instance)
-    {
+	/*
+	 * Set the instance suffix (its serial number)
+	 * 
+	 * @param instance the instance to which the suffix will be added
+	 */
+	private void setSuffix(IInstance instance) {
 
-        if (instance != null)
-        {
-            StudioLogger.debug("TmL Connect to Remote Device Service: setting suffix to instance "
-                    + instance.getName());
+		if (instance != null) {
+			StudioLogger
+					.debug("TmL Connect to Remote Device Service: setting suffix to instance " + instance.getName());
 
-            String suffix = ((ISerialNumbered) instance).getSerialNumber();
-            if (!instance.getName().equals(suffix))
-            {
-                instance.setNameSuffix(suffix);
-                InstanceEventManager.getInstance().notifyListeners(
-                        new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
-            }
-        }
-    }
+			String suffix = ((ISerialNumbered) instance).getSerialNumber();
+			if (!instance.getName().equals(suffix)) {
+				instance.setNameSuffix(suffix);
+				InstanceEventManager.getInstance().notifyListeners(
+						new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
+			}
+		}
+	}
 }

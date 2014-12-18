@@ -30,39 +30,33 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.junit.Test;
 
-public class DbModelTest
-{
+public class DbModelTest {
 
-    @Test
-    public void testCreateTable()
-    {
+	@Test
+	public void testCreateTable() {
 
-        Path path = new Path("/Users/danielbfranco/temp/ranking.db");
-        DbModel model = null;
-        try
-        {
-            model = new DbModel(path);
-        }
-        catch (MotodevDbException e)
-        {
-            e.printStackTrace();
-        }
-        IStatus s = model.connect();
-        assertTrue(s.getCode() == IStatus.OK);
+		Path path = new Path("/Users/danielbfranco/temp/ranking.db");
+		DbModel model = null;
+		try {
+			model = new DbModel(path);
+		} catch (MotodevDbException e) {
+			e.printStackTrace();
+		}
+		IStatus s = model.connect();
+		assertTrue(s.getCode() == IStatus.OK);
 
-        Field idField = new Field("_id", DataType.INTEGER, true, AutoIncrementType.ASCENDING, null);
-        Field textField =
-                new Field("_text", DataType.TEXT, false, AutoIncrementType.NONE, "DanDan");
-        Field numField = new Field("_num", DataType.INTEGER, false, AutoIncrementType.NONE, "5");
+		Field idField = new Field("_id", DataType.INTEGER, true, AutoIncrementType.ASCENDING, null);
+		Field textField = new Field("_text", DataType.TEXT, false, AutoIncrementType.NONE, "DanDan");
+		Field numField = new Field("_num", DataType.INTEGER, false, AutoIncrementType.NONE, "5");
 
-        List<Field> fields = new ArrayList<Field>(2);
-        fields.add(idField);
-        fields.add(textField);
-        fields.add(numField);
+		List<Field> fields = new ArrayList<Field>(2);
+		fields.add(idField);
+		fields.add(textField);
+		fields.add(numField);
 
-        TableModel table = new TableModel("mablinhos3", fields);
+		TableModel table = new TableModel("mablinhos3", fields);
 
-        s = model.createTable(table);
-        assertTrue(s.getCode() == IStatus.OK);
-    }
+		s = model.createTable(table);
+		assertTrue(s.getCode() == IStatus.OK);
+	}
 }

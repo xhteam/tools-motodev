@@ -42,6 +42,7 @@ import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.events.IExpansionListener;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -208,7 +209,7 @@ class UiElementDetail implements IDetailsPage {
         parent.setLayout(layout);
 
         FormToolkit toolkit = mManagedForm.getToolkit();
-        Section section = toolkit.createSection(parent, Section.TITLE_BAR);
+        Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
         section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
         return section;
     }
@@ -389,7 +390,7 @@ class UiElementDetail implements IDetailsPage {
 
         Composite table;
         Section section = toolkit.createSection(masterTable,
-                Section.TITLE_BAR | Section.TWISTIE);
+                ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE);
 
         // Add an expansion listener that will trigger a reflow on the parent
         // ScrolledPageBook (which is actually a SharedScrolledComposite). This will

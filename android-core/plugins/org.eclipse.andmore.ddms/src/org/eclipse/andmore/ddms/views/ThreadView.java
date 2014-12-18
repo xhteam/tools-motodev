@@ -22,26 +22,25 @@ import org.eclipse.swt.widgets.Composite;
 
 public class ThreadView extends TableView {
 
-    public static final String ID =
-        "org.eclipse.andmore.ddms.views.ThreadView"; //$NON-NLS-1$
-    private ThreadPanel mPanel;
+	public static final String ID = "org.eclipse.andmore.ddms.views.ThreadView"; //$NON-NLS-1$
+	private ThreadPanel mPanel;
 
-    public ThreadView() {
-    }
+	public ThreadView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new ThreadPanel();
-        mPanel.createPanel(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new ThreadPanel();
+		mPanel.createPanel(parent);
 
-        setSelectionDependentPanel(mPanel);
+		setSelectionDependentPanel(mPanel);
 
-        // listen to focus changes for table(s) of the panel.
-        setupTableFocusListener(mPanel, parent);
-    }
+		// listen to focus changes for table(s) of the panel.
+		setupTableFocusListener(mPanel, parent);
+	}
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 }

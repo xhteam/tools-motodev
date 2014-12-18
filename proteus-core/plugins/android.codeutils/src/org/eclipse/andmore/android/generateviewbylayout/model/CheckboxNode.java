@@ -16,25 +16,22 @@
 package org.eclipse.andmore.android.generateviewbylayout.model;
 
 /**
- * Extends {@link LayoutNode} to describe save/restore method names and the name of the node type
- * (specific from CheckBox)
+ * Extends {@link LayoutNode} to describe save/restore method names and the name
+ * of the node type (specific from CheckBox)
  */
-public class CheckboxNode extends LayoutNode
-{
+public class CheckboxNode extends LayoutNode {
 
-    public CheckboxNode()
-    {
-        properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setChecked.name());
-        properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.isChecked.name());
-        properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putBoolean.name());
-        properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getBoolean.name());
-        properties.put(ViewProperties.ViewStateValueType, Boolean.class.toString());
-    }
+	public CheckboxNode() {
+		properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setChecked.name());
+		properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.isChecked.name());
+		properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putBoolean.name());
+		properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getBoolean.name());
+		properties.put(ViewProperties.ViewStateValueType, Boolean.class.toString());
+	}
 
-    @Override
-    public String getNodeType()
-    {
-        return LayoutNodeViewType.CheckBox.name();
-    }
+	@Override
+	public String getNodeType() {
+		return LayoutNodeViewType.CheckBox.name();
+	}
 
 }

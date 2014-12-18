@@ -34,113 +34,116 @@ import org.eclipse.swt.widgets.Shell;
  * Wizard Page to be used by TmL to create a new Wireless Device Remove Instance
  */
 public class WirelessDeviceWizardPage extends WizardPage implements IInstanceProperties,
-        WirelessPropertiesChangedListener
-{
-    private WirelessPropertiesComposite composite;
+		WirelessPropertiesChangedListener {
+	private WirelessPropertiesComposite composite;
 
-    /**
-     * Creates a WirelessDeviceWizardPage object.
-     */
-    public WirelessDeviceWizardPage()
-    {
-        super(RemoteDeviceNLS.UI_WirelessWizard_Name);
-    }
+	/**
+	 * Creates a WirelessDeviceWizardPage object.
+	 */
+	public WirelessDeviceWizardPage() {
+		super(RemoteDeviceNLS.UI_WirelessWizard_Name);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.ui.wizard.IInstanceProperties#getProperties()
-     */
-    public Properties getProperties()
-    {
-        Properties props = new Properties();
-        props.put(RemoteDeviceInstance.PROPERTY_HOST, composite.getHost());
-        props.put(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(composite.getPort()));
-        props.put(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(composite.getTimeout()));
-        return props;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.ui.wizard.IInstanceProperties#
+	 * getProperties()
+	 */
+	@Override
+	public Properties getProperties() {
+		Properties props = new Properties();
+		props.put(RemoteDeviceInstance.PROPERTY_HOST, composite.getHost());
+		props.put(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(composite.getPort()));
+		props.put(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(composite.getTimeout()));
+		return props;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
-     */
-    public void createControl(Composite parent)
-    {
-        setTitle(RemoteDeviceNLS.UI_WirelessInformationPage_Title);
-        setMessage(RemoteDeviceNLS.UI_WirelessInformationPage_Description);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		setTitle(RemoteDeviceNLS.UI_WirelessInformationPage_Title);
+		setMessage(RemoteDeviceNLS.UI_WirelessInformationPage_Description);
 
-        composite =
-                new WirelessPropertiesComposite(parent, ((WirelessWizard) getWizard()).getIp(),
-                        ((WirelessWizard) getWizard()).getInstance());
-        composite.addPropertyChangeListener(this);
-        composite.addDisposeListener(new DisposeListener()
-        {
-            public void widgetDisposed(DisposeEvent e)
-            {
-                composite.removePropertyChangeListener(WirelessDeviceWizardPage.this);
-                composite = null;
-                WirelessDeviceWizardPage.this.setControl(null);
-            }
-        });
-        setControl(composite);
-        setStatusMessage();
+		composite = new WirelessPropertiesComposite(parent, ((WirelessWizard) getWizard()).getIp(),
+				((WirelessWizard) getWizard()).getInstance());
+		composite.addPropertyChangeListener(this);
+		composite.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				composite.removePropertyChangeListener(WirelessDeviceWizardPage.this);
+				composite = null;
+				WirelessDeviceWizardPage.this.setControl(null);
+			}
+		});
+		setControl(composite);
+		setStatusMessage();
 
-        // adjust the wizard page size - one could also use: this.getWizard().getContainer().getShell().computeSize(500, 500);
-        this.getWizardShell().setSize(this.getWizardShell().computeSize(750, SWT.DEFAULT));
-    }
+		// adjust the wizard page size - one could also use:
+		// this.getWizard().getContainer().getShell().computeSize(500, 500);
+		this.getWizardShell().setSize(this.getWizardShell().computeSize(750, SWT.DEFAULT));
+	}
 
-    private Shell getWizardShell()
-    {
-        return this.getWizard().getContainer().getShell();
-    }
+	private Shell getWizardShell() {
+		return this.getWizard().getContainer().getShell();
+	}
 
-    /*
-     * Set the {@link IStatus} message for this wizard.
-     */
-    private void setStatusMessage()
-    {
-        IStatus status = composite.getStatus();
-        switch (status.getSeverity())
-        {
-            case IStatus.ERROR:
-                setErrorMessage(status.getMessage());
-                setMessage(null);
-                break;
-            case IStatus.WARNING:
-                setErrorMessage(null);
-                setMessage(status.getMessage(), IMessageProvider.WARNING);
-                break;
-            case IStatus.OK:
-                setErrorMessage(null);
-                setMessage(status.getMessage(), IMessageProvider.INFORMATION);
-                break;
-        }
-    }
+	/*
+	 * Set the {@link IStatus} message for this wizard.
+	 */
+	private void setStatusMessage() {
+		IStatus status = composite.getStatus();
+		switch (status.getSeverity()) {
+		case IStatus.ERROR:
+			setErrorMessage(status.getMessage());
+			setMessage(null);
+			break;
+		case IStatus.WARNING:
+			setErrorMessage(null);
+			setMessage(status.getMessage(), IMessageProvider.WARNING);
+			break;
+		case IStatus.OK:
+			setErrorMessage(null);
+			setMessage(status.getMessage(), IMessageProvider.INFORMATION);
+			break;
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
-     */
-    @Override
-    public boolean isPageComplete()
-    {
-        return (composite != null) && (composite.getStatus() != null)
-                && (composite.getStatus().getSeverity() != IStatus.ERROR);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
+	 */
+	@Override
+	public boolean isPageComplete() {
+		return (composite != null) && (composite.getStatus() != null)
+				&& (composite.getStatus().getSeverity() != IStatus.ERROR);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.RemotePropertiesChangedListener#propertiesChanged()
-     */
-    public void propertiesChanged()
-    {
-        setStatusMessage();
-        setPageComplete(isPageComplete());
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.
+	 * RemotePropertiesChangedListener#propertiesChanged()
+	 */
+	@Override
+	public void propertiesChanged() {
+		setStatusMessage();
+		setPageComplete(isPageComplete());
+	}
 
-    /**
-     * Get the device name.
-     * 
-     * @return The device name.
-     */
-    public String getDeviceName()
-    {
-        return composite != null ? composite.getDeviceName() : "";
-    }
+	/**
+	 * Get the device name.
+	 * 
+	 * @return The device name.
+	 */
+	public String getDeviceName() {
+		return composite != null ? composite.getDeviceName() : "";
+	}
 }

@@ -31,40 +31,33 @@ import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 /**
  * The default handler for Test events with Monkey service.
  */
-public class MonkeyServiceHandler extends ServiceHandler
-{
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new MonkeyServiceHandler();
-    }
+public class MonkeyServiceHandler extends ServiceHandler {
+	@Override
+	public IServiceHandler newInstance() {
+		return new MonkeyServiceHandler();
+	}
 
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor arg2)
-    {
-        if (instance instanceof ISerialNumbered)
-        {
-            final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
-            final String deviceName = instance.getName();
-            Job job = new Job(ServicesNLS.JOB_Name_Monkey)
-            {
-                @Override
-                protected IStatus run(IProgressMonitor monitor)
-                {
-                    DDMSUtils.runMonkey(serialNumber, deviceName);
-                    return Status.OK_STATUS;
-                }
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor arg2) {
+		if (instance instanceof ISerialNumbered) {
+			final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
+			final String deviceName = instance.getName();
+			Job job = new Job(ServicesNLS.JOB_Name_Monkey) {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					DDMSUtils.runMonkey(serialNumber, deviceName);
+					return Status.OK_STATUS;
+				}
 
-            };
-            job.schedule();
-        }
-        return Status.OK_STATUS;
-    }
+			};
+			job.schedule();
+		}
+		return Status.OK_STATUS;
+	}
 
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 
 }

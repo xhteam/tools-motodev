@@ -31,102 +31,100 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("restriction") // for AdtPlugin internal classes
+@SuppressWarnings("restriction")
+// for AdtPlugin internal classes
 public class NdkCommandLauncher extends CommandLauncher {
-    private static CygPath sCygPath = null;
+	private static CygPath sCygPath = null;
 
-    private static final List<String> WINDOWS_NATIVE_EXECUTABLES = Arrays.asList(
-            "exe",      //$NON-NLS-1$
-            "cmd",      //$NON-NLS-1$
-            "bat"       //$NON-NLS-1$
-            );
+	private static final List<String> WINDOWS_NATIVE_EXECUTABLES = Arrays.asList("exe", //$NON-NLS-1$
+			"cmd", //$NON-NLS-1$
+			"bat" //$NON-NLS-1$
+	);
 
-    static {
-        if (Platform.OS_WIN32.equals(Platform.getOS())) {
-            try {
-                sCygPath = new CygPath();
-            } catch (IOException e) {
-                AdtPlugin.printErrorToConsole("Unable to launch cygpath. Is Cygwin on the path?",
-                        e);
-            }
-        }
-    }
+	static {
+		if (Platform.OS_WIN32.equals(Platform.getOS())) {
+			try {
+				sCygPath = new CygPath();
+			} catch (IOException e) {
+				AdtPlugin.printErrorToConsole("Unable to launch cygpath. Is Cygwin on the path?", e);
+			}
+		}
+	}
 
-    @Override
-    public Process execute(IPath commandPath, String[] args, String[] env, IPath changeToDirectory,
-            IProgressMonitor monitor)
-            throws CoreException {
-        if (!commandPath.isAbsolute())
-            commandPath = new Path(NdkManager.getNdkLocation()).append(commandPath);
+	@Override
+	public Process execute(IPath commandPath, String[] args, String[] env, IPath changeToDirectory,
+			IProgressMonitor monitor) throws CoreException {
+		if (!commandPath.isAbsolute())
+			commandPath = new Path(NdkManager.getNdkLocation()).append(commandPath);
 
-        if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            // convert cygwin paths to standard paths
-            if (sCygPath != null && commandPath.toString().startsWith("/cygdrive")) { //$NON-NLS-1$
-                try {
-                    String path = sCygPath.getFileName(commandPath.toString());
-                    commandPath = new Path(path);
-                } catch (IOException e) {
-                    AdtPlugin.printErrorToConsole(
-                            "Unexpected error while transforming cygwin path.", e);
-                }
-            }
+		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+			// convert cygwin paths to standard paths
+			if (sCygPath != null && commandPath.toString().startsWith("/cygdrive")) { //$NON-NLS-1$
+				try {
+					String path = sCygPath.getFileName(commandPath.toString());
+					commandPath = new Path(path);
+				} catch (IOException e) {
+					AdtPlugin.printErrorToConsole("Unexpected error while transforming cygwin path.", e);
+				}
+			}
 
-            if (isWindowsExecutable(commandPath)) {
-                // append necessary extension
-                commandPath = appendExecutableExtension(commandPath);
-            } else {
-                // Invoke using Cygwin shell if this is not a native windows executable
-                String[] newargs = new String[args.length + 1];
-                newargs[0] = commandPath.toOSString();
-                System.arraycopy(args, 0, newargs, 1, args.length);
+			if (isWindowsExecutable(commandPath)) {
+				// append necessary extension
+				commandPath = appendExecutableExtension(commandPath);
+			} else {
+				// Invoke using Cygwin shell if this is not a native windows
+				// executable
+				String[] newargs = new String[args.length + 1];
+				newargs[0] = commandPath.toOSString();
+				System.arraycopy(args, 0, newargs, 1, args.length);
 
-                commandPath = new Path("sh"); //$NON-NLS-1$
-                args = newargs;
-            }
-        }
+				commandPath = new Path("sh"); //$NON-NLS-1$
+				args = newargs;
+			}
+		}
 
-        return super.execute(commandPath, args, env, changeToDirectory, monitor);
-    }
+		return super.execute(commandPath, args, env, changeToDirectory, monitor);
+	}
 
-    private boolean isWindowsExecutable(IPath commandPath) {
-        String ext = commandPath.getFileExtension();
-        if (isWindowsExecutableExtension(ext)) {
-            return true;
-        }
+	private boolean isWindowsExecutable(IPath commandPath) {
+		String ext = commandPath.getFileExtension();
+		if (isWindowsExecutableExtension(ext)) {
+			return true;
+		}
 
-        ext = findWindowsExecutableExtension(commandPath);
-        if (ext != null) {
-            return true;
-        }
+		ext = findWindowsExecutableExtension(commandPath);
+		if (ext != null) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    private IPath appendExecutableExtension(IPath commandPath) {
-        if (isWindowsExecutableExtension(commandPath.getFileExtension())) {
-            return commandPath;
-        }
+	private IPath appendExecutableExtension(IPath commandPath) {
+		if (isWindowsExecutableExtension(commandPath.getFileExtension())) {
+			return commandPath;
+		}
 
-        String ext = findWindowsExecutableExtension(commandPath);
-        if (ext != null) {
-            return commandPath.addFileExtension(ext);
-        }
+		String ext = findWindowsExecutableExtension(commandPath);
+		if (ext != null) {
+			return commandPath.addFileExtension(ext);
+		}
 
-        return commandPath;
-    }
+		return commandPath;
+	}
 
-    private String findWindowsExecutableExtension(IPath command) {
-        for (String e: WINDOWS_NATIVE_EXECUTABLES) {
-            File exeFile = command.addFileExtension(e).toFile();
-            if (exeFile.exists()) {
-                return e;
-            }
-        }
+	private String findWindowsExecutableExtension(IPath command) {
+		for (String e : WINDOWS_NATIVE_EXECUTABLES) {
+			File exeFile = command.addFileExtension(e).toFile();
+			if (exeFile.exists()) {
+				return e;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    private boolean isWindowsExecutableExtension(String extension) {
-        return extension != null && WINDOWS_NATIVE_EXECUTABLES.contains(extension);
-    }
+	private boolean isWindowsExecutableExtension(String extension) {
+		return extension != null && WINDOWS_NATIVE_EXECUTABLES.contains(extension);
+	}
 }

@@ -47,233 +47,204 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle.
  */
-public class RemoteDevicePlugin extends AbstractUIPlugin
-{
+public class RemoteDevicePlugin extends AbstractUIPlugin {
 
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.remote";
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.remote";
 
-    /**
-     *  The ID of the device declared by this plug-in
-     */
-    public static final String DEVICE_ID = PLUGIN_ID + ".androidRemoteDevice";
+	/**
+	 * The ID of the device declared by this plug-in
+	 */
+	public static final String DEVICE_ID = PLUGIN_ID + ".androidRemoteDevice";
 
-    public static final String STATUS_ONLINE_ID = PLUGIN_ID + ".status.connected";
+	public static final String STATUS_ONLINE_ID = PLUGIN_ID + ".status.connected";
 
-    public static final String WIRELESS_PAGE_CONTEXT_HELP_ID = PLUGIN_ID + ".langPage";
+	public static final String WIRELESS_PAGE_CONTEXT_HELP_ID = PLUGIN_ID + ".langPage";
 
-    /**
-     *  The shared instance.
-     */
-    private static RemoteDevicePlugin plugin;
+	/**
+	 * The shared instance.
+	 */
+	private static RemoteDevicePlugin plugin;
 
-    /**
-     *  The service that connects the remote device.
-     */
-    private static ServiceHandler connectServiceHandler = null;
+	/**
+	 * The service that connects the remote device.
+	 */
+	private static ServiceHandler connectServiceHandler = null;
 
-    /**
-     * The service that disconnects the remote device.
-     */
-    private static ServiceHandler disconnectServiceHandler = null;
+	/**
+	 * The service that disconnects the remote device.
+	 */
+	private static ServiceHandler disconnectServiceHandler = null;
 
-    // sync Studio device status for already connected remote devices
-    private static final Runnable sdkLoaderListener = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            Collection<String> serialNumbers = DDMSFacade.getConnectedSerialNumbers();
-            for (String serial : serialNumbers)
-            {
-                RemoteDeviceUtils.connectDevice(serial);
-            }
-        }
-    };
+	// sync Studio device status for already connected remote devices
+	private static final Runnable sdkLoaderListener = new Runnable() {
+		@Override
+		public void run() {
+			Collection<String> serialNumbers = DDMSFacade.getConnectedSerialNumbers();
+			for (String serial : serialNumbers) {
+				RemoteDeviceUtils.connectDevice(serial);
+			}
+		}
+	};
 
-    /*
-     * Listener called when a new device is connected
-     */
-    private static DdmsRunnable connectedListener = new DdmsRunnable()
-    {
+	/*
+	 * Listener called when a new device is connected
+	 */
+	private static DdmsRunnable connectedListener = new DdmsRunnable() {
 
-        @Override
-        public void run(String serialNumber)
-        {
-            RemoteDeviceUtils.connectDevice(serialNumber);
-        }
-    };
+		@Override
+		public void run(String serialNumber) {
+			RemoteDeviceUtils.connectDevice(serialNumber);
+		}
+	};
 
-    /*
-     * Listener called when a device is disconnected
-     */
-    private static DdmsRunnable disconnectedListener = new DdmsRunnable()
-    {
+	/*
+	 * Listener called when a device is disconnected
+	 */
+	private static DdmsRunnable disconnectedListener = new DdmsRunnable() {
 
-        @Override
-        public void run(String serialNumber)
-        {
-            RemoteDeviceUtils.disconnectDevice(serialNumber);
-        }
-    };
+		@Override
+		public void run(String serialNumber) {
+			RemoteDeviceUtils.disconnectDevice(serialNumber);
+		}
+	};
 
-    /*
-     * Listener responsible for initializing the Remote Device instances
-     * right after they are loaded by TmL
-     */
-    private static final IInstanceListener tmlListener = new InstanceAdapter()
-    {
-        @Override
-        public void instanceLoaded(InstanceEvent e)
-        {
-            IInstance instance = e.getInstance();
-            if (instance instanceof RemoteDeviceInstance)
-            {
-                IDeviceType device =
-                        DeviceTypeRegistry.getInstance().getDeviceTypeById(
-                                instance.getDeviceTypeId());
-                IService service =
-                        DeviceUtils.getServiceById(device, RemoteDeviceConstants.SERVICE_INIT_ID);
-                IServiceHandler handler = service.getHandler();
-                try
-                {
-                    handler.run(instance);
-                }
-                catch (SequoyahException e1)
-                {
-                    warn("Remote Device: the instance " + instance.getName()
-                            + " is in an incorrect state (" + e1.getMessage() + ").");
-                }
-            }
-        }
-    };
+	/*
+	 * Listener responsible for initializing the Remote Device instances right
+	 * after they are loaded by TmL
+	 */
+	private static final IInstanceListener tmlListener = new InstanceAdapter() {
+		@Override
+		public void instanceLoaded(InstanceEvent e) {
+			IInstance instance = e.getInstance();
+			if (instance instanceof RemoteDeviceInstance) {
+				IDeviceType device = DeviceTypeRegistry.getInstance().getDeviceTypeById(instance.getDeviceTypeId());
+				IService service = DeviceUtils.getServiceById(device, RemoteDeviceConstants.SERVICE_INIT_ID);
+				IServiceHandler handler = service.getHandler();
+				try {
+					handler.run(instance);
+				} catch (SequoyahException e1) {
+					warn("Remote Device: the instance " + instance.getName() + " is in an incorrect state ("
+							+ e1.getMessage() + ").");
+				}
+			}
+		}
+	};
 
-    // Listener that will be used to ask the user if he wants to disconnect the remote devices when the Studio is being closed
-    private static final IWorkbenchListener workbenchListener = new RemoteDeviceWorkbenchListener();
+	// Listener that will be used to ask the user if he wants to disconnect the
+	// remote devices when the Studio is being closed
+	private static final IWorkbenchListener workbenchListener = new RemoteDeviceWorkbenchListener();
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(RemoteDevicePlugin.class,
-                "Starting MOTODEV Android Remote Device Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(RemoteDevicePlugin.class, "Starting MOTODEV Android Remote Device Plugin...");
 
-        super.start(context);
-        plugin = this;
-        AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
-        StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener,
-                disconnectedListener);
-        InstanceEventManager.getInstance().addInstanceListener(tmlListener);
-        PlatformUI.getWorkbench().addWorkbenchListener(workbenchListener);
+		super.start(context);
+		plugin = this;
+		AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
+		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		InstanceEventManager.getInstance().addInstanceListener(tmlListener);
+		PlatformUI.getWorkbench().addWorkbenchListener(workbenchListener);
 
-        StudioLogger.debug(RemoteDevicePlugin.class,
-                "Starting MOTODEV Android Remote Device Plugin started.");
-    }
+		StudioLogger.debug(RemoteDevicePlugin.class, "Starting MOTODEV Android Remote Device Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
-        StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener,
-                disconnectedListener);
-        InstanceEventManager.getInstance().removeInstanceListener(tmlListener);
-        PlatformUI.getWorkbench().removeWorkbenchListener(workbenchListener);
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
+		StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
+		InstanceEventManager.getInstance().removeInstanceListener(tmlListener);
+		PlatformUI.getWorkbench().removeWorkbenchListener(workbenchListener);
+		plugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static RemoteDevicePlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static RemoteDevicePlugin getDefault() {
+		return plugin;
+	}
 
-    /**
-     * Retrieves the connect service handler.
-     * 
-     * @return The currently registered connect service handler, or <null> if no handler is registered.
-     */
-    public static ServiceHandler getConnectServiceHandler()
-    {
-        if (connectServiceHandler == null)
-        {
-            IDeviceType device =
-                    DeviceTypeRegistry.getInstance().getDeviceTypeById(
-                            RemoteDeviceConstants.DEVICE_ID);
-            List<IService> services = device.getServices();
-            for (IService service : services)
-            {
-                IServiceHandler handler = service.getHandler();
-                if (handler.getService().getId().equals(RemoteDeviceConstants.SERVICE_CONNECT_ID))
-                {
-                    connectServiceHandler = (ServiceHandler) handler;
-                    break;
-                }
-            }
-        }
+	/**
+	 * Retrieves the connect service handler.
+	 * 
+	 * @return The currently registered connect service handler, or <null> if no
+	 *         handler is registered.
+	 */
+	public static ServiceHandler getConnectServiceHandler() {
+		if (connectServiceHandler == null) {
+			IDeviceType device = DeviceTypeRegistry.getInstance().getDeviceTypeById(RemoteDeviceConstants.DEVICE_ID);
+			List<IService> services = device.getServices();
+			for (IService service : services) {
+				IServiceHandler handler = service.getHandler();
+				if (handler.getService().getId().equals(RemoteDeviceConstants.SERVICE_CONNECT_ID)) {
+					connectServiceHandler = (ServiceHandler) handler;
+					break;
+				}
+			}
+		}
 
-        return connectServiceHandler;
-    }
+		return connectServiceHandler;
+	}
 
-    /**
-     * Retrieves the disconnect service handler.
-     * 
-     * @return The currently registered disconnect service handler, or <null> if no handler is registered.
-     */
-    public static ServiceHandler getDisconnectServiceHandler()
-    {
-        if (disconnectServiceHandler == null)
-        {
-            IDeviceType device =
-                    DeviceTypeRegistry.getInstance().getDeviceTypeById(
-                            RemoteDeviceConstants.DEVICE_ID);
-            List<IService> services = device.getServices();
-            for (IService service : services)
-            {
-                IServiceHandler handler = service.getHandler();
-                if (handler.getService().getId()
-                        .equals(RemoteDeviceConstants.SERVICE_DISCONNECT_ID))
-                {
-                    disconnectServiceHandler = (ServiceHandler) handler;
-                    break;
-                }
-            }
-        }
+	/**
+	 * Retrieves the disconnect service handler.
+	 * 
+	 * @return The currently registered disconnect service handler, or <null> if
+	 *         no handler is registered.
+	 */
+	public static ServiceHandler getDisconnectServiceHandler() {
+		if (disconnectServiceHandler == null) {
+			IDeviceType device = DeviceTypeRegistry.getInstance().getDeviceTypeById(RemoteDeviceConstants.DEVICE_ID);
+			List<IService> services = device.getServices();
+			for (IService service : services) {
+				IServiceHandler handler = service.getHandler();
+				if (handler.getService().getId().equals(RemoteDeviceConstants.SERVICE_DISCONNECT_ID)) {
+					disconnectServiceHandler = (ServiceHandler) handler;
+					break;
+				}
+			}
+		}
 
-        return disconnectServiceHandler;
-    }
+		return disconnectServiceHandler;
+	}
 
-    /**
-     * Creates and returns a new image descriptor for an image file in this plug-in.
-     * @param path the relative path of the image file, relative to the root of the plug-in; the path must be legal
-     * @return an image descriptor, or null if no image could be found
-     */
-    public static ImageDescriptor getImageDescriptor(String path)
-    {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
-    }
+	/**
+	 * Creates and returns a new image descriptor for an image file in this
+	 * plug-in.
+	 * 
+	 * @param path
+	 *            the relative path of the image file, relative to the root of
+	 *            the plug-in; the path must be legal
+	 * @return an image descriptor, or null if no image could be found
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
 
-    public static boolean isWifiServiceEnabled()
-    {
-        Boolean enabled = null;
-        try
-        {
-            enabled = Boolean.parseBoolean(System.getProperty("enableWifiService"));
-        }
-        catch (Exception e)
-        {
-            enabled = Boolean.FALSE;
-        }
-        return enabled;
-    }
+	public static boolean isWifiServiceEnabled() {
+		Boolean enabled = null;
+		try {
+			enabled = Boolean.parseBoolean(System.getProperty("enableWifiService"));
+		} catch (Exception e) {
+			enabled = Boolean.FALSE;
+		}
+		return enabled;
+	}
 }

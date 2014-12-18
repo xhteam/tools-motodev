@@ -19,31 +19,31 @@ package org.eclipse.andmore.gltrace.state.transforms;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
- * A {@link SparseArrayElementRemoveTransform} changes given state by removing an
- * element from a sparse array.
+ * A {@link SparseArrayElementRemoveTransform} changes given state by removing
+ * an element from a sparse array.
  */
 public class SparseArrayElementRemoveTransform implements IStateTransform {
-    private final SparseArrayElementAddTransform mAddTransform;
+	private final SparseArrayElementAddTransform mAddTransform;
 
-    public SparseArrayElementRemoveTransform(IGLPropertyAccessor accessor, int key) {
-        mAddTransform = new SparseArrayElementAddTransform(accessor, key);
-    }
+	public SparseArrayElementRemoveTransform(IGLPropertyAccessor accessor, int key) {
+		mAddTransform = new SparseArrayElementAddTransform(accessor, key);
+	}
 
-    @Override
-    public void apply(IGLProperty currentState) {
-        // applying a RemoveTransform is the same as reverting an AddTransform.
-        mAddTransform.revert(currentState);
-    }
+	@Override
+	public void apply(IGLProperty currentState) {
+		// applying a RemoveTransform is the same as reverting an AddTransform.
+		mAddTransform.revert(currentState);
+	}
 
-    @Override
-    public void revert(IGLProperty currentState) {
-        // reverting a RemoveTransform is the same as applying an AddTransform.
-        mAddTransform.apply(currentState);
-    }
+	@Override
+	public void revert(IGLProperty currentState) {
+		// reverting a RemoveTransform is the same as applying an AddTransform.
+		mAddTransform.apply(currentState);
+	}
 
-    @Override
-    public IGLProperty getChangedProperty(IGLProperty currentState) {
-        return mAddTransform.getChangedProperty(currentState);
-    }
+	@Override
+	public IGLProperty getChangedProperty(IGLProperty currentState) {
+		return mAddTransform.getChangedProperty(currentState);
+	}
 
 }

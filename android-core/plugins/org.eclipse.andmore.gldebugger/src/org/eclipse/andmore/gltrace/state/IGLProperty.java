@@ -16,48 +16,51 @@
 
 package org.eclipse.andmore.gltrace.state;
 
-
 /**
- * The GL state is modeled as a hierarchical set of properties, all of which implement
- * this interface.
+ * The GL state is modeled as a hierarchical set of properties, all of which
+ * implement this interface.
  */
 public interface IGLProperty extends Cloneable {
-    /** Obtain the type of the property. */
-    GLStateType getType();
+	/** Obtain the type of the property. */
+	GLStateType getType();
 
-    /** Is this a composite property?
-     * @return true if it is a list or structure of properties,
-     *         false if it is a leaf level atomic property
-     * */
-    boolean isComposite();
+	/**
+	 * Is this a composite property?
+	 * 
+	 * @return true if it is a list or structure of properties, false if it is a
+	 *         leaf level atomic property
+	 * */
+	boolean isComposite();
 
-    /**
-     * Is the currently set value the default?
-     * @return true if current value matches the default (initial) value
-     */
-    boolean isDefault();
+	/**
+	 * Is the currently set value the default?
+	 * 
+	 * @return true if current value matches the default (initial) value
+	 */
+	boolean isDefault();
 
-    /** Set the current value for this property. */
-    void setValue(Object value);
+	/** Set the current value for this property. */
+	void setValue(Object value);
 
-    /** Get the current value for this property. */
-    Object getValue();
+	/** Get the current value for this property. */
+	Object getValue();
 
-    /** Get the string representation for this property. */
-    String getStringValue();
+	/** Get the string representation for this property. */
+	String getStringValue();
 
-    /**
-     * Get the parent property that holds this property.
-     * @return null if this property is at the top level, parent otherwise
-     */
-    IGLProperty getParent();
+	/**
+	 * Get the parent property that holds this property.
+	 * 
+	 * @return null if this property is at the top level, parent otherwise
+	 */
+	IGLProperty getParent();
 
-    /** Set the parent property that holds this property. */
-    void setParent(IGLProperty parent);
+	/** Set the parent property that holds this property. */
+	void setParent(IGLProperty parent);
 
-    /** Deep clone this property. */
-    IGLProperty clone();
+	/** Deep clone this property. */
+	IGLProperty clone();
 
-    /** Pretty print current property value to the given writer. */
-    void prettyPrint(StatePrettyPrinter pp);
+	/** Pretty print current property value to the given writer. */
+	void prettyPrint(StatePrettyPrinter pp);
 }

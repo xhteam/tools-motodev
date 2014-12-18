@@ -52,8 +52,6 @@ import static java.lang.Math.abs;
 import static org.eclipse.andmore.common.layout.BaseLayoutRule.getMaxMatchDistance;
 import static org.eclipse.andmore.common.layout.relative.ConstraintType.ALIGN_BASELINE;
 
-import com.android.SdkConstants;
-
 import static com.android.SdkConstants.ANDROID_URI;
 
 import com.android.ide.common.api.DropFeedback;

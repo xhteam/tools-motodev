@@ -17,24 +17,23 @@ package org.eclipe.andmore.tests;
 
 import junit.framework.TestSuite;
 
-
 /**
  * Container TestSuite for all eclipse tests, both functional and unit
  */
 public class AllTests extends TestSuite {
 
-    public AllTests() {
+	public AllTests() {
 
-    }
+	}
 
-    /**
-     * Returns a suite of test cases to be run.
-     */
-    public static TestSuite suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(FuncTests.suite());
-        suite.addTest(UnitTests.suite());
-        return suite;
-    }
+	/**
+	 * Returns a suite of test cases to be run.
+	 */
+	public static TestSuite suite() {
+		TestSuite suite = new TestSuite();
+		suite.addTest(FuncTests.suite());
+		suite.addTest(UnitTests.suite());
+		return suite;
+	}
 
 }

@@ -23,99 +23,96 @@ import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  *
  */
-public class CreateKeystoreWizard extends Wizard
-{
+public class CreateKeystoreWizard extends Wizard {
 
-    private final CreateKeystorePage createKeystorePage;
+	private final CreateKeystorePage createKeystorePage;
 
-    private final CreateKeyWizardPage createKeyPairPage;
+	private final CreateKeyWizardPage createKeyPairPage;
 
-    private static final String WIZARD_BANNER = "icons/wizban/create_keystore_wiz.png"; //$NON-NLS-1$
+	private static final String WIZARD_BANNER = "icons/wizban/create_keystore_wiz.png"; //$NON-NLS-1$
 
-    private static final String KEYSTORE_KEY_HELP_ID = CertificateManagerActivator.PLUGIN_ID
-            + ".keystore-key-help-id";
+	private static final String KEYSTORE_KEY_HELP_ID = CertificateManagerActivator.PLUGIN_ID + ".keystore-key-help-id";
 
-    private KeyStoreNode createdKeystoreNode;
+	private KeyStoreNode createdKeystoreNode;
 
-    /**
+	/**
      * 
      */
-    public CreateKeystoreWizard()
-    {
-        this(null);
-    }
+	public CreateKeystoreWizard() {
+		this(null);
+	}
 
-    public CreateKeystoreWizard(IJobChangeListener createKeystoreJobListener)
-    {
-        setWindowTitle(CertificateManagerNLS.CreateKeystoreWizard_CreateNewKeyStore);
-        setDefaultPageImageDescriptor(CertificateManagerActivator.imageDescriptorFromPlugin(
-                CertificateManagerActivator.PLUGIN_ID, WIZARD_BANNER));
+	public CreateKeystoreWizard(IJobChangeListener createKeystoreJobListener) {
+		setWindowTitle(CertificateManagerNLS.CreateKeystoreWizard_CreateNewKeyStore);
+		setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(CertificateManagerActivator.PLUGIN_ID,
+				WIZARD_BANNER));
 
-        this.createKeyPairPage = new CreateKeyWizardPage(null, "", createKeystoreJobListener);
-        this.createKeystorePage =
-                new CreateKeystorePage(CertificateManagerNLS.CreateKeystoreWizard_CreateNewKeyStore);
-    }
+		this.createKeyPairPage = new CreateKeyWizardPage(null, "", createKeystoreJobListener);
+		this.createKeystorePage = new CreateKeystorePage(CertificateManagerNLS.CreateKeystoreWizard_CreateNewKeyStore);
+	}
 
-    /* (non-Javadoc)
-         * @see org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets.Composite)
-         */
-    @Override
-    public void createPageControls(Composite pageContainer)
-    {
-        super.createPageControls(pageContainer);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createPageControls(Composite pageContainer) {
+		super.createPageControls(pageContainer);
 
-        //the shell has a generic help that talks about keystore and keys
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), KEYSTORE_KEY_HELP_ID);
-    }
+		// the shell has a generic help that talks about keystore and keys
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), KEYSTORE_KEY_HELP_ID);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        createdKeystoreNode = createKeystorePage.createKeyStore();
-        if (createdKeystoreNode != null)
-        {
-            createKeyPairPage.setKeyStore(createdKeystoreNode);
-            createKeyPairPage.setKeyStorePass(createKeystorePage.getPassword());
-            createKeyPairPage.createKey();
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		createdKeystoreNode = createKeystorePage.createKeyStore();
+		if (createdKeystoreNode != null) {
+			createKeyPairPage.setKeyStore(createdKeystoreNode);
+			createKeyPairPage.setKeyStorePass(createKeystorePage.getPassword());
+			createKeyPairPage.createKey();
+		}
 
-        //check if the keystore was created
-        return (createdKeystoreNode != null);
-    }
+		// check if the keystore was created
+		return (createdKeystoreNode != null);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        this.addPage(createKeystorePage);
-        this.addPage(createKeyPairPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		this.addPage(createKeystorePage);
+		this.addPage(createKeyPairPage);
+	}
 
-    /**
-     * @return the createdKeystoreNode
-     */
-    public KeyStoreNode getCreatedKeystoreNode()
-    {
-        return createdKeystoreNode;
-    }
+	/**
+	 * @return the createdKeystoreNode
+	 */
+	public KeyStoreNode getCreatedKeystoreNode() {
+		return createdKeystoreNode;
+	}
 
-    public String getCreatedKeystorePassword()
-    {
-        String result = null;
-        if (createKeystorePage != null)
-        {
-            result = createKeystorePage.getPassword();
-        }
+	public String getCreatedKeystorePassword() {
+		String result = null;
+		if (createKeystorePage != null) {
+			result = createKeystorePage.getPassword();
+		}
 
-        return result;
-    }
+		return result;
+	}
 }

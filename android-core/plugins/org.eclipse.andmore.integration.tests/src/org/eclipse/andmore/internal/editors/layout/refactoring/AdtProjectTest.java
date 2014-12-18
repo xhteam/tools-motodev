@@ -67,431 +67,435 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings({"restriction", "javadoc"})
+@SuppressWarnings({ "restriction", "javadoc" })
 public abstract class AdtProjectTest extends SdkLoadingTestCase {
-    private static final int TARGET_API_LEVEL = 16;
-    public static final String TEST_PROJECT_PACKAGE = "com.android.eclipse.tests"; //$NON-NLS-1$
-    private static final long TESTS_START_TIME = System.currentTimeMillis();
-    private static final String PROJECTNAME_PREFIX = "testproject-";
+	private static final int TARGET_API_LEVEL = 16;
+	public static final String TEST_PROJECT_PACKAGE = "com.android.eclipse.tests"; //$NON-NLS-1$
+	private static final long TESTS_START_TIME = System.currentTimeMillis();
+	private static final String PROJECTNAME_PREFIX = "testproject-";
 
-    /**
-     * We don't stash the project used by each test case as a field such that test cases
-     * can share a single project instance (which is typically much faster).
-     * However, see {@link #getProjectName()} for exceptions to this sharing scheme.
-     */
-    private static Map<String, IProject> sProjectMap = new HashMap<String, IProject>();
+	/**
+	 * We don't stash the project used by each test case as a field such that
+	 * test cases can share a single project instance (which is typically much
+	 * faster). However, see {@link #getProjectName()} for exceptions to this
+	 * sharing scheme.
+	 */
+	private static Map<String, IProject> sProjectMap = new HashMap<String, IProject>();
 
-    @Override
-    protected String getTestDataRelPath() {
-        return "eclipse/plugins/org.eclipse.andmore.tests/src/org/eclipse/andmore/"
-                + "internal/editors/layout/refactoring/testdata";
-    }
+	@Override
+	protected String getTestDataRelPath() {
+		return "eclipse/plugins/org.eclipse.andmore.tests/src/org/eclipse/andmore/"
+				+ "internal/editors/layout/refactoring/testdata";
+	}
 
-    @Override
-    protected InputStream getTestResource(String relativePath, boolean expectExists) {
-        String path = "testdata" + File.separator + relativePath; //$NON-NLS-1$
-        InputStream stream =
-            AdtProjectTest.class.getResourceAsStream(path);
-        if (!expectExists && stream == null) {
-            return null;
-        }
-        return stream;
-    }
+	@Override
+	protected InputStream getTestResource(String relativePath, boolean expectExists) {
+		String path = "testdata" + File.separator + relativePath; //$NON-NLS-1$
+		InputStream stream = AdtProjectTest.class.getResourceAsStream(path);
+		if (!expectExists && stream == null) {
+			return null;
+		}
+		return stream;
+	}
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 
-        // Prevent preview icon computation during plugin test to make test faster
-        if (AdtPlugin.getDefault() == null) {
-            fail("This test must be run as an Eclipse plugin test, not a plain JUnit test!");
-        }
-        AdtPrefs.getPrefs().setPaletteModes("ICON_TEXT"); //$NON-NLS-1$
+		// Prevent preview icon computation during plugin test to make test
+		// faster
+		if (AdtPlugin.getDefault() == null) {
+			fail("This test must be run as an Eclipse plugin test, not a plain JUnit test!");
+		}
+		AdtPrefs.getPrefs().setPaletteModes("ICON_TEXT"); //$NON-NLS-1$
 
-        getProject();
+		getProject();
 
-        Sdk current = Sdk.getCurrent();
-        assertNotNull(current);
-        LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
-        assertSame(LoadStatus.LOADED, sdkStatus);
-        IAndroidTarget target = current.getTarget(getProject());
-        IJavaProject javaProject = BaseProjectHelper.getJavaProject(getProject());
-        assertNotNull(javaProject);
-        int iterations = 0;
-        while (true) {
-            if (iterations == 100) {
-                fail("Couldn't load target; ran out of time");
-            }
-            LoadStatus status = current.checkAndLoadTargetData(target, javaProject);
-            if (status == LoadStatus.FAILED) {
-                fail("Couldn't load target " + target);
-            }
-            if (status != LoadStatus.LOADING) {
-                break;
-            }
-            Thread.sleep(250);
-            iterations++;
-        }
-        AndroidTargetData targetData = current.getTargetData(target);
-        assertNotNull(targetData);
-        LayoutDescriptors layoutDescriptors = targetData.getLayoutDescriptors();
-        assertNotNull(layoutDescriptors);
-        List<ViewElementDescriptor> viewDescriptors = layoutDescriptors.getViewDescriptors();
-        assertNotNull(viewDescriptors);
-        assertTrue(viewDescriptors.size() > 0);
-        List<ViewElementDescriptor> layoutParamDescriptors =
-                layoutDescriptors.getLayoutDescriptors();
-        assertNotNull(layoutParamDescriptors);
-        assertTrue(layoutParamDescriptors.size() > 0);
-    }
+		Sdk current = Sdk.getCurrent();
+		assertNotNull(current);
+		LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
+		assertSame(LoadStatus.LOADED, sdkStatus);
+		IAndroidTarget target = current.getTarget(getProject());
+		IJavaProject javaProject = BaseProjectHelper.getJavaProject(getProject());
+		assertNotNull(javaProject);
+		int iterations = 0;
+		while (true) {
+			if (iterations == 100) {
+				fail("Couldn't load target; ran out of time");
+			}
+			LoadStatus status = current.checkAndLoadTargetData(target, javaProject);
+			if (status == LoadStatus.FAILED) {
+				fail("Couldn't load target " + target);
+			}
+			if (status != LoadStatus.LOADING) {
+				break;
+			}
+			Thread.sleep(250);
+			iterations++;
+		}
+		AndroidTargetData targetData = current.getTargetData(target);
+		assertNotNull(targetData);
+		LayoutDescriptors layoutDescriptors = targetData.getLayoutDescriptors();
+		assertNotNull(layoutDescriptors);
+		List<ViewElementDescriptor> viewDescriptors = layoutDescriptors.getViewDescriptors();
+		assertNotNull(viewDescriptors);
+		assertTrue(viewDescriptors.size() > 0);
+		List<ViewElementDescriptor> layoutParamDescriptors = layoutDescriptors.getLayoutDescriptors();
+		assertNotNull(layoutParamDescriptors);
+		assertTrue(layoutParamDescriptors.size() > 0);
+	}
 
-    /** Set to true if the subclass test case should use a per-instance project rather
-     * than a shared project. This is needed by projects which modify the project in such
-     * a way that it affects what other tests see (for example, the quickfix resource creation
-     * tests will add in new resources, which the code completion tests will then list as
-     * possible matches if the code completion test is run after the quickfix test.)
-     * @return true to create a per-instance project instead of the default shared project
-     */
-    protected boolean testCaseNeedsUniqueProject() {
-        return false;
-    }
+	/**
+	 * Set to true if the subclass test case should use a per-instance project
+	 * rather than a shared project. This is needed by projects which modify the
+	 * project in such a way that it affects what other tests see (for example,
+	 * the quickfix resource creation tests will add in new resources, which the
+	 * code completion tests will then list as possible matches if the code
+	 * completion test is run after the quickfix test.)
+	 * 
+	 * @return true to create a per-instance project instead of the default
+	 *         shared project
+	 */
+	protected boolean testCaseNeedsUniqueProject() {
+		return false;
+	}
 
-    protected boolean testNeedsUniqueProject() {
-        return false;
-    }
+	protected boolean testNeedsUniqueProject() {
+		return false;
+	}
 
-    @Override
-    protected boolean validateSdk(IAndroidTarget target) {
-        // Not quite working yet. When enabled will make tests run faster.
-        //if (target.getVersion().getApiLevel() < TARGET_API_LEVEL) {
-        //    return false;
-        //}
+	@Override
+	protected boolean validateSdk(IAndroidTarget target) {
+		// Not quite working yet. When enabled will make tests run faster.
+		// if (target.getVersion().getApiLevel() < TARGET_API_LEVEL) {
+		// return false;
+		// }
 
-        return true;
-    }
+		return true;
+	}
 
-    /** Returns a name to use for the project used in this test. Subclasses do not need to
-     * override this if they can share a project with others - which is the case if they do
-     * not modify the project in a way that does not affect other tests. For example
-     * the resource quickfix test will create new resources which affect what shows up
-     * in the code completion results, so the quickfix tests will override this method
-     * to produce a unique project for its own tests.
-     */
-    private String getProjectName() {
-        if (testNeedsUniqueProject()) {
-            return PROJECTNAME_PREFIX + getClass().getSimpleName() + "-" + getName();
-        } else if (testCaseNeedsUniqueProject()) {
-            return PROJECTNAME_PREFIX + getClass().getSimpleName();
-        } else {
-            return PROJECTNAME_PREFIX + TESTS_START_TIME;
-        }
-    }
+	/**
+	 * Returns a name to use for the project used in this test. Subclasses do
+	 * not need to override this if they can share a project with others - which
+	 * is the case if they do not modify the project in a way that does not
+	 * affect other tests. For example the resource quickfix test will create
+	 * new resources which affect what shows up in the code completion results,
+	 * so the quickfix tests will override this method to produce a unique
+	 * project for its own tests.
+	 */
+	private String getProjectName() {
+		if (testNeedsUniqueProject()) {
+			return PROJECTNAME_PREFIX + getClass().getSimpleName() + "-" + getName();
+		} else if (testCaseNeedsUniqueProject()) {
+			return PROJECTNAME_PREFIX + getClass().getSimpleName();
+		} else {
+			return PROJECTNAME_PREFIX + TESTS_START_TIME;
+		}
+	}
 
-    protected IProject getProject() {
-        String projectName = getProjectName();
-        IProject project = sProjectMap.get(projectName);
-        if (project == null) {
-            project = createProject(projectName);
-            assertNotNull(project);
-            sProjectMap.put(projectName, project);
-        }
-        if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
-            addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
-        }
-        addCleanupDir(project.getFullPath().toFile());
-        return project;
-    }
+	protected IProject getProject() {
+		String projectName = getProjectName();
+		IProject project = sProjectMap.get(projectName);
+		if (project == null) {
+			project = createProject(projectName);
+			assertNotNull(project);
+			sProjectMap.put(projectName, project);
+		}
+		if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
+			addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
+		}
+		addCleanupDir(project.getFullPath().toFile());
+		return project;
+	}
 
-    protected IFile getTestDataFile(IProject project, String name) throws Exception {
-        return getTestDataFile(project, name, name);
-    }
+	protected IFile getTestDataFile(IProject project, String name) throws Exception {
+		return getTestDataFile(project, name, name);
+	}
 
-    protected IFile getLayoutFile(IProject project, String name) throws Exception {
-        return getTestDataFile(project, name, FD_RES + "/" + FD_RES_LAYOUT + "/" + name);
-    }
+	protected IFile getLayoutFile(IProject project, String name) throws Exception {
+		return getTestDataFile(project, name, FD_RES + "/" + FD_RES_LAYOUT + "/" + name);
+	}
 
-    protected IFile getValueFile(IProject project, String name) throws Exception {
-        return getTestDataFile(project, name, FD_RES + "/" + FD_RES_VALUES + "/" + name);
-    }
+	protected IFile getValueFile(IProject project, String name) throws Exception {
+		return getTestDataFile(project, name, FD_RES + "/" + FD_RES_VALUES + "/" + name);
+	}
 
-    protected IFile getTestDataFile(IProject project, String sourceName,
-            String destPath) throws Exception {
-        return getTestDataFile(project, sourceName, destPath, false);
-    }
+	protected IFile getTestDataFile(IProject project, String sourceName, String destPath) throws Exception {
+		return getTestDataFile(project, sourceName, destPath, false);
+	}
 
-    protected IFile getTestDataFile(IProject project, String sourceName,
-            String destPath, boolean overwrite) throws Exception {
-        String[] split = destPath.split("/"); //$NON-NLS-1$
-        IContainer parent;
-        String name;
-        if (split.length == 1) {
-            parent = project;
-            name = destPath;
-        } else {
-            IFolder folder = project.getFolder(split[0]);
-            NullProgressMonitor monitor = new NullProgressMonitor();
-            if (!folder.exists()) {
-                folder.create(true /* force */, true /* local */, monitor);
-            }
-            for (int i = 1, n = split.length; i < n -1; i++) {
-                IFolder subFolder = folder.getFolder(split[i]);
-                if (!subFolder.exists()) {
-                    subFolder.create(true /* force */, true /* local */, monitor);
-                }
-                folder = subFolder;
-            }
-            name = split[split.length - 1];
-            parent = folder;
-        }
-        IFile file = parent.getFile(new Path(name));
-        if (overwrite && file.exists()) {
-            String currentContents = AdtPlugin.readFile(file);
-            String newContents = readTestFile(sourceName, true);
-            if (currentContents == null || !currentContents.equals(newContents)) {
-                file.delete(true, new NullProgressMonitor());
-            } else {
-                return file;
-            }
-        }
-        if (!file.exists()) {
-            String xml = readTestFile(sourceName, true);
-            InputStream bstream = new ByteArrayInputStream(xml.getBytes("UTF-8")); //$NON-NLS-1$
-            NullProgressMonitor monitor = new NullProgressMonitor();
-            file.create(bstream, false /* force */, monitor);
-        }
+	protected IFile getTestDataFile(IProject project, String sourceName, String destPath, boolean overwrite)
+			throws Exception {
+		String[] split = destPath.split("/"); //$NON-NLS-1$
+		IContainer parent;
+		String name;
+		if (split.length == 1) {
+			parent = project;
+			name = destPath;
+		} else {
+			IFolder folder = project.getFolder(split[0]);
+			NullProgressMonitor monitor = new NullProgressMonitor();
+			if (!folder.exists()) {
+				folder.create(true /* force */, true /* local */, monitor);
+			}
+			for (int i = 1, n = split.length; i < n - 1; i++) {
+				IFolder subFolder = folder.getFolder(split[i]);
+				if (!subFolder.exists()) {
+					subFolder.create(true /* force */, true /* local */, monitor);
+				}
+				folder = subFolder;
+			}
+			name = split[split.length - 1];
+			parent = folder;
+		}
+		IFile file = parent.getFile(new Path(name));
+		if (overwrite && file.exists()) {
+			String currentContents = AdtPlugin.readFile(file);
+			String newContents = readTestFile(sourceName, true);
+			if (currentContents == null || !currentContents.equals(newContents)) {
+				file.delete(true, new NullProgressMonitor());
+			} else {
+				return file;
+			}
+		}
+		if (!file.exists()) {
+			String xml = readTestFile(sourceName, true);
+			InputStream bstream = new ByteArrayInputStream(xml.getBytes("UTF-8")); //$NON-NLS-1$
+			NullProgressMonitor monitor = new NullProgressMonitor();
+			file.create(bstream, false /* force */, monitor);
+		}
 
-        return file;
-    }
+		return file;
+	}
 
-    protected IProject createProject(String name) {
-        IAndroidTarget target = null;
+	protected IProject createProject(String name) {
+		IAndroidTarget target = null;
 
-        IAndroidTarget[] targets = getSdk().getTargets();
-        for (IAndroidTarget t : targets) {
-            if (!t.isPlatform()) {
-                continue;
-            }
-            if (t.getVersion().getApiLevel() >= TARGET_API_LEVEL) {
-                target = t;
-                break;
-            }
-        }
-        assertNotNull(target);
+		IAndroidTarget[] targets = getSdk().getTargets();
+		for (IAndroidTarget t : targets) {
+			if (!t.isPlatform()) {
+				continue;
+			}
+			if (t.getVersion().getApiLevel() >= TARGET_API_LEVEL) {
+				target = t;
+				break;
+			}
+		}
+		assertNotNull(target);
 
-        IRunnableContext context = new IRunnableContext() {
-            @Override
-            public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable)
-                    throws InvocationTargetException, InterruptedException {
-                runnable.run(new NullProgressMonitor());
-            }
-        };
-        NewProjectWizardState state = new NewProjectWizardState(Mode.ANY);
-        state.projectName = name;
-        state.target = target;
-        state.packageName = TEST_PROJECT_PACKAGE;
-        state.activityName = name;
-        state.applicationName = name;
-        state.createActivity = false;
-        state.useDefaultLocation = true;
-        if (getMinSdk() != -1) {
-            state.minSdk = Integer.toString(getMinSdk());
-        }
+		IRunnableContext context = new IRunnableContext() {
+			@Override
+			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable)
+					throws InvocationTargetException, InterruptedException {
+				runnable.run(new NullProgressMonitor());
+			}
+		};
+		NewProjectWizardState state = new NewProjectWizardState(Mode.ANY);
+		state.projectName = name;
+		state.target = target;
+		state.packageName = TEST_PROJECT_PACKAGE;
+		state.activityName = name;
+		state.applicationName = name;
+		state.createActivity = false;
+		state.useDefaultLocation = true;
+		if (getMinSdk() != -1) {
+			state.minSdk = Integer.toString(getMinSdk());
+		}
 
-        NewProjectCreator creator = new NewProjectCreator(state, context);
-        creator.createAndroidProjects();
-        return validateProjectExists(name);
-    }
+		NewProjectCreator creator = new NewProjectCreator(state, context);
+		creator.createAndroidProjects();
+		return validateProjectExists(name);
+	}
 
-    protected int getMinSdk() {
-        return -1;
-    }
+	protected int getMinSdk() {
+		return -1;
+	}
 
-    public void createTestProject() {
-        IAndroidTarget target = null;
+	public void createTestProject() {
+		IAndroidTarget target = null;
 
-        IAndroidTarget[] targets = getSdk().getTargets();
-        for (IAndroidTarget t : targets) {
-            if (t.getVersion().getApiLevel() >= TARGET_API_LEVEL) {
-                target = t;
-                break;
-            }
-        }
-        assertNotNull(target);
-    }
+		IAndroidTarget[] targets = getSdk().getTargets();
+		for (IAndroidTarget t : targets) {
+			if (t.getVersion().getApiLevel() >= TARGET_API_LEVEL) {
+				target = t;
+				break;
+			}
+		}
+		assertNotNull(target);
+	}
 
-    protected static IProject validateProjectExists(String name) {
-        IProject iproject = getProject(name);
-        assertTrue(String.format("%s project not created", name), iproject.exists());
-        assertTrue(String.format("%s project not opened", name), iproject.isOpen());
-        return iproject;
-    }
+	protected static IProject validateProjectExists(String name) {
+		IProject iproject = getProject(name);
+		assertTrue(String.format("%s project not created", name), iproject.exists());
+		assertTrue(String.format("%s project not opened", name), iproject.isOpen());
+		return iproject;
+	}
 
-    private static IProject getProject(String name) {
-        IProject iproject = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
-        return iproject;
-    }
+	private static IProject getProject(String name) {
+		IProject iproject = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+		return iproject;
+	}
 
-    protected int getCaretOffset(IFile file, String caretLocation) {
-        assertTrue(caretLocation, caretLocation.contains("^"));
+	protected int getCaretOffset(IFile file, String caretLocation) {
+		assertTrue(caretLocation, caretLocation.contains("^"));
 
-        String fileContent = AdtPlugin.readFile(file);
-        return getCaretOffset(fileContent, caretLocation);
-    }
+		String fileContent = AdtPlugin.readFile(file);
+		return getCaretOffset(fileContent, caretLocation);
+	}
 
-    /**
-     * If the given caret location string contains a selection range, select that range in
-     * the given viewer
-     *
-     * @param viewer the viewer to contain the selection
-     * @param caretLocation the location string
-     */
-    protected int updateCaret(ISourceViewer viewer, String caretLocation) {
-        assertTrue(caretLocation, caretLocation.contains("^")); //$NON-NLS-1$
+	/**
+	 * If the given caret location string contains a selection range, select
+	 * that range in the given viewer
+	 *
+	 * @param viewer
+	 *            the viewer to contain the selection
+	 * @param caretLocation
+	 *            the location string
+	 */
+	protected int updateCaret(ISourceViewer viewer, String caretLocation) {
+		assertTrue(caretLocation, caretLocation.contains("^")); //$NON-NLS-1$
 
-        int caretDelta = caretLocation.indexOf("^"); //$NON-NLS-1$
-        assertTrue(caretLocation, caretDelta != -1);
-        String text = viewer.getTextWidget().getText();
+		int caretDelta = caretLocation.indexOf("^"); //$NON-NLS-1$
+		assertTrue(caretLocation, caretDelta != -1);
+		String text = viewer.getTextWidget().getText();
 
-        int length = 0;
+		int length = 0;
 
-        // String around caret/range without the range and caret marker characters
-        String caretContext;
+		// String around caret/range without the range and caret marker
+		// characters
+		String caretContext;
 
-        if (caretLocation.contains("[^")) { //$NON-NLS-1$
-            caretDelta--;
-            assertTrue(caretLocation, caretLocation.startsWith("[^", caretDelta)); //$NON-NLS-1$
+		if (caretLocation.contains("[^")) { //$NON-NLS-1$
+			caretDelta--;
+			assertTrue(caretLocation, caretLocation.startsWith("[^", caretDelta)); //$NON-NLS-1$
 
-            int caretRangeEnd = caretLocation.indexOf(']', caretDelta + 2);
-            assertTrue(caretLocation, caretRangeEnd != -1);
-            length = caretRangeEnd - caretDelta - 2;
-            assertTrue(length > 0);
-            caretContext = caretLocation.substring(0, caretDelta)
-                    + caretLocation.substring(caretDelta + 2, caretRangeEnd)
-                    + caretLocation.substring(caretRangeEnd + 1);
-        } else {
-            caretContext = caretLocation.substring(0, caretDelta)
-                    + caretLocation.substring(caretDelta + 1); // +1: skip "^"
-        }
+			int caretRangeEnd = caretLocation.indexOf(']', caretDelta + 2);
+			assertTrue(caretLocation, caretRangeEnd != -1);
+			length = caretRangeEnd - caretDelta - 2;
+			assertTrue(length > 0);
+			caretContext = caretLocation.substring(0, caretDelta)
+					+ caretLocation.substring(caretDelta + 2, caretRangeEnd)
+					+ caretLocation.substring(caretRangeEnd + 1);
+		} else {
+			caretContext = caretLocation.substring(0, caretDelta) + caretLocation.substring(caretDelta + 1); // +1:
+																												// skip
+																												// "^"
+		}
 
-        int caretContextIndex = text.indexOf(caretContext);
+		int caretContextIndex = text.indexOf(caretContext);
 
-        assertTrue("Caret content " + caretContext + " not found in file",
-                caretContextIndex != -1);
+		assertTrue("Caret content " + caretContext + " not found in file", caretContextIndex != -1);
 
-        int offset = caretContextIndex + caretDelta;
-        viewer.setSelectedRange(offset, length);
+		int offset = caretContextIndex + caretDelta;
+		viewer.setSelectedRange(offset, length);
 
-        return offset;
-    }
+		return offset;
+	}
 
-    protected String addSelection(String newFileContents, Point selectedRange) {
-        int selectionBegin = selectedRange.x;
-        int selectionEnd = selectionBegin + selectedRange.y;
-        return addSelection(newFileContents, selectionBegin, selectionEnd);
-    }
+	protected String addSelection(String newFileContents, Point selectedRange) {
+		int selectionBegin = selectedRange.x;
+		int selectionEnd = selectionBegin + selectedRange.y;
+		return addSelection(newFileContents, selectionBegin, selectionEnd);
+	}
 
-    @Override
-    protected String removeSessionData(String data) {
-        data = super.removeSessionData(data);
-        if (getProject() != null) {
-            data = data.replace(getProject().getName(), "PROJECTNAME");
-        }
+	@Override
+	protected String removeSessionData(String data) {
+		data = super.removeSessionData(data);
+		if (getProject() != null) {
+			data = data.replace(getProject().getName(), "PROJECTNAME");
+		}
 
-        return data;
-    }
+		return data;
+	}
 
-    public static ViewElementDescriptor createDesc(String name, String fqn, boolean hasChildren) {
-        if (hasChildren) {
-            return new ViewElementDescriptor(name, name, fqn, "", "", new AttributeDescriptor[0],
-                    new AttributeDescriptor[0], new ElementDescriptor[1], false);
-        } else {
-            return new ViewElementDescriptor(name, fqn);
-        }
-    }
+	public static ViewElementDescriptor createDesc(String name, String fqn, boolean hasChildren) {
+		if (hasChildren) {
+			return new ViewElementDescriptor(name, name, fqn, "", "", new AttributeDescriptor[0],
+					new AttributeDescriptor[0], new ElementDescriptor[1], false);
+		} else {
+			return new ViewElementDescriptor(name, fqn);
+		}
+	}
 
-    public static UiViewElementNode createNode(UiViewElementNode parent, String fqn,
-            boolean hasChildren) {
-        String name = fqn.substring(fqn.lastIndexOf('.') + 1);
-        ViewElementDescriptor descriptor = createDesc(name, fqn, hasChildren);
-        if (parent == null) {
-            // All node hierarchies should be wrapped inside a document node at the root
-            parent = new UiViewElementNode(createDesc("doc", "doc", true));
-        }
-        return (UiViewElementNode) parent.appendNewUiChild(descriptor);
-    }
+	public static UiViewElementNode createNode(UiViewElementNode parent, String fqn, boolean hasChildren) {
+		String name = fqn.substring(fqn.lastIndexOf('.') + 1);
+		ViewElementDescriptor descriptor = createDesc(name, fqn, hasChildren);
+		if (parent == null) {
+			// All node hierarchies should be wrapped inside a document node at
+			// the root
+			parent = new UiViewElementNode(createDesc("doc", "doc", true));
+		}
+		return (UiViewElementNode) parent.appendNewUiChild(descriptor);
+	}
 
-    public static UiViewElementNode createNode(String fqn, boolean hasChildren) {
-        return createNode(null, fqn, hasChildren);
-    }
+	public static UiViewElementNode createNode(String fqn, boolean hasChildren) {
+		return createNode(null, fqn, hasChildren);
+	}
 
-    /** Special editor context set on the model to be rendered */
-    protected static class TestLayoutEditorDelegate extends LayoutEditorDelegate {
+	/** Special editor context set on the model to be rendered */
+	protected static class TestLayoutEditorDelegate extends LayoutEditorDelegate {
 
-        public TestLayoutEditorDelegate(
-                IFile file,
-                IStructuredDocument structuredDocument,
-                UiDocumentNode uiRootNode) {
-            super(new TestAndroidXmlCommonEditor(file, structuredDocument, uiRootNode));
-        }
+		public TestLayoutEditorDelegate(IFile file, IStructuredDocument structuredDocument, UiDocumentNode uiRootNode) {
+			super(new TestAndroidXmlCommonEditor(file, structuredDocument, uiRootNode));
+		}
 
-        static class TestAndroidXmlCommonEditor extends CommonXmlEditor {
+		static class TestAndroidXmlCommonEditor extends CommonXmlEditor {
 
-            private final IFile mFile;
-            private final IStructuredDocument mStructuredDocument;
-            private UiDocumentNode mUiRootNode;
+			private final IFile mFile;
+			private final IStructuredDocument mStructuredDocument;
+			private UiDocumentNode mUiRootNode;
 
-            TestAndroidXmlCommonEditor(
-                    IFile file,
-                    IStructuredDocument structuredDocument,
-                    UiDocumentNode uiRootNode) {
-                mFile = file;
-                mStructuredDocument = structuredDocument;
-                mUiRootNode = uiRootNode;
-            }
+			TestAndroidXmlCommonEditor(IFile file, IStructuredDocument structuredDocument, UiDocumentNode uiRootNode) {
+				mFile = file;
+				mStructuredDocument = structuredDocument;
+				mUiRootNode = uiRootNode;
+			}
 
-            @Override
-            public IFile getInputFile() {
-                return mFile;
-            }
+			@Override
+			public IFile getInputFile() {
+				return mFile;
+			}
 
-            @Override
-            public IProject getProject() {
-                return mFile.getProject();
-            }
+			@Override
+			public IProject getProject() {
+				return mFile.getProject();
+			}
 
-            @Override
-            public IStructuredDocument getStructuredDocument() {
-                return mStructuredDocument;
-            }
+			@Override
+			public IStructuredDocument getStructuredDocument() {
+				return mStructuredDocument;
+			}
 
-            @Override
-            public UiDocumentNode getUiRootNode() {
-                return mUiRootNode;
-            }
+			@Override
+			public UiDocumentNode getUiRootNode() {
+				return mUiRootNode;
+			}
 
-            @Override
-            public void editorDirtyStateChanged() {
-            }
+			@Override
+			public void editorDirtyStateChanged() {
+			}
 
-            @Override
-            public IStructuredModel getModelForRead() {
-                IModelManager mm = StructuredModelManager.getModelManager();
-                if (mm != null) {
-                    try {
-                        return mm.getModelForRead(mFile);
-                    } catch (Exception e) {
-                        fail(e.toString());
-                    }
-                }
+			@Override
+			public IStructuredModel getModelForRead() {
+				IModelManager mm = StructuredModelManager.getModelManager();
+				if (mm != null) {
+					try {
+						return mm.getModelForRead(mFile);
+					} catch (Exception e) {
+						fail(e.toString());
+					}
+				}
 
-                return null;
-            }
-        }
-    }
+				return null;
+			}
+		}
+	}
 
-    public void testDummy() {
-        // This class contains shared test functionality for testcase subclasses,
-        // but without an actual test in the class JUnit complains (even if we make
-        // it abstract)
-    }
+	public void testDummy() {
+		// This class contains shared test functionality for testcase
+		// subclasses,
+		// but without an actual test in the class JUnit complains (even if we
+		// make
+		// it abstract)
+	}
 }

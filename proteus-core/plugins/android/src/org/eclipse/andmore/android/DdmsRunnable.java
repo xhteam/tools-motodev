@@ -16,26 +16,22 @@
 package org.eclipse.andmore.android;
 
 /**
- * DESCRIPTION:
- * Interface to be implemented when some serial number dependent piece of code
- * needs to be run   
+ * DESCRIPTION: Interface to be implemented when some serial number dependent
+ * piece of code needs to be run
  *
- * RESPONSIBILITY:
- * Behaves as Runnable, but receives a serial number in the parameters list
+ * RESPONSIBILITY: Behaves as Runnable, but receives a serial number in the
+ * parameters list
  *
- * COLABORATORS:
- * None. 
+ * COLABORATORS: None.
  *
- * USAGE:
- * Provide a runnable like this when DDMSFacade needs one
+ * USAGE: Provide a runnable like this when DDMSFacade needs one
  */
-public interface DdmsRunnable
-{
-    /**
-     * @see Runnable#run()
-     * 
-     * @param serialNumber The serial number of the device that triggered
-     *                     this operation
-     */
-    void run(String serialNumber);
+public interface DdmsRunnable {
+	/**
+	 * @see Runnable#run()
+	 * 
+	 * @param serialNumber
+	 *            The serial number of the device that triggered this operation
+	 */
+	void run(String serialNumber);
 }

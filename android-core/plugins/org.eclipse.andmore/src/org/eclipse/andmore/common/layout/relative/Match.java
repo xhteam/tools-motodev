@@ -19,7 +19,6 @@ import static com.android.SdkConstants.ATTR_ID;
 import static com.android.SdkConstants.VALUE_TRUE;
 
 
-import com.android.SdkConstants;
 import static com.android.SdkConstants.ANDROID_URI;
 import com.android.ide.common.api.Segment;
 

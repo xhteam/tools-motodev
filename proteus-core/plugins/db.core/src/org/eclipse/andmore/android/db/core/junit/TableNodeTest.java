@@ -25,39 +25,31 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.datatools.modelbase.sql.tables.Table;
 import org.junit.Test;
 
-public class TableNodeTest
-{
+public class TableNodeTest {
 
-    @Test
-    public void test()
-    {
+	@Test
+	public void test() {
 
-        Path path = new Path("/Users/danielbfranco/temp/ranking.db");
-        DbModel model = null;
-        try
-        {
-            model = new DbModel(path);
-        }
-        catch (MotodevDbException e)
-        {
-            e.printStackTrace();
-        }
-        IStatus s = model.connect();
-        assertTrue(s.getCode() == IStatus.OK);
+		Path path = new Path("/Users/danielbfranco/temp/ranking.db");
+		DbModel model = null;
+		try {
+			model = new DbModel(path);
+		} catch (MotodevDbException e) {
+			e.printStackTrace();
+		}
+		IStatus s = model.connect();
+		assertTrue(s.getCode() == IStatus.OK);
 
-        Table table = model.getTable("mablinhos3");
+		Table table = model.getTable("mablinhos3");
 
-        TableNode node = new TableNode(table, model, null);
-        node.browseTableContents();
+		TableNode node = new TableNode(table, model, null);
+		node.browseTableContents();
 
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 }

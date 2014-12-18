@@ -25,49 +25,39 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.osgi.util.NLS;
 
-public class DeleteDatabaseHandler extends AbstractHandler implements IHandler
-{
+public class DeleteDatabaseHandler extends AbstractHandler implements IHandler {
 
-    private ITreeNode node;
+	private ITreeNode node;
 
-    public DeleteDatabaseHandler()
-    {
-    }
+	public DeleteDatabaseHandler() {
+	}
 
-    public DeleteDatabaseHandler(ITreeNode node)
-    {
-        this.node = node;
-    }
+	public DeleteDatabaseHandler(ITreeNode node) {
+		this.node = node;
+	}
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        if (node instanceof IDbNode)
-        {
-            IDbCreatorNode dbCreatorNode = (IDbCreatorNode) node.getParent();
+		if (node instanceof IDbNode) {
+			IDbCreatorNode dbCreatorNode = (IDbCreatorNode) node.getParent();
 
-            boolean shouldProceed =
-                    EclipseUtils
-                            .showQuestionDialog(
-                                    DbCoreNLS.DeleteDatabaseHandler_ConfirmationQuestionDialog_Title,
-                                    DbCoreNLS
-                                            .bind(DbCoreNLS.DeleteDatabaseHandler_ConfirmationQuestionDialog_Description,
-                                                    node.getName()));
+			boolean shouldProceed = EclipseUtils.showQuestionDialog(
+					DbCoreNLS.DeleteDatabaseHandler_ConfirmationQuestionDialog_Title,
+					NLS.bind(DbCoreNLS.DeleteDatabaseHandler_ConfirmationQuestionDialog_Description, node.getName()));
 
-            if (shouldProceed)
-            {
-                IStatus status = dbCreatorNode.deleteDb((IDbNode) node);
-                if ((status != null) && !status.isOK())
-                {
-                    EclipseUtils.showErrorDialog(
-                            DbCoreNLS.DeleteDatabaseHandler_CouldNotDeleteDatabase,
-                            status.getMessage());
-                }
-            }
+			if (shouldProceed) {
+				IStatus status = dbCreatorNode.deleteDb((IDbNode) node);
+				if ((status != null) && !status.isOK()) {
+					EclipseUtils.showErrorDialog(DbCoreNLS.DeleteDatabaseHandler_CouldNotDeleteDatabase,
+							status.getMessage());
+				}
+			}
 
-        }
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

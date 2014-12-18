@@ -19,28 +19,26 @@ package org.eclipse.andmore.ndk.internal;
 import com.android.SdkConstants;
 
 public enum NativeAbi {
-    armeabi(SdkConstants.ABI_ARMEABI),
-    armeabi_v7a(SdkConstants.ABI_ARMEABI_V7A),
-    mips(SdkConstants.ABI_MIPS),
-    x86(SdkConstants.ABI_INTEL_ATOM);
+	armeabi(SdkConstants.ABI_ARMEABI), armeabi_v7a(SdkConstants.ABI_ARMEABI_V7A), mips(SdkConstants.ABI_MIPS), x86(
+			SdkConstants.ABI_INTEL_ATOM);
 
-    private final String mAbi;
+	private final String mAbi;
 
-    private NativeAbi(String abi) {
-        mAbi = abi;
-    }
+	private NativeAbi(String abi) {
+		mAbi = abi;
+	}
 
-    public String getAbi() {
-        return mAbi;
-    }
+	public String getAbi() {
+		return mAbi;
+	}
 
-    public static NativeAbi getByString(String abi) {
-        for (NativeAbi a: values()) {
-            if (a.getAbi().equals(abi)) {
-                return a;
-            }
-        }
+	public static NativeAbi getByString(String abi) {
+		for (NativeAbi a : values()) {
+			if (a.getAbi().equals(abi)) {
+				return a;
+			}
+		}
 
-        throw new IllegalArgumentException("Unknown abi: " + abi);
-    }
+		throw new IllegalArgumentException("Unknown abi: " + abi);
+	}
 }

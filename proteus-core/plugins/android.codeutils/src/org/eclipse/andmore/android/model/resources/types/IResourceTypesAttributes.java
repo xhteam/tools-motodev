@@ -18,7 +18,6 @@ package org.eclipse.andmore.android.model.resources.types;
 /**
  * Interface that contains the attribute names for resource nodes
  */
-public interface IResourceTypesAttributes
-{
-    String ATTR_NAME = "name";
+public interface IResourceTypesAttributes {
+	String ATTR_NAME = "name";
 }

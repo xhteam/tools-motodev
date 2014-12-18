@@ -42,185 +42,170 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class ObfuscateDialog extends TitleAreaDialog
-{
+public class ObfuscateDialog extends TitleAreaDialog {
 
-    private final String OBFUSCATION_DIALOG_HELP = AndroidPlugin.PLUGIN_ID + ".obfuscation-dialog";
+	private final String OBFUSCATION_DIALOG_HELP = AndroidPlugin.PLUGIN_ID + ".obfuscation-dialog";
 
-    private CheckboxTreeViewer treeViewer;
+	private CheckboxTreeViewer treeViewer;
 
-    private Object[] selectedProjects;
+	private Object[] selectedProjects;
 
-    public ObfuscateDialog(Shell parentShell)
-    {
-        super(parentShell);
+	public ObfuscateDialog(Shell parentShell) {
+		super(parentShell);
 
-        setTitleImage(AndroidPlugin.imageDescriptorFromPlugin(AndroidPlugin.PLUGIN_ID,
-                "icons/wizban/obfuscate.gif").createImage()); //$NON-NLS-1$            
-    }
+		setTitleImage(AbstractUIPlugin
+				.imageDescriptorFromPlugin(AndroidPlugin.PLUGIN_ID, "icons/wizban/obfuscate.gif").createImage()); //$NON-NLS-1$            
+	}
 
-    @Override
-    protected void configureShell(Shell newShell)
-    {
-        super.configureShell(newShell);
-        newShell.setSize(330, 300);
-        newShell.setText(AndroidNLS.ObfuscateProjectsHandler_1);
-    }
+	@Override
+	protected void configureShell(Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setSize(330, 300);
+		newShell.setText(AndroidNLS.ObfuscateProjectsHandler_1);
+	}
 
-    /**
-     * Center the dialog.
-     */
-    @Override
-    protected void initializeBounds()
-    {
-        super.initializeBounds();
-        Shell shell = this.getShell();
-        Monitor primary = shell.getMonitor();
-        Rectangle bounds = primary.getBounds();
-        Rectangle rect = shell.getBounds();
-        int x = bounds.x + ((bounds.width - rect.width) / 2);
-        int y = bounds.y + ((bounds.height - rect.height) / 2);
-        shell.setLocation(x, y);
-    }
+	/**
+	 * Center the dialog.
+	 */
+	@Override
+	protected void initializeBounds() {
+		super.initializeBounds();
+		Shell shell = this.getShell();
+		Monitor primary = shell.getMonitor();
+		Rectangle bounds = primary.getBounds();
+		Rectangle rect = shell.getBounds();
+		int x = bounds.x + ((bounds.width - rect.width) / 2);
+		int y = bounds.y + ((bounds.height - rect.height) / 2);
+		shell.setLocation(x, y);
+	}
 
-    @Override
-    protected Control createDialogArea(Composite parent)
-    {
-        super.createDialogArea(parent).setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        Composite mainComposite = new Composite(parent, SWT.NONE);
-        mainComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        GridLayout layout = new GridLayout(1, false);
-        mainComposite.setLayout(layout);
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		super.createDialogArea(parent).setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Composite mainComposite = new Composite(parent, SWT.NONE);
+		mainComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridLayout layout = new GridLayout(1, false);
+		mainComposite.setLayout(layout);
 
-        treeViewer = new CheckboxTreeViewer(mainComposite, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL);
-        treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		treeViewer = new CheckboxTreeViewer(mainComposite, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL);
+		treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        // Set content and label provider
-        treeViewer.setLabelProvider(new LabelProvider()
-        {
-            @Override
-            public String getText(Object element)
-            {
-                String label = null;
-                if (element instanceof IProject)
-                {
-                    label = ((IProject) element).getName();
-                }
-                return label;
-            }
-        });
-        treeViewer.setContentProvider(new TreeViewerContentProvider());
+		// Set content and label provider
+		treeViewer.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				String label = null;
+				if (element instanceof IProject) {
+					label = ((IProject) element).getName();
+				}
+				return label;
+			}
+		});
+		treeViewer.setContentProvider(new TreeViewerContentProvider());
 
-        ArrayList<IProject> projectsList = generateInputForTree();
-        treeViewer.setInput(projectsList);
+		ArrayList<IProject> projectsList = generateInputForTree();
+		treeViewer.setInput(projectsList);
 
-        for (IProject p : projectsList)
-        {
-            treeViewer.setChecked(p, ObfuscatorManager.isProguardSet(p));
-        }
+		for (IProject p : projectsList) {
+			treeViewer.setChecked(p, ObfuscatorManager.isProguardSet(p));
+		}
 
-        treeViewer.addSelectionChangedListener(new ISelectionChangedListener()
-        {
-            public void selectionChanged(SelectionChangedEvent event)
-            {
-                selectedProjects = treeViewer.getCheckedElements();
-            }
-        });
-        treeViewer.expandAll();
-        mainComposite.layout(true);
+		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				selectedProjects = treeViewer.getCheckedElements();
+			}
+		});
+		treeViewer.expandAll();
+		mainComposite.layout(true);
 
-        setTitle(AndroidNLS.ObfuscateProjectsHandler_2);
-        setMessage(AndroidNLS.ObfuscateProjectsHandler_3, IMessageProvider.NONE);
+		setTitle(AndroidNLS.ObfuscateProjectsHandler_2);
+		setMessage(AndroidNLS.ObfuscateProjectsHandler_3, IMessageProvider.NONE);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(mainComposite, OBFUSCATION_DIALOG_HELP);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(mainComposite, OBFUSCATION_DIALOG_HELP);
 
-        return mainComposite;
-    }
+		return mainComposite;
+	}
 
-    private ArrayList<IProject> generateInputForTree()
-    {
-        ArrayList<IProject> androidProjects = new ArrayList<IProject>();
-        IProject[] allProjectsList = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+	private ArrayList<IProject> generateInputForTree() {
+		ArrayList<IProject> androidProjects = new ArrayList<IProject>();
+		IProject[] allProjectsList = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 
-        for (int i = 0; i < allProjectsList.length; i++)
-        {
-            IProject currentProject = allProjectsList[i];
-            try
-            {
-                if ((currentProject.getNature(AndroidProject.ANDROID_NATURE) != null)
-                        && currentProject.isOpen())
-                {
-                    androidProjects.add(currentProject);
-                }
-            }
-            catch (CoreException e)
-            {
-                // do nothing
-            }
-        }
-        return androidProjects;
-    }
+		for (int i = 0; i < allProjectsList.length; i++) {
+			IProject currentProject = allProjectsList[i];
+			try {
+				if ((currentProject.getNature(AndroidProject.ANDROID_NATURE) != null) && currentProject.isOpen()) {
+					androidProjects.add(currentProject);
+				}
+			} catch (CoreException e) {
+				// do nothing
+			}
+		}
+		return androidProjects;
+	}
 
-    public ArrayList<IProject> getSelectedProjects()
-    {
-        ArrayList<IProject> list = new ArrayList<IProject>();
-        if (selectedProjects != null)
-        {
-            for (int i = 0; i < selectedProjects.length; i++)
-            {
-                list.add((IProject) selectedProjects[i]);
-            }
-        }
-        return list;
-    }
+	public ArrayList<IProject> getSelectedProjects() {
+		ArrayList<IProject> list = new ArrayList<IProject>();
+		if (selectedProjects != null) {
+			for (int i = 0; i < selectedProjects.length; i++) {
+				list.add((IProject) selectedProjects[i]);
+			}
+		}
+		return list;
+	}
 }
 
-class TreeViewerContentProvider implements ITreeContentProvider
-{
-    public void dispose()
-    {
-        // do nothing
-    }
+class TreeViewerContentProvider implements ITreeContentProvider {
+	@Override
+	public void dispose() {
+		// do nothing
+	}
 
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
-    {
-        // do nothing
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		// do nothing
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.Object)
-     */
-    public Object[] getElements(Object inputElement)
-    {
-        Object[] elem = null;
-        if (inputElement instanceof ArrayList)
-        {
-            elem = new Object[((ArrayList) inputElement).size()];
-            elem = ((ArrayList) inputElement).toArray();
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ITreeContentProvider#getElements(java.lang.
+	 * Object)
+	 */
+	@Override
+	public Object[] getElements(Object inputElement) {
+		Object[] elem = null;
+		if (inputElement instanceof ArrayList) {
+			elem = new Object[((ArrayList) inputElement).size()];
+			elem = ((ArrayList) inputElement).toArray();
+		}
 
-        return elem;
-    }
+		return elem;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
-     */
-    public Object[] getChildren(Object parentElement)
-    {
-        //no children
-        return new Object[0];
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.
+	 * Object)
+	 */
+	@Override
+	public Object[] getChildren(Object parentElement) {
+		// no children
+		return new Object[0];
+	}
 
-    public Object getParent(Object element)
-    {
-        return null;
-    }
+	@Override
+	public Object getParent(Object element) {
+		return null;
+	}
 
-    public boolean hasChildren(Object element)
-    {
-        return false;
-    }
+	@Override
+	public boolean hasChildren(Object element) {
+		return false;
+	}
 }

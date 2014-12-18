@@ -20,102 +20,86 @@ import java.util.List;
 /**
  * Class that represents a single channel / playlist
  */
-public class VideoChannel
-{
+public class VideoChannel {
 
-    /*
-     * Attributes
-     */
-    private String name = null;
+	/*
+	 * Attributes
+	 */
+	private String name = null;
 
-    private String displayName = null;
+	private String displayName = null;
 
-    private boolean ordered = false;
+	private boolean ordered = false;
 
-    private boolean defaultChannel = false;
+	private boolean defaultChannel = false;
 
-    private List<Video> videos = null;
+	private List<Video> videos = null;
 
-    private int visibleVideos = 0;
+	private int visibleVideos = 0;
 
-    private boolean active = true;
+	private boolean active = true;
 
-    /*
-     * Methods
-     */
-    public int getVisibleVideos()
-    {
-        return visibleVideos;
-    }
+	/*
+	 * Methods
+	 */
+	public int getVisibleVideos() {
+		return visibleVideos;
+	}
 
-    public void setVisibleVideos(int visibleVideos)
-    {
-        this.visibleVideos = visibleVideos;
-    }
+	public void setVisibleVideos(int visibleVideos) {
+		this.visibleVideos = visibleVideos;
+	}
 
-    public VideoChannel(String name)
-    {
-        this.name = name;
-    }
+	public VideoChannel(String name) {
+		this.name = name;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<Video> getVideos()
-    {
-        return videos;
-    }
+	public List<Video> getVideos() {
+		return videos;
+	}
 
-    public void setVideos(List<Video> videos)
-    {
-        this.videos = videos;
-    }
+	public void setVideos(List<Video> videos) {
+		this.videos = videos;
+	}
 
-    public boolean isOrdered()
-    {
-        return ordered;
-    }
+	public boolean isOrdered() {
+		return ordered;
+	}
 
-    public void setOrdered(boolean ordered)
-    {
-        this.ordered = ordered;
-    }
+	public void setOrdered(boolean ordered) {
+		this.ordered = ordered;
+	}
 
-    public String getDisplayName()
-    {
-        return displayName;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 
-    public void setDisplayName(String displayName)
-    {
-        this.displayName = displayName;
-    }
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public boolean isDefaultChannel()
-    {
-        return defaultChannel;
-    }
+	public boolean isDefaultChannel() {
+		return defaultChannel;
+	}
 
-    public void setDefaultChannel(boolean defaultChannel)
-    {
-        this.defaultChannel = defaultChannel;
-    }
+	public void setDefaultChannel(boolean defaultChannel) {
+		this.defaultChannel = defaultChannel;
+	}
 
-    public boolean isActive()
-    {
-        return active;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    public void setActive(boolean active)
-    {
-        this.active = active;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 }

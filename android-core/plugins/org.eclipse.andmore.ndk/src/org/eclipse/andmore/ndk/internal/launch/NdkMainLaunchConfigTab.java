@@ -27,34 +27,32 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 
 @SuppressWarnings("restriction")
 public class NdkMainLaunchConfigTab extends MainLaunchConfigTab {
-    private static class NdkProjectOnlyFilter implements IProjectChooserFilter {
-        @Override
-        public boolean accept(IProject project) {
-            ProjectState state = Sdk.getProjectState(project);
-            if (state == null) {
-                return false;
-            }
+	private static class NdkProjectOnlyFilter implements IProjectChooserFilter {
+		@Override
+		public boolean accept(IProject project) {
+			ProjectState state = Sdk.getProjectState(project);
+			if (state == null) {
+				return false;
+			}
 
-            return !state.isLibrary()
-                    && (CoreModel.hasCCNature(project) || CoreModel.hasCNature(project));
-        }
+			return !state.isLibrary() && (CoreModel.hasCCNature(project) || CoreModel.hasCNature(project));
+		}
 
-        @Override
-        public boolean useCache() {
-            return true;
-        }
-    }
+		@Override
+		public boolean useCache() {
+			return true;
+		}
+	}
 
-    @Override
-    protected IProjectChooserFilter getProjectFilter() {
-        return new NdkProjectOnlyFilter();
-    }
+	@Override
+	protected IProjectChooserFilter getProjectFilter() {
+		return new NdkProjectOnlyFilter();
+	}
 
-    @Override
-    public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-        super.performApply(configuration);
+	@Override
+	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		super.performApply(configuration);
 
-        configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME,
-                mProjText.getText().trim());
-    }
+		configuration.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, mProjText.getText().trim());
+	}
 }

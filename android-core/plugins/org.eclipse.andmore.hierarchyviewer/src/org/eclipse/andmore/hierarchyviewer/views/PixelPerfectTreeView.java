@@ -28,34 +28,33 @@ import org.eclipse.ui.part.ViewPart;
 
 public class PixelPerfectTreeView extends ViewPart {
 
-    public static final String ID =
-            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectTreeView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectTreeView"; //$NON-NLS-1$
 
-    private PixelPerfectTree mPixelPerfectTree;
+	private PixelPerfectTree mPixelPerfectTree;
 
-    @Override
-    public void createPartControl(Composite parent) {
-        parent.setLayout(new FillLayout());
-        mPixelPerfectTree = new PixelPerfectTree(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		parent.setLayout(new FillLayout());
+		mPixelPerfectTree = new PixelPerfectTree(parent);
 
-        placeActions();
-    }
+		placeActions();
+	}
 
-    private void placeActions() {
-        IActionBars actionBars = getViewSite().getActionBars();
+	private void placeActions() {
+		IActionBars actionBars = getViewSite().getActionBars();
 
-        IMenuManager mm = actionBars.getMenuManager();
-        mm.removeAll();
-        mm.add(RefreshPixelPerfectTreeAction.getAction());
+		IMenuManager mm = actionBars.getMenuManager();
+		mm.removeAll();
+		mm.add(RefreshPixelPerfectTreeAction.getAction());
 
-        IToolBarManager tm = actionBars.getToolBarManager();
-        tm.removeAll();
-        tm.add(RefreshPixelPerfectTreeAction.getAction());
-    }
+		IToolBarManager tm = actionBars.getToolBarManager();
+		tm.removeAll();
+		tm.add(RefreshPixelPerfectTreeAction.getAction());
+	}
 
-    @Override
-    public void setFocus() {
-        mPixelPerfectTree.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPixelPerfectTree.setFocus();
+	}
 
 }

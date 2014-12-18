@@ -23,32 +23,32 @@ import org.eclipse.andmore.android.certmanager.ui.model.EntryNode;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
-public class ExpiresInColumnLabelProvider extends ColumnLabelProvider
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        if (element instanceof IKeyStoreEntry)
-        {
-            EntryNode keyStoreEntry = (EntryNode) element;
-            X509Certificate x509Certificate = keyStoreEntry.getX509Certificate();
-            //Android certificate
-            return getExpiresInDate(x509Certificate);
-        }
-        return "";
-    }
+public class ExpiresInColumnLabelProvider extends ColumnLabelProvider {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ColumnLabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		if (element instanceof IKeyStoreEntry) {
+			EntryNode keyStoreEntry = (EntryNode) element;
+			X509Certificate x509Certificate = keyStoreEntry.getX509Certificate();
+			// Android certificate
+			return getExpiresInDate(x509Certificate);
+		}
+		return "";
+	}
 
-    /**
-     * Returns the date where the certificate expires
-     * @param cert
-     * @return
-     */
-    private String getExpiresInDate(X509Certificate x509Certificate)
-    {
-        return (x509Certificate != null) ? DateFormat.getDateInstance(DateFormat.MEDIUM,
-                Locale.getDefault()).format(x509Certificate.getNotAfter()) : "";
-    }
+	/**
+	 * Returns the date where the certificate expires
+	 * 
+	 * @param cert
+	 * @return
+	 */
+	private String getExpiresInDate(X509Certificate x509Certificate) {
+		return (x509Certificate != null) ? DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault()).format(
+				x509Certificate.getNotAfter()) : "";
+	}
 }

@@ -16,50 +16,49 @@
 
 package org.eclipse.andmore.gltrace.state;
 
-
 /**
- * Abstract implementation of {@link IGLProperty}. This provides the basics that can be
- * used by leaf level properties.
+ * Abstract implementation of {@link IGLProperty}. This provides the basics that
+ * can be used by leaf level properties.
  */
 public abstract class GLAbstractAtomicProperty implements IGLProperty {
-    private final GLStateType mType;
-    private IGLProperty mParent;
+	private final GLStateType mType;
+	private IGLProperty mParent;
 
-    public GLAbstractAtomicProperty(GLStateType type) {
-        mType = type;
-    }
+	public GLAbstractAtomicProperty(GLStateType type) {
+		mType = type;
+	}
 
-    @Override
-    public GLStateType getType() {
-        return mType;
-    }
+	@Override
+	public GLStateType getType() {
+		return mType;
+	}
 
-    @Override
-    public IGLProperty getParent() {
-        return mParent;
-    }
+	@Override
+	public IGLProperty getParent() {
+		return mParent;
+	}
 
-    @Override
-    public void setParent(IGLProperty parent) {
-        mParent = parent;
-    }
+	@Override
+	public void setParent(IGLProperty parent) {
+		mParent = parent;
+	}
 
-    @Override
-    public boolean isComposite() {
-        return false;
-    }
+	@Override
+	public boolean isComposite() {
+		return false;
+	}
 
-    @Override
-    public IGLProperty clone() {
-        try {
-            return (IGLProperty) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
-    }
+	@Override
+	public IGLProperty clone() {
+		try {
+			return (IGLProperty) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
+	}
 
-    @Override
-    public void prettyPrint(StatePrettyPrinter pp) {
-        pp.prettyPrint(mType, getStringValue());
-    }
+	@Override
+	public void prettyPrint(StatePrettyPrinter pp) {
+		pp.prettyPrint(mType, getStringValue());
+	}
 }

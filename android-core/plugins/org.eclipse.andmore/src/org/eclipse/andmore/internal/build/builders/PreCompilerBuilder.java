@@ -49,7 +49,6 @@ import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.build.RenderScriptLauncher;
 import org.eclipse.andmore.internal.build.RsSourceChangeHandler;
 import org.eclipse.andmore.internal.build.SourceProcessor;
-import org.eclipse.andmore.internal.build.builders.BaseBuilder.AbortBuildException;
 import org.eclipse.andmore.internal.lint.EclipseLintClient;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;

@@ -21,15 +21,18 @@ import org.eclipse.core.commands.ExecutionException;
 /**
  * Command to open the New Service wizard through the MOTODEV menu.
  */
-public class NewServiceWizard extends NewWizardHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewServiceWizard());
+public class NewServiceWizard extends NewWizardHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewServiceWizard());
 
-        return null;
-    }
+		return null;
+	}
 }

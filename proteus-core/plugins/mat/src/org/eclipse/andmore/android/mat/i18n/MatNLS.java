@@ -18,29 +18,26 @@ package org.eclipse.andmore.android.mat.i18n;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Class that contains the localized messages to be used through the
- * MAT Plugin
+ * Class that contains the localized messages to be used through the MAT Plugin
  *
  */
-public class MatNLS extends NLS
-{
-    static
-    {
-        NLS.initializeMessages("org.eclipse.andmore.android.mat.i18n.matNLS", MatNLS.class);
-    }
+public class MatNLS extends NLS {
+	static {
+		NLS.initializeMessages("org.eclipse.andmore.android.mat.i18n.matNLS", MatNLS.class);
+	}
 
-    /*
-     * UI strings
-     */
+	/*
+	 * UI strings
+	 */
 
-    public static String Motodev_Pane_Title;
+	public static String Motodev_Pane_Title;
 
-    public static String Action_Open_Motodev_Pane;
+	public static String Action_Open_Motodev_Pane;
 
-    public static String DumpHPROFHandler_DEVICE_NOT_READY;
+	public static String DumpHPROFHandler_DEVICE_NOT_READY;
 
-    public static String DumpHPROFHandler_UNSUPPORTED_DEVICE;
+	public static String DumpHPROFHandler_UNSUPPORTED_DEVICE;
 
-    public static String JOB_Name_Dump_Hprof;
+	public static String JOB_Name_Dump_Hprof;
 
 }

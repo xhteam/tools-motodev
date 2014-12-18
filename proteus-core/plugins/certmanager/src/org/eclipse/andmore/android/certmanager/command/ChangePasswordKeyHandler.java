@@ -39,147 +39,112 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class changes the password of a key/certificate from the tree of the {@link KeystoreManagerView}
+ * This class changes the password of a key/certificate from the tree of the
+ * {@link KeystoreManagerView}
  * */
-public class ChangePasswordKeyHandler extends AbstractHandler2 implements IHandler
-{
+public class ChangePasswordKeyHandler extends AbstractHandler2 implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        //retrieves the first element of the selection
-        //note that this command should be enabled only when selection.count == 1.
-        ITreeNode entry = getSelection().get(0);
+		// retrieves the first element of the selection
+		// note that this command should be enabled only when selection.count ==
+		// 1.
+		ITreeNode entry = getSelection().get(0);
 
-        if (entry instanceof EntryNode)
-        {
-            //must enter old and new password
-            KeyStoreNode keyStoreNode = (KeyStoreNode) entry.getParent();
-            PasswordProvider passwordProvider = new PasswordProvider(keyStoreNode.getFile());
-            EntryNode entryNode = (EntryNode) entry;
+		if (entry instanceof EntryNode) {
+			// must enter old and new password
+			KeyStoreNode keyStoreNode = (KeyStoreNode) entry.getParent();
+			PasswordProvider passwordProvider = new PasswordProvider(keyStoreNode.getFile());
+			EntryNode entryNode = (EntryNode) entry;
 
-            PasswordInputDialog passwordInputDialog = null;
+			PasswordInputDialog passwordInputDialog = null;
 
-            boolean cancelledOrChangedPassword = false;
+			boolean cancelledOrChangedPassword = false;
 
-            do
-            {
-                passwordInputDialog =
-                        new PasswordInputDialog(PlatformUI.getWorkbench()
-                                .getActiveWorkbenchWindow().getShell(),
-                                CertificateManagerNLS.PasswordInput_EnterOldKeyPasssword_Message,
-                                true, null, EntryNode.KEY_PASSWORD_MIN_SIZE);
-                if (passwordInputDialog.open() == Window.OK)
-                {
-                    String newPassword = passwordInputDialog.getNewPassword();
-                    String oldPassword = passwordInputDialog.getOldPassword();
+			do {
+				passwordInputDialog = new PasswordInputDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getShell(), CertificateManagerNLS.PasswordInput_EnterOldKeyPasssword_Message, true, null,
+						EntryNode.KEY_PASSWORD_MIN_SIZE);
+				if (passwordInputDialog.open() == Window.OK) {
+					String newPassword = passwordInputDialog.getNewPassword();
+					String oldPassword = passwordInputDialog.getOldPassword();
 
-                    if ((newPassword != null) && (oldPassword != null))
-                    {
-                        try
-                        {
-                            Entry keyEntry = entryNode.getKeyEntry(oldPassword);
-                            if (keyEntry != null)
-                            {
-                                boolean tryAgain = false;
-                                boolean useSavedPass = true;
-                                String keystorePassword = null;
-                                KeyStore keyStore = null;
-                                do
-                                {
-                                    if (tryAgain)
-                                    {
-                                        useSavedPass = false;
-                                    }
-                                    keystorePassword =
-                                            passwordProvider
-                                                    .getKeyStorePassword(true, useSavedPass);
-                                    tryAgain = false;
-                                    if (keystorePassword != null)
-                                    {
-                                        try
-                                        {
-                                            if (keyStoreNode.isPasswordValid(keystorePassword))
-                                            {
-                                                keyStore =
-                                                        keyStoreNode.getKeyStore(keystorePassword);
-                                            }
-                                            else
-                                            {
-                                                tryAgain = true;
-                                            }
-                                        }
-                                        catch (InvalidPasswordException e)
-                                        {
-                                            tryAgain = true;
-                                        }
-                                    }
-                                }
-                                while (tryAgain);
-                                if (keyStore != null)
-                                {
-                                    KeyStoreUtils.changeEntryPassword(keyStore,
-                                            keystorePassword.toCharArray(), keyStoreNode.getFile(),
-                                            entryNode.getAlias(), keyEntry,
-                                            newPassword.toCharArray());
+					if ((newPassword != null) && (oldPassword != null)) {
+						try {
+							Entry keyEntry = entryNode.getKeyEntry(oldPassword);
+							if (keyEntry != null) {
+								boolean tryAgain = false;
+								boolean useSavedPass = true;
+								String keystorePassword = null;
+								KeyStore keyStore = null;
+								do {
+									if (tryAgain) {
+										useSavedPass = false;
+									}
+									keystorePassword = passwordProvider.getKeyStorePassword(true, useSavedPass);
+									tryAgain = false;
+									if (keystorePassword != null) {
+										try {
+											if (keyStoreNode.isPasswordValid(keystorePassword)) {
+												keyStore = keyStoreNode.getKeyStore(keystorePassword);
+											} else {
+												tryAgain = true;
+											}
+										} catch (InvalidPasswordException e) {
+											tryAgain = true;
+										}
+									}
+								} while (tryAgain);
+								if (keyStore != null) {
+									KeyStoreUtils.changeEntryPassword(keyStore, keystorePassword.toCharArray(),
+											keyStoreNode.getFile(), entryNode.getAlias(), keyEntry,
+											newPassword.toCharArray());
 
-                                    //delete old save password - if there is one
-                                    if (passwordProvider.isPasswordSaved(entryNode.getAlias()))
-                                    {
-                                        passwordProvider.deleteSavedPassword(entryNode.getAlias());
-                                    }
+									// delete old save password - if there is
+									// one
+									if (passwordProvider.isPasswordSaved(entryNode.getAlias())) {
+										passwordProvider.deleteSavedPassword(entryNode.getAlias());
+									}
 
-                                    if (passwordInputDialog.needToStorePassword())
-                                    {
-                                        //store new password at provider
-                                        passwordProvider.savePassword(entryNode.getAlias(),
-                                                newPassword);
-                                    }
+									if (passwordInputDialog.needToStorePassword()) {
+										// store new password at provider
+										passwordProvider.savePassword(entryNode.getAlias(), newPassword);
+									}
 
-                                    //success
-                                    cancelledOrChangedPassword = true;
-                                    EclipseUtils.showInformationDialog(
-                                            CertificateManagerNLS.PasswordChanged_Info_Title,
-                                            CertificateManagerNLS.PasswordChanged_KeyInfo_Message);
+									// success
+									cancelledOrChangedPassword = true;
+									EclipseUtils.showInformationDialog(
+											CertificateManagerNLS.PasswordChanged_Info_Title,
+											CertificateManagerNLS.PasswordChanged_KeyInfo_Message);
 
-                                    //update tooltip and image
-                                    KeyStoreModelEventManager.getInstance().fireEvent(entryNode,
-                                            EventType.UPDATE);
-                                }
-                            }
-                        }
-                        catch (UnrecoverableKeyException e)
-                        {
-                            //error - notify on screen
-                            cancelledOrChangedPassword = false;
-                            EclipseUtils
-                                    .showErrorDialog(
-                                            CertificateManagerNLS.ChangePasswordKeyHandler_Error_WrongOldKeyPassword,
-                                            CertificateManagerNLS.ChangePasswordKeyHandler_Wrong_Key_Password);
-                        }
-                        catch (Exception e)
-                        {
-                            //error - notify on screen
-                            cancelledOrChangedPassword = false;
-                            EclipseUtils
-                                    .showErrorDialog(
-                                            CertificateManagerNLS.ChangePasswordKeyHandler_Error_WrongOldKeyPassword,
-                                            e.getMessage());
-                        }
-                    }
-                }
-                else
-                {
-                    //user cancelled screen 
-                    cancelledOrChangedPassword = true;
-                }
+									// update tooltip and image
+									KeyStoreModelEventManager.getInstance().fireEvent(entryNode, EventType.UPDATE);
+								}
+							}
+						} catch (UnrecoverableKeyException e) {
+							// error - notify on screen
+							cancelledOrChangedPassword = false;
+							EclipseUtils.showErrorDialog(
+									CertificateManagerNLS.ChangePasswordKeyHandler_Error_WrongOldKeyPassword,
+									CertificateManagerNLS.ChangePasswordKeyHandler_Wrong_Key_Password);
+						} catch (Exception e) {
+							// error - notify on screen
+							cancelledOrChangedPassword = false;
+							EclipseUtils.showErrorDialog(
+									CertificateManagerNLS.ChangePasswordKeyHandler_Error_WrongOldKeyPassword,
+									e.getMessage());
+						}
+					}
+				} else {
+					// user cancelled screen
+					cancelledOrChangedPassword = true;
+				}
 
-            }
-            while (!cancelledOrChangedPassword);
+			} while (!cancelledOrChangedPassword);
 
-        }
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

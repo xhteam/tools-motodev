@@ -24,281 +24,275 @@ import org.eclipse.core.runtime.IStatus;
 /**
  * Class that represents an <activity-alias> node on AndroidManifest.xml file
  */
-public class ActivityAliasNode extends AbstractIconLabelNameNode
-{
-    static
-    {
-        defaultProperties.add(PROP_ENABLED);
-        defaultProperties.add(PROP_EXPORTED);
-        defaultProperties.add(PROP_PERMISSION);
-        defaultProperties.add(PROP_TARGETACTIVITY);
-    }
+public class ActivityAliasNode extends AbstractIconLabelNameNode {
+	static {
+		defaultProperties.add(PROP_ENABLED);
+		defaultProperties.add(PROP_EXPORTED);
+		defaultProperties.add(PROP_PERMISSION);
+		defaultProperties.add(PROP_TARGETACTIVITY);
+	}
 
-    /**
-     * The enabled property
-     */
-    private Boolean propEnabled = null;
+	/**
+	 * The enabled property
+	 */
+	private Boolean propEnabled = null;
 
-    /**
-     * The exported property
-     */
-    private Boolean propExported = null;
+	/**
+	 * The exported property
+	 */
+	private Boolean propExported = null;
 
-    /**
-     * The permission property
-     */
-    private String propPermission = null;
+	/**
+	 * The permission property
+	 */
+	private String propPermission = null;
 
-    /**
-     * The targetActivity property
-     */
-    private String propTargetActivity = null;
+	/**
+	 * The targetActivity property
+	 */
+	private String propTargetActivity = null;
 
-    /**
-     * Default constructor
-     * 
-     * @param name the name property (must not be null)
-     * @param targetActivity the targetActivity property (must not be null)
-     */
-    public ActivityAliasNode(String name, String targetActivity)
-    {
-        super(name);
+	/**
+	 * Default constructor
+	 * 
+	 * @param name
+	 *            the name property (must not be null)
+	 * @param targetActivity
+	 *            the targetActivity property (must not be null)
+	 */
+	public ActivityAliasNode(String name, String targetActivity) {
+		super(name);
 
-        Assert.isLegal(targetActivity != null);
-        this.propTargetActivity = targetActivity;
-    }
+		Assert.isLegal(targetActivity != null);
+		this.propTargetActivity = targetActivity;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#canContains(com.motorola.studio.android.model.manifest.dom.AndroidManifestNode.NodeType)
-     */
-    @Override
-    protected boolean canContains(NodeType nodeType)
-    {
-        return (nodeType == NodeType.IntentFilter) || (nodeType == NodeType.MetaData)
-                || (nodeType == NodeType.Comment);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * canContains
+	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * .NodeType)
+	 */
+	@Override
+	protected boolean canContains(NodeType nodeType) {
+		return (nodeType == NodeType.IntentFilter) || (nodeType == NodeType.MetaData) || (nodeType == NodeType.Comment);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AbstractIconLabelNameNode#addAdditionalProperties()
-     */
-    @Override
-    protected void addAdditionalProperties()
-    {
-        properties.put(PROP_TARGETACTIVITY, propTargetActivity);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.manifest.dom.AbstractIconLabelNameNode
+	 * #addAdditionalProperties()
+	 */
+	@Override
+	protected void addAdditionalProperties() {
+		properties.put(PROP_TARGETACTIVITY, propTargetActivity);
 
-        if (propEnabled != null)
-        {
-            properties.put(PROP_ENABLED, propEnabled.toString());
-        }
+		if (propEnabled != null) {
+			properties.put(PROP_ENABLED, propEnabled.toString());
+		}
 
-        if (propExported != null)
-        {
-            properties.put(PROP_EXPORTED, propExported.toString());
-        }
+		if (propExported != null) {
+			properties.put(PROP_EXPORTED, propExported.toString());
+		}
 
-        if (propPermission != null)
-        {
-            properties.put(PROP_PERMISSION, propPermission);
-        }
-    }
+		if (propPermission != null) {
+			properties.put(PROP_PERMISSION, propPermission);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.ActivityAlias;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * getNodeType()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.ActivityAlias;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#isNodeValid()
-     */
-    @Override
-    protected boolean isNodeValid()
-    {
-        return super.isNodeValid() && (propTargetActivity.trim().length() > 0);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * isNodeValid()
+	 */
+	@Override
+	protected boolean isNodeValid() {
+		return super.isNodeValid() && (propTargetActivity.trim().length() > 0);
+	}
 
-    /**
-     * Gets the enabled property value
-     * 
-     * @return the enabled property value
-     */
-    public Boolean getEnabled()
-    {
-        return propEnabled;
-    }
+	/**
+	 * Gets the enabled property value
+	 * 
+	 * @return the enabled property value
+	 */
+	public Boolean getEnabled() {
+		return propEnabled;
+	}
 
-    /**
-     * Sets the enabled property value. Set it to null to remove it.
-     * 
-     * @param enabled the enabled property value
-     */
-    public void setEnabled(Boolean enabled)
-    {
-        this.propEnabled = enabled;
-    }
+	/**
+	 * Sets the enabled property value. Set it to null to remove it.
+	 * 
+	 * @param enabled
+	 *            the enabled property value
+	 */
+	public void setEnabled(Boolean enabled) {
+		this.propEnabled = enabled;
+	}
 
-    /**
-     * Gets the exported property value
-     * 
-     * @return the exported property value
-     */
-    public Boolean getExported()
-    {
-        return propExported;
-    }
+	/**
+	 * Gets the exported property value
+	 * 
+	 * @return the exported property value
+	 */
+	public Boolean getExported() {
+		return propExported;
+	}
 
-    /**
-     * Sets the exported property value. Set it to null to remove it.
-     * 
-     * @param exported the exported property value
-     */
-    public void setExported(Boolean exported)
-    {
-        this.propExported = exported;
-    }
+	/**
+	 * Sets the exported property value. Set it to null to remove it.
+	 * 
+	 * @param exported
+	 *            the exported property value
+	 */
+	public void setExported(Boolean exported) {
+		this.propExported = exported;
+	}
 
-    /**
-     * Gets the permission property value
-     * 
-     * @return the permission property value
-     */
-    public String getPermission()
-    {
-        return propPermission;
-    }
+	/**
+	 * Gets the permission property value
+	 * 
+	 * @return the permission property value
+	 */
+	public String getPermission() {
+		return propPermission;
+	}
 
-    /**
-     * Sets the permission property value. Set it to null to remove it.
-     * 
-     * @param permission the permission property value
-     */
-    public void setPermission(String permission)
-    {
-        this.propPermission = permission;
-    }
+	/**
+	 * Sets the permission property value. Set it to null to remove it.
+	 * 
+	 * @param permission
+	 *            the permission property value
+	 */
+	public void setPermission(String permission) {
+		this.propPermission = permission;
+	}
 
-    /**
-     * Gets the targetActivity property value
-     * 
-     * @return the targetActivity property value
-     */
-    public String getTargetActivity()
-    {
-        return propTargetActivity;
-    }
+	/**
+	 * Gets the targetActivity property value
+	 * 
+	 * @return the targetActivity property value
+	 */
+	public String getTargetActivity() {
+		return propTargetActivity;
+	}
 
-    /**
-     * Sets the targetActivity property value.
-     * 
-     * @param targetActivity the targetActivity property value
-     */
-    public void setTargetActivity(String targetActivity)
-    {
-        Assert.isLegal(targetActivity != null);
-        this.propTargetActivity = targetActivity;
-    }
+	/**
+	 * Sets the targetActivity property value.
+	 * 
+	 * @param targetActivity
+	 *            the targetActivity property value
+	 */
+	public void setTargetActivity(String targetActivity) {
+		Assert.isLegal(targetActivity != null);
+		this.propTargetActivity = targetActivity;
+	}
 
-    /**
-     * Adds an Intent Filter Node to the Activity Alias Node
-     *  
-     * @param intentFilter The Intent Filter Node
-     */
-    public void addIntentFilterNode(IntentFilterNode intentFilter)
-    {
-        if (intentFilter != null)
-        {
-            if (!children.contains(intentFilter))
-            {
-                children.add(intentFilter);
-            }
-        }
-    }
+	/**
+	 * Adds an Intent Filter Node to the Activity Alias Node
+	 * 
+	 * @param intentFilter
+	 *            The Intent Filter Node
+	 */
+	public void addIntentFilterNode(IntentFilterNode intentFilter) {
+		if (intentFilter != null) {
+			if (!children.contains(intentFilter)) {
+				children.add(intentFilter);
+			}
+		}
+	}
 
-    /**
-     * Retrieves all Intent Filter Nodes from the Activity Alias Node
-     * 
-     * @return all Intent Filter Nodes from the Activity Alias Node
-     */
-    public List<IntentFilterNode> getIntentFilterNodes()
-    {
-        List<IntentFilterNode> intentFilters = new LinkedList<IntentFilterNode>();
+	/**
+	 * Retrieves all Intent Filter Nodes from the Activity Alias Node
+	 * 
+	 * @return all Intent Filter Nodes from the Activity Alias Node
+	 */
+	public List<IntentFilterNode> getIntentFilterNodes() {
+		List<IntentFilterNode> intentFilters = new LinkedList<IntentFilterNode>();
 
-        for (AndroidManifestNode node : getAllChildrenFromType(NodeType.IntentFilter))
-        {
-            intentFilters.add((IntentFilterNode) node);
-        }
+		for (AndroidManifestNode node : getAllChildrenFromType(NodeType.IntentFilter)) {
+			intentFilters.add((IntentFilterNode) node);
+		}
 
-        return intentFilters;
-    }
+		return intentFilters;
+	}
 
-    /**
-     * Removes an Intent Filter Node from the Activity Alias Node
-     * 
-     * @param intentFilter the Intent Filter Node to be removed
-     */
-    public void removeIntentFilterNode(IntentFilterNode intentFilter)
-    {
-        if (intentFilter != null)
-        {
-            children.remove(intentFilter);
-        }
-    }
+	/**
+	 * Removes an Intent Filter Node from the Activity Alias Node
+	 * 
+	 * @param intentFilter
+	 *            the Intent Filter Node to be removed
+	 */
+	public void removeIntentFilterNode(IntentFilterNode intentFilter) {
+		if (intentFilter != null) {
+			children.remove(intentFilter);
+		}
+	}
 
-    /**
-     * Adds a Metadata Node to the Activity Alias Node
-     *  
-     * @param metadata The Metadata Node
-     */
-    public void addMetadataNode(MetadataNode metadata)
-    {
-        if (metadata != null)
-        {
-            if (!children.contains(metadata))
-            {
-                children.add(metadata);
-            }
-        }
-    }
+	/**
+	 * Adds a Metadata Node to the Activity Alias Node
+	 * 
+	 * @param metadata
+	 *            The Metadata Node
+	 */
+	public void addMetadataNode(MetadataNode metadata) {
+		if (metadata != null) {
+			if (!children.contains(metadata)) {
+				children.add(metadata);
+			}
+		}
+	}
 
-    /**
-     * Retrieves all Metadata Nodes from the Activity Alias Node
-     * 
-     * @return all Metadata Nodes from the Activity Alias Node
-     */
-    public List<MetadataNode> getMetadataNodes()
-    {
-        List<MetadataNode> metadatas = new LinkedList<MetadataNode>();
+	/**
+	 * Retrieves all Metadata Nodes from the Activity Alias Node
+	 * 
+	 * @return all Metadata Nodes from the Activity Alias Node
+	 */
+	public List<MetadataNode> getMetadataNodes() {
+		List<MetadataNode> metadatas = new LinkedList<MetadataNode>();
 
-        for (AndroidManifestNode node : getAllChildrenFromType(NodeType.MetaData))
-        {
-            metadatas.add((MetadataNode) node);
-        }
+		for (AndroidManifestNode node : getAllChildrenFromType(NodeType.MetaData)) {
+			metadatas.add((MetadataNode) node);
+		}
 
-        return metadatas;
-    }
+		return metadatas;
+	}
 
-    /**
-     * Removes a Metadata Node from the Activity Alias Node
-     * 
-     * @param metadata the Metadata Node to be removed
-     */
-    public void removeMetadataNode(MetadataNode metadata)
-    {
-        if (metadata != null)
-        {
-            children.remove(metadata);
-        }
-    }
+	/**
+	 * Removes a Metadata Node from the Activity Alias Node
+	 * 
+	 * @param metadata
+	 *            the Metadata Node to be removed
+	 */
+	public void removeMetadataNode(MetadataNode metadata) {
+		if (metadata != null) {
+			children.remove(metadata);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#getSpecificNodeErrors()
-     */
-    @Override
-    protected List<IStatus> getSpecificNodeProblems()
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * getSpecificNodeErrors()
+	 */
+	@Override
+	protected List<IStatus> getSpecificNodeProblems() {
+		return null;
+	}
 }

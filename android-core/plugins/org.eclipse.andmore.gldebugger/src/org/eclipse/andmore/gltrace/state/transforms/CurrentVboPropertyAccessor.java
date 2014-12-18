@@ -23,49 +23,45 @@ import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
  * An {@link IGLPropertyAccessor} that retrieves the requested property in the
- * currently bound {@link GLEnum#GL_ARRAY_BUFFER} or {@link GLEnum#GL_ELEMENT_ARRAY_BUFFER}.
+ * currently bound {@link GLEnum#GL_ARRAY_BUFFER} or
+ * {@link GLEnum#GL_ELEMENT_ARRAY_BUFFER}.
  */
 public class CurrentVboPropertyAccessor implements IGLPropertyAccessor {
-    private final int mContextId;
-    private final IGLPropertyAccessor mVboBindingAccessor;
-    private final GLStateType mVboProperty;
+	private final int mContextId;
+	private final IGLPropertyAccessor mVboBindingAccessor;
+	private final GLStateType mVboProperty;
 
-    public CurrentVboPropertyAccessor(int contextId, GLEnum target, GLStateType vboProperty) {
-        mContextId = contextId;
-        mVboProperty = vboProperty;
+	public CurrentVboPropertyAccessor(int contextId, GLEnum target, GLStateType vboProperty) {
+		mContextId = contextId;
+		mVboProperty = vboProperty;
 
-        GLStateType vboType;
-        if (target == GLEnum.GL_ARRAY_BUFFER) {
-            vboType = GLStateType.ARRAY_BUFFER_BINDING;
-        } else {
-            vboType = GLStateType.ELEMENT_ARRAY_BUFFER_BINDING;
-        }
+		GLStateType vboType;
+		if (target == GLEnum.GL_ARRAY_BUFFER) {
+			vboType = GLStateType.ARRAY_BUFFER_BINDING;
+		} else {
+			vboType = GLStateType.ELEMENT_ARRAY_BUFFER_BINDING;
+		}
 
-        mVboBindingAccessor = GLPropertyAccessor.makeAccessor(contextId,
-                GLStateType.VERTEX_ARRAY_DATA,
-                GLStateType.BUFFER_BINDINGS,
-                vboType);
-    }
+		mVboBindingAccessor = GLPropertyAccessor.makeAccessor(contextId, GLStateType.VERTEX_ARRAY_DATA,
+				GLStateType.BUFFER_BINDINGS, vboType);
+	}
 
-    @Override
-    public IGLProperty getProperty(IGLProperty state) {
-        // obtain the current bound buffer
-        IGLProperty currentBinding = mVboBindingAccessor.getProperty(state);
-        if (!(currentBinding instanceof GLIntegerProperty)) {
-            return null;
-        }
+	@Override
+	public IGLProperty getProperty(IGLProperty state) {
+		// obtain the current bound buffer
+		IGLProperty currentBinding = mVboBindingAccessor.getProperty(state);
+		if (!(currentBinding instanceof GLIntegerProperty)) {
+			return null;
+		}
 
-        Integer buffer = (Integer) currentBinding.getValue();
+		Integer buffer = (Integer) currentBinding.getValue();
 
-        return GLPropertyAccessor.makeAccessor(mContextId,
-                                               GLStateType.VERTEX_ARRAY_DATA,
-                                               GLStateType.VBO,
-                                               buffer,
-                                               mVboProperty).getProperty(state);
-    }
+		return GLPropertyAccessor.makeAccessor(mContextId, GLStateType.VERTEX_ARRAY_DATA, GLStateType.VBO, buffer,
+				mVboProperty).getProperty(state);
+	}
 
-    @Override
-    public String getPath() {
-        return String.format("VERTEX_ARRAY_DATA/VBO/${currentBuffer}/%s", mVboProperty);
-    }
+	@Override
+	public String getPath() {
+		return String.format("VERTEX_ARRAY_DATA/VBO/${currentBuffer}/%s", mVboProperty);
+	}
 }

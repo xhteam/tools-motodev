@@ -17,78 +17,61 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public class JSONString extends JSONValue
-{
-    private final String value;
+public class JSONString extends JSONValue {
+	private final String value;
 
-    public JSONString(String value)
-    {
-        this.value = value;
-    }
+	public JSONString(String value) {
+		this.value = value;
+	}
 
-    @Override
-    public String getValue()
-    {
-        return value;
-    }
+	@Override
+	public String getValue() {
+		return value;
+	}
 
-    public static JSONValue parseValues(List<Character> json)
-    {
-        String value = null;
-        boolean parsed = false;
-        while (!parsed)
-        {
-            Character next = json.get(0);
-            if (next == '"')
-            {
+	public static JSONValue parseValues(List<Character> json) {
+		String value = null;
+		boolean parsed = false;
+		while (!parsed) {
+			Character next = json.get(0);
+			if (next == '"') {
 
-                value = parseName(json);
-                parsed = true;
-            }
-        }
+				value = parseName(json);
+				parsed = true;
+			}
+		}
 
-        return new JSONString(value);
-    }
+		return new JSONString(value);
+	}
 
-    private static String parseName(List<Character> json)
-    {
-        String name = null;
-        StringBuilder nameBuilder = new StringBuilder();
-        boolean specialChar = false;
-        Character next;
-        json.remove(0);
-        while (name == null)
-        {
-            next = json.remove(0);
-            if (next == '"')
-            {
-                if (specialChar)
-                {
-                    specialChar = false;
-                    nameBuilder.append(next);
-                }
-                else
-                {
-                    name = nameBuilder.toString();
-                }
-            }
-            else if (next == '\\')
-            {
-                specialChar = true;
-            }
-            else
-            {
-                specialChar = false;
-                nameBuilder.append(next);
-            }
-        }
-        return name;
-    }
+	private static String parseName(List<Character> json) {
+		String name = null;
+		StringBuilder nameBuilder = new StringBuilder();
+		boolean specialChar = false;
+		Character next;
+		json.remove(0);
+		while (name == null) {
+			next = json.remove(0);
+			if (next == '"') {
+				if (specialChar) {
+					specialChar = false;
+					nameBuilder.append(next);
+				} else {
+					name = nameBuilder.toString();
+				}
+			} else if (next == '\\') {
+				specialChar = true;
+			} else {
+				specialChar = false;
+				nameBuilder.append(next);
+			}
+		}
+		return name;
+	}
 
-    @Override
-    public String toString()
-    {
-        return "\"" + value + "\"";
-    }
+	@Override
+	public String toString() {
+		return "\"" + value + "\"";
+	}
 
 }

@@ -27,57 +27,55 @@ import org.eclipse.core.runtime.Path;
 import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
 
 /**
- * This class provides the studio log files
- * to the collect log files feature
+ * This class provides the studio log files to the collect log files feature
  */
-public class StudioLogFile implements ILogFile
-{
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath()
-     */
-    @Override
-    public List<IPath> getLogFilePath()
-    {
-        ArrayList<IPath> logs = new ArrayList<IPath>();
-        File rootLogDir = new File(LoggerCollectorConstants.LOG_PATH);
-        if (rootLogDir.exists() && rootLogDir.isDirectory())
-        {
-            File[] logFiles = rootLogDir.listFiles(new FileFilter()
-            {
+public class StudioLogFile implements ILogFile {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath
+	 * ()
+	 */
+	@Override
+	public List<IPath> getLogFilePath() {
+		ArrayList<IPath> logs = new ArrayList<IPath>();
+		File rootLogDir = new File(LoggerCollectorConstants.LOG_PATH);
+		if (rootLogDir.exists() && rootLogDir.isDirectory()) {
+			File[] logFiles = rootLogDir.listFiles(new FileFilter() {
 
-                @Override
-                public boolean accept(File pathname)
-                {
-                    return pathname.getName().startsWith("studio");
-                }
-            });
-            for (File logFile : logFiles)
-            {
-                logs.add(new Path(logFile.getAbsolutePath()));
-            }
-        }
+				@Override
+				public boolean accept(File pathname) {
+					return pathname.getName().startsWith("studio");
+				}
+			});
+			for (File logFile : logFiles) {
+				logs.add(new Path(logFile.getAbsolutePath()));
+			}
+		}
 
-        return logs;
-    }
+		return logs;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
-     */
-    @Override
-    public String getLogName()
-    {
-        return "Studio Log File";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
+	 */
+	@Override
+	public String getLogName() {
+		return "Studio Log File";
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getOutputSubfolderName()
-     */
-    @Override
-    public String getOutputSubfolderName()
-    {
-        return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.platform.logger.collector.core.ILogFile#
+	 * getOutputSubfolderName()
+	 */
+	@Override
+	public String getOutputSubfolderName() {
+		return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
+	}
 }

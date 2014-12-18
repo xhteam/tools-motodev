@@ -27,6 +27,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.junit.util.CoreTestSearchEngine;
 import org.eclipse.jdt.internal.junit.util.TestSearchEngine;
 
 /**
@@ -121,7 +122,7 @@ public class AndroidJUnitPropertyTester extends PropertyTester {
                 testType = ((IMember) element).getDeclaringType();
             }
             if (testType != null && testType.exists()) {
-                return TestSearchEngine.isTestOrTestSuite(testType);
+                return CoreTestSearchEngine.isTestOrTestSuite(testType);
             }
         } catch (CoreException e) {
             // ignore, return false

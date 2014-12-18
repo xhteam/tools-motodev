@@ -20,50 +20,50 @@ import org.eclipse.andmore.gltrace.state.GLListProperty;
 import org.eclipse.andmore.gltrace.state.IGLProperty;
 
 /**
- * A {@link ListElementAddTransform} provides the ability to add a new property to a list of
- * properties in the GL State.
+ * A {@link ListElementAddTransform} provides the ability to add a new property
+ * to a list of properties in the GL State.
  */
 public class ListElementAddTransform implements IStateTransform {
-    private final IGLPropertyAccessor mAccessor;
-    private final IGLProperty mElement;
+	private final IGLPropertyAccessor mAccessor;
+	private final IGLProperty mElement;
 
-    public ListElementAddTransform(IGLPropertyAccessor accessor, IGLProperty element) {
-        mAccessor = accessor;
-        mElement = element;
-    }
+	public ListElementAddTransform(IGLPropertyAccessor accessor, IGLProperty element) {
+		mAccessor = accessor;
+		mElement = element;
+	}
 
-    @Override
-    public void apply(IGLProperty currentState) {
-        GLListProperty list = getList(currentState);
-        if (list != null) {
-            list.add(mElement);
-        }
-    }
+	@Override
+	public void apply(IGLProperty currentState) {
+		GLListProperty list = getList(currentState);
+		if (list != null) {
+			list.add(mElement);
+		}
+	}
 
-    @Override
-    public void revert(IGLProperty currentState) {
-        GLListProperty list = getList(currentState);
-        if (list != null) {
-            list.remove(mElement);
-        }
-    }
+	@Override
+	public void revert(IGLProperty currentState) {
+		GLListProperty list = getList(currentState);
+		if (list != null) {
+			list.remove(mElement);
+		}
+	}
 
-    @Override
-    public IGLProperty getChangedProperty(IGLProperty currentState) {
-        return getList(currentState);
-    }
+	@Override
+	public IGLProperty getChangedProperty(IGLProperty currentState) {
+		return getList(currentState);
+	}
 
-    private GLListProperty getList(IGLProperty state) {
-        IGLProperty p = state;
+	private GLListProperty getList(IGLProperty state) {
+		IGLProperty p = state;
 
-        if (mAccessor != null) {
-            p = mAccessor.getProperty(p);
-        }
+		if (mAccessor != null) {
+			p = mAccessor.getProperty(p);
+		}
 
-        if (p instanceof GLListProperty) {
-            return (GLListProperty) p;
-        } else {
-            return null;
-        }
-    }
+		if (p instanceof GLListProperty) {
+			return (GLListProperty) p;
+		} else {
+			return null;
+		}
+	}
 }

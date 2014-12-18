@@ -19,144 +19,132 @@ package org.eclipse.andmore.android.db.wizards.model;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 
 /**
- * This class abstracts a field in a database table. 
+ * This class abstracts a field in a database table.
  * */
-public class Field
-{
-    /**
-     * A primary key may be set to be updated incrementally, decrementally or none.
-     * */
-    public enum PrimaryKeyBehaviour
-    {
-        NONE, INCREMENTAL, DECREMENTAL
-    };
+public class Field {
+	/**
+	 * A primary key may be set to be updated incrementally, decrementally or
+	 * none.
+	 * */
+	public enum PrimaryKeyBehaviour {
+		NONE, INCREMENTAL, DECREMENTAL
+	};
 
-    private String type;
+	private String type;
 
-    private String name;
+	private String name;
 
-    private String defaultValue;
+	private String defaultValue;
 
-    private boolean isPrimary;
+	private boolean isPrimary;
 
-    private PrimaryKeyBehaviour primaryKeyBehaviour;
+	private PrimaryKeyBehaviour primaryKeyBehaviour;
 
-    /**
-     * @return The behavior of the primary key as described in {@link PrimaryKeyBehaviour}.
-     * */
-    public PrimaryKeyBehaviour getPrimaryKeyBehaviour()
-    {
-        return primaryKeyBehaviour;
-    }
+	/**
+	 * @return The behavior of the primary key as described in
+	 *         {@link PrimaryKeyBehaviour}.
+	 * */
+	public PrimaryKeyBehaviour getPrimaryKeyBehaviour() {
+		return primaryKeyBehaviour;
+	}
 
-    /**
-     * Set the primary key behavior as described in {@link PrimaryKeyBehaviour}.
-     * */
-    public void setPrimaryKeyBehaviour(PrimaryKeyBehaviour primaryKeyBehaviour)
-    {
-        this.primaryKeyBehaviour = primaryKeyBehaviour;
-    }
+	/**
+	 * Set the primary key behavior as described in {@link PrimaryKeyBehaviour}.
+	 * */
+	public void setPrimaryKeyBehaviour(PrimaryKeyBehaviour primaryKeyBehaviour) {
+		this.primaryKeyBehaviour = primaryKeyBehaviour;
+	}
 
-    /**
-     * Constructor that initializes the field name.
-     * */
-    public Field(String name)
-    {
-        this.name = name;
-    }
+	/**
+	 * Constructor that initializes the field name.
+	 * */
+	public Field(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @return field type.
-     * */
-    public String getType()
-    {
-        return type;
-    }
+	/**
+	 * @return field type.
+	 * */
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    /**
-     * @return field name.
-     * */
-    public String getName()
-    {
-        return name;
-    }
+	/**
+	 * @return field name.
+	 * */
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @return The default value used to fill in the field when it has no value in insert statements.
-     * */
-    public String getDefaultValue()
-    {
-        return defaultValue;
-    }
+	/**
+	 * @return The default value used to fill in the field when it has no value
+	 *         in insert statements.
+	 * */
+	public String getDefaultValue() {
+		return defaultValue;
+	}
 
-    public void setDefaultValue(String defaultValue)
-    {
-        this.defaultValue = defaultValue;
-    }
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
 
-    /**
-     * @return True if this field belongs to the primary key set. Otherwise, returns false.
-     * */
-    public boolean isPrimary()
-    {
-        return isPrimary;
-    }
+	/**
+	 * @return True if this field belongs to the primary key set. Otherwise,
+	 *         returns false.
+	 * */
+	public boolean isPrimary() {
+		return isPrimary;
+	}
 
-    public void setPrimary(boolean isPrimary)
-    {
-        this.isPrimary = isPrimary;
-    }
+	public void setPrimary(boolean isPrimary) {
+		this.isPrimary = isPrimary;
+	}
 
-    /**
-     * @return 
-     * <ul>
-     *  <li>empty string, if {@link PrimaryKeyBehaviour} is set to {@link PrimaryKeyBehaviour#NONE}.</li>
-     *  <li>ASC, if {@link PrimaryKeyBehaviour} is set to {@link PrimaryKeyBehaviour#INCREMENTAL}.</li>
-     *  <li>DESC, if {@link PrimaryKeyBehaviour} is set to {@link PrimaryKeyBehaviour#DECREMENTAL}.</li>
-     * </ul>
-     * */
-    public String getKeyBehaviourQuery()
-    {
-        String[] query =
-        {
-                "", " ASC", " DESC" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        };
+	/**
+	 * @return <ul>
+	 *         <li>empty string, if {@link PrimaryKeyBehaviour} is set to
+	 *         {@link PrimaryKeyBehaviour#NONE}.</li>
+	 *         <li>ASC, if {@link PrimaryKeyBehaviour} is set to
+	 *         {@link PrimaryKeyBehaviour#INCREMENTAL}.</li>
+	 *         <li>DESC, if {@link PrimaryKeyBehaviour} is set to
+	 *         {@link PrimaryKeyBehaviour#DECREMENTAL}.</li>
+	 *         </ul>
+	 * */
+	public String getKeyBehaviourQuery() {
+		String[] query = { "", " ASC", " DESC" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		};
 
-        return query[getPrimaryKeyBehaviour().ordinal()];
+		return query[getPrimaryKeyBehaviour().ordinal()];
 
-    }
+	}
 
-    /**
-     * @return An string describing field property error and {@code null} if there are no errors. 
-     * */
-    public String getErrorMessage()
-    {
-        String message = null;
+	/**
+	 * @return An string describing field property error and {@code null} if
+	 *         there are no errors.
+	 * */
+	public String getErrorMessage() {
+		String message = null;
 
-        if (!type.equals("INTEGER") && !type.equals("REAL") //$NON-NLS-1$ //$NON-NLS-2$
-                && !primaryKeyBehaviour.equals(PrimaryKeyBehaviour.NONE))
-        {
-            message = CodeUtilsNLS.Field_ErrorAutoIncrementNotAllowed;
-        }
+		if (!type.equals("INTEGER") && !type.equals("REAL") //$NON-NLS-1$ //$NON-NLS-2$
+				&& !primaryKeyBehaviour.equals(PrimaryKeyBehaviour.NONE)) {
+			message = CodeUtilsNLS.Field_ErrorAutoIncrementNotAllowed;
+		}
 
-        // Validate name to don't use sqlite keywords
-        if ((message == null) && !Table.validateName(getName()))
-        {
+		// Validate name to don't use sqlite keywords
+		if ((message == null) && !Table.validateName(getName())) {
 
-            message = CodeUtilsNLS.AddTableFieldDialog_InvalidName + getName();
-        }
+			message = CodeUtilsNLS.AddTableFieldDialog_InvalidName + getName();
+		}
 
-        return message;
-    }
+		return message;
+	}
 
 }

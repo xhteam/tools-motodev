@@ -24,108 +24,82 @@ import org.eclipse.jface.viewers.ILazyTreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 
-public class KeystoreManagerTreeContentProvider implements ILazyTreeContentProvider
-{
+public class KeystoreManagerTreeContentProvider implements ILazyTreeContentProvider {
 
-    private final TreeViewer treeViewer;
+	private final TreeViewer treeViewer;
 
-    public KeystoreManagerTreeContentProvider(TreeViewer viewer)
-    {
-        this.treeViewer = viewer;
-    }
+	public KeystoreManagerTreeContentProvider(TreeViewer viewer) {
+		this.treeViewer = viewer;
+	}
 
-    @Override
-    public void dispose()
-    {
-        //Nothing        
-    }
+	@Override
+	public void dispose() {
+		// Nothing
+	}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
-    {
-        //Nothing        
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		// Nothing
+	}
 
-    @Override
-    public void updateElement(Object parent, int index)
-    {
-        if (parent instanceof ITreeNode)
-        {
-            ITreeNode parentNode = (ITreeNode) parent;
-            ITreeNode child = null;
-            try
-            {
-                List<ITreeNode> children = parentNode.getChildren();
-                if (!children.isEmpty())
-                {
-                    child = children.get(index);
-                }
-            }
-            catch (Exception e)
-            {
-                child = null;
-            }
+	@Override
+	public void updateElement(Object parent, int index) {
+		if (parent instanceof ITreeNode) {
+			ITreeNode parentNode = (ITreeNode) parent;
+			ITreeNode child = null;
+			try {
+				List<ITreeNode> children = parentNode.getChildren();
+				if (!children.isEmpty()) {
+					child = children.get(index);
+				}
+			} catch (Exception e) {
+				child = null;
+			}
 
-            if (child != null)
-            {
-                treeViewer.replace(parent, index, child);
-                try
-                {
-                    if (child.getChildren().isEmpty())
-                    {
-                        treeViewer.setHasChildren(child, !child.isLeaf());
-                    }
-                    else
-                    {
-                        treeViewer.setChildCount(child, child.getChildren().size());
-                    }
-                }
-                catch (KeyStoreManagerException e)
-                {
-                    StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
-                }
-            }
-        }
+			if (child != null) {
+				treeViewer.replace(parent, index, child);
+				try {
+					if (child.getChildren().isEmpty()) {
+						treeViewer.setHasChildren(child, !child.isLeaf());
+					} else {
+						treeViewer.setChildCount(child, child.getChildren().size());
+					}
+				} catch (KeyStoreManagerException e) {
+					StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+				}
+			}
+		}
 
-    }
+	}
 
-    @Override
-    public void updateChildCount(Object element, int currentChildCount)
-    {
-        if (element instanceof ITreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            int childCount = 0;
-            try
-            {
-                treeNode.refresh();
-                List<ITreeNode> children = treeNode.getChildren();
-                if (!children.isEmpty())
-                {
-                    childCount = children.size();
-                }
-            }
-            catch (KeyStoreManagerException e)
-            {
-                StudioLogger.error(e.getMessage());
-            }
+	@Override
+	public void updateChildCount(Object element, int currentChildCount) {
+		if (element instanceof ITreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			int childCount = 0;
+			try {
+				treeNode.refresh();
+				List<ITreeNode> children = treeNode.getChildren();
+				if (!children.isEmpty()) {
+					childCount = children.size();
+				}
+			} catch (KeyStoreManagerException e) {
+				StudioLogger.error(e.getMessage());
+			}
 
-            if (childCount != currentChildCount)
-            {
-                treeViewer.setChildCount(element, childCount);
-            }
-        }
-    }
+			if (childCount != currentChildCount) {
+				treeViewer.setChildCount(element, childCount);
+			}
+		}
+	}
 
-    @Override
-    public ITreeNode getParent(Object element)
-    {
-        if (element instanceof ITreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            return treeNode.getParent();
-        }
-        return null;
-    }
+	@Override
+	public ITreeNode getParent(Object element) {
+		if (element instanceof ITreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			return treeNode.getParent();
+		}
+		return null;
+	}
 
 }

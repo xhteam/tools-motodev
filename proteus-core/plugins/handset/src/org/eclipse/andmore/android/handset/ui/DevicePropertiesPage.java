@@ -28,24 +28,20 @@ import org.eclipse.ui.IWorkbenchPropertyPage;
  * 
  * @author xrgc84
  */
-public class DevicePropertiesPage extends AbstractDevicePropertyPage implements
-        IWorkbenchPropertyPage
-{
+public class DevicePropertiesPage extends AbstractDevicePropertyPage implements IWorkbenchPropertyPage {
 
-    private ISerialNumbered androidIntance;
+	private ISerialNumbered androidIntance;
 
-    @Override
-    public void setElement(IAdaptable element)
-    {
+	@Override
+	public void setElement(IAdaptable element) {
 
-        this.androidIntance = (ISerialNumbered) element;
+		this.androidIntance = (ISerialNumbered) element;
 
-        super.setElement(element);
-    }
+		super.setElement(element);
+	}
 
-    @Override
-    protected Properties getDeviceProperties()
-    {
-        return ((AndroidHandsetInstance) androidIntance).getProperties();
-    }
+	@Override
+	protected Properties getDeviceProperties() {
+		return ((AndroidHandsetInstance) androidIntance).getProperties();
+	}
 }

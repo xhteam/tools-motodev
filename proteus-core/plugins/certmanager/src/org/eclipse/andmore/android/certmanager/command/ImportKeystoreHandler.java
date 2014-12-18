@@ -28,24 +28,22 @@ import org.eclipse.ui.PlatformUI;
 /**
  * This class maps the keystore file into the tree of the KeyStore Manager View.
  * */
-public class ImportKeystoreHandler extends AbstractHandler implements IHandler
-{
+public class ImportKeystoreHandler extends AbstractHandler implements IHandler {
 
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
-        ImportKeystoreWizard createKeystoreWizard = new ImportKeystoreWizard();
+		ImportKeystoreWizard createKeystoreWizard = new ImportKeystoreWizard();
 
-        WizardDialog dialog = new WizardDialog(shell, createKeystoreWizard);
+		WizardDialog dialog = new WizardDialog(shell, createKeystoreWizard);
 
-        //open the wizard to import keystores
-        //the result doesn't need to be handled as it is self-contained
-        dialog.create();
-        dialog.open();
+		// open the wizard to import keystores
+		// the result doesn't need to be handled as it is self-contained
+		dialog.create();
+		dialog.open();
 
-        return null;
-    }
+		return null;
+	}
 
 }

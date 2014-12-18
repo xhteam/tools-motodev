@@ -28,51 +28,36 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
-public class OpenHelpAndroidHandler extends AbstractHandler
-{
-    private static final String URL_STRING = "http://community.developer.motorola.com/mtrl/";
+public class OpenHelpAndroidHandler extends AbstractHandler {
+	private static final String URL_STRING = "http://community.developer.motorola.com/mtrl/";
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 
-        /*
-         * open the browser
-         */
-        IWebBrowser browser;
-        try
-        {
-            // always use external browser on Linux
-            if (FileUtil.getOS() == FileUtil.OS_LINUX)
-            {
-                browser =
-                        browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR
-                                | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEVHelpAndroid", null,
-                                null);
-            }
-            else
-            {
-                browser =
-                        browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR, "MOTODEVHelpAndroid",
-                                null, null);
-            }
+		/*
+		 * open the browser
+		 */
+		IWebBrowser browser;
+		try {
+			// always use external browser on Linux
+			if (FileUtil.getOS() == FileUtil.OS_LINUX) {
+				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL,
+						"MOTODEVHelpAndroid", null, null);
+			} else {
+				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR, "MOTODEVHelpAndroid", null, null);
+			}
 
-            browser.openURL(new URL(URL_STRING));
+			browser.openURL(new URL(URL_STRING));
 
-        }
-        catch (PartInitException e)
-        {
-            StudioLogger.error("Error opening MOTODEV Discussion Board - Android page: "
-                    + e.getMessage());
-        }
-        catch (MalformedURLException e)
-        {
-            StudioLogger.error("Error opening MOTODEV Discussion Board - Android  page: "
-                    + e.getMessage());
-        }
-        return null;
-    }
+		} catch (PartInitException e) {
+			StudioLogger.error("Error opening MOTODEV Discussion Board - Android page: " + e.getMessage());
+		} catch (MalformedURLException e) {
+			StudioLogger.error("Error opening MOTODEV Discussion Board - Android  page: " + e.getMessage());
+		}
+		return null;
+	}
 
 }

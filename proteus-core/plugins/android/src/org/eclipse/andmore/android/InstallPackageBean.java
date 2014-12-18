@@ -18,31 +18,26 @@ package org.eclipse.andmore.android;
 
 import org.eclipse.andmore.android.wizards.installapp.DeployWizard.INSTALL_TYPE;
 
-public class InstallPackageBean
-{
+public class InstallPackageBean {
 
-    private String packagePath = null;
+	private String packagePath = null;
 
-    private INSTALL_TYPE canOverwrite = null;
+	private INSTALL_TYPE canOverwrite = null;
 
-    public String getPackagePath()
-    {
-        return packagePath;
-    }
+	public String getPackagePath() {
+		return packagePath;
+	}
 
-    public void setPackagePath(String packagePath)
-    {
-        this.packagePath = packagePath;
-    }
+	public void setPackagePath(String packagePath) {
+		this.packagePath = packagePath;
+	}
 
-    public INSTALL_TYPE getCanOverwrite()
-    {
-        return canOverwrite;
-    }
+	public INSTALL_TYPE getCanOverwrite() {
+		return canOverwrite;
+	}
 
-    public void setCanOverwrite(INSTALL_TYPE canOverwrite)
-    {
-        this.canOverwrite = canOverwrite;
-    }
+	public void setCanOverwrite(INSTALL_TYPE canOverwrite) {
+		this.canOverwrite = canOverwrite;
+	}
 
 }

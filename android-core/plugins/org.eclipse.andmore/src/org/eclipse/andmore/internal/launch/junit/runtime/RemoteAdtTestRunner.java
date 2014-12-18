@@ -253,22 +253,22 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
                 setupRunner();
                 mRunner.run(mListener);
             } catch (TimeoutException e) {
-                return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
                         LaunchMessages.RemoteAdtTestRunner_RunTimeoutException,
                         e);
             } catch (IOException e) {
-                return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
                         String.format(LaunchMessages.RemoteAdtTestRunner_RunIOException_s,
                                 e.getMessage()),
                         e);
             } catch (AdbCommandRejectedException e) {
-                return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
                         String.format(
                                 LaunchMessages.RemoteAdtTestRunner_RunAdbCommandRejectedException_s,
                                 e.getMessage()),
                         e);
             } catch (ShellCommandUnresponsiveException e) {
-                return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
                         LaunchMessages.RemoteAdtTestRunner_RunTimeoutException,
                         e);
             }

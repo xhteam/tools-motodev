@@ -27,37 +27,30 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
-public class OpenMotorolaMobilityDevicePropertiesHandler extends AbstractHandler
-{
-    private static final String URL_STRING = "http://developer.motorola.com/products/";
+public class OpenMotorolaMobilityDevicePropertiesHandler extends AbstractHandler {
+	private static final String URL_STRING = "http://developer.motorola.com/products/";
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 
-        /*
-         * open the browser
-         */
-        IWebBrowser browser;
-        try
-        {
-            browser =
-                    browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                            | IWorkbenchBrowserSupport.NAVIGATION_BAR
-                            | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV", null, null);
+		/*
+		 * open the browser
+		 */
+		IWebBrowser browser;
+		try {
+			browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+					| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV", null,
+					null);
 
-            browser.openURL(new URL(URL_STRING));
+			browser.openURL(new URL(URL_STRING));
 
-        }
-        catch (PartInitException e)
-        {
-            StudioLogger.error("Error opening the Motorola products page: " + e.getMessage());
-        }
-        catch (MalformedURLException e)
-        {
-            StudioLogger.error("Error opening the Motorola products page: " + e.getMessage());
-        }
-        return null;
-    }
+		} catch (PartInitException e) {
+			StudioLogger.error("Error opening the Motorola products page: " + e.getMessage());
+		} catch (MalformedURLException e) {
+			StudioLogger.error("Error opening the Motorola products page: " + e.getMessage());
+		}
+		return null;
+	}
 
 }

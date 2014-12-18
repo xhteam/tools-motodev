@@ -18,41 +18,38 @@ package com.motorola.studio.android.localization.translators.i18n;
 
 import org.eclipse.osgi.util.NLS;
 
-public class TranslateNLS extends NLS
-{
-    static
-    {
-        NLS.initializeMessages(
-                "org.eclipse.andmore.android.localization.translators.i18n.translateNLS", //$NON-NLS-1$
-                TranslateNLS.class);
-    }
+public class TranslateNLS extends NLS {
+	static {
+		NLS.initializeMessages("org.eclipse.andmore.android.localization.translators.i18n.translateNLS", //$NON-NLS-1$
+				TranslateNLS.class);
+	}
 
-    public static String GoogleTranslator_ChangeAPIkeyLabel;
+	public static String GoogleTranslator_ChangeAPIkeyLabel;
 
-    public static String GoogleTranslator_Error_CannotConnectToServer;
+	public static String GoogleTranslator_Error_CannotConnectToServer;
 
-    public static String GoogleTranslator_Error_HTTPRequestError;
+	public static String GoogleTranslator_Error_HTTPRequestError;
 
-    public static String GoogleTranslator_Error_NoAvailableData;
+	public static String GoogleTranslator_Error_NoAvailableData;
 
-    public static String GoogleTranslator_Error_QueryTooBig;
+	public static String GoogleTranslator_Error_QueryTooBig;
 
-    public static String GoogleTranslator_Error_ToAndFromLanguagesAreEmpty;
+	public static String GoogleTranslator_Error_ToAndFromLanguagesAreEmpty;
 
-    public static String GoogleTranslator_Error_UnsupportedEncoding;
+	public static String GoogleTranslator_Error_UnsupportedEncoding;
 
-    public static String GoogleTranslator_ErrorMessageExecutingRequest;
+	public static String GoogleTranslator_ErrorMessageExecutingRequest;
 
-    public static String GoogleTranslator_ErrorMessageNoValidTranslationReturned;
+	public static String GoogleTranslator_ErrorMessageNoValidTranslationReturned;
 
-    public static String GoogleTranslator_ErrorNoAPIkeySet;
+	public static String GoogleTranslator_ErrorNoAPIkeySet;
 
-    public static String AndroidPreferencePage_googleApiKey_GroupLabel;
+	public static String AndroidPreferencePage_googleApiKey_GroupLabel;
 
-    public static String AndroidPreferencePage_googleApiKey_Label;
+	public static String AndroidPreferencePage_googleApiKey_Label;
 
-    public static String AndroidPreferencePage_googleApiKey_Note;
+	public static String AndroidPreferencePage_googleApiKey_Note;
 
-    public static String AndroidPreferencePage_googleApiKey_Tooltip;
+	public static String AndroidPreferencePage_googleApiKey_Tooltip;
 
 }

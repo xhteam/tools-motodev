@@ -34,6 +34,7 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -170,10 +171,10 @@ class ApplicationPackageNameRefactoring extends Refactoring {
                 try {
                     rewrittenImports.addChild( irw.rewriteImports(null) );
                 } catch (MalformedTreeException e) {
-                    Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+                    Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
                     AdtPlugin.getDefault().getLog().log(s);
                 } catch (CoreException e) {
-                    Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+                    Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
                     AdtPlugin.getDefault().getLog().log(s);
                 }
             }
@@ -211,10 +212,10 @@ class ApplicationPackageNameRefactoring extends Refactoring {
         try {
             sdoc = modelManager.createStructuredDocumentFor(file);
         } catch (IOException e) {
-            Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
             AdtPlugin.getDefault().getLog().log(s);
         } catch (CoreException e) {
-            Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
             AdtPlugin.getDefault().getLog().log(s);
         }
 
@@ -302,10 +303,10 @@ class ApplicationPackageNameRefactoring extends Refactoring {
         try {
             sdoc = modelManager.createStructuredDocumentFor(file);
         } catch (IOException e) {
-            Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
             AdtPlugin.getDefault().getLog().log(s);
         } catch (CoreException e) {
-            Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
             AdtPlugin.getDefault().getLog().log(s);
         }
 
@@ -546,10 +547,10 @@ class ApplicationPackageNameRefactoring extends Refactoring {
             try {
                 return this.mRewriter.rewriteAST();
             } catch (JavaModelException e) {
-                Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+                Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
                 AdtPlugin.getDefault().getLog().log(s);
             } catch (IllegalArgumentException e) {
-                Status s = new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
+                Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
                 AdtPlugin.getDefault().getLog().log(s);
             }
             return null;

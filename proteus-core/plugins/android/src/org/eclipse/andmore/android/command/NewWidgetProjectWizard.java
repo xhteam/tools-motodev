@@ -19,16 +19,19 @@ import org.eclipse.andmore.android.wizards.widget.NewAndroidWidgetProjectWizard;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-public class NewWidgetProjectWizard extends NewWizardHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        openWizard(new NewAndroidWidgetProjectWizard());
+public class NewWidgetProjectWizard extends NewWizardHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		openWizard(new NewAndroidWidgetProjectWizard());
 
-        return null;
-    }
+		return null;
+	}
 
 }

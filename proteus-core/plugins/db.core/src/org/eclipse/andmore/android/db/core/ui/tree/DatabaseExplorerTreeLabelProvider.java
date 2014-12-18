@@ -30,149 +30,159 @@ import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Provides label for the tree into {@link MOTODEVDatabaseExplorerView} by encapsulating {@link AbstractTreeNode} 
+ * Provides label for the tree into {@link MOTODEVDatabaseExplorerView} by
+ * encapsulating {@link AbstractTreeNode}
  */
-public class DatabaseExplorerTreeLabelProvider extends CellLabelProvider
-{
-    final IDecoratorManager decorator;
+public class DatabaseExplorerTreeLabelProvider extends CellLabelProvider {
+	final IDecoratorManager decorator;
 
-    public enum LabelProperty
-    {
-        TEXT, IMAGE;
-    }
+	public enum LabelProperty {
+		TEXT, IMAGE;
+	}
 
-    public DatabaseExplorerTreeLabelProvider()
-    {
-        decorator = PlatformUI.getWorkbench().getDecoratorManager();
-    }
+	public DatabaseExplorerTreeLabelProvider() {
+		decorator = PlatformUI.getWorkbench().getDecoratorManager();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.BaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
-     */
-    @Override
-    public void addListener(ILabelProviderListener listener)
-    {
-        decorator.addListener(listener);
-        super.addListener(listener);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.BaseLabelProvider#addListener(org.eclipse.jface
+	 * .viewers.ILabelProviderListener)
+	 */
+	@Override
+	public void addListener(ILabelProviderListener listener) {
+		decorator.addListener(listener);
+		super.addListener(listener);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.BaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
-     */
-    @Override
-    public void removeListener(ILabelProviderListener listener)
-    {
-        decorator.removeListener(listener);
-        super.removeListener(listener);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.BaseLabelProvider#removeListener(org.eclipse
+	 * .jface.viewers.ILabelProviderListener)
+	 */
+	@Override
+	public void removeListener(ILabelProviderListener listener) {
+		decorator.removeListener(listener);
+		super.removeListener(listener);
+	}
 
-    public Image getImage(Object element)
-    {
-        Image result = null;
-        if (element instanceof AbstractTreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            Image defaultImage = treeNode.getIcon().createImage();
-            result = decorator.decorateImage(defaultImage, element);
-            if (result == null)
-            {
-                result = defaultImage;
-            }
-        }
+	public Image getImage(Object element) {
+		Image result = null;
+		if (element instanceof AbstractTreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			Image defaultImage = treeNode.getIcon().createImage();
+			result = decorator.decorateImage(defaultImage, element);
+			if (result == null) {
+				result = defaultImage;
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public String getText(Object element)
-    {
-        if (element instanceof AbstractTreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            return treeNode.getName();
-        }
-        return null;
-    }
+	public String getText(Object element) {
+		if (element instanceof AbstractTreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			return treeNode.getName();
+		}
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.BaseLabelProvider#isLabelProperty(java.lang.Object, java.lang.String)
-     */
-    @Override
-    public boolean isLabelProperty(Object element, String property)
-    {
-        boolean isLabelProperty = false;
-        LabelProperty labelProperty = LabelProperty.valueOf(property);
-        if (labelProperty != null)
-        {
-            isLabelProperty = true;
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.BaseLabelProvider#isLabelProperty(java.lang
+	 * .Object, java.lang.String)
+	 */
+	@Override
+	public boolean isLabelProperty(Object element, String property) {
+		boolean isLabelProperty = false;
+		LabelProperty labelProperty = LabelProperty.valueOf(property);
+		if (labelProperty != null) {
+			isLabelProperty = true;
+		}
 
-        return isLabelProperty;
-    }
+		return isLabelProperty;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipText(java.lang.Object)
-     */
-    @Override
-    public String getToolTipText(Object element)
-    {
-        if (element instanceof ITreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            String tooltipText = treeNode.getTooltip();
-            IStatus nodeStatus = treeNode.getNodeStatus();
-            if ((nodeStatus != null) && !nodeStatus.isOK())
-            {
-                String statusMessage = nodeStatus.getMessage();
-                if ((statusMessage != null) && !statusMessage.isEmpty())
-                {
-                    tooltipText =
-                            NLS.bind(
-                                    DbCoreNLS.DatabaseExplorerTreeLabelProvider_Error_Tooltip_Prefix,
-                                    statusMessage);
-                }
-            }
-            return tooltipText;
-        }
-        return super.getToolTipText(element);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.CellLabelProvider#getToolTipText(java.lang.
+	 * Object)
+	 */
+	@Override
+	public String getToolTipText(Object element) {
+		if (element instanceof ITreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			String tooltipText = treeNode.getTooltip();
+			IStatus nodeStatus = treeNode.getNodeStatus();
+			if ((nodeStatus != null) && !nodeStatus.isOK()) {
+				String statusMessage = nodeStatus.getMessage();
+				if ((statusMessage != null) && !statusMessage.isEmpty()) {
+					tooltipText = NLS.bind(DbCoreNLS.DatabaseExplorerTreeLabelProvider_Error_Tooltip_Prefix,
+							statusMessage);
+				}
+			}
+			return tooltipText;
+		}
+		return super.getToolTipText(element);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipTimeDisplayed(java.lang.Object)
-     */
-    @Override
-    public int getToolTipTimeDisplayed(Object object)
-    {
-        return 4000;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.CellLabelProvider#getToolTipTimeDisplayed(java
+	 * .lang.Object)
+	 */
+	@Override
+	public int getToolTipTimeDisplayed(Object object) {
+		return 4000;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipDisplayDelayTime(java.lang.Object)
-     */
-    @Override
-    public int getToolTipDisplayDelayTime(Object object)
-    {
-        return 500;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.CellLabelProvider#getToolTipDisplayDelayTime
+	 * (java.lang.Object)
+	 */
+	@Override
+	public int getToolTipDisplayDelayTime(Object object) {
+		return 500;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.CellLabelProvider#getToolTipShift(java.lang.Object)
-     */
-    @Override
-    public Point getToolTipShift(Object object)
-    {
-        return new Point(5, 5);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.CellLabelProvider#getToolTipShift(java.lang
+	 * .Object)
+	 */
+	@Override
+	public Point getToolTipShift(Object object) {
+		return new Point(5, 5);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.CellLabelProvider#update(org.eclipse.jface.viewers.ViewerCell)
-     */
-    @Override
-    public void update(ViewerCell cell)
-    {
-        Object cellElement = cell.getElement();
-        cell.setText(getText(cellElement));
-        cell.setImage(getImage(cellElement));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.CellLabelProvider#update(org.eclipse.jface.
+	 * viewers.ViewerCell)
+	 */
+	@Override
+	public void update(ViewerCell cell) {
+		Object cellElement = cell.getElement();
+		cell.setText(getText(cellElement));
+		cell.setImage(getImage(cellElement));
+	}
 
 }

@@ -23,88 +23,82 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * Content provider that uses {@link AbstractTreeNode} as the model 
+ * Content provider that uses {@link AbstractTreeNode} as the model
  */
-public class DatabaseExplorerTreeContentProvider implements ILazyTreeContentProvider
-{
+public class DatabaseExplorerTreeContentProvider implements ILazyTreeContentProvider {
 
-    private final TreeViewer treeViewer;
+	private final TreeViewer treeViewer;
 
-    public DatabaseExplorerTreeContentProvider(TreeViewer viewer)
-    {
-        this.treeViewer = viewer;
-    }
+	public DatabaseExplorerTreeContentProvider(TreeViewer viewer) {
+		this.treeViewer = viewer;
+	}
 
-    public void dispose()
-    {
-        //Nothing
-    }
+	@Override
+	public void dispose() {
+		// Nothing
+	}
 
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
-    {
-        //Nothing
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		// Nothing
+	}
 
-    public Object getParent(Object element)
-    {
-        if (element instanceof AbstractTreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            return treeNode.getParent();
-        }
-        return null;
-    }
+	@Override
+	public Object getParent(Object element) {
+		if (element instanceof AbstractTreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			return treeNode.getParent();
+		}
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ILazyTreeContentProvider#updateElement(java.lang.Object, int)
-     */
-    public void updateElement(Object parent, int index)
-    {
-        if (parent instanceof ITreeNode)
-        {
-            ITreeNode parentTreeNode = (ITreeNode) parent;
-            ITreeNode child = null;
-            if ((index == 0) && parentTreeNode.isLoading())
-            {
-                child = new LoadingNode(parentTreeNode);
-            }
-            else
-            {
-                child = parentTreeNode.getChild(index);
-            }
-            if (child != null)
-            {
-                treeViewer.replace(parent, index, child);
-                if (!child.isLeaf())
-                {
-                    treeViewer.setHasChildren(child, true);
-                }
-            }
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ILazyTreeContentProvider#updateElement(java
+	 * .lang.Object, int)
+	 */
+	@Override
+	public void updateElement(Object parent, int index) {
+		if (parent instanceof ITreeNode) {
+			ITreeNode parentTreeNode = (ITreeNode) parent;
+			ITreeNode child = null;
+			if ((index == 0) && parentTreeNode.isLoading()) {
+				child = new LoadingNode(parentTreeNode);
+			} else {
+				child = parentTreeNode.getChild(index);
+			}
+			if (child != null) {
+				treeViewer.replace(parent, index, child);
+				if (!child.isLeaf()) {
+					treeViewer.setHasChildren(child, true);
+				}
+			}
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.ILazyTreeContentProvider#updateChildCount(java.lang.Object, int)
-     */
-    public void updateChildCount(Object element, int currentChildCount)
-    {
-        if (element instanceof AbstractTreeNode)
-        {
-            ITreeNode treeNode = (ITreeNode) element;
-            treeNode.refreshAsync();
-            int childCount = 0;
-            if (treeNode.isLoading())
-            {
-                childCount = 1;
-            }
-            else
-            {
-                childCount = treeNode.getChildren().size();
-            }
-            if (childCount != currentChildCount)
-            {
-                treeViewer.setChildCount(element, childCount);
-            }
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.viewers.ILazyTreeContentProvider#updateChildCount(java
+	 * .lang.Object, int)
+	 */
+	@Override
+	public void updateChildCount(Object element, int currentChildCount) {
+		if (element instanceof AbstractTreeNode) {
+			ITreeNode treeNode = (ITreeNode) element;
+			treeNode.refreshAsync();
+			int childCount = 0;
+			if (treeNode.isLoading()) {
+				childCount = 1;
+			} else {
+				childCount = treeNode.getChildren().size();
+			}
+			if (childCount != currentChildCount) {
+				treeViewer.setChildCount(element, childCount);
+			}
+		}
+	}
 }

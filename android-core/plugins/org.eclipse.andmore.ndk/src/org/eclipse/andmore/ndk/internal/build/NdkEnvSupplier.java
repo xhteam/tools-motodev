@@ -28,94 +28,93 @@ import java.util.Map;
 
 public class NdkEnvSupplier implements IConfigurationEnvironmentVariableSupplier {
 
-    private static Map<String, IBuildEnvironmentVariable> mEnvVars;
+	private static Map<String, IBuildEnvironmentVariable> mEnvVars;
 
-    private synchronized void init() {
-        if (mEnvVars != null)
-            return;
+	private synchronized void init() {
+		if (mEnvVars != null)
+			return;
 
-        mEnvVars = new HashMap<String, IBuildEnvironmentVariable>();
+		mEnvVars = new HashMap<String, IBuildEnvironmentVariable>();
 
-        if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            // For Windows, need to add a shell to the path
-            IBuildEnvironmentVariable path = new IBuildEnvironmentVariable() {
-                @Override
-                public String getName() {
-                    return "PATH"; //$NON-NLS-1$
-                }
+		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+			// For Windows, need to add a shell to the path
+			IBuildEnvironmentVariable path = new IBuildEnvironmentVariable() {
+				@Override
+				public String getName() {
+					return "PATH"; //$NON-NLS-1$
+				}
 
-                @Override
-                public String getValue() {
-                    // I'm giving MSYS precedence over Cygwin. I'm biased that
-                    // way :)
-                    // TODO using the default paths for now, need smarter ways
-                    // to get at them
-                    // Alternatively the user can add the bin to their path
-                    // themselves.
-                    File bin = new File("C:\\MinGW\\msys\\1.0\\bin"); //$NON-NLS-1$
-                    if (bin.isDirectory()) {
-                        return bin.getAbsolutePath();
-                    }
+				@Override
+				public String getValue() {
+					// I'm giving MSYS precedence over Cygwin. I'm biased that
+					// way :)
+					// TODO using the default paths for now, need smarter ways
+					// to get at them
+					// Alternatively the user can add the bin to their path
+					// themselves.
+					File bin = new File("C:\\MinGW\\msys\\1.0\\bin"); //$NON-NLS-1$
+					if (bin.isDirectory()) {
+						return bin.getAbsolutePath();
+					}
 
-                    bin = new File("C:\\cygwin\\bin"); //$NON-NLS-1$
-                    if (bin.isDirectory())
-                        return bin.getAbsolutePath();
+					bin = new File("C:\\cygwin\\bin"); //$NON-NLS-1$
+					if (bin.isDirectory())
+						return bin.getAbsolutePath();
 
-                    return null;
-                }
+					return null;
+				}
 
-                @Override
-                public int getOperation() {
-                    return ENVVAR_PREPEND;
-                }
+				@Override
+				public int getOperation() {
+					return ENVVAR_PREPEND;
+				}
 
-                @Override
-                public String getDelimiter() {
-                    return ";"; //$NON-NLS-1$
-                }
-            };
-            if (path.getValue() != null)
-                mEnvVars.put(path.getName(), path);
+				@Override
+				public String getDelimiter() {
+					return ";"; //$NON-NLS-1$
+				}
+			};
+			if (path.getValue() != null)
+				mEnvVars.put(path.getName(), path);
 
-            // Since we're using real paths, need to tell cygwin it's OK
-            IBuildEnvironmentVariable cygwin = new IBuildEnvironmentVariable() {
-                @Override
-                public String getName() {
-                    return "CYGWIN"; //$NON-NLS-1$
-                }
+			// Since we're using real paths, need to tell cygwin it's OK
+			IBuildEnvironmentVariable cygwin = new IBuildEnvironmentVariable() {
+				@Override
+				public String getName() {
+					return "CYGWIN"; //$NON-NLS-1$
+				}
 
-                @Override
-                public String getValue() {
-                    return "nodosfilewarning"; //$NON-NLS-1$
-                }
+				@Override
+				public String getValue() {
+					return "nodosfilewarning"; //$NON-NLS-1$
+				}
 
-                @Override
-                public int getOperation() {
-                    return ENVVAR_REPLACE;
-                }
+				@Override
+				public int getOperation() {
+					return ENVVAR_REPLACE;
+				}
 
-                @Override
-                public String getDelimiter() {
-                    return null;
-                }
-            };
+				@Override
+				public String getDelimiter() {
+					return null;
+				}
+			};
 
-            mEnvVars.put(cygwin.getName(), cygwin);
-        }
-    }
+			mEnvVars.put(cygwin.getName(), cygwin);
+		}
+	}
 
-    @Override
-    public IBuildEnvironmentVariable getVariable(String variableName,
-            IConfiguration configuration, IEnvironmentVariableProvider provider) {
-        init();
-        return mEnvVars.get(variableName);
-    }
+	@Override
+	public IBuildEnvironmentVariable getVariable(String variableName, IConfiguration configuration,
+			IEnvironmentVariableProvider provider) {
+		init();
+		return mEnvVars.get(variableName);
+	}
 
-    @Override
-    public IBuildEnvironmentVariable[] getVariables(
-            IConfiguration configuration, IEnvironmentVariableProvider provider) {
-        init();
-        return mEnvVars.values().toArray(new IBuildEnvironmentVariable[mEnvVars.size()]);
-    }
+	@Override
+	public IBuildEnvironmentVariable[] getVariables(IConfiguration configuration, IEnvironmentVariableProvider provider) {
+		init();
+		return mEnvVars.values().toArray(new IBuildEnvironmentVariable[mEnvVars.size()]);
+	}
 
 }

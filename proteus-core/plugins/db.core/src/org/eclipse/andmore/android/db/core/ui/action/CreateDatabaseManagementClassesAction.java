@@ -35,197 +35,151 @@ import org.eclipse.ui.PlatformUI;
 /**
  * 
  * This class is responsible for executing the action of creating the classes
- * responsible for deploying a database file automatically. 
+ * responsible for deploying a database file automatically.
  */
-public class CreateDatabaseManagementClassesAction extends Action
-{
+public class CreateDatabaseManagementClassesAction extends Action {
 
-    private IDbNode dbNodeSelected;
+	private IDbNode dbNodeSelected;
 
-    private ProjectNode dbProjectNodeSelected;
+	private ProjectNode dbProjectNodeSelected;
 
-    /**
-     * @see org.eclipse.jface.action.Action#run()
-     */
-    @Override
-    public void run()
-    {
-        IResource resource = null;
-        IWorkbench workbench = PlatformUI.getWorkbench();
-        if ((workbench != null) && !workbench.isClosing())
-        {
-            IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-            if (window != null)
-            {
-                if (dbNodeSelected != null)
-                {
-                    //db node selected => get parent to retrieve the resource or the project (if the resource does not exist)             
-                    if (dbNodeSelected.getParent() instanceof ProjectNode)
-                    {
-                        ProjectNode pNode = (ProjectNode) dbNodeSelected.getParent();
-                        resource =
-                                ResourcesPlugin
-                                        .getWorkspace()
-                                        .getRoot()
-                                        .getProject(pNode.getName())
-                                        .getFile(
-                                                ProjectNode.DB_FOLDER + IPath.SEPARATOR
-                                                        + dbNodeSelected.getName());
-                        if (!resource.exists())
-                        {
-                            resource = resource.getProject();
-                        }
-                    }
-                }
-                else if (dbProjectNodeSelected != null)
-                {
+	/**
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
+	@Override
+	public void run() {
+		IResource resource = null;
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		if ((workbench != null) && !workbench.isClosing()) {
+			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+			if (window != null) {
+				if (dbNodeSelected != null) {
+					// db node selected => get parent to retrieve the resource
+					// or the project (if the resource does not exist)
+					if (dbNodeSelected.getParent() instanceof ProjectNode) {
+						ProjectNode pNode = (ProjectNode) dbNodeSelected.getParent();
+						resource = ResourcesPlugin.getWorkspace().getRoot().getProject(pNode.getName())
+								.getFile(ProjectNode.DB_FOLDER + IPath.SEPARATOR + dbNodeSelected.getName());
+						if (!resource.exists()) {
+							resource = resource.getProject();
+						}
+					}
+				} else if (dbProjectNodeSelected != null) {
 
-                    ProjectNode pNode = dbProjectNodeSelected;
-                    resource =
-                            ResourcesPlugin
-                                    .getWorkspace()
-                                    .getRoot()
-                                    .getProject(pNode.getName())
-                                    .getFile(
-                                            ProjectNode.DB_FOLDER + IPath.SEPARATOR
-                                                    + dbProjectNodeSelected.getName());
-                    if (!resource.exists())
-                    {
-                        resource = resource.getProject();
-                    }
-                }
-                else
-                {
-                    //db node not selected on tree => try to get resource based on selection from package explorer
-                    Object selectionElement = getSelectionElement(window);
-                    if (selectionElement == null)
-                    {
-                        //the wizard was requested to open from MOTODEV menu - open wizard without selecting project or .db file
-                        resource = null;
-                    }
-                    else
-                    {
-                        //there is an item selected, get the resource associated
-                        resource = getResourceFromSelection(selectionElement);
-                    }
+					ProjectNode pNode = dbProjectNodeSelected;
+					resource = ResourcesPlugin.getWorkspace().getRoot().getProject(pNode.getName())
+							.getFile(ProjectNode.DB_FOLDER + IPath.SEPARATOR + dbProjectNodeSelected.getName());
+					if (!resource.exists()) {
+						resource = resource.getProject();
+					}
+				} else {
+					// db node not selected on tree => try to get resource based
+					// on selection from package explorer
+					Object selectionElement = getSelectionElement(window);
+					if (selectionElement == null) {
+						// the wizard was requested to open from MOTODEV menu -
+						// open wizard without selecting project or .db file
+						resource = null;
+					} else {
+						// there is an item selected, get the resource
+						// associated
+						resource = getResourceFromSelection(selectionElement);
+					}
 
-                }
-                openDialogBasedOnResourceSelected(resource, window);
-            }
-        }
+				}
+				openDialogBasedOnResourceSelected(resource, window);
+			}
+		}
 
-    }
+	}
 
-    /**
-     * Opens dialog based on the resource selected
-     * @param resource
-     * @param window
-     */
-    private void openDialogBasedOnResourceSelected(IResource resource, IWorkbenchWindow window)
-    {
-        WizardDialog dialog = null;
-        if (resource != null)
-        {
-            // in case there is a resource, go on
-            if (resource instanceof IFile)
-            {
-                // get wizard for database file
-                dialog =
-                        new WizardDialog(window.getShell(),
-                                new DatabaseManagementClassesCreationWizard(resource.getProject(),
-                                        resource));
-            }
-            else
-            {
-                // get wizard with no database file
-                dialog =
-                        new WizardDialog(window.getShell(),
-                                new DatabaseManagementClassesCreationWizard(resource.getProject(),
-                                        null));
-            }
-        }
-        else
-        {
-            //resource is null, set the wizard with nothing selected
-            dialog =
-                    new WizardDialog(window.getShell(),
-                            new DatabaseManagementClassesCreationWizard(null, null));
-        }
-        if (dialog != null)
-        {
-            //open the wizard
-            dialog.open();
-        }
-    }
+	/**
+	 * Opens dialog based on the resource selected
+	 * 
+	 * @param resource
+	 * @param window
+	 */
+	private void openDialogBasedOnResourceSelected(IResource resource, IWorkbenchWindow window) {
+		WizardDialog dialog = null;
+		if (resource != null) {
+			// in case there is a resource, go on
+			if (resource instanceof IFile) {
+				// get wizard for database file
+				dialog = new WizardDialog(window.getShell(), new DatabaseManagementClassesCreationWizard(
+						resource.getProject(), resource));
+			} else {
+				// get wizard with no database file
+				dialog = new WizardDialog(window.getShell(), new DatabaseManagementClassesCreationWizard(
+						resource.getProject(), null));
+			}
+		} else {
+			// resource is null, set the wizard with nothing selected
+			dialog = new WizardDialog(window.getShell(), new DatabaseManagementClassesCreationWizard(null, null));
+		}
+		if (dialog != null) {
+			// open the wizard
+			dialog.open();
+		}
+	}
 
-    /**
-     * Get the resource based on the selection of item inside workbench
-     * @param selectionElement
-     * @return
-     */
-    private IResource getResourceFromSelection(Object selectionElement)
-    {
-        //the wizard was requested from a click on .db file or project
-        IResource resource = null;
-        // in case the item as a resource, retrieve it
-        if (selectionElement instanceof IResource)
-        {
-            resource = (IResource) selectionElement;
-        }
-        // in case the item is an adaptable, retrieve it
-        else if (selectionElement instanceof IAdaptable)
-        {
-            try
-            {
-                resource = (IResource) ((IAdaptable) selectionElement).getAdapter(IResource.class);
-            }
-            catch (Exception e)
-            {
-                //Do nothing, return null;
-            }
-        }
-        return resource;
-    }
+	/**
+	 * Get the resource based on the selection of item inside workbench
+	 * 
+	 * @param selectionElement
+	 * @return
+	 */
+	private IResource getResourceFromSelection(Object selectionElement) {
+		// the wizard was requested from a click on .db file or project
+		IResource resource = null;
+		// in case the item as a resource, retrieve it
+		if (selectionElement instanceof IResource) {
+			resource = (IResource) selectionElement;
+		}
+		// in case the item is an adaptable, retrieve it
+		else if (selectionElement instanceof IAdaptable) {
+			try {
+				resource = (IResource) ((IAdaptable) selectionElement).getAdapter(IResource.class);
+			} catch (Exception e) {
+				// Do nothing, return null;
+			}
+		}
+		return resource;
+	}
 
-    /**
-     * Get selected item base on selection of item inside workbench
-     * @param window
-     * @return
-     */
-    private Object getSelectionElement(IWorkbenchWindow window)
-    {
-        ISelection selection = window.getSelectionService().getSelection();
-        IStructuredSelection structureSelection = null;
-        if (selection instanceof IStructuredSelection)
-        {
-            structureSelection = (IStructuredSelection) selection;
-        }
-        else
-        {
-            structureSelection = new StructuredSelection();
-        }
-        Object selectionElement = structureSelection.getFirstElement();
-        return selectionElement;
-    }
+	/**
+	 * Get selected item base on selection of item inside workbench
+	 * 
+	 * @param window
+	 * @return
+	 */
+	private Object getSelectionElement(IWorkbenchWindow window) {
+		ISelection selection = window.getSelectionService().getSelection();
+		IStructuredSelection structureSelection = null;
+		if (selection instanceof IStructuredSelection) {
+			structureSelection = (IStructuredSelection) selection;
+		} else {
+			structureSelection = new StructuredSelection();
+		}
+		Object selectionElement = structureSelection.getFirstElement();
+		return selectionElement;
+	}
 
-    /**
-     * @param dbNodeSelected the dbNodeSelected to set
-     */
-    public void setDbNodeSelected(IDbNode dbNodeSelected)
-    {
-        this.dbNodeSelected = dbNodeSelected;
-    }
+	/**
+	 * @param dbNodeSelected
+	 *            the dbNodeSelected to set
+	 */
+	public void setDbNodeSelected(IDbNode dbNodeSelected) {
+		this.dbNodeSelected = dbNodeSelected;
+	}
 
-    /**
-     * @return the dbNodeSelected
-     */
-    protected IDbNode getDbNodeSelected()
-    {
-        return dbNodeSelected;
-    }
+	/**
+	 * @return the dbNodeSelected
+	 */
+	protected IDbNode getDbNodeSelected() {
+		return dbNodeSelected;
+	}
 
-    public void setProjectNodeSelected(ProjectNode selectedProjectNode)
-    {
-        this.dbProjectNodeSelected = selectedProjectNode;
-    }
+	public void setProjectNodeSelected(ProjectNode selectedProjectNode) {
+		this.dbProjectNodeSelected = selectedProjectNode;
+	}
 }

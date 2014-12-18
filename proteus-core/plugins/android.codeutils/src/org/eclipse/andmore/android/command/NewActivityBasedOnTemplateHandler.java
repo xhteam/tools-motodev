@@ -19,17 +19,21 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 /**
- * Command to open the New Activity Based On Template wizard through the MOTODEV menu.
+ * Command to open the New Activity Based On Template wizard through the MOTODEV
+ * menu.
  */
-public class NewActivityBasedOnTemplateHandler extends NewWizardHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewActivityBasedOnTemplateWizard());
+public class NewActivityBasedOnTemplateHandler extends NewWizardHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		openWizard(new org.eclipse.andmore.wizards.buildingblocks.NewActivityBasedOnTemplateWizard());
 
-        return null;
-    }
+		return null;
+	}
 }

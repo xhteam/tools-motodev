@@ -21,26 +21,25 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 /**
  * Class that have common methods to generate code based on menu
  */
-public abstract class AbstractMenuCodeGenerator extends AbstractCodeGenerator
-{
-    protected CodeGeneratorDataBasedOnMenu codeGeneratorData;
+public abstract class AbstractMenuCodeGenerator extends AbstractCodeGenerator {
+	protected CodeGeneratorDataBasedOnMenu codeGeneratorData;
 
-    /**
-     * @param codeGeneratorData input data (representing menu.xml file) to use for creating automatic code 
-     * @param typeDeclaration AST type where to insert the code
-     */
-    public AbstractMenuCodeGenerator(CodeGeneratorDataBasedOnMenu codeGeneratorData,
-            TypeDeclaration typeDeclaration)
-    {
-        super(typeDeclaration);
-        this.codeGeneratorData = codeGeneratorData;
-    }
+	/**
+	 * @param codeGeneratorData
+	 *            input data (representing menu.xml file) to use for creating
+	 *            automatic code
+	 * @param typeDeclaration
+	 *            AST type where to insert the code
+	 */
+	public AbstractMenuCodeGenerator(CodeGeneratorDataBasedOnMenu codeGeneratorData, TypeDeclaration typeDeclaration) {
+		super(typeDeclaration);
+		this.codeGeneratorData = codeGeneratorData;
+	}
 
-    /**
-     * @return the codeGeneratorData
-     */
-    protected CodeGeneratorDataBasedOnMenu getCodeGeneratorData()
-    {
-        return codeGeneratorData;
-    }
+	/**
+	 * @return the codeGeneratorData
+	 */
+	protected CodeGeneratorDataBasedOnMenu getCodeGeneratorData() {
+		return codeGeneratorData;
+	}
 }

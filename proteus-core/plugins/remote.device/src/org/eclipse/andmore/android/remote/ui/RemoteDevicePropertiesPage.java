@@ -32,94 +32,96 @@ import org.eclipse.ui.dialogs.PropertyPage;
 /**
  * Property page for Android Remote Devices.
  */
-public class RemoteDevicePropertiesPage extends PropertyPage implements
-        RemotePropertiesChangedListener, IWorkbenchPropertyPage
-{
+public class RemoteDevicePropertiesPage extends PropertyPage implements RemotePropertiesChangedListener,
+		IWorkbenchPropertyPage {
 
-    private RemotePropertiesComposite composite;
+	private RemotePropertiesComposite composite;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        String host = "";
-        String port = "";
-        String timeout = "";
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse
+	 * .swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createContents(Composite parent) {
+		String host = "";
+		String port = "";
+		String timeout = "";
 
-        IInstance instance = null;
+		IInstance instance = null;
 
-        IAdaptable adaptable = getElement();
-        if (adaptable instanceof IInstance)
-        {
-            instance = (IInstance) adaptable;
-            Properties prop = instance.getProperties();
-            String propHost = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
-            String propPort = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
-            String propTimeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
-            host = (propHost != null) ? propHost : "";
-            port = (propPort != null) ? propPort : "";
-            timeout = (propTimeout != null) ? propTimeout : "";
-        }
+		IAdaptable adaptable = getElement();
+		if (adaptable instanceof IInstance) {
+			instance = (IInstance) adaptable;
+			Properties prop = instance.getProperties();
+			String propHost = prop.getProperty(RemoteDeviceInstance.PROPERTY_HOST);
+			String propPort = prop.getProperty(RemoteDeviceInstance.PROPERTY_PORT);
+			String propTimeout = prop.getProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT);
+			host = (propHost != null) ? propHost : "";
+			port = (propPort != null) ? propPort : "";
+			timeout = (propTimeout != null) ? propTimeout : "";
+		}
 
-        composite =
-                new RemotePropertiesComposite(parent, host, port, timeout,
-                        (ISerialNumbered) instance);
-        composite.addPropertyChangeListener(this);
-        composite.addDisposeListener(new DisposeListener()
-        {
-            public void widgetDisposed(DisposeEvent e)
-            {
-                composite.removePropertyChangeListener(RemoteDevicePropertiesPage.this);
-            }
-        });
+		composite = new RemotePropertiesComposite(parent, host, port, timeout, (ISerialNumbered) instance);
+		composite.addPropertyChangeListener(this);
+		composite.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				composite.removePropertyChangeListener(RemoteDevicePropertiesPage.this);
+			}
+		});
 
-        setErrorMessage(composite.getErrorMessage());
-        noDefaultAndApplyButton();
+		setErrorMessage(composite.getErrorMessage());
+		noDefaultAndApplyButton();
 
-        return composite;
-    }
+		return composite;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.RemotePropertiesChangedListener#propertiesChanged()
-     */
-    public void propertiesChanged()
-    {
-        setErrorMessage(composite.getErrorMessage());
-        setValid(isValid());
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.
+	 * RemotePropertiesChangedListener#propertiesChanged()
+	 */
+	@Override
+	public void propertiesChanged() {
+		setErrorMessage(composite.getErrorMessage());
+		setValid(isValid());
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#performOk()
-     */
-    @Override
-    public boolean performOk()
-    {
-        String host = composite.getHost();
-        int port = composite.getPort();
-        int timeout = composite.getTimeout();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#performOk()
+	 */
+	@Override
+	public boolean performOk() {
+		String host = composite.getHost();
+		int port = composite.getPort();
+		int timeout = composite.getTimeout();
 
-        IAdaptable adaptable = getElement();
-        if (adaptable instanceof IInstance)
-        {
-            IInstance instance = (IInstance) adaptable;
-            Properties prop = instance.getProperties();
-            prop.setProperty(RemoteDeviceInstance.PROPERTY_HOST, host);
-            prop.setProperty(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(port));
-            prop.setProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(timeout));
-        }
+		IAdaptable adaptable = getElement();
+		if (adaptable instanceof IInstance) {
+			IInstance instance = (IInstance) adaptable;
+			Properties prop = instance.getProperties();
+			prop.setProperty(RemoteDeviceInstance.PROPERTY_HOST, host);
+			prop.setProperty(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(port));
+			prop.setProperty(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(timeout));
+		}
 
-        return super.performOk();
-    }
+		return super.performOk();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#isValid()
-     */
-    @Override
-    public boolean isValid()
-    {
-        return (composite.getErrorMessage() == null);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#isValid()
+	 */
+	@Override
+	public boolean isValid() {
+		return (composite.getErrorMessage() == null);
+	}
 
 }

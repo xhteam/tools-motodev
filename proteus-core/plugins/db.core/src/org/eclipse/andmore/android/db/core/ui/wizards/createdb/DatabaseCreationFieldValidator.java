@@ -24,58 +24,54 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * This class represents a database name validator. The name must not
- * not already exists in the Database View tree and must follow a certain pattern.
+ * This class represents a database name validator. The name must not not
+ * already exists in the Database View tree and must follow a certain pattern.
  */
-public class DatabaseCreationFieldValidator implements IInputValidator
-{
+public class DatabaseCreationFieldValidator implements IInputValidator {
 
-    /**
-     * The regular expression pattern used to validate the database name provided by the user
-     */
-    private static final String VALIDATOR_PATTERN = "[a-zA-Z0-9 ._-]+(.db)?"; //$NON-NLS-1$
+	/**
+	 * The regular expression pattern used to validate the database name
+	 * provided by the user
+	 */
+	private static final String VALIDATOR_PATTERN = "[a-zA-Z0-9 ._-]+(.db)?"; //$NON-NLS-1$
 
-    /**
-     * The extension of the database files at the device
-     */
-    private static final String DB_EXTENSION = ".db"; //$NON-NLS-1$
+	/**
+	 * The extension of the database files at the device
+	 */
+	private static final String DB_EXTENSION = ".db"; //$NON-NLS-1$
 
-    /**
-     * Expression pattern used to validate the database name provided by the user
-     */
-    private final Pattern pattern = Pattern.compile(VALIDATOR_PATTERN);
+	/**
+	 * Expression pattern used to validate the database name provided by the
+	 * user
+	 */
+	private final Pattern pattern = Pattern.compile(VALIDATOR_PATTERN);
 
-    private final List<String> alreadyAvailableDbs;
+	private final List<String> alreadyAvailableDbs;
 
-    public DatabaseCreationFieldValidator(final List<String> alreadyAvailableDbs)
-    {
-        this.alreadyAvailableDbs = alreadyAvailableDbs;
-    }
+	public DatabaseCreationFieldValidator(final List<String> alreadyAvailableDbs) {
+		this.alreadyAvailableDbs = alreadyAvailableDbs;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.IInputValidator#isValid(java.lang.String)
-     */
-    public String isValid(String newText)
-    {
-        String msg = null;
-        Matcher patternMatcher = pattern.matcher(newText);
-        if (!patternMatcher.matches())
-        {
-            msg = DbCoreNLS.DatabaseCreationFieldValidator_ValidChars;
-        }
-        else
-        // check whether the database already exists
-        {
-            String dbFileName = newText + DB_EXTENSION;
-            if (alreadyAvailableDbs.contains(dbFileName))
-            {
-                msg =
-                        NLS.bind(DbCoreNLS.DatabaseCreationFieldValidator_DB_Already_Exists_Msg,
-                                dbFileName);
-            }
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.dialogs.IInputValidator#isValid(java.lang.String)
+	 */
+	@Override
+	public String isValid(String newText) {
+		String msg = null;
+		Matcher patternMatcher = pattern.matcher(newText);
+		if (!patternMatcher.matches()) {
+			msg = DbCoreNLS.DatabaseCreationFieldValidator_ValidChars;
+		} else
+		// check whether the database already exists
+		{
+			String dbFileName = newText + DB_EXTENSION;
+			if (alreadyAvailableDbs.contains(dbFileName)) {
+				msg = NLS.bind(DbCoreNLS.DatabaseCreationFieldValidator_DB_Already_Exists_Msg, dbFileName);
+			}
+		}
 
-        return msg;
-    }
+		return msg;
+	}
 }

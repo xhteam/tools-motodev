@@ -129,7 +129,7 @@ public final class LintJob extends Job {
                             scope = Scope.CLASS_FILE_SCOPE;
                         }
                     } else {
-                        return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, Status.ERROR,
+                        return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
                             "Only XML & Java files are supported for single file lint", null); //$NON-NLS-1$
                     }
                 }
@@ -164,7 +164,7 @@ public final class LintJob extends Job {
             mFatal = mClient.hasFatalErrors();
             return Status.OK_STATUS;
         } catch (Exception e) {
-            return new Status(Status.ERROR, AdtPlugin.PLUGIN_ID, Status.ERROR,
+            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
                               "Failed", e); //$NON-NLS-1$
         } finally {
             if (monitor != null) {

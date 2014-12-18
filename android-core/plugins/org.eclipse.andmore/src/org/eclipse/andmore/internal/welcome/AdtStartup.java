@@ -316,7 +316,7 @@ public class AdtStartup implements IStartup, IWindowListener {
 
     private static Version getVersion(Plugin plugin) {
         @SuppressWarnings("cast") // Cast required in Eclipse 3.5; prevent auto-removal in 3.7
-        String version = (String) plugin.getBundle().getHeaders().get(Constants.BUNDLE_VERSION);
+        String version = plugin.getBundle().getHeaders().get(Constants.BUNDLE_VERSION);
         // Parse the string using the Version class.
         return new Version(version);
     }

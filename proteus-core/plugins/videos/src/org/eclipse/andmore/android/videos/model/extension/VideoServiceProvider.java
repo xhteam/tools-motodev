@@ -21,28 +21,30 @@ import org.eclipse.andmore.android.videos.model.Video;
 import org.eclipse.andmore.android.videos.model.VideoChannel;
 
 /**
- * Define an interface that can be used to connect video 
- * service providers. This way, the videos displayed in the view
- * can come from different service providers
+ * Define an interface that can be used to connect video service providers. This
+ * way, the videos displayed in the view can come from different service
+ * providers
  */
-public interface VideoServiceProvider
-{
+public interface VideoServiceProvider {
 
-    /**
-     * Load the videos of the given channel / playlist
-     * 
-     * @param channel the channel / playlist of the videos that must be retrieved
-     * @return all videos in the channel / playlist
-     * @throws Exception
-     */
-    public List<Video> loadVideos(VideoChannel channel) throws Exception;
+	/**
+	 * Load the videos of the given channel / playlist
+	 * 
+	 * @param channel
+	 *            the channel / playlist of the videos that must be retrieved
+	 * @return all videos in the channel / playlist
+	 * @throws Exception
+	 */
+	public List<Video> loadVideos(VideoChannel channel) throws Exception;
 
-    /**
-     * Rate a video
-     * 
-     * @param video     the video to be rated
-     * @param rate      rate from 1 to 5
-     */
-    public void rate(Video video, int rate) throws Exception;
+	/**
+	 * Rate a video
+	 * 
+	 * @param video
+	 *            the video to be rated
+	 * @param rate
+	 *            rate from 1 to 5
+	 */
+	public void rate(Video video, int rate) throws Exception;
 
 }

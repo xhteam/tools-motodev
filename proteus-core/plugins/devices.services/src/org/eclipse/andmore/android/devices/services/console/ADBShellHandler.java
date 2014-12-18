@@ -41,215 +41,181 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Class responsible to implement the handler for the service
- * "ADB Shell"
+ * Class responsible to implement the handler for the service "ADB Shell"
  */
-public class ADBShellHandler extends ServiceHandler
-{
-    public static final String CONSOLE_NAME = "ADB Shell"; //$NON-NLS-1$
+public class ADBShellHandler extends ServiceHandler {
+	public static final String CONSOLE_NAME = "ADB Shell"; //$NON-NLS-1$
 
-    private static final String SERIAL_PARAMETER = "-s"; //$NON-NLS-1$
+	private static final String SERIAL_PARAMETER = "-s"; //$NON-NLS-1$
 
-    private static final String SHELL_COMMAND = "shell"; //$NON-NLS-1$
+	private static final String SHELL_COMMAND = "shell"; //$NON-NLS-1$
 
-    private static final Map<String, Integer> consolesCache = new HashMap<String, Integer>();
+	private static final Map<String, Integer> consolesCache = new HashMap<String, Integer>();
 
-    private static final Map<String, Process> consolesProcesses = new HashMap<String, Process>();
+	private static final Map<String, Process> consolesProcesses = new HashMap<String, Process>();
 
-    public ADBShellHandler()
-    {
+	public ADBShellHandler() {
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new ADBShellHandler();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new ADBShellHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance theInstance, Map<Object, Object> arguments,
-            IProgressMonitor monitor)
-    {
-        IStatus status = Status.OK_STATUS;
-        List<String> command = new LinkedList<String>();
-        final IInstance instance = theInstance;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance theInstance, Map<Object, Object> arguments, IProgressMonitor monitor) {
+		IStatus status = Status.OK_STATUS;
+		List<String> command = new LinkedList<String>();
+		final IInstance instance = theInstance;
 
-        File sdkPath = new File(SdkUtils.getSdkPath());
-        String adbPath = SdkUtils.getAdbPath();
-        File adb = new File(adbPath);
+		File sdkPath = new File(SdkUtils.getSdkPath());
+		String adbPath = SdkUtils.getAdbPath();
+		File adb = new File(adbPath);
 
-        if ((sdkPath != null) && sdkPath.exists() && sdkPath.isDirectory())
-        {
-            if (adb.exists() && adb.isFile())
-            {
-                if (instance instanceof ISerialNumbered)
-                {
-                    final String[] serialNumber = new String[1];
+		if ((sdkPath != null) && sdkPath.exists() && sdkPath.isDirectory()) {
+			if (adb.exists() && adb.isFile()) {
+				if (instance instanceof ISerialNumbered) {
+					final String[] serialNumber = new String[1];
 
-                    serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
+					serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
 
-                    if (serialNumber[0] == null)
-                    {
-                        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable()
-                        {
+					if (serialNumber[0] == null) {
+						PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
-                            public void run()
-                            {
-                                ProgressMonitorDialog dialog =
-                                        new ProgressMonitorDialog(new Shell(PlatformUI
-                                                .getWorkbench().getDisplay()));
-                                try
-                                {
-                                    dialog.run(false, false, new IRunnableWithProgress()
-                                    {
+							@Override
+							public void run() {
+								ProgressMonitorDialog dialog = new ProgressMonitorDialog(new Shell(PlatformUI
+										.getWorkbench().getDisplay()));
+								try {
+									dialog.run(false, false, new IRunnableWithProgress() {
 
-                                        public void run(IProgressMonitor monitor)
-                                                throws InvocationTargetException,
-                                                InterruptedException
-                                        {
-                                            int limit = 20;
+										@Override
+										public void run(IProgressMonitor monitor) throws InvocationTargetException,
+												InterruptedException {
+											int limit = 20;
 
-                                            SubMonitor theMonitor = SubMonitor.convert(monitor);
-                                            theMonitor
-                                                    .beginTask(
-                                                            ServicesNLS.ADBShellHandler_WaitingDeviceToLoad,
-                                                            limit);
+											SubMonitor theMonitor = SubMonitor.convert(monitor);
+											theMonitor
+													.beginTask(ServicesNLS.ADBShellHandler_WaitingDeviceToLoad, limit);
 
-                                            int times = 0;
+											int times = 0;
 
-                                            while ((serialNumber[0] == null) && (times < limit))
-                                            {
-                                                theMonitor.worked(1);
-                                                Thread.sleep(500);
-                                                serialNumber[0] =
-                                                        ((ISerialNumbered) instance)
-                                                                .getSerialNumber();
-                                                times++;
-                                            }
+											while ((serialNumber[0] == null) && (times < limit)) {
+												theMonitor.worked(1);
+												Thread.sleep(500);
+												serialNumber[0] = ((ISerialNumbered) instance).getSerialNumber();
+												times++;
+											}
 
-                                            theMonitor.setWorkRemaining(0);
-                                        }
-                                    });
-                                }
-                                catch (Exception e)
-                                {
-                                    //do nothing
-                                }
-                            }
-                        });
+											theMonitor.setWorkRemaining(0);
+										}
+									});
+								} catch (Exception e) {
+									// do nothing
+								}
+							}
+						});
 
-                    }
+					}
 
-                    // Fix a condition that Studio holds the UI thread forever 
-                    if (serialNumber[0] == null)
-                    {
-                        status =
-                                new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                                        ServicesNLS.ERR_ADBShellHandler_CouldNotExecuteTheAdbShell);
-                        return status;
-                    }
+					// Fix a condition that Studio holds the UI thread forever
+					if (serialNumber[0] == null) {
+						status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+								ServicesNLS.ERR_ADBShellHandler_CouldNotExecuteTheAdbShell);
+						return status;
+					}
 
-                    if (adbPath.contains(" ")) //$NON-NLS-1$
-                    {
-                        if (DeviceServicesPlugin.IS_WIN32)
-                        {
-                            adbPath = "\"" + adbPath + "\""; //$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                        else
-                        {
-                            adbPath = adbPath.replace(" ", "\\ "); //$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                    }
+					if (adbPath.contains(" ")) //$NON-NLS-1$
+					{
+						if (DeviceServicesPlugin.IS_WIN32) {
+							adbPath = "\"" + adbPath + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+						} else {
+							adbPath = adbPath.replace(" ", "\\ "); //$NON-NLS-1$ //$NON-NLS-2$
+						}
+					}
 
-                    command.add(adbPath);
-                    command.add(SERIAL_PARAMETER);
-                    command.add(serialNumber[0]);
-                    command.add(SHELL_COMMAND);
+					command.add(adbPath);
+					command.add(SERIAL_PARAMETER);
+					command.add(serialNumber[0]);
+					command.add(SHELL_COMMAND);
 
-                    try
-                    {
-                        Integer i = consolesCache.get(serialNumber[0]);
-                        i = (i == null ? 1 : ++i);
-                        consolesCache.put(serialNumber[0], i);
+					try {
+						Integer i = consolesCache.get(serialNumber[0]);
+						i = (i == null ? 1 : ++i);
+						consolesCache.put(serialNumber[0], i);
 
-                        String[] cmdArray = command.toArray(new String[4]);
-                        StringBuffer sb = new StringBuffer();
-                        for (String cmd : cmdArray)
-                        {
-                            sb.append(cmd);
-                            sb.append(" "); //$NON-NLS-1$
-                        }
+						String[] cmdArray = command.toArray(new String[4]);
+						StringBuffer sb = new StringBuffer();
+						for (String cmd : cmdArray) {
+							sb.append(cmd);
+							sb.append(" "); //$NON-NLS-1$
+						}
 
-                        Process p = Runtime.getRuntime().exec(cmdArray);
+						Process p = Runtime.getRuntime().exec(cmdArray);
 
-                        String consoleName = CONSOLE_NAME + " - " + serialNumber[0]; //$NON-NLS-1$
+						String consoleName = CONSOLE_NAME + " - " + serialNumber[0]; //$NON-NLS-1$
 
-                        if (i != null)
-                        {
-                            consoleName += " (" + i + ")"; //$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                        consolesProcesses.put(consoleName, p);
-                        DeviceServicesPlugin.redirectProcessStreamsToConsole(p, consoleName);
-                        DeviceServicesPlugin.addConsoleKilledListener(listener);
-                    }
-                    catch (IOException e)
-                    {
-                        status =
-                                new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                                        ServicesNLS.ERR_ADBShellHandler_CouldNotExecuteTheAdbShell,
-                                        e);
-                    }
-                }
+						if (i != null) {
+							consoleName += " (" + i + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+						}
+						consolesProcesses.put(consoleName, p);
+						DeviceServicesPlugin.redirectProcessStreamsToConsole(p, consoleName);
+						DeviceServicesPlugin.addConsoleKilledListener(listener);
+					} catch (IOException e) {
+						status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+								ServicesNLS.ERR_ADBShellHandler_CouldNotExecuteTheAdbShell, e);
+					}
+				}
 
-            }
-            else
-            {
-                status =
-                        new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                                ServicesNLS.ERR_ADBShellHandler_MissingAdbShell);
-            }
-        }
-        else
-        {
-            status =
-                    new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
-                            ServicesNLS.ERR_ADBShellHandler_AndroidSdkIsNotConfigured);
-        }
+			} else {
+				status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+						ServicesNLS.ERR_ADBShellHandler_MissingAdbShell);
+			}
+		} else {
+			status = new Status(IStatus.ERROR, DeviceServicesPlugin.PLUGIN_ID,
+					ServicesNLS.ERR_ADBShellHandler_AndroidSdkIsNotConfigured);
+		}
 
-        return status;
-    }
+		return status;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 
-    private final IConsoleKilledListener listener = new IConsoleKilledListener()
-    {
-        public void consoleKilled(String name)
-        {
-            if (consolesProcesses.containsKey(name))
-            {
-                Process p = consolesProcesses.get(name);
-                p.destroy();
-                DeviceServicesPlugin.removeConsoleKilledListener(listener);
-                consolesProcesses.remove(name);
-            }
-        }
-    };
+	private final IConsoleKilledListener listener = new IConsoleKilledListener() {
+		@Override
+		public void consoleKilled(String name) {
+			if (consolesProcesses.containsKey(name)) {
+				Process p = consolesProcesses.get(name);
+				p.destroy();
+				DeviceServicesPlugin.removeConsoleKilledListener(listener);
+				consolesProcesses.remove(name);
+			}
+		}
+	};
 
 }

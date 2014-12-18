@@ -28,52 +28,36 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
-public class OpenHelpStudioHandler extends AbstractHandler
-{
-    private static final String URL_STRING =
-            "http://community.developer.motorola.com/t5/MOTODEV-Studio-for-Android/bd-p/Studio_Android";
+public class OpenHelpStudioHandler extends AbstractHandler {
+	private static final String URL_STRING = "http://community.developer.motorola.com/t5/MOTODEV-Studio-for-Android/bd-p/Studio_Android";
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 
-        /*
-         * open the browser
-         */
-        IWebBrowser browser;
-        try
-        {
-            // always use external browser on Linux
-            if (FileUtil.getOS() == FileUtil.OS_LINUX)
-            {
-                browser =
-                        browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR
-                                | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEVHelpStudio", null,
-                                null);
-            }
-            else
-            {
-                browser =
-                        browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR, "MOTODEVHelpStudio",
-                                null, null);
-            }
+		/*
+		 * open the browser
+		 */
+		IWebBrowser browser;
+		try {
+			// always use external browser on Linux
+			if (FileUtil.getOS() == FileUtil.OS_LINUX) {
+				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL,
+						"MOTODEVHelpStudio", null, null);
+			} else {
+				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR, "MOTODEVHelpStudio", null, null);
+			}
 
-            browser.openURL(new URL(URL_STRING));
+			browser.openURL(new URL(URL_STRING));
 
-        }
-        catch (PartInitException e)
-        {
-            StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: "
-                    + e.getMessage());
-        }
-        catch (MalformedURLException e)
-        {
-            StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: "
-                    + e.getMessage());
-        }
-        return null;
-    }
+		} catch (PartInitException e) {
+			StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: " + e.getMessage());
+		} catch (MalformedURLException e) {
+			StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: " + e.getMessage());
+		}
+		return null;
+	}
 
 }

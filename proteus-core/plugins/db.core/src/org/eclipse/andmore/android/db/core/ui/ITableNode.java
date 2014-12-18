@@ -17,11 +17,10 @@ package org.eclipse.andmore.android.db.core.ui;
 
 import org.eclipse.core.runtime.IStatus;
 
-public interface ITableNode extends IDataSampler
-{
-    public IStatus browseTableContents();
+public interface ITableNode extends IDataSampler {
+	public IStatus browseTableContents();
 
-    public void extractData();
+	public void extractData();
 
-    public void loadData();
+	public void loadData();
 }

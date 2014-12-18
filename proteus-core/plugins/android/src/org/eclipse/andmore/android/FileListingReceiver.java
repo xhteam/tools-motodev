@@ -25,59 +25,48 @@ import com.android.ddmlib.FileListingService.IListingReceiver;
 /**
  * Receive ddms notifications about file listing and notify the listener
  */
-class FileListingReceiver implements IListingReceiver
-{
-    private final List<String> availableSegments;
+class FileListingReceiver implements IListingReceiver {
+	private final List<String> availableSegments;
 
-    private final FileListingService service;
+	private final FileListingService service;
 
-    private final IDatabaseListingListener listener;
+	private final IDatabaseListingListener listener;
 
-    private final List<String> databases;
+	private final List<String> databases;
 
-    public FileListingReceiver(List<String> segments, FileListingService fileListingService,
-            IDatabaseListingListener listener)
-    {
-        this.availableSegments = segments;
-        this.service = fileListingService;
-        this.listener = listener;
-        this.databases = new ArrayList<String>();
-    }
+	public FileListingReceiver(List<String> segments, FileListingService fileListingService,
+			IDatabaseListingListener listener) {
+		this.availableSegments = segments;
+		this.service = fileListingService;
+		this.listener = listener;
+		this.databases = new ArrayList<String>();
+	}
 
-    public void refreshEntry(FileEntry fileentry)
-    {
-        //do nothing
-    }
+	@Override
+	public void refreshEntry(FileEntry fileentry) {
+		// do nothing
+	}
 
-    public void setChildren(FileEntry fileentry, FileEntry[] afileentry)
-    {
-        if (availableSegments.size() > 0)
-        {
-            String theSegment = availableSegments.remove(0);
-            FileEntry entry = fileentry.findChild(theSegment);
-            if (entry != null)
-            {
-                service.getChildren(entry, false, new FileListingReceiver(availableSegments,
-                        service, listener));
-            }
-            else
-            {
-                notifyListeners();
-            }
-        }
-        else
-        {
-            for (FileEntry entry : afileentry)
-            {
-                databases.add(entry.getName());
-            }
-            notifyListeners();
-        }
-    }
+	@Override
+	public void setChildren(FileEntry fileentry, FileEntry[] afileentry) {
+		if (availableSegments.size() > 0) {
+			String theSegment = availableSegments.remove(0);
+			FileEntry entry = fileentry.findChild(theSegment);
+			if (entry != null) {
+				service.getChildren(entry, false, new FileListingReceiver(availableSegments, service, listener));
+			} else {
+				notifyListeners();
+			}
+		} else {
+			for (FileEntry entry : afileentry) {
+				databases.add(entry.getName());
+			}
+			notifyListeners();
+		}
+	}
 
-    private void notifyListeners()
-    {
-        this.listener.databasesFound(databases);
-    }
+	private void notifyListeners() {
+		this.listener.databasesFound(databases);
+	}
 
 }

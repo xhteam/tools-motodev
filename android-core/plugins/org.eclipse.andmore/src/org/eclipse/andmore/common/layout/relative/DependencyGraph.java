@@ -19,8 +19,6 @@ import static com.android.SdkConstants.ATTR_ID;
 import static com.android.SdkConstants.ATTR_LAYOUT_RESOURCE_PREFIX;
 import static com.android.SdkConstants.VALUE_TRUE;
 
-import com.android.SdkConstants;
-
 import static com.android.SdkConstants.ANDROID_URI;
 
 import com.android.ide.common.api.IDragElement;
@@ -37,6 +35,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
+import org.eclipse.andmore.common.layout.BaseViewRule;
 
 /**
  * Data structure about relative layout relationships which makes it possible to:
@@ -67,7 +66,7 @@ class DependencyGraph {
         // Parent view:
         String parentId = layout.getStringAttr(ANDROID_URI, ATTR_ID);
         if (parentId != null) {
-            parentId = BaseLayoutRule.stripIdPrefix(parentId);
+            parentId = BaseViewRule.stripIdPrefix(parentId);
         } else {
             parentId = "RelativeLayout"; // For display purposes; we never reference
             // the parent id from a constraint, only via parent-relative params
@@ -82,7 +81,7 @@ class DependencyGraph {
         for (INode child : nodes) {
             String id = child.getStringAttr(ANDROID_URI, ATTR_ID);
             if (id != null) {
-                id = BaseLayoutRule.stripIdPrefix(id);
+                id = BaseViewRule.stripIdPrefix(id);
             }
             ViewData view = new ViewData(child, id);
             mNodeToView.put(child, view);
@@ -107,7 +106,7 @@ class DependencyGraph {
                     } else {
                         // id-based constraint.
                         // NOTE: The id could refer to some widget that is NOT a sibling!
-                        String targetId = BaseLayoutRule.stripIdPrefix(value);
+                        String targetId = BaseViewRule.stripIdPrefix(value);
                         ViewData target = mIdToView.get(targetId);
                         if (target == view) {
                             // Self-reference. RelativeLayout ignores these so it's
@@ -133,7 +132,7 @@ class DependencyGraph {
         IDragAttribute attribute = element.getAttribute(ANDROID_URI, ATTR_ID);
         if (attribute != null) {
             String id = attribute.getValue();
-            id = BaseLayoutRule.stripIdPrefix(id);
+            id = BaseViewRule.stripIdPrefix(id);
             return getView(id);
         }
 
@@ -311,7 +310,7 @@ class DependencyGraph {
 
             if (newName != null) {
                 s = String.format(DEPENDENCY_FORMAT, s, stripLayoutAttributePrefix(newName),
-                        BaseLayoutRule.stripIdPrefix(newId));
+                        BaseViewRule.stripIdPrefix(newId));
             }
 
             return s;

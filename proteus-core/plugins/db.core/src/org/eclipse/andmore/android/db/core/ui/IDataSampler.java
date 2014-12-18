@@ -18,9 +18,8 @@ package org.eclipse.andmore.android.db.core.ui;
 /**
  * Represents a node that accepts sample data command
  */
-public interface IDataSampler extends ITreeNode
-{
+public interface IDataSampler extends ITreeNode {
 
-    public abstract void sampleDbContents();
+	public abstract void sampleDbContents();
 
 }

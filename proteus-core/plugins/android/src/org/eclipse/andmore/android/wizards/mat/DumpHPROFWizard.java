@@ -19,42 +19,37 @@ import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.jface.wizard.Wizard;
 
-public class DumpHPROFWizard extends Wizard
-{
-    private DumpHPROFWizardPage mainPage = null;
+public class DumpHPROFWizard extends Wizard {
+	private DumpHPROFWizardPage mainPage = null;
 
-    private String selectedApp = null;
+	private String selectedApp = null;
 
-    private String serialNumber = null;
+	private String serialNumber = null;
 
-    private final String WIZARD_IMAGE_PATH = "icons/wizban/dump_hprof_wizard.png"; //$NON-NLS-1$
+	private final String WIZARD_IMAGE_PATH = "icons/wizban/dump_hprof_wizard.png"; //$NON-NLS-1$
 
-    public DumpHPROFWizard(String serialNumber)
-    {
-        setWindowTitle(AndroidNLS.DumpHprofPage_PageTitle);
-        super.setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_IMAGE_PATH));
-        setHelpAvailable(false);
-        // set parameters
-        this.serialNumber = serialNumber;
-    }
+	public DumpHPROFWizard(String serialNumber) {
+		setWindowTitle(AndroidNLS.DumpHprofPage_PageTitle);
+		super.setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_IMAGE_PATH));
+		setHelpAvailable(false);
+		// set parameters
+		this.serialNumber = serialNumber;
+	}
 
-    @Override
-    public void addPages()
-    {
-        mainPage = new DumpHPROFWizardPage(serialNumber);
-        addPage(mainPage);
-    }
+	@Override
+	public void addPages() {
+		mainPage = new DumpHPROFWizardPage(serialNumber);
+		addPage(mainPage);
+	}
 
-    @Override
-    public boolean performFinish()
-    {
-        selectedApp = mainPage.getSelectedApp();
-        return selectedApp != null;
-    }
+	@Override
+	public boolean performFinish() {
+		selectedApp = mainPage.getSelectedApp();
+		return selectedApp != null;
+	}
 
-    public String getSelectedApp()
-    {
-        return selectedApp;
-    }
+	public String getSelectedApp() {
+		return selectedApp;
+	}
 
 }

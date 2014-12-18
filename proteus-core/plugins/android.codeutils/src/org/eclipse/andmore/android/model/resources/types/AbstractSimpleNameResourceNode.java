@@ -18,93 +18,96 @@ package org.eclipse.andmore.android.model.resources.types;
 import org.eclipse.core.runtime.Assert;
 
 /**
- * Abstract class used to describe the behavior of resource entries on a resource file.
- * Every resource entry (string, drawable, dimen and color) have the same format and
- * an abstract class can describe their behavior:
+ * Abstract class used to describe the behavior of resource entries on a
+ * resource file. Every resource entry (string, drawable, dimen and color) have
+ * the same format and an abstract class can describe their behavior:
  * 
- *  <resourcenode name="resource name">resource value</resourcenode>
+ * <resourcenode name="resource name">resource value</resourcenode>
  */
-public abstract class AbstractSimpleNameResourceNode extends AbstractResourceNode implements
-        IResourceTypesAttributes
-{
-    /**
-     * The node value 
-     */
-    protected String nodeValue;
+public abstract class AbstractSimpleNameResourceNode extends AbstractResourceNode implements IResourceTypesAttributes {
+	/**
+	 * The node value
+	 */
+	protected String nodeValue;
 
-    /**
-     * Default constructor
-     * 
-     * @param name The node name. It must not be null.
-     */
-    public AbstractSimpleNameResourceNode(String name)
-    {
-        Assert.isLegal(name != null);
-        attributes.put(ATTR_NAME, name);
-    }
+	/**
+	 * Default constructor
+	 * 
+	 * @param name
+	 *            The node name. It must not be null.
+	 */
+	public AbstractSimpleNameResourceNode(String name) {
+		Assert.isLegal(name != null);
+		attributes.put(ATTR_NAME, name);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.types.AbstractResourceNode#canAddChildNode(com.motorola.studio.android.model.resources.types.AbstractResourceNode)
-     */
-    @Override
-    protected boolean canAddChildNode(AbstractResourceNode node)
-    {
-        // No child nodes are allowed
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * #canAddChildNode
+	 * (com.motorola.studio.android.model.resources.types.AbstractResourceNode)
+	 */
+	@Override
+	protected boolean canAddChildNode(AbstractResourceNode node) {
+		// No child nodes are allowed
+		return false;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.types.AbstractResourceNode#isAttributeValid(java.lang.String)
-     */
-    @Override
-    protected boolean isAttributeValid(String attributeName)
-    {
-        return attributeName.equalsIgnoreCase(ATTR_NAME);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * #isAttributeValid(java.lang.String)
+	 */
+	@Override
+	protected boolean isAttributeValid(String attributeName) {
+		return attributeName.equalsIgnoreCase(ATTR_NAME);
+	}
 
-    /**
-     * Retrieves the value of name property.
-     *   <resourcenode name="resourceName">resource value</resourcenode>
-     * 
-     * @return the value of name property
-     */
-    public String getName()
-    {
-        return attributes.get(ATTR_NAME);
-    }
+	/**
+	 * Retrieves the value of name property. <resourcenode
+	 * name="resourceName">resource value</resourcenode>
+	 * 
+	 * @return the value of name property
+	 */
+	public String getName() {
+		return attributes.get(ATTR_NAME);
+	}
 
-    /**
-     * Sets the value of name property.
-     *   <resourcenode name="resourceName">resource value</resourcenode>
-     *   
-     * @param name the value of name property
-     */
-    public void setName(String name)
-    {
-        Assert.isLegal(name != null);
+	/**
+	 * Sets the value of name property. <resourcenode
+	 * name="resourceName">resource value</resourcenode>
+	 * 
+	 * @param name
+	 *            the value of name property
+	 */
+	public void setName(String name) {
+		Assert.isLegal(name != null);
 
-        attributes.put(ATTR_NAME, name);
-    }
+		attributes.put(ATTR_NAME, name);
+	}
 
-    /**
-     * Retrieves the resource value.
-     *   <resourcenode name="resourceName">resource value</resourcenode>
-     *   
-     * @return the resource value
-     */
-    public String getNodeValue()
-    {
-        return nodeValue;
-    }
+	/**
+	 * Retrieves the resource value. <resourcenode name="resourceName">resource
+	 * value</resourcenode>
+	 * 
+	 * @return the resource value
+	 */
+	public String getNodeValue() {
+		return nodeValue;
+	}
 
-    /**
-     * Sets the resource value.
-     *   <resourcenode name="resourceName">resource value</resourcenode>
-     *   
-     * @param nodeValue the resource value
-     */
-    public void setNodeValue(String nodeValue)
-    {
-        this.nodeValue = nodeValue;
-    }
+	/**
+	 * Sets the resource value. <resourcenode name="resourceName">resource
+	 * value</resourcenode>
+	 * 
+	 * @param nodeValue
+	 *            the resource value
+	 */
+	public void setNodeValue(String nodeValue) {
+		this.nodeValue = nodeValue;
+	}
 }

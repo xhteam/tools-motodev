@@ -40,166 +40,121 @@ import org.eclipse.ui.PlatformUI;
 /**
  * Handler which launches the Over the Air wizard.
  */
-public class WirelessServiceHandler extends ServiceHandler
-{
-    private static final int TIMEOUT_REACH_IP = 30000;
+public class WirelessServiceHandler extends ServiceHandler {
+	private static final int TIMEOUT_REACH_IP = 30000;
 
-    // Min SDK version that supports tcpip connection mode
-    private static final int MIN_SDK_VERSION = 6;
+	// Min SDK version that supports tcpip connection mode
+	private static final int MIN_SDK_VERSION = 6;
 
-    /**
-     * Get the wireless service handler.
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new WirelessServiceHandler();
-    }
+	/**
+	 * Get the wireless service handler.
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new WirelessServiceHandler();
+	}
 
-    /**
-     * Get the phone IP, validate it and launch the Wireless wizard. 
-     */
-    @Override
-    public IStatus runService(final IInstance instance, Map<Object, Object> arguments,
-            final IProgressMonitor monitor)
-    {
+	/**
+	 * Get the phone IP, validate it and launch the Wireless wizard.
+	 */
+	@Override
+	public IStatus runService(final IInstance instance, Map<Object, Object> arguments, final IProgressMonitor monitor) {
 
-        final SubMonitor subMonitor = SubMonitor.convert(monitor, 1000);
-        subMonitor.beginTask(RemoteDeviceNLS.WirelessServiceHandler_MsgLaunchingWirelessConnection,
-                1000);
+		final SubMonitor subMonitor = SubMonitor.convert(monitor, 1000);
+		subMonitor.beginTask(RemoteDeviceNLS.WirelessServiceHandler_MsgLaunchingWirelessConnection, 1000);
 
-        final ISerialNumbered device = (ISerialNumbered) instance;
+		final ISerialNumbered device = (ISerialNumbered) instance;
 
-        int deviceSdkVersion = -1;
-        try
-        {
-            deviceSdkVersion =
-                    Integer.parseInt(DDMSFacade.getDeviceProperty(device.getSerialNumber(),
-                            "ro.build.version.sdk"));
+		int deviceSdkVersion = -1;
+		try {
+			deviceSdkVersion = Integer.parseInt(DDMSFacade.getDeviceProperty(device.getSerialNumber(),
+					"ro.build.version.sdk"));
 
-            subMonitor.worked(100);
-        }
-        catch (Exception e)
-        {
-            StudioLogger.error(WirelessServiceHandler.class,
-                    "Problems trying to retrieve handset's sdk version.", e);
-        }
+			subMonitor.worked(100);
+		} catch (Exception e) {
+			StudioLogger.error(WirelessServiceHandler.class, "Problems trying to retrieve handset's sdk version.", e);
+		}
 
-        // if it was not possible to retrieve the sdk version
-        // try to execute the service anyway
-        if ((!subMonitor.isCanceled()) && (deviceSdkVersion < MIN_SDK_VERSION)
-                && (deviceSdkVersion != -1))
-        {
-            EclipseUtils.showErrorDialog(
-                    RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
-                    RemoteDeviceNLS.ERR_WirelessWizard_NOT_VALID_SDK);
-        }
-        else
-        {
+		// if it was not possible to retrieve the sdk version
+		// try to execute the service anyway
+		if ((!subMonitor.isCanceled()) && (deviceSdkVersion < MIN_SDK_VERSION) && (deviceSdkVersion != -1)) {
+			EclipseUtils.showErrorDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
+					RemoteDeviceNLS.ERR_WirelessWizard_NOT_VALID_SDK);
+		} else {
 
-            if (!subMonitor.isCanceled())
-            {
+			if (!subMonitor.isCanceled()) {
 
-                subMonitor
-                        .setTaskName(RemoteDeviceNLS.WirelessServiceHandler_MsgRetrievingDeviceIPNumber);
+				subMonitor.setTaskName(RemoteDeviceNLS.WirelessServiceHandler_MsgRetrievingDeviceIPNumber);
 
-                // retrieve the IP and validate it
-                final String host =
-                        DDMSFacade.getWirelessIPfromHandset(device.getSerialNumber(), monitor);
+				// retrieve the IP and validate it
+				final String host = DDMSFacade.getWirelessIPfromHandset(device.getSerialNumber(), monitor);
 
-                subMonitor.worked(300);
-                if (host == null)
-                {
-                    EclipseUtils.showErrorDialog(
-                            RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
-                            RemoteDeviceNLS.ERR_WirelessWizard_No_IP);
-                }
-                else
-                {
-                    if (!subMonitor.isCanceled())
-                    {
-                        // check whether the IP can be reached
-                        subMonitor
-                                .setTaskName(RemoteDeviceNLS.WirelessServiceHandler_MsgPingingIPAddress);
-                        InetAddress ipAddress = null;
-                        boolean canReachIPAddress = true;
-                        if (!subMonitor.isCanceled())
-                        {
-                            try
-                            {
-                                ipAddress = InetAddress.getByName(host);
-                                canReachIPAddress =
-                                        (ipAddress != null)
-                                                && ipAddress.isReachable(TIMEOUT_REACH_IP);
-                                subMonitor.worked(200);
-                            }
-                            catch (Exception e)
-                            {
-                                canReachIPAddress = false;
-                                StudioLogger
-                                        .error(this.getClass(), NLS.bind(
-                                                RemoteDeviceNLS.ERR_WirelessWizard_Reach_IP, host),
-                                                e);
-                            }
+				subMonitor.worked(300);
+				if (host == null) {
+					EclipseUtils.showErrorDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
+							RemoteDeviceNLS.ERR_WirelessWizard_No_IP);
+				} else {
+					if (!subMonitor.isCanceled()) {
+						// check whether the IP can be reached
+						subMonitor.setTaskName(RemoteDeviceNLS.WirelessServiceHandler_MsgPingingIPAddress);
+						InetAddress ipAddress = null;
+						boolean canReachIPAddress = true;
+						if (!subMonitor.isCanceled()) {
+							try {
+								ipAddress = InetAddress.getByName(host);
+								canReachIPAddress = (ipAddress != null) && ipAddress.isReachable(TIMEOUT_REACH_IP);
+								subMonitor.worked(200);
+							} catch (Exception e) {
+								canReachIPAddress = false;
+								StudioLogger.error(this.getClass(),
+										NLS.bind(RemoteDeviceNLS.ERR_WirelessWizard_Reach_IP, host), e);
+							}
 
-                            if (!canReachIPAddress)
-                            {
-                                EclipseUtils
-                                        .showErrorDialog(
-                                                RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
-                                                NLS.bind(
-                                                        RemoteDeviceNLS.ERR_WirelessWizard_Reach_IP,
-                                                        host));
-                            }
-                            else
-                            {
-                                if (!subMonitor.isCanceled())
-                                {
-                                    // launch the wireless wizard
-                                    PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-                                    {
-                                        public void run()
-                                        {
-                                            subMonitor.worked(400);
-                                            WirelessWizard wizard = new WirelessWizard();
-                                            wizard.setInstance(device);
-                                            //wizard.setIp("192.168.16.2");
-                                            wizard.setIp(host);
-                                            wizard.setProgressMonitor(monitor);
-                                            WizardDialog dialog =
-                                                    new WizardDialog(PlatformUI.getWorkbench()
-                                                            .getActiveWorkbenchWindow().getShell(),
-                                                            wizard);
-                                            dialog.open();
-                                        }
-                                    });
-                                }
+							if (!canReachIPAddress) {
+								EclipseUtils.showErrorDialog(
+										RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
+										NLS.bind(RemoteDeviceNLS.ERR_WirelessWizard_Reach_IP, host));
+							} else {
+								if (!subMonitor.isCanceled()) {
+									// launch the wireless wizard
+									PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+										@Override
+										public void run() {
+											subMonitor.worked(400);
+											WirelessWizard wizard = new WirelessWizard();
+											wizard.setInstance(device);
+											// wizard.setIp("192.168.16.2");
+											wizard.setIp(host);
+											wizard.setProgressMonitor(monitor);
+											WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench()
+													.getActiveWorkbenchWindow().getShell(), wizard);
+											dialog.open();
+										}
+									});
+								}
 
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return Status.OK_STATUS;
-    }
+							}
+						}
+					}
+				}
+			}
+		}
+		return Status.OK_STATUS;
+	}
 
-    /**
-     * Simply Return an OK Status.
-     */
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	/**
+	 * Simply Return an OK Status.
+	 */
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 
-    @Override
-    public void setService(IService service)
-    {
-        super.setService(service);
-        if (service != null)
-        {
-            service.setVisible(RemoteDevicePlugin.isWifiServiceEnabled());
-        }
-    }
+	@Override
+	public void setService(IService service) {
+		super.setService(service);
+		if (service != null) {
+			service.setVisible(RemoteDevicePlugin.isWifiServiceEnabled());
+		}
+	}
 }

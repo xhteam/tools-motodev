@@ -20,34 +20,27 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-public class BackupContentProvider implements IStructuredContentProvider
-{
+public class BackupContentProvider implements IStructuredContentProvider {
 
-    @Override
-    public void dispose()
-    {
-        //do nothing
-    }
+	@Override
+	public void dispose() {
+		// do nothing
+	}
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
-    {
-        //do nothing
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		// do nothing
+	}
 
-    @Override
-    public Object[] getElements(Object inputElement)
-    {
-        Object[] elements = null;
-        if (inputElement instanceof List)
-        {
-            elements = ((List<?>) inputElement).toArray();
-        }
-        else if (inputElement instanceof String[])
-        {
-            elements = (String[]) inputElement;
-        }
-        return elements;
-    }
+	@Override
+	public Object[] getElements(Object inputElement) {
+		Object[] elements = null;
+		if (inputElement instanceof List) {
+			elements = ((List<?>) inputElement).toArray();
+		} else if (inputElement instanceof String[]) {
+			elements = (String[]) inputElement;
+		}
+		return elements;
+	}
 
 }

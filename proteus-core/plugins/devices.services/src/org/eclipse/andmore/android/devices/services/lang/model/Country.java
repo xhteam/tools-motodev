@@ -37,136 +37,120 @@ import org.w3c.dom.NodeList;
  * The list of countries has been downloaded from:
  * http://www.iso.org/iso/country_codes/iso_3166_code_lists.htm
  */
-public class Country
-{
+public class Country {
 
-    private static final String FILE_PATH = "resources/iso_3166-1_list_en.xml";
+	private static final String FILE_PATH = "resources/iso_3166-1_list_en.xml";
 
-    private static final String COUNTRY_NODE = "ISO_3166-1_Entry";
+	private static final String COUNTRY_NODE = "ISO_3166-1_Entry";
 
-    private static final String COUNTRY_NAME = "ISO_3166-1_Country_name";
+	private static final String COUNTRY_NAME = "ISO_3166-1_Country_name";
 
-    private static final String COUNTRY_ID = "ISO_3166-1_Alpha-2_Code_element";
+	private static final String COUNTRY_ID = "ISO_3166-1_Alpha-2_Code_element";
 
-    private static List<Country> countryList = null;
+	private static List<Country> countryList = null;
 
-    private static Map<String, Country> countryMap = null;
+	private static Map<String, Country> countryMap = null;
 
-    private String name;
+	private String name;
 
-    private String id;
+	private String id;
 
-    /**
-     * Get the countries list
-     * 
-     * @return the countries list
-     */
-    public static List<Country> getCountryList()
-    {
-        if (countryList == null)
-        {
-            loadCountries();
-        }
-        return countryList;
-    }
+	/**
+	 * Get the countries list
+	 * 
+	 * @return the countries list
+	 */
+	public static List<Country> getCountryList() {
+		if (countryList == null) {
+			loadCountries();
+		}
+		return countryList;
+	}
 
-    /*
-     * Load countries from XML file
-     */
-    private static void loadCountries()
-    {
-        countryList = new ArrayList<Country>();
-        countryMap = new HashMap<String, Country>();
+	/*
+	 * Load countries from XML file
+	 */
+	private static void loadCountries() {
+		countryList = new ArrayList<Country>();
+		countryMap = new HashMap<String, Country>();
 
-        URL countriesURL = DeviceServicesPlugin.getDefault().getBundle().getResource(FILE_PATH);
+		URL countriesURL = DeviceServicesPlugin.getDefault().getBundle().getResource(FILE_PATH);
 
-        try
-        {
+		try {
 
-            InputStream countriesIS = countriesURL.openStream();
+			InputStream countriesIS = countriesURL.openStream();
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(countriesIS);
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(countriesIS);
 
-            NodeList list = document.getDocumentElement().getElementsByTagName(COUNTRY_NODE);
+			NodeList list = document.getDocumentElement().getElementsByTagName(COUNTRY_NODE);
 
-            for (int i = 0; i < list.getLength(); i++)
-            {
+			for (int i = 0; i < list.getLength(); i++) {
 
-                Element countryNode = (Element) list.item(i);
+				Element countryNode = (Element) list.item(i);
 
-                String name =
-                        countryNode.getElementsByTagName(COUNTRY_NAME).item(0).getChildNodes()
-                                .item(0).getNodeValue();
-                String ID =
-                        countryNode.getElementsByTagName(COUNTRY_ID).item(0).getChildNodes()
-                                .item(0).getNodeValue();
+				String name = countryNode.getElementsByTagName(COUNTRY_NAME).item(0).getChildNodes().item(0)
+						.getNodeValue();
+				String ID = countryNode.getElementsByTagName(COUNTRY_ID).item(0).getChildNodes().item(0).getNodeValue();
 
-                if (((ID != null) && (!ID.equals(""))) && ((name != null) && (!name.equals(""))))
-                {
-                    Country country = new Country(name, ID);
-                    countryList.add(country);
-                    countryMap.put(name, country);
-                }
-            }
+				if (((ID != null) && (!ID.equals(""))) && ((name != null) && (!name.equals("")))) {
+					Country country = new Country(name, ID);
+					countryList.add(country);
+					countryMap.put(name, country);
+				}
+			}
 
-        }
-        catch (Exception e)
-        {
-            StudioLogger.error("Change Language TmL Service: could not load countries list");
-        }
+		} catch (Exception e) {
+			StudioLogger.error("Change Language TmL Service: could not load countries list");
+		}
 
-    }
+	}
 
-    /**
-     * Get country ID from country name
-     * 
-     * @param countryName country name
-     * @return country ID
-     */
-    public static String getIdFromName(String countryName)
-    {
-        String id = null;
-        Country country = countryMap.get(countryName);
-        if (country != null)
-        {
-            id = country.getId();
-        }
-        return id;
-    }
+	/**
+	 * Get country ID from country name
+	 * 
+	 * @param countryName
+	 *            country name
+	 * @return country ID
+	 */
+	public static String getIdFromName(String countryName) {
+		String id = null;
+		Country country = countryMap.get(countryName);
+		if (country != null) {
+			id = country.getId();
+		}
+		return id;
+	}
 
-    /**
-     * Constructor
-     * 
-     * @param name country name
-     * @param id country name
-     */
-    public Country(String name, String id)
-    {
-        super();
-        this.name = name;
-        this.id = id;
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 *            country name
+	 * @param id
+	 *            country name
+	 */
+	public Country(String name, String id) {
+		super();
+		this.name = name;
+		this.id = id;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getId()
-    {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }

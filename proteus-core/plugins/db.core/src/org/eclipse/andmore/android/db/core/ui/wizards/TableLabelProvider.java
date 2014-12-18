@@ -23,44 +23,39 @@ import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class TableLabelProvider extends LabelProvider
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
-     */
-    @Override
-    public Image getImage(Object element)
-    {
-        if (element instanceof TableModel)
-        {
-            ImageDescriptor desc =
-                    AbstractUIPlugin.imageDescriptorFromPlugin(
-                            DbCoreActivator.DATATOOLS_UI_PLUGIN_ID, DbCoreActivator.TABLE_ICON);
-            Image resultImage = desc.createImage();
-            return resultImage;
-        }
-        else
-        {
-            return super.getImage(element);
-        }
-    }
+public class TableLabelProvider extends LabelProvider {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
+	 */
+	@Override
+	public Image getImage(Object element) {
+		if (element instanceof TableModel) {
+			ImageDescriptor desc = AbstractUIPlugin.imageDescriptorFromPlugin(DbCoreActivator.DATATOOLS_UI_PLUGIN_ID,
+					DbCoreActivator.TABLE_ICON);
+			Image resultImage = desc.createImage();
+			return resultImage;
+		} else {
+			return super.getImage(element);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        if (element instanceof TreeNode)
-        {
-            TreeNode treeNode = (TreeNode) element;
-            Object value = treeNode.getValue();
-            if (value instanceof TableModel)
-            {
-                TableModel tableModel = (TableModel) value;
-                return tableModel.getName();
-            }
-        }
-        return super.getText(element);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		if (element instanceof TreeNode) {
+			TreeNode treeNode = (TreeNode) element;
+			Object value = treeNode.getValue();
+			if (value instanceof TableModel) {
+				TableModel tableModel = (TableModel) value;
+				return tableModel.getName();
+			}
+		}
+		return super.getText(element);
+	}
 }

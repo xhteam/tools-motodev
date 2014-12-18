@@ -20,26 +20,26 @@ package org.eclipse.andmore.android.certmanager.packaging.sign;
  * Signing exception
  */
 @SuppressWarnings("serial")
-public class SignException extends Exception
-{
-    /**
-     * Creates a SignException with a detail message
-     * 
-     * @param message the detail message
-     */
-    public SignException(String message)
-    {
-        super(message);
-    }
+public class SignException extends Exception {
+	/**
+	 * Creates a SignException with a detail message
+	 * 
+	 * @param message
+	 *            the detail message
+	 */
+	public SignException(String message) {
+		super(message);
+	}
 
-    /**
-     * Creates a SignException with a detail message and a cause
-     * 
-     * @param message the detail message
-     * @param cause the cause
-     */
-    public SignException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+	/**
+	 * Creates a SignException with a detail message and a cause
+	 * 
+	 * @param message
+	 *            the detail message
+	 * @param cause
+	 *            the cause
+	 */
+	public SignException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

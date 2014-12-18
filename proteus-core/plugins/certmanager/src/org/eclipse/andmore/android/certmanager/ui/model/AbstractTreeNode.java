@@ -26,113 +26,98 @@ import org.eclipse.core.runtime.Status;
 /**
  * Abstract node for {@link KeystoreManagerView}
  */
-public abstract class AbstractTreeNode implements ITreeNode
-{
-    private static final String UNSAVED_PASSWORD =
-            CertificateManagerNLS.AbstractTreeNode_UnsavedPassword_Tooltip;
+public abstract class AbstractTreeNode implements ITreeNode {
+	private static final String UNSAVED_PASSWORD = CertificateManagerNLS.AbstractTreeNode_UnsavedPassword_Tooltip;
 
-    private static final String SAVED_PASSWORD =
-            CertificateManagerNLS.AbstractTreeNode_SavedPassword_Tooltip;
+	private static final String SAVED_PASSWORD = CertificateManagerNLS.AbstractTreeNode_SavedPassword_Tooltip;
 
-    private IStatus nodeStatus = Status.OK_STATUS;
+	private IStatus nodeStatus = Status.OK_STATUS;
 
-    private ITreeNode parent;
+	private ITreeNode parent;
 
-    private String tooltip;
+	private String tooltip;
 
-    @Override
-    public String getTooltip()
-    {
-        if (tooltip != null)
-        {
-            return isPasswordSaved() ? SAVED_PASSWORD + "\n" + tooltip : UNSAVED_PASSWORD //$NON-NLS-1$
-                    + "\n" + tooltip; //$NON-NLS-1$
-        }
-        else
-        {
-            return isPasswordSaved() ? SAVED_PASSWORD : UNSAVED_PASSWORD;
-        }
-    }
+	@Override
+	public String getTooltip() {
+		if (tooltip != null) {
+			return isPasswordSaved() ? SAVED_PASSWORD + "\n" + tooltip : UNSAVED_PASSWORD //$NON-NLS-1$
+					+ "\n" + tooltip; //$NON-NLS-1$
+		} else {
+			return isPasswordSaved() ? SAVED_PASSWORD : UNSAVED_PASSWORD;
+		}
+	}
 
-    /**
-     * @return the nodeStatus
-     */
-    @Override
-    public IStatus getNodeStatus()
-    {
-        return nodeStatus;
-    }
+	/**
+	 * @return the nodeStatus
+	 */
+	@Override
+	public IStatus getNodeStatus() {
+		return nodeStatus;
+	}
 
-    /**
-     * @param nodeStatus the nodeStatus to set
-     */
-    @Override
-    public void setNodeStatus(IStatus nodeStatus)
-    {
-        this.nodeStatus = nodeStatus;
-        KeyStoreModelEventManager.getInstance().fireEvent(this, EventType.UPDATE);
-    }
+	/**
+	 * @param nodeStatus
+	 *            the nodeStatus to set
+	 */
+	@Override
+	public void setNodeStatus(IStatus nodeStatus) {
+		this.nodeStatus = nodeStatus;
+		KeyStoreModelEventManager.getInstance().fireEvent(this, EventType.UPDATE);
+	}
 
-    /**
-     * @param tooltip the tooltip to set
-     */
-    @Override
-    public void setTooltip(String tooltip)
-    {
-        this.tooltip = tooltip;
-    }
+	/**
+	 * @param tooltip
+	 *            the tooltip to set
+	 */
+	@Override
+	public void setTooltip(String tooltip) {
+		this.tooltip = tooltip;
+	}
 
-    /**
-     * @return the parent
-     */
-    @Override
-    public ITreeNode getParent()
-    {
-        return parent;
-    }
+	/**
+	 * @return the parent
+	 */
+	@Override
+	public ITreeNode getParent() {
+		return parent;
+	}
 
-    /**
-     * @param parent the parent to set
-     */
-    public void setParent(ITreeNode parent)
-    {
-        this.parent = parent;
-    }
+	/**
+	 * @param parent
+	 *            the parent to set
+	 */
+	public void setParent(ITreeNode parent) {
+		this.parent = parent;
+	}
 
-    @Override
-    public void addChild(ITreeNode newChild) throws KeyStoreManagerException
-    {
-        //Default implementation won't do nothing
-    }
+	@Override
+	public void addChild(ITreeNode newChild) throws KeyStoreManagerException {
+		// Default implementation won't do nothing
+	}
 
-    @Override
-    public boolean testAttribute(Object target, String name, String value)
-    {
-        boolean result = false;
-        if (name.equals(PROP_NAME_NODE_STATUS))
-        {
-            if (value.equals(PROP_VALUE_NODE_STATUS_ERROR))
-            {
-                result = !getNodeStatus().isOK(); //true if there is an error
-                if (result)
-                {
-                    setTooltip(getNodeStatus().getMessage());
-                }
-            }
-            else if (value.equals(PROP_VALUE_NODE_STATUS_OK))
-            {
-                result = getNodeStatus().isOK();
-            }
-        }
-        return result;
-    }
+	@Override
+	public boolean testAttribute(Object target, String name, String value) {
+		boolean result = false;
+		if (name.equals(PROP_NAME_NODE_STATUS)) {
+			if (value.equals(PROP_VALUE_NODE_STATUS_ERROR)) {
+				result = !getNodeStatus().isOK(); // true if there is an error
+				if (result) {
+					setTooltip(getNodeStatus().getMessage());
+				}
+			} else if (value.equals(PROP_VALUE_NODE_STATUS_OK)) {
+				result = getNodeStatus().isOK();
+			}
+		}
+		return result;
+	}
 
-    /**
-     * For dummy nodes and root nodes it is false. Override for other nodes: {@link KeyStoreNode} and {@link EntryNode}
-     * @return
-     */
-    protected boolean isPasswordSaved()
-    {
-        return false;
-    }
+	/**
+	 * For dummy nodes and root nodes it is false. Override for other nodes:
+	 * {@link KeyStoreNode} and {@link EntryNode}
+	 * 
+	 * @return
+	 */
+	protected boolean isPasswordSaved() {
+		return false;
+	}
 }

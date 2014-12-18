@@ -22,26 +22,26 @@ import org.eclipse.swt.widgets.Composite;
 
 public class HeapView extends TableView {
 
-    public static final String ID = "org.eclipse.andmore.ddms.views.HeapView"; //$NON-NLS-1$
-    private HeapPanel mPanel;
+	public static final String ID = "org.eclipse.andmore.ddms.views.HeapView"; //$NON-NLS-1$
+	private HeapPanel mPanel;
 
-    public HeapView() {
-    }
+	public HeapView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new HeapPanel();
-        mPanel.createPanel(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new HeapPanel();
+		mPanel.createPanel(parent);
 
-        setSelectionDependentPanel(mPanel);
+		setSelectionDependentPanel(mPanel);
 
-        // listen to focus changes for table(s) of the panel.
-        setupTableFocusListener(mPanel, parent);
-    }
+		// listen to focus changes for table(s) of the panel.
+		setupTableFocusListener(mPanel, parent);
+	}
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 
 }

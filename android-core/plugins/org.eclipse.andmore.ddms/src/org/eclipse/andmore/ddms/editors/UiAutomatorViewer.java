@@ -48,125 +48,125 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UiAutomatorViewer extends EditorPart {
-    private String mFilePath;
-    private UiAutomatorView mView;
+	private String mFilePath;
+	private UiAutomatorView mView;
 
-    @Override
-    public void doSave(IProgressMonitor arg0) {
-    }
+	@Override
+	public void doSave(IProgressMonitor arg0) {
+	}
 
-    @Override
-    public void doSaveAs() {
-    }
+	@Override
+	public void doSaveAs() {
+	}
 
-    @Override
-    public boolean isSaveAsAllowed() {
-        return false;
-    }
+	@Override
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
 
-    @Override
-    public boolean isDirty() {
-        return false;
-    }
+	@Override
+	public boolean isDirty() {
+		return false;
+	}
 
-    @Override
-    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        // we use a IURIEditorInput to allow opening files not within the workspace
-        if (!(input instanceof IURIEditorInput)) {
-            throw new PartInitException("UI Automator Hierarchy View: unsupported input type.");
-        }
+	@Override
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		// we use a IURIEditorInput to allow opening files not within the
+		// workspace
+		if (!(input instanceof IURIEditorInput)) {
+			throw new PartInitException("UI Automator Hierarchy View: unsupported input type.");
+		}
 
-        setSite(site);
-        setInput(input);
-        mFilePath = ((IURIEditorInput) input).getURI().getPath();
+		setSite(site);
+		setInput(input);
+		mFilePath = ((IURIEditorInput) input).getURI().getPath();
 
-        // set the editor part name to be the name of the file.
-        File f = new File(mFilePath);
-        setPartName(f.getName());
-    }
+		// set the editor part name to be the name of the file.
+		File f = new File(mFilePath);
+		setPartName(f.getName());
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        Composite c = new Composite(parent, SWT.NONE);
-        c.setLayout(new GridLayout(1, false));
-        GridData gd = new GridData(GridData.FILL_BOTH);
-        c.setLayoutData(gd);
+	@Override
+	public void createPartControl(Composite parent) {
+		Composite c = new Composite(parent, SWT.NONE);
+		c.setLayout(new GridLayout(1, false));
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		c.setLayoutData(gd);
 
-        mView = new UiAutomatorView(c, SWT.BORDER);
-        mView.setLayoutData(new GridData(GridData.FILL_BOTH));
+		mView = new UiAutomatorView(c, SWT.BORDER);
+		mView.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        if (mFilePath == null) {
-            return;
-        }
+		if (mFilePath == null) {
+			return;
+		}
 
-        UiAutomatorModel model = null;
-        File modelFile = new File(mFilePath);
-        try {
-            model = new UiAutomatorModel(modelFile);
-        } catch (Exception e) {
-            MessageDialog.openError(parent.getShell(), "Error opening " + mFilePath,
-                    "Unexpected error while parsing input: " + e.getMessage());
-            return;
-        }
+		UiAutomatorModel model = null;
+		File modelFile = new File(mFilePath);
+		try {
+			model = new UiAutomatorModel(modelFile);
+		} catch (Exception e) {
+			MessageDialog.openError(parent.getShell(), "Error opening " + mFilePath,
+					"Unexpected error while parsing input: " + e.getMessage());
+			return;
+		}
 
-        mView.setModel(model, modelFile, null);
-    }
+		mView.setModel(model, modelFile, null);
+	}
 
-    @Override
-    public void setFocus() {
-    }
+	@Override
+	public void setFocus() {
+	}
 
-    public static boolean openEditor(final UiAutomatorResult r) {
-        final IFileStore fileStore =  EFS.getLocalFileSystem().getStore(
-                new Path(r.uiHierarchy.getAbsolutePath()));
-        if (!fileStore.fetchInfo().exists()) {
-            return false;
-        }
+	public static boolean openEditor(final UiAutomatorResult r) {
+		final IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(r.uiHierarchy.getAbsolutePath()));
+		if (!fileStore.fetchInfo().exists()) {
+			return false;
+		}
 
-        final AtomicBoolean status = new AtomicBoolean(false);
+		final AtomicBoolean status = new AtomicBoolean(false);
 
-        final IWorkbench workbench = PlatformUI.getWorkbench();
-        workbench.getDisplay().syncExec(new Runnable() {
-            @Override
-            public void run() {
-                IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-                if (window == null) {
-                    return;
-                }
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		workbench.getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+				if (window == null) {
+					return;
+				}
 
-                IWorkbenchPage page = window.getActivePage();
-                if (page == null) {
-                    return;
-                }
+				IWorkbenchPage page = window.getActivePage();
+				if (page == null) {
+					return;
+				}
 
-                // try to switch perspectives if possible
-                if (page.isEditorAreaVisible() == false && InstallDetails.isAdtInstalled()) {
-                    try {
-                        workbench.showPerspective("org.eclipse.jdt.ui.JavaPerspective", window); //$NON-NLS-1$
-                    } catch (WorkbenchException e) {
-                    }
-                }
+				// try to switch perspectives if possible
+				if (page.isEditorAreaVisible() == false && InstallDetails.isAdtInstalled()) {
+					try {
+						workbench.showPerspective("org.eclipse.jdt.ui.JavaPerspective", window); //$NON-NLS-1$
+					} catch (WorkbenchException e) {
+					}
+				}
 
-                IEditorPart editor = null;
-                try {
-                    editor = IDE.openEditorOnFileStore(page, fileStore);
-                } catch (PartInitException e) {
-                    return;
-                }
+				IEditorPart editor = null;
+				try {
+					editor = IDE.openEditorOnFileStore(page, fileStore);
+				} catch (PartInitException e) {
+					return;
+				}
 
-                if (!(editor instanceof UiAutomatorViewer)) {
-                    return;
-                }
+				if (!(editor instanceof UiAutomatorViewer)) {
+					return;
+				}
 
-                ((UiAutomatorViewer) editor).setModel(r.model, r.uiHierarchy, r.screenshot);
-                status.set(true);
-            }
-        });
+				((UiAutomatorViewer) editor).setModel(r.model, r.uiHierarchy, r.screenshot);
+				status.set(true);
+			}
+		});
 
-        return status.get();
-    }
+		return status.get();
+	}
 
-    protected void setModel(UiAutomatorModel model, File modelFile, Image screenshot) {
-        mView.setModel(model, modelFile, screenshot);
-    }
+	protected void setModel(UiAutomatorModel model, File modelFile, Image screenshot) {
+		mView.setModel(model, modelFile, screenshot);
+	}
 }

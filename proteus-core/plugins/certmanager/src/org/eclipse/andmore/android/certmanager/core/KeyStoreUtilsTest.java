@@ -35,208 +35,150 @@ import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerExceptio
 import org.eclipse.andmore.android.certmanager.ui.model.CertificateDetailsInfo;
 import org.junit.Test;
 
-public class KeyStoreUtilsTest extends TestCase
-{
+public class KeyStoreUtilsTest extends TestCase {
 
-    File keyStoreFile = null;
+	File keyStoreFile = null;
 
-    private String passwd;
+	private String passwd;
 
-    /* (non-Javadoc)
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception
-    {
-        keyStoreFile = File.createTempFile("testKeystore", ".tmp");
-        passwd = "passwd";
-        super.setUp();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		keyStoreFile = File.createTempFile("testKeystore", ".tmp");
+		passwd = "passwd";
+		super.setUp();
+	}
 
-    @Test
-    public void testCreateKeystore()
-    {
+	@Test
+	public void testCreateKeystore() {
 
-        KeyStore keyStore = null;
-        try
-        {
-            keyStore = KeyStoreUtils.createKeystore(keyStoreFile, passwd.toCharArray());
-        }
-        catch (KeyStoreManagerException e)
-        {
-            assert (false);
-        }
-        catch (InvalidPasswordException e)
-        {
-            assert (false);
-        }
+		KeyStore keyStore = null;
+		try {
+			keyStore = KeyStoreUtils.createKeystore(keyStoreFile, passwd.toCharArray());
+		} catch (KeyStoreManagerException e) {
+			assert (false);
+		} catch (InvalidPasswordException e) {
+			assert (false);
+		}
 
-        assert (keyStore != null);
-        assert (keyStoreFile.length() > 0);
+		assert (keyStore != null);
+		assert (keyStoreFile.length() > 0);
 
-    }
+	}
 
-    @Test
-    public void testLoadKeyStore()
-    {
-        try
-        {
-            KeyStore keyStore =
-                    KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
-            keyStore.aliases();
-        }
-        catch (KeyStoreException e)
-        {
-            assert false;
-        }
-        catch (KeyStoreManagerException e)
-        {
-            assert false;
-        }
-        catch (InvalidPasswordException e)
-        {
-            assert false;
-        }
-    }
+	@Test
+	public void testLoadKeyStore() {
+		try {
+			KeyStore keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
+			keyStore.aliases();
+		} catch (KeyStoreException e) {
+			assert false;
+		} catch (KeyStoreManagerException e) {
+			assert false;
+		} catch (InvalidPasswordException e) {
+			assert false;
+		}
+	}
 
-    @Test
-    public void testCreateCertificate()
-    {
-        try
-        {
-            KeyStore keyStore =
-                    KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
+	@Test
+	public void testCreateCertificate() {
+		try {
+			KeyStore keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
 
-            KeyPair keyPair = KeyStoreUtils.genKeyPair();
-            X509Certificate x509Certificate =
-                    KeyStoreUtils.createX509Certificate(keyPair, new CertificateDetailsInfo("test",
-                            "nome", "org", "orgUn", "testUni", "country", "Estate", "30", ""));
+			KeyPair keyPair = KeyStoreUtils.genKeyPair();
+			X509Certificate x509Certificate = KeyStoreUtils.createX509Certificate(keyPair, new CertificateDetailsInfo(
+					"test", "nome", "org", "orgUn", "testUni", "country", "Estate", "30", ""));
 
-            PrivateKeyEntry privateKeyEntry =
-                    KeyStoreUtils.createPrivateKeyEntry(keyPair, x509Certificate);
+			PrivateKeyEntry privateKeyEntry = KeyStoreUtils.createPrivateKeyEntry(keyPair, x509Certificate);
 
-            KeyStoreUtils.addEntry(keyStore, passwd.toCharArray(), keyStoreFile, "aliasTest",
-                    privateKeyEntry, "aliaspass".toCharArray());
-        }
-        catch (Exception e)
-        {
-            assert (false);
-        }
-    }
+			KeyStoreUtils.addEntry(keyStore, passwd.toCharArray(), keyStoreFile, "aliasTest", privateKeyEntry,
+					"aliaspass".toCharArray());
+		} catch (Exception e) {
+			assert (false);
+		}
+	}
 
-    @Test
-    public void testChangePasswd()
-    {
+	@Test
+	public void testChangePasswd() {
 
-        KeyStore keyStore = null;
-        try
-        {
-            keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray());
-        }
-        catch (KeyStoreManagerException e)
-        {
-            assert false;
-        }
-        catch (InvalidPasswordException e)
-        {
-            assert false;
-        }
+		KeyStore keyStore = null;
+		try {
+			keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray());
+		} catch (KeyStoreManagerException e) {
+			assert false;
+		} catch (InvalidPasswordException e) {
+			assert false;
+		}
 
-        File keyStoreFile2 = new File(keyStoreFile + "_2");
-        try
-        {
-            KeyStoreUtils.changeKeystorePasswd(keyStore, keyStoreFile2, passwd.toCharArray(),
-                    "newPasswd2".toCharArray());
-        }
-        catch (KeyStoreManagerException e)
-        {
-            assert (false);
-        }
+		File keyStoreFile2 = new File(keyStoreFile + "_2");
+		try {
+			KeyStoreUtils.changeKeystorePasswd(keyStore, keyStoreFile2, passwd.toCharArray(),
+					"newPasswd2".toCharArray());
+		} catch (KeyStoreManagerException e) {
+			assert (false);
+		}
 
-        assert (keyStore != null);
-        assert (keyStoreFile2.length() > 0);
-    }
+		assert (keyStore != null);
+		assert (keyStoreFile2.length() > 0);
+	}
 
-    @Test
-    public void testChangeKsType()
-    {
-        try
-        {
-            KeyStoreUtils.createKeystore(keyStoreFile, "JKS", passwd.toCharArray());
-            KeyStoreUtils.changeKeyStoreType(keyStoreFile, passwd.toCharArray(), "JKS", "JCEKS",
-                    new HashMap<String, String>(0));
-        }
-        catch (KeyStoreManagerException e)
-        {
-            e.printStackTrace();
-        }
-        catch (InvalidPasswordException e)
-        {
-            e.printStackTrace();
-        }
-    }
+	@Test
+	public void testChangeKsType() {
+		try {
+			KeyStoreUtils.createKeystore(keyStoreFile, "JKS", passwd.toCharArray());
+			KeyStoreUtils.changeKeyStoreType(keyStoreFile, passwd.toCharArray(), "JKS", "JCEKS",
+					new HashMap<String, String>(0));
+		} catch (KeyStoreManagerException e) {
+			e.printStackTrace();
+		} catch (InvalidPasswordException e) {
+			e.printStackTrace();
+		}
+	}
 
-    @Test
-    public void testImportKeys()
-    {
-        File keyStoreFile1 = new File(keyStoreFile.getAbsolutePath() + "_import");
-        try
-        {
-            KeyStoreUtils.createKeystore(keyStoreFile1, "pass1".toCharArray());
-        }
-        catch (KeyStoreManagerException e)
-        {
-            e.printStackTrace();
-        }
-        catch (InvalidPasswordException e)
-        {
-            e.printStackTrace();
-        }
-        try
-        {
-            KeyStore keyStore =
-                    KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
-            KeyPair keyPair = KeyStoreUtils.genKeyPair();
-            X509Certificate x509Certificate =
-                    KeyStoreUtils.createX509Certificate(keyPair, new CertificateDetailsInfo("test",
-                            "nome", "org", "orgUn", "testUni", "country", "Estate", "30", ""));
+	@Test
+	public void testImportKeys() {
+		File keyStoreFile1 = new File(keyStoreFile.getAbsolutePath() + "_import");
+		try {
+			KeyStoreUtils.createKeystore(keyStoreFile1, "pass1".toCharArray());
+		} catch (KeyStoreManagerException e) {
+			e.printStackTrace();
+		} catch (InvalidPasswordException e) {
+			e.printStackTrace();
+		}
+		try {
+			KeyStore keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
+			KeyPair keyPair = KeyStoreUtils.genKeyPair();
+			X509Certificate x509Certificate = KeyStoreUtils.createX509Certificate(keyPair, new CertificateDetailsInfo(
+					"test", "nome", "org", "orgUn", "testUni", "country", "Estate", "30", ""));
 
-            PrivateKeyEntry privateKeyEntry =
-                    KeyStoreUtils.createPrivateKeyEntry(keyPair, x509Certificate);
+			PrivateKeyEntry privateKeyEntry = KeyStoreUtils.createPrivateKeyEntry(keyPair, x509Certificate);
 
-            KeyStoreUtils.addEntry(keyStore, passwd.toCharArray(), keyStoreFile, "aliasTest",
-                    privateKeyEntry, passwd.toCharArray());
+			KeyStoreUtils.addEntry(keyStore, passwd.toCharArray(), keyStoreFile, "aliasTest", privateKeyEntry,
+					passwd.toCharArray());
 
-            keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
+			keyStore = KeyStoreUtils.loadKeystore(keyStoreFile, passwd.toCharArray(), "JKS");
 
-            Map<String, String> aliases = new HashMap<String, String>(1);
-            aliases.put("aliasTest", passwd);
-            //            KeyStoreUtils.importKeys(keyStore1, keyStoreFile1, "pass1".toCharArray(), keyStore, keyStoreFile1
-            //                    passwd.toCharArray(), aliases);
-        }
-        catch (KeyStoreManagerException e)
-        {
-            e.printStackTrace();
-        }
-        catch (InvalidPasswordException e)
-        {
-            e.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch (OperatorCreationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (CertificateException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
+			Map<String, String> aliases = new HashMap<String, String>(1);
+			aliases.put("aliasTest", passwd);
+			// KeyStoreUtils.importKeys(keyStore1, keyStoreFile1,
+			// "pass1".toCharArray(), keyStore, keyStoreFile1
+			// passwd.toCharArray(), aliases);
+		} catch (KeyStoreManagerException e) {
+			e.printStackTrace();
+		} catch (InvalidPasswordException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (OperatorCreationException e) {
+			e.printStackTrace();
+		} catch (CertificateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -16,64 +16,60 @@
 package org.eclipse.andmore.android.generatemenucode.model;
 
 /**
- * Represents the &lt;item&gt; element from menu.xml 
+ * Represents the &lt;item&gt; element from menu.xml
  */
-public class MenuItemNode extends AbstractMenuNode
-{
-    private MenuNode subMenu = null;
+public class MenuItemNode extends AbstractMenuNode {
+	private MenuNode subMenu = null;
 
-    private String id;
+	private String id;
 
-    private String onClickMethod;
+	private String onClickMethod;
 
-    /**
-     * @return the subMenu
-     */
-    protected MenuNode getSubMenu()
-    {
-        return subMenu;
-    }
+	/**
+	 * @return the subMenu
+	 */
+	protected MenuNode getSubMenu() {
+		return subMenu;
+	}
 
-    /**
-     * @param subMenu the subMenu to set
-     */
-    protected void setSubMenu(MenuNode subMenu)
-    {
-        this.subMenu = subMenu;
-    }
+	/**
+	 * @param subMenu
+	 *            the subMenu to set
+	 */
+	protected void setSubMenu(MenuNode subMenu) {
+		this.subMenu = subMenu;
+	}
 
-    /**
-     * @return the id
-     */
-    public String getId()
-    {
-        return id;
-    }
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * @param id the id to set
-     */
-    protected void setId(String id)
-    {
-        this.id = id;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	protected void setId(String id) {
+		this.id = id;
+	}
 
-    public String getOnClickMethod()
-    {
-        return onClickMethod;
-    }
+	public String getOnClickMethod() {
+		return onClickMethod;
+	}
 
-    public void setOnClickMethod(String onClick)
-    {
-        this.onClickMethod = onClick;
-    }
+	public void setOnClickMethod(String onClick) {
+		this.onClickMethod = onClick;
+	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString()
-    {
-        return "MenuItemNode [id=" + id + ", onClickMethod=" + onClickMethod + "]";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MenuItemNode [id=" + id + ", onClickMethod=" + onClickMethod + "]";
+	}
 }

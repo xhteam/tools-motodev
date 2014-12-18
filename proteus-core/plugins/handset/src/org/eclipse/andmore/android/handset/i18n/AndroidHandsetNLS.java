@@ -18,42 +18,39 @@ package org.eclipse.andmore.android.handset.i18n;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Class that contains the localized messages to be used through the
- * Android Handset Plugin
+ * Class that contains the localized messages to be used through the Android
+ * Handset Plugin
  */
-public class AndroidHandsetNLS extends NLS
-{
-    static
-    {
-        NLS.initializeMessages("org.eclipse.andmore.android.handset.i18n.androidHandsetNLS",
-                AndroidHandsetNLS.class);
-    }
+public class AndroidHandsetNLS extends NLS {
+	static {
+		NLS.initializeMessages("org.eclipse.andmore.android.handset.i18n.androidHandsetNLS", AndroidHandsetNLS.class);
+	}
 
-    /*
-     * Generic strings
-     */
+	/*
+	 * Generic strings
+	 */
 
-    public static String AndroidPropertiesPage_AndroidVersionLabel;
+	public static String AndroidPropertiesPage_AndroidVersionLabel;
 
-    public static String AndroidPropertiesPage_APIVersionLabel;
+	public static String AndroidPropertiesPage_APIVersionLabel;
 
-    public static String AndroidPropertiesPage_NA;
+	public static String AndroidPropertiesPage_NA;
 
-    public static String AndroidPropertiesPage_SerialNumberLabel;
+	public static String AndroidPropertiesPage_SerialNumberLabel;
 
-    public static String DummyServiceHandler_androidSuffix;
+	public static String DummyServiceHandler_androidSuffix;
 
-    public static String DummyServiceHandler_VERSION_NA;
+	public static String DummyServiceHandler_VERSION_NA;
 
-    /*
-     * Exception strings
-     */
+	/*
+	 * Exception strings
+	 */
 
-    /*
-     * Error strings
-     */
+	/*
+	 * Error strings
+	 */
 
-    /*
-     * Information strings
-     */
+	/*
+	 * Information strings
+	 */
 }

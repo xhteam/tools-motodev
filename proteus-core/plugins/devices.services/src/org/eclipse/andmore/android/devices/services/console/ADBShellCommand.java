@@ -24,24 +24,19 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.sequoyah.device.common.utilities.exception.SequoyahException;
 import org.eclipse.sequoyah.device.framework.model.IInstance;
 
-public class ADBShellCommand extends AbstractHandler
-{
+public class ADBShellCommand extends AbstractHandler {
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        IAndroidEmulatorInstance instance = AbstractAndroidView.getActiveInstance();
-        if (instance instanceof IInstance)
-        {
-            try
-            {
-                DeviceServicesPlugin.getADBShellServiceHandler().run((IInstance) instance);
-            }
-            catch (SequoyahException e)
-            {
-                //do nothing
-            }
-        }
-        return null;
-    }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IAndroidEmulatorInstance instance = AbstractAndroidView.getActiveInstance();
+		if (instance instanceof IInstance) {
+			try {
+				DeviceServicesPlugin.getADBShellServiceHandler().run((IInstance) instance);
+			} catch (SequoyahException e) {
+				// do nothing
+			}
+		}
+		return null;
+	}
 
 }

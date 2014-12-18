@@ -30,73 +30,75 @@ import java.util.Collections;
 import java.util.List;
 
 public class ShaderSourceDetailsProvider implements IStateDetailProvider {
-    private Text mTextControl;
+	private Text mTextControl;
 
-    @Override
-    public boolean isApplicable(IGLProperty state) {
-        return getShaderSourceProperty(state) != null;
-    }
+	@Override
+	public boolean isApplicable(IGLProperty state) {
+		return getShaderSourceProperty(state) != null;
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        mTextControl = new Text(parent, SWT.BORDER| SWT.READ_ONLY
-                | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
-        mTextControl.setEditable(false);
-    }
+	@Override
+	public void createControl(Composite parent) {
+		mTextControl = new Text(parent, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
+		mTextControl.setEditable(false);
+	}
 
-    @Override
-    public void disposeControl() {
-    }
+	@Override
+	public void disposeControl() {
+	}
 
-    @Override
-    public Control getControl() {
-        return mTextControl;
-    }
+	@Override
+	public Control getControl() {
+		return mTextControl;
+	}
 
-    @Override
-    public void updateControl(IGLProperty state) {
-        IGLProperty shaderSrcProperty = getShaderSourceProperty(state);
-        if (shaderSrcProperty instanceof GLStringProperty) {
-            String shaderSrc = ((GLStringProperty) shaderSrcProperty).getStringValue();
-            mTextControl.setText(shaderSrc);
-            mTextControl.setEnabled(true);
-        } else {
-            mTextControl.setText(""); //$NON-NLS-1$
-            mTextControl.setEnabled(false);
-        }
-    }
+	@Override
+	public void updateControl(IGLProperty state) {
+		IGLProperty shaderSrcProperty = getShaderSourceProperty(state);
+		if (shaderSrcProperty instanceof GLStringProperty) {
+			String shaderSrc = ((GLStringProperty) shaderSrcProperty).getStringValue();
+			mTextControl.setText(shaderSrc);
+			mTextControl.setEnabled(true);
+		} else {
+			mTextControl.setText(""); //$NON-NLS-1$
+			mTextControl.setEnabled(false);
+		}
+	}
 
-    /**
-     * Get the {@link GLStateType#SHADER_SOURCE} property given a node in
-     * the state hierarchy.
-     * @param state any node in the GL state hierarchy
-     * @return The {@link GLStateType#SHADER_SOURCE} property if a unique instance
-     *         of it can be accessed from the given node, null otherwise.
-     *         A unique instance can be accessed if the given node is
-     *         either the requested node itself, or its parent or sibling.
-     */
-    private IGLProperty getShaderSourceProperty(IGLProperty state) {
-        if (state.getType() == GLStateType.SHADER_SOURCE) {
-            // given node is the requested node
-            return state;
-        }
+	/**
+	 * Get the {@link GLStateType#SHADER_SOURCE} property given a node in the
+	 * state hierarchy.
+	 * 
+	 * @param state
+	 *            any node in the GL state hierarchy
+	 * @return The {@link GLStateType#SHADER_SOURCE} property if a unique
+	 *         instance of it can be accessed from the given node, null
+	 *         otherwise. A unique instance can be accessed if the given node is
+	 *         either the requested node itself, or its parent or sibling.
+	 */
+	private IGLProperty getShaderSourceProperty(IGLProperty state) {
+		if (state.getType() == GLStateType.SHADER_SOURCE) {
+			// given node is the requested node
+			return state;
+		}
 
-        if (state.getType() != GLStateType.PER_SHADER_STATE) {
-            // if it is not the parent, then it could be a sibling, in which case
-            // we go up a level to its parent
-            state = state.getParent();
-        }
+		if (state.getType() != GLStateType.PER_SHADER_STATE) {
+			// if it is not the parent, then it could be a sibling, in which
+			// case
+			// we go up a level to its parent
+			state = state.getParent();
+		}
 
-        if (state != null && state.getType() == GLStateType.PER_SHADER_STATE) {
-            // if it is the parent, we can access the required property
-            return ((GLCompositeProperty) state).getProperty(GLStateType.SHADER_SOURCE);
-        }
+		if (state != null && state.getType() == GLStateType.PER_SHADER_STATE) {
+			// if it is the parent, we can access the required property
+			return ((GLCompositeProperty) state).getProperty(GLStateType.SHADER_SOURCE);
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public List<IContributionItem> getToolBarItems() {
-        return Collections.emptyList();
-    }
+	@Override
+	public List<IContributionItem> getToolBarItems() {
+		return Collections.emptyList();
+	}
 }

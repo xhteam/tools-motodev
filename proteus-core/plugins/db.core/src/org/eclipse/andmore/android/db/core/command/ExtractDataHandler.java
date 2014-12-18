@@ -21,23 +21,25 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 
-public class ExtractDataHandler extends AbstractHandler implements IHandler
-{
+public class ExtractDataHandler extends AbstractHandler implements IHandler {
 
-    private final ITableNode node;
+	private final ITableNode node;
 
-    public ExtractDataHandler(ITableNode node)
-    {
-        this.node = node;
-    }
+	public ExtractDataHandler(ITableNode node) {
+		this.node = node;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        node.extractData();
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		node.extractData();
+		return null;
+	}
 
 }

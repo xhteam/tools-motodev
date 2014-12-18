@@ -17,11 +17,11 @@
 package org.eclipse.andmore.ddms.systrace;
 
 public class SystraceTag {
-    public final String tag;
-    public final String info;
+	public final String tag;
+	public final String info;
 
-    public SystraceTag(String tagName, String details) {
-        tag = tagName;
-        info = details;
-    }
+	public SystraceTag(String tagName, String details) {
+		tag = tagName;
+		info = details;
+	}
 }

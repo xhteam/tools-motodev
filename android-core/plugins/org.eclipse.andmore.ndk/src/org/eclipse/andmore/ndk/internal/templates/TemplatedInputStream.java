@@ -25,63 +25,63 @@ import java.util.Map;
  */
 public class TemplatedInputStream extends InputStream {
 
-    private final InputStream mIn;
-    private final Map<String, String> mMap;
-    private char[] mSub;
-    private int mPos;
-    private int mMark;
+	private final InputStream mIn;
+	private final Map<String, String> mMap;
+	private char[] mSub;
+	private int mPos;
+	private int mMark;
 
-    public TemplatedInputStream(InputStream in, Map<String, String> map) {
-        this.mIn = in;
-        this.mMap = map;
-    }
+	public TemplatedInputStream(InputStream in, Map<String, String> map) {
+		this.mIn = in;
+		this.mMap = map;
+	}
 
-    @Override
-    public int read() throws IOException {
-        // if from a mark, return the char
-        if (mMark != 0) {
-            int c = mMark;
-            mMark = 0;
-            return c;
-        }
+	@Override
+	public int read() throws IOException {
+		// if from a mark, return the char
+		if (mMark != 0) {
+			int c = mMark;
+			mMark = 0;
+			return c;
+		}
 
-        // return char from sub layer if available
-        if (mSub != null) {
-            char c = mSub[mPos++];
-            if (mPos >= mSub.length)
-                mSub = null;
-            return c;
-        }
+		// return char from sub layer if available
+		if (mSub != null) {
+			char c = mSub[mPos++];
+			if (mPos >= mSub.length)
+				mSub = null;
+			return c;
+		}
 
-        int c = mIn.read();
-        if (c == '%') {
-            // check if it's a sub
-            c = mIn.read();
-            if (c == '{') {
-                // it's a sub
-                StringBuffer buff = new StringBuffer();
-                for (c = mIn.read(); c != '}' && c >= 0; c = mIn.read())
-                    buff.append((char) c);
-                String str = mMap.get(buff.toString());
-                if (str != null) {
-                    mSub = str.toCharArray();
-                    mPos = 0;
-                }
-                return read(); // recurse to get the real char
-            } else {
-                // not a sub
-                mMark = c;
-                return '%';
-            }
-        }
+		int c = mIn.read();
+		if (c == '%') {
+			// check if it's a sub
+			c = mIn.read();
+			if (c == '{') {
+				// it's a sub
+				StringBuffer buff = new StringBuffer();
+				for (c = mIn.read(); c != '}' && c >= 0; c = mIn.read())
+					buff.append((char) c);
+				String str = mMap.get(buff.toString());
+				if (str != null) {
+					mSub = str.toCharArray();
+					mPos = 0;
+				}
+				return read(); // recurse to get the real char
+			} else {
+				// not a sub
+				mMark = c;
+				return '%';
+			}
+		}
 
-        return c;
-    }
+		return c;
+	}
 
-    @Override
-    public void close() throws IOException {
-        super.close();
-        mIn.close();
-    }
+	@Override
+	public void close() throws IOException {
+		super.close();
+		mIn.close();
+	}
 
 }

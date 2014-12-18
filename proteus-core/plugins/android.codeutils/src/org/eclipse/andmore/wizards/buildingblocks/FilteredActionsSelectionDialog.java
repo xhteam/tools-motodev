@@ -30,123 +30,141 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
 /**
- * Class that implements a filter dialog to be used by NewLauncherWizardPage class
+ * Class that implements a filter dialog to be used by NewLauncherWizardPage
+ * class
  */
-class FilteredActionsSelectionDialog extends FilteredItemsSelectionDialog
-{
-    private final Set<String> categorySet;
+class FilteredActionsSelectionDialog extends FilteredItemsSelectionDialog {
+	private final Set<String> categorySet;
 
-    public FilteredActionsSelectionDialog(Shell shell, Set<String> categorySet)
-    {
-        super(shell, true);
-        this.categorySet = categorySet;
-    }
+	public FilteredActionsSelectionDialog(Shell shell, Set<String> categorySet) {
+		super(shell, true);
+		this.categorySet = categorySet;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createExtendedContentArea(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    protected Control createExtendedContentArea(Composite parent)
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createExtendedContentArea
+	 * (org.eclipse.swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createExtendedContentArea(Composite parent) {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createFilter()
-     */
-    @Override
-    protected ItemsFilter createFilter()
-    {
-        return new ItemsFilter()
-        {
-            /* (non-Javadoc)
-             * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#isConsistentItem(java.lang.Object)
-             */
-            @Override
-            public boolean isConsistentItem(Object item)
-            {
-                return true;
-            }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createFilter()
+	 */
+	@Override
+	protected ItemsFilter createFilter() {
+		return new ItemsFilter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter
+			 * #isConsistentItem(java.lang.Object)
+			 */
+			@Override
+			public boolean isConsistentItem(Object item) {
+				return true;
+			}
 
-            /* (non-Javadoc)
-             * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#matchItem(java.lang.Object)
-             */
-            @Override
-            public boolean matchItem(Object item)
-            {
-                if (!(item instanceof String))
-                {
-                    return false;
-                }
-                return matches((String) item);
-            }
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter
+			 * #matchItem(java.lang.Object)
+			 */
+			@Override
+			public boolean matchItem(Object item) {
+				if (!(item instanceof String)) {
+					return false;
+				}
+				return matches((String) item);
+			}
 
-        };
-    }
+		};
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#fillContentProvider(org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.AbstractContentProvider, org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    protected void fillContentProvider(AbstractContentProvider contentProvider,
-            ItemsFilter itemsFilter, IProgressMonitor progressMonitor) throws CoreException
-    {
-        for (String action : categorySet)
-        {
-            contentProvider.add(action, itemsFilter);
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#fillContentProvider
+	 * (org
+	 * .eclipse.ui.dialogs.FilteredItemsSelectionDialog.AbstractContentProvider,
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	protected void fillContentProvider(AbstractContentProvider contentProvider, ItemsFilter itemsFilter,
+			IProgressMonitor progressMonitor) throws CoreException {
+		for (String action : categorySet) {
+			contentProvider.add(action, itemsFilter);
+		}
 
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getDialogSettings()
-     */
-    @Override
-    protected IDialogSettings getDialogSettings()
-    {
-        return CodeUtilsActivator.getDefault().getDialogSettings();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getDialogSettings()
+	 */
+	@Override
+	protected IDialogSettings getDialogSettings() {
+		return CodeUtilsActivator.getDefault().getDialogSettings();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getElementName(java.lang.Object)
-     */
-    @Override
-    public String getElementName(Object item)
-    {
-        return (String) item;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getElementName(java
+	 * .lang.Object)
+	 */
+	@Override
+	public String getElementName(Object item) {
+		return (String) item;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getItemsComparator()
-     */
-    @Override
-    protected Comparator<String> getItemsComparator()
-    {
-        return new Comparator<String>()
-        {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getItemsComparator()
+	 */
+	@Override
+	protected Comparator<String> getItemsComparator() {
+		return new Comparator<String>() {
 
-            public int compare(String o1, String o2)
-            {
-                return o1.compareToIgnoreCase(o2);
-            }
-        };
-    }
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareToIgnoreCase(o2);
+			}
+		};
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#validateItem(java.lang.Object)
-     */
-    @Override
-    protected IStatus validateItem(Object item)
-    {
-        IStatus status;
-        if (categorySet.contains(item))
-        {
-            status = new Status(IStatus.OK, CodeUtilsActivator.PLUGIN_ID, "");
-        }
-        else
-        {
-            status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, "Select an item.");
-        }
-        return status;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#validateItem(java
+	 * .lang.Object)
+	 */
+	@Override
+	protected IStatus validateItem(Object item) {
+		IStatus status;
+		if (categorySet.contains(item)) {
+			status = new Status(IStatus.OK, CodeUtilsActivator.PLUGIN_ID, "");
+		} else {
+			status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, "Select an item.");
+		}
+		return status;
+	}
 }

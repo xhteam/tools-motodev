@@ -21,47 +21,45 @@ import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 /**
  * This class represents an event occurred on the {@link ITreeNode}.
  */
-public class KeyStoreModelEvent
-{
-    private final EventType eventType;
+public class KeyStoreModelEvent {
+	private final EventType eventType;
 
-    private final ITreeNode treeNodeItem;
+	private final ITreeNode treeNodeItem;
 
-    /** 
-     * Represents the change in the model. The {@link KeyStoreModelEvent#treeNodeItem} in each event may vary as specified below:
-     * <ul>
-     * <li>{@link EVENT_TYPE#ADD}  it is the item that needs to be added</li> 
-     * <li>{@link EVENT_TYPE#REMOVE}  it is the item that needs to be deleted</li>
-     * <li>{@link EVENT_TYPE#UPDATE}  it is the item that needs to be updated</li>
-     * </ul>
-     */
-    public enum EventType
-    {
-        ADD, REMOVE, UPDATE, COLLAPSE, REFRESH, CLEAR
-    }
+	/**
+	 * Represents the change in the model. The
+	 * {@link KeyStoreModelEvent#treeNodeItem} in each event may vary as
+	 * specified below:
+	 * <ul>
+	 * <li>{@link EVENT_TYPE#ADD} it is the item that needs to be added</li>
+	 * <li>{@link EVENT_TYPE#REMOVE} it is the item that needs to be deleted</li>
+	 * <li>{@link EVENT_TYPE#UPDATE} it is the item that needs to be updated</li>
+	 * </ul>
+	 */
+	public enum EventType {
+		ADD, REMOVE, UPDATE, COLLAPSE, REFRESH, CLEAR
+	}
 
-    /**
-     * Returns the event type.
-     * */
-    public EventType getEventType()
-    {
-        return eventType;
-    }
+	/**
+	 * Returns the event type.
+	 * */
+	public EventType getEventType() {
+		return eventType;
+	}
 
-    /**
-     * Returns the tree node item related to the event.
-     * */
-    public ITreeNode getTreeNodeItem()
-    {
-        return treeNodeItem;
-    }
+	/**
+	 * Returns the tree node item related to the event.
+	 * */
+	public ITreeNode getTreeNodeItem() {
+		return treeNodeItem;
+	}
 
-    /**
-     * Constructs a new event given an {@link ITreeNode} and a {@link KeyStoreModelEvent#EventType}.
-     * */
-    public KeyStoreModelEvent(ITreeNode treeNodeItem, EventType eventType)
-    {
-        this.eventType = eventType;
-        this.treeNodeItem = treeNodeItem;
-    }
+	/**
+	 * Constructs a new event given an {@link ITreeNode} and a
+	 * {@link KeyStoreModelEvent#EventType}.
+	 * */
+	public KeyStoreModelEvent(ITreeNode treeNodeItem, EventType eventType) {
+		this.eventType = eventType;
+		this.treeNodeItem = treeNodeItem;
+	}
 }

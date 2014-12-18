@@ -17,48 +17,47 @@ package org.eclipse.andmore.android.db.core.exception;
 
 import org.eclipse.andmore.android.common.exception.AndroidException;
 
-public class MotodevDbException extends AndroidException
-{
+public class MotodevDbException extends AndroidException {
 
-    private static final long serialVersionUID = 1148147648131562077L;
+	private static final long serialVersionUID = 1148147648131562077L;
 
-    /**
-     * Creates a new MotodevDbException object.
-     */
-    public MotodevDbException()
-    {
-        
-    }
+	/**
+	 * Creates a new MotodevDbException object.
+	 */
+	public MotodevDbException() {
 
-    /**
-     * Creates a new MotodevDbException object.
-     * 
-     * @param message the message used by the Exception.
-     */
-    public MotodevDbException(String message)
-    {
-        super(message);
-    }
+	}
 
-    /**
-     * Creates a new MotodevDbException object.
-     * 
-     * @param cause the associated cause.
-     */
-    public MotodevDbException(Throwable cause)
-    {
-        super(cause);
-    }
+	/**
+	 * Creates a new MotodevDbException object.
+	 * 
+	 * @param message
+	 *            the message used by the Exception.
+	 */
+	public MotodevDbException(String message) {
+		super(message);
+	}
 
-    /**
-     * Creates a new MotodevDbException object.
-     * 
-     * @param message the message used by the Exception.
-     * @param cause the associated cause.
-     */
-    public MotodevDbException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
+	/**
+	 * Creates a new MotodevDbException object.
+	 * 
+	 * @param cause
+	 *            the associated cause.
+	 */
+	public MotodevDbException(Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * Creates a new MotodevDbException object.
+	 * 
+	 * @param message
+	 *            the message used by the Exception.
+	 * @param cause
+	 *            the associated cause.
+	 */
+	public MotodevDbException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }

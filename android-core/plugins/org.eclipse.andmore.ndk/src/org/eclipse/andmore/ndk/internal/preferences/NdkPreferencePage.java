@@ -26,67 +26,66 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-public class NdkPreferencePage extends FieldEditorPreferencePage implements
-        IWorkbenchPreferencePage {
+public class NdkPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-    private NdkDirectoryFieldEditor mNdkDirectoryEditor;
+	private NdkDirectoryFieldEditor mNdkDirectoryEditor;
 
-    public NdkPreferencePage() {
-        super(GRID);
-        setPreferenceStore(Activator.getDefault().getPreferenceStore());
-        setDescription(Messages.NDKPreferencePage_Preferences);
-    }
+	public NdkPreferencePage() {
+		super(GRID);
+		setPreferenceStore(Activator.getDefault().getPreferenceStore());
+		setDescription(Messages.NDKPreferencePage_Preferences);
+	}
 
-    @Override
-    protected void createFieldEditors() {
-        mNdkDirectoryEditor = new NdkDirectoryFieldEditor(NdkManager.NDK_LOCATION,
-                Messages.NDKPreferencePage_Location, getFieldEditorParent());
-        addField(mNdkDirectoryEditor);
-    }
+	@Override
+	protected void createFieldEditors() {
+		mNdkDirectoryEditor = new NdkDirectoryFieldEditor(NdkManager.NDK_LOCATION, Messages.NDKPreferencePage_Location,
+				getFieldEditorParent());
+		addField(mNdkDirectoryEditor);
+	}
 
-    private static class NdkDirectoryFieldEditor extends DirectoryFieldEditor {
-        public NdkDirectoryFieldEditor(String name, String labelText, Composite parent) {
-            super(name, labelText, parent);
-            setEmptyStringAllowed(true);
-        }
+	private static class NdkDirectoryFieldEditor extends DirectoryFieldEditor {
+		public NdkDirectoryFieldEditor(String name, String labelText, Composite parent) {
+			super(name, labelText, parent);
+			setEmptyStringAllowed(true);
+		}
 
-        @Override
-        protected boolean doCheckState() {
-            if (!super.doCheckState()) {
-                setErrorMessage(Messages.NDKPreferencePage_not_a_valid_directory);
-                return false;
-            }
+		@Override
+		protected boolean doCheckState() {
+			if (!super.doCheckState()) {
+				setErrorMessage(Messages.NDKPreferencePage_not_a_valid_directory);
+				return false;
+			}
 
-            String dirname = getTextControl().getText().trim();
-            if (!dirname.isEmpty() && !NdkManager.isValidNdkLocation(dirname)) {
-                setErrorMessage(Messages.NDKPreferencePage_not_a_valid_NDK_directory);
-                return false;
-            }
+			String dirname = getTextControl().getText().trim();
+			if (!dirname.isEmpty() && !NdkManager.isValidNdkLocation(dirname)) {
+				setErrorMessage(Messages.NDKPreferencePage_not_a_valid_NDK_directory);
+				return false;
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        @Override
-        public Text getTextControl(Composite parent) {
-            setValidateStrategy(VALIDATE_ON_KEY_STROKE);
-            return super.getTextControl(parent);
-        }
+		@Override
+		public Text getTextControl(Composite parent) {
+			setValidateStrategy(VALIDATE_ON_KEY_STROKE);
+			return super.getTextControl(parent);
+		}
 
-    }
+	}
 
-    @Override
-    public void init(IWorkbench workbench) {
-        // Nothing to do herea
-    }
+	@Override
+	public void init(IWorkbench workbench) {
+		// Nothing to do herea
+	}
 
-    @Override
-    public void dispose() {
-        super.dispose();
+	@Override
+	public void dispose() {
+		super.dispose();
 
-        if (mNdkDirectoryEditor != null) {
-            mNdkDirectoryEditor.dispose();
-            mNdkDirectoryEditor = null;
-        }
-    }
+		if (mNdkDirectoryEditor != null) {
+			mNdkDirectoryEditor.dispose();
+			mNdkDirectoryEditor = null;
+		}
+	}
 
 }

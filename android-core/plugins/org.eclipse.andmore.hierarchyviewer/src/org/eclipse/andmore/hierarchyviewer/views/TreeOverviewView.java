@@ -24,20 +24,20 @@ import org.eclipse.ui.part.ViewPart;
 
 public class TreeOverviewView extends ViewPart {
 
-    public static final String ID =
-            "org.eclipse.andmore.hierarchyviewer.views.TreeOverviewView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.TreeOverviewView"; //$NON-NLS-1$
 
-    private TreeViewOverview mTreeViewOverview;
-    @Override
-    public void createPartControl(Composite parent) {
-        parent.setLayout(new FillLayout());
+	private TreeViewOverview mTreeViewOverview;
 
-        mTreeViewOverview = new TreeViewOverview(parent);
-    }
+	@Override
+	public void createPartControl(Composite parent) {
+		parent.setLayout(new FillLayout());
 
-    @Override
-    public void setFocus() {
-        mTreeViewOverview.setFocus();
-    }
+		mTreeViewOverview = new TreeViewOverview(parent);
+	}
+
+	@Override
+	public void setFocus() {
+		mTreeViewOverview.setFocus();
+	}
 
 }

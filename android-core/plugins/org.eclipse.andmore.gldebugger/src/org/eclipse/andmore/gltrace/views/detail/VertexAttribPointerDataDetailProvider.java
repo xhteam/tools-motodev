@@ -16,8 +16,6 @@
 
 package org.eclipse.andmore.gltrace.views.detail;
 
-import com.google.protobuf.ByteString;
-
 import org.eclipse.andmore.gltrace.GLEnum;
 import org.eclipse.andmore.gltrace.GLUtils;
 import org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage.Function;
@@ -33,40 +31,40 @@ import java.util.Collections;
 import java.util.List;
 
 public class VertexAttribPointerDataDetailProvider implements ICallDetailProvider {
-    private Text mText;
+	private Text mText;
 
-    @Override
-    public boolean isApplicable(GLCall call) {
-        return call.getFunction() == Function.glVertexAttribPointerData;
-    }
+	@Override
+	public boolean isApplicable(GLCall call) {
+		return call.getFunction() == Function.glVertexAttribPointerData;
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        mText = new Text(parent, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI
-                | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
-    }
+	@Override
+	public void createControl(Composite parent) {
+		mText = new Text(parent, SWT.BORDER | SWT.READ_ONLY | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
+	}
 
-    @Override
-    public void disposeControl() {
-    }
+	@Override
+	public void disposeControl() {
+	}
 
-    @Override
-    public Control getControl() {
-        return mText;
-    }
+	@Override
+	public Control getControl() {
+		return mText;
+	}
 
-    @Override
-    public void updateControl(GLTrace trace, GLCall call) {
-        // void glVertexAttribPointerData(GLuint indx, GLint size, GLenum type, GLboolean norm,
-        //                      GLsizei stride, const GLvoid* ptr, int minIndex, int maxIndex)
-        GLEnum type = (GLEnum) call.getProperty(GLCall.PROPERTY_VERTEX_ATTRIB_POINTER_TYPE);
-        byte[] data = (byte[]) call.getProperty(GLCall.PROPERTY_VERTEX_ATTRIB_POINTER_DATA);
+	@Override
+	public void updateControl(GLTrace trace, GLCall call) {
+		// void glVertexAttribPointerData(GLuint indx, GLint size, GLenum type,
+		// GLboolean norm,
+		// GLsizei stride, const GLvoid* ptr, int minIndex, int maxIndex)
+		GLEnum type = (GLEnum) call.getProperty(GLCall.PROPERTY_VERTEX_ATTRIB_POINTER_TYPE);
+		byte[] data = (byte[]) call.getProperty(GLCall.PROPERTY_VERTEX_ATTRIB_POINTER_DATA);
 
-        mText.setText(GLUtils.formatData(data, type));
-    }
+		mText.setText(GLUtils.formatData(data, type));
+	}
 
-    @Override
-    public List<IContributionItem> getToolBarItems() {
-        return Collections.emptyList();
-    }
+	@Override
+	public List<IContributionItem> getToolBarItems() {
+		return Collections.emptyList();
+	}
 }

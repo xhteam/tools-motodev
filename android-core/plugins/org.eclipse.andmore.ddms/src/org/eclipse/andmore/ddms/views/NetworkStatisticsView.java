@@ -21,27 +21,27 @@ import com.android.ddmuilib.net.NetworkPanel;
 import org.eclipse.swt.widgets.Composite;
 
 public class NetworkStatisticsView extends TableView {
-    public static final String ID = "org.eclipse.andmore.ddms.views.NetworkStatsView";
+	public static final String ID = "org.eclipse.andmore.ddms.views.NetworkStatsView";
 
-    private NetworkPanel mPanel;
+	private NetworkPanel mPanel;
 
-    public NetworkStatisticsView() {
-    }
+	public NetworkStatisticsView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new NetworkPanel();
-        mPanel.createPanel(parent);
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new NetworkPanel();
+		mPanel.createPanel(parent);
 
-        setSelectionDependentPanel(mPanel);
+		setSelectionDependentPanel(mPanel);
 
-        // listen to focus changes for table(s) of the panel.
-        setupTableFocusListener(mPanel, parent);
-    }
+		// listen to focus changes for table(s) of the panel.
+		setupTableFocusListener(mPanel, parent);
+	}
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 
 }

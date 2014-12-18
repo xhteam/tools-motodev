@@ -18,8 +18,6 @@ package org.eclipse.andmore.internal.wizards.templates;
 import static org.eclipse.core.resources.IResource.DEPTH_INFINITE;
 
 import com.android.annotations.NonNull;
-import com.google.common.collect.Lists;
-
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.assetstudio.ConfigureAssetSetPage;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState;
@@ -36,16 +34,11 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import javax.swing.SwingUtilities;
 
 abstract class TemplateWizard extends Wizard implements INewWizard {
     private static final String PROJECT_LOGO_LARGE = "android-64"; //$NON-NLS-1$

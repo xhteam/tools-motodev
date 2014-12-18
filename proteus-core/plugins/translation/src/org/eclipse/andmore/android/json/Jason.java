@@ -23,62 +23,50 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This class is responsible to parse a JSON string into objects
- * Visit {@link http://www.json.org/} for more information
+ * This class is responsible to parse a JSON string into objects Visit
+ * {@link http://www.json.org/} for more information
  *
  */
-public class Jason
-{
-    private final Set<JSONObject> objects;
+public class Jason {
+	private final Set<JSONObject> objects;
 
-    public Jason(String value)
-    {
-        objects = new HashSet<JSONObject>();
-        stip(value);
-    }
+	public Jason(String value) {
+		objects = new HashSet<JSONObject>();
+		stip(value);
+	}
 
-    public Set<JSONObject> getJSON()
-    {
-        return objects;
-    }
+	public Set<JSONObject> getJSON() {
+		return objects;
+	}
 
-    private void stip(String value)
-    {
-        List<Character> json = new ArrayList<Character>();
-        for (char c : value.toCharArray())
-        {
-            json.add(c);
-        }
+	private void stip(String value) {
+		List<Character> json = new ArrayList<Character>();
+		for (char c : value.toCharArray()) {
+			json.add(c);
+		}
 
-        while (json.size() > 0)
-        {
-            Character next = json.get(0);
+		while (json.size() > 0) {
+			Character next = json.get(0);
 
-            if (next == '{')
-            {
-                JSONObject object = (JSONObject) JSONObject.parse(json);
-                objects.add(object);
-            }
-            else if ((next == ' ') || (next == '\r') || (next == '\n') || (next == ','))
-            {
-                json.remove(0);
-            }
-        }
-    }
+			if (next == '{') {
+				JSONObject object = (JSONObject) JSONValue.parse(json);
+				objects.add(object);
+			} else if ((next == ' ') || (next == '\r') || (next == '\n') || (next == ',')) {
+				json.remove(0);
+			}
+		}
+	}
 
-    @Override
-    public String toString()
-    {
-        String string = "";
-        Iterator<JSONObject> objectIterator = objects.iterator();
-        while (objectIterator.hasNext())
-        {
-            string += objectIterator.next().toString();
-            if (objectIterator.hasNext())
-            {
-                string += ",";
-            }
-        }
-        return string;
-    }
+	@Override
+	public String toString() {
+		String string = "";
+		Iterator<JSONObject> objectIterator = objects.iterator();
+		while (objectIterator.hasNext()) {
+			string += objectIterator.next().toString();
+			if (objectIterator.hasNext()) {
+				string += ",";
+			}
+		}
+		return string;
+	}
 }

@@ -30,79 +30,64 @@ import org.eclipse.swt.widgets.TableItem;
  * <ul>
  * <li>a selected Activity/Fragment
  * <li>a selected layout xml
- * </ul> 
+ * </ul>
  */
-public class FillOnSaveInstanceStateDialog extends AbstractLayoutItemsDialog
-{
+public class FillOnSaveInstanceStateDialog extends AbstractLayoutItemsDialog {
 
-    public FillOnSaveInstanceStateDialog(Shell parentShell)
-    {
-        super(parentShell, CodeUtilsNLS.FillOnSaveInstanceStateDialog_DialogDescription,
-                CodeUtilsNLS.FillOnSaveInstanceStateDialog_DialogTitle,
-                CodeUtilsNLS.FillOnSaveInstanceStateDialog_ShellTitle, null);
-    }
+	public FillOnSaveInstanceStateDialog(Shell parentShell) {
+		super(parentShell, CodeUtilsNLS.FillOnSaveInstanceStateDialog_DialogDescription,
+				CodeUtilsNLS.FillOnSaveInstanceStateDialog_DialogTitle,
+				CodeUtilsNLS.FillOnSaveInstanceStateDialog_ShellTitle, null);
+	}
 
-    @Override
-    protected void createCustomContentArea(Composite mainComposite)
-    {
-        //default implementation does nothing
-    }
+	@Override
+	protected void createCustomContentArea(Composite mainComposite) {
+		// default implementation does nothing
+	}
 
-    @Override
-    protected boolean isResizable()
-    {
-        return true;
-    }
+	@Override
+	protected boolean isResizable() {
+		return true;
+	}
 
-    @Override
-    protected List<LayoutNode> getGuiItemsList()
-    {
-        List<LayoutNode> alreadyDeclared = new ArrayList<LayoutNode>();
-        if (getCodeGeneratorData() != null)
-        {
-            List<LayoutNode> allNodes = getCodeGeneratorData().getGUIItems(false);
+	@Override
+	protected List<LayoutNode> getGuiItemsList() {
+		List<LayoutNode> alreadyDeclared = new ArrayList<LayoutNode>();
+		if (getCodeGeneratorData() != null) {
+			List<LayoutNode> allNodes = getCodeGeneratorData().getGUIItems(false);
 
-            for (LayoutNode node : allNodes)
-            {
-                if (node.isAlreadyDeclaredInCode() && !node.isAlreadySaved() && canSaveState(node))
-                {
-                    alreadyDeclared.add(node);
-                }
-            }
-        }
-        return alreadyDeclared;
-    }
+			for (LayoutNode node : allNodes) {
+				if (node.isAlreadyDeclaredInCode() && !node.isAlreadySaved() && canSaveState(node)) {
+					alreadyDeclared.add(node);
+				}
+			}
+		}
+		return alreadyDeclared;
+	}
 
-    private boolean canSaveState(LayoutNode node)
-    {
-        int i = 0;
-        boolean canSaveState = false;
-        while (!canSaveState && (i < SaveStateCodeGenerator.saveStateNodeTypes.length))
-        {
-            if (SaveStateCodeGenerator.saveStateNodeTypes[i].getNodeType().equals(
-                    node.getNodeType()))
-            {
-                canSaveState = true;
-            }
-            i++;
-        }
+	private boolean canSaveState(LayoutNode node) {
+		int i = 0;
+		boolean canSaveState = false;
+		while (!canSaveState && (i < SaveStateCodeGenerator.saveStateNodeTypes.length)) {
+			if (SaveStateCodeGenerator.saveStateNodeTypes[i].getNodeType().equals(node.getNodeType())) {
+				canSaveState = true;
+			}
+			i++;
+		}
 
-        return canSaveState;
-    }
+		return canSaveState;
+	}
 
-    @Override
-    protected void okPressed()
-    {
-        for (TableItem item : getViewer().getTable().getItems())
-        {
-            if (item.getData() instanceof LayoutNode)
-            {
-                LayoutNode node = (LayoutNode) item.getData();
-                node.setSaveState(item.getChecked());
-            }
-        }
-        getModifier().setCodeGeneratorData(getCodeGeneratorData());
-        super.okPressed();
-    }
+	@Override
+	protected void okPressed() {
+		for (TableItem item : getViewer().getTable().getItems()) {
+			if (item.getData() instanceof LayoutNode) {
+				LayoutNode node = (LayoutNode) item.getData();
+				node.setSaveState(item.getChecked());
+			}
+		}
+		getModifier().setCodeGeneratorData(getCodeGeneratorData());
+		super.okPressed();
+	}
 
 }

@@ -31,81 +31,70 @@ import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
 /**
- * DESCRIPTION:
- * <br>
- * This class is a handler for the 0FF->Online transition. It always returns OK
- * <br>
- * RESPONSIBILITY:
- * <br>
- * Fill in the gap for the 0FF->Online transition for handsets
- * <br>
- * COLABORATORS:
- * <br>
- * None
- * <br>
- * USAGE:
- * <br>
+ * DESCRIPTION: <br>
+ * This class is a handler for the 0FF->Online transition. It always returns OK <br>
+ * RESPONSIBILITY: <br>
+ * Fill in the gap for the 0FF->Online transition for handsets <br>
+ * COLABORATORS: <br>
+ * None <br>
+ * USAGE: <br>
  * This class is intended to be used by TmL only
  */
-public class DummyServiceHandler extends ServiceHandler
-{
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#newInstance()
-     */
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new DummyServiceHandler();
-    }
+public class DummyServiceHandler extends ServiceHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * newInstance()
+	 */
+	@Override
+	public IServiceHandler newInstance() {
+		return new DummyServiceHandler();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService(org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus runService(IInstance arg0, Map<Object, Object> arg1, IProgressMonitor arg2)
-    {
-        String serialNumber = DDMSFacade.getSerialNumberByName(arg0.getName());
-        int tries = 0;
-        while (!DDMSFacade.isDeviceOnline(serialNumber) && ((tries >= 0) && (tries < 10)))
-        {
-            try
-            {
-                Thread.sleep(100);
-                tries++;
-            }
-            catch (InterruptedException e)
-            {
-                tries = 10;
-            }
-        }
-        Properties properties = arg0.getProperties();
-        if (properties != null)
-        {
-            String target = properties.getProperty("ro.build.version.release"); //$NON-NLS-1$
-            if (target != null)
-            {
-                arg0.setNameSuffix(AndroidHandsetNLS.DummyServiceHandler_androidSuffix + " "
-                        + target);
-            }
-            else
-            {
-                arg0.setNameSuffix(AndroidHandsetNLS.DummyServiceHandler_VERSION_NA);
-            }
-            InstanceEventManager.getInstance().notifyListeners(
-                    new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, arg0));
-        }
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#runService
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance, java.util.Map,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus runService(IInstance arg0, Map<Object, Object> arg1, IProgressMonitor arg2) {
+		String serialNumber = DDMSFacade.getSerialNumberByName(arg0.getName());
+		int tries = 0;
+		while (!DDMSFacade.isDeviceOnline(serialNumber) && ((tries >= 0) && (tries < 10))) {
+			try {
+				Thread.sleep(100);
+				tries++;
+			} catch (InterruptedException e) {
+				tries = 10;
+			}
+		}
+		Properties properties = arg0.getProperties();
+		if (properties != null) {
+			String target = properties.getProperty("ro.build.version.release"); //$NON-NLS-1$
+			if (target != null) {
+				arg0.setNameSuffix(AndroidHandsetNLS.DummyServiceHandler_androidSuffix + " " + target);
+			} else {
+				arg0.setNameSuffix(AndroidHandsetNLS.DummyServiceHandler_VERSION_NA);
+			}
+			InstanceEventManager.getInstance().notifyListeners(
+					new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, arg0));
+		}
+		return Status.OK_STATUS;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#updatingService(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.core.runtime.IProgressMonitor)
-     */
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler#
+	 * updatingService(org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.core.runtime.IProgressMonitor)
+	 */
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 }

@@ -70,6 +70,7 @@ import org.eclipse.andmore.AdtConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
+import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -2233,7 +2234,7 @@ public class GraphicalEditorPart extends EditorPart
         if (id == null || id.length() == 0) {
             id = '<' + element.getXmlNode().getNodeName() + '>';
         } else {
-            id = BaseLayoutRule.stripIdPrefix(id);
+            id = BaseViewRule.stripIdPrefix(id);
         }
 
         addText(mErrorLabel, String.format("\"%1$s\" does not set the required %2$s attribute:\n",

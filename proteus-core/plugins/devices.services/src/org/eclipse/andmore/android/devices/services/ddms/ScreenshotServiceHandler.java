@@ -26,39 +26,32 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.sequoyah.device.framework.model.handler.IServiceHandler;
 import org.eclipse.sequoyah.device.framework.model.handler.ServiceHandler;
 
-public class ScreenshotServiceHandler extends ServiceHandler
-{
-    @Override
-    public IServiceHandler newInstance()
-    {
-        return new ScreenshotServiceHandler();
-    }
+public class ScreenshotServiceHandler extends ServiceHandler {
+	@Override
+	public IServiceHandler newInstance() {
+		return new ScreenshotServiceHandler();
+	}
 
-    @Override
-    public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor arg2)
-    {
-        if (instance instanceof ISerialNumbered)
-        {
-            final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
-            Job job = new Job("Screenshot")
-            {
-                @Override
-                protected IStatus run(IProgressMonitor monitor)
-                {
-                    DDMSUtils.takeScreenshot(serialNumber);
-                    return Status.OK_STATUS;
-                }
+	@Override
+	public IStatus runService(IInstance instance, Map<Object, Object> arg1, IProgressMonitor arg2) {
+		if (instance instanceof ISerialNumbered) {
+			final String serialNumber = ((ISerialNumbered) instance).getSerialNumber();
+			Job job = new Job("Screenshot") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					DDMSUtils.takeScreenshot(serialNumber);
+					return Status.OK_STATUS;
+				}
 
-            };
-            job.schedule();
-        }
-        return Status.OK_STATUS;
-    }
+			};
+			job.schedule();
+		}
+		return Status.OK_STATUS;
+	}
 
-    @Override
-    public IStatus updatingService(IInstance arg0, IProgressMonitor arg1)
-    {
-        return Status.OK_STATUS;
-    }
+	@Override
+	public IStatus updatingService(IInstance arg0, IProgressMonitor arg1) {
+		return Status.OK_STATUS;
+	}
 
 }

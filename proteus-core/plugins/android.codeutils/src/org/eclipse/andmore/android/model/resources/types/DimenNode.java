@@ -20,24 +20,26 @@ package org.eclipse.andmore.android.model.resources.types;
  * 
  * Format: <dimen name="DimenName">Dimen Value</dimen>
  */
-public class DimenNode extends AbstractSimpleNameResourceNode
-{
-    /**
-     * Default constructor
-     * 
-     * @param name The dimen name. It must not be null.
-     */
-    public DimenNode(String name)
-    {
-        super(name);
-    }
+public class DimenNode extends AbstractSimpleNameResourceNode {
+	/**
+	 * Default constructor
+	 * 
+	 * @param name
+	 *            The dimen name. It must not be null.
+	 */
+	public DimenNode(String name) {
+		super(name);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.types.AbstractResourceNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.Dimen;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * #getNodeType()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.Dimen;
+	}
 }

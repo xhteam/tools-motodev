@@ -20,55 +20,58 @@ package org.eclipse.andmore.android.model.resources.types;
  * 
  * Format: <string name="StringName">String Value</string>
  */
-public class StringNode extends AbstractSimpleNameResourceNode
-{
-    /**
-     * Default constructor
-     * 
-     * @param name The string name. It must not be null.
-     */
-    public StringNode(String name)
-    {
-        super(name);
-    }
+public class StringNode extends AbstractSimpleNameResourceNode {
+	/**
+	 * Default constructor
+	 * 
+	 * @param name
+	 *            The string name. It must not be null.
+	 */
+	public StringNode(String name) {
+		super(name);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.String;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType
+	 * ()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.String;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.types.AbstractSimpleNameResourceNode#setNodeValue(java.lang.String)
-     */
-    @Override
-    public void setNodeValue(String nodeValue)
-    {
-        super.setNodeValue(escapeString(nodeValue));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.resources.types.
+	 * AbstractSimpleNameResourceNode#setNodeValue(java.lang.String)
+	 */
+	@Override
+	public void setNodeValue(String nodeValue) {
+		super.setNodeValue(escapeString(nodeValue));
+	}
 
-    /**
-     * Escape invalid characters for the strings resource file
-     * 
-     * @param str The string to be escaped
-     * @return The escaped string
-     */
-    private String escapeString(String str)
-    {
-        String newStr = str;
+	/**
+	 * Escape invalid characters for the strings resource file
+	 * 
+	 * @param str
+	 *            The string to be escaped
+	 * @return The escaped string
+	 */
+	private String escapeString(String str) {
+		String newStr = str;
 
-        if (newStr != null)
-        {
-            newStr = newStr.replace("\\'", "'");
-            newStr = newStr.replace("\\@", "@");
+		if (newStr != null) {
+			newStr = newStr.replace("\\'", "'");
+			newStr = newStr.replace("\\@", "@");
 
-            newStr = newStr.replace("'", "\\'");
-            newStr = newStr.replace("@", "\\@");
-        }
+			newStr = newStr.replace("'", "\\'");
+			newStr = newStr.replace("@", "\\@");
+		}
 
-        return newStr;
-    }
+		return newStr;
+	}
 }

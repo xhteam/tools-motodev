@@ -20,16 +20,18 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TransferData;
 
-public class HandsetDropSupportHandler extends AbstractDeviceDropSupportHandler
-{
+public class HandsetDropSupportHandler extends AbstractDeviceDropSupportHandler {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#canDrop(org.eclipse.sequoyah.device.framework.model.IInstance, org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
-     */
-    @Override
-    public boolean canDrop(IInstance instance, TransferData data, DropTargetEvent event)
-    {
-        return super.canDrop(instance, data, event)
-                && HandsetPlugin.STATUS_ONLINE_ID.equals(instance.getStatus());
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.sequoyah.device.framework.model.IDeviceTypeDropSupport#canDrop
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance,
+	 * org.eclipse.swt.dnd.TransferData, org.eclipse.swt.dnd.DropTargetEvent)
+	 */
+	@Override
+	public boolean canDrop(IInstance instance, TransferData data, DropTargetEvent event) {
+		return super.canDrop(instance, data, event) && HandsetPlugin.STATUS_ONLINE_ID.equals(instance.getStatus());
+	}
 }

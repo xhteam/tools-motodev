@@ -16,14 +16,13 @@
 package org.eclipse.andmore.android.db.deployment;
 
 /**
- * Creates Content Provider that have methods to query, insert, update, delete items.
+ * Creates Content Provider that have methods to query, insert, update, delete
+ * items.
  */
-public class ContentProviderDeployerByTable extends ContentProviderDeployer
-{
+public class ContentProviderDeployerByTable extends ContentProviderDeployer {
 
-    /**
-     * Constant representing the location of the DataaseHelper class.
-     */
-    public static final String CONTENT_PROVIDER_BY_TABLE_CLASS_LOCATION =
-            "resources/databaseDeploy/ContentProviderByTablejava.txt"; //$NON-NLS-1$			
+	/**
+	 * Constant representing the location of the DataaseHelper class.
+	 */
+	public static final String CONTENT_PROVIDER_BY_TABLE_CLASS_LOCATION = "resources/databaseDeploy/ContentProviderByTablejava.txt"; //$NON-NLS-1$			
 }

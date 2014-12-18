@@ -23,28 +23,27 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 
 /**
- * This class implements the command to disconnect from a database using an IDbNode object.
+ * This class implements the command to disconnect from a database using an
+ * IDbNode object.
  * */
-public class DbDisconnectHandler extends AbstractHandler implements IHandler
-{
+public class DbDisconnectHandler extends AbstractHandler implements IHandler {
 
-    private IDbNode dbNode;
+	private IDbNode dbNode;
 
-    public DbDisconnectHandler()
-    {
-    }
+	public DbDisconnectHandler() {
+	}
 
-    public DbDisconnectHandler(IDbNode dbNode)
-    {
-        this.dbNode = dbNode;
-    }
+	public DbDisconnectHandler(IDbNode dbNode) {
+		this.dbNode = dbNode;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see  org.eclipse.core.commands.IHandler#execute(ExecutionEvent)
-     * */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        return dbNode.disconnect();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.core.commands.IHandler#execute(ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		return dbNode.disconnect();
+	}
 }

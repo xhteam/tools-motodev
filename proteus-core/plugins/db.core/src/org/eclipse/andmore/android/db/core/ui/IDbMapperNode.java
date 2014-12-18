@@ -24,18 +24,15 @@ import org.eclipse.ui.IActionFilter;
 /**
  * Interface for nodes that are responsible for mapping databases.
  */
-public interface IDbMapperNode extends ITreeNode, IActionFilter
-{
+public interface IDbMapperNode extends ITreeNode, IActionFilter {
 
-    public static final String UNMAP_ACTIONFILTER_NAME =
-            "org.eclipse.andmore.android.db.core.mappedDatabases"; //$NON-NLS-1$
+	public static final String UNMAP_ACTIONFILTER_NAME = "org.eclipse.andmore.android.db.core.mappedDatabases"; //$NON-NLS-1$
 
-    public static final String UNMAP_ACTIONFILTER_VALUE =
-            "org.eclipse.andmore.android.db.core.atLeastOne"; //$NON-NLS-1$
+	public static final String UNMAP_ACTIONFILTER_VALUE = "org.eclipse.andmore.android.db.core.atLeastOne"; //$NON-NLS-1$
 
-    public IStatus map(IPath dbFilePath);
+	public IStatus map(IPath dbFilePath);
 
-    public IStatus unmap(ITreeNode dbNode);
+	public IStatus unmap(ITreeNode dbNode);
 
-    public IStatus unmap(List<ITreeNode> dbNodeList);
+	public IStatus unmap(List<ITreeNode> dbNodeList);
 }

@@ -185,7 +185,7 @@ public class UiPackageAttributeNode extends UiTextAttributeNode {
                         JavaCore.create(project), 0);
                 dlg.setTitle("Select Android Package");
                 dlg.setMessage("Select the package for the Android project.");
-                SelectionDialog.setDefaultImage(AdtPlugin.getAndroidLogo());
+                Window.setDefaultImage(AdtPlugin.getAndroidLogo());
 
                 if (dlg.open() == Window.OK) {
                     Object[] results = dlg.getResult();

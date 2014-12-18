@@ -21,85 +21,80 @@ import java.util.List;
 /**
  * Bean that represents an monkey options group
  */
-public class MonkeyOptionsGroup
-{
-    // Group ID
-    private String id;
+public class MonkeyOptionsGroup {
+	// Group ID
+	private String id;
 
-    // Group Title (user-friendly title)
-    private String title;
+	// Group Title (user-friendly title)
+	private String title;
 
-    // Monkey options (list of the monkey options in this group)
-    private List<MonkeyOption> monkeyOptions = new ArrayList<MonkeyOption>();
+	// Monkey options (list of the monkey options in this group)
+	private List<MonkeyOption> monkeyOptions = new ArrayList<MonkeyOption>();
 
-    /**
-     * Constructor
-     * 
-     * @param id
-     */
-    public MonkeyOptionsGroup(String id)
-    {
-        this.id = id;
-    }
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 */
+	public MonkeyOptionsGroup(String id) {
+		this.id = id;
+	}
 
-    /**
-     * Get monkey option group ID
-     * 
-     * @return monkey option group ID
-     */
-    public String getId()
-    {
-        return id;
-    }
+	/**
+	 * Get monkey option group ID
+	 * 
+	 * @return monkey option group ID
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * Set monkey option group ID
-     * 
-     * @param id monkey option group ID
-     */
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	/**
+	 * Set monkey option group ID
+	 * 
+	 * @param id
+	 *            monkey option group ID
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * Get the monkey options in this group
-     * 
-     * @return monkey options in this group
-     */
-    public List<MonkeyOption> getMonkeyOptions()
-    {
-        return monkeyOptions;
-    }
+	/**
+	 * Get the monkey options in this group
+	 * 
+	 * @return monkey options in this group
+	 */
+	public List<MonkeyOption> getMonkeyOptions() {
+		return monkeyOptions;
+	}
 
-    /**
-     * Set the monkey options in this group
-     * 
-     * @param monkeyOptions monkey options in this group
-     */
-    public void setMonkeyOptions(List<MonkeyOption> monkeyOptions)
-    {
-        this.monkeyOptions = monkeyOptions;
-    }
+	/**
+	 * Set the monkey options in this group
+	 * 
+	 * @param monkeyOptions
+	 *            monkey options in this group
+	 */
+	public void setMonkeyOptions(List<MonkeyOption> monkeyOptions) {
+		this.monkeyOptions = monkeyOptions;
+	}
 
-    /**
-     * Get monkey option group title
-     * 
-     * @return monkey option group title
-     */
-    public String getTitle()
-    {
-        return title;
-    }
+	/**
+	 * Get monkey option group title
+	 * 
+	 * @return monkey option group title
+	 */
+	public String getTitle() {
+		return title;
+	}
 
-    /**
-     * Set monkey option group title
-     * 
-     * @param title monkey option group title
-     */
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
+	/**
+	 * Set monkey option group title
+	 * 
+	 * @param title
+	 *            monkey option group title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 }

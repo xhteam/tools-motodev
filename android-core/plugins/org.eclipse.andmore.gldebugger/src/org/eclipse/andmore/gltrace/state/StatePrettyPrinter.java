@@ -21,47 +21,47 @@ import com.android.annotations.Nullable;
 import com.android.utils.SdkUtils;
 
 public class StatePrettyPrinter {
-    private static final int SPACES_PER_INDENT = 4;
-    private final String mLineSeparator = SdkUtils.getLineSeparator();
+	private static final int SPACES_PER_INDENT = 4;
+	private final String mLineSeparator = SdkUtils.getLineSeparator();
 
-    private StringBuilder mSb = new StringBuilder(1000);
-    private int mIndentLevel = 0;
+	private StringBuilder mSb = new StringBuilder(1000);
+	private int mIndentLevel = 0;
 
-    public void prettyPrint(@NonNull GLStateType name, @Nullable String value) {
-        indentLine(mIndentLevel * SPACES_PER_INDENT);
+	public void prettyPrint(@NonNull GLStateType name, @Nullable String value) {
+		indentLine(mIndentLevel * SPACES_PER_INDENT);
 
-        mSb.append(name.toString());
+		mSb.append(name.toString());
 
-        if (value != null) {
-            mSb.append(':');
-            mSb.append(value);
-        }
-        mSb.append(mLineSeparator);
-    }
+		if (value != null) {
+			mSb.append(':');
+			mSb.append(value);
+		}
+		mSb.append(mLineSeparator);
+	}
 
-    public void prettyPrint(@NonNull String s) {
-        indentLine(mIndentLevel * SPACES_PER_INDENT);
+	public void prettyPrint(@NonNull String s) {
+		indentLine(mIndentLevel * SPACES_PER_INDENT);
 
-        mSb.append(s);
-        mSb.append(mLineSeparator);
-    }
+		mSb.append(s);
+		mSb.append(mLineSeparator);
+	}
 
-    private void indentLine(int spaces) {
-        for (int i = 0; i < spaces; i++) {
-            mSb.append(' ');
-        }
-    }
+	private void indentLine(int spaces) {
+		for (int i = 0; i < spaces; i++) {
+			mSb.append(' ');
+		}
+	}
 
-    public void incrementIndentLevel() {
-        mIndentLevel++;
-    }
+	public void incrementIndentLevel() {
+		mIndentLevel++;
+	}
 
-    public void decrementIndentLevel() {
-        mIndentLevel--;
-    }
+	public void decrementIndentLevel() {
+		mIndentLevel--;
+	}
 
-    @Override
-    public String toString() {
-        return mSb.toString();
-    }
+	@Override
+	public String toString() {
+		return mSb.toString();
+	}
 }

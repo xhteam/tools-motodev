@@ -23,45 +23,51 @@ import org.osgi.framework.BundleContext;
  */
 public class TraceviewPlugin extends AbstractUIPlugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.traceview"; // $NON-NLS-1$
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.traceview"; // $NON-NLS-1$
 
-    // The shared instance
-    private static TraceviewPlugin sPlugin;
+	// The shared instance
+	private static TraceviewPlugin sPlugin;
 
-    /**
-     * The constructor
-     */
-    public TraceviewPlugin() {
-    }
+	/**
+	 * The constructor
+	 */
+	public TraceviewPlugin() {
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception {
-        super.start(context);
-        sPlugin = this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		sPlugin = this;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception {
-        sPlugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		sPlugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static TraceviewPlugin getDefault() {
-        return sPlugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static TraceviewPlugin getDefault() {
+		return sPlugin;
+	}
 
 }

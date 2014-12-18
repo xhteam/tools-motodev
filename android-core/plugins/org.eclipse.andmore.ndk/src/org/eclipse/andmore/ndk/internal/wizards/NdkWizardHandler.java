@@ -22,20 +22,18 @@ import org.eclipse.cdt.managedbuilder.ui.wizards.STDWizardHandler;
 
 public class NdkWizardHandler extends STDWizardHandler {
 
-    public NdkWizardHandler() {
-        super(null, null);
-    }
+	public NdkWizardHandler() {
+		super(null, null);
+	}
 
-    @Override
-    public IToolChain[] getSelectedToolChains() {
-        IToolChain[] tcs = ManagedBuildManager.getRealToolChains();
-        for (IToolChain tc : tcs) {
-            if (tc.getId().equals("com.android.toolchain.gcc")) //$NON-NLS-1$
-                return new IToolChain[] {
-                    tc
-                };
-        }
-        return super.getSelectedToolChains();
-    }
+	@Override
+	public IToolChain[] getSelectedToolChains() {
+		IToolChain[] tcs = ManagedBuildManager.getRealToolChains();
+		for (IToolChain tc : tcs) {
+			if (tc.getId().equals("com.android.toolchain.gcc")) //$NON-NLS-1$
+				return new IToolChain[] { tc };
+		}
+		return super.getSelectedToolChains();
+	}
 
 }

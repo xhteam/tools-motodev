@@ -18,46 +18,45 @@ package org.eclipse.andmore.gltrace.state;
 
 /** Properties that hold float values. */
 public class GLFloatProperty extends GLAbstractAtomicProperty {
-    private final Float mDefaultValue;
-    private Float mCurrentValue;
+	private final Float mDefaultValue;
+	private Float mCurrentValue;
 
-    public GLFloatProperty(GLStateType name, Float defaultValue) {
-        super(name);
+	public GLFloatProperty(GLStateType name, Float defaultValue) {
+		super(name);
 
-        mDefaultValue = mCurrentValue = defaultValue;
-    }
+		mDefaultValue = mCurrentValue = defaultValue;
+	}
 
-    @Override
-    public boolean isDefault() {
-        return Math.abs(mCurrentValue - mDefaultValue) < 0.000000001;
-    }
+	@Override
+	public boolean isDefault() {
+		return Math.abs(mCurrentValue - mDefaultValue) < 0.000000001;
+	}
 
-    public void setValue(Float newValue) {
-        mCurrentValue = newValue;
-    }
+	public void setValue(Float newValue) {
+		mCurrentValue = newValue;
+	}
 
-    @Override
-    public void setValue(Object value) {
-        if (value instanceof Float) {
-            mCurrentValue = (Float) value;
-        } else {
-            throw new IllegalArgumentException("Attempt to set non float value for "
-                    + getType());
-        }
-    }
+	@Override
+	public void setValue(Object value) {
+		if (value instanceof Float) {
+			mCurrentValue = (Float) value;
+		} else {
+			throw new IllegalArgumentException("Attempt to set non float value for " + getType());
+		}
+	}
 
-    @Override
-    public Object getValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public Object getValue() {
+		return mCurrentValue;
+	}
 
-    @Override
-    public String getStringValue() {
-        return mCurrentValue.toString();
-    }
+	@Override
+	public String getStringValue() {
+		return mCurrentValue.toString();
+	}
 
-    @Override
-    public String toString() {
-        return getType() + "=" + getStringValue(); //$NON-NLS-1$
-    }
+	@Override
+	public String toString() {
+		return getType() + "=" + getStringValue(); //$NON-NLS-1$
+	}
 }

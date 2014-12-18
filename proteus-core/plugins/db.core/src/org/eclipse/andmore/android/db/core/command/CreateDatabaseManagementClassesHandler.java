@@ -40,152 +40,131 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class implements the command to create database management classes using an instance of {@link IDbNode} object.
+ * This class implements the command to create database management classes using
+ * an instance of {@link IDbNode} object.
  */
-public class CreateDatabaseManagementClassesHandler extends AbstractHandler implements IHandler
-{
+public class CreateDatabaseManagementClassesHandler extends AbstractHandler implements IHandler {
 
-    private IDbNode selectedDbNode = null;
+	private IDbNode selectedDbNode = null;
 
-    private ProjectNode selectedProjectNode;
+	private ProjectNode selectedProjectNode;
 
-    private void setSelectedNode()
-    {
+	private void setSelectedNode() {
 
-        this.selectedDbNode = null;
+		this.selectedDbNode = null;
 
-        this.selectedProjectNode = null;
+		this.selectedProjectNode = null;
 
-        MOTODEVDatabaseExplorerView view = DbCoreActivator.getMOTODEVDatabaseExplorerView();
+		MOTODEVDatabaseExplorerView view = DbCoreActivator.getMOTODEVDatabaseExplorerView();
 
-        if (view != null)
-        {
-            // if the Database view is active, looks for the db and project nodes
-            ITreeNode items = view.getSelectedItemOnTree();
+		if (view != null) {
+			// if the Database view is active, looks for the db and project
+			// nodes
+			ITreeNode items = view.getSelectedItemOnTree();
 
-            if (items != null)
-            {
+			if (items != null) {
 
-                if (items instanceof IDbNode)
-                {
+				if (items instanceof IDbNode) {
 
-                    this.selectedDbNode = (IDbNode) items;
+					this.selectedDbNode = (IDbNode) items;
 
-                }
-                else if (items instanceof ProjectNode)
-                {
-                    this.selectedProjectNode = (ProjectNode) items;
-                }
-            }
-        }
-        else
-        {
-            // looks for the project and db resources at the package explorer view
-            IWorkbench workbench = PlatformUI.getWorkbench();
+				} else if (items instanceof ProjectNode) {
+					this.selectedProjectNode = (ProjectNode) items;
+				}
+			}
+		} else {
+			// looks for the project and db resources at the package explorer
+			// view
+			IWorkbench workbench = PlatformUI.getWorkbench();
 
-            if ((workbench != null) && !workbench.isClosing())
-            {
+			if ((workbench != null) && !workbench.isClosing()) {
 
-                IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 
-                if (window != null)
-                {
-                    ISelection selection = window.getSelectionService().getSelection();
-                    IStructuredSelection structureSelection = null;
-                    if (selection instanceof IStructuredSelection)
-                    {
-                        structureSelection = (IStructuredSelection) selection;
-                    }
-                    else
-                    {
-                        structureSelection = new StructuredSelection();
-                    }
+				if (window != null) {
+					ISelection selection = window.getSelectionService().getSelection();
+					IStructuredSelection structureSelection = null;
+					if (selection instanceof IStructuredSelection) {
+						structureSelection = (IStructuredSelection) selection;
+					} else {
+						structureSelection = new StructuredSelection();
+					}
 
-                    Object selectionElement = structureSelection.getFirstElement();
+					Object selectionElement = structureSelection.getFirstElement();
 
-                    if (selectionElement != null)
-                    {
+					if (selectionElement != null) {
 
-                        //the wizard was requested from a click on .db file or project
-                        IResource resource = null;
-                        // in case the item as a resource, retrieve it
-                        if (selectionElement instanceof IResource)
-                        {
-                            resource = (IResource) selectionElement;
-                        }
+						// the wizard was requested from a click on .db file or
+						// project
+						IResource resource = null;
+						// in case the item as a resource, retrieve it
+						if (selectionElement instanceof IResource) {
+							resource = (IResource) selectionElement;
+						}
 
-                        else if (selectionElement instanceof IAdaptable)
-                        {
-                            try
-                            {
-                                resource =
-                                        (IResource) ((IAdaptable) selectionElement)
-                                                .getAdapter(IResource.class);
-                            }
-                            catch (Exception e)
-                            {
-                                StudioLogger.error(CreateDatabaseManagementClassesAction.class,
-                                        e.getMessage());
-                            }
-                        }
+						else if (selectionElement instanceof IAdaptable) {
+							try {
+								resource = (IResource) ((IAdaptable) selectionElement).getAdapter(IResource.class);
+							} catch (Exception e) {
+								StudioLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
+							}
+						}
 
-                        if (resource != null)
-                        {
-                            this.selectedProjectNode = new ProjectNode(resource.getProject(), null);
+						if (resource != null) {
+							this.selectedProjectNode = new ProjectNode(resource.getProject(), null);
 
-                            if (resource instanceof IFile)
-                            {
-                                try
-                                {
-                                    this.selectedDbNode =
-                                            new DbNode(new Path(resource.getLocation().toFile()
-                                                    .getAbsolutePath()), this.selectedProjectNode);
-                                }
-                                catch (MotodevDbException e)
-                                {
-                                    StudioLogger.error(CreateDatabaseManagementClassesAction.class,
-                                            e.getMessage());
-                                }
-                            }
-                        }
-                    }
+							if (resource instanceof IFile) {
+								try {
+									this.selectedDbNode = new DbNode(new Path(resource.getLocation().toFile()
+											.getAbsolutePath()), this.selectedProjectNode);
+								} catch (MotodevDbException e) {
+									StudioLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
+								}
+							}
+						}
+					}
 
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 
-    /**
-     *  Constructor when there is NOT a node selected on {@link MOTODEVDatabaseExplorerView}
-     */
-    public CreateDatabaseManagementClassesHandler()
-    {
-        setSelectedNode();
-    }
+	/**
+	 * Constructor when there is NOT a node selected on
+	 * {@link MOTODEVDatabaseExplorerView}
+	 */
+	public CreateDatabaseManagementClassesHandler() {
+		setSelectedNode();
+	}
 
-    /**
-     * Constructor when there is a node selected on {@link MOTODEVDatabaseExplorerView}
-     * @param node
-     */
-    public CreateDatabaseManagementClassesHandler(IDbNode node)
-    {
-        this.selectedDbNode = node;
-    }
+	/**
+	 * Constructor when there is a node selected on
+	 * {@link MOTODEVDatabaseExplorerView}
+	 * 
+	 * @param node
+	 */
+	public CreateDatabaseManagementClassesHandler(IDbNode node) {
+		this.selectedDbNode = node;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        CreateDatabaseManagementClassesAction action = new CreateDatabaseManagementClassesAction();
-        setSelectedNode();
-        action.setDbNodeSelected(selectedDbNode);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		CreateDatabaseManagementClassesAction action = new CreateDatabaseManagementClassesAction();
+		setSelectedNode();
+		action.setDbNodeSelected(selectedDbNode);
 
-        action.setProjectNodeSelected(selectedProjectNode);
+		action.setProjectNodeSelected(selectedProjectNode);
 
-        action.run();
+		action.run();
 
-        return null;
-    }
+		return null;
+	}
 
 }

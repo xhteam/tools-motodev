@@ -17,7 +17,9 @@
 package org.eclipse.andmore.ddms.systrace;
 
 public interface ISystraceOptionsDialog {
-    ISystraceOptions getSystraceOptions();
-    String getTraceFilePath();
-    int open();
+	ISystraceOptions getSystraceOptions();
+
+	String getTraceFilePath();
+
+	int open();
 }

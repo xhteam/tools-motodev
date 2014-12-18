@@ -21,6 +21,7 @@ import com.android.ddmlib.Client;
 import org.eclipse.jface.action.Action;
 
 public interface IClientAction {
-    Action getAction();
-    void selectedClientChanged(Client c);
+	Action getAction();
+
+	void selectedClientChanged(Client c);
 }

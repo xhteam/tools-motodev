@@ -31,132 +31,121 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class HandsetPlugin extends AbstractUIPlugin
-{
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.handset";
+public class HandsetPlugin extends AbstractUIPlugin {
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.handset";
 
-    public static final String HANDSET_DEVICE_TYPE_ID = PLUGIN_ID + ".androidHandset";
+	public static final String HANDSET_DEVICE_TYPE_ID = PLUGIN_ID + ".androidHandset";
 
-    public static final String STATUS_ONLINE_ID = PLUGIN_ID + ".status.handsetonline";
+	public static final String STATUS_ONLINE_ID = PLUGIN_ID + ".status.handsetonline";
 
-    public static final String SERVICE_INIT_ID = PLUGIN_ID + ".initHandsetService";
+	public static final String SERVICE_INIT_ID = PLUGIN_ID + ".initHandsetService";
 
-    private static final Runnable sdkLoaderListener = new Runnable()
-    {
-        public void run()
-        {
-            Collection<String> serialNumbers = DDMSFacade.getConnectedSerialNumbers();
-            for (String serial : serialNumbers)
-            {
-                createInstance(serial);
-            }
-        }
-    };
+	private static final Runnable sdkLoaderListener = new Runnable() {
+		@Override
+		public void run() {
+			Collection<String> serialNumbers = DDMSFacade.getConnectedSerialNumbers();
+			for (String serial : serialNumbers) {
+				createInstance(serial);
+			}
+		}
+	};
 
-    // The shared instance
-    private static HandsetPlugin plugin;
+	// The shared instance
+	private static HandsetPlugin plugin;
 
-    private static DdmsRunnable connectedListener = new DdmsRunnable()
-    {
+	private static DdmsRunnable connectedListener = new DdmsRunnable() {
 
-        public void run(String serialNumber)
-        {
-            createInstance(serialNumber);
-        }
-    };
+		@Override
+		public void run(String serialNumber) {
+			createInstance(serialNumber);
+		}
+	};
 
-    private static DdmsRunnable disconnectedListener = new DdmsRunnable()
-    {
+	private static DdmsRunnable disconnectedListener = new DdmsRunnable() {
 
-        public void run(String serialNumber)
-        {
-            deleteInstance(serialNumber);
-        }
-    };
+		@Override
+		public void run(String serialNumber) {
+			deleteInstance(serialNumber);
+		}
+	};
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(HandsetPlugin.class, "Starting MOTODEV Android Handset Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(HandsetPlugin.class, "Starting MOTODEV Android Handset Plugin...");
 
-        super.start(context);
-        plugin = this;
-        StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener,
-                disconnectedListener);
-        AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
+		super.start(context);
+		plugin = this;
+		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
 
-        StudioLogger.debug(HandsetPlugin.class, "MOTODEV Android Handset Plugin started.");
-    }
+		StudioLogger.debug(HandsetPlugin.class, "MOTODEV Android Handset Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
-        StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener,
-                disconnectedListener);
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
+		StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static HandsetPlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static HandsetPlugin getDefault() {
+		return plugin;
+	}
 
-    /**
-     * Creates a TmL instance for the given handset device
-     * 
-     * @param serialNumber The serial number of the device to create a TmL instance for
-     */
-    private static void createInstance(String serialNumber)
-    {
-        if (!DDMSFacade.isEmulator(serialNumber) && !DDMSFacade.isRemote(serialNumber))
-        {
+	/**
+	 * Creates a TmL instance for the given handset device
+	 * 
+	 * @param serialNumber
+	 *            The serial number of the device to create a TmL instance for
+	 */
+	private static void createInstance(String serialNumber) {
+		if (!DDMSFacade.isEmulator(serialNumber) && !DDMSFacade.isRemote(serialNumber)) {
 
-            try
-            {
-                Properties instanceProperties = DDMSFacade.getDeviceProperties(serialNumber);
+			try {
+				Properties instanceProperties = DDMSFacade.getDeviceProperties(serialNumber);
 
-                HandsetInstanceBuilder projectBuilder =
-                        new HandsetInstanceBuilder(serialNumber, instanceProperties);
+				HandsetInstanceBuilder projectBuilder = new HandsetInstanceBuilder(serialNumber, instanceProperties);
 
-                DevicesManager.getInstance().createInstanceForDevice(serialNumber,
-                        HandsetPlugin.HANDSET_DEVICE_TYPE_ID, projectBuilder,
-                        HandsetPlugin.SERVICE_INIT_ID);
-            }
-            catch (SequoyahException e)
-            {
-                StudioLogger.error(HandsetPlugin.class,
-                        "Failed to create a TmL instance for device " + serialNumber, e);
-            }
-        }
-    }
+				DevicesManager.getInstance().createInstanceForDevice(serialNumber,
+						HandsetPlugin.HANDSET_DEVICE_TYPE_ID, projectBuilder, HandsetPlugin.SERVICE_INIT_ID);
+			} catch (SequoyahException e) {
+				StudioLogger
+						.error(HandsetPlugin.class, "Failed to create a TmL instance for device " + serialNumber, e);
+			}
+		}
+	}
 
-    /**
-     * Destroys the TmL instance of the given handset device
-     * 
-     * @param device The device to delete the correspondent TmL instance
-     */
-    private static void deleteInstance(String serialNumber)
-    {
-        if (!DDMSFacade.isEmulator(serialNumber) && !DDMSFacade.isRemote(serialNumber))
-        {
-            DevicesManager.getInstance().deleteInstanceOfDevice(serialNumber);
-        }
-    }
+	/**
+	 * Destroys the TmL instance of the given handset device
+	 * 
+	 * @param device
+	 *            The device to delete the correspondent TmL instance
+	 */
+	private static void deleteInstance(String serialNumber) {
+		if (!DDMSFacade.isEmulator(serialNumber) && !DDMSFacade.isRemote(serialNumber)) {
+			DevicesManager.getInstance().deleteInstanceOfDevice(serialNumber);
+		}
+	}
 
 }

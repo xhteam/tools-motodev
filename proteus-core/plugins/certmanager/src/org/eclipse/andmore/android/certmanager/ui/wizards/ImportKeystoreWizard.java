@@ -21,51 +21,53 @@ import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class ImportKeystoreWizard extends Wizard
-{
-    ImportKeystorePage importKeystorePage = null;
+public class ImportKeystoreWizard extends Wizard {
+	ImportKeystorePage importKeystorePage = null;
 
-    private static final String WIZARD_BANNER = "icons/wizban/import_keystore_wiz.png"; //$NON-NLS-1$
+	private static final String WIZARD_BANNER = "icons/wizban/import_keystore_wiz.png"; //$NON-NLS-1$
 
-    public ImportKeystoreWizard()
-    {
-        setWindowTitle(CertificateManagerNLS.ImportKeystorePage_Title);
-        setDefaultPageImageDescriptor(CertificateManagerActivator.imageDescriptorFromPlugin(
-                CertificateManagerActivator.PLUGIN_ID, WIZARD_BANNER));
+	public ImportKeystoreWizard() {
+		setWindowTitle(CertificateManagerNLS.ImportKeystorePage_Title);
+		setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(CertificateManagerActivator.PLUGIN_ID,
+				WIZARD_BANNER));
 
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    public void createPageControls(Composite pageContainer)
-    {
-        super.createPageControls(pageContainer);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createPageControls(Composite pageContainer) {
+		super.createPageControls(pageContainer);
 
-        //the shell has the same help as its page
-        PlatformUI.getWorkbench().getHelpSystem()
-                .setHelp(getShell(), ImportKeystorePage.IMPORT_KEYSTORE_HELP_ID);
-    }
+		// the shell has the same help as its page
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), ImportKeystorePage.IMPORT_KEYSTORE_HELP_ID);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        return importKeystorePage.importKeystore();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		return importKeystorePage.importKeystore();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        importKeystorePage =
-                new ImportKeystorePage(CertificateManagerNLS.ImportKeystoreWizard_ImportKeystore);
-        addPage(importKeystorePage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		importKeystorePage = new ImportKeystorePage(CertificateManagerNLS.ImportKeystoreWizard_ImportKeystore);
+		addPage(importKeystorePage);
+	}
 }

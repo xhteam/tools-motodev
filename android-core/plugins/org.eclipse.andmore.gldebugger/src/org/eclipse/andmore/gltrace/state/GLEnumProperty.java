@@ -20,45 +20,45 @@ import org.eclipse.andmore.gltrace.GLEnum;
 
 /** Properties that hold a {@link GLEnum}. */
 public final class GLEnumProperty extends GLAbstractAtomicProperty {
-    private GLEnum mCurrentValue;
-    private final GLEnum mDefaultValue;
+	private GLEnum mCurrentValue;
+	private final GLEnum mDefaultValue;
 
-    public GLEnumProperty(GLStateType name, GLEnum defaultValue) {
-        super(name);
+	public GLEnumProperty(GLStateType name, GLEnum defaultValue) {
+		super(name);
 
-        mCurrentValue = mDefaultValue = defaultValue;
-    }
+		mCurrentValue = mDefaultValue = defaultValue;
+	}
 
-    @Override
-    public boolean isDefault() {
-        return mDefaultValue == mCurrentValue;
-    }
+	@Override
+	public boolean isDefault() {
+		return mDefaultValue == mCurrentValue;
+	}
 
-    public void setValue(GLEnum newValue) {
-        mCurrentValue = newValue;
-    }
+	public void setValue(GLEnum newValue) {
+		mCurrentValue = newValue;
+	}
 
-    @Override
-    public String getStringValue() {
-        return mCurrentValue.toString();
-    }
+	@Override
+	public String getStringValue() {
+		return mCurrentValue.toString();
+	}
 
-    @Override
-    public String toString() {
-        return getType() + "=" + getStringValue(); //$NON-NLS-1$
-    }
+	@Override
+	public String toString() {
+		return getType() + "=" + getStringValue(); //$NON-NLS-1$
+	}
 
-    @Override
-    public void setValue(Object value) {
-        if (value instanceof GLEnum) {
-            mCurrentValue = (GLEnum) value;
-        } else {
-            throw new IllegalArgumentException("Attempt to set invalid value for " + getType()); //$NON-NLS-1$
-        }
-    }
+	@Override
+	public void setValue(Object value) {
+		if (value instanceof GLEnum) {
+			mCurrentValue = (GLEnum) value;
+		} else {
+			throw new IllegalArgumentException("Attempt to set invalid value for " + getType()); //$NON-NLS-1$
+		}
+	}
 
-    @Override
-    public Object getValue() {
-        return mCurrentValue;
-    }
+	@Override
+	public Object getValue() {
+		return mCurrentValue;
+	}
 }

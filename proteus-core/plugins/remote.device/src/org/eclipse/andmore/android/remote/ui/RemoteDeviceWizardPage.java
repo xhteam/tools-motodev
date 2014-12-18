@@ -29,72 +29,78 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * Wizard Page to be used by TmL to create a new Device Remove Instance.
  */
-public class RemoteDeviceWizardPage extends WizardPage implements IInstanceProperties,
-        RemotePropertiesChangedListener
-{
-    private RemotePropertiesComposite composite;
+public class RemoteDeviceWizardPage extends WizardPage implements IInstanceProperties, RemotePropertiesChangedListener {
+	private RemotePropertiesComposite composite;
 
-    /**
-     * Creates a RemoteDeviceWizardPage object.
-     */
-    public RemoteDeviceWizardPage()
-    {
-        super(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_WizardName);
-    }
+	/**
+	 * Creates a RemoteDeviceWizardPage object.
+	 */
+	public RemoteDeviceWizardPage() {
+		super(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_WizardName);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.ui.wizard.IInstanceProperties#getProperties()
-     */
-    public Properties getProperties()
-    {
-        Properties props = new Properties();
-        props.put(RemoteDeviceInstance.PROPERTY_HOST, composite.getHost());
-        props.put(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(composite.getPort()));
-        props.put(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(composite.getTimeout()));
-        return props;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.ui.wizard.IInstanceProperties#
+	 * getProperties()
+	 */
+	@Override
+	public Properties getProperties() {
+		Properties props = new Properties();
+		props.put(RemoteDeviceInstance.PROPERTY_HOST, composite.getHost());
+		props.put(RemoteDeviceInstance.PROPERTY_PORT, Integer.toString(composite.getPort()));
+		props.put(RemoteDeviceInstance.PROPERTY_TIMEOUT, Integer.toString(composite.getTimeout()));
+		return props;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
-     */
-    public void createControl(Composite parent)
-    {
-        setTitle(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_Title);
-        setMessage(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_Description);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createControl(Composite parent) {
+		setTitle(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_Title);
+		setMessage(RemoteDeviceNLS.UI_RemoteDeviceWizardPage_Description);
 
-        composite = new RemotePropertiesComposite(parent);
-        composite.addPropertyChangeListener(this);
-        composite.addDisposeListener(new DisposeListener()
-        {
-            public void widgetDisposed(DisposeEvent e)
-            {
-                composite.removePropertyChangeListener(RemoteDeviceWizardPage.this);
-                composite = null;
-                RemoteDeviceWizardPage.this.setControl(null);
-            }
-        });
+		composite = new RemotePropertiesComposite(parent);
+		composite.addPropertyChangeListener(this);
+		composite.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				composite.removePropertyChangeListener(RemoteDeviceWizardPage.this);
+				composite = null;
+				RemoteDeviceWizardPage.this.setControl(null);
+			}
+		});
 
-        setPageComplete(composite.getErrorMessage() == null);
-        setControl(composite);
+		setPageComplete(composite.getErrorMessage() == null);
+		setControl(composite);
 
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
-     */
-    @Override
-    public boolean isPageComplete()
-    {
-        return (composite != null) && (composite.getErrorMessage() == null);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
+	 */
+	@Override
+	public boolean isPageComplete() {
+		return (composite != null) && (composite.getErrorMessage() == null);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.RemotePropertiesChangedListener#propertiesChanged()
-     */
-    public void propertiesChanged()
-    {
-        setErrorMessage(composite.getErrorMessage());
-        setPageComplete(isPageComplete());
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.
+	 * RemotePropertiesChangedListener#propertiesChanged()
+	 */
+	@Override
+	public void propertiesChanged() {
+		setErrorMessage(composite.getErrorMessage());
+		setPageComplete(isPageComplete());
+	}
 }

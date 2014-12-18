@@ -21,95 +21,89 @@ import java.util.List;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
 
 /**
- * Manager which notifies {@link IDatabaseModelListener} registered that a {@link DatabaseModelEvent} occurred. 
- * It is a singleton that needs to be called by the hierarchy of {@link ITreeNode} items when they modify the database model.
+ * Manager which notifies {@link IDatabaseModelListener} registered that a
+ * {@link DatabaseModelEvent} occurred. It is a singleton that needs to be
+ * called by the hierarchy of {@link ITreeNode} items when they modify the
+ * database model.
  */
-public class DatabaseModelEventManager
-{
-    private static DatabaseModelEventManager _instance;
+public class DatabaseModelEventManager {
+	private static DatabaseModelEventManager _instance;
 
-    private final List<IDatabaseModelListener> listeners = new ArrayList<IDatabaseModelListener>();
+	private final List<IDatabaseModelListener> listeners = new ArrayList<IDatabaseModelListener>();
 
-    private DatabaseModelEventManager()
-    {
-        //Singleton - avoid extensions and other means to construct an instance 
-    }
+	private DatabaseModelEventManager() {
+		// Singleton - avoid extensions and other means to construct an instance
+	}
 
-    /**
-     * @return single instance of {@link DatabaseModelEvent}
-     */
-    public synchronized static DatabaseModelEventManager getInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new DatabaseModelEventManager();
-        }
-        return _instance;
-    }
+	/**
+	 * @return single instance of {@link DatabaseModelEvent}
+	 */
+	public synchronized static DatabaseModelEventManager getInstance() {
+		if (_instance == null) {
+			_instance = new DatabaseModelEventManager();
+		}
+		return _instance;
+	}
 
-    /**
-     * Adds a new {@link IDatabaseModelListener} 
-     * @param listener 
-     */
-    public void addListener(IDatabaseModelListener listener)
-    {
-        synchronized (listener)
-        {
-            listeners.add(listener);
-        }
-    }
+	/**
+	 * Adds a new {@link IDatabaseModelListener}
+	 * 
+	 * @param listener
+	 */
+	public void addListener(IDatabaseModelListener listener) {
+		synchronized (listener) {
+			listeners.add(listener);
+		}
+	}
 
-    /**
-     * Removes the {@link IDatabaseModelListener} 
-     * @param listener
-     */
-    public void removeListeners(IDatabaseModelListener listener)
-    {
-        synchronized (listener)
-        {
-            listeners.remove(listener);
-        }
-    }
+	/**
+	 * Removes the {@link IDatabaseModelListener}
+	 * 
+	 * @param listener
+	 */
+	public void removeListeners(IDatabaseModelListener listener) {
+		synchronized (listener) {
+			listeners.remove(listener);
+		}
+	}
 
-    /**
-     * Fires/notifies/deliver the event to the listeners registered.  
-     * @param node {@link ITreeNode} that needs to refresh the view based on the model
-     * @param eventType
-     */
-    public void fireEvent(ITreeNode node, DatabaseModelEvent.EVENT_TYPE eventType)
-    {
-        DatabaseModelEvent databaseModelEvent = new DatabaseModelEvent(node, eventType);
-        synchronized (listeners)
-        {
-            if (listeners != null)
-            {
-                for (IDatabaseModelListener listener : listeners)
-                {
-                    switch (eventType)
-                    {
-                        case ADD:
-                            listener.handleNodeAdditionEvent(databaseModelEvent);
-                            break;
-                        case REMOVE:
-                            listener.handleNodeRemovalEvent(databaseModelEvent);
-                            break;
-                        case UPDATE:
-                            listener.handleNodeUpdateEvent(databaseModelEvent);
-                            break;
-                        case CLEAR:
-                            listener.handleNodeClearEvent(databaseModelEvent);
-                            break;
-                        case EXPAND:
-                            listener.handleNodeExpandEvent(databaseModelEvent);
-                            break;
-                        case SELECT:
-                            listener.handleNodeSelectEvent(databaseModelEvent);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-    }
+	/**
+	 * Fires/notifies/deliver the event to the listeners registered.
+	 * 
+	 * @param node
+	 *            {@link ITreeNode} that needs to refresh the view based on the
+	 *            model
+	 * @param eventType
+	 */
+	public void fireEvent(ITreeNode node, DatabaseModelEvent.EVENT_TYPE eventType) {
+		DatabaseModelEvent databaseModelEvent = new DatabaseModelEvent(node, eventType);
+		synchronized (listeners) {
+			if (listeners != null) {
+				for (IDatabaseModelListener listener : listeners) {
+					switch (eventType) {
+					case ADD:
+						listener.handleNodeAdditionEvent(databaseModelEvent);
+						break;
+					case REMOVE:
+						listener.handleNodeRemovalEvent(databaseModelEvent);
+						break;
+					case UPDATE:
+						listener.handleNodeUpdateEvent(databaseModelEvent);
+						break;
+					case CLEAR:
+						listener.handleNodeClearEvent(databaseModelEvent);
+						break;
+					case EXPAND:
+						listener.handleNodeExpandEvent(databaseModelEvent);
+						break;
+					case SELECT:
+						listener.handleNodeSelectEvent(databaseModelEvent);
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
 }

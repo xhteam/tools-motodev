@@ -25,41 +25,44 @@ import org.eclipse.core.runtime.Path;
 import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
 
 /**
- * This class provides the environment log file
- * to the log files collector feature
+ * This class provides the environment log file to the log files collector
+ * feature
  */
-public class EnvironmentLogFile implements ILogFile
-{
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath()
-     */
-    @Override
-    public List<IPath> getLogFilePath()
-    {
-        ArrayList<IPath> logs = new ArrayList<IPath>();
-        logs.add(new Path(LoggerCollectorConstants.LOG_PATH).append("environment.log"));
-        return logs;
-    }
+public class EnvironmentLogFile implements ILogFile {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath
+	 * ()
+	 */
+	@Override
+	public List<IPath> getLogFilePath() {
+		ArrayList<IPath> logs = new ArrayList<IPath>();
+		logs.add(new Path(LoggerCollectorConstants.LOG_PATH).append("environment.log"));
+		return logs;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
-     */
-    @Override
-    public String getLogName()
-    {
-        return "Environment Log File";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
+	 */
+	@Override
+	public String getLogName() {
+		return "Environment Log File";
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getOutputSubfolderName()
-     */
-    @Override
-    public String getOutputSubfolderName()
-    {
-        return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.platform.logger.collector.core.ILogFile#
+	 * getOutputSubfolderName()
+	 */
+	@Override
+	public String getOutputSubfolderName() {
+		return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
+	}
 
 }

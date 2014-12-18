@@ -17,5 +17,5 @@
 package org.eclipse.andmore.gltrace.state;
 
 public enum DisplayRadix {
-    DECIMAL, HEX
+	DECIMAL, HEX
 }

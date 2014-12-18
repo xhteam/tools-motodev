@@ -16,34 +16,30 @@
 package org.eclipse.andmore.android;
 
 /**
- * DESCRIPTION:
- * Interface to be implemented by every entity that have serial numbers
+ * DESCRIPTION: Interface to be implemented by every entity that have serial
+ * numbers
  *
- * RESPONSIBILITY:
- * Allows the serial number of the entity to be retrieved
+ * RESPONSIBILITY: Allows the serial number of the entity to be retrieved
  *
- * COLABORATORS:
- * None. 
+ * COLABORATORS: None.
  *
- * USAGE:
- * Call getSerialNumber to retrieve the entity serial number
+ * USAGE: Call getSerialNumber to retrieve the entity serial number
  */
-public interface ISerialNumbered
-{
-    /**
-     * Retrieves the serial number
-     * 
-     * @return serial number
-     */
-    String getSerialNumber();
+public interface ISerialNumbered {
+	/**
+	 * Retrieves the serial number
+	 * 
+	 * @return serial number
+	 */
+	String getSerialNumber();
 
-    /**
-     * Retrieves the device name that is displayed in the UI
-     * 
-     * @return
-     */
-    String getDeviceName();
+	/**
+	 * Retrieves the device name that is displayed in the UI
+	 * 
+	 * @return
+	 */
+	String getDeviceName();
 
-    String getFullName();
+	String getFullName();
 
 }

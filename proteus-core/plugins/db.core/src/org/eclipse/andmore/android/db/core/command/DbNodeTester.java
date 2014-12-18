@@ -19,18 +19,16 @@ package org.eclipse.andmore.android.db.core.command;
 import org.eclipse.andmore.android.db.core.ui.IDbNode;
 import org.eclipse.core.expressions.PropertyTester;
 
-public class DbNodeTester extends PropertyTester
-{
+public class DbNodeTester extends PropertyTester {
 
-    public boolean test(Object receiver, String property, Object[] args, Object expectedValue)
-    {
-        boolean result = false;
-        if (receiver instanceof IDbNode)
-        {
-            IDbNode dbNode = (IDbNode) receiver;
-            result = dbNode.testAttribute(dbNode, property, expectedValue.toString());
-        }
+	@Override
+	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
+		boolean result = false;
+		if (receiver instanceof IDbNode) {
+			IDbNode dbNode = (IDbNode) receiver;
+			result = dbNode.testAttribute(dbNode, property, expectedValue.toString());
+		}
 
-        return result;
-    }
+		return result;
+	}
 }

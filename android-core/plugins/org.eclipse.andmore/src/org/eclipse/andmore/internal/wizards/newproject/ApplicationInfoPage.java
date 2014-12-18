@@ -18,7 +18,6 @@ package org.eclipse.andmore.internal.wizards.newproject;
 import com.android.SdkConstants;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.internal.sdk.Sdk.ITargetChangeListener;

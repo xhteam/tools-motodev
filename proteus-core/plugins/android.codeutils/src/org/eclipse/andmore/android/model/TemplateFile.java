@@ -18,66 +18,56 @@ package org.eclipse.andmore.android.model;
 /**
  * Represents a file which is part of a template.
  */
-public class TemplateFile
-{
+public class TemplateFile {
 
-    private String type;
+	private String type;
 
-    private String modelName;
+	private String modelName;
 
-    private String finalName;
+	private String finalName;
 
-    private String modifier;
+	private String modifier;
 
-    /**
-     * Constructs a new template file setting its initial values.
-     * */
-    public TemplateFile(String type, String modelName, String finalName, String modifier)
-    {
-        this.type = type;
-        this.modelName = modelName;
-        this.finalName = finalName;
-        this.modifier = modifier;
-    }
+	/**
+	 * Constructs a new template file setting its initial values.
+	 * */
+	public TemplateFile(String type, String modelName, String finalName, String modifier) {
+		this.type = type;
+		this.modelName = modelName;
+		this.finalName = finalName;
+		this.modifier = modifier;
+	}
 
-    public String getType()
-    {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getModelName()
-    {
-        return modelName;
-    }
+	public String getModelName() {
+		return modelName;
+	}
 
-    public void setModelName(String modelName)
-    {
-        this.modelName = modelName;
-    }
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
 
-    public String getFinalName()
-    {
-        return finalName;
-    }
+	public String getFinalName() {
+		return finalName;
+	}
 
-    public void setFinalName(String finalName)
-    {
-        this.finalName = finalName;
-    }
+	public void setFinalName(String finalName) {
+		this.finalName = finalName;
+	}
 
-    public String getModifier()
-    {
-        return modifier;
-    }
+	public String getModifier() {
+		return modifier;
+	}
 
-    public void setModifier(String modifier)
-    {
-        this.modifier = modifier;
-    }
+	public void setModifier(String modifier) {
+		this.modifier = modifier;
+	}
 
 }

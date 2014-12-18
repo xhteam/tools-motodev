@@ -17,42 +17,33 @@ package org.eclipse.andmore.android.json;
 
 import java.util.List;
 
-public class JSONNull extends JSONValue
-{
-    @Override
-    public Object getValue()
-    {
-        return null;
-    }
+public class JSONNull extends JSONValue {
+	@Override
+	public Object getValue() {
+		return null;
+	}
 
-    static JSONValue parseValues(List<Character> json)
-    {
-        boolean parsed = false;
+	static JSONValue parseValues(List<Character> json) {
+		boolean parsed = false;
 
-        while (!parsed)
-        {
-            Character next = json.get(0);
+		while (!parsed) {
+			Character next = json.get(0);
 
-            if (next == 'n' && json.get(1) == 'u' && json.get(2) == 'l' && json.get(3) == 'l')
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    json.remove(0);
-                }
-                parsed = true;
-            }
-            else
-            {
-                throw new IllegalArgumentException();
-            }
+			if (next == 'n' && json.get(1) == 'u' && json.get(2) == 'l' && json.get(3) == 'l') {
+				for (int i = 0; i < 4; i++) {
+					json.remove(0);
+				}
+				parsed = true;
+			} else {
+				throw new IllegalArgumentException();
+			}
 
-        }
-        return new JSONNull();
-    }
+		}
+		return new JSONNull();
+	}
 
-    @Override
-    public String toString()
-    {
-        return "null";
-    }
+	@Override
+	public String toString() {
+		return "null";
+	}
 }

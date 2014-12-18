@@ -33,121 +33,103 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 /**
- * This class is the Implementation of ILogFile that is responsible to collect device properties and write them to files.
- * These files will be used by the Collect Logs functionality
+ * This class is the Implementation of ILogFile that is responsible to collect
+ * device properties and write them to files. These files will be used by the
+ * Collect Logs functionality
  */
-public class DevicePropertyLogger implements ILogFile
-{
+public class DevicePropertyLogger implements ILogFile {
 
-    private final Collection<String> serialNumbers;
+	private final Collection<String> serialNumbers;
 
-    private final Map<String, Map<String, String>> properties;
+	private final Map<String, Map<String, String>> properties;
 
-    public DevicePropertyLogger()
-    {
-        serialNumbers = DDMSFacade.getConnectedSerialNumbers();
-        properties = new HashMap<String, Map<String, String>>(serialNumbers.size());
-        for (String serialNumber : serialNumbers)
-        {
-            Map<String, String> propertiesMap = new HashMap<String, String>(140);
-            String deviceName = DDMSFacade.getNameBySerialNumber(serialNumber);
-            try
-            {
-                Collection<String> lines =
-                        DDMSFacade
-                                .execRemoteApp(serialNumber, "getprop", new NullProgressMonitor());
-                for (String line : lines)
-                {
-                    String[] split = line.split(":");
-                    StringBuffer buffer = new StringBuffer();
-                    for (int i = 1; i < split.length; i++)
-                    {
-                        buffer.append(split[i]);
-                    }
+	public DevicePropertyLogger() {
+		serialNumbers = DDMSFacade.getConnectedSerialNumbers();
+		properties = new HashMap<String, Map<String, String>>(serialNumbers.size());
+		for (String serialNumber : serialNumbers) {
+			Map<String, String> propertiesMap = new HashMap<String, String>(140);
+			String deviceName = DDMSFacade.getNameBySerialNumber(serialNumber);
+			try {
+				Collection<String> lines = DDMSFacade.execRemoteApp(serialNumber, "getprop", new NullProgressMonitor());
+				for (String line : lines) {
+					String[] split = line.split(":");
+					StringBuffer buffer = new StringBuffer();
+					for (int i = 1; i < split.length; i++) {
+						buffer.append(split[i]);
+					}
 
-                    if (!"".equals(split[0]))
-                    {
-                        propertiesMap.put(split[0], buffer.toString());
-                    }
-                }
-            }
-            catch (IOException e)
-            {
-                StudioLogger.error(getClass(), "Unable to execute getprop command on device "
-                        + deviceName, e);
-            }
-            properties.put((deviceName), propertiesMap);
-        }
-    }
+					if (!"".equals(split[0])) {
+						propertiesMap.put(split[0], buffer.toString());
+					}
+				}
+			} catch (IOException e) {
+				StudioLogger.error(getClass(), "Unable to execute getprop command on device " + deviceName, e);
+			}
+			properties.put((deviceName), propertiesMap);
+		}
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.android.logger.collector.core.ILogFile#getLogFilePath()
-     */
-    public List<IPath> getLogFilePath()
-    {
-        ArrayList<IPath> logs = new ArrayList<IPath>(properties.keySet().size());
-        IPath LOG_PATH = AndroidPlugin.getDefault().getStateLocation();
-        for (String devicename : properties.keySet())
-        {
-            IPath log = LOG_PATH.append(devicename + "_devProperties.log");
-            writeLogFile(log, properties.get(devicename));
-            logs.add(log);
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.logger.collector.core.ILogFile#getLogFilePath
+	 * ()
+	 */
+	@Override
+	public List<IPath> getLogFilePath() {
+		ArrayList<IPath> logs = new ArrayList<IPath>(properties.keySet().size());
+		IPath LOG_PATH = AndroidPlugin.getDefault().getStateLocation();
+		for (String devicename : properties.keySet()) {
+			IPath log = LOG_PATH.append(devicename + "_devProperties.log");
+			writeLogFile(log, properties.get(devicename));
+			logs.add(log);
+		}
 
-        return logs;
-    }
+		return logs;
+	}
 
-    private void writeLogFile(IPath log, Map<String, String> devProperties)
-    {
-        File logFile = log.toFile();
-        BufferedWriter bw = null;
-        try
-        {
-            bw = new BufferedWriter(new FileWriter(logFile));
+	private void writeLogFile(IPath log, Map<String, String> devProperties) {
+		File logFile = log.toFile();
+		BufferedWriter bw = null;
+		try {
+			bw = new BufferedWriter(new FileWriter(logFile));
 
-            for (String propKey : devProperties.keySet())
-            {
-                bw.append(propKey + "=" + devProperties.get(propKey)
-                        + System.getProperty("line.separator"));
-            }
-        }
-        catch (IOException e)
-        {
-            StudioLogger.error(getClass(),
-                    "An error occurred while trying to write device Properties log file, "
-                            + logFile.getAbsolutePath(), e);
-        }
-        finally
-        {
-            try
-            {
-                bw.flush();
-                bw.close();
-            }
-            catch (IOException e)
-            {
-                StudioLogger.error("Could not close stream while writing device property log. "
-                        + e.getMessage());
-            }
-        }
-    }
+			for (String propKey : devProperties.keySet()) {
+				bw.append(propKey + "=" + devProperties.get(propKey) + System.getProperty("line.separator"));
+			}
+		} catch (IOException e) {
+			StudioLogger.error(getClass(), "An error occurred while trying to write device Properties log file, "
+					+ logFile.getAbsolutePath(), e);
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				StudioLogger.error("Could not close stream while writing device property log. " + e.getMessage());
+			}
+		}
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.android.logger.collector.core.ILogFile#getLogName()
-     */
-    public String getLogName()
-    {
-        return "Device properties";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.logger.collector.core.ILogFile#getLogName()
+	 */
+	@Override
+	public String getLogName() {
+		return "Device properties";
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.android.logger.collector.core.ILogFile#getOutputSubfolderName()
-     */
-    public String getOutputSubfolderName()
-    {
-        return "Devices";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.logger.collector.core.ILogFile#
+	 * getOutputSubfolderName()
+	 */
+	@Override
+	public String getOutputSubfolderName() {
+		return "Devices";
+	}
 }

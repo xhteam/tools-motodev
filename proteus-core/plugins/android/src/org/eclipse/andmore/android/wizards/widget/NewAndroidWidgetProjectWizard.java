@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
@@ -51,233 +52,202 @@ import com.android.sdklib.IAndroidTarget;
 /**
  * Class that represents the Android New Widget Project Wizard
  */
-public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard implements
-        INewWizard
-{
+public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard implements INewWizard {
 
-    private static final String WIZARD_BANNER = "icons/wizban/widget_provider_prj_wiz.png"; //$NON-NLS-1$
+	private static final String WIZARD_BANNER = "icons/wizban/widget_provider_prj_wiz.png"; //$NON-NLS-1$
 
-    private final AndroidProject project = new AndroidProject();
+	private final AndroidProject project = new AndroidProject();
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#canFinish()
-     */
-    @Override
-    public boolean canFinish()
-    {
-        return (project.getStatus().getSeverity() != IStatus.ERROR)
-                && !project.needMoreInformation();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
+	@Override
+	public boolean canFinish() {
+		return (project.getStatus().getSeverity() != IStatus.ERROR) && !project.needMoreInformation();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        DoSave doSave = new DoSave();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#
+	 * performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		DoSave doSave = new DoSave();
 
-        try
-        {
-            getContainer().run(false, false, doSave);
-        }
-        catch (InvocationTargetException e)
-        {
-            String errMsg =
-                    NLS.bind(
-                            AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject,
-                            e.getCause().getLocalizedMessage());
-            StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
+		try {
+			getContainer().run(false, false, doSave);
+		} catch (InvocationTargetException e) {
+			String errMsg = NLS.bind(AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject, e
+					.getCause().getLocalizedMessage());
+			StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
 
-            EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
-        }
-        catch (InterruptedException e)
-        {
-            String errMsg =
-                    NLS.bind(
-                            AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject,
-                            e.getLocalizedMessage());
-            StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
+			EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
+		} catch (InterruptedException e) {
+			String errMsg = NLS.bind(AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject,
+					e.getLocalizedMessage());
+			StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
 
-            EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
-        }
+			EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
+		}
 
-        if (doSave.saved)
-        {
-            // Collecting usage data for statistical purposes
-            try
-            {
-                StudioLogger.collectUsageData(StudioLogger.WHAT_APP_MANAGEMENT_CREATE,
-                        StudioLogger.KIND_APP_MANAGEMENT, this.project.getSourceType().name()
-                                .toLowerCase(), AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault()
-                                .getBundle().getVersion().toString());
-            }
-            catch (Throwable e)
-            {
-                //Do nothing, but error on the log should never prevent app from working
-            }
-        }
+		if (doSave.saved) {
+			// Collecting usage data for statistical purposes
+			try {
+				StudioLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_CREATE,
+						UsageDataConstants.KIND_APP_MANAGEMENT, this.project.getSourceType().name().toLowerCase(),
+						AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle().getVersion().toString());
+			} catch (Throwable e) {
+				// Do nothing, but error on the log should never prevent app
+				// from working
+			}
+		}
 
-        return doSave.saved;
-    }
+		return doSave.saved;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-     */
-    @Override
-    public void init(IWorkbench workbench, IStructuredSelection selection)
-    {
-        setWindowTitle(AndroidNLS.UI_NewAndroidWidgetProjectWizard_TitleNewProjectWizard);
-        setNeedsProgressMonitor(true);
-        setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_BANNER));
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#init
+	 * (org.eclipse.ui.IWorkbench,
+	 * org.eclipse.jface.viewers.IStructuredSelection)
+	 */
+	@Override
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		setWindowTitle(AndroidNLS.UI_NewAndroidWidgetProjectWizard_TitleNewProjectWizard);
+		setNeedsProgressMonitor(true);
+		setDefaultPageImageDescriptor(AndroidPlugin.getImageDescriptor(WIZARD_BANNER));
 
-        // Set project type to widget
-        project.setSourceType(SourceTypes.WIDGET);
+		// Set project type to widget
+		project.setSourceType(SourceTypes.WIDGET);
 
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performCancel()
-     */
-    @Override
-    public boolean performCancel()
-    {
-        try
-        {
-            project.finalize();
-        }
-        catch (Throwable e)
-        {
-            StudioLogger.error(NewAndroidWidgetProjectWizard.class, e.getLocalizedMessage(), e);
-        }
-        return super.performCancel();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performCancel()
+	 */
+	@Override
+	public boolean performCancel() {
+		try {
+			project.finalize();
+		} catch (Throwable e) {
+			StudioLogger.error(NewAndroidWidgetProjectWizard.class, e.getLocalizedMessage(), e);
+		}
+		return super.performCancel();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        addPage(new NewAndroidWidgetProjectMainPage(project));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#addPages
+	 * ()
+	 */
+	@Override
+	public void addPages() {
+		addPage(new NewAndroidWidgetProjectMainPage(project));
+	}
 
-    /**
-     * Implements an IRunnableWithProgress to run the save process
-     */
-    private class DoSave implements IRunnableWithProgress
-    {
-        private static final String OPHONE_JAR = "oms.jar";
+	/**
+	 * Implements an IRunnableWithProgress to run the save process
+	 */
+	private class DoSave implements IRunnableWithProgress {
+		private static final String OPHONE_JAR = "oms.jar";
 
-        private static final String OPHONESDK_PROMPT_KEY = "OphoneSDK"; //$NON-NLS-1$
+		private static final String OPHONESDK_PROMPT_KEY = "OphoneSDK"; //$NON-NLS-1$
 
-        boolean saved = false;
+		boolean saved = false;
 
-        public void run(IProgressMonitor monitor) throws InvocationTargetException,
-                InterruptedException
-        {
-            // Gets the auto-building configuration to set it back in the end
-            final boolean autoBuild = ResourcesPlugin.getWorkspace().isAutoBuilding();
+		@Override
+		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+			// Gets the auto-building configuration to set it back in the end
+			final boolean autoBuild = ResourcesPlugin.getWorkspace().isAutoBuilding();
 
-            final IWorkspaceDescription wsd = ResourcesPlugin.getWorkspace().getDescription();
-            wsd.setAutoBuilding(false);
-            try
-            {
-                // Set auto-build off for performance reasons
-                ResourcesPlugin.getWorkspace().setDescription(wsd);
-            }
-            catch (CoreException e)
-            {
-                StudioLogger.error(NewAndroidWidgetProjectWizard.class,
-                        "Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
-            }
+			final IWorkspaceDescription wsd = ResourcesPlugin.getWorkspace().getDescription();
+			wsd.setAutoBuilding(false);
+			try {
+				// Set auto-build off for performance reasons
+				ResourcesPlugin.getWorkspace().setDescription(wsd);
+			} catch (CoreException e) {
+				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
+			}
 
-            saved = project.save(getContainer(), monitor);
-            updatePerspective();
+			saved = project.save(getContainer(), monitor);
+			updatePerspective();
 
-            IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getName());
+			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getName());
 
-            addOphoneSDK(p);
+			addOphoneSDK(p);
 
-            try
-            {
-                p.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
-            }
-            catch (Exception e1)
-            {
-                StudioLogger.error(NewAndroidWidgetProjectWizard.class,
-                        "Sleep error when cleaning workspace after project creation: " //$NON-NLS-1$
-                                + e1.getMessage());
-            }
+			try {
+				p.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
+			} catch (Exception e1) {
+				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+						"Sleep error when cleaning workspace after project creation: " //$NON-NLS-1$
+								+ e1.getMessage());
+			}
 
-            wsd.setAutoBuilding(autoBuild);
-            try
-            {
-                // roollback the auto-bulding setting to the original state
-                ResourcesPlugin.getWorkspace().setDescription(wsd);
-            }
-            catch (CoreException e)
-            {
-                StudioLogger.error(NewAndroidWidgetProjectWizard.class,
-                        "Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
-            }
+			wsd.setAutoBuilding(autoBuild);
+			try {
+				// roollback the auto-bulding setting to the original state
+				ResourcesPlugin.getWorkspace().setDescription(wsd);
+			} catch (CoreException e) {
+				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
+			}
 
-        }
+		}
 
-        private void addOphoneSDK(IProject p)
-        {
-            IAndroidTarget sdkTarget = project.getSdkTarget();
-            File platformLocation = new File(sdkTarget.getLocation());
-            File[] listFiles = platformLocation.listFiles();
+		private void addOphoneSDK(IProject p) {
+			IAndroidTarget sdkTarget = project.getSdkTarget();
+			File platformLocation = new File(sdkTarget.getLocation());
+			File[] listFiles = platformLocation.listFiles();
 
-            boolean found = false;
-            int i = 0;
-            File file = null;
-            while (!found && (i < listFiles.length))
-            {
-                file = listFiles[i];
-                if (file.getName().equals(OPHONE_JAR))
-                {
-                    found = true;
-                }
-                i++;
-            }
+			boolean found = false;
+			int i = 0;
+			File file = null;
+			while (!found && (i < listFiles.length)) {
+				file = listFiles[i];
+				if (file.getName().equals(OPHONE_JAR)) {
+					found = true;
+				}
+				i++;
+			}
 
-            if (found)
-            {
-                boolean addClasspath =
-                        DialogWithToggleUtils.showQuestion(OPHONESDK_PROMPT_KEY,
-                                AndroidNLS.NewAndroidProjectWizard_OPhonePromptTitle,
-                                AndroidNLS.NewAndroidProjectWizard_OPhonePromptMessage);
+			if (found) {
+				boolean addClasspath = DialogWithToggleUtils.showQuestion(OPHONESDK_PROMPT_KEY,
+						AndroidNLS.NewAndroidProjectWizard_OPhonePromptTitle,
+						AndroidNLS.NewAndroidProjectWizard_OPhonePromptMessage);
 
-                if (addClasspath)
-                {
-                    IJavaProject javaProject = JavaCore.create(p);
-                    if ((javaProject != null) && javaProject.exists())
-                    {
-                        try
-                        {
-                            javaProject.open(new NullProgressMonitor());
-                            IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
-                            IClasspathEntry[] newClasspath =
-                                    new IClasspathEntry[rawClasspath.length + 1];
+				if (addClasspath) {
+					IJavaProject javaProject = JavaCore.create(p);
+					if ((javaProject != null) && javaProject.exists()) {
+						try {
+							javaProject.open(new NullProgressMonitor());
+							IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
+							IClasspathEntry[] newClasspath = new IClasspathEntry[rawClasspath.length + 1];
 
-                            System.arraycopy(rawClasspath, 0, newClasspath, 0, rawClasspath.length);
-                            newClasspath[newClasspath.length - 1] =
-                                    JavaCore.newLibraryEntry(new Path(file.getAbsolutePath()),
-                                            null, null);
-                            javaProject.setRawClasspath(newClasspath, new NullProgressMonitor());
-                        }
-                        catch (JavaModelException e)
-                        {
-                            StudioLogger.error(NewAndroidWidgetProjectWizard.class,
-                                    "Error while setting up the oms.jar on the project classpath: " //$NON-NLS-1$
-                                            + e.getMessage());
-                        }
-                    }
-                }
-            }
-        }
-    }
+							System.arraycopy(rawClasspath, 0, newClasspath, 0, rawClasspath.length);
+							newClasspath[newClasspath.length - 1] = JavaCore.newLibraryEntry(
+									new Path(file.getAbsolutePath()), null, null);
+							javaProject.setRawClasspath(newClasspath, new NullProgressMonitor());
+						} catch (JavaModelException e) {
+							StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+									"Error while setting up the oms.jar on the project classpath: " //$NON-NLS-1$
+											+ e.getMessage());
+						}
+					}
+				}
+			}
+		}
+	}
 
 }

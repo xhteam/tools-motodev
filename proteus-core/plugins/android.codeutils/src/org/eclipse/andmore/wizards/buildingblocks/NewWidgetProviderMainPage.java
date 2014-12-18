@@ -25,86 +25,91 @@ import org.eclipse.andmore.android.model.WidgetProvider;
 /**
  * Class that implements the Widget Provider Wizard Main Page.
  */
-public class NewWidgetProviderMainPage extends NewLauncherWizardPage
-{
+public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 
-    private static final String NEW_WIDGET_PROVIDER_HELP = CodeUtilsActivator.PLUGIN_ID
-            + ".newwidgtprvd";
+	private static final String NEW_WIDGET_PROVIDER_HELP = CodeUtilsActivator.PLUGIN_ID + ".newwidgtprvd";
 
-    /**
-     * Default constructor
-     * 
-     * @param buildBlock The broadcast receiver model
-     */
-    protected NewWidgetProviderMainPage(WidgetProvider buildBlock)
-    {
-        super(buildBlock, CodeUtilsNLS.UI_NewWidgetProviderMainPage_PageTitle);
-    }
+	/**
+	 * Default constructor
+	 * 
+	 * @param buildBlock
+	 *            The broadcast receiver model
+	 */
+	protected NewWidgetProviderMainPage(WidgetProvider buildBlock) {
+		super(buildBlock, CodeUtilsNLS.UI_NewWidgetProviderMainPage_PageTitle);
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage#getBuildBlock()
-     */
-    @Override
-    public WidgetProvider getBuildBlock()
-    {
-        return (WidgetProvider) super.getBuildBlock();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * #getBuildBlock()
+	 */
+	@Override
+	public WidgetProvider getBuildBlock() {
+		return (WidgetProvider) super.getBuildBlock();
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getMethods()
-     */
-    @Override
-    protected Method[] getMethods()
-    {
-        return new Method[0];
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getMethods()
+	 */
+	@Override
+	protected Method[] getMethods() {
+		return new Method[0];
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getDefaultMessage()
-     */
-    @Override
-    public String getDefaultMessage()
-    {
-        return CodeUtilsNLS.UI_NewWidgetProviderMainPage_DefaultWizardDescription;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getDefaultMessage()
+	 */
+	@Override
+	public String getDefaultMessage() {
+		return CodeUtilsNLS.UI_NewWidgetProviderMainPage_DefaultWizardDescription;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizardPage#getWizardTitle()
-     */
-    @Override
-    public String getWizardTitle()
-    {
-        return CodeUtilsNLS.UI_NewWidgetProviderMainPage_WizardTitle;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * NewBuildingBlocksWizardPage#getWizardTitle()
+	 */
+	@Override
+	public String getWizardTitle() {
+		return CodeUtilsNLS.UI_NewWidgetProviderMainPage_WizardTitle;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage#getIntentFiltersActions()
-     */
-    @Override
-    protected String[] getIntentFiltersActions()
-    {
-        String[] receiverActions = new String[0];
-        try
-        {
-            receiverActions = AndroidUtils.getReceiverActions(getBuildBlock().getProject());
-        }
-        catch (AndroidException e)
-        {
-            setErrorMessage(e.getMessage());
-        }
-        return receiverActions;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * #getIntentFiltersActions()
+	 */
+	@Override
+	protected String[] getIntentFiltersActions() {
+		String[] receiverActions = new String[0];
+		try {
+			receiverActions = AndroidUtils.getReceiverActions(getBuildBlock().getProject());
+		} catch (AndroidException e) {
+			setErrorMessage(e.getMessage());
+		}
+		return receiverActions;
+	}
 
-    /**
-     * Gets the help ID to be used for attaching
-     * context sensitive help. 
-     * 
-     * Classes that extends this class and want to set
-     * their on help should override this method
-     */
-    @Override
-    protected String getHelpId()
-    {
-        return NEW_WIDGET_PROVIDER_HELP;
-    }
+	/**
+	 * Gets the help ID to be used for attaching context sensitive help.
+	 * 
+	 * Classes that extends this class and want to set their on help should
+	 * override this method
+	 */
+	@Override
+	protected String getHelpId() {
+		return NEW_WIDGET_PROVIDER_HELP;
+	}
 }

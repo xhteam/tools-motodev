@@ -24,58 +24,45 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator;
 
 /**
- * Class that implements a Validator for the project/package selection 
- * on the New Project Wizard
+ * Class that implements a Validator for the project/package selection on the
+ * New Project Wizard
  */
 @SuppressWarnings("restriction")
-class ElementTreeValidator extends TypedElementSelectionValidator
-{
-    private static Class<?>[] acceptedClasses = new Class[]
-    {
-            IPackageFragmentRoot.class, IJavaProject.class
-    };
+class ElementTreeValidator extends TypedElementSelectionValidator {
+	private static Class<?>[] acceptedClasses = new Class[] { IPackageFragmentRoot.class, IJavaProject.class };
 
-    public ElementTreeValidator()
-    {
-        super(acceptedClasses, false);
-    }
+	public ElementTreeValidator() {
+		super(acceptedClasses, false);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator#isSelectedValid(java.lang.Object)
-     */
-    @Override
-    public boolean isSelectedValid(Object element)
-    {
-        boolean isValid = false;
-        try
-        {
-            if (element instanceof IJavaProject)
-            {
-                IJavaProject jproject = (IJavaProject) element;
-                IPath path = jproject.getProject().getFullPath();
-                isValid = (jproject.findPackageFragmentRoot(path) != null);
-            }
-            else if (element instanceof IPackageFragmentRoot)
-            {
-                IPackageFragmentRoot packageFragmentRoot = (IPackageFragmentRoot) element;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jdt.internal.ui.wizards.TypedElementSelectionValidator#
+	 * isSelectedValid(java.lang.Object)
+	 */
+	@Override
+	public boolean isSelectedValid(Object element) {
+		boolean isValid = false;
+		try {
+			if (element instanceof IJavaProject) {
+				IJavaProject jproject = (IJavaProject) element;
+				IPath path = jproject.getProject().getFullPath();
+				isValid = (jproject.findPackageFragmentRoot(path) != null);
+			} else if (element instanceof IPackageFragmentRoot) {
+				IPackageFragmentRoot packageFragmentRoot = (IPackageFragmentRoot) element;
 
-                boolean isSrc = (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE);
-                boolean isGen =
-                        packageFragmentRoot.getElementName().equals(
-                                IAndroidConstants.GEN_SRC_FOLDER)
-                                && (packageFragmentRoot.getParent() instanceof IJavaProject);
+				boolean isSrc = (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE);
+				boolean isGen = packageFragmentRoot.getElementName().equals(IAndroidConstants.GEN_SRC_FOLDER)
+						&& (packageFragmentRoot.getParent() instanceof IJavaProject);
 
-                isValid = isSrc && !isGen;
-            }
-            else
-            {
-                isValid = true;
-            }
-        }
-        catch (JavaModelException e)
-        {
-            StudioLogger.error(ElementTreeValidator.class, e.getLocalizedMessage(), e);
-        }
-        return isValid;
-    }
+				isValid = isSrc && !isGen;
+			} else {
+				isValid = true;
+			}
+		} catch (JavaModelException e) {
+			StudioLogger.error(ElementTreeValidator.class, e.getLocalizedMessage(), e);
+		}
+		return isValid;
+	}
 }

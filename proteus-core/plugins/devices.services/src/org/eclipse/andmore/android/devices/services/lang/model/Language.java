@@ -35,135 +35,117 @@ import org.eclipse.core.runtime.FileLocator;
  * The list of languages has been downloaded from:
  * http://www.loc.gov/standards/iso639-2/ascii_8bits.html
  */
-public class Language
-{
+public class Language {
 
-    private static final String FILE_PATH = "resources/ISO-639-2_utf-8.txt";
+	private static final String FILE_PATH = "resources/ISO-639-2_utf-8.txt";
 
-    private static List<Language> languageList = null;
+	private static List<Language> languageList = null;
 
-    private static Map<String, Language> languageMap = null;
+	private static Map<String, Language> languageMap = null;
 
-    private String name;
+	private String name;
 
-    private String id;
+	private String id;
 
-    /**
-     * Get the languages list
-     * 
-     * @return the languages list
-     */
-    public static List<Language> getLanguageList()
-    {
-        if (languageList == null)
-        {
-            loadLanguages();
-        }
-        return languageList;
-    }
+	/**
+	 * Get the languages list
+	 * 
+	 * @return the languages list
+	 */
+	public static List<Language> getLanguageList() {
+		if (languageList == null) {
+			loadLanguages();
+		}
+		return languageList;
+	}
 
-    /**
-     * Load languages from TXT file
-     */
-    private static void loadLanguages()
-    {
-        languageList = new ArrayList<Language>();
-        languageMap = new HashMap<String, Language>();
+	/**
+	 * Load languages from TXT file
+	 */
+	private static void loadLanguages() {
+		languageList = new ArrayList<Language>();
+		languageMap = new HashMap<String, Language>();
 
-        URL languagesURL = DeviceServicesPlugin.getDefault().getBundle().getResource(FILE_PATH);
+		URL languagesURL = DeviceServicesPlugin.getDefault().getBundle().getResource(FILE_PATH);
 
-        BufferedReader input = null;
-        try
-        {
+		BufferedReader input = null;
+		try {
 
-            File file = new File(FileLocator.toFileURL(languagesURL).getPath());
+			File file = new File(FileLocator.toFileURL(languagesURL).getPath());
 
-            input = new BufferedReader(new FileReader(file));
+			input = new BufferedReader(new FileReader(file));
 
-            String line = null;
-            String[] lineParts = null;
-            String name = null;
-            String ID = null;
-            while ((line = input.readLine()) != null)
-            {
-                lineParts = line.split("\\|");
-                ID = lineParts[2];
-                name = lineParts[3];
-                if (((ID != null) && (!ID.equals(""))) && ((name != null) && (!name.equals(""))))
-                {
-                    Language language = new Language(name, ID);
-                    languageList.add(language);
-                    languageMap.put(name, language);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            StudioLogger.error("Change Language TmL Service: could not load languages list");
-        }
-        finally
-        {
-            if (input != null)
-            {
-                try
-                {
-                    input.close();
-                }
-                catch (IOException e)
-                {
-                }
-            }
-        }
+			String line = null;
+			String[] lineParts = null;
+			String name = null;
+			String ID = null;
+			while ((line = input.readLine()) != null) {
+				lineParts = line.split("\\|");
+				ID = lineParts[2];
+				name = lineParts[3];
+				if (((ID != null) && (!ID.equals(""))) && ((name != null) && (!name.equals("")))) {
+					Language language = new Language(name, ID);
+					languageList.add(language);
+					languageMap.put(name, language);
+				}
+			}
+		} catch (Exception e) {
+			StudioLogger.error("Change Language TmL Service: could not load languages list");
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+				}
+			}
+		}
 
-    }
+	}
 
-    /**
-     * Get language ID from language name
-     * 
-     * @param langName language name
-     * @return language ID
-     */
-    public static String getIdFromName(String langName)
-    {
-        String id = null;
-        Language language = languageMap.get(langName);
-        if (language != null)
-        {
-            id = language.getId();
-        }
-        return id;
-    }
+	/**
+	 * Get language ID from language name
+	 * 
+	 * @param langName
+	 *            language name
+	 * @return language ID
+	 */
+	public static String getIdFromName(String langName) {
+		String id = null;
+		Language language = languageMap.get(langName);
+		if (language != null) {
+			id = language.getId();
+		}
+		return id;
+	}
 
-    /**
-     * Constructs a new Language instance, based on the given name and id.
-     * @param name language name
-     * @param id language id
-     */
-    public Language(String name, String id)
-    {
-        super();
-        this.name = name;
-        this.id = id;
-    }
+	/**
+	 * Constructs a new Language instance, based on the given name and id.
+	 * 
+	 * @param name
+	 *            language name
+	 * @param id
+	 *            language id
+	 */
+	public Language(String name, String id) {
+		super();
+		this.name = name;
+		this.id = id;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getId()
-    {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }

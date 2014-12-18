@@ -66,307 +66,303 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A tree view of the OpenGL state. It listens to the current GLCall that is selected
- * in the Function Trace view, and updates its view to reflect the state as of the selected call.
+ * A tree view of the OpenGL state. It listens to the current GLCall that is
+ * selected in the Function Trace view, and updates its view to reflect the
+ * state as of the selected call.
  */
 public class StateViewPage extends Page implements ISelectionListener, ISelectionProvider {
-    public static final String ID = "org.eclipse.andmore.gltrace.views.GLState"; //$NON-NLS-1$
-    private static String sLastUsedPath;
-    private static final ILock sGlStateLock = Job.getJobManager().newLock();
+	public static final String ID = "org.eclipse.andmore.gltrace.views.GLState"; //$NON-NLS-1$
+	private static String sLastUsedPath;
+	private static final ILock sGlStateLock = Job.getJobManager().newLock();
 
-    private GLTrace mTrace;
-    private List<GLCall> mGLCalls;
+	private GLTrace mTrace;
+	private List<GLCall> mGLCalls;
 
-    /** OpenGL State as of call {@link #mCurrentStateIndex}. */
-    private IGLProperty mState;
-    private int mCurrentStateIndex;
+	/** OpenGL State as of call {@link #mCurrentStateIndex}. */
+	private IGLProperty mState;
+	private int mCurrentStateIndex;
 
-    private String[] TREE_PROPERTIES = { "Name", "Value" };
-    private TreeViewer mTreeViewer;
-    private StateLabelProvider mLabelProvider;
+	private String[] TREE_PROPERTIES = { "Name", "Value" };
+	private TreeViewer mTreeViewer;
+	private StateLabelProvider mLabelProvider;
 
-    public StateViewPage(GLTrace trace) {
-        setInput(trace);
-    }
+	public StateViewPage(GLTrace trace) {
+		setInput(trace);
+	}
 
-    public void setInput(GLTrace trace) {
-        mTrace = trace;
-        if (trace != null) {
-            mGLCalls = trace.getGLCalls();
-        } else {
-            mGLCalls = null;
-        }
+	public void setInput(GLTrace trace) {
+		mTrace = trace;
+		if (trace != null) {
+			mGLCalls = trace.getGLCalls();
+		} else {
+			mGLCalls = null;
+		}
 
-        mState = GLState.createDefaultState();
-        mCurrentStateIndex = -1;
+		mState = GLState.createDefaultState();
+		mCurrentStateIndex = -1;
 
-        if (mTreeViewer != null) {
-            mTreeViewer.setInput(mState);
-            mTreeViewer.refresh();
-        }
-    }
+		if (mTreeViewer != null) {
+			mTreeViewer.setInput(mState);
+			mTreeViewer.refresh();
+		}
+	}
 
-    @Override
-    public void createControl(Composite parent) {
-        final Tree tree = new Tree(parent, SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
+	@Override
+	public void createControl(Composite parent) {
+		final Tree tree = new Tree(parent, SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL);
+		GridDataFactory.fillDefaults().grab(true, true).applyTo(tree);
 
-        tree.setHeaderVisible(true);
-        tree.setLinesVisible(true);
-        tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+		tree.setHeaderVisible(true);
+		tree.setLinesVisible(true);
+		tree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        TreeColumn col1 = new TreeColumn(tree, SWT.LEFT);
-        col1.setText(TREE_PROPERTIES[0]);
-        col1.setWidth(200);
+		TreeColumn col1 = new TreeColumn(tree, SWT.LEFT);
+		col1.setText(TREE_PROPERTIES[0]);
+		col1.setWidth(200);
 
-        TreeColumn col2 = new TreeColumn(tree, SWT.LEFT);
-        col2.setText(TREE_PROPERTIES[1]);
-        col2.setWidth(200);
+		TreeColumn col2 = new TreeColumn(tree, SWT.LEFT);
+		col2.setText(TREE_PROPERTIES[1]);
+		col2.setWidth(200);
 
-        mTreeViewer = new TreeViewer(tree);
-        mTreeViewer.setContentProvider(new StateContentProvider());
-        mLabelProvider = new StateLabelProvider();
-        mTreeViewer.setLabelProvider(mLabelProvider);
-        mTreeViewer.setInput(mState);
-        mTreeViewer.refresh();
+		mTreeViewer = new TreeViewer(tree);
+		mTreeViewer.setContentProvider(new StateContentProvider());
+		mLabelProvider = new StateLabelProvider();
+		mTreeViewer.setLabelProvider(mLabelProvider);
+		mTreeViewer.setInput(mState);
+		mTreeViewer.refresh();
 
-        final IToolBarManager manager = getSite().getActionBars().getToolBarManager();
-        manager.add(new Action("Save to File",
-                PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                        ISharedImages.IMG_ETOOL_SAVEAS_EDIT)) {
-            @Override
-            public void run() {
-                saveCurrentState();
-            }
-        });
-    }
+		final IToolBarManager manager = getSite().getActionBars().getToolBarManager();
+		manager.add(new Action("Save to File", PlatformUI.getWorkbench().getSharedImages()
+				.getImageDescriptor(ISharedImages.IMG_ETOOL_SAVEAS_EDIT)) {
+			@Override
+			public void run() {
+				saveCurrentState();
+			}
+		});
+	}
 
-    private void saveCurrentState() {
-        final Shell shell = mTreeViewer.getTree().getShell();
-        FileDialog fd = new FileDialog(shell, SWT.SAVE);
-        fd.setFilterExtensions(new String[] { "*.txt" });
-        if (sLastUsedPath != null) {
-            fd.setFilterPath(sLastUsedPath);
-        }
+	private void saveCurrentState() {
+		final Shell shell = mTreeViewer.getTree().getShell();
+		FileDialog fd = new FileDialog(shell, SWT.SAVE);
+		fd.setFilterExtensions(new String[] { "*.txt" });
+		if (sLastUsedPath != null) {
+			fd.setFilterPath(sLastUsedPath);
+		}
 
-        String path = fd.open();
-        if (path == null) {
-            return;
-        }
+		String path = fd.open();
+		if (path == null) {
+			return;
+		}
 
-        File f = new File(path);
-        sLastUsedPath = f.getParent();
+		File f = new File(path);
+		sLastUsedPath = f.getParent();
 
-        // export state to f
-        StatePrettyPrinter pp = new StatePrettyPrinter();
-        synchronized (sGlStateLock) {
-            mState.prettyPrint(pp);
-        }
+		// export state to f
+		StatePrettyPrinter pp = new StatePrettyPrinter();
+		synchronized (sGlStateLock) {
+			mState.prettyPrint(pp);
+		}
 
-        try {
-            Files.write(pp.toString(), f, Charsets.UTF_8);
-        } catch (IOException e) {
-            ErrorDialog.openError(shell,
-                    "Export GL State",
-                    "Unexpected error while writing GL state to file.",
-                    new Status(Status.ERROR, GlTracePlugin.PLUGIN_ID, e.toString()));
-        }
-    }
+		try {
+			Files.write(pp.toString(), f, Charsets.UTF_8);
+		} catch (IOException e) {
+			ErrorDialog.openError(shell, "Export GL State", "Unexpected error while writing GL state to file.",
+					new Status(IStatus.ERROR, GlTracePlugin.PLUGIN_ID, e.toString()));
+		}
+	}
 
-    @Override
-    public void init(IPageSite pageSite) {
-        super.init(pageSite);
-        pageSite.getPage().addSelectionListener(this);
-    }
+	@Override
+	public void init(IPageSite pageSite) {
+		super.init(pageSite);
+		pageSite.getPage().addSelectionListener(this);
+	}
 
-    @Override
-    public void dispose() {
-        getSite().getPage().removeSelectionListener(this);
-        super.dispose();
-    }
+	@Override
+	public void dispose() {
+		getSite().getPage().removeSelectionListener(this);
+		super.dispose();
+	}
 
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        if (!(part instanceof GLFunctionTraceViewer)) {
-            return;
-        }
+	@Override
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		if (!(part instanceof GLFunctionTraceViewer)) {
+			return;
+		}
 
-        if (((GLFunctionTraceViewer) part).getTrace() != mTrace) {
-            return;
-        }
+		if (((GLFunctionTraceViewer) part).getTrace() != mTrace) {
+			return;
+		}
 
-        if (!(selection instanceof TreeSelection)) {
-            return;
-        }
+		if (!(selection instanceof TreeSelection)) {
+			return;
+		}
 
-        GLCall selectedCall = null;
+		GLCall selectedCall = null;
 
-        Object data = ((TreeSelection) selection).getFirstElement();
-        if (data instanceof GLCallNode) {
-            selectedCall = ((GLCallNode) data).getCall();
-        }
+		Object data = ((TreeSelection) selection).getFirstElement();
+		if (data instanceof GLCallNode) {
+			selectedCall = ((GLCallNode) data).getCall();
+		}
 
-        if (selectedCall == null) {
-            return;
-        }
+		if (selectedCall == null) {
+			return;
+		}
 
-        final int selectedCallIndex = selectedCall.getIndex();
+		final int selectedCallIndex = selectedCall.getIndex();
 
-        // Creation of texture images takes a few seconds on the first run. So run
-        // the update task as an Eclipse job.
-        Job job = new Job("Updating GL State") {
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                Set<IGLProperty> changedProperties = null;
+		// Creation of texture images takes a few seconds on the first run. So
+		// run
+		// the update task as an Eclipse job.
+		Job job = new Job("Updating GL State") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				Set<IGLProperty> changedProperties = null;
 
-                try {
-                    sGlStateLock.acquire();
-                    changedProperties = updateState(mCurrentStateIndex,
-                            selectedCallIndex);
-                    mCurrentStateIndex = selectedCallIndex;
-                } catch (Exception e) {
-                    GlTracePlugin.getDefault().logMessage(
-                            "Unexpected error while updating GL State.");
-                    GlTracePlugin.getDefault().logMessage(e.getMessage());
-                    return new Status(Status.ERROR,
-                            GlTracePlugin.PLUGIN_ID,
-                            "Unexpected error while updating GL State.",
-                            e);
-                } finally {
-                    sGlStateLock.release();
-                }
+				try {
+					sGlStateLock.acquire();
+					changedProperties = updateState(mCurrentStateIndex, selectedCallIndex);
+					mCurrentStateIndex = selectedCallIndex;
+				} catch (Exception e) {
+					GlTracePlugin.getDefault().logMessage("Unexpected error while updating GL State.");
+					GlTracePlugin.getDefault().logMessage(e.getMessage());
+					return new Status(IStatus.ERROR, GlTracePlugin.PLUGIN_ID,
+							"Unexpected error while updating GL State.", e);
+				} finally {
+					sGlStateLock.release();
+				}
 
-                mLabelProvider.setChangedProperties(changedProperties);
-                Display.getDefault().syncExec(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!mTreeViewer.getTree().isDisposed()) {
-                            mTreeViewer.refresh();
-                        }
-                    }
-                });
+				mLabelProvider.setChangedProperties(changedProperties);
+				Display.getDefault().syncExec(new Runnable() {
+					@Override
+					public void run() {
+						if (!mTreeViewer.getTree().isDisposed()) {
+							mTreeViewer.refresh();
+						}
+					}
+				});
 
-                return Status.OK_STATUS;
-            }
-        };
-        job.setPriority(Job.SHORT);
-        job.schedule();
-    }
+				return Status.OK_STATUS;
+			}
+		};
+		job.setPriority(Job.SHORT);
+		job.schedule();
+	}
 
-    @Override
-    public Control getControl() {
-        if (mTreeViewer == null) {
-            return null;
-        }
+	@Override
+	public Control getControl() {
+		if (mTreeViewer == null) {
+			return null;
+		}
 
-        return mTreeViewer.getControl();
-    }
+		return mTreeViewer.getControl();
+	}
 
-    @Override
-    public void setFocus() {
-    }
+	@Override
+	public void setFocus() {
+	}
 
-    /**
-     * Update GL state from GL call at fromIndex to the call at toIndex.
-     * If fromIndex < toIndex, the GL state will be updated by applying all the transformations
-     * corresponding to calls from (fromIndex + 1) to toIndex (inclusive).
-     * If fromIndex > toIndex, the GL state will be updated by reverting all the calls from
-     * fromIndex (inclusive) to (toIndex + 1).
-     * @return GL state properties that changed as a result of this update.
-     */
-    private Set<IGLProperty> updateState(int fromIndex, int toIndex) {
-        assert fromIndex >= -1 && fromIndex < mGLCalls.size();
-        assert toIndex >= 0 && toIndex < mGLCalls.size();
+	/**
+	 * Update GL state from GL call at fromIndex to the call at toIndex. If
+	 * fromIndex < toIndex, the GL state will be updated by applying all the
+	 * transformations corresponding to calls from (fromIndex + 1) to toIndex
+	 * (inclusive). If fromIndex > toIndex, the GL state will be updated by
+	 * reverting all the calls from fromIndex (inclusive) to (toIndex + 1).
+	 * 
+	 * @return GL state properties that changed as a result of this update.
+	 */
+	private Set<IGLProperty> updateState(int fromIndex, int toIndex) {
+		assert fromIndex >= -1 && fromIndex < mGLCalls.size();
+		assert toIndex >= 0 && toIndex < mGLCalls.size();
 
-        if (fromIndex < toIndex) {
-            return applyTransformations(fromIndex, toIndex);
-        } else if (fromIndex > toIndex) {
-            return revertTransformations(fromIndex, toIndex);
-        } else {
-            return Collections.emptySet();
-        }
-    }
+		if (fromIndex < toIndex) {
+			return applyTransformations(fromIndex, toIndex);
+		} else if (fromIndex > toIndex) {
+			return revertTransformations(fromIndex, toIndex);
+		} else {
+			return Collections.emptySet();
+		}
+	}
 
-    private Set<IGLProperty> applyTransformations(int fromIndex, int toIndex) {
-        int setSizeHint = 3 * (toIndex - fromIndex) + 10;
-        Set<IGLProperty> changedProperties = new HashSet<IGLProperty>(setSizeHint);
+	private Set<IGLProperty> applyTransformations(int fromIndex, int toIndex) {
+		int setSizeHint = 3 * (toIndex - fromIndex) + 10;
+		Set<IGLProperty> changedProperties = new HashSet<IGLProperty>(setSizeHint);
 
-        for (int i = fromIndex + 1; i <= toIndex; i++) {
-            GLCall call = mGLCalls.get(i);
-            for (IStateTransform f : call.getStateTransformations()) {
-                try {
-                    f.apply(mState);
-                    IGLProperty changedProperty = f.getChangedProperty(mState);
-                    if (changedProperty != null) {
-                        changedProperties.addAll(getHierarchy(changedProperty));
-                    }
-                } catch (Exception e) {
-                    GlTracePlugin.getDefault().logMessage("Error applying transformations for "
-                            + call);
-                    GlTracePlugin.getDefault().logMessage(e.toString());
-                }
-            }
-        }
+		for (int i = fromIndex + 1; i <= toIndex; i++) {
+			GLCall call = mGLCalls.get(i);
+			for (IStateTransform f : call.getStateTransformations()) {
+				try {
+					f.apply(mState);
+					IGLProperty changedProperty = f.getChangedProperty(mState);
+					if (changedProperty != null) {
+						changedProperties.addAll(getHierarchy(changedProperty));
+					}
+				} catch (Exception e) {
+					GlTracePlugin.getDefault().logMessage("Error applying transformations for " + call);
+					GlTracePlugin.getDefault().logMessage(e.toString());
+				}
+			}
+		}
 
-        return changedProperties;
-    }
+		return changedProperties;
+	}
 
-    private Set<IGLProperty> revertTransformations(int fromIndex, int toIndex) {
-        int setSizeHint = 3 * (fromIndex - toIndex) + 10;
-        Set<IGLProperty> changedProperties = new HashSet<IGLProperty>(setSizeHint);
+	private Set<IGLProperty> revertTransformations(int fromIndex, int toIndex) {
+		int setSizeHint = 3 * (fromIndex - toIndex) + 10;
+		Set<IGLProperty> changedProperties = new HashSet<IGLProperty>(setSizeHint);
 
-        for (int i = fromIndex; i > toIndex; i--) {
-            List<IStateTransform> transforms = mGLCalls.get(i).getStateTransformations();
-            // When reverting transformations, iterate from the last to first so that the reversals
-            // are performed in the correct sequence.
-            for (int j = transforms.size() - 1; j >= 0; j--) {
-                IStateTransform f = transforms.get(j);
-                f.revert(mState);
+		for (int i = fromIndex; i > toIndex; i--) {
+			List<IStateTransform> transforms = mGLCalls.get(i).getStateTransformations();
+			// When reverting transformations, iterate from the last to first so
+			// that the reversals
+			// are performed in the correct sequence.
+			for (int j = transforms.size() - 1; j >= 0; j--) {
+				IStateTransform f = transforms.get(j);
+				f.revert(mState);
 
-                IGLProperty changedProperty = f.getChangedProperty(mState);
-                if (changedProperty != null) {
-                    changedProperties.addAll(getHierarchy(changedProperty));
-                }
-            }
-        }
+				IGLProperty changedProperty = f.getChangedProperty(mState);
+				if (changedProperty != null) {
+					changedProperties.addAll(getHierarchy(changedProperty));
+				}
+			}
+		}
 
-        return changedProperties;
-    }
+		return changedProperties;
+	}
 
-    /**
-     * Obtain the list of properties starting from the provided property up to
-     * the root of GL state.
-     */
-    private List<IGLProperty> getHierarchy(IGLProperty changedProperty) {
-        List<IGLProperty> changedProperties = new ArrayList<IGLProperty>(5);
-        changedProperties.add(changedProperty);
+	/**
+	 * Obtain the list of properties starting from the provided property up to
+	 * the root of GL state.
+	 */
+	private List<IGLProperty> getHierarchy(IGLProperty changedProperty) {
+		List<IGLProperty> changedProperties = new ArrayList<IGLProperty>(5);
+		changedProperties.add(changedProperty);
 
-        // add the entire parent chain until we reach the root
-        IGLProperty prop = changedProperty;
-        while ((prop = prop.getParent()) != null) {
-            changedProperties.add(prop);
-        }
+		// add the entire parent chain until we reach the root
+		IGLProperty prop = changedProperty;
+		while ((prop = prop.getParent()) != null) {
+			changedProperties.add(prop);
+		}
 
-        return changedProperties;
-    }
+		return changedProperties;
+	}
 
-    @Override
-    public void addSelectionChangedListener(ISelectionChangedListener listener) {
-        mTreeViewer.addSelectionChangedListener(listener);
-    }
+	@Override
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+		mTreeViewer.addSelectionChangedListener(listener);
+	}
 
-    @Override
-    public ISelection getSelection() {
-        return mTreeViewer.getSelection();
-    }
+	@Override
+	public ISelection getSelection() {
+		return mTreeViewer.getSelection();
+	}
 
-    @Override
-    public void removeSelectionChangedListener(ISelectionChangedListener listener) {
-        mTreeViewer.removeSelectionChangedListener(listener);
-    }
+	@Override
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+		mTreeViewer.removeSelectionChangedListener(listener);
+	}
 
-    @Override
-    public void setSelection(ISelection selection) {
-        mTreeViewer.setSelection(selection);
-    }
+	@Override
+	public void setSelection(ISelection selection) {
+		mTreeViewer.setSelection(selection);
+	}
 }

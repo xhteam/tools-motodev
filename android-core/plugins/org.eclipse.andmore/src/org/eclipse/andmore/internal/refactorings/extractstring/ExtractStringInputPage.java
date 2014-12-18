@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.ltk.ui.refactoring.UserInputWizardPage;
 import org.eclipse.swt.SWT;
@@ -385,13 +386,13 @@ class ExtractStringInputPage extends UserInputWizardPage {
                     setErrorMessage(msg);
                     success = false;
                 } else {
-                    setMessage(msg, WizardPage.WARNING);
+                    setMessage(msg, IMessageProvider.WARNING);
                 }
             } else if (mProject.findMember(resFile) == null) {
                 setMessage(
                         String.format("File %2$s does not exist and will be created.",
                                 text, resFile),
-                        WizardPage.INFORMATION);
+                        IMessageProvider.INFORMATION);
             } else {
                 setMessage(null);
             }

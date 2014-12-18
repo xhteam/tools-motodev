@@ -27,28 +27,23 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 @SuppressWarnings("restriction")
-public class OpenMotodevPaneAction extends Action
-{
+public class OpenMotodevPaneAction extends Action {
 
-    // Icon image patch
-    private static final String ACTION_IMAGE_PATH = "icons/android_oql.png";
-    
-    
-    public OpenMotodevPaneAction()
-    {
-        super(MatNLS.Action_Open_Motodev_Pane, AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, ACTION_IMAGE_PATH) );
-    }
-    
-    
-    @Override
-    public void run()
-    {
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        IEditorPart part = page == null ? null : page.getActiveEditor();
+	// Icon image patch
+	private static final String ACTION_IMAGE_PATH = "icons/android_oql.png";
 
-        if (part instanceof MultiPaneEditor)
-        {
-            ((MultiPaneEditor) part).addNewPage(MotodevPane.MOTODEV_PANE_ID, null);//$NON-NLS-1$
-        }
-    }
+	public OpenMotodevPaneAction() {
+		super(MatNLS.Action_Open_Motodev_Pane, AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+				ACTION_IMAGE_PATH));
+	}
+
+	@Override
+	public void run() {
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		IEditorPart part = page == null ? null : page.getActiveEditor();
+
+		if (part instanceof MultiPaneEditor) {
+			((MultiPaneEditor) part).addNewPage(MotodevPane.MOTODEV_PANE_ID, null);
+		}
+	}
 }

@@ -18,6 +18,7 @@ package org.eclipse.andmore.internal.editors.layout.gle2;
 import static com.android.SdkConstants.ATTR_ID;
 
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
+import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.uimodel.UiViewElementNode;
 import org.eclipse.core.resources.IMarker;
@@ -71,7 +72,7 @@ class LintTooltip extends Shell {
                         first = false;
                     }
 
-                    String id = BaseLayoutRule.stripIdPrefix(node.getAttributeValue(ATTR_ID));
+                    String id = BaseViewRule.stripIdPrefix(node.getAttributeValue(ATTR_ID));
                     if (id.isEmpty()) {
                         if (node.getXmlNode() != null) {
                             id = node.getXmlNode().getNodeName();

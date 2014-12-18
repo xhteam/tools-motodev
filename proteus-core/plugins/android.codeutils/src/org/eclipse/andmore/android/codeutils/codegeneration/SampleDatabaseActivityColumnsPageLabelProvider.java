@@ -22,56 +22,52 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
- * Label provider for the tree viewer in the {@link CreateSampleDatabaseActivityColumnsPage}.
+ * Label provider for the tree viewer in the
+ * {@link CreateSampleDatabaseActivityColumnsPage}.
  */
-public class SampleDatabaseActivityColumnsPageLabelProvider extends LabelProvider
-{
+public class SampleDatabaseActivityColumnsPageLabelProvider extends LabelProvider {
 
-    public static final String DATATOOLS_UI_PLUGIN_ID =
-            "org.eclipse.datatools.connectivity.sqm.core.ui";
+	public static final String DATATOOLS_UI_PLUGIN_ID = "org.eclipse.datatools.connectivity.sqm.core.ui";
 
-    private static final String COLUMN_ICON = "icons/columns.gif";
+	private static final String COLUMN_ICON = "icons/columns.gif";
 
-    private ImageDescriptor desc = null;
+	private ImageDescriptor desc = null;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
-     */
-    @Override
-    public Image getImage(Object element)
-    {
-        Image resultImage = null;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.LabelProvider#getImage(java.lang.Object)
+	 */
+	@Override
+	public Image getImage(Object element) {
+		Image resultImage = null;
 
-        if (element instanceof Column)
-        {
-            if (desc == null)
-            {
-                desc =
-                        AbstractUIPlugin.imageDescriptorFromPlugin(DATATOOLS_UI_PLUGIN_ID,
-                                COLUMN_ICON);
+		if (element instanceof Column) {
+			if (desc == null) {
+				desc = AbstractUIPlugin.imageDescriptorFromPlugin(DATATOOLS_UI_PLUGIN_ID, COLUMN_ICON);
 
-            }
+			}
 
-            resultImage = desc.createImage();
-        }
+			resultImage = desc.createImage();
+		}
 
-        return resultImage;
-    }
+		return resultImage;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
-     */
-    @Override
-    public String getText(Object element)
-    {
-        String resultLabel = null;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.LabelProvider#getText(java.lang.Object)
+	 */
+	@Override
+	public String getText(Object element) {
+		String resultLabel = null;
 
-        if (element instanceof Column)
-        {
-            resultLabel = ((Column) element).getName();
-        }
+		if (element instanceof Column) {
+			resultLabel = ((Column) element).getName();
+		}
 
-        return resultLabel;
-    }
+		return resultLabel;
+	}
 
 }

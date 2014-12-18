@@ -21,30 +21,23 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.help.IWorkbenchHelpSystem;
 
-public class OpenOnlineHelpStudioHandler extends AbstractHandler
-{
+public class OpenOnlineHelpStudioHandler extends AbstractHandler {
 
-    private static final String HREF =
-            "/com.motorola.studio.android.tooldocs.studio.helpbase/topics/c_android-studio.html";
+	private static final String HREF = "/com.motorola.studio.android.tooldocs.studio.helpbase/topics/c_android-studio.html";
 
-    public final Object execute(final ExecutionEvent event)
-    {
-        try
-        {
-            final IWorkbenchHelpSystem helpSystem = PlatformUI.getWorkbench().getHelpSystem();
+	@Override
+	public final Object execute(final ExecutionEvent event) {
+		try {
+			final IWorkbenchHelpSystem helpSystem = PlatformUI.getWorkbench().getHelpSystem();
 
-            if (helpSystem != null)
-            {
-                helpSystem.displayHelpResource(HREF);
-            }
+			if (helpSystem != null) {
+				helpSystem.displayHelpResource(HREF);
+			}
 
-        }
-        catch (Exception e)
-        {
-            StudioLogger.error("Error opening Help Contents through MOTODEV menu: "
-                    + e.getMessage());
-        }
-        return null;
-    }
+		} catch (Exception e) {
+			StudioLogger.error("Error opening Help Contents through MOTODEV menu: " + e.getMessage());
+		}
+		return null;
+	}
 
 }

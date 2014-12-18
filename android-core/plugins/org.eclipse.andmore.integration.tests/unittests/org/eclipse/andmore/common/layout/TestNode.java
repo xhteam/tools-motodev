@@ -304,13 +304,13 @@ public class TestNode implements INode {
 
     @Nullable
     public static TestNode findById(TestNode node, String id) {
-        id = BaseLayoutRule.stripIdPrefix(id);
+        id = BaseViewRule.stripIdPrefix(id);
         return node.findById(id);
     }
 
     private TestNode findById(String targetId) {
         String id = getStringAttr(ANDROID_URI, ATTR_ID);
-        if (id != null && targetId.equals(BaseLayoutRule.stripIdPrefix(id))) {
+        if (id != null && targetId.equals(BaseViewRule.stripIdPrefix(id))) {
             return this;
         }
 

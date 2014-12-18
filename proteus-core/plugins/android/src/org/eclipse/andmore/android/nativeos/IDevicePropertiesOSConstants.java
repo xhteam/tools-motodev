@@ -15,11 +15,10 @@
  */
 package org.eclipse.andmore.android.nativeos;
 
-public interface IDevicePropertiesOSConstants
-{
-    /**
-     * The key that identifies the useVnc property of an Android Emulator 
-     * device instance
-     */
-    String useVnc = "UseVnc";
+public interface IDevicePropertiesOSConstants {
+	/**
+	 * The key that identifies the useVnc property of an Android Emulator device
+	 * instance
+	 */
+	String useVnc = "UseVnc";
 }

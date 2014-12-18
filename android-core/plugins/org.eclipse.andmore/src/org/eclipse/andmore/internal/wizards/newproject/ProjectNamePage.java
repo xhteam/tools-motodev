@@ -60,7 +60,6 @@ import org.eclipse.ui.IWorkingSet;
 
 import java.io.File;
 import java.net.URI;
-import java.util.Locale;
 
 /**
  * Initial page shown when creating projects which asks for the project name,

@@ -36,53 +36,52 @@ import org.eclipse.ui.ide.IDE;
 import java.io.File;
 
 public class OpenGLTraceAction implements IWorkbenchWindowActionDelegate {
-    private static String sLoadFromFolder = System.getProperty("user.home");
+	private static String sLoadFromFolder = System.getProperty("user.home");
 
-    @Override
-    public void run(IAction action) {
-        openTrace();
-    }
+	@Override
+	public void run(IAction action) {
+		openTrace();
+	}
 
-    @Override
-    public void selectionChanged(IAction action, ISelection selection) {
-    }
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+	}
 
-    @Override
-    public void dispose() {
-    }
+	@Override
+	public void dispose() {
+	}
 
-    @Override
-    public void init(IWorkbenchWindow window) {
-    }
+	@Override
+	public void init(IWorkbenchWindow window) {
+	}
 
-    private void openTrace() {
-        Shell shell = Display.getDefault().getActiveShell();
-        FileDialog fd = new FileDialog(shell, SWT.OPEN);
+	private void openTrace() {
+		Shell shell = Display.getDefault().getActiveShell();
+		FileDialog fd = new FileDialog(shell, SWT.OPEN);
 
-        fd.setText("Open Trace File");
-        fd.setFilterPath(sLoadFromFolder);
-        fd.setFilterExtensions(new String[] { "*.gltrace" });
+		fd.setText("Open Trace File");
+		fd.setFilterPath(sLoadFromFolder);
+		fd.setFilterExtensions(new String[] { "*.gltrace" });
 
-        String fname = fd.open();
-        if (fname == null || fname.trim().length() == 0) {
-            return;
-        }
+		String fname = fd.open();
+		if (fname == null || fname.trim().length() == 0) {
+			return;
+		}
 
-        sLoadFromFolder = new File(fname).getParent().toString();
+		sLoadFromFolder = new File(fname).getParent().toString();
 
-        openEditorFor(fname);
-    }
+		openEditorFor(fname);
+	}
 
-    private void openEditorFor(String fname) {
-        IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(fname));
-        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	private void openEditorFor(String fname) {
+		IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(fname));
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
-        try {
-            IDE.openEditorOnFileStore( page, fileStore );
-        } catch (PartInitException e) {
-            MessageDialog.openError(Display.getDefault().getActiveShell(),
-                    "Error opening GL Trace File",
-                    "Unexpected error while opening GL Trace file: " + e.getMessage());
-        }
-    }
+		try {
+			IDE.openEditorOnFileStore(page, fileStore);
+		} catch (PartInitException e) {
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Error opening GL Trace File",
+					"Unexpected error while opening GL Trace file: " + e.getMessage());
+		}
+	}
 }

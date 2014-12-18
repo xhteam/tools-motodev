@@ -16,25 +16,22 @@
 package org.eclipse.andmore.android.generateviewbylayout.model;
 
 /**
- * Extends {@link LayoutNode} to describe save/restore method names and the name of the node type
- * (specific from EditText)
+ * Extends {@link LayoutNode} to describe save/restore method names and the name
+ * of the node type (specific from EditText)
  */
-public class EditTextNode extends LayoutNode
-{
+public class EditTextNode extends LayoutNode {
 
-    public EditTextNode()
-    {
-        properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setText.name());
-        properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.getText.name());
-        properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putString.name());
-        properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getString.name());
-        properties.put(ViewProperties.ViewStateValueType, String.class.toString());
-    }
+	public EditTextNode() {
+		properties.put(ViewProperties.ViewStateSetMethod, ViewSetMethods.setText.name());
+		properties.put(ViewProperties.ViewStateGetMethod, ViewGetMethods.getText.name());
+		properties.put(ViewProperties.PreferenceSetMethod, PreferenceSetMethods.putString.name());
+		properties.put(ViewProperties.PreferenceGetMethod, PreferenceGetMethods.getString.name());
+		properties.put(ViewProperties.ViewStateValueType, String.class.toString());
+	}
 
-    @Override
-    public String getNodeType()
-    {
-        return LayoutNodeViewType.EditText.name();
-    }
+	@Override
+	public String getNodeType() {
+		return LayoutNodeViewType.EditText.name();
+	}
 
 }

@@ -36,91 +36,89 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 
-@SuppressWarnings("restriction") // for adt.internal classes
+@SuppressWarnings("restriction")
+// for adt.internal classes
 public class NdkGdbLaunchShortcut implements ILaunchShortcut {
-    @Override
-    public void launch(ISelection selection, String mode) {
-        if (!(selection instanceof IStructuredSelection)) {
-            return;
-        }
+	@Override
+	public void launch(ISelection selection, String mode) {
+		if (!(selection instanceof IStructuredSelection)) {
+			return;
+		}
 
-        Object s = ((IStructuredSelection) selection).getFirstElement();
-        if (!(s instanceof IAdaptable)) {
-            return;
-        }
+		Object s = ((IStructuredSelection) selection).getFirstElement();
+		if (!(s instanceof IAdaptable)) {
+			return;
+		}
 
-        IResource r = (IResource) ((IAdaptable) s).getAdapter(IResource.class);
-        if (r == null) {
-            return;
-        }
+		IResource r = (IResource) ((IAdaptable) s).getAdapter(IResource.class);
+		if (r == null) {
+			return;
+		}
 
-        IProject project = r.getProject();
-        if (project == null) {
-            return;
-        }
+		IProject project = r.getProject();
+		if (project == null) {
+			return;
+		}
 
-        // verify that this is a non library Android project
-        ProjectState state = Sdk.getProjectState(project);
-        if (state == null || state.isLibrary()) {
-            return;
-        }
+		// verify that this is a non library Android project
+		ProjectState state = Sdk.getProjectState(project);
+		if (state == null || state.isLibrary()) {
+			return;
+		}
 
-        // verify that this project has C/C++ nature
-        if (!CoreModel.hasCCNature(project) && !CoreModel.hasCNature(project)) {
-            AdtPlugin.printErrorToConsole(project,
-                    String.format("Selected project (%s) does not have C/C++ nature. "
-                            + "To add native support, right click on the project, "
-                            + "Android Tools -> Add Native Support",
-                            project.getName()));
-            return;
-        }
+		// verify that this project has C/C++ nature
+		if (!CoreModel.hasCCNature(project) && !CoreModel.hasCNature(project)) {
+			AdtPlugin.printErrorToConsole(project,
+					String.format("Selected project (%s) does not have C/C++ nature. "
+							+ "To add native support, right click on the project, "
+							+ "Android Tools -> Add Native Support", project.getName()));
+			return;
+		}
 
-        debugProject(project, mode);
-    }
+		debugProject(project, mode);
+	}
 
-    @Override
-    public void launch(IEditorPart editor, String mode) {
-    }
+	@Override
+	public void launch(IEditorPart editor, String mode) {
+	}
 
-    private void debugProject(IProject project, String mode) {
-        // obtain existing native debug config for project
-        ILaunchConfiguration config = AndroidLaunchController.getLaunchConfig(project,
-                NdkGdbLaunchDelegate.LAUNCH_TYPE_ID);
-        if (config == null) {
-            return;
-        }
+	private void debugProject(IProject project, String mode) {
+		// obtain existing native debug config for project
+		ILaunchConfiguration config = AndroidLaunchController.getLaunchConfig(project,
+				NdkGdbLaunchDelegate.LAUNCH_TYPE_ID);
+		if (config == null) {
+			return;
+		}
 
-        // Set the ndk gdb specific launch attributes in the config (if necessary)
-        if (!hasNdkAttributes(config)) {
-            try {
-                config = setNdkDefaults(config, project);
-            } catch (CoreException e) {
-                AdtPlugin.printErrorToConsole(project,
-                        "Unable to create launch configuration for project.");
-                return;
-            }
-        }
+		// Set the ndk gdb specific launch attributes in the config (if
+		// necessary)
+		if (!hasNdkAttributes(config)) {
+			try {
+				config = setNdkDefaults(config, project);
+			} catch (CoreException e) {
+				AdtPlugin.printErrorToConsole(project, "Unable to create launch configuration for project.");
+				return;
+			}
+		}
 
-        // launch
-        DebugUITools.launch(config, mode);
-    }
+		// launch
+		DebugUITools.launch(config, mode);
+	}
 
-    private boolean hasNdkAttributes(ILaunchConfiguration config) {
-        try {
-            // All NDK launch configurations have ATTR_REMOTE_TCP set to true
-            boolean isRemote = config.getAttribute(IGDBLaunchConfigurationConstants.ATTR_REMOTE_TCP,
-                    false);
-            return isRemote;
-        } catch (CoreException e) {
-            return false;
-        }
-    }
+	private boolean hasNdkAttributes(ILaunchConfiguration config) {
+		try {
+			// All NDK launch configurations have ATTR_REMOTE_TCP set to true
+			boolean isRemote = config.getAttribute(IGDBLaunchConfigurationConstants.ATTR_REMOTE_TCP, false);
+			return isRemote;
+		} catch (CoreException e) {
+			return false;
+		}
+	}
 
-    private ILaunchConfiguration setNdkDefaults(ILaunchConfiguration config, IProject project)
-            throws CoreException {
-        ILaunchConfigurationWorkingCopy wc = config.getWorkingCopy();
-        NdkHelper.setLaunchConfigDefaults(wc);
-        wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
-        return wc.doSave();
-    }
+	private ILaunchConfiguration setNdkDefaults(ILaunchConfiguration config, IProject project) throws CoreException {
+		ILaunchConfigurationWorkingCopy wc = config.getWorkingCopy();
+		NdkHelper.setLaunchConfigDefaults(wc);
+		wc.setAttribute(ICDTLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
+		return wc.doSave();
+	}
 }

@@ -17,25 +17,29 @@
 package org.eclipse.andmore.ddms;
 
 /**
- * Classes which implement this interface provides the location of various SDK tools.
+ * Classes which implement this interface provides the location of various SDK
+ * tools.
  */
 public interface IToolsLocator {
 
-    /**
-     * Queries the location of ADB
-     * @return A full OS path to the location of adb.
-     */
-    String getAdbLocation();
+	/**
+	 * Queries the location of ADB
+	 * 
+	 * @return A full OS path to the location of adb.
+	 */
+	String getAdbLocation();
 
-    /**
-     * Queries the location of Traceview
-     * @return A full OS path to the location of traceview
-     */
-    String getTraceViewLocation();
+	/**
+	 * Queries the location of Traceview
+	 * 
+	 * @return A full OS path to the location of traceview
+	 */
+	String getTraceViewLocation();
 
-    /**
-     * Queries the location of hprof-conv
-     * @return A full OS path to the location of hprof-conv.
-     */
-    String getHprofConvLocation();
+	/**
+	 * Queries the location of hprof-conv
+	 * 
+	 * @return A full OS path to the location of hprof-conv.
+	 */
+	String getHprofConvLocation();
 }

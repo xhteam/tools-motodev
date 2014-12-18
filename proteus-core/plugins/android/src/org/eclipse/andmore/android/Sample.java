@@ -25,77 +25,69 @@ import com.android.sdklib.IAndroidTarget;
 /**
  * Bean that represents a sample application
  */
-public class Sample
-{
-    private final File folder;
+public class Sample {
+	private final File folder;
 
-    private final String name;
+	private final String name;
 
-    private final IAndroidTarget target;
+	private final IAndroidTarget target;
 
-    public Sample(File sampleFolder, IAndroidTarget parentTarget)
-    {
-        folder = sampleFolder;
-        name = sampleFolder.getName();
-        target = parentTarget;
-    }
+	public Sample(File sampleFolder, IAndroidTarget parentTarget) {
+		folder = sampleFolder;
+		name = sampleFolder.getName();
+		target = parentTarget;
+	}
 
-    /**
-     * Retrieves the sample application folder
-     * 
-     * @return the sample application folder
-     */
-    public File getFolder()
-    {
-        return folder;
-    }
+	/**
+	 * Retrieves the sample application folder
+	 * 
+	 * @return the sample application folder
+	 */
+	public File getFolder() {
+		return folder;
+	}
 
-    /**
-     * Retrieves the sample application name
-     * 
-     * @return the sample application name
-     */
-    public String getName()
-    {
-        return name;
-    }
+	/**
+	 * Retrieves the sample application name
+	 * 
+	 * @return the sample application name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Retrieves the sample application target SDK
-     * 
-     * @return the sample application target SDK
-     */
-    public IAndroidTarget getTarget()
-    {
-        return target;
-    }
+	/**
+	 * Retrieves the sample application target SDK
+	 * 
+	 * @return the sample application target SDK
+	 */
+	public IAndroidTarget getTarget() {
+		return target;
+	}
 
-    /**
-     * Checks if a folder is a sample folder
-     * 
-     * @param sampleFolder The folder to be tested
-     * @return true if a folder is a sample folder or false otherwise
-     */
-    public static boolean isSample(File sampleFolder)
-    {
-        boolean result = false;
+	/**
+	 * Checks if a folder is a sample folder
+	 * 
+	 * @param sampleFolder
+	 *            The folder to be tested
+	 * @return true if a folder is a sample folder or false otherwise
+	 */
+	public static boolean isSample(File sampleFolder) {
+		boolean result = false;
 
-        // check if the folder contains a manifest file
-        FilenameFilter androidManifest = new FilenameFilter()
-        {
-            public boolean accept(File arg0, String arg1)
-            {
-                return arg1.equals(IAndroidConstants.FN_ANDROID_MANIFEST);
-            }
-        };
+		// check if the folder contains a manifest file
+		FilenameFilter androidManifest = new FilenameFilter() {
+			@Override
+			public boolean accept(File arg0, String arg1) {
+				return arg1.equals(IAndroidConstants.FN_ANDROID_MANIFEST);
+			}
+		};
 
-        if ((sampleFolder != null) && (sampleFolder.isDirectory()))
-        {
-            if (sampleFolder.list(androidManifest).length > 0)
-            {
-                result = true;
-            }
-        }
-        return result;
-    }
+		if ((sampleFolder != null) && (sampleFolder.isDirectory())) {
+			if (sampleFolder.list(androidManifest).length > 0) {
+				result = true;
+			}
+		}
+		return result;
+	}
 }

@@ -23,8 +23,6 @@ import com.android.io.IAbstractFile;
 import com.android.io.StreamException;
 import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.repository.FullRevision;
-
 import org.eclipse.andmore.AdtConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.BuildHelper;

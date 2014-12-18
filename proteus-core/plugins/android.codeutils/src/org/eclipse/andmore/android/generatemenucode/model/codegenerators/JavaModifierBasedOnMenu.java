@@ -26,34 +26,30 @@ import org.eclipse.andmore.android.generateviewbylayout.JavaViewBasedOnLayoutMod
 /**
  * Manager responsible to modify activity / fragment based on menu
  */
-public class JavaModifierBasedOnMenu extends JavaCodeModifier
-{
-    static
-    {
-        IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_VIEW_VIEW);
-        IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_OS);
-    }
+public class JavaModifierBasedOnMenu extends JavaCodeModifier {
+	static {
+		IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_VIEW_VIEW);
+		IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_OS);
+	}
 
-    /**
-     * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#populateListOfCodeGenerators("org.eclipse.andmore.android.generatecode.AbstractCodeGeneratorData)
-     */
-    @Override
-    public List<AbstractCodeGenerator> populateListOfCodeGenerators(
-            AbstractCodeGeneratorData abstractCodeGeneratorData)
-    {
-        CodeGeneratorDataBasedOnMenu codeGeneratorDataBasedOnMenu =
-                (CodeGeneratorDataBasedOnMenu) abstractCodeGeneratorData;
-        codeGenerators.add(new MenuHandlerCodeGenerator(codeGeneratorDataBasedOnMenu,
-                codeGeneratorDataBasedOnMenu.getAbstractCodeVisitor().getTypeDeclaration()));
-        return codeGenerators;
-    }
+	/**
+	 * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#
+	 *      populateListOfCodeGenerators(
+	 *      "org.eclipse.andmore.android.generatecode.AbstractCodeGeneratorData)
+	 */
+	@Override
+	public List<AbstractCodeGenerator> populateListOfCodeGenerators(AbstractCodeGeneratorData abstractCodeGeneratorData) {
+		CodeGeneratorDataBasedOnMenu codeGeneratorDataBasedOnMenu = (CodeGeneratorDataBasedOnMenu) abstractCodeGeneratorData;
+		codeGenerators.add(new MenuHandlerCodeGenerator(codeGeneratorDataBasedOnMenu, codeGeneratorDataBasedOnMenu
+				.getAbstractCodeVisitor().getTypeDeclaration()));
+		return codeGenerators;
+	}
 
-    /**
-     * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#getDataResource()
-     */
-    @Override
-    protected File getDataResource()
-    {
-        return ((CodeGeneratorDataBasedOnMenu) codeGeneratorData).getMenuFile().getFile();
-    }
+	/**
+	 * @see org.eclipse.andmore.android.generatecode.JavaCodeModifier#getDataResource()
+	 */
+	@Override
+	protected File getDataResource() {
+		return ((CodeGeneratorDataBasedOnMenu) codeGeneratorData).getMenuFile().getFile();
+	}
 }

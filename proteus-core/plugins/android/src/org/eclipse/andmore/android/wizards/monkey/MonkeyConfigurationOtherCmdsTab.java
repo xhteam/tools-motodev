@@ -35,127 +35,109 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * This class implements the Options tab of the Monkey Launch Configuration.
  */
-public class MonkeyConfigurationOtherCmdsTab extends AbstractLaunchConfigurationTab
-{
+public class MonkeyConfigurationOtherCmdsTab extends AbstractLaunchConfigurationTab {
 
-    private MonkeyOptionsComposite monkeyOptionsComposite;
+	private MonkeyOptionsComposite monkeyOptionsComposite;
 
-    // handle changes
-    private final PropertyCompositeChangeListener compositeChangeListener =
-            new PropertyCompositeChangeListener()
-            {
-                public void compositeChanged(PropertyCompositeChangeEvent e)
-                {
-                    String errorMessage = monkeyOptionsComposite.getErrorMessage();
-                    if (errorMessage != null)
-                    {
-                        setErrorMessage(errorMessage);
-                        updateLaunchConfigurationDialog();
-                    }
-                    else
-                    {
-                        setErrorMessage(null);
-                        updateLaunchConfigurationDialog();
-                    }
-                }
-            };
+	// handle changes
+	private final PropertyCompositeChangeListener compositeChangeListener = new PropertyCompositeChangeListener() {
+		@Override
+		public void compositeChanged(PropertyCompositeChangeEvent e) {
+			String errorMessage = monkeyOptionsComposite.getErrorMessage();
+			if (errorMessage != null) {
+				setErrorMessage(errorMessage);
+				updateLaunchConfigurationDialog();
+			} else {
+				setErrorMessage(null);
+				updateLaunchConfigurationDialog();
+			}
+		}
+	};
 
-    public void createControl(Composite parent)
-    {
-        setErrorMessage(null);
-        setMessage(AndroidNLS.UI_MonkeyWizardOptionsPage_PageMessage);
+	@Override
+	public void createControl(Composite parent) {
+		setErrorMessage(null);
+		setMessage(AndroidNLS.UI_MonkeyWizardOptionsPage_PageMessage);
 
-        // Define layout
-        GridLayout mainLayout = new GridLayout(1, false);
-        mainLayout.marginTop = 5;
-        mainLayout.marginWidth = 5;
-        mainLayout.marginHeight = 5;
+		// Define layout
+		GridLayout mainLayout = new GridLayout(1, false);
+		mainLayout.marginTop = 5;
+		mainLayout.marginWidth = 5;
+		mainLayout.marginHeight = 5;
 
-        // Create Monkey Options area    
-        monkeyOptionsComposite =
-                new MonkeyOptionsComposite(parent, NativeUIUtils.getDefaultCommandLine());
+		// Create Monkey Options area
+		monkeyOptionsComposite = new MonkeyOptionsComposite(parent, NativeUIUtils.getDefaultCommandLine());
 
-        AbstractPropertiesComposite.addCompositeChangeListener(compositeChangeListener);
+		AbstractPropertiesComposite.addCompositeChangeListener(compositeChangeListener);
 
-        // Set layout
-        monkeyOptionsComposite.setLayout(mainLayout);
+		// Set layout
+		monkeyOptionsComposite.setLayout(mainLayout);
 
-        setControl(monkeyOptionsComposite);
-    }
+		setControl(monkeyOptionsComposite);
+	}
 
-    public String getName()
-    {
-        return AndroidNLS.UI_MonkeyComposite_TabOtherCmdName;
-    }
+	@Override
+	public String getName() {
+		return AndroidNLS.UI_MonkeyComposite_TabOtherCmdName;
+	}
 
-    public void initializeFrom(ILaunchConfiguration configuration)
-    {
-        String otherCmds = "";
-        try
-        {
-            otherCmds =
-                    configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS,
-                            IMonkeyConfigurationConstants.DEFAULT_VERBOSE_VALUE);
-            monkeyOptionsComposite.reloadValues(otherCmds);
-        }
-        catch (CoreException e)
-        {
-            StudioLogger
-                    .error(MonkeyConfigurationOtherCmdsTab.class,
-                            "Failed to initialize Monkey Launch Configuration Other Cmds:"
-                                    + e.getMessage());
-        }
+	@Override
+	public void initializeFrom(ILaunchConfiguration configuration) {
+		String otherCmds = "";
+		try {
+			otherCmds = configuration.getAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS,
+					IMonkeyConfigurationConstants.DEFAULT_VERBOSE_VALUE);
+			monkeyOptionsComposite.reloadValues(otherCmds);
+		} catch (CoreException e) {
+			StudioLogger.error(MonkeyConfigurationOtherCmdsTab.class,
+					"Failed to initialize Monkey Launch Configuration Other Cmds:" + e.getMessage());
+		}
 
-    }
+	}
 
-    public void performApply(ILaunchConfigurationWorkingCopy configuration)
-    {
-        configuration.setAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS,
-                MonkeyOptionsMgt.getParamList());
+	@Override
+	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		configuration.setAttribute(IMonkeyConfigurationConstants.ATTR_OTHER_CMDS, MonkeyOptionsMgt.getParamList());
 
-    }
+	}
 
-    public void setDefaults(ILaunchConfigurationWorkingCopy configuration)
-    {
-        //do nothing
-    }
+	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		// do nothing
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getImage()
-     */
-    @Override
-    public Image getImage()
-    {
-        return DebugUITools.getImage(IInternalDebugUIConstants.IMG_OBJS_COMMON_TAB);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getImage()
+	 */
+	@Override
+	public Image getImage() {
+		return DebugUITools.getImage(IInternalDebugUIConstants.IMG_OBJS_COMMON_TAB);
+	}
 
-    /**
-     * @see ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-     */
-    @Override
-    public boolean isValid(ILaunchConfiguration launchConfig)
-    {
+	/**
+	 * @see ILaunchConfigurationTab#isValid(ILaunchConfiguration)
+	 */
+	@Override
+	public boolean isValid(ILaunchConfiguration launchConfig) {
 
-        boolean isValid;
-        String errorMessage = monkeyOptionsComposite.getErrorMessage();
-        if (errorMessage != null)
-        {
-            setErrorMessage(errorMessage);
-            isValid = false;
-        }
-        else
-        {
-            setErrorMessage(null);
-            isValid = true;
-        }
-        return isValid;
-    }
+		boolean isValid;
+		String errorMessage = monkeyOptionsComposite.getErrorMessage();
+		if (errorMessage != null) {
+			setErrorMessage(errorMessage);
+			isValid = false;
+		} else {
+			setErrorMessage(null);
+			isValid = true;
+		}
+		return isValid;
+	}
 
-    @Override
-    public void dispose()
-    {
-        AbstractPropertiesComposite.removeCompositeChangeListener(compositeChangeListener);
-        super.dispose();
-    }
+	@Override
+	public void dispose() {
+		AbstractPropertiesComposite.removeCompositeChangeListener(compositeChangeListener);
+		super.dispose();
+	}
 
 }

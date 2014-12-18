@@ -15,7 +15,6 @@
  */
 package org.eclipe.andmore.tests;
 
-
 import org.eclipse.andmore.AdtPlugin;
 
 import junit.framework.Test;
@@ -33,29 +32,30 @@ import junit.framework.TestSuite;
  *
  */
 public class UnitTests {
-    private static final String TEST_PACKAGE = "com.android";
+	private static final String TEST_PACKAGE = "com.android";
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
+	public static Test suite() {
+		TestSuite suite = new TestSuite();
 
-        UnitTestCollector collector = new UnitTestCollector();
-        // since this plugin is a fragment which runs insde adt, gather tests from AdtPlugin
-        collector.addTestCases(suite, AdtPlugin.getDefault(), TEST_PACKAGE);
+		UnitTestCollector collector = new UnitTestCollector();
+		// since this plugin is a fragment which runs insde adt, gather tests
+		// from AdtPlugin
+		collector.addTestCases(suite, AdtPlugin.getDefault(), TEST_PACKAGE);
 
-        return suite;
-    }
+		return suite;
+	}
 
-    /**
-     * Specialized test collector which will skip adding functional tests
-     */
-    private static class UnitTestCollector extends EclipseTestCollector {
-        /**
-         * Override parent class to exclude functional tests
-         */
-        @Override
-        protected boolean isTestClass(Class<?> testClass) {
-            return super.isTestClass(testClass) &&
-            !testClass.getPackage().getName().startsWith(FuncTests.FUNC_TEST_PACKAGE);
-        }
-    }
+	/**
+	 * Specialized test collector which will skip adding functional tests
+	 */
+	private static class UnitTestCollector extends EclipseTestCollector {
+		/**
+		 * Override parent class to exclude functional tests
+		 */
+		@Override
+		protected boolean isTestClass(Class<?> testClass) {
+			return super.isTestClass(testClass)
+					&& !testClass.getPackage().getName().startsWith(FuncTests.FUNC_TEST_PACKAGE);
+		}
+	}
 }

@@ -25,6 +25,7 @@ import org.eclipse.andmore.internal.editors.manifest.descriptors.AndroidManifest
 import org.eclipse.andmore.internal.editors.ui.SectionHelper.ManifestSectionPart;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -38,7 +39,7 @@ final class OverviewLinksPart extends ManifestSectionPart {
     private FormText mFormText;
 
     public OverviewLinksPart(Composite body, FormToolkit toolkit, ManifestEditor editor) {
-        super(body, toolkit, Section.TWISTIE | Section.EXPANDED, true /* description */);
+        super(body, toolkit, ExpandableComposite.TWISTIE | ExpandableComposite.EXPANDED, true /* description */);
         mEditor = editor;
         Section section = getSection();
         section.setText("Links");
@@ -69,7 +70,7 @@ final class OverviewLinksPart extends ManifestSectionPart {
         buf.append("</li>"); //$NON-NLS-1$
 
         buf.append(String.format("<li style=\"image\" value=\"srce_img\"><a href=\"page:%1$s\">", //$NON-NLS-1$
-                ManifestEditor.TEXT_EDITOR_ID));
+                AndroidXmlEditor.TEXT_EDITOR_ID));
         buf.append("XML Source");
         buf.append("</a>"); //$NON-NLS-1$
         buf.append(": Directly edit the AndroidManifest.xml file.");

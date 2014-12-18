@@ -17,9 +17,9 @@
 package org.eclipse.andmore.ddms.systrace;
 
 public interface ISystraceOptions {
-    /** Get tags to enable, returns null if no tags need to be enabled. */
-    String getTags();
+	/** Get tags to enable, returns null if no tags need to be enabled. */
+	String getTags();
 
-    /** Get the command line options to atrace. */
-    String getOptions();
+	/** Get the command line options to atrace. */
+	String getOptions();
 }

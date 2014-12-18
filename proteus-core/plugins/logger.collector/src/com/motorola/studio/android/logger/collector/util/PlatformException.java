@@ -27,25 +27,23 @@ import org.eclipse.core.runtime.IStatus;
  * @see org.eclipse.core.runtime.CoreException
  */
 
-public class PlatformException extends CoreException
-{
+public class PlatformException extends CoreException {
 
-    /**
-     * Universal version identifier for a Serializable object.
-     */
-    private static final long serialVersionUID = 5165818604668097411L;
+	/**
+	 * Universal version identifier for a Serializable object.
+	 */
+	private static final long serialVersionUID = 5165818604668097411L;
 
-    /**
-     * Construct a platform exception with the given status.
-     * 
-     * @param status The IStatus.
-     */
-    public PlatformException(final IStatus status)
-    {
-        super(status);
-        if (status.getSeverity() == IStatus.CANCEL)
-        {
-            PlatformLogger.getInstance(PlatformException.class).error(this.getMessage(), this);
-        }
-    }
+	/**
+	 * Construct a platform exception with the given status.
+	 * 
+	 * @param status
+	 *            The IStatus.
+	 */
+	public PlatformException(final IStatus status) {
+		super(status);
+		if (status.getSeverity() == IStatus.CANCEL) {
+			PlatformLogger.getInstance(PlatformException.class).error(this.getMessage(), this);
+		}
+	}
 }

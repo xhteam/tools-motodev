@@ -22,26 +22,25 @@ import org.eclipse.swt.widgets.Composite;
 
 public class NativeHeapView extends TableView {
 
-    public static final String ID =
-        "org.eclipse.andmore.ddms.views.NativeHeapView"; //$NON-NLS-1$
-    private NativeHeapPanel mPanel;
+	public static final String ID = "org.eclipse.andmore.ddms.views.NativeHeapView"; //$NON-NLS-1$
+	private NativeHeapPanel mPanel;
 
-    public NativeHeapView() {
-    }
+	public NativeHeapView() {
+	}
 
-    @Override
-    public void createPartControl(Composite parent) {
-        mPanel = new NativeHeapPanel();
-        mPanel.createPanel(parent);
-        
-        setSelectionDependentPanel(mPanel);
+	@Override
+	public void createPartControl(Composite parent) {
+		mPanel = new NativeHeapPanel();
+		mPanel.createPanel(parent);
 
-        // listen to focus changes for table(s) of the panel.
-        setupTableFocusListener(mPanel, parent);
-    }
+		setSelectionDependentPanel(mPanel);
 
-    @Override
-    public void setFocus() {
-        mPanel.setFocus();
-    }
+		// listen to focus changes for table(s) of the panel.
+		setupTableFocusListener(mPanel, parent);
+	}
+
+	@Override
+	public void setFocus() {
+		mPanel.setFocus();
+	}
 }

@@ -17,9 +17,10 @@
 package org.eclipse.andmore.ddms;
 
 /**
- * Classes which implement this interface provides a way to open a traceview file.
+ * Classes which implement this interface provides a way to open a traceview
+ * file.
  */
 public interface ITraceviewLauncher {
 
-    boolean openFile(String osPath);
+	boolean openFile(String osPath);
 }

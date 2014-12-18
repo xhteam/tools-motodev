@@ -40,130 +40,125 @@ import org.eclipse.ui.part.ViewPart;
 
 public class PixelPerfectLoupeView extends ViewPart implements IImageChangeListener {
 
-    public static final String ID =
-            "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectLoupeView"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.hierarchyviewer.views.PixelPerfectLoupeView"; //$NON-NLS-1$
 
-    private PixelPerfectLoupe mPixelPerfectLoupe;
+	private PixelPerfectLoupe mPixelPerfectLoupe;
 
-    private Action mShowInLoupeAction = new Action("&Show Overlay", Action.AS_CHECK_BOX) {
-        @Override
-        public void run() {
-            mPixelPerfectLoupe.setShowOverlay(isChecked());
-        }
-    };
-    @Override
-    public void createPartControl(Composite parent) {
-        mShowInLoupeAction.setAccelerator(SWT.MOD1 + 'S');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        Image image = imageLoader.loadImage("show-overlay.png", Display.getDefault()); //$NON-NLS-1$
-        mShowInLoupeAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
-        mShowInLoupeAction.setToolTipText("Show the overlay in the loupe view");
-        mShowInLoupeAction.setEnabled(PixelPerfectModel.getModel().getOverlayImage() != null);
-        PixelPerfectModel.getModel().addImageChangeListener(this);
+	private Action mShowInLoupeAction = new Action("&Show Overlay", Action.AS_CHECK_BOX) {
+		@Override
+		public void run() {
+			mPixelPerfectLoupe.setShowOverlay(isChecked());
+		}
+	};
 
-        GridLayout loupeLayout = new GridLayout();
-        loupeLayout.marginWidth = loupeLayout.marginHeight = 0;
-        loupeLayout.horizontalSpacing = loupeLayout.verticalSpacing = 0;
-        parent.setLayout(loupeLayout);
+	@Override
+	public void createPartControl(Composite parent) {
+		mShowInLoupeAction.setAccelerator(SWT.MOD1 + 'S');
+		ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
+		Image image = imageLoader.loadImage("show-overlay.png", Display.getDefault()); //$NON-NLS-1$
+		mShowInLoupeAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
+		mShowInLoupeAction.setToolTipText("Show the overlay in the loupe view");
+		mShowInLoupeAction.setEnabled(PixelPerfectModel.getModel().getOverlayImage() != null);
+		PixelPerfectModel.getModel().addImageChangeListener(this);
 
-        Composite pixelPerfectLoupeBorder = new Composite(parent, SWT.BORDER);
-        pixelPerfectLoupeBorder.setLayoutData(new GridData(GridData.FILL_BOTH));
-        GridLayout pixelPerfectLoupeBorderGridLayout = new GridLayout();
-        pixelPerfectLoupeBorderGridLayout.marginWidth =
-                pixelPerfectLoupeBorderGridLayout.marginHeight = 0;
-        pixelPerfectLoupeBorderGridLayout.horizontalSpacing =
-                pixelPerfectLoupeBorderGridLayout.verticalSpacing = 0;
-        pixelPerfectLoupeBorder.setLayout(pixelPerfectLoupeBorderGridLayout);
+		GridLayout loupeLayout = new GridLayout();
+		loupeLayout.marginWidth = loupeLayout.marginHeight = 0;
+		loupeLayout.horizontalSpacing = loupeLayout.verticalSpacing = 0;
+		parent.setLayout(loupeLayout);
 
-        mPixelPerfectLoupe = new PixelPerfectLoupe(pixelPerfectLoupeBorder);
-        mPixelPerfectLoupe.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite pixelPerfectLoupeBorder = new Composite(parent, SWT.BORDER);
+		pixelPerfectLoupeBorder.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridLayout pixelPerfectLoupeBorderGridLayout = new GridLayout();
+		pixelPerfectLoupeBorderGridLayout.marginWidth = pixelPerfectLoupeBorderGridLayout.marginHeight = 0;
+		pixelPerfectLoupeBorderGridLayout.horizontalSpacing = pixelPerfectLoupeBorderGridLayout.verticalSpacing = 0;
+		pixelPerfectLoupeBorder.setLayout(pixelPerfectLoupeBorderGridLayout);
 
-        PixelPerfectPixelPanel pixelPerfectPixelPanel =
-                new PixelPerfectPixelPanel(pixelPerfectLoupeBorder);
-        pixelPerfectPixelPanel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		mPixelPerfectLoupe = new PixelPerfectLoupe(pixelPerfectLoupeBorder);
+		mPixelPerfectLoupe.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        PixelPerfectControls pixelPerfectControls =
-                new PixelPerfectControls(parent);
-        pixelPerfectControls.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		PixelPerfectPixelPanel pixelPerfectPixelPanel = new PixelPerfectPixelPanel(pixelPerfectLoupeBorder);
+		pixelPerfectPixelPanel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        placeActions();
-    }
+		PixelPerfectControls pixelPerfectControls = new PixelPerfectControls(parent);
+		pixelPerfectControls.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-    private void placeActions() {
-        IActionBars actionBars = getViewSite().getActionBars();
+		placeActions();
+	}
 
-        IMenuManager mm = actionBars.getMenuManager();
-        mm.removeAll();
-        mm.add(PixelPerfectAutoRefreshAction.getAction());
-        mm.add(mShowInLoupeAction);
+	private void placeActions() {
+		IActionBars actionBars = getViewSite().getActionBars();
 
-        IToolBarManager tm = actionBars.getToolBarManager();
-        tm.removeAll();
-        tm.add(PixelPerfectAutoRefreshAction.getAction());
-        tm.add(mShowInLoupeAction);
-    }
+		IMenuManager mm = actionBars.getMenuManager();
+		mm.removeAll();
+		mm.add(PixelPerfectAutoRefreshAction.getAction());
+		mm.add(mShowInLoupeAction);
 
-    @Override
-    public void dispose() {
-        super.dispose();
-        PixelPerfectModel.getModel().removeImageChangeListener(this);
-    }
+		IToolBarManager tm = actionBars.getToolBarManager();
+		tm.removeAll();
+		tm.add(PixelPerfectAutoRefreshAction.getAction());
+		tm.add(mShowInLoupeAction);
+	}
 
-    @Override
-    public void setFocus() {
-        mPixelPerfectLoupe.setFocus();
-    }
+	@Override
+	public void dispose() {
+		super.dispose();
+		PixelPerfectModel.getModel().removeImageChangeListener(this);
+	}
 
-    @Override
-    public void crosshairMoved() {
-        // pass
-    }
+	@Override
+	public void setFocus() {
+		mPixelPerfectLoupe.setFocus();
+	}
 
-    @Override
-    public void treeChanged() {
-        // pass
-    }
+	@Override
+	public void crosshairMoved() {
+		// pass
+	}
 
-    @Override
-    public void imageChanged() {
-        // pass
-    }
+	@Override
+	public void treeChanged() {
+		// pass
+	}
 
-    @Override
-    public void imageLoaded() {
-        Display.getDefault().syncExec(new Runnable() {
-            @Override
-            public void run() {
-                Image overlayImage = PixelPerfectModel.getModel().getOverlayImage();
-                mShowInLoupeAction.setEnabled(overlayImage != null);
-            }
-        });
-    }
+	@Override
+	public void imageChanged() {
+		// pass
+	}
 
-    @Override
-    public void overlayChanged() {
-        Display.getDefault().syncExec(new Runnable() {
-            @Override
-            public void run() {
-                mShowInLoupeAction
-                        .setEnabled(PixelPerfectModel.getModel().getOverlayImage() != null);
-            }
-        });
-    }
+	@Override
+	public void imageLoaded() {
+		Display.getDefault().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				Image overlayImage = PixelPerfectModel.getModel().getOverlayImage();
+				mShowInLoupeAction.setEnabled(overlayImage != null);
+			}
+		});
+	}
 
-    @Override
-    public void overlayTransparencyChanged() {
-        // pass
-    }
+	@Override
+	public void overlayChanged() {
+		Display.getDefault().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				mShowInLoupeAction.setEnabled(PixelPerfectModel.getModel().getOverlayImage() != null);
+			}
+		});
+	}
 
-    @Override
-    public void selectionChanged() {
-        // pass
-    }
+	@Override
+	public void overlayTransparencyChanged() {
+		// pass
+	}
 
-    @Override
-    public void zoomChanged() {
-        // pass
-    }
+	@Override
+	public void selectionChanged() {
+		// pass
+	}
+
+	@Override
+	public void zoomChanged() {
+		// pass
+	}
 
 }

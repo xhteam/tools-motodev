@@ -19,46 +19,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the &lt;group&gt; element from menu.xml 
+ * Represents the &lt;group&gt; element from menu.xml
  */
-public class GroupNode extends AbstractMenuNode
-{
-    private String id;
+public class GroupNode extends AbstractMenuNode {
+	private String id;
 
-    private final List<MenuItemNode> menuItems = new ArrayList<MenuItemNode>();
+	private final List<MenuItemNode> menuItems = new ArrayList<MenuItemNode>();
 
-    /**
-     * Adds the menu item into menuItems list
-     * @param item
-     * @return
-     * @see java.util.List#add(java.lang.Object)
-     */
-    public boolean add(MenuItemNode item)
-    {
-        return menuItems.add(item);
-    }
+	/**
+	 * Adds the menu item into menuItems list
+	 * 
+	 * @param item
+	 * @return
+	 * @see java.util.List#add(java.lang.Object)
+	 */
+	public boolean add(MenuItemNode item) {
+		return menuItems.add(item);
+	}
 
-    /**
-     * @return the menuItems
-     */
-    protected final List<MenuItemNode> getMenuItems()
-    {
-        return menuItems;
-    }
+	/**
+	 * @return the menuItems
+	 */
+	protected final List<MenuItemNode> getMenuItems() {
+		return menuItems;
+	}
 
-    /**
-     * @return the id
-     */
-    protected String getId()
-    {
-        return id;
-    }
+	/**
+	 * @return the id
+	 */
+	protected String getId() {
+		return id;
+	}
 
-    /**
-     * @param id the id to set
-     */
-    protected void setId(String id)
-    {
-        this.id = id;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	protected void setId(String id) {
+		this.id = id;
+	}
 }

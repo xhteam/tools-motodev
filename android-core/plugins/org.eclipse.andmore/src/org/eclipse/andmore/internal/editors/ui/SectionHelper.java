@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -87,7 +88,7 @@ public final class SectionHelper {
         public ManifestSectionPart(Composite body, FormToolkit toolkit,
                 int extra_style, boolean use_description) {
             super(body, toolkit, extra_style |
-                    Section.TITLE_BAR |
+                    ExpandableComposite.TITLE_BAR |
                     (use_description ? Section.DESCRIPTION : 0));
         }
 

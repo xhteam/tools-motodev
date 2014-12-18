@@ -24,29 +24,29 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.sequoyah.device.framework.ui.wizard.NewDeviceMenuWizard;
 import org.eclipse.ui.PlatformUI;
 
-public class OpenNewRemoteDeviceWizardHandler extends AbstractHandler
-{
+public class OpenNewRemoteDeviceWizardHandler extends AbstractHandler {
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable()
-        {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands
+	 * .ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-            public void run()
-            {
-                NewDeviceMenuWizard wizard = new NewDeviceMenuWizard();
-                wizard.setCurrentDeviceTypeId(RemoteDevicePlugin.DEVICE_ID);
-                WizardDialog dialog =
-                        new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                                .getShell(), wizard);
-                dialog.open();
-            }
-        });
+			@Override
+			public void run() {
+				NewDeviceMenuWizard wizard = new NewDeviceMenuWizard();
+				wizard.setCurrentDeviceTypeId(RemoteDevicePlugin.DEVICE_ID);
+				WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						wizard);
+				dialog.open();
+			}
+		});
 
-        return null;
-    }
+		return null;
+	}
 }

@@ -34,172 +34,162 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
- * Implements the Workspace Root Node of the database tree view.
- * It listens for changes in workspace such as project deletion/open/close that reflect in database model.
+ * Implements the Workspace Root Node of the database tree view. It listens for
+ * changes in workspace such as project deletion/open/close that reflect in
+ * database model.
  */
-public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode,
-        IResourceChangeListener
-{
-    class ResourceDeltaVisior implements IResourceDeltaVisitor
-    {
-        /*
-         * (non-Javadoc)
-         * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-         */
-        public boolean visit(IResourceDelta delta)
-        {
-            IResource res = delta.getResource();
-            if (res instanceof IProject)
-            {
-                IProject project = (IProject) res;
-                switch (delta.getKind())
-                {
-                    case IResourceDelta.ADDED:
-                        StudioLogger.info("Project added: " + res.getFullPath()); //$NON-NLS-1$
-                        addProject(project);
-                        break;
-                    case IResourceDelta.CHANGED:
-                        int flags = delta.getFlags();
-                        if ((flags & IResourceDelta.OPEN) != 0)
-                        {
-                            StudioLogger.info("Project opened: " + res.getFullPath()); //$NON-NLS-1$
-                            addProject(project);
-                        }
-                        break;
-                }
-            }
+public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode, IResourceChangeListener {
+	class ResourceDeltaVisior implements IResourceDeltaVisitor {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse
+		 * .core.resources.IResourceDelta)
+		 */
+		@Override
+		public boolean visit(IResourceDelta delta) {
+			IResource res = delta.getResource();
+			if (res instanceof IProject) {
+				IProject project = (IProject) res;
+				switch (delta.getKind()) {
+				case IResourceDelta.ADDED:
+					StudioLogger.info("Project added: " + res.getFullPath()); //$NON-NLS-1$
+					addProject(project);
+					break;
+				case IResourceDelta.CHANGED:
+					int flags = delta.getFlags();
+					if ((flags & IResourceDelta.OPEN) != 0) {
+						StudioLogger.info("Project opened: " + res.getFullPath()); //$NON-NLS-1$
+						addProject(project);
+					}
+					break;
+				}
+			}
 
-            return true; // visit the children
-        }
-    }
+			return true; // visit the children
+		}
+	}
 
-    public WorkspaceRootNode()
-    {
-        //listener for project changes
-        ResourcesPlugin.getWorkspace().addResourceChangeListener(
-                this,
-                IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE
-                        | IResourceChangeEvent.POST_CHANGE);
-    }
+	public WorkspaceRootNode() {
+		// listener for project changes
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this,
+				IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE | IResourceChangeEvent.POST_CHANGE);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
-     */
-    @Override
-    public void refresh()
-    {
-        clear();
-        loadContent();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
+	 */
+	@Override
+	public void refresh() {
+		clear();
+		loadContent();
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
-     */
-    @Override
-    public ImageDescriptor getIcon()
-    {
-        return getSpecificIcon("org.eclipse.jdt.ui", //$NON-NLS-1$
-                "icons/full/elcl16/prj_mode.gif"); //$NON-NLS-1$
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#getIcon()
+	 */
+	@Override
+	public ImageDescriptor getIcon() {
+		return getSpecificIcon("org.eclipse.jdt.ui", //$NON-NLS-1$
+				"icons/full/elcl16/prj_mode.gif"); //$NON-NLS-1$
+	}
 
-    /**
-     * Loads the Android projects from the current workspace
-     * @return list of project nodes
-     */
-    public Collection<ITreeNode> loadContent()
-    {
-        for (IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects())
-        {
-            addProject(project);
-        }
-        return this.getChildren();
-    }
+	/**
+	 * Loads the Android projects from the current workspace
+	 * 
+	 * @return list of project nodes
+	 */
+	public Collection<ITreeNode> loadContent() {
+		for (IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
+			addProject(project);
+		}
+		return this.getChildren();
+	}
 
-    /**
-     * Adds a new project in the workspace and notifies the event
-     * @param project
-     * @throws CoreException
-     */
-    public void addProject(IProject project)
-    {
-        ProjectNode projectNode = null;
-        try
-        {
-            if ((project != null) && (project.isOpen())
-                    && (project.getNature(IAndroidConstants.ANDROID_NATURE) != null))
-            {
-                projectNode = new ProjectNode(project, this);
-                putChild(projectNode);
-            }
-        }
-        catch (CoreException e)
-        {
-            StudioLogger.error(WorkspaceRootNode.class,
-                    "Unable to retrieve nature from project:" + project.getName(), e); //$NON-NLS-1$
-        }
-    }
+	/**
+	 * Adds a new project in the workspace and notifies the event
+	 * 
+	 * @param project
+	 * @throws CoreException
+	 */
+	public void addProject(IProject project) {
+		ProjectNode projectNode = null;
+		try {
+			if ((project != null) && (project.isOpen())
+					&& (project.getNature(IAndroidConstants.ANDROID_NATURE) != null)) {
+				projectNode = new ProjectNode(project, this);
+				putChild(projectNode);
+			}
+		} catch (CoreException e) {
+			StudioLogger.error(WorkspaceRootNode.class,
+					"Unable to retrieve nature from project:" + project.getName(), e); //$NON-NLS-1$
+		}
+	}
 
-    /**
-     * Removes the project from workspace and notifies the event
-     * @param project
-     */
-    public void removeProject(IProject project)
-    {
-        ITreeNode projectNode = getChildById(project.getName());
-        if (projectNode != null)
-        {
-            removeChild(projectNode);
-        }
-    }
+	/**
+	 * Removes the project from workspace and notifies the event
+	 * 
+	 * @param project
+	 */
+	public void removeProject(IProject project) {
+		ITreeNode projectNode = getChildById(project.getName());
+		if (projectNode != null) {
+			removeChild(projectNode);
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
-     */
-    @Override
-    public boolean isLeaf()
-    {
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
+	 */
+	@Override
+	public boolean isLeaf() {
+		return false;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
-     */
-    public void resourceChanged(IResourceChangeEvent event)
-    {
-        IResource res = event.getResource();
-        IProject project = null;
-        switch (event.getType())
-        {
-            case IResourceChangeEvent.PRE_CLOSE:
-            case IResourceChangeEvent.PRE_DELETE:
-                //project being closed or deleted => remove project from model
-                StudioLogger.info("Project about to close/delete: " + res.getFullPath()); //$NON-NLS-1$
-                project = res.getProject();
-                removeProject(project);
-                break;
-            case IResourceChangeEvent.POST_CHANGE:
-                try
-                {
-                    event.getDelta().accept(new ResourceDeltaVisior());
-                }
-                catch (CoreException e)
-                {
-                    StudioLogger.error(WorkspaceRootNode.class,
-                            "Error listening to changes in resources", e); //$NON-NLS-1$
-                }
-                break;
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org
+	 * .eclipse.core.resources.IResourceChangeEvent)
+	 */
+	@Override
+	public void resourceChanged(IResourceChangeEvent event) {
+		IResource res = event.getResource();
+		IProject project = null;
+		switch (event.getType()) {
+		case IResourceChangeEvent.PRE_CLOSE:
+		case IResourceChangeEvent.PRE_DELETE:
+			// project being closed or deleted => remove project from model
+			StudioLogger.info("Project about to close/delete: " + res.getFullPath()); //$NON-NLS-1$
+			project = res.getProject();
+			removeProject(project);
+			break;
+		case IResourceChangeEvent.POST_CHANGE:
+			try {
+				event.getDelta().accept(new ResourceDeltaVisior());
+			} catch (CoreException e) {
+				StudioLogger.error(WorkspaceRootNode.class, "Error listening to changes in resources", e); //$NON-NLS-1$
+			}
+			break;
+		}
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
-     */
-    @Override
-    public void cleanUp()
-    {
-        super.cleanUp();
-        ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#clean()
+	 */
+	@Override
+	public void cleanUp() {
+		super.cleanUp();
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+	}
 }

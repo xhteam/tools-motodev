@@ -27,33 +27,32 @@ import java.util.List;
 
 public class WrapInRefactoringTest extends RefactoringTest {
 
-    public void testWrapIn1() throws Exception {
-        // Test wrapping view: should indent view
-        checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2");
-    }
+	public void testWrapIn1() throws Exception {
+		// Test wrapping view: should indent view
+		checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2");
+	}
 
-    public void testWrapIn2() throws Exception {
-        // Test wrapping the root: should move namespace
-        checkRefactoring("sample3.xml", FQCN_GESTURE_OVERLAY_VIEW, "@+id/newlinear");
-    }
+	public void testWrapIn2() throws Exception {
+		// Test wrapping the root: should move namespace
+		checkRefactoring("sample3.xml", FQCN_GESTURE_OVERLAY_VIEW, "@+id/newlinear");
+	}
 
-    public void testWrapIn3() throws Exception {
-        // Test wrap multiple adjacent elements - should wrap all as a unit
-        checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2", "@+id/android_logo");
-    }
+	public void testWrapIn3() throws Exception {
+		// Test wrap multiple adjacent elements - should wrap all as a unit
+		checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2", "@+id/android_logo");
+	}
 
-    private void checkRefactoring(String basename, String fqcn, String... ids) throws Exception {
-        assertTrue(ids.length > 0);
+	private void checkRefactoring(String basename, String fqcn, String... ids) throws Exception {
+		assertTrue(ids.length > 0);
 
-        IFile file = getLayoutFile(getProject(), basename);
-        TestContext info = setupTestContext(file, basename);
-        TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
-        List<Element> selectedElements = getElements(info.mElement, ids);
+		IFile file = getLayoutFile(getProject(), basename);
+		TestContext info = setupTestContext(file, basename);
+		TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
+		List<Element> selectedElements = getElements(info.mElement, ids);
 
-        WrapInRefactoring refactoring = new WrapInRefactoring(selectedElements,
-                layoutEditor);
-        refactoring.setType(fqcn);
-        List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
-        checkEdits(basename, changes);
-    }
+		WrapInRefactoring refactoring = new WrapInRefactoring(selectedElements, layoutEditor);
+		refactoring.setType(fqcn);
+		List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
+		checkEdits(basename, changes);
+	}
 }

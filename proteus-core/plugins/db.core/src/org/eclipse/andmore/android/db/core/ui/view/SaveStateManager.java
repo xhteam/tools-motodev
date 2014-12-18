@@ -25,88 +25,82 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 
 /**
- * Manager class responsible to handle save state for tree nodes.
- * Note: The saveState method will be called only after workbench quits, quiting the view will not fire the save event state.
- * This class is a singleton.
- * Users must register the ISaveStateTreenode by using resiterSaveStateNode method.
- * Don't forget to unregister the node if node is removed.
+ * Manager class responsible to handle save state for tree nodes. Note: The
+ * saveState method will be called only after workbench quits, quiting the view
+ * will not fire the save event state. This class is a singleton. Users must
+ * register the ISaveStateTreenode by using resiterSaveStateNode method. Don't
+ * forget to unregister the node if node is removed.
  */
-public class SaveStateManager
-{
+public class SaveStateManager {
 
-    private static SaveStateManager instance;
+	private static SaveStateManager instance;
 
-    private final Set<ISaveStateTreeNode> registeredTreeNodes;
+	private final Set<ISaveStateTreeNode> registeredTreeNodes;
 
-    private final IEclipsePreferences prefNode;
+	private final IEclipsePreferences prefNode;
 
-    /*
-     * Private constructor, this is a singleton.
-     */
-    private SaveStateManager()
-    {
-        registeredTreeNodes = Collections.synchronizedSet(new HashSet<ISaveStateTreeNode>());
-        prefNode = InstanceScope.INSTANCE.getNode(DbCoreActivator.PLUGIN_ID);
-    }
+	/*
+	 * Private constructor, this is a singleton.
+	 */
+	private SaveStateManager() {
+		registeredTreeNodes = Collections.synchronizedSet(new HashSet<ISaveStateTreeNode>());
+		prefNode = InstanceScope.INSTANCE.getNode(DbCoreActivator.PLUGIN_ID);
+	}
 
-    /**
-     * @return the single instance of {@link SaveStateManager}
-     */
-    public static SaveStateManager getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new SaveStateManager();
-        }
+	/**
+	 * @return the single instance of {@link SaveStateManager}
+	 */
+	public static SaveStateManager getInstance() {
+		if (instance == null) {
+			instance = new SaveStateManager();
+		}
 
-        return instance;
-    }
+		return instance;
+	}
 
-    /**
-     * Register a node to be saved.
-     * @param treeNode to be asked for save
-     */
-    public void registerSaveStateNode(ISaveStateTreeNode treeNode)
-    {
-        synchronized (registeredTreeNodes)
-        {
-            registeredTreeNodes.add(treeNode);
-        }
-    }
+	/**
+	 * Register a node to be saved.
+	 * 
+	 * @param treeNode
+	 *            to be asked for save
+	 */
+	public void registerSaveStateNode(ISaveStateTreeNode treeNode) {
+		synchronized (registeredTreeNodes) {
+			registeredTreeNodes.add(treeNode);
+		}
+	}
 
-    /**
-     * Calls the saveState method for all registered nodes.
-     * @param memento
-     */
-    public void saveState()
-    {
-        synchronized (registeredTreeNodes)
-        {
-            for (ISaveStateTreeNode registeredTreeNode : registeredTreeNodes)
-            {
-                registeredTreeNode.saveState(prefNode);
-            }
-        }
-    }
+	/**
+	 * Calls the saveState method for all registered nodes.
+	 * 
+	 * @param memento
+	 */
+	public void saveState() {
+		synchronized (registeredTreeNodes) {
+			for (ISaveStateTreeNode registeredTreeNode : registeredTreeNodes) {
+				registeredTreeNode.saveState(prefNode);
+			}
+		}
+	}
 
-    /**
-     * Unregister the given node from this manager.
-     * @param node
-     */
-    public void unregisterSaveStateNode(ISaveStateTreeNode node)
-    {
-        synchronized (registeredTreeNodes)
-        {
-            registeredTreeNodes.remove(node);
-        }
-    }
+	/**
+	 * Unregister the given node from this manager.
+	 * 
+	 * @param node
+	 */
+	public void unregisterSaveStateNode(ISaveStateTreeNode node) {
+		synchronized (registeredTreeNodes) {
+			registeredTreeNodes.remove(node);
+		}
+	}
 
-    /**
-     * Retrieves the {@link IEclipsePreferences} prefNode.
-     * @return The {@link IEclipsePreferences} node used bu this manager to save the states.
-     */
-    public IEclipsePreferences getPrefNode()
-    {
-        return prefNode;
-    }
+	/**
+	 * Retrieves the {@link IEclipsePreferences} prefNode.
+	 * 
+	 * @return The {@link IEclipsePreferences} node used bu this manager to save
+	 *         the states.
+	 */
+	public IEclipsePreferences getPrefNode() {
+		return prefNode;
+	}
 }

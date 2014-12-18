@@ -73,6 +73,7 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -618,7 +619,7 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
                             response, launchInfo.getPackageName(),
                             desiredProjectTarget, minApiVersion,
                             config.mReuseLastUsedDevice);
-                    if (dialog.open() == Dialog.OK) {
+                    if (dialog.open() == Window.OK) {
                         updateLaunchConfigWithLastUsedDevice(launch.getLaunchConfiguration(),
                                 response);
                         continueLaunch.set(true);

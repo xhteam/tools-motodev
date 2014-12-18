@@ -51,375 +51,344 @@ import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
 
 /**
- * Abstract class that contains the basic structure to create java classes programatically
+ * Abstract class that contains the basic structure to create java classes
+ * programatically
  */
-public abstract class JavaClass
-{
-    protected static Annotation OVERRIDE_ANNOTATION;
+public abstract class JavaClass {
+	protected static Annotation OVERRIDE_ANNOTATION;
 
-    static
-    {
-        AST tempAST = AST.newAST(AST.JLS3);
+	static {
+		AST tempAST = AST.newAST(AST.JLS3);
 
-        OVERRIDE_ANNOTATION = tempAST.newMarkerAnnotation();
-        OVERRIDE_ANNOTATION.setTypeName(tempAST.newSimpleName("Override"));
+		OVERRIDE_ANNOTATION = tempAST.newMarkerAnnotation();
+		OVERRIDE_ANNOTATION.setTypeName(tempAST.newSimpleName("Override"));
 
-        tempAST = null;
-    }
+		tempAST = null;
+	}
 
-    protected CompilationUnit compUnit;
+	protected CompilationUnit compUnit;
 
-    protected AST ast;
+	protected AST ast;
 
-    protected TypeDeclaration classDecl = null;
+	protected TypeDeclaration classDecl = null;
 
-    protected IDocument document;
+	protected IDocument document;
 
-    protected String className;
+	protected String className;
 
-    protected String[] packageName;
+	protected String[] packageName;
 
-    protected String[] superClass;
+	protected String[] superClass;
 
-    /**
-     * Class constructor. Creates the basic elements for the class:
-     * package name and class declaration based on a super class.
-     * 
-     * @param className The simple class name
-     * @param packageName The full-qualified class package name
-     * @param superClass The full-qualified super class name
-     */
-    @SuppressWarnings("unchecked")
-    protected JavaClass(String className, String packageName, String superClass)
-    {
-        // It is expected that the parameters have been validated
-        // by the UI
-        Assert.isNotNull(className);
-        Assert.isNotNull(packageName);
-        Assert.isNotNull(superClass);
+	/**
+	 * Class constructor. Creates the basic elements for the class: package name
+	 * and class declaration based on a super class.
+	 * 
+	 * @param className
+	 *            The simple class name
+	 * @param packageName
+	 *            The full-qualified class package name
+	 * @param superClass
+	 *            The full-qualified super class name
+	 */
+	@SuppressWarnings("unchecked")
+	protected JavaClass(String className, String packageName, String superClass) {
+		// It is expected that the parameters have been validated
+		// by the UI
+		Assert.isNotNull(className);
+		Assert.isNotNull(packageName);
+		Assert.isNotNull(superClass);
 
-        this.className = className;
-        this.packageName = getFQNAsArray(packageName);
-        this.superClass = getFQNAsArray(superClass);
+		this.className = className;
+		this.packageName = getFQNAsArray(packageName);
+		this.superClass = getFQNAsArray(superClass);
 
-        // The package name must have two identifiers at least, according to
-        // the Android specifications
-        Assert.isLegal(packageName.length() > 1);
-        // So, the superclass must have at least two identifiers plus the name
-        Assert.isLegal(superClass.length() > 2);
+		// The package name must have two identifiers at least, according to
+		// the Android specifications
+		Assert.isLegal(packageName.length() > 1);
+		// So, the superclass must have at least two identifiers plus the name
+		Assert.isLegal(superClass.length() > 2);
 
-        ast = AST.newAST(AST.JLS3);
-        compUnit = ast.newCompilationUnit();
+		ast = AST.newAST(AST.JLS3);
+		compUnit = ast.newCompilationUnit();
 
-        Type superClassType = null;
+		Type superClassType = null;
 
-        // Sets the package name to the class
-        PackageDeclaration pd = ast.newPackageDeclaration();
-        QualifiedName qPackageName =
-                ast.newQualifiedName(ast.newName(getQualifier(this.packageName)),
-                        ast.newSimpleName(getName(this.packageName)));
-        pd.setName(qPackageName);
-        compUnit.setPackage(pd);
+		// Sets the package name to the class
+		PackageDeclaration pd = ast.newPackageDeclaration();
+		QualifiedName qPackageName = ast.newQualifiedName(ast.newName(getQualifier(this.packageName)),
+				ast.newSimpleName(getName(this.packageName)));
+		pd.setName(qPackageName);
+		compUnit.setPackage(pd);
 
-        // Imports the super class
-        ImportDeclaration id = ast.newImportDeclaration();
-        id.setName(ast.newName(superClass));
-        compUnit.imports().add(id);
-        superClassType = ast.newSimpleType(ast.newName(getName(this.superClass)));
+		// Imports the super class
+		ImportDeclaration id = ast.newImportDeclaration();
+		id.setName(ast.newName(superClass));
+		compUnit.imports().add(id);
+		superClassType = ast.newSimpleType(ast.newName(getName(this.superClass)));
 
-        // Creates the class
-        classDecl = ast.newTypeDeclaration();
-        classDecl.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
-        if (superClassType != null)
-        {
-            classDecl.setSuperclassType(superClassType);
-        }
+		// Creates the class
+		classDecl = ast.newTypeDeclaration();
+		classDecl.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
+		if (superClassType != null) {
+			classDecl.setSuperclassType(superClassType);
+		}
 
-        classDecl.setName(ast.newSimpleName(className));
-        compUnit.types().add(classDecl);
+		classDecl.setName(ast.newSimpleName(className));
+		compUnit.types().add(classDecl);
 
-        document = new Document(compUnit.toString());
-    }
+		document = new Document(compUnit.toString());
+	}
 
-    /**
-     * Gets the class content
-     * 
-     * @return an IDocument object containing the class content
-     */
-    public IDocument getClassContent() throws AndroidException
-    {
-        String content = compUnit.toString();
-        document = new Document(content);
+	/**
+	 * Gets the class content
+	 * 
+	 * @return an IDocument object containing the class content
+	 */
+	public IDocument getClassContent() throws AndroidException {
+		String content = compUnit.toString();
+		document = new Document(content);
 
-        // Formats the code using the Eclipse settings
-        CodeFormatter codeFormatter =
-                ToolFactory.createCodeFormatter(DefaultCodeFormatterConstants
-                        .getEclipseDefaultSettings());
+		// Formats the code using the Eclipse settings
+		CodeFormatter codeFormatter = ToolFactory.createCodeFormatter(DefaultCodeFormatterConstants
+				.getEclipseDefaultSettings());
 
-        TextEdit textEdit =
-                codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT
-                        | CodeFormatter.F_INCLUDE_COMMENTS, content, 0, content.length(), 0, null);
+		TextEdit textEdit = codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT | CodeFormatter.F_INCLUDE_COMMENTS,
+				content, 0, content.length(), 0, null);
 
-        try
-        {
-            textEdit.apply(document);
-        }
-        catch (MalformedTreeException e)
-        {
-            String errMsg =
-                    NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
+		try {
+			textEdit.apply(document);
+		} catch (MalformedTreeException e) {
+			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
 
-            StudioLogger.error(JavaClass.class, errMsg, e);
-            throw new AndroidException(errMsg);
-        }
-        catch (BadLocationException e)
-        {
-            String errMsg =
-                    NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
+			StudioLogger.error(JavaClass.class, errMsg, e);
+			throw new AndroidException(errMsg);
+		} catch (BadLocationException e) {
+			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
 
-            StudioLogger.error(JavaClass.class, errMsg, e);
-            throw new AndroidException(errMsg);
-        }
+			StudioLogger.error(JavaClass.class, errMsg, e);
+			throw new AndroidException(errMsg);
+		}
 
-        addComments();
+		addComments();
 
-        return document;
-    }
+		return document;
+	}
 
-    /**
-     * Adds comments to the code. As we cannot add comments when
-     * we are making the AST, comments need to be insert after the
-     * class creation
-     */
-    protected abstract void addComments() throws AndroidException;
+	/**
+	 * Adds comments to the code. As we cannot add comments when we are making
+	 * the AST, comments need to be insert after the class creation
+	 */
+	protected abstract void addComments() throws AndroidException;
 
-    /**
-     * Adds a parameter to a method
-     *  
-     * @param method The method object
-     * @param parameterName The parameter name
-     * @param parameterType The parameter type (only the single name, not the qualified)
-     */
-    @SuppressWarnings("unchecked")
-    protected void addMethodParameter(MethodDeclaration method, String parameterName,
-            Type parameterType)
-    {
-        SingleVariableDeclaration vd = ast.newSingleVariableDeclaration();
-        vd.setName(ast.newSimpleName(parameterName));
-        vd.setType(parameterType);
-        method.parameters().add(vd);
-    }
+	/**
+	 * Adds a parameter to a method
+	 * 
+	 * @param method
+	 *            The method object
+	 * @param parameterName
+	 *            The parameter name
+	 * @param parameterType
+	 *            The parameter type (only the single name, not the qualified)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void addMethodParameter(MethodDeclaration method, String parameterName, Type parameterType) {
+		SingleVariableDeclaration vd = ast.newSingleVariableDeclaration();
+		vd.setName(ast.newSimpleName(parameterName));
+		vd.setType(parameterType);
+		method.parameters().add(vd);
+	}
 
-    /**
-     * Adds a comment to a BodyDeclaration object.
-     * For now, this method does nothing.
-     * 
-     * @param element The element to add the comment
-     * @param comment The comment
-     */
-    //@SuppressWarnings("unchecked")
-    protected void addComment(BodyDeclaration element, String comment)
-    {
-        // TODO These comments will be reviewed for the Phase B
-        /*Javadoc javadoc = element.getJavadoc();
-        TextElement textElement = ast.newTextElement();
-        TagElement tagElement = ast.newTagElement();
+	/**
+	 * Adds a comment to a BodyDeclaration object. For now, this method does
+	 * nothing.
+	 * 
+	 * @param element
+	 *            The element to add the comment
+	 * @param comment
+	 *            The comment
+	 */
+	// @SuppressWarnings("unchecked")
+	protected void addComment(BodyDeclaration element, String comment) {
+		// TODO These comments will be reviewed for the Phase B
+		/*
+		 * Javadoc javadoc = element.getJavadoc(); TextElement textElement =
+		 * ast.newTextElement(); TagElement tagElement = ast.newTagElement();
+		 * 
+		 * if (javadoc == null) { javadoc = ast.newJavadoc();
+		 * element.setJavadoc(javadoc); }
+		 * 
+		 * textElement.setText(comment);
+		 * tagElement.fragments().add(textElement);
+		 * javadoc.tags().add(tagElement);
+		 */
+	}
 
-        if (javadoc == null)
-        {
-            javadoc = ast.newJavadoc();
-            element.setJavadoc(javadoc);
-        }
+	/**
+	 * Adds documentation reference to a method (the see tag to the javadoc)
+	 * 
+	 * @param element
+	 *            The method declaration object
+	 * @param qualifiedClassName
+	 *            The full qualified class name to refer
+	 * @param methodName
+	 *            The method to refer
+	 * @param parameters
+	 *            The method parameters
+	 */
+	@SuppressWarnings("unchecked")
+	protected void addMethodReference(MethodDeclaration element, String qualifiedClassName, String methodName,
+			Type[] parameters) {
+		String[] fqnArray = getFQNAsArray(qualifiedClassName);
 
-        textElement.setText(comment);
-        tagElement.fragments().add(textElement);
-        javadoc.tags().add(tagElement);*/
-    }
+		MethodRef methodRef = ast.newMethodRef();
+		methodRef.setQualifier(ast.newQualifiedName(ast.newName(getQualifier(fqnArray)),
+				ast.newSimpleName(getName(fqnArray))));
 
-    /**
-     * Adds documentation reference to a method (the see tag to the javadoc)
-     * 
-     * @param element The method declaration object
-     * @param qualifiedClassName The full qualified class name to refer
-     * @param methodName The method to refer
-     * @param parameters The method parameters
-     */
-    @SuppressWarnings("unchecked")
-    protected void addMethodReference(MethodDeclaration element, String qualifiedClassName,
-            String methodName, Type[] parameters)
-    {
-        String[] fqnArray = getFQNAsArray(qualifiedClassName);
+		methodRef.setName(ast.newSimpleName(methodName));
 
-        MethodRef methodRef = ast.newMethodRef();
-        methodRef.setQualifier(ast.newQualifiedName(ast.newName(getQualifier(fqnArray)),
-                ast.newSimpleName(getName(fqnArray))));
+		if ((parameters != null) && (parameters.length > 0)) {
+			for (Type param : parameters) {
+				MethodRefParameter methodParam = ast.newMethodRefParameter();
+				methodParam.setType(param);
+				methodRef.parameters().add(methodParam);
+			}
+		}
 
-        methodRef.setName(ast.newSimpleName(methodName));
+		Javadoc javadoc = element.getJavadoc();
+		TagElement tagElement = ast.newTagElement();
+		tagElement.setTagName(TagElement.TAG_SEE);
 
-        if ((parameters != null) && (parameters.length > 0))
-        {
-            for (Type param : parameters)
-            {
-                MethodRefParameter methodParam = ast.newMethodRefParameter();
-                methodParam.setType(param);
-                methodRef.parameters().add(methodParam);
-            }
-        }
+		if (javadoc == null) {
+			javadoc = ast.newJavadoc();
+			element.setJavadoc(javadoc);
+		}
 
-        Javadoc javadoc = element.getJavadoc();
-        TagElement tagElement = ast.newTagElement();
-        tagElement.setTagName(TagElement.TAG_SEE);
+		tagElement.fragments().add(methodRef);
+		javadoc.tags().add(tagElement);
+	}
 
-        if (javadoc == null)
-        {
-            javadoc = ast.newJavadoc();
-            element.setJavadoc(javadoc);
-        }
+	/**
+	 * Adds an empty block to a method declaration
+	 * 
+	 * @param method
+	 *            The method declaration
+	 * @param returnType
+	 *            The method return type. If the method does not have one, use
+	 *            null
+	 */
+	@SuppressWarnings("unchecked")
+	protected void addEmptyBlock(MethodDeclaration method) {
+		Expression expression = null;
+		Block emptyBlock = ast.newBlock();
+		ReturnStatement returnStatement = ast.newReturnStatement();
+		Type returnType = method.getReturnType2();
 
-        tagElement.fragments().add(methodRef);
-        javadoc.tags().add(tagElement);
-    }
+		if (returnType instanceof PrimitiveType) {
+			PrimitiveType pType = (PrimitiveType) returnType;
+			if (pType.getPrimitiveTypeCode() == PrimitiveType.BOOLEAN) {
+				expression = ast.newBooleanLiteral(false);
+			} else if (pType.getPrimitiveTypeCode() != PrimitiveType.VOID) {
+				expression = ast.newNumberLiteral("0");
+			}
+		} else {
+			expression = ast.newNullLiteral();
+		}
 
-    /**
-     * Adds an empty block to a method declaration
-     * 
-     * @param method The method declaration
-     * @param returnType The method return type. If the method does not have one, use null
-     */
-    @SuppressWarnings("unchecked")
-    protected void addEmptyBlock(MethodDeclaration method)
-    {
-        Expression expression = null;
-        Block emptyBlock = ast.newBlock();
-        ReturnStatement returnStatement = ast.newReturnStatement();
-        Type returnType = method.getReturnType2();
+		if (expression != null) {
+			returnStatement.setExpression(expression);
+			emptyBlock.statements().add(returnStatement);
+		}
 
-        if (returnType instanceof PrimitiveType)
-        {
-            PrimitiveType pType = (PrimitiveType) returnType;
-            if (pType.getPrimitiveTypeCode() == PrimitiveType.BOOLEAN)
-            {
-                expression = ast.newBooleanLiteral(false);
-            }
-            else if (pType.getPrimitiveTypeCode() != PrimitiveType.VOID)
-            {
-                expression = ast.newNumberLiteral("0");
-            }
-        }
-        else
-        {
-            expression = ast.newNullLiteral();
-        }
+		method.setBody(emptyBlock);
+	}
 
-        if (expression != null)
-        {
-            returnStatement.setExpression(expression);
-            emptyBlock.statements().add(returnStatement);
-        }
+	/**
+	 * Creates a new string Type object
+	 * 
+	 * @return a new string Type object
+	 */
+	protected Type stringType() {
+		return ast.newSimpleType(ast.newSimpleName(String.class.getSimpleName()));
+	}
 
-        method.setBody(emptyBlock);
-    }
+	/**
+	 * Creates a new string array Type object
+	 * 
+	 * @return a new string array Type object
+	 */
+	protected Type stringArrayType() {
+		return ast.newArrayType(ast.newSimpleType(ast.newName(String.class.getSimpleName())));
+	}
 
-    /**
-     * Creates a new string Type object
-     * 
-     * @return a new string Type object
-     */
-    protected Type stringType()
-    {
-        return ast.newSimpleType(ast.newSimpleName(String.class.getSimpleName()));
-    }
+	/**
+	 * Creates a new int array Type object
+	 * 
+	 * @return a new int array Type object
+	 */
+	protected Type intArrayType() {
+		return ast.newArrayType(ast.newPrimitiveType(PrimitiveType.INT));
+	}
 
-    /**
-     * Creates a new string array Type object
-     * 
-     * @return a new string array Type object
-     */
-    protected Type stringArrayType()
-    {
-        return ast.newArrayType(ast.newSimpleType(ast.newName(String.class.getSimpleName())));
-    }
+	/**
+	 * Returns a full qualified class name as a array
+	 * 
+	 * @param fqn
+	 *            The full qualified class name
+	 * @return the full qualified class name as a array
+	 */
+	protected static String[] getFQNAsArray(String fqn) {
+		String[] parts;
 
-    /**
-     * Creates a new int array Type object
-     * 
-     * @return a new int array Type object
-     */
-    protected Type intArrayType()
-    {
-        return ast.newArrayType(ast.newPrimitiveType(PrimitiveType.INT));
-    }
+		if (fqn.contains(".")) {
+			parts = fqn.split("\\.");
+		} else {
+			parts = new String[] { fqn };
+		}
 
-    /**
-     * Returns a full qualified class name as a array
-     *    
-     * @param fqn The full qualified class name
-     * @return the full qualified class name as a array
-     */
-    protected static String[] getFQNAsArray(String fqn)
-    {
-        String[] parts;
+		return parts;
+	}
 
-        if (fqn.contains("."))
-        {
-            parts = fqn.split("\\.");
-        }
-        else
-        {
-            parts = new String[]
-            {
-                fqn
-            };
-        }
+	/**
+	 * Retrieves the qualifier for a full qualified name. Example:
+	 * com.motorola.studio.android.MyClass
+	 * 
+	 * The qualifier for the class is com.motorola.studio.android
+	 * 
+	 * @param qualifiedName
+	 *            The full qualified name
+	 * @return The qualifier
+	 */
+	protected static String[] getQualifier(String[] qualifiedName) {
+		String[] qualifier;
 
-        return parts;
-    }
+		if (qualifiedName.length > 1) {
+			qualifier = new String[qualifiedName.length - 1];
 
-    /**
-     * Retrieves the qualifier for a full qualified name.
-     * Example:
-     *      com.motorola.studio.android.MyClass
-     * 
-     * The qualifier for the class is com.motorola.studio.android
-     *  
-     * @param qualifiedName The full qualified name
-     * @return The qualifier
-     */
-    protected static String[] getQualifier(String[] qualifiedName)
-    {
-        String[] qualifier;
+			System.arraycopy(qualifiedName, 0, qualifier, 0, qualifiedName.length - 1);
+		} else {
+			qualifier = qualifiedName;
+		}
 
-        if (qualifiedName.length > 1)
-        {
-            qualifier = new String[qualifiedName.length - 1];
+		return qualifier;
+	}
 
-            System.arraycopy(qualifiedName, 0, qualifier, 0, qualifiedName.length - 1);
-        }
-        else
-        {
-            qualifier = qualifiedName;
-        }
+	/**
+	 * Gets the name part from a full qualified name
+	 * 
+	 * @param qualifiedName
+	 *            The full qualified name
+	 * 
+	 * @return The name part from a full qualified name
+	 */
+	protected static String getName(String[] qualifiedName) {
+		String name = null;
 
-        return qualifier;
-    }
+		if ((qualifiedName != null) && (qualifiedName.length > 0)) {
+			name = qualifiedName[qualifiedName.length - 1];
+		}
 
-    /** 
-     * Gets the name part from a full qualified name
-     * 
-     * @param qualifiedName The full qualified name
-     * 
-     * @return The name part from a full qualified name
-     */
-    protected static String getName(String[] qualifiedName)
-    {
-        String name = null;
-
-        if ((qualifiedName != null) && (qualifiedName.length > 0))
-        {
-            name = qualifiedName[qualifiedName.length - 1];
-        }
-
-        return name;
-    }
+		return name;
+	}
 
 }

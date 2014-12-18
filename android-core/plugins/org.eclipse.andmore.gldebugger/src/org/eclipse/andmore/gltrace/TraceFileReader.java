@@ -25,43 +25,47 @@ import java.io.RandomAccessFile;
 import org.eclipse.andmore.gltrace.GLProtoBuf.GLMessage;
 
 public class TraceFileReader {
-    /** Maximum size for a protocol buffer message.
-     * The message size is dominated by the size of the compressed framebuffer.
-     * Currently, we assume that the maximum is for a 1080p display. Since the buffers compress
-     * well, we should probably never get close to this.
-     */
-    private static final int MAX_PROTOBUF_SIZE = 1920 * 1080 * 100;
+	/**
+	 * Maximum size for a protocol buffer message. The message size is dominated
+	 * by the size of the compressed framebuffer. Currently, we assume that the
+	 * maximum is for a 1080p display. Since the buffers compress well, we
+	 * should probably never get close to this.
+	 */
+	private static final int MAX_PROTOBUF_SIZE = 1920 * 1080 * 100;
 
-    /**
-     * Obtain the next protobuf message in this file.
-     * @param file file to read from
-     * @param offset offset to start reading from
-     * @return protobuf message at given offset
-     * @throws IOException in case of file I/O errors
-     * @throws InvalidProtocolBufferException if protobuf is not well formed
-     */
-    public GLMessage getMessageAtOffset(RandomAccessFile file, long offset) throws IOException {
-        int len;
-        byte[] b;
-        try {
-            if (offset != -1) {
-                file.seek(offset);
-            }
+	/**
+	 * Obtain the next protobuf message in this file.
+	 * 
+	 * @param file
+	 *            file to read from
+	 * @param offset
+	 *            offset to start reading from
+	 * @return protobuf message at given offset
+	 * @throws IOException
+	 *             in case of file I/O errors
+	 * @throws InvalidProtocolBufferException
+	 *             if protobuf is not well formed
+	 */
+	public GLMessage getMessageAtOffset(RandomAccessFile file, long offset) throws IOException {
+		int len;
+		byte[] b;
+		try {
+			if (offset != -1) {
+				file.seek(offset);
+			}
 
-            len = file.readInt();
-            if (len > MAX_PROTOBUF_SIZE) {
-                String msg = String.format(
-                        "Unexpectedly large (%d bytes) protocol buffer message encountered.",
-                        len);
-                throw new InvalidProtocolBufferException(msg);
-            }
+			len = file.readInt();
+			if (len > MAX_PROTOBUF_SIZE) {
+				String msg = String.format("Unexpectedly large (%d bytes) protocol buffer message encountered.", len);
+				throw new InvalidProtocolBufferException(msg);
+			}
 
-            b = new byte[len];
-            file.readFully(b);
-        } catch (EOFException e) {
-            return null;
-        }
+			b = new byte[len];
+			file.readFully(b);
+		} catch (EOFException e) {
+			return null;
+		}
 
-        return GLMessage.parseFrom(b);
-    }
+		return GLMessage.parseFrom(b);
+	}
 }

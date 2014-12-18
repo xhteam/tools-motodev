@@ -49,233 +49,164 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * This Wizard removes a signature of a package. based on a root dir, It shows a
  * list of packages to remove signature
  */
-public class RemoveExternalPackageSignatureWizard extends Wizard
-{
-    private RemoveExternalPackageSignaturePage page = null;
+public class RemoveExternalPackageSignatureWizard extends Wizard {
+	private RemoveExternalPackageSignaturePage page = null;
 
-    public RemoveExternalPackageSignatureWizard(IStructuredSelection selection)
-    {
-        setWindowTitle(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE);
-        setNeedsProgressMonitor(true);
-        this.page = new RemoveExternalPackageSignaturePage("removeSigPage", selection);
-        setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(
-                CertificateManagerActivator.PLUGIN_ID,
-                CertificateManagerActivator.REMOVE_SIGNATURE_WIZ_BAN));
-    }
+	public RemoveExternalPackageSignatureWizard(IStructuredSelection selection) {
+		setWindowTitle(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE);
+		setNeedsProgressMonitor(true);
+		this.page = new RemoveExternalPackageSignaturePage("removeSigPage", selection);
+		setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(CertificateManagerActivator.PLUGIN_ID,
+				CertificateManagerActivator.REMOVE_SIGNATURE_WIZ_BAN));
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        addPage(this.page);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		addPage(this.page);
+	}
 
-    /**
-     * Finishes this wizard removing packages signatures
-     */
-    @Override
-    public boolean performFinish()
-    {
-        final List<String> defectivePackages = new ArrayList<String>();
-        IRunnableWithProgress finishAction = new IRunnableWithProgress()
-        {
+	/**
+	 * Finishes this wizard removing packages signatures
+	 */
+	@Override
+	public boolean performFinish() {
+		final List<String> defectivePackages = new ArrayList<String>();
+		IRunnableWithProgress finishAction = new IRunnableWithProgress() {
 
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException,
-                    InterruptedException
-            {
-                List<String> selectedFiles =
-                        RemoveExternalPackageSignatureWizard.this.page.getSelectedPackages();
-                monitor.beginTask(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE,
-                        selectedFiles.size());
-                for (String selected : selectedFiles)
-                {
-                    File file = new File(selected);
-                    monitor.setTaskName(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_OPERATION
-                            + " " + file.getName());
-                    if ((file != null) && file.exists() && file.isFile() && file.canWrite())
-                    {
-                        OutputStream fileToWrite = null;
-                        JarFile jar = null;
-                        PackageFile pack = null;
-                        try
-                        {
-                            // Open package and remove signature
-                            jar = new JarFile(file);
-                            pack = new PackageFile(jar);
-                            try
-                            {
-                                pack.removeMetaEntryFiles();
-                            }
-                            catch (IOException e)
-                            {
-                                StudioLogger.error(
-                                        RemoveExternalPackageSignatureWizard.class.toString(),
-                                        "Impossible to delete temporary files");
-                                throw e;
-                            }
+			@Override
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				List<String> selectedFiles = RemoveExternalPackageSignatureWizard.this.page.getSelectedPackages();
+				monitor.beginTask(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE, selectedFiles.size());
+				for (String selected : selectedFiles) {
+					File file = new File(selected);
+					monitor.setTaskName(CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_OPERATION + " "
+							+ file.getName());
+					if ((file != null) && file.exists() && file.isFile() && file.canWrite()) {
+						OutputStream fileToWrite = null;
+						JarFile jar = null;
+						PackageFile pack = null;
+						try {
+							// Open package and remove signature
+							jar = new JarFile(file);
+							pack = new PackageFile(jar);
+							try {
+								pack.removeMetaEntryFiles();
+							} catch (IOException e) {
+								StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+										"Impossible to delete temporary files");
+								throw e;
+							}
 
-                            // Write the new package file
-                            fileToWrite = new FileOutputStream(file);
-                            pack.write(fileToWrite);
-                            PackageFile.zipAlign(file);
-                        }
-                        catch (IOException e)
-                        {
-                            defectivePackages.add(selected);
-                            StudioLogger.error(
-                                    RemoveExternalPackageSignatureWizard.class.toString(),
-                                    "Impossible write to package: " + selected + " "
-                                            + e.getMessage());
-                        }
-                        catch (SecurityException e)
-                        {
-                            defectivePackages.add(selected);
-                            StudioLogger.error(
-                                    RemoveExternalPackageSignatureWizard.class.toString(),
-                                    "Impossible write to package: " + selected + " "
-                                            + e.getMessage());
-                        }
-                        finally
-                        {
+							// Write the new package file
+							fileToWrite = new FileOutputStream(file);
+							pack.write(fileToWrite);
+							PackageFile.zipAlign(file);
+						} catch (IOException e) {
+							defectivePackages.add(selected);
+							StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+									"Impossible write to package: " + selected + " " + e.getMessage());
+						} catch (SecurityException e) {
+							defectivePackages.add(selected);
+							StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+									"Impossible write to package: " + selected + " " + e.getMessage());
+						} finally {
 
-                            System.gc(); // Force garbage collector to avoid
-                            // errors when deleting temp files
+							System.gc(); // Force garbage collector to avoid
+							// errors when deleting temp files
 
-                            try
-                            {
-                                if (jar != null)
-                                {
-                                    jar.close();
-                                }
+							try {
+								if (jar != null) {
+									jar.close();
+								}
 
-                                if (pack != null)
-                                {
-                                    pack.removeTemporaryEntryFiles();
-                                }
+								if (pack != null) {
+									pack.removeTemporaryEntryFiles();
+								}
 
-                                if (fileToWrite != null)
-                                {
-                                    fileToWrite.close();
-                                }
-                            }
-                            catch (IOException e)
-                            {
-                                // Silent exception. Only log the deletion
-                                // exception.
-                                StudioLogger.error(CertificateManagerActivator.PLUGIN_ID,
-                                        "Deleting temporary files");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        defectivePackages.add(selected);
-                    }
-                    monitor.worked(1);
-                }
-                monitor.done();
-            }
+								if (fileToWrite != null) {
+									fileToWrite.close();
+								}
+							} catch (IOException e) {
+								// Silent exception. Only log the deletion
+								// exception.
+								StudioLogger.error(CertificateManagerActivator.PLUGIN_ID, "Deleting temporary files");
+							}
+						}
+					} else {
+						defectivePackages.add(selected);
+					}
+					monitor.worked(1);
+				}
+				monitor.done();
+			}
 
-        };
+		};
 
-        try
-        {
-            PlatformUI.getWorkbench().getProgressService()
-                    .runInUI(new ProgressMonitorDialog(getShell()), finishAction, null);
-        }
-        catch (InvocationTargetException e1)
-        {
-            StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
-                    "Error running finish actions");
-        }
-        catch (InterruptedException e1)
-        {
-            StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
-                    "Error running finish actions");
-        }
+		try {
+			PlatformUI.getWorkbench().getProgressService()
+					.runInUI(new ProgressMonitorDialog(getShell()), finishAction, null);
+		} catch (InvocationTargetException e1) {
+			StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
+		} catch (InterruptedException e1) {
+			StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
+		}
 
-        if (ResourcesPlugin.getWorkspace().getRoot().getLocation()
-                .isPrefixOf(this.page.getSourcePath()))
-        {
-            org.eclipse.ui.actions.WorkspaceModifyOperation op =
-                    new org.eclipse.ui.actions.WorkspaceModifyOperation()
-                    {
+		if (ResourcesPlugin.getWorkspace().getRoot().getLocation().isPrefixOf(this.page.getSourcePath())) {
+			org.eclipse.ui.actions.WorkspaceModifyOperation op = new org.eclipse.ui.actions.WorkspaceModifyOperation() {
 
-                        @Override
-                        protected void execute(IProgressMonitor monitor) throws CoreException,
-                                InvocationTargetException, InterruptedException
-                        {
-                            for (IContainer container : ResourcesPlugin
-                                    .getWorkspace()
-                                    .getRoot()
-                                    .findContainersForLocation(
-                                            RemoveExternalPackageSignatureWizard.this.page
-                                                    .getSourcePath()))
-                            {
+				@Override
+				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException,
+						InterruptedException {
+					for (IContainer container : ResourcesPlugin.getWorkspace().getRoot()
+							.findContainersForLocation(RemoveExternalPackageSignatureWizard.this.page.getSourcePath())) {
 
-                                container.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-                            }
+						container.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+					}
 
-                        }
+				}
 
-                    };
-            try
-            {
-                PlatformUI.getWorkbench().getProgressService().run(false, false, op);
-            }
-            catch (InvocationTargetException e)
-            {
-                StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
-                        "Error refreshing workspace");
-            }
-            catch (InterruptedException e)
-            {
-                StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
-                        "Error refreshing workspace");
-            }
-        }
+			};
+			try {
+				PlatformUI.getWorkbench().getProgressService().run(false, false, op);
+			} catch (InvocationTargetException e) {
+				StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
+			} catch (InterruptedException e) {
+				StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
+			}
+		}
 
-        if (!defectivePackages.isEmpty())
-        {
-            MultiStatus errors =
-                    new MultiStatus(CertificateManagerActivator.PLUGIN_ID, IStatus.ERROR,
-                            CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_ERROR_REASON, null);
-            for (String defect : defectivePackages)
-            {
-                errors.add(new Status(IStatus.ERROR, CertificateManagerActivator.PLUGIN_ID, defect));
-            }
+		if (!defectivePackages.isEmpty()) {
+			MultiStatus errors = new MultiStatus(CertificateManagerActivator.PLUGIN_ID, IStatus.ERROR,
+					CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_ERROR_REASON, null);
+			for (String defect : defectivePackages) {
+				errors.add(new Status(IStatus.ERROR, CertificateManagerActivator.PLUGIN_ID, defect));
+			}
 
-            ErrorDialog errorBox =
-                    new ErrorDialog(getShell(),
-                            CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE,
-                            CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_ERROR, errors,
-                            IStatus.ERROR);
-            errorBox.open();
-        }
+			ErrorDialog errorBox = new ErrorDialog(getShell(),
+					CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_WINDOW_TITLE,
+					CertificateManagerNLS.UNSIGN_EXTERNAL_PKG_WIZARD_ERROR, errors, IStatus.ERROR);
+			errorBox.open();
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets
-     * .Composite)
-     */
-    @Override
-    public void createPageControls(Composite pageContainer)
-    {
-        super.createPageControls(pageContainer);
-        PlatformUI
-                .getWorkbench()
-                .getHelpSystem()
-                .setHelp(getShell(),
-                        CertificateManagerActivator.UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.wizard.Wizard#createPageControls(org.eclipse.swt.widgets
+	 * .Composite)
+	 */
+	@Override
+	public void createPageControls(Composite pageContainer) {
+		super.createPageControls(pageContainer);
+		PlatformUI.getWorkbench().getHelpSystem()
+				.setHelp(getShell(), CertificateManagerActivator.UNSIGN_EXTERNAL_PKG_WIZARD_CONTEXT_HELP_ID);
+	}
 }

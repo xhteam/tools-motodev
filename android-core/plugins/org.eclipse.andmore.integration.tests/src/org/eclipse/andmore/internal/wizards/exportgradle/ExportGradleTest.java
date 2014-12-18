@@ -47,257 +47,208 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
 public class ExportGradleTest extends AdtProjectTest {
-    private QualifiedName ERROR_KEY = new QualifiedName(AdtPlugin.PLUGIN_ID, "JobErrorKey");
-    private Throwable mLastThrown;
+	private QualifiedName ERROR_KEY = new QualifiedName(AdtPlugin.PLUGIN_ID, "JobErrorKey");
+	private Throwable mLastThrown;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        mLastThrown = null;
-    }
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		mLastThrown = null;
+	}
 
-    @Override
-    protected boolean testCaseNeedsUniqueProject() {
-        return true;
-    }
+	@Override
+	protected boolean testCaseNeedsUniqueProject() {
+		return true;
+	}
 
-    public void testSimpleAndroidApp() throws Throwable {
-        IProject project = getProject("simple-app");
-        final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
+	public void testSimpleAndroidApp() throws Throwable {
+		IProject project = getProject("simple-app");
+		final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
 
-        final ProjectSetupBuilder builder = new ProjectSetupBuilder();
-        builder.setProject(Collections.singletonList(javaProject));
+		final ProjectSetupBuilder builder = new ProjectSetupBuilder();
+		builder.setProject(Collections.singletonList(javaProject));
 
-        Job job = new Job("Validate project") {
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                try {
-                    BuildFileCreator.createBuildFiles(builder, null, monitor);
-                    File buildfile = new File(javaProject.getResource().getLocation().toString(),
-                            BuildFileCreator.BUILD_FILE);
-                    assertTrue(buildfile.exists());
-                    String contents = Files.toString(buildfile, Charsets.UTF_8);
-                    String expectedContents =
-                            "buildscript {\n" +
-                            "    repositories {\n" +
-                            "        " + BuildFileCreator.MAVEN_REPOSITORY + "\n" +
-                            "    }\n" +
-                            "    dependencies {\n" +
-                            "        " + BuildFileCreator.PLUGIN_CLASSPATH + "\n" +
-                            "    }\n" +
-                            "}\n" +
-                            "apply plugin: 'android'\n" +
-                            "\n" +
-                            "dependencies {\n" +
-                            "}\n" +
-                            "\n" +
-                            "android {\n" +
-                            "    compileSdkVersion 16\n" +
-                            "    buildToolsVersion \"16\"\n" +
-                            "\n" +
-                            "    defaultConfig {\n" +
-                            "        minSdkVersion 1\n" +
-                            "        targetSdkVersion 1\n" +
-                            "    }\n" +
-                            "    sourceSets {\n" +
-                            "        main {\n" +
-                            "            manifest.srcFile 'AndroidManifest.xml'\n" +
-                            "            java.srcDirs = ['src']\n" +
-                            "            resources.srcDirs = ['src']\n" +
-                            "            aidl.srcDirs = ['src']\n" +
-                            "            renderscript.srcDirs = ['src']\n" +
-                            "            res.srcDirs = ['res']\n" +
-                            "            assets.srcDirs = ['assets']\n" +
-                            "        }\n" +
-                            "        instrumentTest.setRoot('tests')\n" +
-                            "    }\n" +
-                            "}";
+		Job job = new Job("Validate project") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					BuildFileCreator.createBuildFiles(builder, null, monitor);
+					File buildfile = new File(javaProject.getResource().getLocation().toString(),
+							BuildFileCreator.BUILD_FILE);
+					assertTrue(buildfile.exists());
+					String contents = Files.toString(buildfile, Charsets.UTF_8);
+					String expectedContents = "buildscript {\n" + "    repositories {\n" + "        "
+							+ BuildFileCreator.MAVEN_REPOSITORY + "\n" + "    }\n" + "    dependencies {\n"
+							+ "        " + BuildFileCreator.PLUGIN_CLASSPATH + "\n" + "    }\n" + "}\n"
+							+ "apply plugin: 'android'\n" + "\n" + "dependencies {\n" + "}\n" + "\n" + "android {\n"
+							+ "    compileSdkVersion 16\n" + "    buildToolsVersion \"16\"\n" + "\n"
+							+ "    defaultConfig {\n" + "        minSdkVersion 1\n" + "        targetSdkVersion 1\n"
+							+ "    }\n" + "    sourceSets {\n" + "        main {\n"
+							+ "            manifest.srcFile 'AndroidManifest.xml'\n"
+							+ "            java.srcDirs = ['src']\n" + "            resources.srcDirs = ['src']\n"
+							+ "            aidl.srcDirs = ['src']\n" + "            renderscript.srcDirs = ['src']\n"
+							+ "            res.srcDirs = ['res']\n" + "            assets.srcDirs = ['assets']\n"
+							+ "        }\n" + "        instrumentTest.setRoot('tests')\n" + "    }\n" + "}";
 
-                    assertEqualsWhitespaceInsensitive(expectedContents, contents);
-                } catch (Throwable t) {
-                    mLastThrown = t;
-                }
-                return null;
-            }
-        };
-        job.schedule(1000);
-        job.join();
-        Object property = job.getProperty(ERROR_KEY);
-        assertNull(property);
-        if (mLastThrown != null) {
-            throw mLastThrown;
-        }
-    }
+					assertEqualsWhitespaceInsensitive(expectedContents, contents);
+				} catch (Throwable t) {
+					mLastThrown = t;
+				}
+				return null;
+			}
+		};
+		job.schedule(1000);
+		job.join();
+		Object property = job.getProperty(ERROR_KEY);
+		assertNull(property);
+		if (mLastThrown != null) {
+			throw mLastThrown;
+		}
+	}
 
-    public void testSimpleAndroidLib() throws Throwable {
-        final IProject project = getProject("simple-library");
-        ProjectState projectState = Sdk.getProjectState(project.getProject());
-        ProjectPropertiesWorkingCopy propertiesWorkingCopy = projectState.getProperties().makeWorkingCopy();
-        propertiesWorkingCopy.setProperty(PROPERTY_LIBRARY, "true");
-        propertiesWorkingCopy.save();
-        IResource projectProp = project.findMember(SdkConstants.FN_PROJECT_PROPERTIES);
-        if (projectProp != null) {
-            projectProp.refreshLocal(IResource.DEPTH_ZERO, new NullProgressMonitor());
-        }
+	public void testSimpleAndroidLib() throws Throwable {
+		final IProject project = getProject("simple-library");
+		ProjectState projectState = Sdk.getProjectState(project.getProject());
+		ProjectPropertiesWorkingCopy propertiesWorkingCopy = projectState.getProperties().makeWorkingCopy();
+		propertiesWorkingCopy.setProperty(PROPERTY_LIBRARY, "true");
+		propertiesWorkingCopy.save();
+		IResource projectProp = project.findMember(SdkConstants.FN_PROJECT_PROPERTIES);
+		if (projectProp != null) {
+			projectProp.refreshLocal(IResource.DEPTH_ZERO, new NullProgressMonitor());
+		}
 
-        Job job = new Job("Validate project") {
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                try {
-                    IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
+		Job job = new Job("Validate project") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
 
-                    final ProjectSetupBuilder builder = new ProjectSetupBuilder();
-                    builder.setProject(Collections.singletonList(javaProject));
+					final ProjectSetupBuilder builder = new ProjectSetupBuilder();
+					builder.setProject(Collections.singletonList(javaProject));
 
-                    BuildFileCreator.createBuildFiles(builder, null, monitor);
-                    File buildfile = new File(javaProject.getResource().getLocation().toString(),
-                            BuildFileCreator.BUILD_FILE);
-                    assertTrue(buildfile.exists());
-                    String contents = Files.toString(buildfile, Charsets.UTF_8);
-                    String expectedContents =
-                            "buildscript {\n" +
-                            "    repositories {\n" +
-                            "        " + BuildFileCreator.MAVEN_REPOSITORY + "\n" +
-                            "    }\n" +
-                            "    dependencies {\n" +
-                            "        " + BuildFileCreator.PLUGIN_CLASSPATH + "\n" +
-                            "    }\n" +
-                            "}\n" +
-                            "apply plugin: 'android-library'\n" +
-                            "\n" +
-                            "dependencies {\n" +
-                            "}\n" +
-                            "\n" +
-                            "android {\n" +
-                            "    compileSdkVersion 16\n" +
-                            "    buildToolsVersion \"16\"\n" +
-                            "\n" +
-                            "    defaultConfig {\n" +
-                            "        minSdkVersion 1\n" +
-                            "        targetSdkVersion 1\n" +
-                            "    }\n" +
-                            "    sourceSets {\n" +
-                            "        main {\n" +
-                            "            manifest.srcFile 'AndroidManifest.xml'\n" +
-                            "            java.srcDirs = ['src']\n" +
-                            "            resources.srcDirs = ['src']\n" +
-                            "            aidl.srcDirs = ['src']\n" +
-                            "            renderscript.srcDirs = ['src']\n" +
-                            "            res.srcDirs = ['res']\n" +
-                            "            assets.srcDirs = ['assets']\n" +
-                            "        }\n" +
-                            "        instrumentTest.setRoot('tests')\n" +
-                            "    }\n" +
-                            "}";
+					BuildFileCreator.createBuildFiles(builder, null, monitor);
+					File buildfile = new File(javaProject.getResource().getLocation().toString(),
+							BuildFileCreator.BUILD_FILE);
+					assertTrue(buildfile.exists());
+					String contents = Files.toString(buildfile, Charsets.UTF_8);
+					String expectedContents = "buildscript {\n" + "    repositories {\n" + "        "
+							+ BuildFileCreator.MAVEN_REPOSITORY + "\n" + "    }\n" + "    dependencies {\n"
+							+ "        " + BuildFileCreator.PLUGIN_CLASSPATH + "\n" + "    }\n" + "}\n"
+							+ "apply plugin: 'android-library'\n" + "\n" + "dependencies {\n" + "}\n" + "\n"
+							+ "android {\n" + "    compileSdkVersion 16\n" + "    buildToolsVersion \"16\"\n" + "\n"
+							+ "    defaultConfig {\n" + "        minSdkVersion 1\n" + "        targetSdkVersion 1\n"
+							+ "    }\n" + "    sourceSets {\n" + "        main {\n"
+							+ "            manifest.srcFile 'AndroidManifest.xml'\n"
+							+ "            java.srcDirs = ['src']\n" + "            resources.srcDirs = ['src']\n"
+							+ "            aidl.srcDirs = ['src']\n" + "            renderscript.srcDirs = ['src']\n"
+							+ "            res.srcDirs = ['res']\n" + "            assets.srcDirs = ['assets']\n"
+							+ "        }\n" + "        instrumentTest.setRoot('tests')\n" + "    }\n" + "}";
 
-                    assertEqualsWhitespaceInsensitive(expectedContents, contents);
-                } catch (Throwable t) {
-                    mLastThrown = t;
-                }
-                return null;
-            }
-        };
-        job.schedule(1000);
-        job.join();
-        Object property = job.getProperty(ERROR_KEY);
-        assertNull(property);
-        if (mLastThrown != null) {
-            throw mLastThrown;
-        }
-    }
+					assertEqualsWhitespaceInsensitive(expectedContents, contents);
+				} catch (Throwable t) {
+					mLastThrown = t;
+				}
+				return null;
+			}
+		};
+		job.schedule(1000);
+		job.join();
+		Object property = job.getProperty(ERROR_KEY);
+		assertNull(property);
+		if (mLastThrown != null) {
+			throw mLastThrown;
+		}
+	}
 
-    public void testPlainJavaProject() throws Throwable {
-        IProject project = getJavaProject("simple-java");
-        final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
+	public void testPlainJavaProject() throws Throwable {
+		IProject project = getJavaProject("simple-java");
+		final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
 
-        final ProjectSetupBuilder builder = new ProjectSetupBuilder();
-        builder.setProject(Collections.singletonList(javaProject));
+		final ProjectSetupBuilder builder = new ProjectSetupBuilder();
+		builder.setProject(Collections.singletonList(javaProject));
 
-        BuildFileCreator.createBuildFiles(builder, null, null);
-        Job job = new Job("Validate project") {
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                try {
-                    File buildfile = new File(javaProject.getResource().getLocation().toString(), "build.gradle");
-                    assertTrue(buildfile.exists());
-                    String contents = Files.toString(buildfile, Charsets.UTF_8);
-                    String expectedContents =
-                            "apply plugin: 'java'\n" +
-                            "sourceSets {\n" +
-                            "    main.java.srcDirs = ['src']\n" +
-                            "}";
+		BuildFileCreator.createBuildFiles(builder, null, null);
+		Job job = new Job("Validate project") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					File buildfile = new File(javaProject.getResource().getLocation().toString(), "build.gradle");
+					assertTrue(buildfile.exists());
+					String contents = Files.toString(buildfile, Charsets.UTF_8);
+					String expectedContents = "apply plugin: 'java'\n" + "sourceSets {\n"
+							+ "    main.java.srcDirs = ['src']\n" + "}";
 
-                    assertEqualsWhitespaceInsensitive(expectedContents, contents);
-                } catch (Throwable t) {
-                    mLastThrown = t;
-                }
-                return null;
-            }
-        };
-        job.schedule(1000);
-        job.join();
-        Object property = job.getProperty(ERROR_KEY);
-        assertNull(property);
-        if (mLastThrown != null) {
-            throw mLastThrown;
-        }
-    }
+					assertEqualsWhitespaceInsensitive(expectedContents, contents);
+				} catch (Throwable t) {
+					mLastThrown = t;
+				}
+				return null;
+			}
+		};
+		job.schedule(1000);
+		job.join();
+		Object property = job.getProperty(ERROR_KEY);
+		assertNull(property);
+		if (mLastThrown != null) {
+			throw mLastThrown;
+		}
+	}
 
-    protected IProject getProject(String projectName) {
-        IProject project = createProject(projectName);
-        assertNotNull(project);
-        if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
-            addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
-        }
-        addCleanupDir(project.getFullPath().toFile());
-        return project;
-    }
+	protected IProject getProject(String projectName) {
+		IProject project = createProject(projectName);
+		assertNotNull(project);
+		if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
+			addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
+		}
+		addCleanupDir(project.getFullPath().toFile());
+		return project;
+	}
 
-    protected IProject getJavaProject(String projectName) {
-        IProject project = createJavaProject(projectName);
-        assertNotNull(project);
-        if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
-            addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
-        }
-        addCleanupDir(project.getFullPath().toFile());
-        return project;
-    }
+	protected IProject getJavaProject(String projectName) {
+		IProject project = createJavaProject(projectName);
+		assertNotNull(project);
+		if (!testCaseNeedsUniqueProject() && !testNeedsUniqueProject()) {
+			addCleanupDir(AdtUtils.getAbsolutePath(project).toFile());
+		}
+		addCleanupDir(project.getFullPath().toFile());
+		return project;
+	}
 
-    protected IProject createJavaProject(String name) {
-        IRunnableContext context = new IRunnableContext() {
-            @Override
-            public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable)
-                    throws InvocationTargetException, InterruptedException {
-                runnable.run(new NullProgressMonitor());
-            }
-        };
-        NewProjectWizardState state = new NewProjectWizardState(Mode.ANY);
-        state.projectName = name;
-        state.packageName = TEST_PROJECT_PACKAGE;
-        state.activityName = name;
-        state.applicationName = name;
-        state.createActivity = false;
-        state.useDefaultLocation = true;
-        if (getMinSdk() != -1) {
-            state.minSdk = Integer.toString(getMinSdk());
-        }
+	protected IProject createJavaProject(String name) {
+		IRunnableContext context = new IRunnableContext() {
+			@Override
+			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable)
+					throws InvocationTargetException, InterruptedException {
+				runnable.run(new NullProgressMonitor());
+			}
+		};
+		NewProjectWizardState state = new NewProjectWizardState(Mode.ANY);
+		state.projectName = name;
+		state.packageName = TEST_PROJECT_PACKAGE;
+		state.activityName = name;
+		state.applicationName = name;
+		state.createActivity = false;
+		state.useDefaultLocation = true;
+		if (getMinSdk() != -1) {
+			state.minSdk = Integer.toString(getMinSdk());
+		}
 
-        NewProjectCreator creator = new NewProjectCreator(state, context);
-        creator.createJavaProjects();
-        return validateProjectExists(name);
-    }
+		NewProjectCreator creator = new NewProjectCreator(state, context);
+		creator.createJavaProjects();
+		return validateProjectExists(name);
+	}
 
-    /**
-     * Compares two strings, disregarding whitespace. This makes the test less brittle with respect
-     * to insignificant changes.
-     */
-    protected void assertEqualsWhitespaceInsensitive(String a, String b) {
-        a = stripWhitespace(a);
-        b = stripWhitespace(b);
-        assertEquals("Expected:\n" + a + "\nbut was:\n" + b + "\n\n", a, b);
-    }
+	/**
+	 * Compares two strings, disregarding whitespace. This makes the test less
+	 * brittle with respect to insignificant changes.
+	 */
+	protected void assertEqualsWhitespaceInsensitive(String a, String b) {
+		a = stripWhitespace(a);
+		b = stripWhitespace(b);
+		assertEquals("Expected:\n" + a + "\nbut was:\n" + b + "\n\n", a, b);
+	}
 
-    protected String stripWhitespace(String s) {
-        return s.replaceAll("\\s","");
-    }
+	protected String stripWhitespace(String s) {
+		return s.replaceAll("\\s", "");
+	}
 }

@@ -34,100 +34,96 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * This class draws the preference page that allow user to chose between display the
- * native emulator outside the view after it's closed or not.
+ * This class draws the preference page that allow user to chose between display
+ * the native emulator outside the view after it's closed or not.
  */
-public class EmulatorPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
-{
+public class EmulatorPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-    private final String PREFERENCE_PAGE_HELP = AndroidPlugin.PLUGIN_ID
-            + ".preference-emulator-view"; //$NON-NLS-1$
+	private final String PREFERENCE_PAGE_HELP = AndroidPlugin.PLUGIN_ID + ".preference-emulator-view"; //$NON-NLS-1$
 
-    protected boolean shallUnembedEmulators;
+	protected boolean shallUnembedEmulators;
 
-    private Button unembedCheckBox;
+	private Button unembedCheckBox;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-     */
-    public void init(IWorkbench workbench)
-    {
-        super.getPreferenceStore().setDefault(AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY, true);
-        shallUnembedEmulators =
-                super.getPreferenceStore().getBoolean(
-                        AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	 */
+	@Override
+	public void init(IWorkbench workbench) {
+		super.getPreferenceStore().setDefault(AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY, true);
+		shallUnembedEmulators = super.getPreferenceStore().getBoolean(AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
-     */
-    @Override
-    protected Control createContents(Composite parent)
-    {
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, PREFERENCE_PAGE_HELP);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse
+	 * .swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createContents(Composite parent) {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent, PREFERENCE_PAGE_HELP);
 
-        Composite mainComposite = new Composite(parent, SWT.NONE);
+		Composite mainComposite = new Composite(parent, SWT.NONE);
 
-        GridLayout layout = new GridLayout();
-        mainComposite.setLayout(layout);
+		GridLayout layout = new GridLayout();
+		mainComposite.setLayout(layout);
 
-        Group emulatorViewGroup = new Group(mainComposite, SWT.NONE);
-        GridLayout emulatorViewGroupLayout = new GridLayout();
-        GridData emulatorViewGroupLayoutData =
-                new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-        emulatorViewGroup.setLayoutData(emulatorViewGroupLayoutData);
-        emulatorViewGroup.setLayout(emulatorViewGroupLayout);
-        emulatorViewGroup.setText(AndroidNLS.EmulatorPreferencePage_EmulatorViewGroup);
+		Group emulatorViewGroup = new Group(mainComposite, SWT.NONE);
+		GridLayout emulatorViewGroupLayout = new GridLayout();
+		GridData emulatorViewGroupLayoutData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		emulatorViewGroup.setLayoutData(emulatorViewGroupLayoutData);
+		emulatorViewGroup.setLayout(emulatorViewGroupLayout);
+		emulatorViewGroup.setText(AndroidNLS.EmulatorPreferencePage_EmulatorViewGroup);
 
-        unembedCheckBox = new Button(emulatorViewGroup, SWT.CHECK);
-        GridData unembedCheckBoxData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-        unembedCheckBox.setLayoutData(unembedCheckBoxData);
-        unembedCheckBox.setText(AndroidNLS.EmulatorPreferencePage_UnembedCheckBox);
-        unembedCheckBox.setSelection(shallUnembedEmulators);
-        unembedCheckBox.addSelectionListener(new SelectionAdapter()
-        {
-            @Override
-            public void widgetSelected(SelectionEvent e)
-            {
-                Button source = (Button) e.getSource();
-                shallUnembedEmulators = source.getSelection();
-                super.widgetSelected(e);
-            }
-        });
+		unembedCheckBox = new Button(emulatorViewGroup, SWT.CHECK);
+		GridData unembedCheckBoxData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		unembedCheckBox.setLayoutData(unembedCheckBoxData);
+		unembedCheckBox.setText(AndroidNLS.EmulatorPreferencePage_UnembedCheckBox);
+		unembedCheckBox.setSelection(shallUnembedEmulators);
+		unembedCheckBox.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Button source = (Button) e.getSource();
+				shallUnembedEmulators = source.getSelection();
+				super.widgetSelected(e);
+			}
+		});
 
-        Label noteLabel = new Label(emulatorViewGroup, SWT.WRAP);
-        noteLabel.setText(AndroidNLS.EmulatorPreferencePage_UnembedNote);
-        GridData noteLabelLayoutData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
-        noteLabelLayoutData.widthHint = 100;
-        noteLabel.setLayoutData(noteLabelLayoutData);
+		Label noteLabel = new Label(emulatorViewGroup, SWT.WRAP);
+		noteLabel.setText(AndroidNLS.EmulatorPreferencePage_UnembedNote);
+		GridData noteLabelLayoutData = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
+		noteLabelLayoutData.widthHint = 100;
+		noteLabel.setLayoutData(noteLabelLayoutData);
 
-        return mainComposite;
-    }
+		return mainComposite;
+	}
 
-    @Override
-    public boolean performOk()
-    {
-        getPreferenceStore().setValue(AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY,
-                shallUnembedEmulators);
-        return super.performOk();
-    }
+	@Override
+	public boolean performOk() {
+		getPreferenceStore().setValue(AndroidPlugin.SHALL_UNEMBED_EMULATORS_PREF_KEY, shallUnembedEmulators);
+		return super.performOk();
+	}
 
-    @Override
-    protected void performDefaults()
-    {
-        shallUnembedEmulators = true;
-        unembedCheckBox.setSelection(shallUnembedEmulators);
-        super.performDefaults();
-    }
+	@Override
+	protected void performDefaults() {
+		shallUnembedEmulators = true;
+		unembedCheckBox.setSelection(shallUnembedEmulators);
+		super.performDefaults();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.preference.PreferencePage#doGetPreferenceStore()
-     */
-    @Override
-    protected IPreferenceStore doGetPreferenceStore()
-    {
-        return AndroidPlugin.getDefault().getPreferenceStore();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.PreferencePage#doGetPreferenceStore()
+	 */
+	@Override
+	protected IPreferenceStore doGetPreferenceStore() {
+		return AndroidPlugin.getDefault().getPreferenceStore();
+	}
 
 }

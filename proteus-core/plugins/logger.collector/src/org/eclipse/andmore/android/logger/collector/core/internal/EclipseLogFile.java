@@ -25,40 +25,42 @@ import org.eclipse.core.runtime.Platform;
 import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
 
 /**
- * This class provides the Eclipse log file to the
- * Log Files Collector feature
+ * This class provides the Eclipse log file to the Log Files Collector feature
  */
-public class EclipseLogFile implements ILogFile
-{
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath()
-     */
-    @Override
-    public List<IPath> getLogFilePath()
-    {
-        ArrayList<IPath> logs = new ArrayList<IPath>();
-        logs.add(Platform.getLogFileLocation());
-        return logs;
-    }
+public class EclipseLogFile implements ILogFile {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath
+	 * ()
+	 */
+	@Override
+	public List<IPath> getLogFilePath() {
+		ArrayList<IPath> logs = new ArrayList<IPath>();
+		logs.add(Platform.getLogFileLocation());
+		return logs;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
-     */
-    @Override
-    public String getLogName()
-    {
-        return "Eclipse Log File";
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
+	 */
+	@Override
+	public String getLogName() {
+		return "Eclipse Log File";
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see com.motorola.studio.platform.logger.collector.core.ILogFile#getOutputSubfolderName()
-     */
-    @Override
-    public String getOutputSubfolderName()
-    {
-        return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.platform.logger.collector.core.ILogFile#
+	 * getOutputSubfolderName()
+	 */
+	@Override
+	public String getOutputSubfolderName() {
+		return LoggerCollectorConstants.PLATFORM_LOG_OUTPUT_FOLDER;
+	}
 }

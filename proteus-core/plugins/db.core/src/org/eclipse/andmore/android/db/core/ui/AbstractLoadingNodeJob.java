@@ -18,28 +18,25 @@ package org.eclipse.andmore.android.db.core.ui;
 import org.eclipse.core.runtime.jobs.Job;
 
 /**
- * This class represents a job that must be used in order to load the model in background.
- * Caller must implement the run method with all logic to load the node children.
- * There's no need to take care of loading node and/or setting the node loading flag.
- * There's also no need to add a jobChange listener.
+ * This class represents a job that must be used in order to load the model in
+ * background. Caller must implement the run method with all logic to load the
+ * node children. There's no need to take care of loading node and/or setting
+ * the node loading flag. There's also no need to add a jobChange listener.
  */
-public abstract class AbstractLoadingNodeJob extends Job
-{
-    protected ITreeNode node = null;
+public abstract class AbstractLoadingNodeJob extends Job {
+	protected ITreeNode node = null;
 
-    public AbstractLoadingNodeJob(String name, ITreeNode node)
-    {
-        super(name);
-        this.node = node;
-        addJobChangeListener(new LoadingJobListener());
-    }
+	public AbstractLoadingNodeJob(String name, ITreeNode node) {
+		super(name);
+		this.node = node;
+		addJobChangeListener(new LoadingJobListener());
+	}
 
-    /**
-     * @return the node
-     */
-    public ITreeNode getNode()
-    {
-        return node;
-    }
+	/**
+	 * @return the node
+	 */
+	public ITreeNode getNode() {
+		return node;
+	}
 
 }

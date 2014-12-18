@@ -20,33 +20,34 @@ import org.eclipse.andmore.gltrace.editors.GLFunctionTraceViewer;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * The {@link FrameSummaryView} is a page book view with pages of type {@link FrameSummaryViewPage}.
+ * The {@link FrameSummaryView} is a page book view with pages of type
+ * {@link FrameSummaryViewPage}.
  */
 public class FrameSummaryView extends GLPageBookView {
-    public static final String ID = "org.eclipse.andmore.gltrace.views.FrameBuffer"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.andmore.gltrace.views.FrameBuffer"; //$NON-NLS-1$
 
-    public FrameSummaryView() {
-        super("Open a GL Trace file to view the framebuffer contents.");
-    }
+	public FrameSummaryView() {
+		super("Open a GL Trace file to view the framebuffer contents.");
+	}
 
-    @Override
-    protected PageRec doCreatePage(IWorkbenchPart part) {
-        if (!(part instanceof GLFunctionTraceViewer)) {
-            return null;
-        }
+	@Override
+	protected PageRec doCreatePage(IWorkbenchPart part) {
+		if (!(part instanceof GLFunctionTraceViewer)) {
+			return null;
+		}
 
-        GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
-        FrameSummaryViewPage page = viewer.getFrameSummaryViewPage();
-        initPage(page);
-        page.createControl(getPageBook());
+		GLFunctionTraceViewer viewer = (GLFunctionTraceViewer) part;
+		FrameSummaryViewPage page = viewer.getFrameSummaryViewPage();
+		initPage(page);
+		page.createControl(getPageBook());
 
-        return new PageRec(part, page);
-    }
+		return new PageRec(part, page);
+	}
 
-    @Override
-    protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
-        FrameSummaryViewPage page = (FrameSummaryViewPage) pageRecord.page;
-        page.dispose();
-        pageRecord.dispose();
-    }
+	@Override
+	protected void doDestroyPage(IWorkbenchPart part, PageRec pageRecord) {
+		FrameSummaryViewPage page = (FrameSummaryViewPage) pageRecord.page;
+		page.dispose();
+		pageRecord.dispose();
+	}
 }

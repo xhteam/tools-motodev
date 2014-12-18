@@ -20,23 +20,25 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-public class SampleContentsHandler extends AbstractHandler
-{
+public class SampleContentsHandler extends AbstractHandler {
 
-    private final IDataSampler tableNode;
+	private final IDataSampler tableNode;
 
-    public SampleContentsHandler(IDataSampler tableNode)
-    {
-        this.tableNode = tableNode;
-    }
+	public SampleContentsHandler(IDataSampler tableNode) {
+		this.tableNode = tableNode;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        tableNode.sampleDbContents();
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		tableNode.sampleDbContents();
+		return null;
+	}
 
 }

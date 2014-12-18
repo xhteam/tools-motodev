@@ -21,28 +21,32 @@ import org.eclipse.sequoyah.device.framework.model.IInstance;
 import org.eclipse.sequoyah.device.framework.model.handler.IDeviceHandler;
 
 /**
- * This class represents a TmL IDeviceHandler for Android Remote Device Instances
+ * This class represents a TmL IDeviceHandler for Android Remote Device
+ * Instances
  */
-public class RemoteDeviceHandler implements IDeviceHandler
-{
-    /**
-     * Creates an Android Remote Device Instance with the given id
-     * 
-     * @param id the instance id
-     */
-    public IInstance createDeviceInstance(String id)
-    {
-        IInstance instance = new RemoteDeviceInstance();
-        instance.setId(id);
-        return instance;
-    }
+public class RemoteDeviceHandler implements IDeviceHandler {
+	/**
+	 * Creates an Android Remote Device Instance with the given id
+	 * 
+	 * @param id
+	 *            the instance id
+	 */
+	@Override
+	public IInstance createDeviceInstance(String id) {
+		IInstance instance = new RemoteDeviceInstance();
+		instance.setId(id);
+		return instance;
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.sequoyah.device.framework.model.handler.IDeviceHandler#createDeviceLauncher(org.eclipse.sequoyah.device.framework.model.IInstance)
-     */
-    public IDeviceLauncher createDeviceLauncher(IInstance instance)
-    {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.sequoyah.device.framework.model.handler.IDeviceHandler#
+	 * createDeviceLauncher
+	 * (org.eclipse.sequoyah.device.framework.model.IInstance)
+	 */
+	@Override
+	public IDeviceLauncher createDeviceLauncher(IInstance instance) {
+		return null;
+	}
 }

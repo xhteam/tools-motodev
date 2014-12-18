@@ -37,187 +37,155 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-public class PopupMenuActionDelegate implements IObjectActionDelegate
-{
+public class PopupMenuActionDelegate implements IObjectActionDelegate {
 
-    /**
-     * Enum type for ActionHandlers. If you need to add a new ActionHandler, just include 
-     * a new type to this enum with the action id that you defined on your action extension point 
-     */
-    enum ActionHandlers
-    {
-        SIGN_PACKAGE("org.eclipse.andmore.android.certmanager.core.ui.action.addSignature") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new SignExternalPackagesHandler();
-            }
-        },
-        BACKUP_KEYSTORE(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.backupKeystore") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                //this handler will delegate the operation to another action that, in turn,
-                //will retrieve the current selection
-                //therefore, the parameter treeNode is not used here.
-                return new BackupHandler();
-            }
+	/**
+	 * Enum type for ActionHandlers. If you need to add a new ActionHandler,
+	 * just include a new type to this enum with the action id that you defined
+	 * on your action extension point
+	 */
+	enum ActionHandlers {
+		SIGN_PACKAGE("org.eclipse.andmore.android.certmanager.core.ui.action.addSignature") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new SignExternalPackagesHandler();
+			}
+		},
+		BACKUP_KEYSTORE("org.eclipse.andmore.android.certmanager.core.ui.action.backupKeystore") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				// this handler will delegate the operation to another action
+				// that, in turn,
+				// will retrieve the current selection
+				// therefore, the parameter treeNode is not used here.
+				return new BackupHandler();
+			}
 
-        },
-        DELETE_KEYSTORE(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.deleteKeystore") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new DeleteKeystoreHandler();
-            }
+		},
+		DELETE_KEYSTORE("org.eclipse.andmore.android.certmanager.core.ui.action.deleteKeystore") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new DeleteKeystoreHandler();
+			}
 
-        },
-        PROPERTIES_KEYSTORE(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.certificateProperties") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new CertificatePropertiesHandler();
-            }
+		},
+		PROPERTIES_KEYSTORE("org.eclipse.andmore.android.certmanager.core.ui.action.certificateProperties") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new CertificatePropertiesHandler();
+			}
 
-        },
-        CHANGE_KEYSTORE_PASSWORD(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystorePassword") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new ChangePasswordKeystoreHandler();
-            }
+		},
+		CHANGE_KEYSTORE_PASSWORD("org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystorePassword") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new ChangePasswordKeystoreHandler();
+			}
 
-        },
-        CHANGE_KEY_PASSWORD(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeyPassword") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new ChangePasswordKeyHandler();
-            }
+		},
+		CHANGE_KEY_PASSWORD("org.eclipse.andmore.android.certmanager.core.ui.action.changeKeyPassword") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new ChangePasswordKeyHandler();
+			}
 
-        },
-        CREATE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.createKey") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new CreateKeyHandler();
-            }
+		},
+		CREATE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.createKey") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new CreateKeyHandler();
+			}
 
-        },
-        DELETE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.deleteEntry") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new DeleteKeyHandler();
-            }
+		},
+		DELETE_KEY("org.eclipse.andmore.android.certmanager.core.ui.action.deleteEntry") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new DeleteKeyHandler();
+			}
 
-        },
-        REFRESH("org.eclipse.andmore.android.certmanager.core.ui.action.refresh") //$NON-NLS-1$
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new RefreshHandler();
-            }
+		},
+		REFRESH("org.eclipse.andmore.android.certmanager.core.ui.action.refresh") //$NON-NLS-1$
+		{
+			@Override
+			public IHandler getHandler() {
+				return new RefreshHandler();
+			}
 
-        },
-        CHANGE_KEYSTORE_TYPE(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystoreType")
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new ChangeKeyStoreTypeHandler();
-            }
-        },
-        IMPORT_KEYSTORE_ENTRIES(
-                "org.eclipse.andmore.android.certmanager.core.ui.action.importKeystoreEntries")
-        {
-            @Override
-            public IHandler getHandler()
-            {
-                return new ImportKeyStoreEntriesHandler();
-            }
-        };
+		},
+		CHANGE_KEYSTORE_TYPE("org.eclipse.andmore.android.certmanager.core.ui.action.changeKeystoreType") {
+			@Override
+			public IHandler getHandler() {
+				return new ChangeKeyStoreTypeHandler();
+			}
+		},
+		IMPORT_KEYSTORE_ENTRIES("org.eclipse.andmore.android.certmanager.core.ui.action.importKeystoreEntries") {
+			@Override
+			public IHandler getHandler() {
+				return new ImportKeyStoreEntriesHandler();
+			}
+		};
 
-        private final String actionId;
+		private final String actionId;
 
-        private ActionHandlers(String actionId)
-        {
-            this.actionId = actionId;
-        }
+		private ActionHandlers(String actionId) {
+			this.actionId = actionId;
+		}
 
-        public abstract IHandler getHandler();
+		public abstract IHandler getHandler();
 
-        public static ActionHandlers getActionHandlerbyId(String id)
-        {
+		public static ActionHandlers getActionHandlerbyId(String id) {
 
-            Object ret = null;
-            for (ActionHandlers h : ActionHandlers.values())
-            {
-                if (h.actionId.equals(id))
-                {
-                    ret = h;
-                    break;
-                }
-            }
+			Object ret = null;
+			for (ActionHandlers h : ActionHandlers.values()) {
+				if (h.actionId.equals(id)) {
+					ret = h;
+					break;
+				}
+			}
 
-            return (ActionHandlers) ret;
-        }
-    }
+			return (ActionHandlers) ret;
+		}
+	}
 
-    @Override
-    public void run(IAction action)
-    {
+	@Override
+	public void run(IAction action) {
 
-        ActionHandlers type = ActionHandlers.getActionHandlerbyId(action.getId());
+		ActionHandlers type = ActionHandlers.getActionHandlerbyId(action.getId());
 
-        IHandler handler = null;
+		IHandler handler = null;
 
-        if (type != null)
-        {
-            handler = type.getHandler();
-        }
+		if (type != null) {
+			handler = type.getHandler();
+		}
 
-        if (handler != null)
-        {
-            ExecutionEvent event = new ExecutionEvent();
-            try
-            {
-                handler.execute(event);
-            }
-            catch (ExecutionException e)
-            {
-                StudioLogger.error(PopupMenuActionDelegate.class, e.getMessage(), e);
-                EclipseUtils.showErrorDialog("Execution error", e.getMessage());
-            }
-        }
+		if (handler != null) {
+			ExecutionEvent event = new ExecutionEvent();
+			try {
+				handler.execute(event);
+			} catch (ExecutionException e) {
+				StudioLogger.error(PopupMenuActionDelegate.class, e.getMessage(), e);
+				EclipseUtils.showErrorDialog("Execution error", e.getMessage());
+			}
+		}
 
-    }
+	}
 
-    @Override
-    public void selectionChanged(IAction action, ISelection selection)
-    {
-        //selection is retrieved by the handlers
-    }
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		// selection is retrieved by the handlers
+	}
 
-    @Override
-    public void setActivePart(IAction action, IWorkbenchPart targetPart)
-    {
-        //do nothing
-    }
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		// do nothing
+	}
 
 }

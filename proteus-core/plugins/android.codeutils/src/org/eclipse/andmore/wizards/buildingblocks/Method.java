@@ -16,38 +16,37 @@
 package org.eclipse.andmore.wizards.buildingblocks;
 
 /**
- * Abstract bean to define method descriptions to be used on the
- * building block wizards
+ * Abstract bean to define method descriptions to be used on the building block
+ * wizards
  */
-public abstract class Method
-{
-    private final String message;
+public abstract class Method {
+	private final String message;
 
-    /**
-     * Default constructor
-     * 
-     * @param message The method description
-     */
-    public Method(String message)
-    {
-        this.message = message;
-    }
+	/**
+	 * Default constructor
+	 * 
+	 * @param message
+	 *            The method description
+	 */
+	public Method(String message) {
+		this.message = message;
+	}
 
-    /**
-     * Retrieves the method description
-     * 
-     * @return the method description
-     */
-    public String getMessage()
-    {
-        return message;
-    }
+	/**
+	 * Retrieves the method description
+	 * 
+	 * @return the method description
+	 */
+	public String getMessage() {
+		return message;
+	}
 
-    /**
-     * Handles the method selection, i.e., when the user
-     * selects the method on the wizard
-     * 
-     * @param selection if the method has been selected or not
-     */
-    public abstract void handle(boolean selection);
+	/**
+	 * Handles the method selection, i.e., when the user selects the method on
+	 * the wizard
+	 * 
+	 * @param selection
+	 *            if the method has been selected or not
+	 */
+	public abstract void handle(boolean selection);
 }

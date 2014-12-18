@@ -22,169 +22,142 @@ import java.util.List;
 /**
  * Class that represents a single Video
  */
-public class Video
-{
+public class Video {
 
-    /*
-     * Attributes
-     */
-    private String id = null;
+	/*
+	 * Attributes
+	 */
+	private String id = null;
 
-    private String title = null;
+	private String title = null;
 
-    private String description = null;
+	private String description = null;
 
-    private Date date = null;
+	private Date date = null;
 
-    private float rating = 0;
+	private float rating = 0;
 
-    private long views = 0;
+	private long views = 0;
 
-    private URL snapshot = null;
+	private URL snapshot = null;
 
-    private String embeddedLink = null;
+	private String embeddedLink = null;
 
-    private String externalLink = null;
+	private String externalLink = null;
 
-    private boolean visible = true;
+	private boolean visible = true;
 
-    private VideoChannel channel = null;
+	private VideoChannel channel = null;
 
-    private Object data = null;
+	private Object data = null;
 
-    private List<String> keywords = null;
+	private List<String> keywords = null;
 
-    /*
-     * Methods
-     */
-    public String getId()
-    {
-        return id;
-    }
+	/*
+	 * Methods
+	 */
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getTitle()
-    {
-        return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getDescription()
-    {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Date getDate()
-    {
-        return date;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    public void setDate(Date date)
-    {
-        this.date = date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public float getRating()
-    {
-        return rating;
-    }
+	public float getRating() {
+		return rating;
+	}
 
-    public void setRating(float rating)
-    {
-        this.rating = rating;
-    }
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 
-    public long getViews()
-    {
-        return views;
-    }
+	public long getViews() {
+		return views;
+	}
 
-    public void setViews(long views)
-    {
-        this.views = views;
-    }
+	public void setViews(long views) {
+		this.views = views;
+	}
 
-    public URL getSnapshot()
-    {
-        return snapshot;
-    }
+	public URL getSnapshot() {
+		return snapshot;
+	}
 
-    public void setSnapshot(URL snapshot)
-    {
-        this.snapshot = snapshot;
-    }
+	public void setSnapshot(URL snapshot) {
+		this.snapshot = snapshot;
+	}
 
-    public String getEmbeddedLink()
-    {
-        return embeddedLink;
-    }
+	public String getEmbeddedLink() {
+		return embeddedLink;
+	}
 
-    public void setEmbeddedLink(String embeddedLink)
-    {
-        this.embeddedLink = embeddedLink;
-    }
+	public void setEmbeddedLink(String embeddedLink) {
+		this.embeddedLink = embeddedLink;
+	}
 
-    public String getExternalLink()
-    {
-        return externalLink;
-    }
+	public String getExternalLink() {
+		return externalLink;
+	}
 
-    public void setExternalLink(String externalLink)
-    {
-        this.externalLink = externalLink;
-    }
+	public void setExternalLink(String externalLink) {
+		this.externalLink = externalLink;
+	}
 
-    public boolean isVisible()
-    {
-        return visible;
-    }
+	public boolean isVisible() {
+		return visible;
+	}
 
-    public void setVisible(boolean visible)
-    {
-        this.visible = visible;
-    }
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 
-    public VideoChannel getChannel()
-    {
-        return channel;
-    }
+	public VideoChannel getChannel() {
+		return channel;
+	}
 
-    public void setChannel(VideoChannel channel)
-    {
-        this.channel = channel;
-    }
+	public void setChannel(VideoChannel channel) {
+		this.channel = channel;
+	}
 
-    public Object getData()
-    {
-        return data;
-    }
+	public Object getData() {
+		return data;
+	}
 
-    public void setData(Object data)
-    {
-        this.data = data;
-    }
+	public void setData(Object data) {
+		this.data = data;
+	}
 
-    public List<String> getKeywords()
-    {
-        return keywords;
-    }
+	public List<String> getKeywords() {
+		return keywords;
+	}
 
-    public void setKeywords(List<String> keywords)
-    {
-        this.keywords = keywords;
-    }
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
 
 }

@@ -22,21 +22,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileUtils {
-    private static final File sCacheDir;
+	private static final File sCacheDir;
 
-    static {
-        sCacheDir = Files.createTempDir();
-        sCacheDir.deleteOnExit();
-    }
+	static {
+		sCacheDir = Files.createTempDir();
+		sCacheDir.deleteOnExit();
+	}
 
-    public static File createTempFile(String prefix, String suffix) {
-        File f;
-        try {
-            f = File.createTempFile(prefix, suffix, sCacheDir);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        f.deleteOnExit();
-        return f;
-    }
+	public static File createTempFile(String prefix, String suffix) {
+		File f;
+		try {
+			f = File.createTempFile(prefix, suffix, sCacheDir);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		f.deleteOnExit();
+		return f;
+	}
 }

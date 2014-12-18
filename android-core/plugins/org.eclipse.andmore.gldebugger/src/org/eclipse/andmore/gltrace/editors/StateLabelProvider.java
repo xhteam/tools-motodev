@@ -29,74 +29,76 @@ import org.eclipse.swt.widgets.Display;
 import java.util.Set;
 
 public class StateLabelProvider extends ColumnLabelProvider {
-    private Set<IGLProperty> mChangedProperties;
+	private Set<IGLProperty> mChangedProperties;
 
-    private Color mHighlightForegroundColor;
-    private Color mNormalForegroundColor;
+	private Color mHighlightForegroundColor;
+	private Color mNormalForegroundColor;
 
-    public StateLabelProvider() {
-        mHighlightForegroundColor = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
-        mNormalForegroundColor = Display.getDefault().getSystemColor(SWT.COLOR_BLACK);
-    }
+	public StateLabelProvider() {
+		mHighlightForegroundColor = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
+		mNormalForegroundColor = Display.getDefault().getSystemColor(SWT.COLOR_BLACK);
+	}
 
-    public String getColumnText(IGLProperty property, int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return getName(property);
-            case 1:
-                return getValue(property);
-            default:
-                return "";
-        }
-    }
+	public String getColumnText(IGLProperty property, int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return getName(property);
+		case 1:
+			return getValue(property);
+		default:
+			return "";
+		}
+	}
 
-    private String getValue(IGLProperty element) {
-        return element.getStringValue();
-    }
+	private String getValue(IGLProperty element) {
+		return element.getStringValue();
+	}
 
-    private String getName(IGLProperty element) {
-        IGLProperty parent = element.getParent();
-        if (parent instanceof GLListProperty) {
-            // For members of list, use the index in the list as the name as opposed to
-            // the property type
-            int index = ((GLListProperty) parent).indexOf(element);
-            if (element.getType() == GLStateType.GL_STATE_ES1) {
-                return String.format("Context %d (ES1)", index);
-            } else if (element.getType() == GLStateType.GL_STATE_ES2) {
-                return String.format("Context %d (ES2)", index);
-            } else {
-                return Integer.toString(index);
-            }
-        } else if (parent instanceof GLSparseArrayProperty) {
-            // For members of sparse array, use the key as the name as opposed to
-            // the property type
-            int index = ((GLSparseArrayProperty) parent).keyFor(element);
-            return Integer.toString(index);
-        }
+	private String getName(IGLProperty element) {
+		IGLProperty parent = element.getParent();
+		if (parent instanceof GLListProperty) {
+			// For members of list, use the index in the list as the name as
+			// opposed to
+			// the property type
+			int index = ((GLListProperty) parent).indexOf(element);
+			if (element.getType() == GLStateType.GL_STATE_ES1) {
+				return String.format("Context %d (ES1)", index);
+			} else if (element.getType() == GLStateType.GL_STATE_ES2) {
+				return String.format("Context %d (ES2)", index);
+			} else {
+				return Integer.toString(index);
+			}
+		} else if (parent instanceof GLSparseArrayProperty) {
+			// For members of sparse array, use the key as the name as opposed
+			// to
+			// the property type
+			int index = ((GLSparseArrayProperty) parent).keyFor(element);
+			return Integer.toString(index);
+		}
 
-        return element.getType().getDescription();
-    }
+		return element.getType().getDescription();
+	}
 
-    @Override
-    public void update(ViewerCell cell) {
-        Object element = cell.getElement();
-        if (!(element instanceof IGLProperty)) {
-            return;
-        }
+	@Override
+	public void update(ViewerCell cell) {
+		Object element = cell.getElement();
+		if (!(element instanceof IGLProperty)) {
+			return;
+		}
 
-        IGLProperty prop = (IGLProperty) element;
+		IGLProperty prop = (IGLProperty) element;
 
-        String text = getColumnText(prop, cell.getColumnIndex());
-        cell.setText(text);
+		String text = getColumnText(prop, cell.getColumnIndex());
+		cell.setText(text);
 
-        if (mChangedProperties != null && mChangedProperties.contains(prop)) {
-            cell.setForeground(mHighlightForegroundColor);
-        } else {
-            cell.setForeground(mNormalForegroundColor);
-        }
-    }
+		if (mChangedProperties != null && mChangedProperties.contains(prop)) {
+			cell.setForeground(mHighlightForegroundColor);
+		} else {
+			cell.setForeground(mNormalForegroundColor);
+		}
+	}
 
-    public void setChangedProperties(Set<IGLProperty> changedProperties) {
-        mChangedProperties = changedProperties;
-    }
+	public void setChangedProperties(Set<IGLProperty> changedProperties) {
+		mChangedProperties = changedProperties;
+	}
 }

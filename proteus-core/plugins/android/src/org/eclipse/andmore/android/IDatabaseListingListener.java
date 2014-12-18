@@ -21,9 +21,8 @@ import java.util.List;
 /**
  * Listener to be notified about database found
  */
-public interface IDatabaseListingListener
-{
+public interface IDatabaseListingListener {
 
-    public void databasesFound(List<String> databases);
+	public void databasesFound(List<String> databases);
 
 }

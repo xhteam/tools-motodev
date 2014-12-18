@@ -25,18 +25,17 @@ import com.motorola.studio.android.logger.collector.util.WidgetsUtil;
 /**
  * This class is responsible to handling action in menu collect log file item.
  */
-public class LoggerCollectorHandler extends AbstractHandler
-{
+public class LoggerCollectorHandler extends AbstractHandler {
 
-    /**
-     * This method is responsible to execute handler action
-     * 
-     * @param event execute event
-     * @return handler action
-     */
-    @Override
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        return WidgetsUtil.runWizard(new LoggerCollectorWizard());
-    }
+	/**
+	 * This method is responsible to execute handler action
+	 * 
+	 * @param event
+	 *            execute event
+	 * @return handler action
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		return WidgetsUtil.runWizard(new LoggerCollectorWizard());
+	}
 }

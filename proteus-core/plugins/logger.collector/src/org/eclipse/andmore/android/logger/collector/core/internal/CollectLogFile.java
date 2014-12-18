@@ -37,76 +37,66 @@ import com.motorola.studio.android.logger.collector.util.ZipUtil;
 /**
  * This class is responsible to manage all collecting log files requirements.
  */
-public class CollectLogFile
-{
+public class CollectLogFile {
 
-    private final ArrayList<ILogFile> logs = LogCollectorExtensionLoader.getLogFiles();
+	private final ArrayList<ILogFile> logs = LogCollectorExtensionLoader.getLogFiles();
 
-    /**
-     * This method is responsible to retrieve files from informed path.
-     * 
-     * @param path The path to be retrieved.
-     * @return The log files
-     */
-    public ArrayList<ILogFile> getLogFileList()
-    {
-        return logs;
-    }
+	/**
+	 * This method is responsible to retrieve files from informed path.
+	 * 
+	 * @param path
+	 *            The path to be retrieved.
+	 * @return The log files
+	 */
+	public ArrayList<ILogFile> getLogFileList() {
+		return logs;
+	}
 
-    /**
-     * This method is responsible to compact all log files selected by end-user.
-     * 
-     * @param fileName The output compacted file name
-     * @param checkedItems The selected items
-     * @return if the selected files are compacted successfully
-     * @throws PlatformException
-     */
-    public boolean zipLogFiles(String fileName, List<TableItem> checkedItems)
-            throws PlatformException
-    {
-        boolean toReturn = true;
-        String nomalizedDirectory =
-                FileUtil.normalizePath(new Path(fileName).removeLastSegments(1).toOSString());
-        // Temporary folder path to store the log files while they are not
-        // compressed.
-        final String tempFolderPath = FileUtil.normalizePath(nomalizedDirectory) + "temp" //$NON-NLS-1$ 
-                + Double.toString((Math.random())).replaceAll("\\.", "0") + //$NON-NLS-1$ //$NON-NLS-2$
-                File.separator;
-        final IPath tempFolder = new Path(tempFolderPath);
+	/**
+	 * This method is responsible to compact all log files selected by end-user.
+	 * 
+	 * @param fileName
+	 *            The output compacted file name
+	 * @param checkedItems
+	 *            The selected items
+	 * @return if the selected files are compacted successfully
+	 * @throws PlatformException
+	 */
+	public boolean zipLogFiles(String fileName, List<TableItem> checkedItems) throws PlatformException {
+		boolean toReturn = true;
+		String nomalizedDirectory = FileUtil.normalizePath(new Path(fileName).removeLastSegments(1).toOSString());
+		// Temporary folder path to store the log files while they are not
+		// compressed.
+		final String tempFolderPath = FileUtil.normalizePath(nomalizedDirectory) + "temp" //$NON-NLS-1$ 
+				+ Double.toString((Math.random())).replaceAll("\\.", "0") + //$NON-NLS-1$ //$NON-NLS-2$
+				File.separator;
+		final IPath tempFolder = new Path(tempFolderPath);
 
-        try
-        {
-            // Creating the temporary folder.
-            FileUtil.mkdir(tempFolderPath);
-            // Copying the log files.
-            for (TableItem item : checkedItems)
-            {
-                ILogFile logFile = (ILogFile) item.getData();
-                IPath outputFolder = tempFolder.append(logFile.getOutputSubfolderName());
-                FileUtil.mkdir(outputFolder.toOSString());
-                for (IPath path : logFile.getLogFilePath())
-                {
-                    FileUtil.copy(new File(path.toOSString()),
-                            new File(outputFolder.append(path.lastSegment()).toOSString()));
-                }
+		try {
+			// Creating the temporary folder.
+			FileUtil.mkdir(tempFolderPath);
+			// Copying the log files.
+			for (TableItem item : checkedItems) {
+				ILogFile logFile = (ILogFile) item.getData();
+				IPath outputFolder = tempFolder.append(logFile.getOutputSubfolderName());
+				FileUtil.mkdir(outputFolder.toOSString());
+				for (IPath path : logFile.getLogFilePath()) {
+					FileUtil.copy(new File(path.toOSString()), new File(outputFolder.append(path.lastSegment())
+							.toOSString()));
+				}
 
-            }
-            // Compact all log files from temporary folder
-            new ZipUtil(fileName, tempFolderPath).zip();
-        }
-        catch (IOException e)
-        {
-            toReturn = false;
-            throw new PlatformException(new Status(IStatus.CANCEL,
-                    LoggerCollectorConstants.PLUGIN_ID, LoggerCollectorMessages.getInstance()
-                            .getString("error.logger.collector.zip"))); //$NON-NLS-1$
-        }
-        finally
-        {
-            // Deleting temporary folder an all files within it.
-            FileUtil.delete(tempFolderPath);
-        }
-        return toReturn;
-    }
+			}
+			// Compact all log files from temporary folder
+			new ZipUtil(fileName, tempFolderPath).zip();
+		} catch (IOException e) {
+			toReturn = false;
+			throw new PlatformException(new Status(IStatus.CANCEL, LoggerCollectorConstants.PLUGIN_ID,
+					LoggerCollectorMessages.getInstance().getString("error.logger.collector.zip"))); //$NON-NLS-1$
+		} finally {
+			// Deleting temporary folder an all files within it.
+			FileUtil.delete(tempFolderPath);
+		}
+		return toReturn;
+	}
 
 }

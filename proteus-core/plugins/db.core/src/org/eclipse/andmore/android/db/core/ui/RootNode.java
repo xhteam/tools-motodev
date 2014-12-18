@@ -18,25 +18,26 @@ package org.eclipse.andmore.android.db.core.ui;
 /**
  * Root node of the tree
  */
-public class RootNode extends AbstractTreeNode
-{
+public class RootNode extends AbstractTreeNode {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
-     */
-    @Override
-    public void refresh()
-    {
-        //Do nothing.
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#refresh()
+	 */
+	@Override
+	public void refresh() {
+		// Do nothing.
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
-     */
-    @Override
-    public boolean isLeaf()
-    {
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.andmore.android.db.core.ui.AbstractTreeNode#isLeaf()
+	 */
+	@Override
+	public boolean isLeaf() {
+		return false;
+	}
 
 }

@@ -20,22 +20,18 @@ import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
- * Implements a Monkey launch configuration tab group. 
+ * Implements a Monkey launch configuration tab group.
  */
-public class MonkeyConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup
-{
+public class MonkeyConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-    public void createTabs(ILaunchConfigurationDialog dialog, String mode)
-    {
+	@Override
+	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 
-        ILaunchConfigurationTab mainLaunchTab = new MonkeyConfigurationTab(false);
+		ILaunchConfigurationTab mainLaunchTab = new MonkeyConfigurationTab(false);
 
-        // Main and Options monkey launch configuration tabs
-        setTabs(new ILaunchConfigurationTab[]
-        {
-                mainLaunchTab, new MonkeyConfigurationOtherCmdsTab()
-        });
+		// Main and Options monkey launch configuration tabs
+		setTabs(new ILaunchConfigurationTab[] { mainLaunchTab, new MonkeyConfigurationOtherCmdsTab() });
 
-    }
+	}
 
 }

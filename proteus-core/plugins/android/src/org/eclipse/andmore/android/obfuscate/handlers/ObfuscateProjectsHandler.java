@@ -30,6 +30,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -39,89 +40,72 @@ import org.eclipse.ui.PlatformUI;
  * 
  * Its proposal at first is to be called from the motodev menu
  */
-public class ObfuscateProjectsHandler extends AbstractHandler
-{
+public class ObfuscateProjectsHandler extends AbstractHandler {
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable()
-        {
-            public void run()
-            {
-                ObfuscateDialog dialog =
-                        new ObfuscateDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                                .getShell());
-                if (dialog.open() == TitleAreaDialog.OK)
-                {
-                    List<IProject> obfuscatedProjects = new ArrayList<IProject>();
-                    ArrayList<IProject> selectedProjects = dialog.getSelectedProjects();
+		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				ObfuscateDialog dialog = new ObfuscateDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getShell());
+				if (dialog.open() == Window.OK) {
+					List<IProject> obfuscatedProjects = new ArrayList<IProject>();
+					ArrayList<IProject> selectedProjects = dialog.getSelectedProjects();
 
-                    List<IProject> toDesobfuscate = new ArrayList<IProject>();
-                    IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+					List<IProject> toDesobfuscate = new ArrayList<IProject>();
+					IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 
-                    for (int i = 0; i < allProjects.length; i++)
-                    {
-                        IProject projectN = allProjects[i];
+					for (int i = 0; i < allProjects.length; i++) {
+						IProject projectN = allProjects[i];
 
-                        try
-                        {
-                            //it is an android project and is opened
-                            if ((projectN.getNature(AndroidProject.ANDROID_NATURE) != null)
-                                    && projectN.isOpen())
-                            {
-                                //it is obfuscated
-                                if (ObfuscatorManager.isProguardSet(projectN))
-                                {
-                                    obfuscatedProjects.add(projectN);
-                                    //it was not selected -> desobfuscate it
-                                    if (!selectedProjects.contains(projectN))
-                                    {
-                                        toDesobfuscate.add(projectN);
-                                    }
-                                }
-                            }
-                        }
-                        catch (CoreException e)
-                        {
-                            // do nothing
-                        }
-                    }
+						try {
+							// it is an android project and is opened
+							if ((projectN.getNature(AndroidProject.ANDROID_NATURE) != null) && projectN.isOpen()) {
+								// it is obfuscated
+								if (ObfuscatorManager.isProguardSet(projectN)) {
+									obfuscatedProjects.add(projectN);
+									// it was not selected -> desobfuscate it
+									if (!selectedProjects.contains(projectN)) {
+										toDesobfuscate.add(projectN);
+									}
+								}
+							}
+						} catch (CoreException e) {
+							// do nothing
+						}
+					}
 
-                    //It only makes sense to perform some action if there is a project to obfuscate/desobfuscate
-                    if (!(obfuscatedProjects.containsAll(selectedProjects) && toDesobfuscate
-                            .isEmpty()))
-                    {
-                        toggleObfuscateMode(selectedProjects, toDesobfuscate);
-                    }
-                }
-            }
-        });
+					// It only makes sense to perform some action if there is a
+					// project to obfuscate/desobfuscate
+					if (!(obfuscatedProjects.containsAll(selectedProjects) && toDesobfuscate.isEmpty())) {
+						toggleObfuscateMode(selectedProjects, toDesobfuscate);
+					}
+				}
+			}
+		});
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Receives a list of project and toogles obfscation mode of these projects:
-     * if it is set to be obfuscated, than unset. (and vice-versa)
-     * 
-     * @param selection
-     */
-    private void toggleObfuscateMode(List<IProject> _obfuscatedProjects,
-            List<IProject> _notObfuscatedProjects)
-    {
+	/**
+	 * Receives a list of project and toogles obfscation mode of these projects:
+	 * if it is set to be obfuscated, than unset. (and vice-versa)
+	 * 
+	 * @param selection
+	 */
+	private void toggleObfuscateMode(List<IProject> _obfuscatedProjects, List<IProject> _notObfuscatedProjects) {
 
-        for (Iterator<IProject> iterator = _notObfuscatedProjects.iterator(); iterator.hasNext();)
-        {
-            IProject iProject = iterator.next();
-            ObfuscatorManager.unobfuscate(iProject);
-        }
+		for (Iterator<IProject> iterator = _notObfuscatedProjects.iterator(); iterator.hasNext();) {
+			IProject iProject = iterator.next();
+			ObfuscatorManager.unobfuscate(iProject);
+		}
 
-        for (Iterator<IProject> iterator = _obfuscatedProjects.iterator(); iterator.hasNext();)
-        {
-            IProject iProject = iterator.next();
-            ObfuscatorManager.obfuscate(iProject, new NullProgressMonitor());
-        }
+		for (Iterator<IProject> iterator = _obfuscatedProjects.iterator(); iterator.hasNext();) {
+			IProject iProject = iterator.next();
+			ObfuscatorManager.obfuscate(iProject, new NullProgressMonitor());
+		}
 
-    }
+	}
 }

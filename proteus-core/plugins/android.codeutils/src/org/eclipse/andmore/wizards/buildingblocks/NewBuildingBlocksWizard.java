@@ -21,23 +21,24 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 
 /**
- * Base abstract class to create the building block wizards UI.
- * A building block represents an Android abstraction, which can be an Activity, Service, Broadcast Receiver, Content Provider or Wigdet Provider. 
+ * Base abstract class to create the building block wizards UI. A building block
+ * represents an Android abstraction, which can be an Activity, Service,
+ * Broadcast Receiver, Content Provider or Wigdet Provider.
  */
-public abstract class NewBuildingBlocksWizard extends Wizard implements INewWizard
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#canFinish()
-     */
-    @Override
-    public boolean canFinish()
-    {
-        return (!getBuildingBlock().needMoreInformation())
-                && (getBuildingBlock().getStatus().getSeverity() != IStatus.ERROR);
-    }
+public abstract class NewBuildingBlocksWizard extends Wizard implements INewWizard {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
+	@Override
+	public boolean canFinish() {
+		return (!getBuildingBlock().needMoreInformation())
+				&& (getBuildingBlock().getStatus().getSeverity() != IStatus.ERROR);
+	}
 
-    /**
-     * @return The building block model used by the wizard.
-     */
-    protected abstract BuildingBlockModel getBuildingBlock();
+	/**
+	 * @return The building block model used by the wizard.
+	 */
+	protected abstract BuildingBlockModel getBuildingBlock();
 }

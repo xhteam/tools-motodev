@@ -33,86 +33,79 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 public class LogCatMonitorDialog extends TitleAreaDialog {
-    private static final String TITLE = "Auto Monitor Logcat";
-    private static final String DEFAULT_MESSAGE =
-            "Would you like ADT to automatically monitor logcat \n" +
-            "output for messages from applications in the workspace?";
+	private static final String TITLE = "Auto Monitor Logcat";
+	private static final String DEFAULT_MESSAGE = "Would you like ADT to automatically monitor logcat \n"
+			+ "output for messages from applications in the workspace?";
 
-    private boolean mShouldMonitor = true;
+	private boolean mShouldMonitor = true;
 
-    private static final String[] LOG_PRIORITIES = new String[] {
-        LogLevel.VERBOSE.getStringValue(),
-        LogLevel.DEBUG.getStringValue(),
-        LogLevel.INFO.getStringValue(),
-        LogLevel.WARN.getStringValue(),
-        LogLevel.ERROR.getStringValue(),
-        LogLevel.ASSERT.getStringValue(),
-    };
-    private static final int ERROR_PRIORITY_INDEX = 4;
+	private static final String[] LOG_PRIORITIES = new String[] { LogLevel.VERBOSE.getStringValue(),
+			LogLevel.DEBUG.getStringValue(), LogLevel.INFO.getStringValue(), LogLevel.WARN.getStringValue(),
+			LogLevel.ERROR.getStringValue(), LogLevel.ASSERT.getStringValue(), };
+	private static final int ERROR_PRIORITY_INDEX = 4;
 
-    private String mMinimumLogPriority = LOG_PRIORITIES[ERROR_PRIORITY_INDEX];
+	private String mMinimumLogPriority = LOG_PRIORITIES[ERROR_PRIORITY_INDEX];
 
-    public LogCatMonitorDialog(Shell parentShell) {
-        super(parentShell);
-        setHelpAvailable(false);
-    }
+	public LogCatMonitorDialog(Shell parentShell) {
+		super(parentShell);
+		setHelpAvailable(false);
+	}
 
-    @Override
-    protected Control createDialogArea(Composite parent) {
-        setTitle(TITLE);
-        setMessage(DEFAULT_MESSAGE);
+	@Override
+	protected Control createDialogArea(Composite parent) {
+		setTitle(TITLE);
+		setMessage(DEFAULT_MESSAGE);
 
-        parent = (Composite) super.createDialogArea(parent);
-        Composite c = new Composite(parent, SWT.BORDER);
-        c.setLayout(new GridLayout(2, false));
-        GridData gd_c = new GridData(GridData.FILL_BOTH);
-        gd_c.grabExcessVerticalSpace = false;
-        gd_c.grabExcessHorizontalSpace = false;
-        c.setLayoutData(gd_c);
+		parent = (Composite) super.createDialogArea(parent);
+		Composite c = new Composite(parent, SWT.BORDER);
+		c.setLayout(new GridLayout(2, false));
+		GridData gd_c = new GridData(GridData.FILL_BOTH);
+		gd_c.grabExcessVerticalSpace = false;
+		gd_c.grabExcessHorizontalSpace = false;
+		c.setLayoutData(gd_c);
 
-        final Button disableButton = new Button(c, SWT.RADIO);
-        disableButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-        disableButton.setText("No, do not monitor logcat output.");
+		final Button disableButton = new Button(c, SWT.RADIO);
+		disableButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		disableButton.setText("No, do not monitor logcat output.");
 
-        final Button enableButton = new Button(c, SWT.RADIO);
-        enableButton.setText("Yes, monitor logcat and display logcat view if there are\n" +
-                "messages with priority higher than:");
-        enableButton.setSelection(true);
+		final Button enableButton = new Button(c, SWT.RADIO);
+		enableButton.setText("Yes, monitor logcat and display logcat view if there are\n"
+				+ "messages with priority higher than:");
+		enableButton.setSelection(true);
 
-        final Combo levelCombo = new Combo(c, SWT.READ_ONLY | SWT.DROP_DOWN);
-        levelCombo.setItems(LOG_PRIORITIES);
-        levelCombo.select(ERROR_PRIORITY_INDEX);
+		final Combo levelCombo = new Combo(c, SWT.READ_ONLY | SWT.DROP_DOWN);
+		levelCombo.setItems(LOG_PRIORITIES);
+		levelCombo.select(ERROR_PRIORITY_INDEX);
 
-        SelectionListener s = new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (e.getSource() == enableButton) {
-                    mShouldMonitor = enableButton.getSelection();
-                    levelCombo.setEnabled(mShouldMonitor);
-                } else if (e.getSource() == levelCombo) {
-                    mMinimumLogPriority = LOG_PRIORITIES[levelCombo.getSelectionIndex()];
-                }
-            }
-        };
+		SelectionListener s = new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (e.getSource() == enableButton) {
+					mShouldMonitor = enableButton.getSelection();
+					levelCombo.setEnabled(mShouldMonitor);
+				} else if (e.getSource() == levelCombo) {
+					mMinimumLogPriority = LOG_PRIORITIES[levelCombo.getSelectionIndex()];
+				}
+			}
+		};
 
-        levelCombo.addSelectionListener(s);
-        enableButton.addSelectionListener(s);
+		levelCombo.addSelectionListener(s);
+		enableButton.addSelectionListener(s);
 
-        return parent;
-    }
+		return parent;
+	}
 
-    @Override
-    protected void createButtonsForButtonBar(Composite parent) {
-        // Only need OK button
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
-                true);
-    }
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+		// Only need OK button
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+	}
 
-    public boolean shouldMonitor() {
-        return mShouldMonitor;
-    }
+	public boolean shouldMonitor() {
+		return mShouldMonitor;
+	}
 
-    public String getMinimumPriority() {
-        return mMinimumLogPriority;
-    }
+	public String getMinimumPriority() {
+		return mMinimumLogPriority;
+	}
 }

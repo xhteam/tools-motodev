@@ -15,24 +15,20 @@
  */
 package org.eclipse.andmore.android.installer;
 
-public class InstallerException extends Exception
-{
+public class InstallerException extends Exception {
 
-    private static final long serialVersionUID = 3876492546951746125L;
+	private static final long serialVersionUID = 3876492546951746125L;
 
-    public InstallerException(Throwable t)
-    {
-        super(t);
-    }
+	public InstallerException(Throwable t) {
+		super(t);
+	}
 
-    public InstallerException(String message)
-    {
-        super(message);
-    }
+	public InstallerException(String message) {
+		super(message);
+	}
 
-    public InstallerException(String message, Throwable t)
-    {
-        super(message, t);
-    }
+	public InstallerException(String message, Throwable t) {
+		super(message, t);
+	}
 
 }

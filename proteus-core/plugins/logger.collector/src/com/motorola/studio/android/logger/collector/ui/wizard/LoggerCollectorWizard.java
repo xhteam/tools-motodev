@@ -28,84 +28,69 @@ import com.motorola.studio.android.logger.collector.util.PlatformException;
 /**
  * This class represents the logger collector wizard.
  */
-public class LoggerCollectorWizard extends Wizard
-{
+public class LoggerCollectorWizard extends Wizard {
 
-    /**
-     * Initializing instance of wizard page
-     */
-    private final LoggerCollectorWizardPage loggerCollectorWizardPage =
-            new LoggerCollectorWizardPage("wizardPage"); //$NON-NLS-1$ 
+	/**
+	 * Initializing instance of wizard page
+	 */
+	private final LoggerCollectorWizardPage loggerCollectorWizardPage = new LoggerCollectorWizardPage("wizardPage"); //$NON-NLS-1$ 
 
-    /**
-     * The Constructor
-     */
-    public LoggerCollectorWizard()
-    {
-        setWindowTitle(LoggerCollectorMessages.getInstance().getString(
-                "logger.collector.wizard.page.title")); //$NON-NLS-1$
-    }
+	/**
+	 * The Constructor
+	 */
+	public LoggerCollectorWizard() {
+		setWindowTitle(LoggerCollectorMessages.getInstance().getString("logger.collector.wizard.page.title")); //$NON-NLS-1$
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#canFinish()
-     */
-    @Override
-    public boolean canFinish()
-    {
-        return loggerCollectorWizardPage.isPageComplete();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#canFinish()
+	 */
+	@Override
+	public boolean canFinish() {
+		return loggerCollectorWizardPage.isPageComplete();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#addPages()
-     */
-    @Override
-    public void addPages()
-    {
-        super.addPages();
-        addPage(loggerCollectorWizardPage);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#addPages()
+	 */
+	@Override
+	public void addPages() {
+		super.addPages();
+		addPage(loggerCollectorWizardPage);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.jface.wizard.Wizard#performFinish()
-     */
-    @Override
-    public boolean performFinish()
-    {
-        if (loggerCollectorWizardPage.getLogFileColumn() != null)
-        {
-            try
-            {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		if (loggerCollectorWizardPage.getLogFileColumn() != null) {
+			try {
 
-                IPath filename = new Path(loggerCollectorWizardPage.getFilename());
-                if (filename.getFileExtension() == null
-                        || !filename.getFileExtension().equalsIgnoreCase(
-                                LoggerCollectorConstants.ZIP_FILE_EXTENSION))
-                {
-                    filename =
-                            filename.addFileExtension(LoggerCollectorConstants.ZIP_FILE_EXTENSION);
-                }
-                if (loggerCollectorWizardPage.getLogFileColumn().collect(filename.toOSString()))
-                {
-                    MessageDialog.openInformation(
-                            getShell(),
-                            LoggerCollectorMessages.getInstance().getString(
-                                    "logger.collector.wizard.page.title"), //$NON-NLS-1$ 
-                            LoggerCollectorMessages.getInstance().getString(
-                                    "logger.collector.wizard.success")); //$NON-NLS-1$
-                }
-                return true;
-            }
-            catch (PlatformException e)
-            {
-                MessageDialog.openError(getShell(), LoggerCollectorMessages.getInstance()
-                        .getString("logger.collector.wizard.page.title"), //$NON-NLS-1$ 
-                        e.getMessage());
-                return false;
-            }
-        }
-        return false;
-    }
+				IPath filename = new Path(loggerCollectorWizardPage.getFilename());
+				if (filename.getFileExtension() == null
+						|| !filename.getFileExtension().equalsIgnoreCase(LoggerCollectorConstants.ZIP_FILE_EXTENSION)) {
+					filename = filename.addFileExtension(LoggerCollectorConstants.ZIP_FILE_EXTENSION);
+				}
+				if (loggerCollectorWizardPage.getLogFileColumn().collect(filename.toOSString())) {
+					MessageDialog.openInformation(getShell(),
+							LoggerCollectorMessages.getInstance().getString("logger.collector.wizard.page.title"), //$NON-NLS-1$ 
+							LoggerCollectorMessages.getInstance().getString("logger.collector.wizard.success")); //$NON-NLS-1$
+				}
+				return true;
+			} catch (PlatformException e) {
+				MessageDialog.openError(getShell(),
+						LoggerCollectorMessages.getInstance().getString("logger.collector.wizard.page.title"), //$NON-NLS-1$ 
+						e.getMessage());
+				return false;
+			}
+		}
+		return false;
+	}
 }

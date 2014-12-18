@@ -20,13 +20,12 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
-public class CollapseAllHandler extends AbstractHandler
-{
+public class CollapseAllHandler extends AbstractHandler {
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        DbCoreActivator.getMOTODEVDatabaseExplorerView().collapseAllTreeItems();
-        return null;
-    }
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		DbCoreActivator.getMOTODEVDatabaseExplorerView().collapseAllTreeItems();
+		return null;
+	}
 
 }

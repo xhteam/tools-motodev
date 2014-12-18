@@ -40,102 +40,91 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 /**
  * Manager responsible to modify activity / fragment based on layout xml
  */
-public class JavaModifierBasedOnLayout extends JavaCodeModifier
-{
-    private boolean generateDefaultListeners = false;
+public class JavaModifierBasedOnLayout extends JavaCodeModifier {
+	private boolean generateDefaultListeners = false;
 
-    private MethodDeclaration onCreateDeclaration;
+	private MethodDeclaration onCreateDeclaration;
 
-    static
-    {
-        IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_APP);
-        IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_WIDGET);
-        IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_VIEW_VIEW);
-    }
+	static {
+		IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_APP);
+		IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_WIDGET);
+		IMPORT_LIST.add(JavaViewBasedOnLayoutModifierConstants.IMPORT_ANDROID_VIEW_VIEW);
+	}
 
-    @Override
-    protected void initVariables()
-    {
-        CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout =
-                (CodeGeneratorDataBasedOnLayout) getCodeGeneratorData();
-        onCreateDeclaration =
-                codeGeneratorDataBasedOnLayout.getJavaLayoutData().getVisitor()
-                        .getOnCreateDeclaration();
-        //get typeDeclaration
-        super.initVariables();
-    }
+	@Override
+	protected void initVariables() {
+		CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout = (CodeGeneratorDataBasedOnLayout) getCodeGeneratorData();
+		onCreateDeclaration = codeGeneratorDataBasedOnLayout.getJavaLayoutData().getVisitor().getOnCreateDeclaration();
+		// get typeDeclaration
+		super.initVariables();
+	}
 
-    @Override
-    protected void callCodeGenerators(final SubMonitor theMonitor, IFile java)
-            throws JavaModelException
-    {
-        CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout =
-                (CodeGeneratorDataBasedOnLayout) getCodeGeneratorData();
-        new ClassAttributesCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
-                typeDeclaration).generateCode(theMonitor);
-        FindViewByIdCodeGenerator f =
-                new FindViewByIdCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
-                        typeDeclaration, java);
-        f.generateCode(theMonitor);
-        if (shouldGenerateDefaultListeners())
-        {
-            //call the generators declared into the codeGenerators list
-            super.callCodeGenerators(theMonitor, java);
-        }
+	@Override
+	protected void callCodeGenerators(final SubMonitor theMonitor, IFile java) throws JavaModelException {
+		CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout = (CodeGeneratorDataBasedOnLayout) getCodeGeneratorData();
+		new ClassAttributesCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration, typeDeclaration)
+				.generateCode(theMonitor);
+		FindViewByIdCodeGenerator f = new FindViewByIdCodeGenerator(codeGeneratorDataBasedOnLayout,
+				onCreateDeclaration, typeDeclaration, java);
+		f.generateCode(theMonitor);
+		if (shouldGenerateDefaultListeners()) {
+			// call the generators declared into the codeGenerators list
+			super.callCodeGenerators(theMonitor, java);
+		}
 
-        //generate save state code
-        new SaveStateCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
-                typeDeclaration).generateCode(theMonitor);
-    }
+		// generate save state code
+		new SaveStateCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration, typeDeclaration)
+				.generateCode(theMonitor);
+	}
 
-    /**
-     * Factory method to include all the code generators for the given java modifier 
-     * @param codeGeneratorDataBasedOnLayout
-     * @return list of code generators
-     */
-    @Override
-    public List<AbstractCodeGenerator> populateListOfCodeGenerators(
-            AbstractCodeGeneratorData abstractCodeGeneratorData)
-    {
-        CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout =
-                (CodeGeneratorDataBasedOnLayout) abstractCodeGeneratorData;
-        codeGenerators.add(new OnClickGUIsCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new RadioButtonCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new EditTextCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new SpinnerCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new GalleryCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new RatingBarCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        codeGenerators.add(new SeekBarCodeGenerator(codeGeneratorDataBasedOnLayout,
-                onCreateDeclaration, typeDeclaration));
-        return codeGenerators;
-    }
+	/**
+	 * Factory method to include all the code generators for the given java
+	 * modifier
+	 * 
+	 * @param codeGeneratorDataBasedOnLayout
+	 * @return list of code generators
+	 */
+	@Override
+	public List<AbstractCodeGenerator> populateListOfCodeGenerators(AbstractCodeGeneratorData abstractCodeGeneratorData) {
+		CodeGeneratorDataBasedOnLayout codeGeneratorDataBasedOnLayout = (CodeGeneratorDataBasedOnLayout) abstractCodeGeneratorData;
+		codeGenerators.add(new OnClickGUIsCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new RadioButtonCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new EditTextCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new SpinnerCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new GalleryCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new RatingBarCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		codeGenerators.add(new SeekBarCodeGenerator(codeGeneratorDataBasedOnLayout, onCreateDeclaration,
+				typeDeclaration));
+		return codeGenerators;
+	}
 
-    /**
-     * @return true if need to generate code for listeners (buttons, edit fields), false if do not need  
-     */
-    public boolean shouldGenerateDefaultListeners()
-    {
-        return generateDefaultListeners;
-    }
+	/**
+	 * @return true if need to generate code for listeners (buttons, edit
+	 *         fields), false if do not need
+	 */
+	public boolean shouldGenerateDefaultListeners() {
+		return generateDefaultListeners;
+	}
 
-    /**
-     * Defines if the class have to generate listeners (e.g.: onclick for buttons, onKey for edittext, and so on) 
-     * @param generateDefaultListeners the generateDefaultListeners to set
-     */
-    public void setGenerateDefaultListeners(boolean generateDefaultListeners)
-    {
-        this.generateDefaultListeners = generateDefaultListeners;
-    }
+	/**
+	 * Defines if the class have to generate listeners (e.g.: onclick for
+	 * buttons, onKey for edittext, and so on)
+	 * 
+	 * @param generateDefaultListeners
+	 *            the generateDefaultListeners to set
+	 */
+	public void setGenerateDefaultListeners(boolean generateDefaultListeners) {
+		this.generateDefaultListeners = generateDefaultListeners;
+	}
 
-    @Override
-    protected File getDataResource()
-    {
-        return ((CodeGeneratorDataBasedOnLayout) codeGeneratorData).getLayoutFile().getFile();
-    }
+	@Override
+	protected File getDataResource() {
+		return ((CodeGeneratorDataBasedOnLayout) codeGeneratorData).getLayoutFile().getFile();
+	}
 }

@@ -28,41 +28,40 @@ import org.eclipse.ui.IWorkbenchPart;
 
 public class AddNativeAction implements IObjectActionDelegate {
 
-    private IWorkbenchPart mPart;
-    private ISelection mSelection;
+	private IWorkbenchPart mPart;
+	private ISelection mSelection;
 
-    @Override
-    public void run(IAction action) {
-        IProject project = null;
-        if (mSelection instanceof IStructuredSelection) {
-            IStructuredSelection ss = (IStructuredSelection) mSelection;
-            if (ss.size() == 1) {
-                Object obj = ss.getFirstElement();
-                if (obj instanceof IProject) {
-                    project = (IProject) obj;
-                } else if (obj instanceof PlatformObject) {
-                    project = (IProject) ((PlatformObject) obj).getAdapter(IProject.class);
-                }
-            }
-        }
+	@Override
+	public void run(IAction action) {
+		IProject project = null;
+		if (mSelection instanceof IStructuredSelection) {
+			IStructuredSelection ss = (IStructuredSelection) mSelection;
+			if (ss.size() == 1) {
+				Object obj = ss.getFirstElement();
+				if (obj instanceof IProject) {
+					project = (IProject) obj;
+				} else if (obj instanceof PlatformObject) {
+					project = (IProject) ((PlatformObject) obj).getAdapter(IProject.class);
+				}
+			}
+		}
 
-        if (project != null) {
-            AddNativeWizard wizard = new AddNativeWizard(project, mPart.getSite()
-                    .getWorkbenchWindow());
-            WizardDialog dialog = new WizardDialog(mPart.getSite().getShell(), wizard);
-            dialog.open();
-        }
+		if (project != null) {
+			AddNativeWizard wizard = new AddNativeWizard(project, mPart.getSite().getWorkbenchWindow());
+			WizardDialog dialog = new WizardDialog(mPart.getSite().getShell(), wizard);
+			dialog.open();
+		}
 
-    }
+	}
 
-    @Override
-    public void selectionChanged(IAction action, ISelection selection) {
-        mSelection = selection;
-    }
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		mSelection = selection;
+	}
 
-    @Override
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-        mPart = targetPart;
-    }
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		mPart = targetPart;
+	}
 
 }

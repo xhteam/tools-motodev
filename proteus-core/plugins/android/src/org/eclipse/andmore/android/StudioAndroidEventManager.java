@@ -26,180 +26,154 @@ import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.AndroidDebugBridge.IClientChangeListener;
 import com.android.ddmlib.AndroidDebugBridge.IDebugBridgeChangeListener;
 
-public class StudioAndroidEventManager
-{
-    private static final HashMap<EventType, List<DdmsRunnable>> listeners =
-            new HashMap<EventType, List<DdmsRunnable>>();
+public class StudioAndroidEventManager {
+	private static final HashMap<EventType, List<DdmsRunnable>> listeners = new HashMap<EventType, List<DdmsRunnable>>();
 
-    public enum EventType
-    {
-        DEVICE_CONNECTED, DEVICE_DISCONNECTED, PACKAGE_INSTALLED, PACKAGE_UNINSTALLED,
-        LANGUAGE_CHANGED
-    };
+	public enum EventType {
+		DEVICE_CONNECTED, DEVICE_DISCONNECTED, PACKAGE_INSTALLED, PACKAGE_UNINSTALLED, LANGUAGE_CHANGED
+	};
 
-    public static void addEventListener(EventType type, DdmsRunnable listener)
-    {
-        synchronized (listeners)
-        {
-            List<DdmsRunnable> typeListeners = listeners.get(type);
-            if (typeListeners == null)
-            {
-                typeListeners = new LinkedList<DdmsRunnable>();
-                listeners.put(type, typeListeners);
-            }
-            typeListeners.add(listener);
-        }
-    }
+	public static void addEventListener(EventType type, DdmsRunnable listener) {
+		synchronized (listeners) {
+			List<DdmsRunnable> typeListeners = listeners.get(type);
+			if (typeListeners == null) {
+				typeListeners = new LinkedList<DdmsRunnable>();
+				listeners.put(type, typeListeners);
+			}
+			typeListeners.add(listener);
+		}
+	}
 
-    public static void removeEventListener(EventType type, DdmsRunnable listener)
-    {
-        synchronized (listeners)
-        {
-            List<DdmsRunnable> typeListeners = listeners.get(type);
-            if (typeListeners == null)
-            {
-                typeListeners = new LinkedList<DdmsRunnable>();
-                listeners.put(type, typeListeners);
-            }
-            typeListeners.remove(listener);
-        }
-    }
+	public static void removeEventListener(EventType type, DdmsRunnable listener) {
+		synchronized (listeners) {
+			List<DdmsRunnable> typeListeners = listeners.get(type);
+			if (typeListeners == null) {
+				typeListeners = new LinkedList<DdmsRunnable>();
+				listeners.put(type, typeListeners);
+			}
+			typeListeners.remove(listener);
+		}
+	}
 
-    /**
-     * Adds a IClientChangeListener asynchronously
-     * 
-     * @param listener The listener to add
-     */
-    public static void asyncAddClientChangeListener(final IClientChangeListener listener)
-    {
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                AndroidDebugBridge.addClientChangeListener(listener);
-            }
-        }).start();
-    }
+	/**
+	 * Adds a IClientChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to add
+	 */
+	public static void asyncAddClientChangeListener(final IClientChangeListener listener) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				AndroidDebugBridge.addClientChangeListener(listener);
+			}
+		}).start();
+	}
 
-    /**
-     * Removes a IClientChangeListener asynchronously
-     * 
-     * @param listener The listener to remove
-     */
-    public static void asyncRemoveClientChangeListener(final IClientChangeListener listener)
-    {
-        new Thread(new Runnable()
-        {
+	/**
+	 * Removes a IClientChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to remove
+	 */
+	public static void asyncRemoveClientChangeListener(final IClientChangeListener listener) {
+		new Thread(new Runnable() {
 
-            public void run()
-            {
-                AndroidDebugBridge.removeClientChangeListener(listener);
+			@Override
+			public void run() {
+				AndroidDebugBridge.removeClientChangeListener(listener);
 
-            }
-        }).start();
-    }
+			}
+		}).start();
+	}
 
-    /**
-     * Adds a IDebugBridgeChangeListener asynchronously
-     * 
-     * @param listener The listener to add
-     */
-    public static void asyncAddDebugBridgeChangeListener(final IDebugBridgeChangeListener listener)
-    {
-        new Thread(new Runnable()
-        {
+	/**
+	 * Adds a IDebugBridgeChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to add
+	 */
+	public static void asyncAddDebugBridgeChangeListener(final IDebugBridgeChangeListener listener) {
+		new Thread(new Runnable() {
 
-            public void run()
-            {
-                AndroidDebugBridge.addDebugBridgeChangeListener(listener);
+			@Override
+			public void run() {
+				AndroidDebugBridge.addDebugBridgeChangeListener(listener);
 
-            }
-        }).start();
-    }
+			}
+		}).start();
+	}
 
-    /**
-     * Removes a IDebugBridgeChangeListener asynchronously
-     * 
-     * @param listener The listener to remove
-     */
-    public static void asyncRemoveDebugBridgeChangeListener(
-            final IDebugBridgeChangeListener listener)
-    {
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                AndroidDebugBridge.removeDebugBridgeChangeListener(listener);
+	/**
+	 * Removes a IDebugBridgeChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to remove
+	 */
+	public static void asyncRemoveDebugBridgeChangeListener(final IDebugBridgeChangeListener listener) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				AndroidDebugBridge.removeDebugBridgeChangeListener(listener);
 
-            }
-        }).start();
-    }
+			}
+		}).start();
+	}
 
-    /**
-     * Adds a IDeviceChangeListener asynchronously
-     * 
-     * @param listener The listener to add
-     */
-    public static void asyncAddDeviceChangeListeners(final DdmsRunnable connectedListener,
-            final DdmsRunnable disconnectedListener)
-    {
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                if (connectedListener != null)
-                {
-                    addEventListener(EventType.DEVICE_CONNECTED, connectedListener);
-                }
-                if (disconnectedListener != null)
-                {
-                    addEventListener(EventType.DEVICE_DISCONNECTED, disconnectedListener);
-                }
-            }
-        }).start();
-    }
+	/**
+	 * Adds a IDeviceChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to add
+	 */
+	public static void asyncAddDeviceChangeListeners(final DdmsRunnable connectedListener,
+			final DdmsRunnable disconnectedListener) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (connectedListener != null) {
+					addEventListener(EventType.DEVICE_CONNECTED, connectedListener);
+				}
+				if (disconnectedListener != null) {
+					addEventListener(EventType.DEVICE_DISCONNECTED, disconnectedListener);
+				}
+			}
+		}).start();
+	}
 
-    /**
-     * Removes a IDeviceChangeListener asynchronously
-     * 
-     * @param listener The listener to remove
-     */
-    public static void asyncRemoveDeviceChangeListeners(final DdmsRunnable connectedListener,
-            final DdmsRunnable disconnectedListener)
-    {
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                if (connectedListener != null)
-                {
-                    removeEventListener(EventType.DEVICE_CONNECTED, connectedListener);
-                }
-                if (disconnectedListener != null)
-                {
-                    removeEventListener(EventType.DEVICE_DISCONNECTED, disconnectedListener);
-                }
-            }
-        }).start();
-    }
+	/**
+	 * Removes a IDeviceChangeListener asynchronously
+	 * 
+	 * @param listener
+	 *            The listener to remove
+	 */
+	public static void asyncRemoveDeviceChangeListeners(final DdmsRunnable connectedListener,
+			final DdmsRunnable disconnectedListener) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (connectedListener != null) {
+					removeEventListener(EventType.DEVICE_CONNECTED, connectedListener);
+				}
+				if (disconnectedListener != null) {
+					removeEventListener(EventType.DEVICE_DISCONNECTED, disconnectedListener);
+				}
+			}
+		}).start();
+	}
 
-    public static void fireEvent(EventType type, final String serialNumber)
-    {
-        synchronized (listeners)
-        {
-            if (listeners.get(type) != null)
-            {
-                for (final DdmsRunnable runnable : listeners.get(type))
-                {
-                    SafeRunner.run(new SafeRunnable()
-                    {
-                        public void run() throws Exception
-                        {
-                            runnable.run(serialNumber);
-                        }
-                    });
-                }
-            }
-        }
-    }
+	public static void fireEvent(EventType type, final String serialNumber) {
+		synchronized (listeners) {
+			if (listeners.get(type) != null) {
+				for (final DdmsRunnable runnable : listeners.get(type)) {
+					SafeRunner.run(new SafeRunnable() {
+						@Override
+						public void run() throws Exception {
+							runnable.run(serialNumber);
+						}
+					});
+				}
+			}
+		}
+	}
 }

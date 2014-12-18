@@ -25,34 +25,35 @@ import java.util.List;
 
 public class UnwrapRefactoringTest extends RefactoringTest {
 
-    public void testUnwrap1() throws Exception {
-        // Unwrap view with parent, no children - this will unwrap the parent (frame layout)
-        checkRefactoring("unwrap.xml", "@+id/button");
-    }
+	public void testUnwrap1() throws Exception {
+		// Unwrap view with parent, no children - this will unwrap the parent
+		// (frame layout)
+		checkRefactoring("unwrap.xml", "@+id/button");
+	}
 
-    public void testUnwrap2() throws Exception {
-        // Unwrap view with parent and children; this should unwrap the element itself
-        checkRefactoring("unwrap.xml", "@+id/frame");
-    }
+	public void testUnwrap2() throws Exception {
+		// Unwrap view with parent and children; this should unwrap the element
+		// itself
+		checkRefactoring("unwrap.xml", "@+id/frame");
+	}
 
-    public void testUnwrap3() throws Exception {
-        // Unwrap root: should transfer namespace
-        checkRefactoring("unwrap.xml", "@+id/linear");
-    }
+	public void testUnwrap3() throws Exception {
+		// Unwrap root: should transfer namespace
+		checkRefactoring("unwrap.xml", "@+id/linear");
+	}
 
-    private void checkRefactoring(String basename, String id) throws Exception {
-        IFile file = getLayoutFile(getProject(), basename);
-        TestContext info = setupTestContext(file, basename);
-        TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
-        List<Element> selectedElements = getElements(info.mElement, id);
-        assertEquals(1, selectedElements.size());
+	private void checkRefactoring(String basename, String id) throws Exception {
+		IFile file = getLayoutFile(getProject(), basename);
+		TestContext info = setupTestContext(file, basename);
+		TestLayoutEditorDelegate layoutEditor = info.mLayoutEditorDelegate;
+		List<Element> selectedElements = getElements(info.mElement, id);
+		assertEquals(1, selectedElements.size());
 
-        UnwrapRefactoring refactoring = new UnwrapRefactoring(selectedElements,
-                layoutEditor);
+		UnwrapRefactoring refactoring = new UnwrapRefactoring(selectedElements, layoutEditor);
 
-        RefactoringStatus status = refactoring.checkInitialConditions(new NullProgressMonitor());
-        assertFalse(status.hasError());
-        List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
-        checkEdits(basename, changes);
-    }
+		RefactoringStatus status = refactoring.checkInitialConditions(new NullProgressMonitor());
+		assertFalse(status.hasError());
+		List<Change> changes = refactoring.computeChanges(new NullProgressMonitor());
+		checkEdits(basename, changes);
+	}
 }

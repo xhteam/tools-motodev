@@ -22,15 +22,18 @@ import org.eclipse.core.commands.ExecutionException;
 /**
  * Command to open the New Content Provider wizard through the MOTODEV menu
  */
-public class NewContentProviderWizard extends NewWizardHandler
-{
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        openWizard(new NewProviderWizard());
+public class NewContentProviderWizard extends NewWizardHandler {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		openWizard(new NewProviderWizard());
 
-        return null;
-    }
+		return null;
+	}
 }

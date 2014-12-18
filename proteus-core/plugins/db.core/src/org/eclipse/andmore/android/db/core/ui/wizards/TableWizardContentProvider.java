@@ -19,29 +19,27 @@ import org.eclipse.andmore.android.db.core.model.TableModel;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-public class TableWizardContentProvider implements IStructuredContentProvider
-{
+public class TableWizardContentProvider implements IStructuredContentProvider {
 
-    public void dispose()
-    {
-        //Do nothing.
-    }
+	@Override
+	public void dispose() {
+		// Do nothing.
+	}
 
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
-    {
-        //Do nothing.
-    }
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		// Do nothing.
+	}
 
-    public Object[] getElements(Object inputElement)
-    {
-        Object[] children = new Object[0];
+	@Override
+	public Object[] getElements(Object inputElement) {
+		Object[] children = new Object[0];
 
-        if (inputElement instanceof TableModel)
-        {
-            TableModel table = (TableModel) inputElement;
-            children = table.getFields().toArray();
-        }
-        return children;
-    }
+		if (inputElement instanceof TableModel) {
+			TableModel table = (TableModel) inputElement;
+			children = table.getFields().toArray();
+		}
+		return children;
+	}
 
 }

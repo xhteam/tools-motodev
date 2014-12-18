@@ -17,29 +17,38 @@
 package org.eclipse.andmore.ddms;
 
 /**
- * Classes which implement this interface provides a way to connect a debugger to a VM running
- * on a connected device.
+ * Classes which implement this interface provides a way to connect a debugger
+ * to a VM running on a connected device.
  */
 public interface IDebuggerConnector {
-    /**
-     * Is this application from a project present in the workspace?
-     * @param appName name of the application. This is typically the application's package, but
-     * can be different if the component was setup to run in its own process.
-     * @return true if there is a project in the workspace containing the given app.
-     */
-    boolean isWorkspaceApp(String appName);
+	/**
+	 * Is this application from a project present in the workspace?
+	 * 
+	 * @param appName
+	 *            name of the application. This is typically the application's
+	 *            package, but can be different if the component was setup to
+	 *            run in its own process.
+	 * @return true if there is a project in the workspace containing the given
+	 *         app.
+	 */
+	boolean isWorkspaceApp(String appName);
 
-    /**
-     * Connects a debugger to a VM identified by its appName.
-     * <p/>
-     * The given port is tied to the application and should be used if possible. However the
-     * "selected" port can also be used if needed.
-     * @param appName the name of the application. Usually the application's package but this
-     * can be different if the component was setup to run in it's own process.
-     * @param appPort the preferred connection port.
-     * @param selectedPort the port value for the selected application
-     * @return true if success.
-     */
-    boolean connectDebugger(String appName, int appPort, int selectedPort);
+	/**
+	 * Connects a debugger to a VM identified by its appName.
+	 * <p/>
+	 * The given port is tied to the application and should be used if possible.
+	 * However the "selected" port can also be used if needed.
+	 * 
+	 * @param appName
+	 *            the name of the application. Usually the application's package
+	 *            but this can be different if the component was setup to run in
+	 *            it's own process.
+	 * @param appPort
+	 *            the preferred connection port.
+	 * @param selectedPort
+	 *            the port value for the selected application
+	 * @return true if success.
+	 */
+	boolean connectDebugger(String appName, int appPort, int selectedPort);
 
 }

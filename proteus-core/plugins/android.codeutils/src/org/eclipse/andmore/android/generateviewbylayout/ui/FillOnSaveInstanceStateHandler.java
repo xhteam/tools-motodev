@@ -25,33 +25,30 @@ import org.eclipse.ui.handlers.HandlerUtil;
 /**
  * Command handler to Save UI state
  */
-public class FillOnSaveInstanceStateHandler extends AbstractCodeGeneratorHandler
-{
+public class FillOnSaveInstanceStateHandler extends AbstractCodeGeneratorHandler {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
-     */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.
+	 * ExecutionEvent)
+	 */
 
-    public Object execute(ExecutionEvent event) throws ExecutionException
-    {
-        SelectionBean selectionBean = resolveSelection(event);
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		SelectionBean selectionBean = resolveSelection(event);
 
-        if (selectionBean.isProject() || selectionBean.isAllowedClassInstance())
-        {
-            final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-            executeCodeGenerationWizard(event, selectionBean.getJavaFile(),
-                    selectionBean.getJavaProject(),
-                    new FillOnSaveInstanceStateDialog(window.getShell()));
-        }
-        else
-        {
-            EclipseUtils
-                    .showErrorDialog(
-                            CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_FillJavaActivityBasedOnLayout,
-                            CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_SelectedClassNeitherActivityFragment);
-        }
+		if (selectionBean.isProject() || selectionBean.isAllowedClassInstance()) {
+			final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+			executeCodeGenerationWizard(event, selectionBean.getJavaFile(), selectionBean.getJavaProject(),
+					new FillOnSaveInstanceStateDialog(window.getShell()));
+		} else {
+			EclipseUtils.showErrorDialog(CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_FillJavaActivityBasedOnLayout,
+					CodeUtilsNLS.GenerateViewBasedOnLayoutHandler_SelectedClassNeitherActivityFragment);
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 }

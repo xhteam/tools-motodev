@@ -30,230 +30,192 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
  * Model representing the code generator data needed to generate code for layout
  * You MUST call init before using the object.
  */
-public class CodeGeneratorDataBasedOnLayout extends AbstractCodeGeneratorData
-{
+public class CodeGeneratorDataBasedOnLayout extends AbstractCodeGeneratorData {
 
-    private LayoutFile layoutFile;
+	private LayoutFile layoutFile;
 
-    private JavaLayoutData javaLayoutData;
+	private JavaLayoutData javaLayoutData;
 
-    /**
-     * Creates {@link LayoutFile} representation for the layout xml
-     * @param layoutName name of the layout (to appear on dialog to generate code)
-     * @param layout full file path to layout xml
-     * @throws AndroidException if an error occurs parsing layout xml
-     */
-    public void init(String layoutName, File layout) throws AndroidException
-    {
-        layoutFile = new LayoutFile(layoutName, layout);
-    }
+	/**
+	 * Creates {@link LayoutFile} representation for the layout xml
+	 * 
+	 * @param layoutName
+	 *            name of the layout (to appear on dialog to generate code)
+	 * @param layout
+	 *            full file path to layout xml
+	 * @throws AndroidException
+	 *             if an error occurs parsing layout xml
+	 */
+	public void init(String layoutName, File layout) throws AndroidException {
+		layoutFile = new LayoutFile(layoutName, layout);
+	}
 
-    private void refreshDeclared()
-    {
-        for (LayoutNode node : layoutFile.getNodes())
-        {
-            node.setAlreadyDeclaredInCode(getJavaLayoutData().getDeclaredViewIdsOnCode().contains(
-                    node.getNodeId()));
-            node.setAlreadySaved(getJavaLayoutData().getSavedViewIds().contains(node.getNodeId()));
-            node.setAlreadyRestored(getJavaLayoutData().getRestoredViewIds().contains(
-                    node.getNodeId()));
-        }
-    }
+	private void refreshDeclared() {
+		for (LayoutNode node : layoutFile.getNodes()) {
+			node.setAlreadyDeclaredInCode(getJavaLayoutData().getDeclaredViewIdsOnCode().contains(node.getNodeId()));
+			node.setAlreadySaved(getJavaLayoutData().getSavedViewIds().contains(node.getNodeId()));
+			node.setAlreadyRestored(getJavaLayoutData().getRestoredViewIds().contains(node.getNodeId()));
+		}
+	}
 
-    /**
-     * Get GUI items (not layouts or fragment placeholders)
-     * that are not declared in the code yet 
-     * @return list of GUI items from layout file (only ones with id set).
-     */
-    public List<LayoutNode> getGuiItems()
-    {
-        List<LayoutNode> guiItems = getGUIItems(true);
-        return guiItems;
-    }
+	/**
+	 * Get GUI items (not layouts or fragment placeholders) that are not
+	 * declared in the code yet
+	 * 
+	 * @return list of GUI items from layout file (only ones with id set).
+	 */
+	public List<LayoutNode> getGuiItems() {
+		List<LayoutNode> guiItems = getGUIItems(true);
+		return guiItems;
+	}
 
-    /**
-     * Get the list of layout nodes available into layout xml
-     * @param doNotshowAlreadyDeclared if true, remove the items already declared, if false include them in the result list
-     * @return list of layout nodes 
-     */
-    public List<LayoutNode> getGUIItems(boolean doNotshowAlreadyDeclared)
-    {
-        List<LayoutNode> guiItems = new ArrayList<LayoutNode>();
+	/**
+	 * Get the list of layout nodes available into layout xml
+	 * 
+	 * @param doNotshowAlreadyDeclared
+	 *            if true, remove the items already declared, if false include
+	 *            them in the result list
+	 * @return list of layout nodes
+	 */
+	public List<LayoutNode> getGUIItems(boolean doNotshowAlreadyDeclared) {
+		List<LayoutNode> guiItems = new ArrayList<LayoutNode>();
 
-        for (LayoutNode node : layoutFile.getNodes())
-        {
-            if (node.isGUIItem() && (node.getNodeId() != null))
-            {
-                if (doNotshowAlreadyDeclared)
-                {
-                    if (!node.isAlreadyDeclaredInCode())
-                    {
-                        guiItems.add(node);
-                    }
-                    else
-                    {
-                        //do not inserted already declared item
-                        node.setInsertCode(false);
-                    }
-                }
-                else
-                {
-                    guiItems.add(node);
-                }
-            }
-        }
-        return guiItems;
-    }
+		for (LayoutNode node : layoutFile.getNodes()) {
+			if (node.isGUIItem() && (node.getNodeId() != null)) {
+				if (doNotshowAlreadyDeclared) {
+					if (!node.isAlreadyDeclaredInCode()) {
+						guiItems.add(node);
+					} else {
+						// do not inserted already declared item
+						node.setInsertCode(false);
+					}
+				} else {
+					guiItems.add(node);
+				}
+			}
+		}
+		return guiItems;
+	}
 
-    /**
-     * Get GUI items (not layouts)
-     * that are not declared in the code yet for the dialog UI.
-     * 
-     * @return list of GUI items from layout file (with or without id set).
-     */
-    public List<LayoutNode> getGUIItemsForUI()
-    {
-        List<LayoutNode> guiItems = new ArrayList<LayoutNode>();
+	/**
+	 * Get GUI items (not layouts) that are not declared in the code yet for the
+	 * dialog UI.
+	 * 
+	 * @return list of GUI items from layout file (with or without id set).
+	 */
+	public List<LayoutNode> getGUIItemsForUI() {
+		List<LayoutNode> guiItems = new ArrayList<LayoutNode>();
 
-        for (LayoutNode node : layoutFile.getNodes())
-        {
-            if (node.isGUIItem())
-            {
-                if (!node.isAlreadyDeclaredInCode())
-                {
-                    guiItems.add(node);
-                }
-                else
-                {
-                    //do not inserted already declared item
-                    node.setInsertCode(false);
-                }
-            }
-        }
-        return guiItems;
-    }
+		for (LayoutNode node : layoutFile.getNodes()) {
+			if (node.isGUIItem()) {
+				if (!node.isAlreadyDeclaredInCode()) {
+					guiItems.add(node);
+				} else {
+					// do not inserted already declared item
+					node.setInsertCode(false);
+				}
+			}
+		}
+		return guiItems;
+	}
 
-    /**
-     * Get fragments (not layouts or GUI items)
-     * that are not declared in the code yet 
-     * @return
-     */
-    public List<LayoutNode> getFragments()
-    {
-        List<LayoutNode> fragmentItems = getFragments(true);
-        return fragmentItems;
-    }
+	/**
+	 * Get fragments (not layouts or GUI items) that are not declared in the
+	 * code yet
+	 * 
+	 * @return
+	 */
+	public List<LayoutNode> getFragments() {
+		List<LayoutNode> fragmentItems = getFragments(true);
+		return fragmentItems;
+	}
 
-    private List<LayoutNode> getFragments(boolean doNotshowAlreadyDeclared)
-    {
-        List<LayoutNode> fragmentItems = new ArrayList<LayoutNode>();
-        for (LayoutNode node : layoutFile.getNodes())
-        {
-            if (node.isFragmentPlaceholder() && (node.getNodeId() != null))
-            {
-                if (doNotshowAlreadyDeclared)
-                {
-                    if (!node.isAlreadyDeclaredInCode())
-                    {
-                        fragmentItems.add(node);
-                    }
-                    else
-                    {
-                        //do not inserted already declared item
-                        node.setInsertCode(false);
-                    }
-                }
-                else
-                {
-                    fragmentItems.add(node);
-                }
-            }
-        }
-        return fragmentItems;
-    }
+	private List<LayoutNode> getFragments(boolean doNotshowAlreadyDeclared) {
+		List<LayoutNode> fragmentItems = new ArrayList<LayoutNode>();
+		for (LayoutNode node : layoutFile.getNodes()) {
+			if (node.isFragmentPlaceholder() && (node.getNodeId() != null)) {
+				if (doNotshowAlreadyDeclared) {
+					if (!node.isAlreadyDeclaredInCode()) {
+						fragmentItems.add(node);
+					} else {
+						// do not inserted already declared item
+						node.setInsertCode(false);
+					}
+				} else {
+					fragmentItems.add(node);
+				}
+			}
+		}
+		return fragmentItems;
+	}
 
-    /**
-     * Get layout items (not GUI items or fragment placeholders)
-     * that are not declared in the code yet 
-     * @return
-     */
-    public List<LayoutNode> getLayoutItems()
-    {
-        List<LayoutNode> layoutItems = getLayoutItems(true);
-        return layoutItems;
-    }
+	/**
+	 * Get layout items (not GUI items or fragment placeholders) that are not
+	 * declared in the code yet
+	 * 
+	 * @return
+	 */
+	public List<LayoutNode> getLayoutItems() {
+		List<LayoutNode> layoutItems = getLayoutItems(true);
+		return layoutItems;
+	}
 
-    private List<LayoutNode> getLayoutItems(boolean doNotshowAlreadyDeclared)
-    {
-        List<LayoutNode> layoutItems = new ArrayList<LayoutNode>();
-        for (LayoutNode node : layoutFile.getNodes())
-        {
-            if (node.isLayout() && (node.getNodeId() != null))
-            {
-                if (doNotshowAlreadyDeclared)
-                {
-                    if (!node.isAlreadyDeclaredInCode())
-                    {
-                        layoutItems.add(node);
-                    }
-                    else
-                    {
-                        //do not inserted already declared item
-                        node.setInsertCode(false);
-                    }
-                }
-                else
-                {
-                    layoutItems.add(node);
-                }
-            }
-        }
-        return layoutItems;
-    }
+	private List<LayoutNode> getLayoutItems(boolean doNotshowAlreadyDeclared) {
+		List<LayoutNode> layoutItems = new ArrayList<LayoutNode>();
+		for (LayoutNode node : layoutFile.getNodes()) {
+			if (node.isLayout() && (node.getNodeId() != null)) {
+				if (doNotshowAlreadyDeclared) {
+					if (!node.isAlreadyDeclaredInCode()) {
+						layoutItems.add(node);
+					} else {
+						// do not inserted already declared item
+						node.setInsertCode(false);
+					}
+				} else {
+					layoutItems.add(node);
+				}
+			}
+		}
+		return layoutItems;
+	}
 
-    /**
-     * @return the javaLayoutData
-     */
-    public JavaLayoutData getJavaLayoutData()
-    {
-        return javaLayoutData;
-    }
+	/**
+	 * @return the javaLayoutData
+	 */
+	public JavaLayoutData getJavaLayoutData() {
+		return javaLayoutData;
+	}
 
-    /**
-     * @param javaLayoutData the javaLayoutData to set
-     */
-    public void setJavaLayoutData(JavaLayoutData javaLayoutData)
-    {
-        this.javaLayoutData = javaLayoutData;
-        refreshDeclared();
-    }
+	/**
+	 * @param javaLayoutData
+	 *            the javaLayoutData to set
+	 */
+	public void setJavaLayoutData(JavaLayoutData javaLayoutData) {
+		this.javaLayoutData = javaLayoutData;
+		refreshDeclared();
+	}
 
-    public LayoutFile getLayoutFile()
-    {
-        return layoutFile;
-    }
+	public LayoutFile getLayoutFile() {
+		return layoutFile;
+	}
 
-    @Override
-    public IResource getResource()
-    {
-        return getJavaLayoutData().getCompUnitAstNode().getJavaElement().getResource();
-    }
+	@Override
+	public IResource getResource() {
+		return getJavaLayoutData().getCompUnitAstNode().getJavaElement().getResource();
+	}
 
-    @Override
-    public ICompilationUnit getICompilationUnit()
-    {
-        return getJavaLayoutData().getCompUnit();
-    }
+	@Override
+	public ICompilationUnit getICompilationUnit() {
+		return getJavaLayoutData().getCompUnit();
+	}
 
-    @Override
-    public CompilationUnit getCompilationUnit()
-    {
-        return getJavaLayoutData().getCompUnitAstNode();
-    }
+	@Override
+	public CompilationUnit getCompilationUnit() {
+		return getJavaLayoutData().getCompUnitAstNode();
+	}
 
-    @Override
-    public BasicCodeVisitor getAbstractCodeVisitor()
-    {
-        return getJavaLayoutData().getVisitor();
-    }
+	@Override
+	public BasicCodeVisitor getAbstractCodeVisitor() {
+		return getJavaLayoutData().getVisitor();
+	}
 }

@@ -33,89 +33,86 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class CommonPlugin extends AbstractUIPlugin
-{
+public class CommonPlugin extends AbstractUIPlugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.andmore.android.common"; //$NON-NLS-1$
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.eclipse.andmore.android.common"; //$NON-NLS-1$
 
-    private static final String JDBC_DRIVER_PATH = "res/androidjdbc.jar";
+	private static final String JDBC_DRIVER_PATH = "res/androidjdbc.jar";
 
-    public static final String JDBC_DRIVER_INSTANCE_NAME = "motodev_jdbc_driver";
+	public static final String JDBC_DRIVER_INSTANCE_NAME = "motodev_jdbc_driver";
 
-    // The shared instance
-    private static CommonPlugin plugin;
+	// The shared instance
+	private static CommonPlugin plugin;
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void start(BundleContext context) throws Exception
-    {
-        StudioLogger.debug(CommonPlugin.class, "Starting MOTODEV Android Common Plugin...");
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		StudioLogger.debug(CommonPlugin.class, "Starting MOTODEV Android Common Plugin...");
 
-        super.start(context);
-        plugin = this;
+		super.start(context);
+		plugin = this;
 
-        StudioLogger.debug(CommonPlugin.class, "MOTODEV Android Common Plugin started.");
-    }
+		StudioLogger.debug(CommonPlugin.class, "MOTODEV Android Common Plugin started.");
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-     */
-    @Override
-    public void stop(BundleContext context) throws Exception
-    {
-        plugin = null;
-        super.stop(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
 
-    /**
-     * Returns the shared instance
-     *
-     * @return the shared instance
-     */
-    public static CommonPlugin getDefault()
-    {
-        return plugin;
-    }
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static CommonPlugin getDefault() {
+		return plugin;
+	}
 
-    /**
-     * Retrieves the location of the driver
-     * @return
-     */
-    public String getDriverPath()
-    {
-        String driverPath = "";
-        if (getDbResourceFile(JDBC_DRIVER_PATH) != null)
-        {
-            driverPath = getDbResourceFile(JDBC_DRIVER_PATH).getAbsolutePath();
-        }
-        return driverPath;
-    }
+	/**
+	 * Retrieves the location of the driver
+	 * 
+	 * @return
+	 */
+	public String getDriverPath() {
+		String driverPath = "";
+		if (getDbResourceFile(JDBC_DRIVER_PATH) != null) {
+			driverPath = getDbResourceFile(JDBC_DRIVER_PATH).getAbsolutePath();
+		}
+		return driverPath;
+	}
 
-    private File getDbResourceFile(String pathAtPlugin)
-    {
-        URL location = getBundle().getEntry(pathAtPlugin);
+	private File getDbResourceFile(String pathAtPlugin) {
+		URL location = getBundle().getEntry(pathAtPlugin);
 
-        debug("JDBC Driver Location:" + location + " JDBC Driver getBundle().getLocation():"
-                + getBundle().getLocation());
+		debug("JDBC Driver Location:" + location + " JDBC Driver getBundle().getLocation():"
+				+ getBundle().getLocation());
 
-        File file = null;
-        try
-        {
-            IPath p = new Path(FileLocator.toFileURL(location).getFile());
-            debug("JDBC Driver Path:" + p.toOSString());
-            file = p.toFile();
-        }
-        catch (IOException e)
-        {
-            error("Error while trying to locate jdbc driver into db plugin:" + e.getMessage());
-        }
-        return file;
+		File file = null;
+		try {
+			IPath p = new Path(FileLocator.toFileURL(location).getFile());
+			debug("JDBC Driver Path:" + p.toOSString());
+			file = p.toFile();
+		} catch (IOException e) {
+			error("Error while trying to locate jdbc driver into db plugin:" + e.getMessage());
+		}
+		return file;
 
-    }
+	}
 
 }

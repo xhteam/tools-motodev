@@ -40,90 +40,91 @@ import java.util.Map;
 
 public class AddNativeWizard extends Wizard {
 
-    private final IProject mProject;
-    private final IWorkbenchWindow mWindow;
+	private final IProject mProject;
+	private final IWorkbenchWindow mWindow;
 
-    private AddNativeWizardPage mAddNativeWizardPage;
-    private Map<String, String> mTemplateArgs = new HashMap<String, String>();
+	private AddNativeWizardPage mAddNativeWizardPage;
+	private Map<String, String> mTemplateArgs = new HashMap<String, String>();
 
-    public AddNativeWizard(IProject project, IWorkbenchWindow window) {
-        mProject = project;
-        mWindow = window;
-        mTemplateArgs.put(NdkManager.LIBRARY_NAME, project.getName());
-    }
+	public AddNativeWizard(IProject project, IWorkbenchWindow window) {
+		mProject = project;
+		mWindow = window;
+		mTemplateArgs.put(NdkManager.LIBRARY_NAME, project.getName());
+	}
 
-    @Override
-    public void addPages() {
-        mAddNativeWizardPage = new AddNativeWizardPage(mTemplateArgs);
-        addPage(mAddNativeWizardPage);
-    }
+	@Override
+	public void addPages() {
+		mAddNativeWizardPage = new AddNativeWizardPage(mTemplateArgs);
+		addPage(mAddNativeWizardPage);
+	}
 
-    @Override
-    public boolean performFinish() {
-        // Switch to C/C++ Perspective
-        try {
-            mWindow.getWorkbench().showPerspective(CUIPlugin.ID_CPERSPECTIVE, mWindow);
-        } catch (WorkbenchException e1) {
-            Activator.log(e1);
-        }
+	@Override
+	public boolean performFinish() {
+		// Switch to C/C++ Perspective
+		try {
+			mWindow.getWorkbench().showPerspective(CUIPlugin.ID_CPERSPECTIVE, mWindow);
+		} catch (WorkbenchException e1) {
+			Activator.log(e1);
+		}
 
-        mAddNativeWizardPage.updateArgs(mTemplateArgs);
+		mAddNativeWizardPage.updateArgs(mTemplateArgs);
 
-        IRunnableWithProgress op = new IRunnableWithProgress() {
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException,
-                    InterruptedException {
-                IWorkspaceRunnable op1 = new IWorkspaceRunnable() {
-                    @Override
-                    public void run(IProgressMonitor monitor1) throws CoreException {
-                        // Convert to CDT project
-                        CCorePlugin.getDefault().convertProjectToCC(mProject, monitor1,
-                                MakeCorePlugin.MAKE_PROJECT_ID);
-                        // Set up build information
-                        new NdkWizardHandler().convertProject(mProject, monitor1);
+		IRunnableWithProgress op = new IRunnableWithProgress() {
+			@Override
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				IWorkspaceRunnable op1 = new IWorkspaceRunnable() {
+					@Override
+					public void run(IProgressMonitor monitor1) throws CoreException {
+						// Convert to CDT project
+						CCorePlugin.getDefault().convertProjectToCC(mProject, monitor1, MakeCorePlugin.MAKE_PROJECT_ID);
+						// Set up build information
+						new NdkWizardHandler().convertProject(mProject, monitor1);
 
-                        // When using CDT 8.1.x, disable the language settings provider mechanism
-                        // for scanner discovery. Use the classloader to load the class since it
-                        // will not be available pre 8.1.
-                        try {
-                            @SuppressWarnings("rawtypes")
-                            Class c = getClass().getClassLoader().loadClass(
-                                    "org.eclipse.cdt.core.language.settings.providers.ScannerDiscoveryLegacySupport"); //$NON-NLS-1$
+						// When using CDT 8.1.x, disable the language settings
+						// provider mechanism
+						// for scanner discovery. Use the classloader to load
+						// the class since it
+						// will not be available pre 8.1.
+						try {
+							@SuppressWarnings("rawtypes")
+							Class c = getClass().getClassLoader().loadClass(
+									"org.eclipse.cdt.core.language.settings.providers.ScannerDiscoveryLegacySupport"); //$NON-NLS-1$
 
-                            @SuppressWarnings("unchecked")
-                            Method m = c.getMethod(
-                                    "setLanguageSettingsProvidersFunctionalityEnabled", //$NON-NLS-1$
-                                    IProject.class, boolean.class);
+							@SuppressWarnings("unchecked")
+							Method m = c.getMethod("setLanguageSettingsProvidersFunctionalityEnabled", //$NON-NLS-1$
+									IProject.class, boolean.class);
 
-                            m.invoke(null, mProject, false);
-                        } catch (Exception e) {
-                            // ignore all exceptions: On pre 8.1.x CDT, this class will not be
-                            // found, but this options only needs to be set in 8.1.x
-                        }
+							m.invoke(null, mProject, false);
+						} catch (Exception e) {
+							// ignore all exceptions: On pre 8.1.x CDT, this
+							// class will not be
+							// found, but this options only needs to be set in
+							// 8.1.x
+						}
 
-                        // Run the template
-                        NdkManager.addNativeSupport(mProject, mTemplateArgs, monitor1);
-                    }
-                };
-                // TODO run from a job
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                try {
-                    workspace.run(op1, workspace.getRoot(), 0, new NullProgressMonitor());
-                } catch (CoreException e) {
-                    throw new InvocationTargetException(e);
-                }
-            }
-        };
-        try {
-            getContainer().run(false, true, op);
-            return true;
-        } catch (InterruptedException e) {
-            Activator.log(e);
-            return false;
-        } catch (InvocationTargetException e) {
-            Activator.log(e);
-            return false;
-        }
-    }
+						// Run the template
+						NdkManager.addNativeSupport(mProject, mTemplateArgs, monitor1);
+					}
+				};
+				// TODO run from a job
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				try {
+					workspace.run(op1, workspace.getRoot(), 0, new NullProgressMonitor());
+				} catch (CoreException e) {
+					throw new InvocationTargetException(e);
+				}
+			}
+		};
+		try {
+			getContainer().run(false, true, op);
+			return true;
+		} catch (InterruptedException e) {
+			Activator.log(e);
+			return false;
+		} catch (InvocationTargetException e) {
+			Activator.log(e);
+			return false;
+		}
+	}
 
 }

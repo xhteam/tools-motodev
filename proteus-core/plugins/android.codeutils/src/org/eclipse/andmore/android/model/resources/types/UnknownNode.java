@@ -20,82 +20,92 @@ import org.eclipse.core.runtime.Assert;
 /**
  * Class that represents an unknown node on a resource file
  */
-public class UnknownNode extends AbstractResourceNode
-{
-    /**
-     * The node name: <nodename attrName="attrValue">nodeValue</nodename>
-     */
-    private String nodeName;
+public class UnknownNode extends AbstractResourceNode {
+	/**
+	 * The node name: <nodename attrName="attrValue">nodeValue</nodename>
+	 */
+	private String nodeName;
 
-    /**
-     * The node value: <nodename attrName="attrValue">nodeValue</nodename>
-     */
-    private String nodeValue;
+	/**
+	 * The node value: <nodename attrName="attrValue">nodeValue</nodename>
+	 */
+	private String nodeValue;
 
-    /**
-     * Default constructor
-     * 
-     * @param nodeName The node name. It must not be null.
-     */
-    public UnknownNode(String nodeName)
-    {
-        Assert.isLegal(nodeName != null);
-        this.nodeName = nodeName;
-    }
+	/**
+	 * Default constructor
+	 * 
+	 * @param nodeName
+	 *            The node name. It must not be null.
+	 */
+	public UnknownNode(String nodeName) {
+		Assert.isLegal(nodeName != null);
+		this.nodeName = nodeName;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#canAddChildNode(com.motorola.studio.android.model.resources.AbstractResourceNode)
-     */
-    @Override
-    protected boolean canAddChildNode(AbstractResourceNode node)
-    {
-        return true;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * canAddChildNode
+	 * (com.motorola.studio.android.model.resources.AbstractResourceNode)
+	 */
+	@Override
+	protected boolean canAddChildNode(AbstractResourceNode node) {
+		return true;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeName()
-     */
-    @Override
-    public String getNodeName()
-    {
-        return nodeName;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeName
+	 * ()
+	 */
+	@Override
+	public String getNodeName() {
+		return nodeName;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType()
-     */
-    @Override
-    public NodeType getNodeType()
-    {
-        return NodeType.Unknown;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType
+	 * ()
+	 */
+	@Override
+	public NodeType getNodeType() {
+		return NodeType.Unknown;
+	}
 
-    /* (non-Javadoc)
-     * @see com.motorola.studio.android.model.resources.AbstractResourceNode#isAttributeValid(java.lang.String)
-     */
-    @Override
-    protected boolean isAttributeValid(String attributeName)
-    {
-        return false;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * isAttributeValid(java.lang.String)
+	 */
+	@Override
+	protected boolean isAttributeValid(String attributeName) {
+		return false;
+	}
 
-    /**
-     * Sets the node value: <nodename attrName="attrValue">nodeValue</nodename>
-     * 
-     * @param value The node value
-     */
-    public void setNodeValue(String value)
-    {
-        this.nodeValue = value;
-    }
+	/**
+	 * Sets the node value: <nodename attrName="attrValue">nodeValue</nodename>
+	 * 
+	 * @param value
+	 *            The node value
+	 */
+	public void setNodeValue(String value) {
+		this.nodeValue = value;
+	}
 
-    /**
-     * Retrieves the node value: <nodename attrName="attrValue">nodeValue</nodename>
-     * 
-     * @return The node value
-     */
-    public String getNodeValue()
-    {
-        return nodeValue;
-    }
+	/**
+	 * Retrieves the node value: <nodename
+	 * attrName="attrValue">nodeValue</nodename>
+	 * 
+	 * @return The node value
+	 */
+	public String getNodeValue() {
+		return nodeValue;
+	}
 }
