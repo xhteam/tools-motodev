@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
  * against the current plugin version.<br>
  *
  */
-public final class VersionCheck {
+public class VersionCheck {
     /**
      * The minimum version of the SDK Tools that this version of ADT requires.
      */
@@ -121,29 +121,18 @@ public final class VersionCheck {
         }
 
         // test the plugin number
-        String versionString = plugin.getBundle().getHeaders().get(
-                Constants.BUNDLE_VERSION);
-        Version version = new Version(versionString);
+//        String versionString = plugin.getBundle().getHeaders().get(
+//                Constants.BUNDLE_VERSION);
+//        Version version = new Version(versionString);
 
-        boolean valid = true;
-        if (version.getMajor() < minMajorVersion) {
-            valid = false;
-        } else if (version.getMajor() == minMajorVersion) {
-            if (version.getMinor() < minMinorVersion) {
-                valid = false;
-            } else if (version.getMinor() == minMinorVersion) {
-                if (version.getMicro() < minMicroVersion) {
-                    valid = false;
-                }
-            }
-        }
-
-        if (valid == false) {
-            return errorHandler.handleError(
-                    Solution.OPEN_P2_UPDATE,
-                    String.format(Messages.VersionCheck_Plugin_Too_Old,
-                            minMajorVersion, minMinorVersion, minMicroVersion, versionString));
-        }
+//        boolean valid = compatibleVersion(minMajorVersion, minMinorVersion, minMicroVersion, version);
+//
+//        if (valid == false) {
+//            return errorHandler.handleError(
+//                    Solution.OPEN_P2_UPDATE,
+//                    String.format(Messages.VersionCheck_Plugin_Too_Old,
+//                            minMajorVersion, minMinorVersion, minMicroVersion, versionString));
+//        }
 
         // now check whether the tools are new enough.
         String osTools = osSdkPath + SdkConstants.OS_SDK_TOOLS_FOLDER;
@@ -186,4 +175,21 @@ public final class VersionCheck {
 
         return true; // no error!
     }
+
+	private static boolean compatibleVersion(int minMajorVersion, int minMinorVersion, int minMicroVersion,
+			Version version) {
+		boolean valid = true;
+        if (version.getMajor() < minMajorVersion) {
+            valid = false;
+        } else if (version.getMajor() == minMajorVersion) {
+            if (version.getMinor() < minMinorVersion) {
+                valid = false;
+            } else if (version.getMinor() == minMinorVersion) {
+                if (version.getMicro() < minMicroVersion) {
+                    valid = false;
+                }
+            }
+        }
+		return valid;
+	}
 }
