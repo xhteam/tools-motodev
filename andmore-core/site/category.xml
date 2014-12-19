@@ -71,12 +71,12 @@
 
    <category-def name="MotoDev Studio Plugin" label="MotoDev Plugins">
       <description>
-         P2 update site for proteus
+         P2 update site for Andmore
       </description>
    </category-def>
    <category-def name="MotoDev Studio" label="MotoDev Studio">
       <description>
-         All of Proteus
+         All of Andmore
       </description>
    </category-def>
    
