@@ -58,7 +58,7 @@ public class AdtConstants {
     public static final String EDITORS_NAMESPACE = "org.eclipse.andmore.editors"; //$NON-NLS-1$
 
     /** Nature of default Android projects */
-    public final static String NATURE_DEFAULT = "org.eclipse.andmore.adt.AndroidNature"; //$NON-NLS-1$
+    public final static String NATURE_DEFAULT = "org.eclipse.andmore.AndroidNature"; //$NON-NLS-1$
 
     /** The container id for the android framework jar file */
     public final static String CONTAINER_FRAMEWORK =
