@@ -93,7 +93,7 @@
          <extension
                point="org.eclipse.ui.startup">
             <startup
-                  class="org.eclipse.andmore.android.adt.StudioDeviceChangeListener">
+                  class="org.eclipse.andmore.android.StudioDeviceChangeListener">
             </startup>
              <startup
                   class="org.eclipse.andmore.android.AssociateProguardEditor">
