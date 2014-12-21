@@ -401,35 +401,35 @@
       <page
             class="org.eclipse.andmore.android.preferences.ui.MotodevStudioPreference"
             id="org.eclipse.andmore.platform.ui.preference"
-            name="Proteus">
+            name="Andmore">
       </page>
    </extension>
    <extension
          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
       <category
             id="org.eclipse.andmore.platform.ui.cheatsheet"
-            name="Proteus">
+            name="Andmore">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.importWizards">
       <category
             id="org.eclipse.andmore.platform.ui.import"
-            name="Proteus">
+            name="Andmore">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.exportWizards">
       <category
             id="org.eclipse.andmore.platform.ui.export"
-            name="Proteus">
+            name="Andmore">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.eclipse.andmore.platform.ui.newproject"
-            name="Proteus">
+            name="Andmore">
       </category>
    </extension>
    <extension
@@ -439,7 +439,7 @@
             fixed="true"
             icon="icons/obj16/plate16.png"
             id="org.eclipse.andmore.android.perspective"
-            name="Proteus">
+            name="Andmore">
       </perspective>
    </extension>
    
@@ -644,7 +644,7 @@
              locationURI="menu:org.eclipse.ui.main.menu?after=project">
           <menu
                 id="motorolaMenu"
-                label="Proteus">
+                label="Andmore">
             <visibleWhen checkEnabled="false">
                <with variable="activeWorkbenchWindow.activePerspective">
                    <equals value="org.eclipse.andmore.android.perspective"/>
