@@ -22,7 +22,7 @@
          point="org.eclipse.ui.views">
       <view
             category="studioAndroidViewCategory"
-            class="com.motorolamobility.studio.android.certmanager.views.KeystoreManagerView"
+            class="org.eclipse.andmore.android.certmanager.views.KeystoreManagerView"
             icon="icons/view_icon.png"
             id="org.eclipse.andmore.android.packaging.ui.signingview"
             name="%certificate_manager_view_name"
@@ -255,9 +255,9 @@
          <objectContribution
             adaptable="false"
             id="com.motorolamobility.studio.android.certmanager.core.ui.action.KeyStoreModel"
-            objectClass="com.motorolamobility.studio.android.certmanager.ui.model.KeyStoreNode">
+            objectclass="org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode">
             <action
-                  class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+                  class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                   definitionId="com.motorolamobility.studio.android.certmanager.backup"
                   icon="icons/backup_keystore.png"
                   id="com.motorolamobility.studio.android.certmanager.core.ui.action.backupKeystore"
@@ -270,14 +270,14 @@
                </enablement>
             </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.deleteKeystore"
                icon="icons/delete_keystore.png"
                id="com.motorolamobility.studio.android.certmanager.core.ui.action.deleteKeystore"
                label="%delete_keystore">
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.refresh"
                enablesFor="1"
                icon="icons/refresh.png"
@@ -285,7 +285,7 @@
                label="%refresh">
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.changeKeystorePassword"
                enablesFor="1"
                icon="icons/change_password_keystore.png"
@@ -299,7 +299,7 @@
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.changeKeystoreType"
                enablesFor="1"
                icon="icons/change_keystore_type.png"
@@ -313,7 +313,7 @@
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.importKeystoreEntries"
                enablesFor="1"
                icon="icons/import_entries.png"
@@ -327,7 +327,7 @@
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.createKey"
                enablesFor="1"
                icon="icons/create_key.png"
@@ -341,7 +341,7 @@
             </enablement>
          </action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.addSignature"
                enablesFor="1"
                icon="icons/sign_package.png"
@@ -358,9 +358,9 @@
       <objectContribution
             adaptable="false"
             id="com.motorolamobility.studio.android.certmanager.core.ui.action.KeyStoreEntry"
-            objectClass="com.motorolamobility.studio.android.certmanager.ui.model.EntryNode">
+            objectClass="org.eclipse.andmore.android.certmanager.ui.model.EntryNode">
      	 <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.certificateProperties"
                enablesFor="1"
                icon="icons/properties.png"
@@ -368,14 +368,14 @@
                label="%certificate_properties">
        	</action>
        	 <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.deleteEntry"
                icon="icons/delete_key.png"
                id="com.motorolamobility.studio.android.certmanager.core.ui.action.deleteEntry"
                label="%delete_key">
        	</action>
          <action
-               class="com.motorolamobility.studio.android.certmanager.ui.action.PopupMenuActionDelegate"
+               class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                definitionId="com.motorolamobility.studio.android.certmanager.changeKeyPassword"
                enablesFor="1"
                icon="icons/change_password_key.png"
@@ -430,7 +430,7 @@
     <extension
           point="org.eclipse.ui.handlers">
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.DeleteKeystoreHandler"
+             class="org.eclipse.andmore.android.certmanager.command.DeleteKeystoreHandler"
              commandId="com.motorolamobility.studio.android.certmanager.deleteKeystore">
           <activeWhen>
              <with
@@ -456,7 +456,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.CreateKeyHandler"
+             class="org.eclipse.andmore.android.certmanager.command.CreateKeyHandler"
              commandId="com.motorolamobility.studio.android.certmanager.createKey">
           <activeWhen>
              <with
@@ -486,7 +486,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.CertificatePropertiesHandler"
+             class="org.eclipse.andmore.android.certmanager.command.CertificatePropertiesHandler"
              commandId="com.motorolamobility.studio.android.certmanager.certificateProperties">
           <activeWhen>
              <with
@@ -512,7 +512,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.RefreshHandler"
+             class="org.eclipse.andmore.android.certmanager.command.RefreshHandler"
              commandId="com.motorolamobility.studio.android.certmanager.refresh">
           <activeWhen>
              <with
@@ -538,7 +538,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.ChangePasswordKeystoreHandler"
+             class="org.eclipse.andmore.android.certmanager.command.ChangePasswordKeystoreHandler"
              commandId="com.motorolamobility.studio.android.certmanager.changeKeystorePassword">
           <activeWhen>
              <with
@@ -568,7 +568,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.DeleteKeyHandler"
+             class="org.eclipse.andmore.android.certmanager.command.DeleteKeyHandler"
              commandId="com.motorolamobility.studio.android.certmanager.deleteEntry">
           <activeWhen>
              <with
@@ -594,7 +594,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.ChangePasswordKeyHandler"
+             class="org.eclipse.andmore.android.certmanager.command.ChangePasswordKeyHandler"
              commandId="com.motorolamobility.studio.android.certmanager.changeKeyPassword">
           <activeWhen>
              <with
@@ -620,7 +620,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.ChangeKeyStoreTypeHandler"
+             class="org.eclipse.andmore.android.certmanager.command.ChangeKeyStoreTypeHandler"
              commandId="com.motorolamobility.studio.android.certmanager.changeKeystoreType">
           <activeWhen>
              <with
@@ -650,7 +650,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.ImportKeyStoreEntriesHandler"
+             class="org.eclipse.andmore.android.certmanager.command.ImportKeyStoreEntriesHandler"
              commandId="com.motorolamobility.studio.android.certmanager.importKeystoreEntries">
           <activeWhen>
              <with
@@ -680,7 +680,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.BackupHandler"
+             class="org.eclipse.andmore.android.certmanager.command.BackupHandler"
              commandId="com.motorolamobility.studio.android.certmanager.backup">
           <activeWhen>
              <with
@@ -707,7 +707,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="com.motorolamobility.studio.android.certmanager.command.SignExternalPackagesHandler"
+             class="org.eclipse.andmore.android.certmanager.command.SignExternalPackagesHandler"
              commandId="com.motorolamobility.studio.android.certmanager.addSignature">
           <activeWhen>
              <with
@@ -740,7 +740,7 @@
     <extension
           point="org.eclipse.core.expressions.propertyTesters">
        <propertyTester
-             class="com.motorolamobility.studio.android.certmanager.property.tester.TreeNodeTester"
+             class="org.eclipse.andmore.android.certmanager.property.tester.TreeNodeTester"
              id="com.motorolamobility.studio.android.certmanager.property.TreeNodeTesterId"
              namespace="com.motorolamobility.studio.android.certmanager.core.property"
              properties="nodeStatus"
