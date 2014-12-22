@@ -38,12 +38,12 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.motorolamobility.studio.android.certmanager.command.SignExternalPackagesHandler"
+            defaultHandler="org.eclipse.andmore.android.certmanager.command.SignExternalPackagesHandler"
             id="org.eclipse.andmore.android.packaging.ui.sign"
             name="%signCommandLabel">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.certmanager.command.UnsignExternalPackagesHandler"
+            defaultHandler="org.eclipse.andmore.android.certmanager.command.UnsignExternalPackagesHandler"
             id="org.eclipse.andmore.android.packaging.ui.unsign"
             name="%unsignCommandLabel">
       </command>

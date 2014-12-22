@@ -172,7 +172,7 @@
    <extension
          point="org.eclipse.ui.commands">
           <command
-            defaultHandler="com.motorolamobility.studio.android.certmanager.command.ImportKeystoreHandler"
+            defaultHandler="org.eclipse.andmore.android.certmanager.command.ImportKeystoreHandler"
             description="%import_keystore"
             id="com.motorolamobility.studio.android.certmanager.importkeystore"
             name="%import_keystore">
@@ -182,7 +182,7 @@
             id="com.motorolamobility.studio.android.certmanager.deleteKeystore"
             name="%delete_keystore">
       </command>
-      <command            defaultHandler="com.motorolamobility.studio.android.certmanager.command.CreateKeystoreHandler"
+      <command            defaultHandler="org.eclipse.andmore.android.certmanager.command.CreateKeystoreHandler"
             description="%create_keystore"
             id="com.motorolamobility.studio.android.certmanager.createkeystore"
             name="%create_keystore">
@@ -193,7 +193,7 @@
             name="%certificate_properties">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.certmanager.command.UnsignExternalPackagesHandler"
+            defaultHandler="org.eclipse.andmore.android.certmanager.command.UnsignExternalPackagesHandler"
             description="%unsign_package"
             id="com.motorolamobility.studio.android.certmanager.removeSignature"
             name="%unsign_package">
@@ -219,7 +219,7 @@
             name="%backup">
       </command>
       <command
-            defaultHandler="com.motorolamobility.studio.android.certmanager.command.RestoreBackupHandler"
+            defaultHandler="org.eclipse.andmore.android.certmanager.command.RestoreBackupHandler"
             description="%restoreBackup"
             id="com.motorolamobility.studio.android.certmanager.restoreBackup"
             name="%restoreBackup">
