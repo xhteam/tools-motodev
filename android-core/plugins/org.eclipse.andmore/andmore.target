@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Andmore Target" sequenceNumber="39">
+<?pde version="3.8"?><target name="andmore" sequenceNumber="17">
 <locations>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.platform.ide" version="0.0.0"/>
+<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.pde.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.codegen.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.common.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.cdt.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.common.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.codegen.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.wb.core.xml.feature.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/releases/luna"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.datatools.sdk.feature.feature.group" version="1.12.0.v201406061321-7PB21FEpPZQXdcX0z-_yMM0Hfz0w"/>
+<repository location="http://download.eclipse.org/releases/luna"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sequoyah.vnc.feature.feature.group" version="2.1.0.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.vnc.protocol.feature.feature.group" version="2.1.0.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.vnc.vncviewer.feature.feature.group" version="2.1.0.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.device.feature.feature.group" version="2.1.0.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.device.common.feature.feature.group" version="2.1.0.N20120718-0509"/>
-<unit id="org.eclipse.sequoyah.localization.android.feature.feature.group" version="2.1.1.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.localization.tools.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.sequoyah.localization.android.feature.feature.group" version="2.1.1.N20120718-0509"/>
 <repository location="http://download.eclipse.org/sequoyah/updates/2.1/"/>
 </location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.jdt.source.feature.group" version="3.10.0.v20140925-0400"/>
-<unit id="org.eclipse.cdt.sdk.feature.group" version="8.5.0.201409172108"/>
-<unit id="org.eclipse.gef.sdk.feature.group" version="3.9.101.201408150207"/>
-<unit id="org.eclipse.emf.ecore.feature.group" version="2.10.1.v20140901-1043"/>
-<unit id="org.eclipse.emf.sdk.feature.group" version="2.10.1.v20140901-1055"/>
-<unit id="org.eclipse.cdt.platform.feature.group" version="8.5.0.201409172108"/>
-<unit id="org.eclipse.pde.feature.group" version="3.10.0.v20140925-0400"/>
-<unit id="org.eclipse.equinox.p2.user.ui.source.feature.group" version="2.2.0.v20140911-0143"/>
-<unit id="epp.package.standard" version="4.4.1.20140925-1820"/>
-<unit id="org.eclipse.wst.xsl.feature.feature.group" version="1.3.401.v201409111855"/>
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.10.0.v20140909-1633"/>
-<unit id="org.eclipse.wst.web_ui.feature.feature.group" version="3.6.1.v201409112028"/>
-<unit id="org.eclipse.datatools.sdk.feature.feature.group" version="1.12.0.v201406061321-7PB21FEpPZQXdcX0z-_yMM0Hfz0w"/>
-<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="3.6.1.v201409111852"/>
-<unit id="org.eclipse.sdk.ide" version="4.4.1.M20140925-0400"/>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.mat.feature.feature.group" version="1.4.0.201406041413"/>
 <repository location="http://download.eclipse.org/releases/luna"/>
 </location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.easymock.source" version="2.4.0.v20090202-0900"/>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
 <unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
-<unit id="org.mockito" version="1.9.5.v201311280930"/>
-<unit id="org.mockito.source" version="1.9.5.v201311280930"/>
-<unit id="org.easymock" version="2.4.0.v20090202-0900"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.mat.feature.feature.group" version="1.4.0.201406041413"/>
-<unit id="org.eclipse.mat.chart.feature.feature.group" version="1.4.0.201406041413"/>
-<repository location="http://download.eclipse.org/releases/luna"/>
 </location>
 </locations>
 </target>
