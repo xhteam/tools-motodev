@@ -30,7 +30,7 @@ public class DbPerspective implements IPerspectiveFactory {
 
 	public static String VIEW_MOTODEV_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
-	private static String VIEW_FILE_EXPLORER = "com.android.ide.eclipse.ddms.views.FileExplorerView"; //$NON-NLS-1$
+	private static String VIEW_FILE_EXPLORER = "org.eclipse.andmore.ddms.views.FileExplorerView"; //$NON-NLS-1$
 
 	private static String VIEW_CONSOLE = "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
 

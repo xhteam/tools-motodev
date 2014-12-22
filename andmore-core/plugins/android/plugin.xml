@@ -251,7 +251,7 @@
                </command>
             </menuContribution>            
          </extension>
-<!--        <extension
+        <extension
                point="org.eclipse.andmore.android.logger.collector.log">
             <logContribution
                   logFileImpl="org.eclipse.andmore.android.logger.DevicePropertyLogger">
@@ -260,7 +260,6 @@
                   logFileImpl="org.eclipse.andmore.android.logger.AppValidatorLogCollector">
             </logContribution>
          </extension>
--->
    <extension
          point="org.eclipse.ui.commands">
       <command
