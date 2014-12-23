@@ -12,12 +12,12 @@
          name="name"
          point="org.eclipse.andmore.platform.tools.sign.ui.signViewButtonAction">
       <SignViewButtonAction
-            className="com.motorolamobility.studio.android.certmanager.ui.action.SignCreatedPackageAction"
+            className="org.eclipse.andmore.android.certmanager.ui.action.SignCreatedPackageAction"
             label="%signExternalPackagesAction"
             type="Sign Application">
       </SignViewButtonAction>
       <SignViewButtonAction
-            className="com.motorolamobility.studio.android.certmanager.ui.action.RemoveSignatureAction"
+            className="org.eclipse.andmore.android.certmanager.ui.action.RemoveSignatureAction"
             label="%removeExternalPackagesSignatureAction"
             type="Remove Signature">
       </SignViewButtonAction>
