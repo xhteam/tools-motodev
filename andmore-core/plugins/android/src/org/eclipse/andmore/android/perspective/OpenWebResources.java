@@ -44,7 +44,7 @@ public class OpenWebResources extends AbstractHandler {
 			IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			if (activeWindow != null) {
 				IWorkbenchPage activePage = activeWindow.getActivePage();
-				MotodevStudioAndroidPerspective.openStudioInfoOnWebBrowserEditor(activePage);
+				MotodevStudioAndroidPerspective.openAndmoreInfoOnWebBrowserEditor(activePage);
 			}
 		} else {
 

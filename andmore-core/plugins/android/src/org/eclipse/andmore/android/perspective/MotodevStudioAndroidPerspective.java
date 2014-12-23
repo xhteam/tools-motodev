@@ -144,7 +144,6 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 		layout.addShowViewShortcut(VIEW_ANDROID_EMULATOR);
 		layout.addShowViewShortcut(VIEW_SNIPPETS);
 		layout.addShowViewShortcut(VIEW_APPLICATION_SIGNING_TOOL);
-		// layout.addShowViewShortcut(VIEW_VIDEOS);
 
 		layout.addPerspectiveShortcut(PERSPECTIVE_ANDROID);
 		layout.addPerspectiveShortcut(PERSPECTIVE_OPHONE);
@@ -207,7 +206,6 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 			activeWindow.addPageListener(pageListener);
 		}
 
-		StudioLogger.debug(MotodevStudioAndroidPerspective.class, "MOTODEV Studio Perspective created.");
 	}
 
 	/**
@@ -247,17 +245,13 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 	 * @param layout
 	 */
 	private void firePerspectiveInitActions(final IWorkbenchPage activePage, final IPageLayout layout) {
-		if (activePage != null) {
-			// Open MOTODEV Web Resources on a Web Browser Editor
-			openStudioInfoOnWebBrowserEditor(activePage);
-		}
-
+		//TODO open the web browser with the Andmore Info page when ready.
 	}
 
 	/**
 	 * Opens a web browser with useful information from Studio for Android
 	 */
-	public static void openStudioInfoOnWebBrowserEditor(IWorkbenchPage page) {
+	public static void openAndmoreInfoOnWebBrowserEditor(IWorkbenchPage page) {
 
 		URL initialPageURL = getWebResourcesURL();
 
