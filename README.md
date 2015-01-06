@@ -20,7 +20,7 @@ To compile.  You need the following:
 Onece Maven has been installed, you are ready to build.
 
 2. Change to the _src_ directory.
-3. mvn clean install
+3. `mvn clean install`
 
 Running the above will compile all features and plugins.  It will also generate a p2 update
 site that can be used to install the plugins.  Currently the Basic and MotoDev Studio features
@@ -28,13 +28,13 @@ are generated in the p2 site.
 
 The site location is:
 
-src/site/target/repository
+_src/site/target/repository_
 
 You can add this as a local repository for Eclipse to install from.
 
 This will also build all supported platform versions of the full IDE as well.  These can be found in the directory 
 
-src/site/target/products
+_src/site/target/products_
 
 Windows, MacOSX, and Linux builds are available.
 
