@@ -1,6 +1,6 @@
 # Contributing
 
-Proteus is based off the open source plugins from MotoDev Studio and Android Development Tools.  This is a fork of those plugins.   The
+Andmore based off the open source plugins from MotoDev Studio and Android Development Tools.  This is a fork of those plugins.   The
 goal is to enhance the Google ADT plugins to provide additional features and functionality that ADT currently
 does not provide.
 
@@ -9,7 +9,7 @@ be licensed under an Eclipse Public License.
 
 To get started, <a href="https://www.clahub.com/agreements/kingargyle/proteus">sign the Contributor License Agreement</a>.
 
-The following describes how to build Proteus and bring the source code into an existing eclipse environment to development and improve.
+The following describes how to build Andmore and bring the source code into an existing eclipse environment to development and improve.
 
 ## Building from the Command Line
 
@@ -52,7 +52,7 @@ Then within Eclipse, under the Preferences->Plugin Development->Target Platform.
 from an installation directory.   Point to where you have unzipped the above installation, and save the target
 platform configuration.  Make sure to set the new Target Platform as the Active platform.
 
-You are now ready to work on the plugins for Proteus.
+You are now ready to work on the plugins for Andmore.
 
 ## Importing the Source Code
 
