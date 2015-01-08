@@ -7,7 +7,7 @@ does not provide.
 This is an open source community lead project, so contributions are encouraged.  All code contributions will
 be licensed under an Eclipse Public License.
 
-To get started, <a href="https://www.clahub.com/agreements/kingargyle/proteus">sign the Contributor License Agreement</a>.
+To get started, <a href="https://www.eclipse.org/legal/clafaq.php">sign the Contributor License Agreement</a>.  You need to have a CLA on file with the eclipse foundation.
 
 The following describes how to build Andmore and bring the source code into an existing eclipse environment to development and improve.
 
