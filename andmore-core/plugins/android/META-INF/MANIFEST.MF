@@ -23,7 +23,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.ui,
  org.eclipse.core.expressions,
  org.eclipse.andmore.base,
- org.eclipse.jdt.ui
+ org.eclipse.jdt.ui,
+ org.apache.commons.net;bundle-version="1.4.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Export-Package: 
@@ -41,5 +42,4 @@ Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.equinox.security.storage,
  org.eclipse.ui.console
 Bundle-ClassPath: .,
- commons-net-1.4.1.jar,
  jakarta-oro-2.0.8.jar
