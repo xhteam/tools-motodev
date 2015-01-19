@@ -14,9 +14,9 @@ Require-Bundle: org.eclipse.core.net,
  org.eclipse.ui.net,
  org.eclipse.sequoyah.localization.android,
  org.eclipse.sequoyah.localization.editor,
- org.apache.commons.net;bundle-version="1.4.1"
-Bundle-ClassPath: .,
- jakarta-oro-2.0.8.jar
+ org.apache.commons.net;bundle-version="1.4.1",
+ org.apache.oro;bundle-version="2.0.8"
+Bundle-ClassPath: .
 Import-Package: org.apache.commons.httpclient,
  org.apache.commons.httpclient.auth;version="3.1.0",
  org.apache.commons.httpclient.methods;version="3.1.0",
