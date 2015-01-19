@@ -38,8 +38,14 @@
 <repository location="http://download.eclipse.org/releases/luna"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/releases/luna"/>
+</location>
+
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
 <unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
+<unit id="org.easymock" version="0.0.0"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
 </location>
 </locations>
