@@ -1,15 +1,15 @@
 # Contributing
 
-Proteus is based off the open source plugins from MotoDev Studio and Android Development Tools.  This is a fork of those plugins.   The
+Andmore based off the open source plugins from MotoDev Studio and Android Development Tools.  This is a fork of those plugins.   The
 goal is to enhance the Google ADT plugins to provide additional features and functionality that ADT currently
 does not provide.
 
 This is an open source community lead project, so contributions are encouraged.  All code contributions will
 be licensed under an Eclipse Public License.
 
-To get started, <a href="https://www.clahub.com/agreements/kingargyle/proteus">sign the Contributor License Agreement</a>.
+To get started, <a href="https://www.eclipse.org/legal/clafaq.php">sign the Contributor License Agreement</a>.  You need to have a CLA on file with the Eclipse Foundation.
 
-The following describes how to build Proteus and bring the source code into an existing eclipse environment to development and improve.
+The following describes how to build Andmore and bring the source code into an existing eclipse environment to development and improve.
 
 ## Building from the Command Line
 
@@ -20,7 +20,7 @@ To compile.  You need the following:
 Onece Maven has been installed, you are ready to build.
 
 2. Change to the _src_ directory.
-3. mvn clean install
+3. `mvn clean install`
 
 Running the above will compile all features and plugins.  It will also generate a p2 update
 site that can be used to install the plugins.  Currently the Basic and MotoDev Studio features
@@ -28,13 +28,13 @@ are generated in the p2 site.
 
 The site location is:
 
-src/site/target/repository
+_src/site/target/repository_
 
 You can add this as a local repository for Eclipse to install from.
 
 This will also build all supported platform versions of the full IDE as well.  These can be found in the directory 
 
-src/site/target/products
+_src/site/target/products_
 
 Windows, MacOSX, and Linux builds are available.
 
@@ -52,7 +52,7 @@ Then within Eclipse, under the Preferences->Plugin Development->Target Platform.
 from an installation directory.   Point to where you have unzipped the above installation, and save the target
 platform configuration.  Make sure to set the new Target Platform as the Active platform.
 
-You are now ready to work on the plugins for Proteus.
+You are now ready to work on the plugins for Andmore.
 
 ## Importing the Source Code
 
