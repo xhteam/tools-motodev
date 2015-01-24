@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.andmore.android.DDMSUtils;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
@@ -62,11 +63,12 @@ public class MonkeyConfigurationTabTable extends
 		// iterate through the available packages
 		String packageName = null;
 		String packagePath = null;
-		Iterator<String> it = availablePackages.keySet().iterator();
+		Iterator<Entry<String, String>> it = availablePackages.entrySet().iterator();
 		while (it.hasNext()) {
-			// the the package name and path
-			packageName = it.next();
-			packagePath = availablePackages.get(packageName);
+			Entry<String, String> entry = it.next();
+			// the package name and path
+			packageName = entry.getKey();
+			packagePath = entry.getValue();
 			if (!monkeyWizardPage.isFilterSystem() || !packagePath.toLowerCase().contains("system")) {
 				// add data
 				TableItem item = new TableItem(table, SWT.NONE);
