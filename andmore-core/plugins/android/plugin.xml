@@ -62,7 +62,7 @@
        point="org.eclipse.ui.newWizards">
        <wizard
                  canFinishEarly="false"
-                 category="org.eclipe.andmore.wizards.category"
+                 category="org.eclipse.andmore.wizards.category"
                  class="org.eclipse.andmore.android.wizards.project.NewAndroidProjectWizard"
                  finalPerspective="org.eclipse.andmore.android.perspective"
                  hasPages="true"
