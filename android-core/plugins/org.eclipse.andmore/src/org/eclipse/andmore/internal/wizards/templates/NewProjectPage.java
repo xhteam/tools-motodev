@@ -328,8 +328,8 @@ public class NewProjectPage extends WizardPage
         mTipLabel = new Label(container, SWT.WRAP);
         mTipLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 
-        // Reserve space for 4 lines
-        mTipLabel.setText("\n\n\n\n"); //$NON-NLS-1$
+        // Reserve space for 6 lines
+        mTipLabel.setText("\n\n\n\n\n\n"); //$NON-NLS-1$
 
         // Reserve enough width to accommodate the various wizard pages up front
         // (since they are created lazily, and we don't want the wizard to dynamically
