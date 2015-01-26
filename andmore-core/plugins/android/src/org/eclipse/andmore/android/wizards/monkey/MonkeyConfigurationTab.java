@@ -252,12 +252,14 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab {
 		packageTable.setTableHeaderVisible(true);
 		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
 		packageTable.setLayoutData(layoutData);
-		TableColumn packageNameColumn = packageTable.addTableColumn(SWT.CENTER);
-		TableColumn isSystemColumn = packageTable.addTableColumn(SWT.CENTER);
+		TableColumn packageNameColumn = packageTable.addTableColumn(SWT.LEFT);
+		packageTable.getTable().setSortColumn(packageNameColumn);
+		packageTable.getTable().setSortDirection(SWT.UP);
+		TableColumn isSystemColumn = packageTable.addTableColumn(SWT.LEFT);
 		packageNameColumn.setText(AndroidNLS.UninstallAppWizardPage_ColumnPackageName);
 		isSystemColumn.setText(AndroidNLS.UninstallAppWizardPage_ColumnPackageKiind);
-		packageNameColumn.setWidth(200);
-		isSystemColumn.setWidth(200);
+		packageNameColumn.setWidth(400);
+		isSystemColumn.setWidth(100);
 		packageNameColumn.addSelectionListener(new TableItemSortStringSetActionListener());
 		isSystemColumn.addSelectionListener(new TableItemSortStringSetActionListener());
 
