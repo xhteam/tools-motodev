@@ -38,7 +38,6 @@
     <module>plugins/remote.device</module>
     <module>plugins/snippets</module>
     <module>plugins/translation</module>
-    <module>plugins/videos</module>
 
     <module>features/basic</module>
     <module>features/feature</module>
