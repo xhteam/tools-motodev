@@ -161,13 +161,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.andmore.android.videos"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.andmore.android.db.devices"
          download-size="0"
          install-size="0"
