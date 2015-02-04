@@ -255,7 +255,7 @@
          <objectContribution
             adaptable="false"
             id="org.eclipse.andmore.android.certmanager.core.ui.action.KeyStoreModel"
-            objectclass="org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode">
+            objectClass="org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode">
             <action
                   class="org.eclipse.andmore.android.certmanager.ui.action.PopupMenuActionDelegate"
                   definitionId="org.eclipse.andmore.android.certmanager.backup"
