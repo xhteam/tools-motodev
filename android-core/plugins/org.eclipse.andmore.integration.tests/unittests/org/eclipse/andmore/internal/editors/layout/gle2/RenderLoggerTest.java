@@ -16,14 +16,20 @@
 
 package org.eclipse.andmore.internal.editors.layout.gle2;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class RenderLoggerTest extends TestCase {
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class RenderLoggerTest {
+	@Test
     public void testLogger1() throws Exception {
         RenderLogger l = new RenderLogger("foo", null);
         assertFalse(l.hasProblems());
     }
 
+	@Test
+	@Ignore
     public void testLogger2() throws Exception {
         RenderLogger l = new RenderLogger("foo", null);
         assertFalse(l.hasProblems());
@@ -36,6 +42,7 @@ public class RenderLoggerTest extends TestCase {
         assertFalse(l.seenTag(null));
     }
 
+	@Test
     public void testLogger3() throws Exception {
         RenderLogger l = new RenderLogger("foo", null);
         assertFalse(l.hasProblems());
@@ -55,6 +62,7 @@ public class RenderLoggerTest extends TestCase {
         assertFalse(l.seenTagPrefix("timeouts"));
     }
 
+	@Test
     public void testLoggerSuppressWarnings() throws Exception {
         RenderLogger l = new RenderLogger("foo", null);
         assertFalse(l.hasProblems());

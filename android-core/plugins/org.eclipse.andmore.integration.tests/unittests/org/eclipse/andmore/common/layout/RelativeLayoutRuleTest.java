@@ -18,10 +18,18 @@ package org.eclipse.andmore.common.layout;
 
 
 import static com.android.SdkConstants.ANDROID_URI;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Ignore;
+import org.junit.Test;
 
 import com.android.ide.common.api.INode;
 import com.android.ide.common.api.Point;
 import com.android.ide.common.api.Rect;
+import com.android.utils.Pair;
 
 /** Test the {@link RelativeLayoutRule} */
 public class RelativeLayoutRuleTest extends LayoutTestBase {
@@ -58,7 +66,9 @@ public class RelativeLayoutRuleTest extends LayoutTestBase {
                 currentIndex, combined);
     }
 
-    /* This needs to be updated for the new interaction
+    /* This needs to be updated for the new interaction */
+    @Test
+    @Ignore
     public void testDropTopEdge() {
         // If we drag right into the button itself, not a valid drop position
         INode inserted = dragInto(
@@ -81,6 +91,8 @@ public class RelativeLayoutRuleTest extends LayoutTestBase {
                 "layout_alignParentTop"));
     }
 
+    @Test
+    @Ignore
     public void testDropZones() {
         List<Pair<Point,String[]>> zones = new ArrayList<Pair<Point,String[]>>();
 
@@ -151,6 +163,8 @@ public class RelativeLayoutRuleTest extends LayoutTestBase {
     }
 
 
+    @Test
+    @Ignore
     public void testDragInvalid() {
         // If we drag right into the button itself, not a valid drop position
         dragInto(new Rect(70, 200, 100, 80), new Point(120, 240), new Point(120, 240), -1, 0,
@@ -163,5 +177,4 @@ public class RelativeLayoutRuleTest extends LayoutTestBase {
     }
 
     // TODO: Test error (dragging on ancestor)
-     */
 }

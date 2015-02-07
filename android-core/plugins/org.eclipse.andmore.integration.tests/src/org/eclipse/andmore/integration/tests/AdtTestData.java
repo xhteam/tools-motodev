@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.eclipe.andmore.tests;
+package org.eclipse.andmore.integration.tests;
 
 import com.android.SdkConstants;
 import org.eclipse.andmore.AdtConstants;
@@ -71,15 +71,12 @@ public class AdtTestData {
 						if (pos > 0 && mOsRootDataPath.charAt(0) == '/') {
 							mOsRootDataPath = mOsRootDataPath.substring(1);
 						}
-
-						// Looking for "." probably inserted a /./, so clean it
-						// up
-						mOsRootDataPath = mOsRootDataPath.replace("/./", "/");
 					}
 				} catch (IOException e) {
 					sLogger.warning("IOException while using FileLocator, reverting to url");
 					mOsRootDataPath = url.getFile();
 				}
+				mOsRootDataPath = mOsRootDataPath.replace("/./", "/");
 			} else {
 				sLogger.info("Running as an plain JUnit test, using url as-is");
 				mOsRootDataPath = url.getFile();

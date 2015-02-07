@@ -18,6 +18,7 @@ package org.eclipse.andmore.common.layout;
 
 import static com.android.SdkConstants.ANDROID_URI;
 import static com.android.SdkConstants.ATTR_ID;
+import static org.junit.Assert.*;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -40,13 +41,11 @@ import java.util.Map;
 
 import org.eclipse.andmore.internal.editors.layout.gre.ViewMetadataRepository;
 
-import junit.framework.TestCase;
-
 /**
  * Common layout helpers from LayoutRule tests
  */
 @SuppressWarnings("javadoc")
-public class LayoutTestBase extends TestCase {
+public class LayoutTestBase {
     /**
      * Helper function used by tests to drag a button into a canvas containing
      * the given children.

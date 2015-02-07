@@ -16,6 +16,9 @@
 
 package org.eclipse.andmore.common.layout;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.android.ide.common.api.INode;
 import com.android.ide.common.api.Point;
 import com.android.ide.common.api.Rect;
@@ -39,7 +42,8 @@ public class FrameLayoutRuleTest extends LayoutTestBase {
         super.dragInto(new FrameLayoutRule(), layout, dragBounds, dragPoint, null,
                 insertIndex, currentIndex, graphicsFragments);
     }
-
+    
+    @Test
     public void testDragMiddle() {
         dragInto(
         // Bounds of the dragged item

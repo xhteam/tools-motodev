@@ -72,14 +72,14 @@ public class ConfigurationTest extends TestCase {
         assertEquals(FAKE_REGION_VALUE, folderConfig.getRegionQualifier().getValue());
         assertEquals("nb", folderConfig.getLanguageQualifier().getValue());
 
-        assertEquals("2.7in QVGA::nb-__:+Theme::notnight::", configuration.toPersistentString());
+        assertEquals("2.7\" QVGA::nb-__:+Theme::notnight::", configuration.toPersistentString());
 
         configuration.setActivity("foo.bar.FooActivity");
         configuration.setTheme("@android:style/Theme.Holo.Light");
 
-        assertEquals("2.7in QVGA",
+        assertEquals("2.7\" QVGA",
                 ConfigurationChooser.getDeviceLabel(configuration.getDevice(), true));
-        assertEquals("2.7in QVGA",
+        assertEquals("2.7\" QVGA",
                 ConfigurationChooser.getDeviceLabel(configuration.getDevice(), false));
         assertEquals("Light",
                 ConfigurationChooser.getThemeLabel(configuration.getTheme(), true));
@@ -95,7 +95,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("foo.bar.FooActivity",
                 ConfigurationChooser.getActivityLabel(configuration.getActivity(), false));
 
-        assertEquals("2.7in QVGA::nb-__:-Theme.Holo.Light::notnight::foo.bar.FooActivity",
+        assertEquals("2.7\" QVGA::nb-__:-Theme.Holo.Light::notnight::foo.bar.FooActivity",
                 configuration.toPersistentString());
 
         assertEquals(Density.MEDIUM, configuration.getDensity());

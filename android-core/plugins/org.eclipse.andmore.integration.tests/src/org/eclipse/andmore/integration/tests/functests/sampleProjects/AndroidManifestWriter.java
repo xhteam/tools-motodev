@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.eclipe.andmore.tests.functests.sampleProjects;
+package org.eclipse.andmore.integration.tests.functests.sampleProjects;
 
 import com.android.SdkConstants;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;

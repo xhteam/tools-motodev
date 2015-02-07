@@ -18,6 +18,7 @@ package org.eclipse.andmore.common.layout;
 
 import static com.android.SdkConstants.ANDROID_URI;
 import static com.android.SdkConstants.ATTR_ID;
+import static org.junit.Assert.*;
 
 import com.android.ide.common.api.IDragElement;
 import com.android.ide.common.api.INode;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.andmore.common.layout.BaseLayoutRule.AttributeFilter;
+import org.junit.Test;
 
 // TODO: Check assertions
 // TODO: Check equals() but not == strings by using new String("") to prevent interning
@@ -54,7 +56,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
     }
 
     /** Test {@link BaseLayoutRule#collectIds}: Check that basic lookup of id works */
-    public final void testCollectIds1() {
+    @Test
+    public void testCollectIds1() {
         IDragElement[] elements = TestDragElement.create(TestDragElement.create(
                 "android.widget.Button", new Rect(0, 0, 100, 80)).id("@+id/Button01"));
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
@@ -68,7 +71,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
      * Test {@link BaseLayoutRule#collectIds}: Check that with the wrong URI we
      * don't pick up the ID
      */
-    public final void testCollectIds2() {
+    @Test
+    public void testCollectIds2() {
         IDragElement[] elements = TestDragElement.create(TestDragElement.create(
                 "android.widget.Button", new Rect(0, 0, 100, 80)).set("myuri", ATTR_ID,
                 "@+id/Button01"));
@@ -82,7 +86,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
     /**
      * Test {@link BaseLayoutRule#normalizeId(String)}
      */
-    public final void testNormalizeId() {
+    @Test
+    public void testNormalizeId() {
         new BaseLayoutRule();
 		assertEquals("foo", BaseLayoutRule.normalizeId("foo"));
         new BaseLayoutRule();
@@ -94,7 +99,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
     /**
      * Test {@link BaseLayoutRule#collectExistingIds}
      */
-    public final void testCollectExistingIds1() {
+    @Test
+    public void testCollectExistingIds1() {
         Set<String> existing = new HashSet<String>();
         INode node = TestNode.create("android.widget.Button").id("@+id/Button012").add(
                 TestNode.create("android.widget.Button").id("@+id/Button2"));
@@ -110,7 +116,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
      * Test {@link BaseLayoutRule#collectIds}: Check that with multiple elements and
      * some children we still pick up all the right id's
      */
-    public final void testCollectIds3() {
+    @Test
+    public void testCollectIds3() {
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
 
         IDragElement[] elements = createSampleElements();
@@ -130,7 +137,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
     /**
      * Test {@link BaseLayoutRule#remapIds}: Ensure that it identifies a conflict
      */
-    public final void testRemapIds1() {
+    @Test
+    public void testRemapIds1() {
         Map<String, Pair<String, String>> idMap = new HashMap<String, Pair<String, String>>();
         BaseLayoutRule baseLayout = new BaseLayoutRule();
         IDragElement[] elements = createSampleElements();
@@ -153,7 +161,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
     /**
      * Test {@link BaseLayoutRule#getDropIdMap}
      */
-    public final void testGetDropIdMap() {
+    @Test
+    public void testGetDropIdMap() {
         BaseLayoutRule baseLayout = new BaseLayoutRule();
         IDragElement[] elements = createSampleElements();
         INode node = TestNode.create("android.widget.Button").id("@+id/Button012").add(
@@ -168,7 +177,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         // check with Raphael.
     }
 
-    public final void testAddAttributes1() {
+    @Test
+    public void testAddAttributes1() {
         BaseLayoutRule layout = new BaseLayoutRule();
 
         // First try with no filter
@@ -185,7 +195,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         assertEquals("nothiddenvalue", newNode.getStringAttr("u", "nothidden"));
     }
 
-    public final void testAddAttributes2() {
+    @Test
+    public void testAddAttributes2() {
         // Test filtering
         BaseLayoutRule layout = new BaseLayoutRule();
 
@@ -212,7 +223,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         assertEquals("value", newNode.getStringAttr("u", "key"));
     }
 
-    public final void testFindNewId() {
+    @Test
+    public void testFindNewId() {
         BaseLayoutRule baseLayout = new BaseLayoutRule();
         Set<String> existing = new HashSet<String>();
         assertEquals("@+id/Widget01", BaseLayoutRule.findNewId("a.w.Widget", existing));
@@ -227,7 +239,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
         assertEquals("@+id/Widget02", BaseLayoutRule.findNewId("a.w.Widget", existing));
     }
 
-    public final void testDefaultAttributeFilter() {
+    @Test
+    public void testDefaultAttributeFilter() {
         assertEquals("true", BaseLayoutRule.DEFAULT_ATTR_FILTER.replace("myuri", "layout_alignRight",
                 "true"));
         assertEquals(null, BaseLayoutRule.DEFAULT_ATTR_FILTER.replace(ANDROID_URI,
@@ -236,7 +249,8 @@ public class BaseLayoutRuleTest extends LayoutTestBase {
                 "myproperty", "true"));
     }
 
-    public final void testAddInnerElements() {
+    @Test
+    public void testAddInnerElements() {
         IDragElement oldElement = TestDragElement.create("root").add(
                 TestDragElement.create("a.w.B").id("@+id/child1")
                         .set("uri", "childprop1", "value1"),

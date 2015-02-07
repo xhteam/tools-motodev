@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class NinePatchedImageTest extends TestCase {
 
-    private static final String DIR = "/com/android/ide/eclipse/testdata/draw9patch/";
+    private static final String DIR = "/org/eclipse/andmore/testdata/draw9patch/";
 
     public void testReadNoPatchedImage() throws Exception {
         String fileName = DIR + "no-patched.png";

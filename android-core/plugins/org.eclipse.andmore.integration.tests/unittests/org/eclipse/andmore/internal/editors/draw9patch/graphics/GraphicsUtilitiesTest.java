@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Display;
 public class GraphicsUtilitiesTest extends TestCase {
     private static final int MASK_ALPHA = 0xFF000000;
 
-    private static final String DIR = "/com/android/ide/eclipse/testdata/draw9patch/";
+    private static final String DIR = "/org/eclipse/andmore/testdata/draw9patch/";
 
     public void testConvertToNinePatchNull() throws Exception {
         ImageData result = GraphicsUtilities.convertToNinePatch(null);

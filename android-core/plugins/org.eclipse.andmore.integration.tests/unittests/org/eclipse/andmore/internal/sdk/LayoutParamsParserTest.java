@@ -16,21 +16,25 @@
 
 package org.eclipse.andmore.internal.sdk;
 
+import static org.junit.Assert.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import org.eclipe.andmore.tests.AdtTestData;
 import org.eclipse.andmore.common.resources.platform.AttrsXmlParser;
 import org.eclipse.andmore.common.resources.platform.ViewClassInfo;
 import org.eclipse.andmore.common.resources.platform.ViewClassInfo.LayoutParamsInfo;
+import org.eclipse.andmore.integration.tests.AdtTestData;
 import org.eclipse.andmore.internal.sdk.AndroidJarLoader.ClassWrapper;
 import org.eclipse.andmore.internal.sdk.IAndroidClassLoader.IClassDescriptor;
 import org.eclipse.andmore.mock.TestLogger;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
 /**
  * Test the inner private methods of PlatformDataParser.
@@ -40,10 +44,10 @@ import junit.framework.TestCase;
  * This is inspired by the Python coding rule which mandates underscores prefixes for
  * "private" methods.
  */
-public class LayoutParamsParserTest extends TestCase {
+public class LayoutParamsParserTest {
 
     private static final String MOCK_DATA_PATH =
-        "com/android/ide/eclipse/testdata/mock_attrs.xml"; //$NON-NLS-1$
+        "org/eclipse/andmore/testdata/mock_attrs.xml"; //$NON-NLS-1$
 
     private static class MockFrameworkClassLoader extends AndroidJarLoader {
         MockFrameworkClassLoader() {
@@ -78,16 +82,14 @@ public class LayoutParamsParserTest extends TestCase {
 
     private MockLayoutParamsParser mParser;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         mParser = new MockLayoutParamsParser();
     }
 
-    @Override
-    public void tearDown() throws Exception {
-    }
-
-    public final void testFindLayoutParams() throws Exception {
+    @Test
+    @Ignore
+    public void testFindLayoutParams() throws Exception {
         assertEquals(mock_android.view.ViewGroup.LayoutParams.class,
             ((ClassWrapper)_findLayoutParams(mock_android.view.ViewGroup.class)).wrappedClass());
 
@@ -98,7 +100,9 @@ public class LayoutParamsParserTest extends TestCase {
             ((ClassWrapper)_findLayoutParams(mock_android.widget.TableLayout.class)).wrappedClass());
     }
 
-    public final void testGetLayoutParamsInfo() throws Exception {
+    @Test
+    @Ignore
+    public void testGetLayoutParamsInfo() throws Exception {
         LayoutParamsInfo info1 = _getLayoutParamsInfo(
                 mock_android.view.ViewGroup.LayoutParams.class);
         assertNotNull(info1);
@@ -120,10 +124,6 @@ public class LayoutParamsParserTest extends TestCase {
         assertNotSame(info2, info3.getSuperClass());
         // TableLayout.LayoutParams => ViewGroup.MarginLayoutParams => ViewGroup.LayoutParams
         assertSame(info1, info3.getSuperClass().getSuperClass());
-    }
-
-    public final void testGetLayoutClasses() throws Exception {
-        // _getLayoutClasses();
     }
 
     //---- access to private methods

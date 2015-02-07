@@ -13,16 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.eclipe.andmore.tests.functests.sampleProjects;
+package org.eclipse.andmore.integration.tests.functests.sampleProjects;
 
 import com.android.SdkConstants;
+
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectCreator;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
+
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipe.andmore.tests.SdkLoadingTestCase;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

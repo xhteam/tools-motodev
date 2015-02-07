@@ -22,37 +22,44 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.eclipe.andmore.tests.AdtTestData;
+import org.eclipse.andmore.integration.tests.AdtTestData;
 import org.eclipse.andmore.internal.sdk.AndroidJarLoader;
 import org.eclipse.andmore.internal.sdk.IAndroidClassLoader.IClassDescriptor;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 /**
  * Unit Test for {@link AndroidJarLoader}.
  * 
  * Uses the classes jar.example.Class1/Class2 stored in tests/data/jar_example.jar.
  */
-public class AndroidJarLoaderTest extends TestCase {
+
+@Ignore
+public class AndroidJarLoaderTest {
 
     private AndroidJarLoader mFrameworkClassLoader;
 
     /** Creates an instance of {@link AndroidJarLoader} on our test data JAR */ 
-    @Override
+    @Before
     public void setUp() throws Exception {
         String jarfilePath = AdtTestData.getInstance().getTestFilePath(
-                "com/android/ide/eclipse/testdata/jar_example.jar");  //$NON-NLS-1$
+                "org/eclipse/andmore/testdata/jar_example.jar");  //$NON-NLS-1$
         mFrameworkClassLoader = new AndroidJarLoader(jarfilePath);
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         mFrameworkClassLoader = null;
         System.gc();
     }
 
     /** Preloads classes. They should load just fine. */
-    public final void testPreLoadClasses() throws Exception {
+    @Test
+    public void testPreLoadClasses() throws Exception {
         mFrameworkClassLoader.preLoadClasses("jar.example.", null, null); //$NON-NLS-1$
         HashMap<String, Class<?>> map = getPrivateClassCache();
         assertEquals(0, map.size());
@@ -65,7 +72,8 @@ public class AndroidJarLoaderTest extends TestCase {
     }
 
     /** Preloads a class not in the JAR. Preloading does nothing in this case. */
-    public final void testPreLoadClasses_classNotFound() throws Exception {
+    @Test
+    public void testPreLoadClasses_classNotFound() throws Exception {
         mFrameworkClassLoader.preLoadClasses("not.a.package.", null, null);  //$NON-NLS-1$
         HashMap<String, Class<?>> map = getPrivateClassCache();
         assertEquals(0, map.size());
@@ -74,7 +82,8 @@ public class AndroidJarLoaderTest extends TestCase {
     }
 
     /** Finds a class we just preloaded. It should work. */
-    public final void testFindClass_classFound() throws Exception {
+    @Test
+    public void testFindClass_classFound() throws Exception {
         Class<?> c = _findClass(mFrameworkClassLoader, "jar.example.Class2");  //$NON-NLS-1$
         assertEquals("jar.example.Class2", c.getName());              //$NON-NLS-1$
         HashMap<String, Class<?>> map = getPrivateClassCache();
@@ -97,6 +106,7 @@ public class AndroidJarLoaderTest extends TestCase {
     }
 
     /** Trying to find a class that we fail to preload should throw a CNFE. */
+    @Test
     public final void testFindClass_classNotFound() throws Exception {
         try {
             // Will throw ClassNotFoundException
@@ -110,6 +120,7 @@ public class AndroidJarLoaderTest extends TestCase {
         fail("Expected ClassNotFoundException not thrown");
     }
     
+    @Test
     public final void testFindClassesDerivingFrom() throws Exception {
         HashMap<String, ArrayList<IClassDescriptor>> found =
             mFrameworkClassLoader.findClassesDerivingFrom("jar.example.", new String[] {  //$NON-NLS-1$

@@ -21,7 +21,7 @@ import com.android.ide.common.api.IAttributeInfo.Format;
 
 import java.util.Map;
 
-import org.eclipe.andmore.tests.AdtTestData;
+import org.eclipse.andmore.integration.tests.AdtTestData;
 import org.eclipse.andmore.mock.TestLogger;
 
 import junit.framework.TestCase;
@@ -32,7 +32,7 @@ public class AttrsXmlParserTest extends TestCase {
     private String mFilePath;
 
     private static final String MOCK_DATA_PATH =
-        "com/android/ide/eclipse/testdata/mock_attrs.xml"; //$NON-NLS-1$
+        "org/eclipse/andmore/testdata/mock_attrs.xml"; //$NON-NLS-1$
 
     @Override
     public void setUp() throws Exception {

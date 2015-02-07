@@ -17,6 +17,9 @@
 package org.eclipse.andmore.common.layout;
 
 import static com.android.SdkConstants.ANDROID_URI;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 import com.android.ide.common.api.INode;
 import com.android.ide.common.api.Point;
@@ -42,6 +45,7 @@ public class AbsoluteLayoutRuleTest extends LayoutTestBase {
                 insertIndex, currentIndex, graphicsFragments);
     }
 
+    @Test
     public void testDragMiddle() {
         INode inserted = dragInto(
                 // Bounds of the dragged item
