@@ -16,33 +16,35 @@
 
 package org.eclipse.andmore.common.resources.platform;
 
+import static org.junit.Assert.*;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipe.andmore.tests.AdtTestData;
+import org.eclipse.andmore.integration.tests.AdtTestData;
 import org.eclipse.andmore.mock.TestLogger;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
-public class AttrsXmlParserManifestTest extends TestCase {
+public class AttrsXmlParserManifestTest {
 
     private AttrsXmlParser mParser;
     private String mFilePath;
 
     private static final String MOCK_DATA_PATH =
-        "com/android/ide/eclipse/testdata/mock_manifest_attrs.xml"; //$NON-NLS-1$
+        "org/eclipse/andmore/testdata/mock_manifest_attrs.xml"; //$NON-NLS-1$
 
-    @Override
+    @Before
     public void setUp() throws Exception {
+    	
         mFilePath = AdtTestData.getInstance().getTestFilePath(MOCK_DATA_PATH);
         mParser = new AttrsXmlParser(mFilePath, new TestLogger(), 100);
     }
 
-    @Override
-    public void tearDown() throws Exception {
-    }
-
+    @Test
     public void testGetOsAttrsXmlPath() throws Exception {
         assertEquals(mFilePath, mParser.getOsAttrsXmlPath());
     }
@@ -58,7 +60,8 @@ public class AttrsXmlParserManifestTest extends TestCase {
         return styleableList;
     }
 
-    public final void testPreload() throws Exception {
+    @Test
+    public void testPreload() throws Exception {
         Map<String, DeclareStyleableInfo> styleableList = preloadAndGetStyleables();
 
         assertEquals(
@@ -76,7 +79,8 @@ public class AttrsXmlParserManifestTest extends TestCase {
      * Tests that AndroidManifestNewParentNewElement got renamed to AndroidManifestNewElement
      * and a parent named AndroidManifestNewParent was automatically created.
      */
-    public final void testNewParent() throws Exception {
+    @Test
+    public void testNewParent() throws Exception {
         Map<String, DeclareStyleableInfo> styleableList = preloadAndGetStyleables();
 
         DeclareStyleableInfo newElement = styleableList.get("AndroidManifestNewElement");

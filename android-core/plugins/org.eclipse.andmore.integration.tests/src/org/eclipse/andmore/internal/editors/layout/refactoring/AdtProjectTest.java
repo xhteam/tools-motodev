@@ -21,9 +21,9 @@ import static com.android.SdkConstants.FD_RES_VALUES;
 
 import com.android.ide.common.sdk.LoadStatus;
 
-import org.eclipe.andmore.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -84,7 +84,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 
 	@Override
 	protected String getTestDataRelPath() {
-		return "eclipse/plugins/org.eclipse.andmore.tests/src/org/eclipse/andmore/"
+		return "eclipse/plugins/org.eclipse.andmore.integration.tests/src/org/eclipse/andmore/"
 				+ "internal/editors/layout/refactoring/testdata";
 	}
 

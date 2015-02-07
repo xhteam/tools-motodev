@@ -16,6 +16,10 @@
 
 package org.eclipse.andmore.common.layout;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import com.android.ide.common.api.DropFeedback;
 import com.android.ide.common.api.IDragElement;
 import com.android.ide.common.api.INode;
@@ -23,6 +27,8 @@ import com.android.ide.common.api.Rect;
 
 /** Test the {@link ZoomControlsRule} */
 public class ZoomControlsRuleTest extends LayoutTestBase {
+	
+	@Test
     public void testDoNothing() {
         String draggedButtonId = "@+id/DraggedButton";
 

@@ -23,6 +23,7 @@ import static com.android.SdkConstants.ATTR_LAYOUT_WIDTH;
 import static com.android.SdkConstants.ATTR_ORIENTATION;
 import static com.android.SdkConstants.VALUE_HORIZONTAL;
 import static com.android.SdkConstants.VALUE_VERTICAL;
+import static org.junit.Assert.*;
 
 import com.android.ide.common.api.DropFeedback;
 import com.android.ide.common.api.IAttributeInfo.Format;
@@ -39,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
 
 /** Test the {@link LinearLayoutRule} */
 public class LinearLayoutRuleTest extends LayoutTestBase {
@@ -123,6 +126,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
     }
 
     // Check that the context menu registers the expected menu items
+    @Test
     public void testContextMenu() {
         LinearLayoutRule rule = new LinearLayoutRule();
         initialize(rule, "android.widget.LinearLayout");
@@ -143,6 +147,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
                 propertiesMenu instanceof NestedAction);
     }
 
+    @Test
     public void testContextMenuCustom() {
         LinearLayoutRule rule = new LinearLayoutRule();
         initialize(rule, "android.widget.LinearLayout");
@@ -169,6 +174,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
     }
 
     // Check that the context menu manipulates the orientation attribute
+    @Test
     public void testOrientation() {
         LinearLayoutRule rule = new LinearLayoutRule();
         initialize(rule, "android.widget.LinearLayout");
@@ -203,6 +209,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
     }
 
     // Check that the context menu manipulates the orientation attribute
+    @Test
     public void testProperties() {
         LinearLayoutRule rule = new LinearLayoutRule();
         initialize(rule, "android.widget.LinearLayout");
@@ -280,14 +287,17 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
         assertEquals("Gravity...", recentItems.get(0).getTitle());
     }
 
+    @Test
     public void testDragInEmptyWithBounds() {
         dragIntoEmpty(new Rect(0, 0, 100, 80));
     }
 
+    @Test
     public void testDragInEmptyWithoutBounds() {
         dragIntoEmpty(new Rect(0, 0, 0, 0));
     }
 
+    @Test
     public void testDragInVerticalTop() {
         dragInto(true,
                 // Bounds of the dragged item
@@ -320,6 +330,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
                 "useStyle(DROP_ZONE_ACTIVE), useStyle(DROP_PREVIEW), drawLine(0,0,240,0)");
     }
 
+    @Test
     public void testDragInVerticalBottom() {
         dragInto(true,
                 // Bounds of the dragged item
@@ -348,6 +359,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
                 "useStyle(DROP_PREVIEW), drawRect(0,381,105,461)");
     }
 
+    @Test
     public void testDragInVerticalMiddle() {
         dragInto(true,
                 // Bounds of the dragged item
@@ -376,6 +388,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
                 "useStyle(DROP_PREVIEW), drawRect(0,150,105,230)");
     }
 
+    @Test
     public void testDragInVerticalMiddleSelfPos() {
         // Drag the 2nd button, down to the position between 3rd and 4th
         dragInto(true,
@@ -432,6 +445,7 @@ public class LinearLayoutRuleTest extends LayoutTestBase {
                 "useStyle(DROP_ZONE_ACTIVE), useStyle(DROP_PREVIEW), drawRect(0,100,100,180)");
     }
 
+    @Test
     public void testDragToLastPosition() {
         // Drag a button to the last position -- and confirm that the preview rectangle
         // is now shown midway between the second to last and last positions, but fully

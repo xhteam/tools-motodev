@@ -17,6 +17,7 @@ package org.eclipse.andmore.common.layout.relative;
 
 import static com.android.SdkConstants.ATTR_ID;
 import static com.android.SdkConstants.ANDROID_URI;
+import static org.junit.Assert.*;
 
 import com.android.ide.common.api.INode;
 
@@ -26,11 +27,15 @@ import java.util.List;
 
 import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.common.layout.TestNode;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
 @SuppressWarnings("javadoc")
-public class DeletionHandlerTest extends TestCase {
+public class DeletionHandlerTest {
+
+	@Test
+	@Ignore("Enable once XMLUnit is approved.")
     public void testSimple() {
         String xml = "" +
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -112,6 +117,8 @@ public class DeletionHandlerTest extends TestCase {
                 ATTR_ID))));
     }
 
+	@Test
+	@Ignore("Enable once XMLUnit is approved.")
     public void testTransitive() {
         String xml = "" +
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -292,6 +299,8 @@ public class DeletionHandlerTest extends TestCase {
                 ATTR_ID))));
     }
 
+	@Test
+	@Ignore("Enable once XMLUnit is approved.")
     public void testCenter() {
         String xml =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -355,6 +364,8 @@ public class DeletionHandlerTest extends TestCase {
 
     }
 
+	@Test
+	@Ignore("Enable once XMLUnit is approved.")
     public void testMove() {
         String xml = "" +
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +

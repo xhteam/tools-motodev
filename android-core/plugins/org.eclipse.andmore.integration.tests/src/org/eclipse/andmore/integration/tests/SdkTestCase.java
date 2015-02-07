@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.eclipe.andmore.tests;
+package org.eclipse.andmore.integration.tests;
 
 import com.android.SdkConstants;
 import com.google.common.base.Charsets;

@@ -15,16 +15,22 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
+import static org.junit.Assert.*;
+
 import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.ResourceType;
 
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
 @SuppressWarnings("javadoc")
-public class RenameResourceXmlTextActionTest extends TestCase {
+public class RenameResourceXmlTextActionTest  {
+	
+	@Test
+	@Ignore
     public void test_Simple() throws Exception {
         checkWord("^foo", null);
         checkWord("'foo'^", null);
@@ -56,6 +62,8 @@ public class RenameResourceXmlTextActionTest extends TestCase {
         return ResourceUrl.create(type, name, false, false);
     }
 
+    @Test
+    @Ignore
     public void testClassNames() throws Exception {
         checkClassName("^foo", null);
         checkClassName("<^foo>", null);

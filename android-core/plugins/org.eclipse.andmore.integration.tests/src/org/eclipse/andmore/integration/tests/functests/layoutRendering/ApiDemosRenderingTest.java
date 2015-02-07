@@ -14,7 +14,7 @@
  * the License.
  */
 
-package org.eclipe.andmore.tests.functests.layoutRendering;
+package org.eclipse.andmore.integration.tests.functests.layoutRendering;
 
 import com.android.SdkConstants;
 import com.android.ide.common.rendering.LayoutLibrary;
@@ -46,8 +46,11 @@ import com.android.ide.common.resources.configuration.SmallestScreenWidthQualifi
 import com.android.ide.common.resources.configuration.TextInputMethodQualifier;
 import com.android.ide.common.resources.configuration.TouchScreenQualifier;
 import com.android.ide.common.sdk.LoadStatus;
+
+import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
 import org.eclipse.andmore.internal.sdk.AndroidTargetData;
+
 import com.android.io.FolderWrapper;
 import com.android.resources.Density;
 import com.android.resources.Keyboard;
@@ -62,7 +65,6 @@ import com.android.resources.TouchScreen;
 import com.android.sdklib.IAndroidTarget;
 import com.android.util.Pair;
 
-import org.eclipe.andmore.tests.SdkLoadingTestCase;
 import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

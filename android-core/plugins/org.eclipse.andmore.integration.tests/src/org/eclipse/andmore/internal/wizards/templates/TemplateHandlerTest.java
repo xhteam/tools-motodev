@@ -25,10 +25,13 @@ import static org.eclipse.andmore.internal.wizards.templates.TemplateHandler.ATT
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.sdklib.SdkVersionInfo;
+
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.Sdk;
+
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.GrabProcessOutput;
 import com.android.utils.GrabProcessOutput.IProcessOutput;
@@ -55,7 +58,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
-import org.eclipe.andmore.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.lint.EclipseLintClient;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;

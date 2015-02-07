@@ -17,6 +17,7 @@ package org.eclipse.andmore.common.resources.platform;
 
 import static com.android.SdkConstants.ANDROID_URI;
 import static com.android.SdkConstants.DOT_XML;
+import static org.junit.Assert.*;
 
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
@@ -33,10 +34,10 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
-import junit.framework.TestCase;
-
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.mock.Mocks;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -50,7 +51,8 @@ import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("javadoc")
-public class AttributeInfoTest extends TestCase {
+public class AttributeInfoTest {
+	@Test
     public void testSimple() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.noneOf(Format.class));
         assertTrue(info.isValid("", null, null));
@@ -58,6 +60,7 @@ public class AttributeInfoTest extends TestCase {
         assertTrue(info.isValid("@android foo bar", null, null));
     }
 
+	@Test
     public void testIsValidString() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.STRING_SET);
         assertTrue(info.isValid("", null, null));
@@ -65,6 +68,7 @@ public class AttributeInfoTest extends TestCase {
         assertTrue(info.isValid("@android foo bar", null, null));
     }
 
+	@Test
     public void testIsValidBoolean() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.BOOLEAN_SET);
         assertTrue(info.isValid("true", null, null));
@@ -76,6 +80,7 @@ public class AttributeInfoTest extends TestCase {
         assertTrue(info.isValid("False", null, null));
     }
 
+	@Test
     public void testIsValidInteger() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.INTEGER_SET);
         assertTrue(info.isValid("0", null, null));
@@ -91,6 +96,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("1.0", null, null));
     }
 
+	@Test
     public void testIsValidFloat() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.FLOAT_SET);
         assertTrue(info.isValid("0", null, null));
@@ -111,6 +117,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("1a", null, null));
     }
 
+	@Test
     public void testIsValidDimension() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.DIMENSION_SET);
         assertTrue(info.isValid("0dp", null, null));
@@ -129,6 +136,7 @@ public class AttributeInfoTest extends TestCase {
         //assertFalse(info.isValid("@dimen/foo"));
     }
 
+	@Test
     public void testIsValidColor() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.COLOR_SET);
         assertTrue(info.isValid("#fff", null, null));
@@ -142,6 +150,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("rgb(1,2,3)", null, null));
     }
 
+	@Test
     public void testIsValidFraction() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.<Format>of(Format.FRACTION));
         assertTrue(info.isValid("5%", null, null));
@@ -154,6 +163,7 @@ public class AttributeInfoTest extends TestCase {
         //assertFalse(info.isValid("-2%"));
     }
 
+	@Test
     public void testIsValidReference() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.REFERENCE_SET);
         assertTrue(info.isValid("@android:string/foo", null, null));
@@ -170,6 +180,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("3.4", null, null));
     }
 
+	@Test
     public void testIsValidEnum() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.ENUM_SET);
         info.setEnumValues(new String[] { "wrap_content", "match_parent" });
@@ -180,6 +191,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("50", null, null));
     }
 
+	@Test
     public void testIsValidFlag() throws Exception {
         AttributeInfo info = new AttributeInfo("test", Format.FLAG_SET);
         info.setFlagValues(new String[] { "left", "top", "right", "bottom" });
@@ -192,6 +204,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("50", null, null));
     }
 
+	@Test
     public void testCombined1() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.<Format>of(Format.INTEGER,
                 Format.REFERENCE));
@@ -200,6 +213,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("foo", null, null));
     }
 
+	@Test
     public void testCombined2() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.<Format>of(Format.COLOR,
                 Format.REFERENCE));
@@ -208,6 +222,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("foo", null, null));
     }
 
+	@Test
     public void testCombined3() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.<Format>of(Format.STRING,
                 Format.REFERENCE));
@@ -215,6 +230,7 @@ public class AttributeInfoTest extends TestCase {
         assertTrue(info.isValid("@color/foo", null, null));
     }
 
+	@Test
     public void testCombined4() throws Exception {
         AttributeInfo info = new AttributeInfo("test", EnumSet.<Format>of(Format.ENUM,
                 Format.DIMENSION));
@@ -226,6 +242,7 @@ public class AttributeInfoTest extends TestCase {
         assertFalse(info.isValid("test", null, null));
     }
 
+	@Test
     public void testResourcesExist() throws Exception {
         IAbstractFolder folder = Mocks.createAbstractFolder(
                 SdkConstants.FD_RESOURCES, new IAbstractResource[0]);
@@ -285,6 +302,8 @@ public class AttributeInfoTest extends TestCase {
     };
 
 
+    @Test
+    @Ignore("ReWork this test so it doesn't require this.  This is an integration test not a unit test. Mock things if possible.")
     public void testIsValid() throws Exception {
         // This test loads the full attrs.xml file and then processes a bunch of platform
         // resource file and makes sure that they're all considered valid. This helps

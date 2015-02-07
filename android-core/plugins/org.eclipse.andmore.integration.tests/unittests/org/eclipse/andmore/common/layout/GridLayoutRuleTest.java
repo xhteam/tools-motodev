@@ -15,9 +15,15 @@
  */
 package org.eclipse.andmore.common.layout;
 
+import org.junit.Ignore;
+import org.junit.Test;
 
+
+@Ignore("This was never implemented!")
 public class GridLayoutRuleTest extends LayoutTestBase {
-    @Override
+
+	@Override
+    @Test
     public void testDummy() {
     }
 }

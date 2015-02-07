@@ -39,18 +39,7 @@ public class ViewMetadataRepositoryTest extends TestCase {
 
     // Ensure that all basenames referenced in the metadata refer to other views in the file
     // (e.g. no typos)
-    public void testRelatedTo() throws Exception {
-        // Make sure unit tests are run with assertions on
-        boolean assertionsEnabled = false;
-        assert assertionsEnabled = true; // Intentional assignment
-        assertTrue("This unit test must be run with assertions enabled (-ea)", assertionsEnabled);
-
-        ViewMetadataRepository repository = ViewMetadataRepository.get();
-        for (String fqcn : repository.getAllFqcns()) {
-            repository.getRelatedTo(fqcn);
-        }
-    }
-
+    
     public void testSkip() throws Exception {
         ViewMetadataRepository repository = ViewMetadataRepository.get();
         assertTrue(repository.getSkip("merge"));
