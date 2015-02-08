@@ -38,6 +38,7 @@ import org.junit.Test;
 @Ignore
 public class AndroidPackageRenameParticipantTest extends RefactoringTestBase {
 	@Test
+	@Ignore
 	public void testRefactor1() throws Exception {
 		renamePackage(TEST_PROJECT, false /* renameSubpackages */, true /* updateReferences */, "my.pkg.name",
 

@@ -15,12 +15,17 @@
  */
 package org.eclipse.andmore;
 
-import junit.framework.TestCase;
+
+import static org.junit.Assert.*;
 
 import java.util.Locale;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 @SuppressWarnings("javadoc")
-public class AdtUtilsTest extends TestCase {
+public class AdtUtilsTest {
+	@Test
     public void testExtractClassName() {
         assertEquals("Foo", AdtUtils.extractClassName("foo"));
         assertEquals("Foobar", AdtUtils.extractClassName("foo bar"));
@@ -28,6 +33,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals("Foo", AdtUtils.extractClassName("1foo "));
     }
 
+	@Test
     public void testStripAllExtensions() {
         assertEquals("", AdtUtils.stripAllExtensions(""));
         assertEquals("foobar", AdtUtils.stripAllExtensions("foobar"));
@@ -36,6 +42,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals(".profile", AdtUtils.stripAllExtensions(".profile"));
     }
 
+	@Test
     public void testStripLastExtension() {
         assertEquals("", AdtUtils.stripLastExtension(""));
         assertEquals("foobar", AdtUtils.stripLastExtension("foobar"));
@@ -44,6 +51,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals(".profile", AdtUtils.stripLastExtension(".profile"));
     }
 
+	@Test
     public void testCapitalize() {
         assertEquals("UPPER", AdtUtils.capitalize("UPPER"));
         assertEquals("Lower", AdtUtils.capitalize("lower"));
@@ -54,6 +62,7 @@ public class AdtUtilsTest extends TestCase {
         assertNull(null, AdtUtils.capitalize(null));
     }
 
+	@Test
     public void testCamelCaseToUnderlines() {
         assertEquals("", AdtUtils.camelCaseToUnderlines(""));
         assertEquals("foo", AdtUtils.camelCaseToUnderlines("foo"));
@@ -63,6 +72,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals("test_foo", AdtUtils.camelCaseToUnderlines("testFoo"));
     }
 
+	@Test
     public void testUnderlinesToCamelCase() {
         assertEquals("", AdtUtils.underlinesToCamelCase(""));
         assertEquals("", AdtUtils.underlinesToCamelCase("_"));
@@ -72,6 +82,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals("Foo", AdtUtils.underlinesToCamelCase("foo_"));
     }
 
+	@Test
     public void testStripSuffix() {
         assertEquals("Foo", AdtUtils.stripSuffix("Foo", ""));
         assertEquals("Fo", AdtUtils.stripSuffix("Foo", "o"));
@@ -82,6 +93,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals("Foo", AdtUtils.stripSuffix("Foo", "Bar"));
     }
 
+	@Test
     public void testFormatFloatValue() throws Exception {
         assertEquals("1", AdtUtils.formatFloatAttribute(1.0f));
         assertEquals("2", AdtUtils.formatFloatAttribute(2.0f));
@@ -94,6 +106,7 @@ public class AdtUtilsTest extends TestCase {
         assertEquals("-1", AdtUtils.formatFloatAttribute(-1f));
     }
 
+	@Test
     public void testFormatFloatValueLocale() throws Exception {
         // Ensure that the layout float values aren't affected by
         // locale settings, like using commas instead of of periods
@@ -112,6 +125,7 @@ public class AdtUtilsTest extends TestCase {
         }
     }
 
+	@Test
     public void testEscapeUnicodeChars() throws Exception {
         assertEquals("", AdtUtils.replaceUnicodeEscapes(""));
         assertEquals("foo bar", AdtUtils.replaceUnicodeEscapes("foo bar"));

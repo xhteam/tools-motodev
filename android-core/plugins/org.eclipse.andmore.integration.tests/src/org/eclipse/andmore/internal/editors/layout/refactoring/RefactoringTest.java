@@ -16,7 +16,6 @@
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
 import static org.junit.Assert.*;
-
 import static com.android.SdkConstants.ANDROID_WIDGET_PREFIX;
 import static com.android.SdkConstants.DOT_XML;
 
@@ -46,6 +45,7 @@ import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.w3c.dom.Element;
 
 import java.io.IOException;
@@ -58,7 +58,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("restriction")
-public class RefactoringTest extends AdtProjectTest {
+@Ignore
+public abstract class RefactoringTest extends AdtProjectTest {
 
 	protected boolean autoFormat() {
 		return true;

@@ -16,14 +16,18 @@
 
 package org.eclipse.andmore.internal.project;
 
+import static org.junit.Assert.*;
+
 import org.eclipse.andmore.mock.Mocks;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class ProjectHelperTest extends TestCase {
+public class ProjectHelperTest {
 
     /** The old container id */
     private final static String OLD_CONTAINER_ID =
@@ -33,16 +37,8 @@ public class ProjectHelperTest extends TestCase {
     private final static String CONTAINER_ID =
         "org.eclipse.andmore.ANDROID_FRAMEWORK"; //$NON-NLS-1$
 
-    @Override
-    public void setUp() throws Exception {
-        // pass for now
-    }
-
-    @Override
-    public void tearDown() throws Exception {
-        // pass for now
-    }
-
+    @Test
+    @Ignore
     public final void testFixProjectClasspathEntriesFromOldContainer() throws Exception {
         // create a project with a path to an android .zip
         IJavaProject javaProject = Mocks.createProject(

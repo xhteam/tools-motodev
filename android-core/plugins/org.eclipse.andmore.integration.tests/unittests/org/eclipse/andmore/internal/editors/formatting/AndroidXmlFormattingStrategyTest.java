@@ -15,17 +15,35 @@
  */
 package org.eclipse.andmore.internal.editors.formatting;
 
+import static org.junit.Assert.*;
+
 import com.android.ide.common.xml.XmlFormatPreferences;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.ReplaceEdit;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 
 @SuppressWarnings("javadoc")
-public class AndroidXmlFormattingStrategyTest extends TestCase {
+@Ignore
+public class AndroidXmlFormattingStrategyTest {
+	
+	@Before
+	public void setUp() throws Exception {
+		// Make sure the workspace is clean.
+		IProject projects[] = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for(IProject project : projects) {
+			project.delete(true, new NullProgressMonitor());
+		}
+
+	}
     // In the given before document, replace in the range replaceStart to replaceEnd
     // the formatted string, and assert that it's identical to the given after string
     private void check(String before, int replaceStart, int replaceEnd, String formatted,
@@ -78,6 +96,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
         check(before, replaceStart, replaceEnd, insert, expected, prefs);
     }
 
+    @Test
     public void test1() throws Exception {
         check(
             // Before
@@ -101,6 +120,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
             XmlFormatPreferences.defaults());
     }
 
+    @Test
     public void test2() throws Exception {
         XmlFormatPreferences prefs = XmlFormatPreferences.defaults();
         prefs.removeEmptyLines = true;
@@ -130,6 +150,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
                 prefs);
     }
 
+    @Test
     public void test3() throws Exception {
         XmlFormatPreferences prefs = XmlFormatPreferences.defaults();
         prefs.removeEmptyLines = true;
@@ -159,6 +180,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
                 prefs);
     }
 
+    @Test
     public void test4() throws Exception {
         check(
             "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
@@ -205,6 +227,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
             XmlFormatPreferences.defaults());
     }
 
+    @Test
     public void testCrLf1() throws Exception {
         check(
             // Before
@@ -228,6 +251,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
             XmlFormatPreferences.defaults());
     }
 
+    @Test
     public void testCrLf2() throws Exception {
         XmlFormatPreferences prefs = XmlFormatPreferences.defaults();
         prefs.removeEmptyLines = true;
@@ -257,6 +281,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
                 prefs);
     }
 
+    @Test
     public void testCrLf3() throws Exception {
         XmlFormatPreferences prefs = XmlFormatPreferences.defaults();
         prefs.removeEmptyLines = true;
@@ -287,6 +312,7 @@ public class AndroidXmlFormattingStrategyTest extends TestCase {
     }
 
 
+    @Test
     public void testCrlf4() throws Exception {
         check(
             "<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n" +

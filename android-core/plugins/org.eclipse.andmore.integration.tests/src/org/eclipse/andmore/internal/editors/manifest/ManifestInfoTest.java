@@ -35,6 +35,7 @@ import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttrib
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -45,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class ManifestInfoTest extends AdtProjectTest {
 	@Override
 	protected boolean testCaseNeedsUniqueProject() {

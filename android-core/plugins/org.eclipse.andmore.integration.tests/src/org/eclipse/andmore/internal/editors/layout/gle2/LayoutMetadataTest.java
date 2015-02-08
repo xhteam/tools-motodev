@@ -40,6 +40,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -49,6 +50,7 @@ import org.w3c.dom.Node;
  */
 @SuppressWarnings({ "restriction", "javadoc", "deprecation" })
 // XML DOM model
+@Ignore
 public class LayoutMetadataTest extends AdtProjectTest {
 
 	@Test

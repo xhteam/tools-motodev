@@ -33,9 +33,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.corext.refactoring.rename.RenameFieldProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "restriction" })
+@Ignore
 public class RenameResourceParticipantTest extends RefactoringTestBase {
 	@Test
 	public void testRefactor1() throws Exception {

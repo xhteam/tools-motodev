@@ -36,7 +36,10 @@ import org.eclipse.jdt.internal.ui.refactoring.reorg.CreateTargetQueries;
 import org.eclipse.jdt.internal.ui.refactoring.reorg.ReorgQueries;
 import org.eclipse.ltk.core.refactoring.participants.MoveRefactoring;
 import org.eclipse.swt.widgets.Shell;
+<<<<<<< HEAD
 import org.junit.Ignore;
+=======
+>>>>>>> develop
 import org.junit.Test;
 
 
@@ -44,7 +47,6 @@ import org.junit.Test;
 @Ignore("Popups Dialog")
 public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
 	@Test
-	@Ignore
     public void testRefactor1() throws Exception {
         moveType(
                 TEST_PROJECT2,
@@ -71,7 +73,6 @@ public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
-	@Ignore
     public void testRefactorFragment() throws Exception {
         moveType(
                 TEST_PROJECT2,

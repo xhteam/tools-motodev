@@ -16,6 +16,7 @@
 package org.eclipse.andmore.internal.refactorings.core;
 
 import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -25,12 +26,15 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 @SuppressWarnings({"javadoc", "restriction"})
+@Ignore
 public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
 	@Test
+	@Ignore
     public void testRefactor1() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -61,6 +65,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
+	@Ignore
     public void testRefactor1b() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -79,6 +84,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
+	@Ignore
     public void testRefactor1_noreferences() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -92,6 +98,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
+	@Ignore
     public void testRefactor2() throws Exception {
         renameType(
                 TEST_PROJECT2,
@@ -122,6 +129,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
+	@Ignore
     public void testRefactorFragment() throws Exception {
         renameType(
             TEST_PROJECT2,
