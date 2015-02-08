@@ -15,6 +15,7 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
+import static org.junit.Assert.*;
 import com.android.annotations.NonNull;
 
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -24,10 +25,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.corext.refactoring.rename.RenameTypeProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.junit.Test;
 
 
 @SuppressWarnings({"javadoc", "restriction"})
 public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
+	@Test
     public void testRefactor1() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -57,6 +60,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
                 "  +             android:name=\"com.example.refactoringtest.NewActivityName\"");
     }
 
+	@Test
     public void testRefactor1b() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -74,6 +78,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
                 "  +             android:name=\".NewActivityName\"");
     }
 
+	@Test
     public void testRefactor1_noreferences() throws Exception {
         renameType(
                 TEST_PROJECT,
@@ -86,6 +91,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
                 "[x] Rename compilation unit 'MainActivity.java' to 'NewActivityName.java'");
     }
 
+	@Test
     public void testRefactor2() throws Exception {
         renameType(
                 TEST_PROJECT2,
@@ -115,6 +121,7 @@ public class AndroidTypeRenameParticipantTest extends RefactoringTestBase {
                 "  +     <com.example.refactoringtest.NewCustomViewName");
     }
 
+	@Test
     public void testRefactorFragment() throws Exception {
         renameType(
             TEST_PROJECT2,

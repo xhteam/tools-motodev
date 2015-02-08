@@ -23,6 +23,8 @@
 				<configuration>
 					<skipTests>false</skipTests>
 					<testFailureIgnore>true</testFailureIgnore>
+					<useUIHarness>true</useUIHarness>
+					<argLine>-XstartOnFirstThread</argLine>
 				</configuration>
 			</plugin>
 		</plugins>

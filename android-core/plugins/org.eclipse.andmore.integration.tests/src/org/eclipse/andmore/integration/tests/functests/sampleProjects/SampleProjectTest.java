@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.integration.tests.functests.sampleProjects;
 
+import static org.junit.Assert.*;
+
 import com.android.SdkConstants;
 
 import org.eclipse.andmore.AdtUtils;
@@ -38,6 +40,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -52,6 +56,7 @@ import java.util.logging.Logger;
  * execution there
  *
  */
+@Ignore
 public class SampleProjectTest extends SdkLoadingTestCase {
 
 	private static final Logger sLogger = Logger.getLogger(SampleProjectTest.class.getName());
@@ -64,6 +69,7 @@ public class SampleProjectTest extends SdkLoadingTestCase {
 	 * 
 	 * @throws CoreException
 	 */
+	@Test
 	public void testSamples() throws CoreException {
 		// TODO: For reporting purposes, it would be better if a separate test
 		// success or failure

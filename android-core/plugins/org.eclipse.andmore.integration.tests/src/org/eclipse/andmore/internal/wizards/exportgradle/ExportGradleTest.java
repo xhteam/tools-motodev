@@ -15,9 +15,12 @@
  */
 package org.eclipse.andmore.internal.wizards.exportgradle;
 
+
+import static org.junit.Assert.*;
 import static com.android.sdklib.internal.project.ProjectProperties.PROPERTY_LIBRARY;
 
 import com.android.SdkConstants;
+
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -26,6 +29,7 @@ import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectCreator;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
+
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -41,6 +45,9 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -51,6 +58,7 @@ public class ExportGradleTest extends AdtProjectTest {
 	private Throwable mLastThrown;
 
 	@Override
+	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		mLastThrown = null;
@@ -61,6 +69,8 @@ public class ExportGradleTest extends AdtProjectTest {
 		return true;
 	}
 
+	@Test
+	@Ignore
 	public void testSimpleAndroidApp() throws Throwable {
 		IProject project = getProject("simple-app");
 		final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);
@@ -106,6 +116,8 @@ public class ExportGradleTest extends AdtProjectTest {
 		}
 	}
 
+	@Test
+	@Ignore
 	public void testSimpleAndroidLib() throws Throwable {
 		final IProject project = getProject("simple-library");
 		ProjectState projectState = Sdk.getProjectState(project.getProject());
@@ -160,6 +172,8 @@ public class ExportGradleTest extends AdtProjectTest {
 		}
 	}
 
+	@Test
+	@Ignore
 	public void testPlainJavaProject() throws Throwable {
 		IProject project = getJavaProject("simple-java");
 		final IJavaProject javaProject = BaseProjectHelper.getJavaProject(project);

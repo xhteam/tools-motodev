@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.editors;
 
+import static org.junit.Assert.*;
+
 import org.eclipse.andmore.internal.editors.AndroidXmlAutoEditStrategy;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
@@ -27,6 +29,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Test;
 
 @SuppressWarnings("javadoc")
 public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
@@ -96,56 +99,66 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		return s.substring(0, index) + s.substring(index + 1);
 	}
 
+	@Test
 	public void testCornerCase1() throws Exception {
 		checkInsertNewline("^", "\n^");
 	}
 
+	@Test
 	public void testCornerCase2() throws Exception {
 		checkInsertNewline("\n^",
 
 		"\n\n^");
 	}
 
+	@Test
 	public void testCornerCase3() throws Exception {
 		checkInsertNewline("    ^",
 
 		"    \n" + "    ^");
 	}
 
+	@Test
 	public void testSimpleIndentation1() throws Exception {
 		checkInsertNewline("   ^ ",
 
 		"   \n" + "   ^ ");
 	}
 
+	@Test
 	public void testSimpleIndentation2() throws Exception {
 		checkInsertNewline("\n" + "   foo^\n",
 
 		"\n" + "   foo\n" + "   ^\n");
 	}
 
+	@Test
 	public void testSimpleIndentation3() throws Exception {
 		checkInsertNewline("\n" + "    <newtag>^\n",
 
 		"\n" + "    <newtag>\n" + "        ^\n");
 	}
 
+	@Test
 	public void testSimpleIndentation4() throws Exception {
 		checkInsertNewline("\n" + "    <newtag/>^\n",
 
 		"\n" + "    <newtag/>\n" + "    ^\n");
 	}
 
+	@Test
 	public void testSimpleIndentation5() throws Exception {
 		checkInsertNewline("\n" + "    <newtag^\n", "\n" + "    <newtag\n" + "        ^\n");
 	}
 
+	@Test
 	public void testSplitAttribute() throws Exception {
 		checkInsertNewline("\n" + "    <newtag ^attribute='value'/>\n",
 
 		"\n" + "    <newtag \n" + "        ^attribute='value'/>\n");
 	}
 
+	@Test
 	public void testIndentationInComments1() throws Exception {
 		// Make sure that inside a comment we ignore tags etc
 		checkInsertNewline("<!--\n   foo^\n--->\n",
@@ -153,6 +166,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"<!--\n   foo\n   ^\n--->\n");
 	}
 
+	@Test
 	public void testIndentationInComments2() throws Exception {
 		// Make sure that inside a comment we ignore tags etc
 		checkInsertNewline("\n" + "<!--\n" + "<foo><^\n" + "-->\n",
@@ -160,12 +174,14 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"\n" + "<!--\n" + "<foo><\n" + "^\n" + "-->\n");
 	}
 
+	@Test
 	public void testSurroundCaret() throws Exception {
 		checkInsertNewline("\n" + "    <item>^</item>\n",
 
 		"\n" + "    <item>\n" + "        ^\n" + "    </item>\n");
 	}
 
+	@Test
 	public void testSurroundCaret2() throws Exception {
 		// This test combines both surround with and continuing earlier lines
 		// (where
@@ -175,6 +191,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"\n" + "    <foo\n" + "        name='value'>\n" + "        ^\n" + "    </foo>\n");
 	}
 
+	@Test
 	public void testContinueEarlierLine1() throws Exception {
 		// Here we need to indent to the exact location of an earlier line
 		checkInsertNewline("\n" + "    <foo\n" + "        name='value'/>^\n",
@@ -182,6 +199,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"\n" + "    <foo\n" + "        name='value'/>\n" + "    ^\n");
 	}
 
+	@Test
 	public void testContinueEarlierLine2() throws Exception {
 		checkInsertNewline("\n" + "    <foo\n" + "        name='value'></foo>^\n",
 
@@ -195,6 +213,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		// a line.
 	}
 
+	@Test
 	public void testContinueEarlierLine3() throws Exception {
 		// Make sure the code to look up the corresponding opening tag works
 		// properly
@@ -203,6 +222,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"\n" + "    <foo\n" + "        name='value'><bar></bar><baz/></foo>\n" + "    ^\n");
 	}
 
+	@Test
 	public void testContinueEarlierLine4() throws Exception {
 		checkInsertNewline("    <Button\n" + "        android:id=\"@+id/button1\"\n"
 				+ "        android:layout_width=\"wrap_content\"\n"
@@ -214,12 +234,14 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 				+ "        ^\n" + "    </Button>\n");
 	}
 
+	@Test
 	public void testIndent() throws Exception {
 		checkInsertNewline("    <Button\n" + "        attr=\"value\"></Button>^\n",
 
 		"    <Button\n" + "        attr=\"value\"></Button>\n" + "    ^\n" + "");
 	}
 
+	@Test
 	public void testLineBeginning1() throws Exception {
 		// Test that if you insert on a blank line, we just add a newline and
 		// indent
@@ -228,6 +250,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"<foo>\n" + "\n" + "    ^\n" + "</foo>");
 	}
 
+	@Test
 	public void testLineBeginning2() throws Exception {
 		// Test that if you insert with the caret on the beginning of a line
 		// that has
@@ -237,6 +260,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"<foo>\n" + "\n" + "    ^<bar/>\n" + "</foo>");
 	}
 
+	@Test
 	public void testLineBeginning3() throws Exception {
 		checkInsertNewline("<foo>\n" + "    <bar>\n" + "^\n" + "        <baz/>\n" + "    </bar>\n" + "</foo>",
 
@@ -244,6 +268,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 
 	}
 
+	@Test
 	public void testLineBeginning4() throws Exception {
 		// Test that if you insert with the caret on the beginning of a line
 		// that has
@@ -253,6 +278,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"<foo>\n" + "    <bar>\n" + "\n" + "\n" + "        ^<baz/>\n" + "    </bar>\n" + "</foo>");
 	}
 
+	@Test
 	public void testLineBeginning5() throws Exception {
 		// Test that if you insert with the caret on the beginning of a line
 		// that has
@@ -262,6 +288,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		"<foo>\n" + "    <bar>\n" + "\n" + "    \n" + "        ^<baz/>\n" + "    </bar>\n" + "</foo>");
 	}
 
+	@Test
 	public void testLineBeginning6() throws Exception {
 
 		checkInsertNewline("    <foo>\n" + "        <bar>\n" + "            \n" + "        \n" + "^        </bar>\n"
@@ -271,6 +298,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 				+ "    </foo>\n");
 	}
 
+	@Test
 	public void testBlankContinuation() throws Exception {
 
 		checkInsertNewline("    <foo>\n" + "        <bar>\n" + "            ^\n" + "        </bar>\n" + "    </foo>\n"
@@ -280,6 +308,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 				+ "");
 	}
 
+	@Test
 	public void testIssue22332a() throws Exception {
 		checkInsertNewline("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + "<resources>\n" + "\n"
 				+ "    <string name=\"hello\">Hello World, MainActivity!</string>^\n" + "\n" + "</resources>",
@@ -289,6 +318,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 				+ "</resources>");
 	}
 
+	@Test
 	public void testIssue22332b() throws Exception {
 		checkInsertNewline("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + "<resources>\n" + "\n"
 				+ "    <string name=\"hello\">Hello World, MainActivity!</string>\n" + "    ^\n" + "\n"

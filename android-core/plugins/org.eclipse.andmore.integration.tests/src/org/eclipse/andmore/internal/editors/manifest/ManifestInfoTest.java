@@ -15,6 +15,7 @@
  */
 package org.eclipse.andmore.internal.editors.manifest;
 
+import static org.junit.Assert.*;
 import static com.android.resources.ScreenSize.LARGE;
 import static com.android.resources.ScreenSize.NORMAL;
 import static com.android.resources.ScreenSize.XLARGE;
@@ -34,6 +35,7 @@ import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttrib
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -49,6 +51,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		return true;
 	}
 
+	@Test
 	public void testGetActivityThemes1() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n"
@@ -61,6 +64,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("Theme", ResourceHelper.styleToTheme(info.getDefaultTheme(null, XLARGE)));
 	}
 
+	@Test
 	public void testGetActivityThemes2() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n"
@@ -72,6 +76,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("Theme", ResourceHelper.styleToTheme(info.getDefaultTheme(null, LARGE)));
 	}
 
+	@Test
 	public void testGetActivityThemes3() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n" + "    <uses-sdk android:minSdkVersion='11'/>\n"
@@ -83,6 +88,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("Theme", ResourceHelper.styleToTheme(info.getDefaultTheme(null, NORMAL)));
 	}
 
+	@Test
 	public void testGetActivityThemes4() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n" + "    <application\n"
@@ -103,6 +109,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("@android:style/Theme.Dialog", map.get("com.android.unittest.app.IntroActivity").getTheme());
 	}
 
+	@Test
 	public void testGetActivityThemes5() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n" + "    <application\n"
@@ -125,6 +132,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("@android:style/Theme.Dialog", map.get("com.android.unittest.app.IntroActivity").getTheme());
 	}
 
+	@Test
 	public void testGetActivityThemes6() throws Exception {
 		// Ensures that when the *rendering* target is less than version 11, we
 		// don't
@@ -143,6 +151,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 
 	}
 
+	@Test
 	public void testGetApplicationLabelAndIcon() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n" + "    <application android:icon=\"@drawable/icon\"\n"
@@ -157,6 +166,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		assertEquals("@string/app_name", info.getApplicationLabel());
 	}
 
+	@Test
 	public void testGetApplicationNoLabelOrIcon() throws Exception {
 		ManifestInfo info = getManifestInfo("<manifest xmlns:android='http://schemas.android.com/apk/res/android'\n"
 				+ "    package='com.android.unittest'>\n" + "    <application>\n" + "    </application>\n" + ""
@@ -184,6 +194,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		return info;
 	}
 
+	@Test
 	public void testGetMinSdkVersionName() throws Exception {
 		ManifestInfo info;
 

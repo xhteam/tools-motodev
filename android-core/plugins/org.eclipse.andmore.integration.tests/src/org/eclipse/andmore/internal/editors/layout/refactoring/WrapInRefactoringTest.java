@@ -15,28 +15,35 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.FQCN_GESTURE_OVERLAY_VIEW;
 import static com.android.SdkConstants.FQCN_LINEAR_LAYOUT;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.List;
 
+@Ignore("XMLUnit")
 public class WrapInRefactoringTest extends RefactoringTest {
 
+	@Test
 	public void testWrapIn1() throws Exception {
 		// Test wrapping view: should indent view
 		checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2");
 	}
 
+	@Test
 	public void testWrapIn2() throws Exception {
 		// Test wrapping the root: should move namespace
 		checkRefactoring("sample3.xml", FQCN_GESTURE_OVERLAY_VIEW, "@+id/newlinear");
 	}
 
+	@Test
 	public void testWrapIn3() throws Exception {
 		// Test wrap multiple adjacent elements - should wrap all as a unit
 		checkRefactoring("sample3.xml", FQCN_LINEAR_LAYOUT, "@+id/button2", "@+id/android_logo");

@@ -15,11 +15,15 @@
  */
 package org.eclipse.andmore.integration.tests;
 
+import static org.junit.Assert.*;
+
 import com.android.ide.common.sdk.LoadStatus;
+
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.AndroidTargetParser;
 import org.eclipse.andmore.internal.sdk.Sdk;
+
 import com.android.sdklib.IAndroidTarget;
 
 import org.eclipse.core.runtime.IStatus;
@@ -102,6 +106,7 @@ public abstract class SdkLoadingTestCase extends SdkTestCase {
 	 * @param sdk
 	 *            the {@link Sdk} to validate.
 	 */
+	@SuppressWarnings("unused")
 	private void validateSdk(Sdk sdk) {
 		assertTrue("sdk has no targets", sdk.getTargets().length > 0);
 		for (IAndroidTarget target : sdk.getTargets()) {
