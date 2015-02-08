@@ -32,6 +32,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Ignore
 public class ExtractStyleRefactoringTest extends RefactoringTest {
 	@Override
 	protected boolean testCaseNeedsUniqueProject() {

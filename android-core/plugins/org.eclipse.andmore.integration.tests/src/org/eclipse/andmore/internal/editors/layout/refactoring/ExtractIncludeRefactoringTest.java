@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.TextFileChange;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Ignore
 public class ExtractIncludeRefactoringTest extends RefactoringTest {
 
 	@Override
