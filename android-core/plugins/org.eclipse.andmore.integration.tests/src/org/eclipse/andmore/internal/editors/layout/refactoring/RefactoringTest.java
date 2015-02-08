@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
+
 import static com.android.SdkConstants.ANDROID_WIDGET_PREFIX;
 import static com.android.SdkConstants.DOT_XML;
 
@@ -43,6 +45,7 @@ import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
+import org.junit.Before;
 import org.w3c.dom.Element;
 
 import java.io.IOException;
@@ -62,7 +65,8 @@ public class RefactoringTest extends AdtProjectTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 
 		// Ensure that the defaults are initialized so for example formatting
 		// options are
@@ -321,11 +325,5 @@ public class RefactoringTest extends AdtProjectTest {
 		protected ViewInfo mViewInfo;
 		protected CanvasViewInfo mRootView;
 		protected TestLayoutEditorDelegate mLayoutEditorDelegate;
-	}
-
-	@Override
-	public void testDummy() {
-		// To avoid JUnit warning that this class contains no tests, even though
-		// this is an abstract class and JUnit shouldn't try
 	}
 }

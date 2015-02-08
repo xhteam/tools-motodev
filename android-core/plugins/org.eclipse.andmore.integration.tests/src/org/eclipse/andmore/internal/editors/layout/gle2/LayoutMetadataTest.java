@@ -15,6 +15,7 @@
  */
 package org.eclipse.andmore.internal.editors.layout.gle2;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.ATTR_ID;
 import static com.android.SdkConstants.ID_PREFIX;
 import static com.android.SdkConstants.NEW_ID_PREFIX;
@@ -39,6 +40,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -49,6 +51,7 @@ import org.w3c.dom.Node;
 // XML DOM model
 public class LayoutMetadataTest extends AdtProjectTest {
 
+	@Test
 	public void testMetadata1() throws Exception {
 		Pair<IDocument, UiElementNode> pair = getNode("metadata.xml", "listView1");
 		UiElementNode uiNode = pair.getSecond();

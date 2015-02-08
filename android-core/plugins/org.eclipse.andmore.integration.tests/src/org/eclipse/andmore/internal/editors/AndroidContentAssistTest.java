@@ -17,6 +17,7 @@
 
 package org.eclipse.andmore.internal.editors;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_ANIM;
 import static com.android.SdkConstants.FD_RES_ANIMATOR;
@@ -49,6 +50,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Ignore;
+import org.junit.Test;
 
 @SuppressWarnings("javadoc")
 public class AndroidContentAssistTest extends AdtProjectTest {
@@ -59,6 +62,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		return true;
 	}
 
+	@Test
 	public void testStartsWith() {
 		assertTrue(AndroidContentAssist.startsWith("", ""));
 		assertTrue(AndroidContentAssist.startsWith("a", ""));
@@ -72,6 +76,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		assertFalse(AndroidContentAssist.startsWith("", "ABc"));
 	}
 
+	@Test
 	public void testNameStartsWith() {
 		String fullWord = "android:marginTop";
 		for (int i = 0; i < fullWord.length(); i++) {
@@ -101,37 +106,44 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		assertFalse(AndroidContentAssist.nameStartsWith("", "ABc", null));
 	}
 
+	@Test
 	public void testCompletion1() throws Exception {
 		// Change attribute name completion
 		checkLayoutCompletion("completion1.xml", "layout_w^idth=\"fill_parent\"");
 	}
 
+	@Test
 	public void testCompletion2() throws Exception {
 		// Check attribute value completion for enum
 		checkLayoutCompletion("completion1.xml", "layout_width=\"^fill_parent\"");
 	}
 
+	@Test
 	public void testCompletion3() throws Exception {
 		// Check attribute value completion for enum with a prefix
 		checkLayoutCompletion("completion1.xml", "layout_width=\"fi^ll_parent\"");
 	}
 
+	@Test
 	public void testCompletion4() throws Exception {
 		// Check attribute value completion on units
 		checkLayoutCompletion("completion1.xml", "marginBottom=\"50^\"");
 	}
 
+	@Test
 	public void testCompletion5() throws Exception {
 		// Check attribute value completion on units with prefix
 		checkLayoutCompletion("completion1.xml", "layout_marginLeft=\"50d^p\"");
 	}
 
+	@Test
 	public void testCompletion6() throws Exception {
 		// Check resource sorting - "style" should bubble to the top for a style
 		// attribute
 		checkLayoutCompletion("completion1.xml", "style=\"@android:^style/Widget.Button\"");
 	}
 
+	@Test
 	public void testCompletion7a() throws Exception {
 		// Check flags (multiple values inside a single XML value, separated by
 		// | - where
@@ -139,10 +151,12 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "android:gravity=\"l^eft|bottom\"");
 	}
 
+	@Test
 	public void testCompletion7b() throws Exception {
 		checkLayoutCompletion("completion1.xml", "android:gravity=\"left|b^ottom\"");
 	}
 
+	@Test
 	public void testCompletion8() throws Exception {
 		// Test completion right at the "=" sign; this will be taken to be the
 		// last
@@ -152,6 +166,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "layout_width^=\"fill_parent\"");
 	}
 
+	@Test
 	public void testCompletion9() throws Exception {
 		// Test completion right after the "=" sign; this will be taken to be
 		// the beginning
@@ -160,11 +175,13 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "layout_width=^\"fill_parent\"");
 	}
 
+	@Test
 	public void testCompletion10() throws Exception {
 		// Test completion of element names
 		checkLayoutCompletion("completion1.xml", "<T^extView");
 	}
 
+	@Test
 	public void testCompletion11() throws Exception {
 		// Test completion of element names at the outside of the <. This should
 		// include
@@ -172,6 +189,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "^<TextView");
 	}
 
+	@Test
 	public void testCompletion12() throws Exception {
 		// Test completion of element names inside a nested XML; ensure that
 		// this will
@@ -179,43 +197,52 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "btn_default\">^</FrameLayout>");
 	}
 
+	@Test
 	public void testCompletion13a() throws Exception {
 		checkLayoutCompletion("completion2.xml", "gravity=\"left|bottom|^cen");
 	}
 
+	@Test
 	public void testCompletion13b() throws Exception {
 		checkLayoutCompletion("completion2.xml", "gravity=\"left|bottom|cen^");
 	}
 
+	@Test
 	public void testCompletion13c() throws Exception {
 		checkLayoutCompletion("completion2.xml", "gravity=\"left|bottom^|cen");
 	}
 
+	@Test
 	public void testCompletion14() throws Exception {
 		// Test completion of permissions
 		checkManifestCompletion("manifest.xml", "android.permission.ACC^ESS_NETWORK_STATE");
 	}
 
+	@Test
 	public void testCompletion15() throws Exception {
 		// Test completion of intents
 		checkManifestCompletion("manifest.xml", "android.intent.category.L^AUNCHER");
 	}
 
+	@Test
 	public void testCompletion16() throws Exception {
 		// Test completion of top level elements
 		checkManifestCompletion("manifest.xml", "<^application android:i");
 	}
 
+	@Test
 	public void testCompletion17() throws Exception {
 		// Test completion of attributes on the manifest element
 		checkManifestCompletion("manifest.xml", "^android:versionCode=\"1\"");
 	}
 
+	@Test
 	public void testCompletion18() throws Exception {
 		// Test completion of attributes on the manifest element
 		checkManifestCompletion("manifest.xml", "<activity android:^name=\".TestActivity\"");
 	}
 
+	@Test
 	public void testCompletion19() throws Exception {
 		// Test special case where completing on a new element in an otherwise
 		// blank line
@@ -223,14 +250,18 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("broken3.xml", "<EditT^");
 	}
 
+	@Test
 	public void testCompletion20() throws Exception {
 		checkLayoutCompletion("broken1.xml", "android:textColorHigh^");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion21() throws Exception {
 		checkLayoutCompletion("broken2.xml", "style=^");
 	}
 
+	@Test
 	public void testCompletion22() throws Exception {
 		// Test completion where the cursor is inside an element (e.g. the next
 		// char is NOT a <) - should not complete with end tags
@@ -239,73 +270,91 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 
 	// Test completion in style files
 
+	@Test
 	public void testCompletion23() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "android:textS^ize");
 	}
 
+	@Test
 	public void testCompletion24() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "17^sp");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion25() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "textColor\">^@color/title_color</item>");
 	}
 
+	@Test
 	public void testCompletion26() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"android:shadowColor\">@an^</item>");
 	}
 
+	@Test
 	public void testCompletion27() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"android:gravity\">^  </item>");
 	}
 
+	@Test
 	public void testCompletion28() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"android:gravity\">  ^</item>");
 	}
 
+	@Test
 	public void testCompletion29() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"gr^\">");
 	}
 
+	@Test
 	public void testCompletion30() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"an^\">");
 	}
 
+	@Test
 	public void testCompletion31() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item ^></item>");
 	}
 
+	@Test
 	public void testCompletion32() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"^\"></item>");
 	}
 
+	@Test
 	public void testCompletion33() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"android:allowSingleTap\">^</item>");
 	}
 
+	@Test
 	public void testCompletion34() throws Exception {
 		checkResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">^  false  </item>");
 	}
 
+	@Test
 	public void testCompletion35() throws Exception {
 		checkResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">  ^false  </item>");
 	}
 
+	@Test
 	public void testCompletion36() throws Exception {
 		checkResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">  f^alse  </item>");
 	}
 
+	@Test
 	public void testCompletion37() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "<item name=\"android:orientation\">h^</item>");
 	}
 
+	@Test
 	public void testCompletion38() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "           c^");
 	}
 
+	@Test
 	public void testCompletion39() throws Exception {
 		// If you are at the end of a closing quote (but with no space),
 		// completion should
@@ -313,129 +362,156 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkLayoutCompletion("completion1.xml", "marginBottom=\"50\"^");
 	}
 
+	@Test
 	public void testCompletion40() throws Exception {
 		// Same as test 39 but with single quote
 		checkLayoutCompletion("completion5.xml", "android:id='@+id/button2'^");
 	}
 
+	@Test
 	public void testCompletion41() throws Exception {
 		// Test prefix matching on layout_ with namespace prefix
 		checkLayoutCompletion("completion8.xml", "android:mar^=\"50dp\"");
 	}
 
+	@Test
 	public void testCompletion42() throws Exception {
 		// Test prefix matching on layout_ with namespace prefix
 		checkLayoutCompletion("completion8.xml", "android:w^i=\"100\"");
 	}
 
+	@Test
 	public void testCompletion43() throws Exception {
 		// Test prefix matching on layout_ without namespace prefix
 		checkLayoutCompletion("completion8.xml", "mar^=\"60dp\"");
 	}
 
+	@Test
 	public void testCompletion44() throws Exception {
 		// Test prefix matching on layout_ without namespace prefix
 		checkLayoutCompletion("completion8.xml", "android:layo^ut_width=\"fill_parent\"");
 	}
 
+	@Test
 	public void testCompletion45() throws Exception {
 		// Test top level elements in colors
 		checkColorCompletion("color1.xml", "^<selector");
 	}
 
+	@Test
 	public void testCompletion46a() throws Exception {
 		// Test children of selector: should offer item
 		checkColorCompletion("color1.xml", "^<item android");
 	}
 
+	@Test
 	public void testCompletion46b() throws Exception {
 		// Test attribute matching in color files
 		checkColorCompletion("color1.xml", "<item ^android:state_focused=\"true\"/>");
 	}
 
+	@Test
 	public void testCompletion47() throws Exception {
 		// Check root completion in drawables: should list all drawable root
 		// elements
 		checkDrawableCompletion("drawable1.xml", "^<layer-list");
 	}
 
+	@Test
 	public void testCompletion48() throws Exception {
 		// Check attributes of the layer list
 		checkDrawableCompletion("drawable1.xml", "^xmlns:android");
 	}
 
+	@Test
 	public void testCompletion49() throws Exception {
 		// Check attributes of the <item> element inside a <layer-list>
 		checkDrawableCompletion("drawable1.xml", "<item ^></item>");
 	}
 
+	@Test
 	public void testCompletion50() throws Exception {
 		// Check elements nested inside the <item> in a layer list: can use any
 		// drawable again
 		checkDrawableCompletion("drawable1.xml", "<item >^</item>");
 	}
 
+	@Test
 	public void testCompletion51() throws Exception {
 		// Check attributes of <shape> element
 		checkDrawableCompletion("drawable2.xml", "^android:innerRadiusRatio=\"2\"");
 	}
 
+	@Test
 	public void testCompletion52() throws Exception {
 		// Check list of available elements inside a shape
 		checkDrawableCompletion("drawable2.xml", "^<gradient");
 	}
 
+	@Test
 	public void testCompletion53() throws Exception {
 		// Check list of root anim elements
 		checkAnimCompletion("anim1.xml", "^<set xmlns");
 	}
 
+	@Test
 	public void testCompletion54() throws Exception {
 		// Check that we can nest inside <set>'s
 		checkAnimCompletion("anim1.xml", "^<translate android:id=");
 	}
 
+	@Test
 	public void testCompletion55() throws Exception {
 		// translate properties
 		checkAnimCompletion("anim1.xml", "android:^fromXDelta=");
 	}
 
+	@Test
 	public void testCompletion56() throws Exception {
 		// alpha properties
 		checkAnimCompletion("anim1.xml", "android:^fromAlpha=");
 	}
 
+	@Test
 	public void testCompletion57() throws Exception {
 		// Fractional properties
 		checkAnimCompletion("anim1.xml", "android:fromXDelta=\"100^%p\"");
 	}
 
+	@Test
 	public void testCompletion58() throws Exception {
 		// Top level animator elements
 		checkAnimatorCompletion("animator1.xml", "^<set xmlns");
 	}
 
+	@Test
 	public void testCompletion59() throws Exception {
 		// objectAnimator properties
 		checkAnimatorCompletion("animator1.xml", "android:^duration=\"2000\"");
 	}
 
+	@Test
 	public void testCompletion60() throws Exception {
 		// propertyName completion
 		checkAnimatorCompletion("animator1.xml", "android:propertyName=\"scal^eX\"/>");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion61() throws Exception {
 		// Interpolator completion
 		checkAnimatorCompletion("animator1.xml", "android:interpolator=\"^@android:anim/bounce_interpolator\"");
 	}
 
+	@Test
 	public void testCompletion62() throws Exception {
 		// Test completing inside an element that contains .'s, such as a custom
 		// view tag
 		checkLayoutCompletion("completion9.xml", "android:layout_wi^dth=");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion63() throws Exception {
 		// Test attribute completion inside a custom view tag
 		// TODO: This works in a running IDE but not in a test context; figure
@@ -443,81 +519,104 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		// checkLayoutCompletion("completion9.xml", "android:drawable^Top");
 	}
 
+	@Test
 	public void testCompletion64() throws Exception {
 		// Test element completion inside a custom view tag
 		checkLayoutCompletion("completion9.xml", "^<Button");
 	}
 
+	@Test
 	public void testCompletion65() throws Exception {
 		// Test completion replacement when there is a selection
 		// (see issue http://code.google.com/p/android/issues/detail?id=18607 )
 		checkLayoutCompletion("completion10.xml", "\"[^wrap_content]\"");
 	}
 
+	@Test
 	public void testCompletion66() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "17[^sp]");
 	}
 
+	@Test
 	public void testCompletion67() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "17[^sp]");
 	}
 
+	@Test
 	public void testCompletion68() throws Exception {
 		checkResourceCompletion("completionvalues1.xml", "[^false]");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion69() throws Exception {
 		// Test minimum SDK completion
 		checkManifestCompletion("manifest.xml", "<uses-sdk android:minSdkVersion=\"^11\" />");
 	}
 
+	@Test
+	@Ignore
 	public void testCompletion70() throws Exception {
 		checkResourceCompletion("completionvalues2.xml", "<item name=\"main_layout4\" type=\"layout\">^</item>");
 	}
 
+	@Test
 	public void testCompletion71() throws Exception {
 		checkResourceCompletion("completionvalues2.xml",
 				"<item name=\"main_layout5\" type=\"string\">@string/^app_name</item>");
 	}
 
+	@Test
 	public void testCompletion72() throws Exception {
 		// Test completion of theme attributes
 		checkLayoutCompletion("completion11.xml", "?^android:attr/Textapp");
 	}
 
+	@Test
 	public void testCompletion73() throws Exception {
 		checkLayoutCompletion("completion11.xml", "?android:attr/Textapp^");
 	}
 
+	@Test
 	public void testCompletion74() throws Exception {
 		checkLayoutCompletion("completion11.xml", "?and^roid:attr/Textapp");
 	}
 
+	@Test
 	public void testCompletion75() throws Exception {
 		// Test <include> attributes
 		checkLayoutCompletion("completion12.xml", "<include ^/>");
 	}
 
+	@Test
 	public void testComplation76() throws Exception {
 		// Test theme completion with implicit attr
 		checkLayoutCompletion("navigation1.xml", "?android:a^ttr/alertDialogStyle");
 	}
 
+	@Test
+	@Ignore
 	public void testComplation77() throws Exception {
 		// Test <fragment class="^" completion
 		checkLayoutCompletion("fragmentlayout.xml", "android:name=\"^com");
 	}
 
+	@Test
+	@Ignore
 	public void testComplation78() throws Exception {
 		// Test <fragment android:name="^" completion
 		checkLayoutCompletion("fragmentlayout.xml", "class=\"^com");
 	}
 
+	@Test
+	@Ignore
 	public void testComplation79() throws Exception {
 		// Test tools context completion
 		checkLayoutCompletion("completion11.xml", "tools:context=\"^.MainActivity\"");
 	}
 
+	@Test
+	@Ignore
 	public void testComplation80() throws Exception {
 		// Test manifest class completion
 		checkManifestCompletion("manifest.xml", "<activity android:name=\"^.");
@@ -531,37 +630,44 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 	// match - this verifies that the document is updated correctly, the
 	// caret is moved appropriately, etc.
 
+	@Test
 	public void testApplyCompletion1() throws Exception {
 		// Change attribute name completion
 		checkApplyLayoutCompletion("completion1.xml", "layout_w^idth=\"fill_parent\"", "android:layout_weight");
 	}
 
+	@Test
 	public void testApplyCompletion2() throws Exception {
 		// Check attribute value completion for enum
 		checkApplyLayoutCompletion("completion1.xml", "layout_width=\"^fill_parent\"", "match_parent");
 	}
 
+	@Test
 	public void testApplyCompletion3() throws Exception {
 		// Check attribute value completion for enum with a prefix
 		checkApplyLayoutCompletion("completion1.xml", "layout_width=\"fi^ll_parent\"", "fill_parent");
 	}
 
+	@Test
 	public void testApplyCompletion4() throws Exception {
 		// Check attribute value completion on units
 		checkApplyLayoutCompletion("completion1.xml", "marginBottom=\"50^\"", "50mm");
 	}
 
+	@Test
 	public void testApplyCompletion5() throws Exception {
 		// Check attribute value completion on units with prefix
 		checkApplyLayoutCompletion("completion1.xml", "layout_marginLeft=\"50d^p\"", "50dp");
 	}
 
+	@Test
 	public void testApplyCompletion6() throws Exception {
 		// Check resource sorting - "style" should bubble to the top for a style
 		// attribute
 		checkApplyLayoutCompletion("completion1.xml", "style=\"@android:^style/Widget.Button\"", "@android:drawable/");
 	}
 
+	@Test
 	public void testApplyCompletion7a() throws Exception {
 		// Check flags (multiple values inside a single XML value, separated by
 		// | - where
@@ -574,6 +680,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		// of the value.
 	}
 
+	@Test
 	public void testApplyCompletion7b() throws Exception {
 		checkApplyLayoutCompletion("completion1.xml", "android:gravity=\"left|b^ottom\"", "bottom");
 		// NOTE - this will replace all flag values with the newly selected
@@ -583,6 +690,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		// of the value.
 	}
 
+	@Test
 	public void testApplyCompletion8() throws Exception {
 		// Test completion right at the "=" sign; this will be taken to be the
 		// last
@@ -592,6 +700,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "layout_width^=\"fill_parent\"", "android:layout_width");
 	}
 
+	@Test
 	public void testApplyCompletion9() throws Exception {
 		// Test completion right after the "=" sign; this will be taken to be
 		// the beginning
@@ -600,11 +709,13 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "layout_width=^\"fill_parent\"", "\"wrap_content\"");
 	}
 
+	@Test
 	public void testApplyCompletion10() throws Exception {
 		// Test completion of element names
 		checkApplyLayoutCompletion("completion1.xml", "<T^extView", "TableLayout");
 	}
 
+	@Test
 	public void testApplyCompletion11a() throws Exception {
 		// Test completion of element names at the outside of the <. This should
 		// include
@@ -612,6 +723,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "^<TextView", "<RadioGroup ></RadioGroup>");
 	}
 
+	@Test
 	public void testApplyCompletion11b() throws Exception {
 		// Similar to testApplyCompletion11a, but replacing with an element that
 		// does not
@@ -619,6 +731,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "^<TextView", "<CheckBox />");
 	}
 
+	@Test
 	public void testApplyCompletion12() throws Exception {
 		// Test completion of element names inside a nested XML; ensure that
 		// this will
@@ -626,18 +739,22 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "btn_default\">^</FrameLayout>", "<FrameLayout ></FrameLayout>");
 	}
 
+	@Test
 	public void testApplyCompletion13a() throws Exception {
 		checkApplyLayoutCompletion("completion2.xml", "gravity=\"left|bottom|^cen", "fill_vertical");
 	}
 
+	@Test
 	public void testApplyCompletion13b() throws Exception {
 		checkApplyLayoutCompletion("completion2.xml", "gravity=\"left|bottom|cen^", "center_horizontal");
 	}
 
+	@Test
 	public void testApplyCompletion13c() throws Exception {
 		checkApplyLayoutCompletion("completion2.xml", "gravity=\"left|bottom^|cen", "bottom|fill_horizontal");
 	}
 
+	@Test
 	public void testApplyCompletion14() throws Exception {
 		// Test special case where completing on a new element in an otherwise
 		// blank line
@@ -645,36 +762,43 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("broken3.xml", "<EditT^", "EditText />");
 	}
 
+	@Test
 	public void testApplyCompletion15() throws Exception {
 		checkApplyLayoutCompletion("broken1.xml", "android:textColorHigh^", "android:textColorHighlight");
 	}
 
+	@Test
 	public void testApplyCompletion16() throws Exception {
 		checkApplyLayoutCompletion("broken2.xml", "style=^", "\"@android:\"");
 	}
 
+	@Test
 	public void testApplyCompletion17() throws Exception {
 		// Make sure that completion right before a / inside an element still
 		// inserts the ="" part (e.g. handles it as "insertNew)
 		checkApplyLayoutCompletion("completion3.xml", "<EditText ^/>", "android:textColorHighlight");
 	}
 
+	@Test
 	public void testApplyCompletion18() throws Exception {
 		// Make sure that completion right before a > inside an element still
 		// inserts the ="" part (e.g. handles it as "insertNew)
 		checkApplyLayoutCompletion("completion3.xml", "<Button ^></Button>", "android:paddingRight");
 	}
 
+	@Test
 	public void testApplyCompletion19() throws Exception {
 		// Test completion with single quotes (apostrophe)
 		checkApplyLayoutCompletion("completion5.xml", "android:orientation='^'", "horizontal");
 	}
 
+	@Test
 	public void testApplyCompletion20() throws Exception {
 		// Test completion with single quotes (apostrophe)
 		checkApplyLayoutCompletion("completion5.xml", "android:layout_marginTop='50^dp'", "50pt");
 	}
 
+	@Test
 	public void testApplyCompletion21() throws Exception {
 		// Test completion with single quotes (apostrophe)
 		checkApplyLayoutCompletion("completion5.xml", "android:layout_width='^wrap_content'", "match_parent");
@@ -684,11 +808,13 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		// "\"match_parent\"");
 	}
 
+	@Test
 	public void testApplyCompletion22() throws Exception {
 		// Test completion in an empty string
 		checkApplyLayoutCompletion("completion6.xml", "android:orientation=\"^\"", "horizontal");
 	}
 
+	@Test
 	public void testApplyCompletion23() throws Exception {
 		// Test completion in an empty string
 		checkApplyLayoutCompletion("completion7.xml", "android:orientation=\"^", "horizontal");
@@ -696,76 +822,93 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 
 	// Test completion in style files
 
+	@Test
 	public void testApplyCompletion24a() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "android:textS^ize", "android:textSelectHandleLeft");
 	}
 
+	@Test
 	public void testApplyCompletion24b() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "17^sp", "17mm");
 	}
 
+	@Test
 	public void testApplyCompletion25() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "textColor\">^@color/title_color</item>", "@android:");
 	}
 
+	@Test
 	public void testApplyCompletion26() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"android:shadowColor\">@an^</item>",
 				"@android:");
 	}
 
+	@Test
 	public void testApplyCompletion27() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"android:gravity\">^  </item>",
 				"center_vertical");
 	}
 
+	@Test
 	public void testApplyCompletion28() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"android:gravity\">  ^</item>", "left");
 	}
 
+	@Test
 	public void testApplyCompletion29() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"gr^\">", "android:gravity");
 	}
 
+	@Test
 	public void testApplyCompletion30() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"an^\">", "android:animateOnClick");
 	}
 
+	@Test
 	public void testApplyCompletion31() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item ^></item>", "name");
 	}
 
+	@Test
 	public void testApplyCompletion32() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"^\"></item>", "android:background");
 	}
 
+	@Test
 	public void testApplyCompletion33() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"android:allowSingleTap\">^</item>", "true");
 	}
 
+	@Test
 	public void testApplyCompletion34() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">^  false  </item>", "true");
 	}
 
+	@Test
 	public void testApplyCompletion35() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">  ^false  </item>", "true");
 	}
 
+	@Test
 	public void testApplyCompletion36() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml",
 				"<item name=\"android:alwaysDrawnWithCache\">  f^alse  </item>", "false");
 	}
 
+	@Test
 	public void testApplyCompletion37() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "<item name=\"android:orientation\">h^</item>",
 				"horizontal");
 	}
 
+	@Test
 	public void testApplyCompletion38() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "           c^", "center");
 	}
 
+	@Test
 	public void testApplyCompletion39() throws Exception {
 		// If you are at the end of a closing quote (but with no space),
 		// completion should
@@ -773,6 +916,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion1.xml", "marginBottom=\"50\"^", " android:maxEms");
 	}
 
+	@Test
 	public void testApplyCompletion40() throws Exception {
 		// If you are at the end of a closing quote (but with no space),
 		// completion should
@@ -780,35 +924,43 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		checkApplyLayoutCompletion("completion5.xml", "android:id='@+id/button2'^", " android:maxWidth");
 	}
 
+	@Test
 	public void testApplyCompletion41() throws Exception {
 		// Test prefix matching on layout_ with namespace prefix
 		checkApplyLayoutCompletion("completion8.xml", "android:mar^=\"50dp\"", "android:layout_marginRight");
 	}
 
+	@Test
 	public void testApplyCompletion42() throws Exception {
 		// Test completion replacement when there is a selection
 		// (see issue http://code.google.com/p/android/issues/detail?id=18607 )
 		checkApplyLayoutCompletion("completion10.xml", "\"[^wrap_content]\"", "fill_parent");
 	}
 
+	@Test
 	public void testApplyCompletion43() throws Exception {
 		// Same as testApplyCompletion42 but with a smaller selection range
 		checkApplyLayoutCompletion("completion10.xml", "\"[^wrap_c]ontent\"", "fill_parent");
 	}
 
+	@Test
 	public void testApplyCompletion44() throws Exception {
 		checkApplyResourceCompletion("completionvalues1.xml", "[^false]", "true");
 	}
 
+	@Test
+	@Ignore
 	public void testApplyCompletion45() throws Exception {
 		checkApplyResourceCompletion("completionvalues2.xml", "@string/^app_name", "@string/hello");
 	}
 
+	@Test
 	public void testApplyCompletion46() throws Exception {
 		checkApplyLayoutCompletion("completion11.xml", "?android:attr/Textapp^",
 				"?android:attr/textAppearanceLargeInverse");
 	}
 
+	@Test
 	public void testApplyCompletion47() throws Exception {
 		// Test applying <fragment android:name="^" completion
 		checkApplyLayoutCompletion("fragmentlayout.xml", "class=\"^com", "android.app.ListFragment");

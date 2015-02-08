@@ -15,20 +15,24 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
 import static org.eclipse.andmore.internal.editors.layout.refactoring.UseCompoundDrawableRefactoring.combine;
 
 import org.eclipse.andmore.AdtUtils;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.List;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class UseCompoundDrawableRefactoringTest extends RefactoringTest {
+	@Test
 	public void testCombine() throws Exception {
 		assertNull(combine(null, null));
 		assertNull(combine("@dimen/foo", "@dimen/bar"));
@@ -46,26 +50,31 @@ public class UseCompoundDrawableRefactoringTest extends RefactoringTest {
 		assertEquals("50dp", combine("30dp", "20dp"));
 	}
 
+	@Test
 	public void test1() throws Exception {
 		// Test converting an image above a text view
 		checkRefactoring("refactoring/usecompound/compound1.xml", "@+id/layout1");
 	}
 
+	@Test
 	public void test2() throws Exception {
 		// Test converting an image below a text view
 		checkRefactoring("refactoring/usecompound/compound2.xml", "@+id/layout2");
 	}
 
+	@Test
 	public void test3() throws Exception {
 		// Test converting an image to the left of a text view
 		checkRefactoring("refactoring/usecompound/compound3.xml", "@+id/layout3");
 	}
 
+	@Test
 	public void test4() throws Exception {
 		// Test converting an image to the right of a text view
 		checkRefactoring("refactoring/usecompound/compound4.xml", "@+id/layout4");
 	}
 
+	@Test
 	public void test5() throws Exception {
 		// Test converting an image where the LinearLayout is referenced (in a
 		// relative layout)
@@ -73,6 +82,7 @@ public class UseCompoundDrawableRefactoringTest extends RefactoringTest {
 		checkRefactoring("refactoring/usecompound/compound_all.xml", "@+id/layout2");
 	}
 
+	@Test
 	public void test6() throws Exception {
 		// Test converting an image where the LinearLayout is referenced (in a
 		// relative layout)
@@ -80,16 +90,19 @@ public class UseCompoundDrawableRefactoringTest extends RefactoringTest {
 		checkRefactoring("refactoring/usecompound/compound_all.xml", "@+id/layout3");
 	}
 
+	@Test
 	public void test7() throws Exception {
 		// Test converting where a namespace needs to be migrated
 		checkRefactoring("refactoring/usecompound/compound5.xml", "@+id/layout");
 	}
 
+	@Test
 	public void test8() throws Exception {
 		// Test padding handling
 		checkRefactoring("refactoring/usecompound/compound6.xml", "@+id/layout1");
 	}
 
+	@Test
 	public void test9() throws Exception {
 		// Test margin combination
 		checkRefactoring("refactoring/usecompound/compound7.xml", "@+id/layout1");

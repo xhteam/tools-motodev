@@ -16,6 +16,7 @@
 
 package org.eclipse.andmore.internal.build;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_COLOR;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
@@ -45,6 +46,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,22 +62,28 @@ public class AaptQuickFixTest extends AdtProjectTest {
 		return true;
 	}
 
+	@Test
+	@Ignore("XMLUnit")
 	public void testQuickFix1() throws Exception {
 		// Test adding a value into an existing file (res/values/strings.xml)
 		checkResourceFix("quickfix1.xml", "android:text=\"@string/firs^tstring\"", "res/values/strings.xml");
 	}
 
+	@Test
 	public void testQuickFix2() throws Exception {
 		// Test adding a value into a new file (res/values/dimens.xml, will be
 		// created)
 		checkResourceFix("quickfix1.xml", "android:layout_width=\"@dimen/^testdimen\"", "res/values/dimens.xml");
 	}
 
+	@Test
+	@Ignore("XMLUnit")
 	public void testQuickFix3() throws Exception {
 		// Test adding a file based resource (uses new file wizard machinery)
 		checkResourceFix("quickfix1.xml", "layout=\"@layout/^testlayout\"", "res/layout/testlayout.xml");
 	}
 
+	@Test
 	public void testQuickFix4() throws Exception {
 		// Test adding a value into a new file (res/values/dimens.xml, will be
 		// created)

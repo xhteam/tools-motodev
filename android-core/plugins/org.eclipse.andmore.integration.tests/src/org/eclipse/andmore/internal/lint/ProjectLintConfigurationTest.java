@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.lint;
 
+import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.checks.DuplicateIdDetector;
@@ -31,11 +33,14 @@ import com.android.tools.lint.detector.api.Severity;
 
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.core.resources.IProject;
+import org.junit.Test;
 
 import java.io.File;
 
 @SuppressWarnings("javadoc")
 public class ProjectLintConfigurationTest extends AdtProjectTest {
+
+	@Test
 	public void testBasic() {
 		Configuration parent = null;
 		LintClient client = new TestClient();
@@ -68,6 +73,7 @@ public class ProjectLintConfigurationTest extends AdtProjectTest {
 		assertTrue(config.isEnabled(usuallyDisabledIssue));
 	}
 
+	@Test
 	public void testInheritance() {
 		Configuration parent = null;
 		LintClient client = new TestClient();
@@ -124,6 +130,7 @@ public class ProjectLintConfigurationTest extends AdtProjectTest {
 		assertTrue(config.isEnabled(usuallyDisabledIssue));
 	}
 
+	@Test
 	public void testBulkEditing() {
 		Configuration parent = null;
 		LintClient client = new TestClient();
@@ -168,6 +175,7 @@ public class ProjectLintConfigurationTest extends AdtProjectTest {
 		assertTrue(config.isEnabled(usuallyDisabledIssue));
 	}
 
+	@Test
 	public void testPersistence() {
 		// Ensure that we use the same configuration object repeatedly for a
 		// single project, such that we don't recompute and parse XML for each
@@ -182,7 +190,7 @@ public class ProjectLintConfigurationTest extends AdtProjectTest {
 
 	@Override
 	protected File getTargetDir() {
-		File targetDir = new File(getTempDir(), getClass().getSimpleName() + "_" + getName());
+		File targetDir = new File(getTempDir(), getClass().getSimpleName() + "_" + name.getMethodName());
 		addCleanupDir(targetDir);
 		return targetDir;
 	}

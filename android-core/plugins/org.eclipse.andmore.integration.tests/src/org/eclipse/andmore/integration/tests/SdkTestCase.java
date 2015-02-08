@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.integration.tests;
 
+import static org.junit.Assert.*;
+
 import com.android.SdkConstants;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Sets;
@@ -22,6 +24,7 @@ import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +34,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import org.junit.Rule;
+import org.junit.rules.TestName;
+
 import junit.framework.TestCase;
 
 /**
@@ -39,7 +46,12 @@ import junit.framework.TestCase;
  * comparing golden files, computing string diffs, etc.
  */
 @SuppressWarnings("javadoc")
-public abstract class SdkTestCase extends TestCase {
+
+
+public abstract class SdkTestCase {
+	
+	@Rule public TestName name = new TestName();
+	
 	/** Update golden files if different from the actual results */
 	private static final boolean UPDATE_DIFFERENT_FILES = false;
 	/** Create golden files if missing */
@@ -190,7 +202,7 @@ public abstract class SdkTestCase extends TestCase {
 	}
 
 	protected void assertEqualsGolden(String basename, String actual, String newExtension) throws IOException {
-		String testName = getName();
+		String testName = name.getMethodName();
 		if (testName.startsWith("test")) {
 			testName = testName.substring(4);
 			if (Character.isUpperCase(testName.charAt(0))) {

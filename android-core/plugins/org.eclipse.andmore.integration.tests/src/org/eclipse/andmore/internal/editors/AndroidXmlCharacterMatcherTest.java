@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.editors;
 
+import static org.junit.Assert.*;
+
 import org.eclipse.andmore.internal.editors.AndroidXmlCharacterMatcher;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
@@ -26,53 +28,66 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.junit.Test;
 
 @SuppressWarnings("restriction")
 public class AndroidXmlCharacterMatcherTest extends AdtProjectTest {
+	@Test
 	public void testGotoMatchingFwd1() throws Exception {
 		checkGotoMatching("<app^lication android:icon", "^</application>");
 	}
 
+	@Test
 	public void testGotoMatchingFwd2() throws Exception {
 		checkGotoMatching("^<application android:icon", "^</application>");
 	}
 
+	@Test
 	public void testGotoMatchingFwd3() throws Exception {
 		checkGotoMatching("<application^ android:icon", "^</application>");
 	}
 
+	@Test
 	public void testGotoMatchingBwd1() throws Exception {
 		checkGotoMatching("^</application>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingBwd2() throws Exception {
 		checkGotoMatching("<^/application>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingBwd3() throws Exception {
 		checkGotoMatching("</^application>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingBwd4() throws Exception {
 		checkGotoMatching("</app^lication>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingBwd5() throws Exception {
 		checkGotoMatching("</^application>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingBwd6() throws Exception {
 		checkGotoMatching("</^application>", "^<application android:icon");
 	}
 
+	@Test
 	public void testGotoMatchingFwd4() throws Exception {
 		checkGotoMatching("<intent-filter^>", "^</intent-filter>");
 	}
 
+	@Test
 	public void testGotoMatchingFwd5() throws Exception {
 		checkGotoMatching("<intent-filter>^", "^</intent-filter>");
 	}
 
+	@Test
 	public void testGotoMatchingFallback() throws Exception {
 		// Character matching is done by the superclass; ensure that fallback to
 		// the

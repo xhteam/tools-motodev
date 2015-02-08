@@ -18,6 +18,7 @@ package org.eclipse.andmore.internal.editors.layout.refactoring;
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 import static com.android.SdkConstants.FD_RES_VALUES;
+import static org.junit.Assert.*;
 
 import com.android.ide.common.sdk.LoadStatus;
 
@@ -58,6 +59,7 @@ import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.junit.Before;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -98,10 +100,8 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 		return stream;
 	}
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
+	@Before
+	public void setUp() throws Exception {
 		// Prevent preview icon computation during plugin test to make test
 		// faster
 		if (AdtPlugin.getDefault() == null) {
@@ -185,7 +185,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	 */
 	private String getProjectName() {
 		if (testNeedsUniqueProject()) {
-			return PROJECTNAME_PREFIX + getClass().getSimpleName() + "-" + getName();
+			return PROJECTNAME_PREFIX + getClass().getSimpleName() + "-" + name.getMethodName();
 		} else if (testCaseNeedsUniqueProject()) {
 			return PROJECTNAME_PREFIX + getClass().getSimpleName();
 		} else {
@@ -489,13 +489,5 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 				return null;
 			}
 		}
-	}
-
-	public void testDummy() {
-		// This class contains shared test functionality for testcase
-		// subclasses,
-		// but without an actual test in the class JUnit complains (even if we
-		// make
-		// it abstract)
 	}
 }

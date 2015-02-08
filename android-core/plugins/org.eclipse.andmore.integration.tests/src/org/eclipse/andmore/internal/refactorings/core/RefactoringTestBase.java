@@ -15,9 +15,13 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
+import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+
 import org.eclipse.andmore.AdtUtils;
+
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.io.ByteStreams;
@@ -41,6 +45,7 @@ import org.eclipse.ltk.core.refactoring.TextFileChange;
 import org.eclipse.ltk.core.refactoring.resource.MoveResourceChange;
 import org.eclipse.ltk.core.refactoring.resource.RenameResourceChange;
 import org.eclipse.text.edits.TextEdit;
+import org.junit.Before;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +61,8 @@ public abstract class RefactoringTestBase extends AdtProjectTest {
 	}
 
 	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// Not calling super.setUp
 	}
 
@@ -101,7 +107,7 @@ public abstract class RefactoringTestBase extends AdtProjectTest {
 	}
 
 	protected IProject createProject(Object[] testData) throws Exception {
-		String name = getName();
+		String name = super.name.getMethodName();
 		IProject project = createProject(name);
 		mProject = project;
 		File projectDir = AdtUtils.getAbsolutePath(project).toFile();
