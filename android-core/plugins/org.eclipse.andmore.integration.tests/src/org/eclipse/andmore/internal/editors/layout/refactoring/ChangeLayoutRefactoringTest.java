@@ -24,20 +24,26 @@ import org.eclipse.andmore.internal.editors.layout.refactoring.ChangeLayoutRefac
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class ChangeLayoutRefactoringTest extends RefactoringTest {
 
+	@Test
 	public void testChangeLayout1a() throws Exception {
 		// Test a basic layout which performs some nesting -- tests basic grid
 		// layout conversion
 		checkRefactoring("sample1a.xml", true);
 	}
 
+	
+	@Test
 	public void testChangeLayout1b() throws Exception {
 		// Same as 1a, but with different formatting to look for edit handling
 		// to for example
@@ -45,11 +51,13 @@ public class ChangeLayoutRefactoringTest extends RefactoringTest {
 		checkRefactoring("sample1b.xml", true);
 	}
 
+	@Test
 	public void testChangeLayout2() throws Exception {
 		// Test code which analyzes an embedded RelativeLayout
 		checkRefactoring("sample2.xml", true);
 	}
 
+	@Test
 	public void testChangeLayout3() throws Exception {
 		// Test handling of LinearLayout "weight" attributes on its children:
 		// the child with
@@ -58,38 +66,46 @@ public class ChangeLayoutRefactoringTest extends RefactoringTest {
 		checkRefactoring("sample3.xml", true);
 	}
 
+	@Test
 	public void testChangeLayout4() throws Exception {
 		checkRefactoring("sample4.xml", true);
 	}
 
+	@Test
 	public void testChangeLayout5() throws Exception {
 		// Test handling of LinearLayout "gravity" attributes on its children
 		checkRefactoring("sample5.xml", true);
 	}
 
+	@Test
 	public void testChangeLayout6() throws Exception {
 		// Check handling of the LinearLayout "baseline" attribute
 		checkRefactoring("sample6.xml", true);
 	}
 
+	@Test
 	public void testGridLayout1() throws Exception {
 		checkRefactoring(FQCN_GRID_LAYOUT, "sample1a.xml", true);
 	}
 
+	@Test
 	public void testGridLayout2() throws Exception {
 		// Test code which analyzes an embedded RelativeLayout
 		checkRefactoring(FQCN_GRID_LAYOUT, "sample2.xml", true);
 	}
 
+	@Test
 	public void testGridLayout5() throws Exception {
 		// Test handling of LinearLayout "gravity" attributes on its children
 		checkRefactoring(FQCN_GRID_LAYOUT, "sample5.xml", true);
 	}
 
+	@Test
 	public void testConvertToGrid() throws Exception {
 		checkRefactoring(FQCN_GRID_LAYOUT, "sample9.xml", true);
 	}
 
+	@Test
 	public void testConvertFromGrid() throws Exception {
 		checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true);
 	}
@@ -98,10 +114,12 @@ public class ChangeLayoutRefactoringTest extends RefactoringTest {
 		checkRefactoring(FQCN_RELATIVE_LAYOUT, basename, flatten);
 	}
 
+	@Test
 	public void testInitialAttributes() throws Exception {
 		checkRefactoring(FQCN_LINEAR_LAYOUT, "sample10.xml", true, "android:orientation=vertical");
 	}
 
+	@Test
 	public void testInsertSpacer() throws Exception {
 		checkRefactoring(FQCN_GRID_LAYOUT, "sample11.xml", true);
 	}

@@ -24,6 +24,7 @@
 					<skipTests>false</skipTests>
 					<testFailureIgnore>true</testFailureIgnore>
 					<useUIHarness>true</useUIHarness>
+					<forkedProcessTimeoutInSeconds>120</forkedProcessTimeoutInSeconds>
 					<argLine>${os-jvm-flags}</argLine>
 				</configuration>
 			</plugin>

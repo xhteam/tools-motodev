@@ -43,6 +43,7 @@ public class RenderLoggerTest {
     }
 
 	@Test
+	@Ignore
     public void testLogger3() throws Exception {
         RenderLogger l = new RenderLogger("foo", null);
         assertFalse(l.hasProblems());

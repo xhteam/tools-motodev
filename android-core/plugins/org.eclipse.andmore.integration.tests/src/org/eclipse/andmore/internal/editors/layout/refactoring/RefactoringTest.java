@@ -59,7 +59,7 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings("restriction")
 @Ignore
-public class RefactoringTest extends AdtProjectTest {
+public abstract class RefactoringTest extends AdtProjectTest {
 
 	protected boolean autoFormat() {
 		return true;
