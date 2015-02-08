@@ -17,7 +17,6 @@
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
 import static org.junit.Assert.*;
-
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 
@@ -32,8 +31,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class RefactoringAssistantTest extends AdtProjectTest {
 	@Test
 	public void testAssistant1() throws Exception {

@@ -104,9 +104,11 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	public void setUp() throws Exception {
 		// Prevent preview icon computation during plugin test to make test
 		// faster
+		
 		if (AdtPlugin.getDefault() == null) {
 			fail("This test must be run as an Eclipse plugin test, not a plain JUnit test!");
 		}
+				
 		AdtPrefs.getPrefs().setPaletteModes("ICON_TEXT"); //$NON-NLS-1$
 
 		getProject();

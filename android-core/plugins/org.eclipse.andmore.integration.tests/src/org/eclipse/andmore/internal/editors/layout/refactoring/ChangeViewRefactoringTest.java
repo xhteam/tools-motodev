@@ -31,6 +31,7 @@ import java.util.List;
 public class ChangeViewRefactoringTest extends RefactoringTest {
 
 	@Test
+	@Ignore
 	public void testChangeView1() throws Exception {
 		checkRefactoring("sample1a.xml", FQCN_RADIO_BUTTON, "@+id/button1", "@+id/button6");
 	}

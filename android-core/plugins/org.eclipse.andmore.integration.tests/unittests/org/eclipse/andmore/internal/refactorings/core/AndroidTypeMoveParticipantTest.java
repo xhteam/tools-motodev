@@ -44,6 +44,7 @@ import org.junit.Test;
 @Ignore("Popups Dialog")
 public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
 	@Test
+	@Ignore
     public void testRefactor1() throws Exception {
         moveType(
                 TEST_PROJECT2,
@@ -70,6 +71,7 @@ public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
     }
 
 	@Test
+	@Ignore
     public void testRefactorFragment() throws Exception {
         moveType(
                 TEST_PROJECT2,

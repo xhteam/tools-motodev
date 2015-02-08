@@ -21,6 +21,9 @@ import org.eclipse.andmore.internal.editors.AndroidXmlAutoEditStrategy;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -29,6 +32,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
@@ -97,6 +101,17 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 		int index = s.indexOf('^');
 		assertTrue(index != -1);
 		return s.substring(0, index) + s.substring(index + 1);
+	}
+	
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		// Make sure the workspace is clean.
+		IProject projects[] = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for(IProject project : projects) {
+			project.delete(true, new NullProgressMonitor());
+		}
+		super.setUp();
 	}
 
 	@Test
