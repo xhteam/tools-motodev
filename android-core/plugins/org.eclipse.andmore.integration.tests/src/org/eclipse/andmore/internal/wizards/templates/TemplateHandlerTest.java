@@ -15,6 +15,7 @@
  */
 package org.eclipse.andmore.internal.wizards.templates;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.CURRENT_PLATFORM;
 import static com.android.SdkConstants.FD_TOOLS;
 import static com.android.SdkConstants.PLATFORM_WINDOWS;
@@ -71,6 +72,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -93,6 +97,7 @@ import java.util.Set;
  * multiple instances of the templates (to look for resource conflicts)
  */
 @SuppressWarnings("javadoc")
+@Ignore
 public class TemplateHandlerTest extends SdkLoadingTestCase {
 	/**
 	 * Flag used to quickly check each template once (for one version), to get
@@ -121,9 +126,8 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 	 */
 	private static final Set<File> sTemplateTestedSeparately = Sets.newHashSet();
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		mApiSensitiveTemplate = true;
 	}
 
@@ -156,6 +160,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 		}
 	}
 
+	@Test
 	public void testNewBlankProject() throws Exception {
 		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.start();
@@ -164,67 +169,82 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 		System.out.println("Checked blank project successfully in " + stopwatch.toString());
 	}
 
+	@Test
 	public void testNewBlankActivity() throws Exception {
 		checkCreateTemplate("activities", "BlankActivity");
 	}
 
+	@Test
 	public void testBlankActivityInProject() throws Exception {
 		checkCreateActivityInProject("BlankActivity");
 	}
 
+	@Test
 	public void testNewMasterDetailFlow() throws Exception {
 		checkCreateTemplate("activities", "MasterDetailFlow");
 	}
 
+	@Test
 	public void testMasterDetailFlowInProject() throws Exception {
 		checkCreateActivityInProject("MasterDetailFlow");
 	}
 
+	@Test
 	public void testNewFullscreen() throws Exception {
 		checkCreateTemplate("activities", "FullscreenActivity");
 	}
 
+	@Test
 	public void testFullscreenInProject() throws Exception {
 		checkCreateActivityInProject("FullscreenActivity");
 	}
 
+	@Test
 	public void testNewLoginActivity() throws Exception {
 		checkCreateTemplate("activities", "LoginActivity");
 	}
 
+	@Test
 	public void testLoginActivityInProject() throws Exception {
 		checkCreateActivityInProject("MasterDetailFlow");
 	}
 
+	@Test
 	public void testNewSettingsActivity() throws Exception {
 		checkCreateTemplate("activities", "SettingsActivity");
 	}
 
+	@Test
 	public void testSettingsActivityInProject() throws Exception {
 		checkCreateActivityInProject("SettingsActivity");
 	}
 
+	@Test
 	public void testNewBroadcastReceiver() throws Exception {
 		// No need to try this template with multiple platforms, one is adequate
 		mApiSensitiveTemplate = false;
 		checkCreateTemplate("other", "BroadcastReceiver");
 	}
 
+	@Test
 	public void testNewContentProvider() throws Exception {
 		mApiSensitiveTemplate = false;
 		checkCreateTemplate("other", "ContentProvider");
 	}
 
+	@Test
 	public void testNewCustomView() throws Exception {
 		mApiSensitiveTemplate = false;
 		checkCreateTemplate("other", "CustomView");
 	}
 
+	@Test
 	public void testNewService() throws Exception {
 		mApiSensitiveTemplate = false;
 		checkCreateTemplate("other", "Service");
 	}
 
+	@Test
 	public void testCreateRemainingTemplates() throws Exception {
 		sCount = 0;
 		long begin = System.currentTimeMillis();
@@ -249,6 +269,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 				+ ((end - begin) / (1000 * 60)) + " minutes");
 	}
 
+	@Test
 	public void testCreateRemainingProjects() throws Exception {
 		sCount = 0;
 		long begin = System.currentTimeMillis();

@@ -16,11 +16,12 @@
 
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
+
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 
 import org.eclipse.andmore.AdtPlugin;
-
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -31,22 +32,27 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Test;
 
 public class RefactoringAssistantTest extends AdtProjectTest {
+	@Test
 	public void testAssistant1() throws Exception {
 		// "Extract String"
 		checkFixes("sample1a.xml", "<Button android:text=\"Fir^stButton\"");
 	}
 
+	@Test
 	public void testAssistant2() throws Exception {
 		// Visual refactoring operations
 		checkFixes("sample1a.xml", "<Bu^tton android:text");
 	}
 
+	@Test
 	public void testAssistant3() throws Exception {
 		checkFixes("sample1a.xml", "<Button andr^oid:text=\"FirstButton\"");
 	}
 
+	@Test
 	public void testAssistant4() throws Exception {
 		// Check for resource rename refactoring (and don't offer extract
 		// string)

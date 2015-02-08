@@ -16,6 +16,8 @@
 
 package org.eclipse.andmore.internal.build;
 
+import static org.junit.Assert.*;
+
 import org.eclipse.andmore.AdtConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.AaptParser;
@@ -24,6 +26,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Collections;
@@ -31,6 +35,7 @@ import java.util.List;
 
 public class AaptParserTest extends AdtProjectTest {
 
+	@Test
 	public void testBasic() throws Exception {
 		// Test the "at 'property' with value 'value' range matching included
 		// with most aapt errors
@@ -40,6 +45,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"android:text=\"@string/firststring^\"");
 	}
 
+	@Test
 	public void testRange1() throws Exception {
 		// Check that when the actual aapt error occurs on a line later than the
 		// original error
@@ -51,6 +57,7 @@ public class AaptParserTest extends AdtProjectTest {
 						+ "'layout_marginBottom' with value '50').", "marginBottom=\"^50\"", "marginBottom=\"50^\"");
 	}
 
+	@Test
 	public void testRange2() throws Exception {
 		// Check that when we have a duplicate resource error, we highlight both
 		// the original
@@ -61,6 +68,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"<item name=\"^android:gravity\">bottom</item>", "<item name=\"android:gravity^\">bottom</item>");
 	}
 
+	@Test
 	public void testRange3() throws Exception {
 		// Check that when we have a duplicate resource error, we highlight both
 		// the original
@@ -72,6 +80,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"^<item name=\"android:gravity\">left</item>", "<item name=\"android:gravity\">left</item>^");
 	}
 
+	@Test
 	public void testRange4() throws Exception {
 		// Check for aapt error which occurs when the attribute name in an item
 		// style declaration
@@ -82,18 +91,21 @@ public class AaptParserTest extends AdtProjectTest {
 				"<item name=\"nonexistent^\">5</item>");
 	}
 
+	@Test
 	public void testRange5() throws Exception {
 		// Test missing resource name
 		checkRanges("aapterror4.xml", "res/values/aapterror4.xml",
 				"aapterror4.xml:3: error: A 'name' attribute is required for <style>", "<^style>", "<style^>");
 	}
 
+	@Test
 	public void testRange6() throws Exception {
 		checkRanges("aapterror4.xml", "res/values/aapterror4.xml",
 				"aapterror4.xml:6: error: A 'type' attribute is required for <item>", "<^item></item>",
 				"<item^></item>");
 	}
 
+	@Test
 	public void testRange7() throws Exception {
 		// Test missing resource name
 		checkRanges("aapterror4.xml", "res/values/aapterror4.xml",
@@ -106,14 +118,16 @@ public class AaptParserTest extends AdtProjectTest {
 	// message. When this error occurs, we will also get a warning on a missing
 	// attribute, and
 	// that warning already underlines the element name.
-	// public void testRange8() throws Exception {
-	// // Test missing resource name
-	// checkRanges("aapterror4.xml", "res/values/aapterror4.xml",
-	// "aapterror4.xml:4: error: Error: Resource id cannot be an empty string: attr ''.",
-	// "        ^<item />",
-	// "        <item />^");
-	// }
+	@Test
+	@Ignore
+	public void testRange8() throws Exception {
+		// Test missing resource name
+		checkRanges("aapterror4.xml", "res/values/aapterror4.xml",
+				"aapterror4.xml:4: error: Error: Resource id cannot be an empty string: attr ''.", "        ^<item />",
+				"        <item />^");
+	}
 
+	@Test
 	public void testRange9() throws Exception {
 		// Test missing resource name
 		checkRanges("aapterror5.xml", "res/values/aapterror5.xml",
@@ -123,6 +137,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"        <item name=\"android:layout_width^\"></item>");
 	}
 
+	@Test
 	public void testRange10() throws Exception {
 		// Test missing resource name
 		checkRanges("aapterror6.xml", "res/layout/aapterror6.xml",
@@ -130,6 +145,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"android:layout_marginTop=^\"\"", "android:layout_marginTop=\"\"^");
 	}
 
+	@Test
 	public void testRange11() throws Exception {
 		// Test missing resource name
 		checkRanges(
@@ -139,6 +155,7 @@ public class AaptParserTest extends AdtProjectTest {
 				"android:layout_marginLeft=^''", "android:layout_marginLeft=''^");
 	}
 
+	@Test
 	public void testRange12() throws Exception {
 		// Test missing resource name
 		checkRanges("aapterror7.xml", "res/layout/aapterror7.xml",

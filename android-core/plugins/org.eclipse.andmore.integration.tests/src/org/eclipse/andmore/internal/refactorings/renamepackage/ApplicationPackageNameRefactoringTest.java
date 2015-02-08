@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.refactorings.renamepackage;
 
+import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
@@ -22,9 +24,13 @@ import org.eclipse.andmore.internal.refactorings.core.RefactoringTestBase;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.Name;
+import org.junit.Ignore;
+import org.junit.Test;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class ApplicationPackageNameRefactoringTest extends RefactoringTestBase {
+	@Test
 	public void testRefactor1() throws Exception {
 		renamePackage(TEST_PROJECT, "my.pkg.name",
 
@@ -37,6 +43,7 @@ public class ApplicationPackageNameRefactoringTest extends RefactoringTestBase {
 				+ "  +             android:name=\"com.example.refactoringtest.MainActivity2\"");
 	}
 
+	@Test
 	public void testRefactor2() throws Exception {
 		// Tests custom view handling
 		renamePackage(TEST_PROJECT2, "my.pkg.name",
@@ -50,6 +57,7 @@ public class ApplicationPackageNameRefactoringTest extends RefactoringTestBase {
 				+ "  +             android:name=\"com.example.refactoringtest.MainActivity2\"");
 	}
 
+	@Test
 	public void testRefactor3() throws Exception {
 		// Tests BuildConfig imports and updates
 		renamePackage(TEST_PROJECT3, "my.pkg.name",

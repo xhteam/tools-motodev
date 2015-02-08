@@ -15,28 +15,36 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.List;
 
+@Ignore("XMLUnit")
 public class UnwrapRefactoringTest extends RefactoringTest {
 
+	@Test
 	public void testUnwrap1() throws Exception {
 		// Unwrap view with parent, no children - this will unwrap the parent
 		// (frame layout)
 		checkRefactoring("unwrap.xml", "@+id/button");
 	}
 
+	@Test
 	public void testUnwrap2() throws Exception {
 		// Unwrap view with parent and children; this should unwrap the element
 		// itself
 		checkRefactoring("unwrap.xml", "@+id/frame");
 	}
 
+	@Test
 	public void testUnwrap3() throws Exception {
 		// Unwrap root: should transfer namespace
 		checkRefactoring("unwrap.xml", "@+id/linear");

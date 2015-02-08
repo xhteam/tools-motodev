@@ -15,6 +15,8 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
+import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 
 import org.eclipse.andmore.AdtPlugin;
@@ -34,10 +36,12 @@ import org.eclipse.jdt.internal.ui.refactoring.reorg.CreateTargetQueries;
 import org.eclipse.jdt.internal.ui.refactoring.reorg.ReorgQueries;
 import org.eclipse.ltk.core.refactoring.participants.MoveRefactoring;
 import org.eclipse.swt.widgets.Shell;
+import org.junit.Test;
 
 
 @SuppressWarnings({"javadoc", "restriction"})
 public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
+	@Test
     public void testRefactor1() throws Exception {
         moveType(
                 TEST_PROJECT2,
@@ -63,6 +67,7 @@ public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
                 "  +     <com.example.refactoringtest.subpackage.CustomView1");
     }
 
+	@Test
     public void testRefactorFragment() throws Exception {
         moveType(
                 TEST_PROJECT2,
@@ -82,6 +87,7 @@ public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
                 "  +     <fragment android:name=\"com.example.refactoringtest.subpackage.MyFragment\"/>");
     }
 
+	@Test
     public void testRefactor1_norefs() throws Exception {
         moveType(
                 TEST_PROJECT2,

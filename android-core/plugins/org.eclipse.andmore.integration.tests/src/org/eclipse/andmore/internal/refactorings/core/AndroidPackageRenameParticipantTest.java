@@ -15,9 +15,11 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
-import com.android.annotations.NonNull;
-import org.eclipse.andmore.internal.project.BaseProjectHelper;
+import static org.junit.Assert.*;
 
+import com.android.annotations.NonNull;
+
+import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -26,12 +28,16 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.corext.refactoring.rename.RenamePackageProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * TODO: Test renaming a DIFFERENT package than the application package!
  */
 @SuppressWarnings({ "javadoc", "restriction" })
+@Ignore
 public class AndroidPackageRenameParticipantTest extends RefactoringTestBase {
+	@Test
 	public void testRefactor1() throws Exception {
 		renamePackage(TEST_PROJECT, false /* renameSubpackages */, true /* updateReferences */, "my.pkg.name",
 
@@ -48,12 +54,14 @@ public class AndroidPackageRenameParticipantTest extends RefactoringTestBase {
 				+ "  +             android:name=\"my.pkg.name.MainActivity2\"", true);
 	}
 
+	@Test
 	public void testRefactor1_noreferences() throws Exception {
 		renamePackage(TEST_PROJECT, false /* renameSubpackages */, false /* updateReferences */, "my.pkg.name",
 
 		"CHANGES:\n" + "-------\n" + "[x] Rename package 'com.example.refactoringtest' to 'my.pkg.name'", false);
 	}
 
+	@Test
 	public void testRefactor2() throws Exception {
 		// Tests custom view handling
 		renamePackage(TEST_PROJECT2, false /* renameSubpackages */, true /* updateReferences */, "my.pkg.name",
@@ -75,6 +83,7 @@ public class AndroidPackageRenameParticipantTest extends RefactoringTestBase {
 				+ "  +             android:name=\"my.pkg.name.MainActivity2\"", true);
 	}
 
+	@Test
 	public void testRefactor2_renamesub() throws Exception {
 		// Tests custom view handling
 		renamePackage(
@@ -112,6 +121,7 @@ public class AndroidPackageRenameParticipantTest extends RefactoringTestBase {
 						+ "  +     <my.pkg.name.subpackage.CustomView2", true);
 	}
 
+	@Test
 	public void testRefactor2_renamesub_norefs() throws Exception {
 		// Tests custom view handling
 		renamePackage(TEST_PROJECT2, true /* renameSubpackages */, false /* updateReferences */, "my.pkg.name",

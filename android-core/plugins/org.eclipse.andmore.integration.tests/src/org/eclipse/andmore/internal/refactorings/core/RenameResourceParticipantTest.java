@@ -15,9 +15,13 @@
  */
 package org.eclipse.andmore.internal.refactorings.core;
 
+import static org.junit.Assert.*;
+
 import com.android.annotations.NonNull;
 import com.android.ide.common.resources.ResourceUrl;
+
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
+
 import com.android.resources.ResourceType;
 
 import org.eclipse.core.resources.IFile;
@@ -29,9 +33,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.corext.refactoring.rename.RenameFieldProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameProcessor;
 import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "restriction" })
 public class RenameResourceParticipantTest extends RefactoringTestBase {
+	@Test
 	public void testRefactor1() throws Exception {
 		renameResource(TEST_PROJECT, "@string/app_name", true /* updateReferences */, "myname",
 
@@ -47,6 +53,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +             android:label=\"@string/myname\" >");
 	}
 
+	@Test
 	public void testRefactor2() throws Exception {
 		renameResource(TEST_PROJECT, "@+id/menu_settings", true /* updateReferences */, "new_id_for_the_action_bar",
 
@@ -58,6 +65,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +         public static final int new_id_for_the_action_bar=0x7f070003;");
 	}
 
+	@Test
 	public void testRefactor3() throws Exception {
 		renameResource(TEST_PROJECT, "@+id/textView1", true /* updateReferences */, "output",
 
@@ -76,6 +84,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +         public static final int output=0x7f070000;");
 	}
 
+	@Test
 	public void testRefactor4() throws Exception {
 		renameResource(TEST_PROJECT,
 		// same as testRefactor3, but use @id rather than @+id even though @+id
@@ -97,6 +106,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 						+ "  +         public static final int output=0x7f070000;");
 	}
 
+	@Test
 	public void testRefactor5() throws Exception {
 		renameResource(TEST_PROJECT, "@layout/activity_main", true /* updateReferences */, "newlayout",
 
@@ -111,6 +121,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "[x] Rename 'testRefactor5/res/layout-land/activity_main.xml' to 'newlayout.xml'");
 	}
 
+	@Test
 	public void testRefactor6() throws Exception {
 		renameResource(TEST_PROJECT, "@drawable/ic_launcher", true /* updateReferences */, "newlauncher",
 
@@ -126,6 +137,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +         android:icon=\"@drawable/newlauncher\"");
 	}
 
+	@Test
 	public void testRefactor7() throws Exception {
 		// Test refactoring initiated on a file rename
 		IProject project = createProject(TEST_PROJECT);
@@ -143,6 +155,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "[x] Rename 'testRefactor7/res/layout/activity_main.xml' to 'newlayout.xml'", null);
 	}
 
+	@Test
 	public void testRefactor8() throws Exception {
 		// Test refactoring initiated on a Java field rename
 		IProject project = createProject(TEST_PROJECT);
@@ -171,6 +184,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +         public static final int newlauncher=0x7f030000;", null);
 	}
 
+	@Test
 	public void testInvalidName() throws Exception {
 		renameResource(TEST_PROJECT, "@drawable/ic_launcher", true /* updateReferences */, "Newlauncher",
 
@@ -178,6 +192,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "Context: <Unspecified context>\n" + "code: none\n" + "Data: null\n" + ">");
 	}
 
+	@Test
 	public void testRefactor9() throws Exception {
 		// same as testRefactor4, but not updating references
 		renameResource(TEST_PROJECT, "@id/textView1", false /* updateReferences */, "output",
@@ -190,6 +205,7 @@ public class RenameResourceParticipantTest extends RefactoringTestBase {
 				+ "  +         public static final int output=0x7f070000;");
 	}
 
+	@Test
 	public void testRefactor10() throws Exception {
 		// Check updating tools: attributes
 		renameResource(TEST_PROJECT, "@layout/preview", true /* updateReferences */, "newlayout",

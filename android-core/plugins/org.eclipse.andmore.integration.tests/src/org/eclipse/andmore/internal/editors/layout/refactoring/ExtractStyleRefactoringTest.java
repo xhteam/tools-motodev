@@ -16,6 +16,8 @@
 
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
+
 import com.android.utils.Pair;
 
 import org.eclipse.core.resources.IFile;
@@ -30,6 +32,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.junit.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -47,30 +50,35 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 		return true;
 	}
 
+	@Test
 	public void testExtract1() throws Exception {
 		// Test extracting into a new style file
 		checkRefactoring("extractstyle1.xml", "newstyles.xml", "newstyle", false /* removeExtracted */,
 				false /* applyStyle */, null, 1, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract1b() throws Exception {
 		// Extract and apply new style
 		checkRefactoring("extractstyle1.xml", "newstyles2.xml", "newstyle", false /* removeExtracted */,
 				true /* applyStyle */, null, 2, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract1c() throws Exception {
 		// Extract and remove extracted
 		checkRefactoring("extractstyle1.xml", "newstyles3.xml", "newstyle", true /* removeExtracted */,
 				false /* applyStyle */, null, 2, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract1d() throws Exception {
 		// Extract and apply style and remove extracted
 		checkRefactoring("extractstyle1.xml", "newstyles4.xml", "newstyle", true /* removeExtracted */,
 				true /* applyStyle */, null, 2, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract2() throws Exception {
 		getTestDataFile(getProject(), "navigationstyles.xml", "res/values/navigationstyles.xml");
 
@@ -79,6 +87,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 				true /* applyStyle */, null, 2, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract3() throws Exception {
 		// Select multiple elements - overlap in values.
 		checkRefactoring("extractstyle1.xml", "newstyles4.xml", "newstyle", true /* removeExtracted */,
@@ -88,6 +97,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 	// This test fails for some reason - not in the refactoring (checked
 	// manually)
 	// but the DOM model returns null when run in a test context.
+	@Test
 	public void testExtract4() throws Exception {
 		// Test extracting on a single caret position over an attribute: Should
 		// extract
@@ -96,6 +106,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 				true /* applyStyle */, null, 2, "android:text^Color=\"#FF00FF\"", "android:text^Color=\"#FF00FF\"");
 	}
 
+	@Test
 	public void testExtract5() throws Exception {
 		// Test extracting on a range selection inside an element: should
 		// extract just
@@ -105,6 +116,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 				"android:id=\"@+id/button1\" android:layout_a^lignParentBottom");
 	}
 
+	@Test
 	public void testExtract6() throws Exception {
 		// Test extracting on a single caret position which is not over any
 		// attributes:
@@ -112,6 +124,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 				true /* applyStyle */, null, 0, "<Bu^tton", "<Bu^tton");
 	}
 
+	@Test
 	public void testExtract7() throws Exception {
 		// Verify that even with a different namespace prefix we end up with
 		// android:
@@ -120,6 +133,7 @@ public class ExtractStyleRefactoringTest extends RefactoringTest {
 				true /* applyStyle */, null, 2, "@+id/button1", "@+id/button2");
 	}
 
+	@Test
 	public void testExtract8() throws Exception {
 		// Test setting parent style
 		checkRefactoring("extractstyle1.xml", "newstyles3.xml", "newstyle", true /* removeExtracted */,

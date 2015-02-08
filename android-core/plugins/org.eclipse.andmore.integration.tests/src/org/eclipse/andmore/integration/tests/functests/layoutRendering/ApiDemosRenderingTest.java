@@ -16,6 +16,8 @@
 
 package org.eclipse.andmore.integration.tests.functests.layoutRendering;
 
+import static org.junit.Assert.*;
+
 import com.android.SdkConstants;
 import com.android.ide.common.rendering.LayoutLibrary;
 import com.android.ide.common.rendering.api.ActionBarCallback;
@@ -65,6 +67,8 @@ import com.android.resources.TouchScreen;
 import com.android.sdklib.IAndroidTarget;
 import com.android.util.Pair;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -174,6 +178,8 @@ public class ApiDemosRenderingTest extends SdkLoadingTestCase {
 		}
 	}
 
+	@Test
+	@Ignore
 	public void testApiDemos() throws IOException, XmlPullParserException {
 		findApiDemos();
 	}

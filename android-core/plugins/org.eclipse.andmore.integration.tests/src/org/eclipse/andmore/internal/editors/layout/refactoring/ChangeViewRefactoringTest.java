@@ -15,22 +15,28 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.FQCN_RADIO_BUTTON;
 
 import org.eclipse.andmore.internal.editors.layout.refactoring.ChangeViewRefactoring;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ltk.core.refactoring.Change;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.List;
 
 public class ChangeViewRefactoringTest extends RefactoringTest {
 
+	@Test
 	public void testChangeView1() throws Exception {
 		checkRefactoring("sample1a.xml", FQCN_RADIO_BUTTON, "@+id/button1", "@+id/button6");
 	}
 
+	@Test
+	@Ignore("XMLUnit")
 	public void testChangeView2() throws Exception {
 		// Tests (1) updating references to the renamed id of the changed
 		// widgets

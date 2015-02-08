@@ -15,6 +15,7 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
+import static org.junit.Assert.*;
 import static com.android.SdkConstants.DOT_XML;
 
 import org.eclipse.andmore.AdtPlugin;
@@ -26,6 +27,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.TextFileChange;
+import org.junit.Test;
 import org.w3c.dom.Element;
 
 import java.util.HashMap;
@@ -46,22 +48,26 @@ public class ExtractIncludeRefactoringTest extends RefactoringTest {
 		return true;
 	}
 
+	@Test
 	public void testExtract1() throws Exception {
 		// Basic: Extract a single button
 		checkRefactoring("sample3.xml", "newlayout1", false, null, 2, false /* diffs */, "@+id/button2");
 	}
 
+	@Test
 	public void testExtract2() throws Exception {
 		// Extract a couple of elements
 		checkRefactoring("sample3.xml", "newlayout2", false, null, 2, false /* diffs */, "@+id/button2",
 				"@+id/android_logo");
 	}
 
+	@Test
 	public void testExtract3() throws Exception {
 		// Test to make sure layout attributes are updated
 		checkRefactoring("sample2.xml", "newlayout3", false, null, 2, false /* diffs */, "@+id/button3");
 	}
 
+	@Test
 	public void testExtract4() throws Exception {
 		// Tests extracting from -multiple- files (as well as with custom
 		// android namespace
@@ -77,6 +83,7 @@ public class ExtractIncludeRefactoringTest extends RefactoringTest {
 		checkRefactoring("sample3.xml", "newlayout3", true, extraFiles, 4, false /* diffs */, "@+id/android_logo");
 	}
 
+	@Test
 	public void testExtract5() throws Exception {
 		// Tests extracting from multiple files with -contiguous regions-.
 
@@ -91,6 +98,7 @@ public class ExtractIncludeRefactoringTest extends RefactoringTest {
 				"@+id/button1");
 	}
 
+	@Test
 	public void testExtract6() throws Exception {
 		// Tests extracting from multiple files where the layouts are completely
 		// different/unrelated files
@@ -107,6 +115,7 @@ public class ExtractIncludeRefactoringTest extends RefactoringTest {
 		checkRefactoring("sample7.xml", "newlayout6", true, extraFiles, 4, true /* diffs */, "@+id/linearLayout4");
 	}
 
+	@Test
 	public void testExtract7() throws Exception {
 		// Just like testExtract6, except we turn on auto-formatting
 		IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
