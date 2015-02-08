@@ -67,7 +67,11 @@ public abstract class SdkLoadingTestCase extends SdkTestCase {
 		// doesn't
 		// actually have a valid SDK location because it won't have started an
 		// async load:
-		String sdkLocation = AdtPrefs.getPrefs().getOsSdkFolder();
+		//String sdkLocation = AdtPrefs.getPrefs().getOsSdkFolder();
+		String sdkLocation = System.getenv("ANDROID_HOME");
+		if (sdkLocation == null || sdkLocation.length() == 0) {
+			sdkLocation = System.getenv("ADT_TEST_SDK_PATH");
+		}
 		assertTrue("No valid SDK installation is set; for tests you typically need to set the"
 				+ " environment variable ADT_TEST_SDK_PATH to point to an SDK folder", sdkLocation != null
 				&& sdkLocation.length() > 0);
