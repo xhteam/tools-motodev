@@ -54,6 +54,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class AndroidContentAssistTest extends AdtProjectTest {
 	private static final String CARET = "^"; //$NON-NLS-1$
 

@@ -28,9 +28,11 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("restriction")
+@Ignore
 public class AndroidXmlCharacterMatcherTest extends AdtProjectTest {
 	@Test
 	public void testGotoMatchingFwd1() throws Exception {

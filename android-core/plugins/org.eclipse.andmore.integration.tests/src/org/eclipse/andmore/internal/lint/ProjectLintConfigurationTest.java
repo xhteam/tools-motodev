@@ -33,11 +33,13 @@ import com.android.tools.lint.detector.api.Severity;
 
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.core.resources.IProject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class ProjectLintConfigurationTest extends AdtProjectTest {
 
 	@Test

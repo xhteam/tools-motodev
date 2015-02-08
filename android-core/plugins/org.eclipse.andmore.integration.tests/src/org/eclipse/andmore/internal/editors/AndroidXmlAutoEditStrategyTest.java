@@ -33,9 +33,11 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
+@Ignore
 public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 
 	public void checkInsertNewline(String before, String after) throws Exception {
