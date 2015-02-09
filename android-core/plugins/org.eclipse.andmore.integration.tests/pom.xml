@@ -15,7 +15,7 @@
 	</parent>
 	
 	<properties>
-		<os-jvm-flags></os-jvm-flags>
+		<os-jvm-flags>-Xms256m -Xmx512m -XX:MaxPermSize=256M</os-jvm-flags>
 	</properties>
 
 
@@ -139,7 +139,7 @@
 				</os>
 			</activation>
 			<properties>
-				<os-jvm-flags>-XstartOnFirstThread</os-jvm-flags>
+				<os-jvm-flags>-Xms256m -Xmx512m -XX:MaxPermSize=256M -XstartOnFirstThread</os-jvm-flags>
 			</properties>
 		</profile>
 	</profiles>
