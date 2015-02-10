@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 
 import com.android.ide.common.xml.XmlFormatPreferences;
 
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -32,7 +33,6 @@ import org.junit.Test;
 
 
 @SuppressWarnings("javadoc")
-@Ignore
 public class AndroidXmlFormattingStrategyTest {
 	
 	@Before
