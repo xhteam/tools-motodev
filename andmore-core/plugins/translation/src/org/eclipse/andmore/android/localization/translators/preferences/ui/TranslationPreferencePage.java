@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.localization.translators.preferences.ui;
+package org.eclipse.andmore.android.localization.translators.preferences.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.localization.translators.GoogleTranslatorConstants;
+import org.eclipse.andmore.android.localization.translators.TranslationPlugin;
+import org.eclipse.andmore.android.localization.translators.i18n.TranslateNLS;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -45,10 +48,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.osgi.service.prefs.BackingStoreException;
-
-import com.motorola.studio.android.localization.translators.GoogleTranslatorConstants;
-import com.motorola.studio.android.localization.translators.TranslationPlugin;
-import com.motorola.studio.android.localization.translators.i18n.TranslateNLS;
 
 public class TranslationPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private final String GOOGLE_APIS_CONSOLE_LINK = "http://code.google.com/apis/console/"; //$NON-NLS-1$

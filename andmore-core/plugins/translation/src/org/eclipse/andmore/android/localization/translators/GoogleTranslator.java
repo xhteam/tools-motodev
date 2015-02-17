@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.localization.translators;
+package org.eclipse.andmore.android.localization.translators;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -51,6 +51,7 @@ import org.eclipse.andmore.android.json.JSONPair;
 import org.eclipse.andmore.android.json.JSONString;
 import org.eclipse.andmore.android.json.JSONValue;
 import org.eclipse.andmore.android.json.Jason;
+import org.eclipse.andmore.android.localization.translators.i18n.TranslateNLS;
 import org.eclipse.core.internal.net.ProxyManager;
 import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.net.proxy.IProxyService;
@@ -67,8 +68,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Link;
-
-import com.motorola.studio.android.localization.translators.i18n.TranslateNLS;
 
 /**
  * Uses the Google translator web service (via executing a http request and
