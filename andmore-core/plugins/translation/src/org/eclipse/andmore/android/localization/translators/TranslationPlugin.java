@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.localization.translators;
+package org.eclipse.andmore.android.localization.translators;
 
 import org.eclipse.andmore.android.common.log.StudioLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

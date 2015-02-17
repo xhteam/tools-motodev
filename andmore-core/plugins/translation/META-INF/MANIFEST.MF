@@ -21,6 +21,6 @@ Import-Package: org.apache.commons.httpclient,
  org.apache.commons.httpclient.auth;version="3.1.0",
  org.apache.commons.httpclient.methods;version="3.1.0",
  org.apache.commons.httpclient.params;version="3.1.0"
-Bundle-Activator: com.motorola.studio.android.localization.translators.TranslationPlugin
+Bundle-Activator: org.eclipse.andmore.android.localization.translators.TranslationPlugin
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy

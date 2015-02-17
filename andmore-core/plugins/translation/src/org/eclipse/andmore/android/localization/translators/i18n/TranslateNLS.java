@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.localization.translators.i18n;
+package org.eclipse.andmore.android.localization.translators.i18n;
 
 import org.eclipse.osgi.util.NLS;
 

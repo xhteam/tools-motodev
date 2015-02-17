@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.localization.translators;
+package org.eclipse.andmore.android.localization.translators;
 
 import org.eclipse.sequoyah.localization.tools.extensions.implementation.generic.TranslatorConstants;
 
