@@ -6,7 +6,7 @@
       provider-name="The Eclipse Foundation"
       plugin="org.eclipse.andmore.package">
 
-   <description url="http://developer.android.com">
+   <description url="http://www.eclipse.org/andmore">
       Android Developer Tools
    </description>
 

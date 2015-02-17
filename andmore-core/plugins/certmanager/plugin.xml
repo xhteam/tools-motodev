@@ -48,7 +48,7 @@
    <extension point="org.eclipse.ui.menus">         
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:org.eclipse.andmore.android.packaging.ui.signingview">
+            locationURI="org.eclipse.andmore.android.packaging.ui.signingview">
          <command
                commandId="org.eclipse.andmore.android.certmanager.refresh"
                icon="icons/refresh.png"

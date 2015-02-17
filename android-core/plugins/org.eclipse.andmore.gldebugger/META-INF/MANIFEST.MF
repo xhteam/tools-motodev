@@ -16,7 +16,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: libs/host-libprotobuf-java-2.3.0-lite.jar,
  libs/liblzf-1.0.jar,
  .
-Bundle-Vendor: The Android Open Source Project
+Bundle-Vendor: Eclipse Andmore Project
 Export-Package: org.eclipse.andmore.gltrace;x-friends:="com.android.ide.eclipse.gldebugger.tests",
  org.eclipse.andmore.gltrace.format;x-friends:="com.android.ide.eclipse.gldebugger.tests",
  org.eclipse.andmore.gltrace.model;x-friends:="com.android.ide.eclipse.gldebugger.tests"

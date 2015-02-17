@@ -20,7 +20,7 @@
          </property>
          <property
             name="aboutText"
-            value="Android Developer Tools&#x0A;&#x0A;This product includes Eclipse Platform, JDT, CDT, EMF, GEF and WTP, all of which are&#x0A;Copyright (c) Eclipse contributors and others.&#x0A;Visit http://eclipse.org/&#x0A;&#x0A;Android Developer Tools are Copyright (c) The Android Open Source Project.&#x0A;Visit http://developer.android.com">
+            value="Android Developer Tools&#x0A;&#x0A;This product includes Eclipse Platform, JDT, CDT, EMF, GEF and WTP, all of which are&#x0A;Copyright (c) Eclipse contributors and others.&#x0A;Visit http://eclipse.org/&#x0A;&#x0A;Android Developer Tools are Copyright (c) The Android Open Source Project.&#x0A;Visit http://www.eclipse.org/andmore">
          </property>
          <property
             name="startupProgressRect"
