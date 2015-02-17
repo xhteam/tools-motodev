@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.logger.collector.util;
+package org.eclipse.andmore.android.logger.collector.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

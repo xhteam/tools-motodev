@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.logger.collector.util;
+package org.eclipse.andmore.android.logger.collector.util;
 
 import java.util.HashMap;
 import java.util.Map;

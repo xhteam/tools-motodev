@@ -19,10 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.andmore.android.logger.collector.core.ILogFile;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorConstants;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
 
 /**
  * This class provides the environment log file to the log files collector

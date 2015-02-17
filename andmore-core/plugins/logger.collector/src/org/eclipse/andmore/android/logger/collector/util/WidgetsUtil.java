@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.logger.collector.util;
+package org.eclipse.andmore.android.logger.collector.util;
 
 import java.io.File;
 import java.util.ArrayList;

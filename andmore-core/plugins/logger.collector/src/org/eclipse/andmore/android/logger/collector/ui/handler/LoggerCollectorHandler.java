@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.logger.collector.ui.handler;
+package org.eclipse.andmore.android.logger.collector.ui.handler;
 
+import org.eclipse.andmore.android.logger.collector.ui.wizard.LoggerCollectorWizard;
+import org.eclipse.andmore.android.logger.collector.util.WidgetsUtil;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-
-import com.motorola.studio.android.logger.collector.ui.wizard.LoggerCollectorWizard;
-import com.motorola.studio.android.logger.collector.util.WidgetsUtil;
 
 /**
  * This class is responsible to handling action in menu collect log file item.

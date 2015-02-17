@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.logger.collector.ui.wizard;
+package org.eclipse.andmore.android.logger.collector.ui.wizard;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.eclipse.andmore.android.logger.collector.ui.LogFileColumn;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorConstants;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorMessages;
+import org.eclipse.andmore.android.logger.collector.util.WidgetsFactory;
+import org.eclipse.andmore.android.logger.collector.util.WidgetsUtil;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
@@ -35,12 +40,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-
-import com.motorola.studio.android.logger.collector.ui.LogFileColumn;
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorMessages;
-import com.motorola.studio.android.logger.collector.util.WidgetsFactory;
-import com.motorola.studio.android.logger.collector.util.WidgetsUtil;
 
 /**
  * This class contains the design of collect log files wizard page.
