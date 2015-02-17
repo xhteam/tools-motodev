@@ -22,17 +22,16 @@ import java.util.List;
 
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.logger.collector.core.ILogFile;
+import org.eclipse.andmore.android.logger.collector.util.LogCollectorExtensionLoader;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorConstants;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorMessages;
+import org.eclipse.andmore.android.logger.collector.util.PlatformException;
+import org.eclipse.andmore.android.logger.collector.util.ZipUtil;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.TableItem;
-
-import com.motorola.studio.android.logger.collector.util.LogCollectorExtensionLoader;
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorMessages;
-import com.motorola.studio.android.logger.collector.util.PlatformException;
-import com.motorola.studio.android.logger.collector.util.ZipUtil;
 
 /**
  * This class is responsible to manage all collecting log files requirements.

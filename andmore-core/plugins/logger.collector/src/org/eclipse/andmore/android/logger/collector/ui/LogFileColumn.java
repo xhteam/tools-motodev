@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.motorola.studio.android.logger.collector.ui;
+package org.eclipse.andmore.android.logger.collector.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.andmore.android.logger.collector.core.ILogFile;
 import org.eclipse.andmore.android.logger.collector.core.internal.CollectLogFile;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorMessages;
+import org.eclipse.andmore.android.logger.collector.util.PlatformException;
+import org.eclipse.andmore.android.logger.collector.util.WidgetsUtil;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -31,10 +34,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorMessages;
-import com.motorola.studio.android.logger.collector.util.PlatformException;
-import com.motorola.studio.android.logger.collector.util.WidgetsUtil;
 
 /**
  * This class visually represents a log file Table View.

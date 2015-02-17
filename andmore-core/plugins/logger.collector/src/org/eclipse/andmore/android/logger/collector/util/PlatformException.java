@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.logger.collector.util;
+package org.eclipse.andmore.android.logger.collector.util;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;

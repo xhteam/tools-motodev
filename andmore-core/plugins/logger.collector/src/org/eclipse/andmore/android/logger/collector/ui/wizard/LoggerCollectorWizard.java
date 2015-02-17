@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.motorola.studio.android.logger.collector.ui.wizard;
+package org.eclipse.andmore.android.logger.collector.ui.wizard;
 
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorConstants;
+import org.eclipse.andmore.android.logger.collector.util.LoggerCollectorMessages;
+import org.eclipse.andmore.android.logger.collector.util.PlatformException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
-
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorConstants;
-import com.motorola.studio.android.logger.collector.util.LoggerCollectorMessages;
-import com.motorola.studio.android.logger.collector.util.PlatformException;
 
 /**
  * This class represents the logger collector wizard.
