@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %Bundle-Name
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.andmore.android.linux.x86;singleton:=true
 Bundle-Version: 0.5.0.qualifier
-Bundle-Vendor: %Bundle-Vendor
+Bundle-Vendor: %providerName
 Fragment-Host: org.eclipse.andmore.android
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Localization: fragment

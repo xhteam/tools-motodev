@@ -87,7 +87,7 @@
       </page>
    </extension>
    <extension id="initEmulatorService" name="initEmulatorService" point="org.eclipse.sequoyah.device.framework.service">
-      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="org.eclipse.andmore.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="org.eclipse.andmore.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Motorola Mobility, Inc." version="0.2.0" visible="false">
+      <service copyright="Copyright (C) 2012 The Android Open Source Project" description="Service to initialize an Android Emulator device" handler="org.eclipse.andmore.android.emulator.device.init.InitServiceHandler" icon="icons/iniciate-icon-16x16.png" id="org.eclipse.andmore.android.emulator.initEmulatorService" name="%initEmulatorServiceName" provider="Eclipse.org" version="0.2.0" visible="false">
       </service>
    </extension>
    <extension id="org.eclipse.andmore.android.emulator.androidDevice" name="%initEmulatorServiceName" point="org.eclipse.sequoyah.device.framework.serviceDefinition">

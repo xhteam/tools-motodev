@@ -6,7 +6,7 @@ Bundle-Version: 0.5.0.qualifier
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
-Bundle-Vendor: The Android Open Source Project
+Bundle-Vendor: Eclipse Andmore Project
 Bundle-ClassPath: .,
  libs/common.jar,
  libs/commons-codec-1.4.jar,

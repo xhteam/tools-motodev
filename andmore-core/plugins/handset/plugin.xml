@@ -39,7 +39,7 @@
             icon="icons/iniciate-icon-16x16.png"
             id="org.eclipse.andmore.android.handset.initHandsetService"
             name="%initServiceName"
-            provider="Motorola Mobility, Inc."
+            provider="Eclipse.org"
             version="0.1.0"
             visible="false">
       </service>

@@ -113,12 +113,12 @@
                <command
                   defaultHandler="org.eclipse.andmore.android.command.NewProjectWizard"
                   id="org.eclipse.andmore.android.new.project"
-                  name="%motodevmenu.new.project">
+                  name="%andmoremenu.new.project">
             </command>           
             <command
                   defaultHandler="org.eclipse.andmore.android.command.NewWidgetProjectWizard"
                   id="org.eclipse.andmore.android.new.widget.project"
-                  name="%motodevmenu.new.widget.project">
+                  name="%andmoremenu.new.widget.project">
             </command>
             <command
             	defaultHandler="org.eclipse.andmore.android.command.OpenStringEditor"
@@ -140,16 +140,16 @@
                <command
                      commandId="org.eclipse.andmore.android.new.project"
                      icon="icons/obj16/newaprj_wiz.gif"
-                     label="%motodevmenu.new.project"
+                     label="%andmoremenu.new.project"
                      style="push"
-                     tooltip="%motodevmenu.new.project.tooltip">
+                     tooltip="%andmoremenu.new.project.tooltip">
                </command>
                <command
                      commandId="org.eclipse.andmore.android.new.widget.project"
                      icon="icons/obj16/widget_provider_prj_wiz_toolbar.png"
-                     label="%motodevmenu.new.widget.project"
+                     label="%andmoremenu.new.widget.project"
                      style="push"
-                     tooltip="%motodevmenu.new.widget.project.tooltip">
+                     tooltip="%andmoremenu.new.widget.project.tooltip">
                </command>
                <separator
                      name="org.eclipse.andmore.android.afterNewProjectSeparator"
@@ -161,7 +161,7 @@
                <command
                      commandId="org.eclipse.andmore.android.new.project"
                      icon="icons/obj16/newaprj_wiz.gif"
-                     label="%motodevmenu.new.project"
+                     label="%andmoremenu.new.project"
                      style="push">
                   <visibleWhen
                   checkEnabled="false">
@@ -184,7 +184,7 @@
                <command
                      commandId="org.eclipse.andmore.android.new.widget.project"
                      icon="icons/obj16/widget_provider_prj_wiz_toolbar.png"
-                     label="%motodevmenu.new.widget.project"
+                     label="%andmoremenu.new.widget.project"
                      style="push">
                   <visibleWhen
                   checkEnabled="false">
@@ -209,7 +209,7 @@
        			<command
                 commandId="org.eclipse.andmore.android.open.localization.editor"
                 icon="platform:/plugin/org.eclipse.sequoyah.localization.tools/icons/loc_icon.png"
-                label="%motodevmenu.localization.openEditor"
+                label="%andmoremenu.localization.openEditor"
                 style="push">
        			</command>
     		</menuContribution>
@@ -634,7 +634,7 @@
       <command
             defaultHandler="org.eclipse.andmore.android.perspective.OpenWebResources"
             id="org.eclipse.andmore.android.open.motodev.web.resources"
-            name="%motodevmenu.web.resources">
+            name="%andmoremenu.web.resources">
       </command>
    </extension>
    <extension
