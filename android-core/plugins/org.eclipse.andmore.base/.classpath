@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/"/>
 	<classpathentry exported="true" kind="lib" path="libs/common.jar" sourcepath="/common"/>
-	<classpathentry exported="true" kind="lib" path="libs/commons-compress-1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/guava-15.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/kxml2-2.3.0.jar"/>
