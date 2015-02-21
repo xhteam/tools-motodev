@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui.tree;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.layout.descriptors.ViewElementDescriptor;
@@ -111,19 +111,19 @@ public class NewItemSelectionDialog extends AbstractElementListSelectionDialog {
             public IStatus validate(Object[] selection) {
                 if (selection.length == 1 && selection[0] instanceof ViewElementDescriptor) {
                     return new Status(IStatus.OK, // severity
-                            AdtPlugin.PLUGIN_ID, //plugin id
+                            AndmoreAndroidPlugin.PLUGIN_ID, //plugin id
                             IStatus.OK, // code
                             ((ViewElementDescriptor) selection[0]).getFullClassName(), //msg
                             null); // exception
                 } else if (selection.length == 1 && selection[0] instanceof ElementDescriptor) {
                     return new Status(IStatus.OK, // severity
-                            AdtPlugin.PLUGIN_ID, //plugin id
+                            AndmoreAndroidPlugin.PLUGIN_ID, //plugin id
                             IStatus.OK, // code
                             "", //$NON-NLS-1$ // msg
                             null); // exception
                 } else {
                     return new Status(IStatus.ERROR, // severity
-                            AdtPlugin.PLUGIN_ID, //plugin id
+                            AndmoreAndroidPlugin.PLUGIN_ID, //plugin id
                             IStatus.ERROR, // code
                             "Invalid selection", // msg, translatable
                             null); // exception

@@ -24,7 +24,7 @@ import static com.android.SdkConstants.FD_RES_ANIMATOR;
 import static com.android.SdkConstants.FD_RES_COLOR;
 import static com.android.SdkConstants.FD_RES_DRAWABLE;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.animator.AnimationContentAssist;
 import org.eclipse.andmore.internal.editors.color.ColorContentAssist;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -1072,7 +1072,7 @@ public class AndroidContentAssistTest extends AdtProjectTest {
 		assert chosen != null; // Eclipse null pointer analysis doesn't believe
 								// the JUnit assertion
 
-		String fileContent = AdtPlugin.readFile(file);
+		String fileContent = AndmoreAndroidPlugin.readFile(file);
 		IDocument document = new Document();
 		document.set(fileContent);
 

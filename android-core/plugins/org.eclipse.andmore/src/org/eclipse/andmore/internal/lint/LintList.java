@@ -24,7 +24,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
@@ -819,7 +819,7 @@ class LintList extends Composite implements IResourceChangeListener, ControlList
                         });
                     }
                 } catch (InvocationTargetException e1) {
-                    AdtPlugin.log(e1, null);
+                    AndmoreAndroidPlugin.log(e1, null);
                 } catch (InterruptedException e1) {
                     return;
                 }

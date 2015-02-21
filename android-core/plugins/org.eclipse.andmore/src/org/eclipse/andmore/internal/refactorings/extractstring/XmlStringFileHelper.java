@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.refactorings.extractstring;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -146,7 +146,7 @@ class XmlStringFileHelper {
                 }
 
             } catch (Throwable e) {
-                AdtPlugin.log(e, "GetResIds failed in %1$s", xmlFileWsPath); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "GetResIds failed in %1$s", xmlFileWsPath); //$NON-NLS-1$
             } finally {
                 if (smodel != null) {
                     smodel.releaseFromRead();

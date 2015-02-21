@@ -27,7 +27,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -792,31 +792,31 @@ public class NewProjectPage extends WizardPage
 
             if (status == null || status.getSeverity() != IStatus.ERROR) {
                 if (mValues.target == null) {
-                    status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                    status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                             "Select an Android build target version");
                 }
             }
 
             if (status == null || status.getSeverity() != IStatus.ERROR) {
                 if (mValues.minSdk == null || mValues.minSdk.isEmpty()) {
-                    status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                    status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                             "Select a minimum SDK version");
                 } else {
                     AndroidVersion version = mValues.target.getVersion();
                     if (version.isPreview()) {
                         if (version.getCodename().equals(mValues.minSdk) == false) {
-                            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "Preview platforms require the min SDK version to match their codenames.");
                        }
                     } else if (mValues.target.getVersion().compareTo(
                             mValues.minSdkLevel,
                             version.isPreview() ? mValues.minSdk : null) < 0) {
-                        status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                        status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                             "The minimum SDK version is higher than the build target version");
                     }
                     if (status == null || status.getSeverity() != IStatus.ERROR) {
                         if (mValues.targetSdkLevel < mValues.minSdkLevel) {
-                            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                                 "The target SDK version should be at least as high as the minimum SDK version");
                         }
                     }
@@ -845,10 +845,10 @@ public class NewProjectPage extends WizardPage
         String appName = mValues.applicationName;
         IStatus status = null;
         if (appName == null || appName.isEmpty()) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Enter an application name (shown in launcher)");
         } else if (Character.isLowerCase(mValues.applicationName.charAt(0))) {
-            status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                     "The application name for most apps begins with an uppercase letter");
         }
 
@@ -871,12 +871,12 @@ public class NewProjectPage extends WizardPage
                     && !mValues.packageName.equals(SAMPLE_PACKAGE_PREFIX)) {
                 status = ApplicationInfoPage.validatePackage(mValues.packageName);
                 if (status == null || status.isOK()) {
-                    status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                    status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("The prefix '%1$s' is meant as a placeholder and should " +
                                       "not be used", SAMPLE_PACKAGE_PREFIX));
                 }
             } else {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "Package name must be specified.");
             }
         } else {

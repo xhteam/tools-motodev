@@ -17,7 +17,7 @@
 package org.eclipse.andmore.internal.build;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -693,7 +693,7 @@ public final class AaptParser {
                 }
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't find range information for %1$s", file.getName());
+            AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s", file.getName());
         } finally {
             provider.disconnect(file);
         }
@@ -730,7 +730,7 @@ public final class AaptParser {
                 }
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't find range information for %1$s", file.getName());
+            AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s", file.getName());
         } finally {
             provider.disconnect(file);
         }

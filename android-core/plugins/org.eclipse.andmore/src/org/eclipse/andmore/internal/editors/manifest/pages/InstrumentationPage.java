@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.manifest.pages;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -63,7 +63,7 @@ public final class InstrumentationPage extends FormPage implements IPageImagePro
         super.createFormContent(managedForm);
         ScrolledForm form = managedForm.getForm();
         form.setText("Android Manifest Instrumentation");
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         UiElementNode manifest = mEditor.getUiRootNode();
         AndroidManifestDescriptors manifestDescriptor = mEditor.getManifestDescriptors();

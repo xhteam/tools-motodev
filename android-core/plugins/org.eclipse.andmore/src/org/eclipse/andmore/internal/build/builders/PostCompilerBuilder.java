@@ -29,7 +29,7 @@ import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
 import com.android.xml.AndroidManifest;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.build.AaptExecException;
 import org.eclipse.andmore.internal.build.AaptParser;
@@ -139,7 +139,7 @@ public class PostCompilerBuilder extends BaseBuilder {
         IProject project = getProject();
 
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s CLEAN(POST)", project.getName());
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s CLEAN(POST)", project.getName());
         }
 
         // Clear the project of the generic markers
@@ -172,7 +172,7 @@ public class PostCompilerBuilder extends BaseBuilder {
         IProject project = getProject();
 
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s BUILD(POST)", project.getName());
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s BUILD(POST)", project.getName());
         }
 
         // Benchmarking start
@@ -181,9 +181,9 @@ public class PostCompilerBuilder extends BaseBuilder {
             // End JavaC Timer
             String msg = "BENCHMARK ADT: Ending Compilation \n BENCHMARK ADT: Time Elapsed: " +    //$NON-NLS-1$
                          (System.nanoTime() - BuildHelper.sStartJavaCTime)/Math.pow(10, 6) + "ms"; //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
             msg = "BENCHMARK ADT: Starting PostCompilation";                                       //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
             startBuildTime = System.nanoTime();
         }
 
@@ -229,11 +229,11 @@ public class PostCompilerBuilder extends BaseBuilder {
                     && AdtPrefs.getPrefs().getBuildSkipPostCompileOnFileSave()) {
                 // Skip over flag setting
             } else if (kind == FULL_BUILD) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Start_Full_Apk_Build);
 
                 if (DEBUG_LOG) {
-                    AdtPlugin.log(IStatus.INFO, "%s full build!", project.getName());
+                    AndmoreAndroidPlugin.log(IStatus.INFO, "%s full build!", project.getName());
                 }
 
                 // Full build: we do all the steps.
@@ -241,7 +241,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 mConvertToDex = true;
                 mBuildFinalPackage = true;
             } else {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Start_Inc_Apk_Build);
 
                 // go through the resources and see if something changed.
@@ -349,9 +349,9 @@ public class PostCompilerBuilder extends BaseBuilder {
             // project, they can be kept around.
             if (mOutStream == null) {
                 mOutStream = new AndroidPrintStream(project, null /*prefix*/,
-                        AdtPlugin.getOutStream());
+                        AndmoreAndroidPlugin.getOutStream());
                 mErrStream = new AndroidPrintStream(project, null /*prefix*/,
-                        AdtPlugin.getOutStream());
+                        AndmoreAndroidPlugin.getOutStream());
             }
 
             // remove older packaging markers.
@@ -369,7 +369,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 // also update the crunch cache always since aapt does it smartly only
                 // on the files that need it.
                 if (DEBUG_LOG) {
-                    AdtPlugin.log(IStatus.INFO, "%s running crunch!", project.getName());
+                    AndmoreAndroidPlugin.log(IStatus.INFO, "%s running crunch!", project.getName());
                 }
                 BuildHelper helper = new BuildHelper(
                         projectState,
@@ -388,7 +388,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 if (mConvertToDex) { // in this case this means some class files changed and
                                      // we need to update the jar file.
                     if (DEBUG_LOG) {
-                        AdtPlugin.log(IStatus.INFO, "%s updating jar!", project.getName());
+                        AndmoreAndroidPlugin.log(IStatus.INFO, "%s updating jar!", project.getName());
                     }
 
                     // resource to the AndroidManifest.xml file
@@ -417,16 +417,16 @@ public class PostCompilerBuilder extends BaseBuilder {
             // the packaging and dexing process.
             if (!args.containsKey(POST_C_REQUESTED)
                     && AdtPrefs.getPrefs().getBuildSkipPostCompileOnFileSave()) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Skip_Post_Compiler);
                 return allRefProjects;
             } else {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Start_Full_Post_Compiler);
             }
 
             // first thing we do is check that the SDK directory has been setup.
-            String osSdkFolder = AdtPlugin.getOsSdkFolder();
+            String osSdkFolder = AndmoreAndroidPlugin.getOsSdkFolder();
 
             if (osSdkFolder.length() == 0) {
                 // this has already been checked in the precompiler. Therefore,
@@ -462,7 +462,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 if (tmp == null || (tmp instanceof IFile &&
                         tmp.exists() == false)) {
                     String msg = String.format(Messages.s_Missing_Repackaging, finalPackageName);
-                    AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
+                    AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
                     mBuildFinalPackage = true;
                 }
             }
@@ -534,7 +534,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     // also update the crunch cache always since aapt does it smartly only
                     // on the files that need it.
                     if (DEBUG_LOG) {
-                        AdtPlugin.log(IStatus.INFO, "%s running crunch!", project.getName());
+                        AndmoreAndroidPlugin.log(IStatus.INFO, "%s running crunch!", project.getName());
                     }
                     if (updateCrunchCache(project, helper) == false) {
                         return allRefProjects;
@@ -544,7 +544,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     resOutputFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 
                     if (DEBUG_LOG) {
-                        AdtPlugin.log(IStatus.INFO, "%s packaging resources!", project.getName());
+                        AndmoreAndroidPlugin.log(IStatus.INFO, "%s packaging resources!", project.getName());
                     }
                     // remove some aapt_package only markers.
                     removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_AAPT_PACKAGE);
@@ -564,7 +564,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                         // if we couldn't parse the output we display it in the console.
                         if (parsingError) {
-                            AdtPlugin.printErrorToConsole(project, (Object[]) aaptOutput);
+                            AndmoreAndroidPlugin.printErrorToConsole(project, (Object[]) aaptOutput);
 
                             // if the exec failed, and we couldn't parse the error output (and
                             // therefore not all files that should have been marked, were marked),
@@ -589,7 +589,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 // then we check if we need to package the .class into classes.dex
                 if (mConvertToDex) {
                     if (DEBUG_LOG) {
-                        AdtPlugin.log(IStatus.INFO, "%s running dex!", project.getName());
+                        AndmoreAndroidPlugin.log(IStatus.INFO, "%s running dex!", project.getName());
                     }
                     try {
                         Collection<String> dxInputPaths = helper.getCompiledCodePaths();
@@ -598,7 +598,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     } catch (DexException e) {
                         String message = e.getMessage();
 
-                        AdtPlugin.printErrorToConsole(project, message);
+                        AndmoreAndroidPlugin.printErrorToConsole(project, message);
                         BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                                 message, IMarker.SEVERITY_ERROR);
 
@@ -606,7 +606,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                         if (cause instanceof NoClassDefFoundError
                                 || cause instanceof NoSuchMethodError) {
-                            AdtPlugin.printErrorToConsole(project, Messages.Incompatible_VM_Warning,
+                            AndmoreAndroidPlugin.printErrorToConsole(project, Messages.Incompatible_VM_Warning,
                                     Messages.Requires_1_5_Error);
                         }
 
@@ -627,7 +627,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                 try {
                     if (DEBUG_LOG) {
-                        AdtPlugin.log(IStatus.INFO, "%s making final package!", project.getName());
+                        AndmoreAndroidPlugin.log(IStatus.INFO, "%s making final package!", project.getName());
                     }
                     helper.finalDebugPackage(
                             osAndroidBinPath + File.separator + AndmoreAndroidConstants.FN_RESOURCES_AP_,
@@ -641,13 +641,13 @@ public class PostCompilerBuilder extends BaseBuilder {
                             IMarker.SEVERITY_ERROR);
 
                     // output more info in the console
-                    AdtPlugin.printErrorToConsole(project,
+                    AndmoreAndroidPlugin.printErrorToConsole(project,
                             msg,
                             String.format(Messages.ApkBuilder_JAVA_HOME_is_s, e.getJavaHome()),
                             Messages.ApkBuilder_Update_or_Execute_manually_s,
                             e.getCommandLine());
 
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
 
                     return allRefProjects;
                 } catch (ApkCreationException e) {
@@ -658,7 +658,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
 
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
                 } catch (AndroidLocationException e) {
                     String eMessage = e.getMessage();
 
@@ -666,27 +666,27 @@ public class PostCompilerBuilder extends BaseBuilder {
                     String msg = String.format(Messages.Final_Archive_Error_s, eMessage);
                     BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
                 } catch (NativeLibInJarException e) {
                     String msg = e.getMessage();
 
                     BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                             msg, IMarker.SEVERITY_ERROR);
 
-                    AdtPlugin.printErrorToConsole(project, (Object[]) e.getAdditionalInfo());
+                    AndmoreAndroidPlugin.printErrorToConsole(project, (Object[]) e.getAdditionalInfo());
                 } catch (CoreException e) {
                     // mark project and return
                     String msg = String.format(Messages.Final_Archive_Error_s, e.getMessage());
-                    AdtPlugin.printErrorToConsole(project, msg);
+                    AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                     BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
                 } catch (DuplicateFileException e) {
                     String msg1 = String.format(
                             "Found duplicate file for APK: %1$s\nOrigin 1: %2$s\nOrigin 2: %3$s",
                             e.getArchivePath(), e.getFile1(), e.getFile2());
                     String msg2 = String.format(Messages.Final_Archive_Error_s, msg1);
-                    AdtPlugin.printErrorToConsole(project, msg2);
+                    AndmoreAndroidPlugin.printErrorToConsole(project, msg2);
                     BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg2,
                             IMarker.SEVERITY_ERROR);
                 }
@@ -705,7 +705,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                 // reset the installation manager to force new installs of this project
                 ApkInstallManager.getInstance().resetInstallationFor(project);
 
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
                         "Build Success!");
             }
         } catch (AbortBuildException e) {
@@ -729,7 +729,7 @@ public class PostCompilerBuilder extends BaseBuilder {
             }
 
             msg = String.format("Unknown error: %1$s", msg);
-            AdtPlugin.logAndPrintError(exception, project.getName(), msg);
+            AndmoreAndroidPlugin.logAndPrintError(exception, project.getName(), msg);
             markProject(AndmoreAndroidConstants.MARKER_PACKAGING, msg, IMarker.SEVERITY_ERROR);
         }
 
@@ -737,11 +737,11 @@ public class PostCompilerBuilder extends BaseBuilder {
         if (BuildHelper.BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Ending PostCompilation. \n BENCHMARK ADT: Time Elapsed: " + //$NON-NLS-1$
                          ((System.nanoTime() - startBuildTime)/Math.pow(10, 6)) + "ms";              //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
             // End Overall Timer
             msg = "BENCHMARK ADT: Done with everything! \n BENCHMARK ADT: Time Elapsed: " +          //$NON-NLS-1$
                   (System.nanoTime() - BuildHelper.sStartOverallTime)/Math.pow(10, 6) + "ms";        //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, project, msg);
         }
 
         return allRefProjects;
@@ -846,7 +846,7 @@ public class PostCompilerBuilder extends BaseBuilder {
             boolean parsingError = AaptParser.parseOutput(aaptOutput, project);
             // if we couldn't parse the output we display it in the console.
             if (parsingError) {
-                AdtPlugin.printErrorToConsole(project, (Object[]) aaptOutput);
+                AndmoreAndroidPlugin.printErrorToConsole(project, (Object[]) aaptOutput);
             }
         }
 
@@ -882,7 +882,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
             saveProjectBooleanProperty(PROPERTY_CONVERT_TO_DEX, mConvertToDex);
         } catch (Exception e) {
-            AdtPlugin.log(e, "Failed to write jar file %s", jarIFile.getLocation().toOSString());
+            AndmoreAndroidPlugin.log(e, "Failed to write jar file %s", jarIFile.getLocation().toOSString());
         } finally {
             if (jos != null) {
                 try {

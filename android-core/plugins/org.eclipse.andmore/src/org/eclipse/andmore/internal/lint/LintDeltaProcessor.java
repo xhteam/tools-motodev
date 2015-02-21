@@ -22,7 +22,7 @@ import static com.android.SdkConstants.EXT_JAVA;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor;
@@ -48,7 +48,7 @@ public class LintDeltaProcessor implements Runnable {
 
     private LintDeltaProcessor() {
         // Get the active editor file, if any
-        Display display = AdtPlugin.getDisplay();
+        Display display = AndmoreAndroidPlugin.getDisplay();
         if (display == null || display.isDisposed()) {
             return;
         }

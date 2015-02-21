@@ -35,7 +35,7 @@ import com.android.ide.common.rendering.api.ViewInfo;
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.descriptors.DocumentDescriptor;
@@ -592,13 +592,13 @@ public class PaletteControl extends Composite {
                 it.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseDoubleClick(MouseEvent e) {
-                        AdtPlugin.openJavaClass(mEditor.getProject(), fqcn);
+                        AndmoreAndroidPlugin.openJavaClass(mEditor.getProject(), fqcn);
                     }
 
                     @Override
                     public void mouseDown(MouseEvent e) {
                         if ((e.stateMask & SWT.MOD1) != 0) {
-                            AdtPlugin.openJavaClass(mEditor.getProject(), fqcn);
+                            AndmoreAndroidPlugin.openJavaClass(mEditor.getProject(), fqcn);
                         }
                     }
                 });
@@ -977,7 +977,7 @@ public class PaletteControl extends Composite {
                             null, childNode, InsertType.CREATE_PREVIEW);
                     childNode.applyPendingChanges();
                 } catch (Throwable t) {
-                    AdtPlugin.log(t, "Failed calling creation hooks for widget %1$s", viewName);
+                    AndmoreAndroidPlugin.log(t, "Failed calling creation hooks for widget %1$s", viewName);
                 } finally {
                     layoutEditorDelegate.getEditor().setIgnoreXmlUpdate(false);
                 }

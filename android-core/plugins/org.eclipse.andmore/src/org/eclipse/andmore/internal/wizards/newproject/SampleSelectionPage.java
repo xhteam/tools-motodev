@@ -19,7 +19,7 @@ import com.android.SdkConstants;
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -121,7 +121,7 @@ class SampleSelectionPage extends WizardPage implements SelectionListener, Modif
         IBaseLabelProvider labelProvider = new ColumnLabelProvider() {
             @Override
             public Image getImage(Object element) {
-                return AdtPlugin.getAndroidLogo();
+                return AndmoreAndroidPlugin.getAndroidLogo();
             }
 
             @Override
@@ -246,12 +246,12 @@ class SampleSelectionPage extends WizardPage implements SelectionListener, Modif
     private void validatePage() {
         IStatus status = null;
         if (mValues.samples == null || mValues.samples.size() == 0) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "The chosen SDK does not contain any samples");
         } else if (mValues.chosenSample == null) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, "Choose a sample");
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, "Choose a sample");
         } else if (!mValues.chosenSample.exists()) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("Sample does not exist: %1$s", mValues.chosenSample.getPath()));
         } else {
             status = ProjectNamePage.validateProjectName(mValues.projectName);

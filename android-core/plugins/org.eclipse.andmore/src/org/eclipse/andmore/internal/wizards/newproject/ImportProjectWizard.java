@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.wizards.newproject;
 import static com.android.SdkConstants.FN_PROJECT_PROGUARD_FILE;
 import static com.android.SdkConstants.OS_SDK_TOOLS_LIB_FOLDER;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
 import org.eclipse.jdt.ui.actions.OpenJavaPerspectiveAction;
@@ -60,20 +60,20 @@ public class ImportProjectWizard extends Wizard implements INewWizard {
         mSelection = selection;
 
         setHelpAvailable(false); // TODO have help
-        ImageDescriptor desc = AdtPlugin.getImageDescriptor(PROJECT_LOGO_LARGE);
+        ImageDescriptor desc = AndmoreAndroidPlugin.getImageDescriptor(PROJECT_LOGO_LARGE);
         setDefaultPageImageDescriptor(desc);
 
         // Trigger a check to see if the SDK needs to be reloaded (which will
         // invoke onSdkLoaded asynchronously as needed).
-        AdtPlugin.getDefault().refreshSdk();
+        AndmoreAndroidPlugin.getDefault().refreshSdk();
     }
 
     @Override
     public boolean performFinish() {
-        File file = new File(AdtPlugin.getOsSdkFolder(), OS_SDK_TOOLS_LIB_FOLDER + File.separator
+        File file = new File(AndmoreAndroidPlugin.getOsSdkFolder(), OS_SDK_TOOLS_LIB_FOLDER + File.separator
                 + FN_PROJECT_PROGUARD_FILE);
         if (!file.exists()) {
-            AdtPlugin.displayError("Tools Out of Date?",
+            AndmoreAndroidPlugin.displayError("Tools Out of Date?",
             String.format("It looks like you do not have the latest version of the "
                     + "SDK Tools installed. Make sure you update via the SDK Manager "
                     + "first. (Could not find %1$s)", file.getPath()));

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.SdkUtils;
 import org.eclipse.andmore.android.common.exception.AndroidException;
@@ -117,7 +117,7 @@ public class StartEmulatorProcessLogic implements IAndroidLogic {
 		cmdList.add(instance.getName());
 
 		Properties propArgs = instance.getCommandLineArgumentsAsProperties();
-		IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 		String adtEmuOptions = store.getString(AdtPrefs.PREFS_EMU_OPTIONS);
 
 		StringTokenizer adtOptionsTokenizer = new StringTokenizer(adtEmuOptions, " ");

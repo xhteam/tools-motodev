@@ -21,8 +21,8 @@ import com.android.sdkstats.DdmsPreferenceStore;
 import com.android.sdkstats.SdkStatsService;
 import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
 
-import org.eclipse.andmore.AdtPlugin;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.internal.sdk.Sdk.ITargetChangeListener;
 import org.eclipse.core.resources.IProject;
@@ -58,7 +58,7 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
 
     public AndroidPreferencePage() {
         super(GRID);
-        setPreferenceStore(AdtPlugin.getDefault().getPreferenceStore());
+        setPreferenceStore(AndmoreAndroidPlugin.getDefault().getPreferenceStore());
         setDescription(Messages.AndroidPreferencePage_Title);
     }
 
@@ -138,8 +138,8 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
                 return false;
             }
 
-            boolean ok = AdtPlugin.getDefault().checkSdkLocationAndId(fileName,
-                    new AdtPlugin.CheckSdkErrorHandler() {
+            boolean ok = AndmoreAndroidPlugin.getDefault().checkSdkLocationAndId(fileName,
+                    new AndmoreAndroidPlugin.CheckSdkErrorHandler() {
                 @Override
                 public boolean handleError(
                         CheckSdkErrorHandler.Solution solution,
@@ -206,17 +206,17 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
 
                 if (mTargetChangeListener == null) {
                     mTargetChangeListener = new TargetChangedListener();
-                    AdtPlugin.getDefault().addTargetListener(mTargetChangeListener);
+                    AndmoreAndroidPlugin.getDefault().addTargetListener(mTargetChangeListener);
 
                     // Trigger a check to see if the SDK needs to be reloaded (which will
                     // invoke onSdkLoaded asynchronously as needed).
-                    AdtPlugin.getDefault().refreshSdk();
+                    AndmoreAndroidPlugin.getDefault().refreshSdk();
                 }
             } catch (Exception e) {
                 // We need to catch *any* exception that arises here, otherwise it disables
                 // the whole pref panel. We can live without the Sdk target selector but
                 // not being able to actually set an sdk path.
-                AdtPlugin.log(e, "SdkTargetSelector failed");
+                AndmoreAndroidPlugin.log(e, "SdkTargetSelector failed");
             }
         }
 
@@ -224,7 +224,7 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
         public void dispose() {
             super.dispose();
             if (mTargetChangeListener != null) {
-                AdtPlugin.getDefault().removeTargetListener(mTargetChangeListener);
+                AndmoreAndroidPlugin.getDefault().removeTargetListener(mTargetChangeListener);
                 mTargetChangeListener = null;
             }
         }

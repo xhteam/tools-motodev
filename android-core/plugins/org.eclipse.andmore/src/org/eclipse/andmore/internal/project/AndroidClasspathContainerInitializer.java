@@ -25,7 +25,7 @@ import com.google.common.collect.Maps;
 import com.google.common.io.Closeables;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IProject;
@@ -163,7 +163,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
         IAndroidTarget target = null;
 
         try {
-            AdtPlugin plugin = AdtPlugin.getDefault();
+            AndmoreAndroidPlugin plugin = AndmoreAndroidPlugin.getDefault();
             if (plugin == null) { // This is totally weird, but I've seen it happen!
                 return null;
             }
@@ -701,7 +701,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
         // The order is: android.jar, source folder, docs folder
         paths.add(target.getPath(IAndroidTarget.ANDROID_JAR));
         paths.add(target.getPath(IAndroidTarget.SOURCES));
-        paths.add(AdtPlugin.getUrlDoc());
+        paths.add(AndmoreAndroidPlugin.getUrlDoc());
 
         // now deal with optional libraries.
         IOptionalLibrary[] libraries = target.getOptionalLibraries();
@@ -738,7 +738,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
     @Override
     public void requestClasspathContainerUpdate(IPath containerPath, IJavaProject project,
             IClasspathContainer containerSuggestion) throws CoreException {
-        AdtPlugin plugin = AdtPlugin.getDefault();
+        AndmoreAndroidPlugin plugin = AndmoreAndroidPlugin.getDefault();
 
         synchronized (Sdk.getLock()) {
             boolean sdkIsLoaded = plugin.getSdkLoadStatus() == LoadStatus.LOADED;

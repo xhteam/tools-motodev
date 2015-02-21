@@ -20,7 +20,7 @@ import com.android.ide.common.api.IViewRule;
 import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IProject;
@@ -45,7 +45,7 @@ public class RuleLoader {
      * Qualified name for the per-project non-persistent property storing the
      * {@link RuleLoader} for this project
      */
-    private final static QualifiedName RULE_LOADER = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName RULE_LOADER = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "ruleloader"); //$NON-NLS-1$
 
     private final IProject mProject;
@@ -78,7 +78,7 @@ public class RuleLoader {
             try {
                 project.setSessionProperty(RULE_LOADER, loader);
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't store RuleLoader");
+                AndmoreAndroidPlugin.log(e, "Can't store RuleLoader");
             }
         }
         return loader;
@@ -133,7 +133,7 @@ public class RuleLoader {
 
                         mUserJarTimeStamps.add(Pair.of(pathFile, pathFile.lastModified()));
                     } catch (MalformedURLException e) {
-                        AdtPlugin.log(IStatus.WARNING,
+                        AndmoreAndroidPlugin.log(IStatus.WARNING,
                                 "Invalid URL: %1$s", //$NON-NLS-1$
                                 e.toString());
                     }

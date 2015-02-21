@@ -155,22 +155,22 @@ public class AndmoreAndroidConstants {
     private static final String LEGACY_PLUGIN_ID = "org.eclipse.andmore.common"; //$NON-NLS-1$
 
     /** Generic marker for ADT errors, only to be used in the {@link ResourceManagerBuilder} */
-    public final static String MARKER_ADT = AdtPlugin.PLUGIN_ID + ".adtProblem"; //$NON-NLS-1$
+    public final static String MARKER_ADT = AndmoreAndroidPlugin.PLUGIN_ID + ".adtProblem"; //$NON-NLS-1$
 
     /** Marker for Android Target errors.
      * This is not cleared on each build like other markers. Instead, it's cleared
      * when an AndroidClasspathContainerInitializer has succeeded in creating an
      * AndroidClasspathContainer */
-    public final static String MARKER_TARGET = AdtPlugin.PLUGIN_ID + ".targetProblem"; //$NON-NLS-1$
+    public final static String MARKER_TARGET = AndmoreAndroidPlugin.PLUGIN_ID + ".targetProblem"; //$NON-NLS-1$
     /** Marker for Android Build Tools errors.
      * This is not cleared on each build like other markers. Instead, it's cleared
      * when the build tools are setup in the projectState. */
-    public final static String MARKER_BUILD_TOOLS = AdtPlugin.PLUGIN_ID + ".buildToolsProblem"; //$NON-NLS-1$
+    public final static String MARKER_BUILD_TOOLS = AndmoreAndroidPlugin.PLUGIN_ID + ".buildToolsProblem"; //$NON-NLS-1$
     /** Marker for Android Dependency errors.
      * This is not cleared on each build like other markers. Instead, it's cleared
      * when a LibraryClasspathContainerInitializer has succeeded in creating a
      * LibraryClasspathContainer */
-    public final static String MARKER_DEPENDENCY = AdtPlugin.PLUGIN_ID + ".dependencyProblem"; //$NON-NLS-1$
+    public final static String MARKER_DEPENDENCY = AndmoreAndroidPlugin.PLUGIN_ID + ".dependencyProblem"; //$NON-NLS-1$
 
 
     /** aapt marker error when running the compile command, only to be used
@@ -196,13 +196,13 @@ public class AndmoreAndroidConstants {
     public final static String MARKER_AAPT_PACKAGE = LEGACY_PLUGIN_ID + ".aapt2Problem"; //$NON-NLS-1$
 
     /** final packaging error marker, only to be used in {@link PostCompilerBuilder} */
-    public final static String MARKER_PACKAGING = AdtPlugin.PLUGIN_ID + ".packagingProblem"; //$NON-NLS-1$
+    public final static String MARKER_PACKAGING = AndmoreAndroidPlugin.PLUGIN_ID + ".packagingProblem"; //$NON-NLS-1$
 
     /** manifest merger error, only to be used in {@link PreCompilerBuilder} */
-    public final static String MARKER_MANIFMERGER = AdtPlugin.PLUGIN_ID + ".manifMergerProblem"; //$NON-NLS-1$
+    public final static String MARKER_MANIFMERGER = AndmoreAndroidPlugin.PLUGIN_ID + ".manifMergerProblem"; //$NON-NLS-1$
 
     /** Marker for lint errors */
-    public final static String MARKER_LINT = AdtPlugin.PLUGIN_ID + ".lintProblem"; //$NON-NLS-1$
+    public final static String MARKER_LINT = AndmoreAndroidPlugin.PLUGIN_ID + ".lintProblem"; //$NON-NLS-1$
 
     /** Name for the "type" marker attribute */
     public final static String MARKER_ATTR_TYPE = "android.type"; //$NON-NLS-1$

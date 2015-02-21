@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.otherxml;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -57,7 +57,7 @@ public final class OtherXmlTreePage extends FormPage implements IPageImageProvid
         super.createFormContent(managedForm);
         ScrolledForm form = managedForm.getForm();
         form.setText("Android Xml");
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         UiElementNode rootNode = mEditor.getUiRootNode();
         UiTreeBlock block = new UiTreeBlock(mEditor, rootNode,

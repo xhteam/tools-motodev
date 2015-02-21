@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.editors.layout.properties;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.layout.gle2.CanvasViewInfo;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
@@ -100,7 +100,7 @@ public class PropertySheetPage extends Page
         mPropertyTable.setExceptionHandler(new IPropertyExceptionHandler() {
             @Override
             public void handle(Throwable e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         });
         mPropertyTable.setDefaultCollapsedNames(Arrays.asList(
@@ -293,7 +293,7 @@ public class PropertySheetPage extends Page
             try {
                 mDefaultValueAction.setEnabled(mActiveProperty.isModified());
             } catch (Exception e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         } else {
             mDefaultValueAction.setEnabled(false);

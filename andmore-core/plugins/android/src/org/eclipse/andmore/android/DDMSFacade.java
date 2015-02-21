@@ -36,7 +36,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.AndmoreEventManager.EventType;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
@@ -203,8 +203,8 @@ public class DDMSFacade {
 				AndroidDebugBridge adb = AndroidDebugBridge.getBridge();
 				if (adb == null) {
 					AndroidDebugBridge.disconnectBridge();
-					DdmsPlugin.setToolsLocation(AdtPlugin.getOsAbsoluteAdb(), true, AdtPlugin.getOsAbsoluteHprofConv(),
-							AdtPlugin.getOsAbsoluteTraceview());
+					DdmsPlugin.setToolsLocation(AndmoreAndroidPlugin.getOsAbsoluteAdb(), true, AndmoreAndroidPlugin.getOsAbsoluteHprofConv(),
+							AndmoreAndroidPlugin.getOsAbsoluteTraceview());
 				}
 
 				if (adb != null) {
@@ -254,7 +254,7 @@ public class DDMSFacade {
 						public void run() {
 							String applicationName = finalClient.getClientData().getClientDescription();
 							if (applicationName != null) {
-								IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+								IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 								String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 								if (home.equals(applicationName)) {
 									String serialNum = finalClient.getDevice().getSerialNumber();
@@ -278,7 +278,7 @@ public class DDMSFacade {
 			connectedDevices.put(device.getSerialNumber(), device);
 		}
 		if ((device).getState() == DeviceState.ONLINE) {
-			IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+			IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 			String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 			if (device.getClient(home) != null) {
 				synchronized (completelyUpDevices) {
@@ -329,7 +329,7 @@ public class DDMSFacade {
 			// When a device is connected, look for the HOME application and add
 			// the device serial number to a collection if it is already
 			// running.
-			IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+			IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 			String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 			if (device.getClient(home) != null) {
 				AndmoreLogger.debug("Completely Up Device: " + serialNumber); //$NON-NLS-1$

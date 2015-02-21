@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -47,7 +47,7 @@ abstract class BaseClasspathContainerInitializer extends ClasspathContainerIniti
         if (errorMessage != null) {
             // log the error and put the marker on the project if we can.
             if (outputToConsole) {
-                AdtPlugin.printErrorToConsole(project, errorMessage);
+                AndmoreAndroidPlugin.printErrorToConsole(project, errorMessage);
             }
 
             // Use a job to prevent requiring a workspace lock in this thread.
@@ -61,7 +61,7 @@ abstract class BaseClasspathContainerInitializer extends ClasspathContainerIniti
                                 fmessage, IMarker.SEVERITY_ERROR,
                                 IMarker.PRIORITY_HIGH);
                     } catch (CoreException e2) {
-                        AdtPlugin.log(e2, null);
+                        AndmoreAndroidPlugin.log(e2, null);
                         // Don't return e2.getStatus(); the job control will then produce
                         // a popup with this error, which isn't very interesting for the
                         // user.
@@ -86,7 +86,7 @@ abstract class BaseClasspathContainerInitializer extends ClasspathContainerIniti
                                     IResource.DEPTH_INFINITE);
                         }
                     } catch (CoreException e2) {
-                        AdtPlugin.log(e2, null);
+                        AndmoreAndroidPlugin.log(e2, null);
                     }
 
                     return Status.OK_STATUS;

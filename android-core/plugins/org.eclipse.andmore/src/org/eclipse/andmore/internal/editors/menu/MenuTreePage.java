@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.menu;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -57,7 +57,7 @@ public final class MenuTreePage extends FormPage implements IPageImageProvider {
         super.createFormContent(managedForm);
         ScrolledForm form = managedForm.getForm();
         form.setText("Android Menu");
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         UiElementNode rootNode = mEditor.getUiRootNode();
         UiTreeBlock block = new UiTreeBlock(mEditor, rootNode,

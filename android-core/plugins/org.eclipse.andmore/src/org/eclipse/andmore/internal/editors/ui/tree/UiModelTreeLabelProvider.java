@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui.tree;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
@@ -62,7 +62,7 @@ public class UiModelTreeLabelProvider implements ILabelProvider {
             }
         }
 
-        return AdtPlugin.getAndroidLogo();
+        return AndmoreAndroidPlugin.getAndroidLogo();
     }
 
     /**

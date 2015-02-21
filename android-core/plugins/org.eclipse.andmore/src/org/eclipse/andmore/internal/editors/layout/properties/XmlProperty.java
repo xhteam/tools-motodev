@@ -22,7 +22,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.api.IAttributeInfo;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
@@ -148,7 +148,7 @@ class XmlProperty extends Property {
             return adapter.cast(new LabelProvider() {
                 @Override
               public Image getImage(Object element) {
-                  return AdtPlugin.getAndroidLogo();
+                  return AndmoreAndroidPlugin.getAndroidLogo();
               }
 
               @Override

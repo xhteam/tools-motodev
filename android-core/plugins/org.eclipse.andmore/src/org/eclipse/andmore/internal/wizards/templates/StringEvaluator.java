@@ -33,7 +33,7 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 /**
  * A template handler which can evaluate simple strings. Used to evaluate
@@ -73,7 +73,7 @@ class StringEvaluator implements TemplateLoader {
             return out.toString();
         } catch (Exception e) {
             if (assertionsEnabled()) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
             return null;
         }

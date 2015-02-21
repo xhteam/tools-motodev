@@ -20,7 +20,7 @@ import static com.android.SdkConstants.DOT_XML;
 
 import com.android.tools.lint.detector.api.LintUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.preferences.LintPreferencePage;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -503,9 +503,9 @@ public class LintViewPart extends ViewPart implements SelectionListener, IJobCha
                                 if (start != -1) {
                                     region = new Region(start, end - start);
                                 }
-                                AdtPlugin.openFile((IFile) resource, region);
+                                AndmoreAndroidPlugin.openFile((IFile) resource, region);
                             } catch (PartInitException e) {
-                                AdtPlugin.log(e, "Can't open file %1$s", resource);
+                                AndmoreAndroidPlugin.log(e, "Can't open file %1$s", resource);
                             }
                         }
                         IDocumentProvider provider = new TextFileDocumentProvider();
@@ -520,7 +520,7 @@ public class LintViewPart extends ViewPart implements SelectionListener, IJobCha
                                 }
                             }
                         } catch (Exception e) {
-                            AdtPlugin.log(e, "Did not find associated editor to apply fix: %1$s",
+                            AndmoreAndroidPlugin.log(e, "Did not find associated editor to apply fix: %1$s",
                                     resource.getName());
                         } finally {
                             provider.disconnect(resource);
@@ -533,7 +533,7 @@ public class LintViewPart extends ViewPart implements SelectionListener, IJobCha
                         try {
                             marker.delete();
                         } catch (CoreException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                         }
                     }
                     break;
@@ -647,7 +647,7 @@ public class LintViewPart extends ViewPart implements SelectionListener, IJobCha
                         lintView.setResources(projects);
                     }
                 } catch (PartInitException e) {
-                    AdtPlugin.log(e, "Cannot open Lint View");
+                    AndmoreAndroidPlugin.log(e, "Cannot open Lint View");
                 } finally {
                     sInitialResources = null;
                 }

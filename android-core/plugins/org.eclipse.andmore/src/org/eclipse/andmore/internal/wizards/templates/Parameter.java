@@ -29,7 +29,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.google.common.base.Splitter;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -70,10 +70,10 @@ class Parameter {
             try {
                 return Type.valueOf(name.toUpperCase(Locale.US));
             } catch (IllegalArgumentException e) {
-                AdtPlugin.printErrorToConsole("Unexpected template type '" + name + "'");
-                AdtPlugin.printErrorToConsole("Expected one of :");
+                AndmoreAndroidPlugin.printErrorToConsole("Unexpected template type '" + name + "'");
+                AndmoreAndroidPlugin.printErrorToConsole("Expected one of :");
                 for (Type s : Type.values()) {
-                    AdtPlugin.printErrorToConsole("  " + s.name().toLowerCase(Locale.US));
+                    AndmoreAndroidPlugin.printErrorToConsole("  " + s.name().toLowerCase(Locale.US));
                 }
             }
 
@@ -137,13 +137,13 @@ class Parameter {
             try {
                 return Constraint.valueOf(name.toUpperCase(Locale.US));
             } catch (IllegalArgumentException e) {
-                AdtPlugin.printErrorToConsole("Unexpected template constraint '" + name + "'");
+                AndmoreAndroidPlugin.printErrorToConsole("Unexpected template constraint '" + name + "'");
                 if (name.indexOf(',') != -1) {
-                    AdtPlugin.printErrorToConsole("Use | to separate constraints");
+                    AndmoreAndroidPlugin.printErrorToConsole("Use | to separate constraints");
                 } else {
-                    AdtPlugin.printErrorToConsole("Expected one of :");
+                    AndmoreAndroidPlugin.printErrorToConsole("Expected one of :");
                     for (Constraint s : Constraint.values()) {
-                        AdtPlugin.printErrorToConsole("  " + s.name().toLowerCase(Locale.US));
+                        AndmoreAndroidPlugin.printErrorToConsole("  " + s.name().toLowerCase(Locale.US));
                     }
                 }
             }
@@ -383,7 +383,7 @@ class Parameter {
                                     }
                                 }
                             } catch (CoreException e) {
-                                AdtPlugin.log(e, null);
+                                AndmoreAndroidPlugin.log(e, null);
                             }
                         }
 

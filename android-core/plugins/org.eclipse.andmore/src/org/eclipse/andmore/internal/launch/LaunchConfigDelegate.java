@@ -21,7 +21,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Activity;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
@@ -48,16 +48,16 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
         "org.eclipse.andmore.debug.LaunchConfigType"; //$NON-NLS-1$
 
     /** Target mode parameters: true is automatic, false is manual */
-    public static final String ATTR_TARGET_MODE = AdtPlugin.PLUGIN_ID + ".target"; //$NON-NLS-1$
+    public static final String ATTR_TARGET_MODE = AndmoreAndroidPlugin.PLUGIN_ID + ".target"; //$NON-NLS-1$
     public static final TargetMode DEFAULT_TARGET_MODE = TargetMode.AUTO;
 
     /** Flag indicating whether the last used device should be used for future launches. */
     public static final String ATTR_REUSE_LAST_USED_DEVICE =
-            AdtPlugin.PLUGIN_ID + ".reuse.last.used.device"; //$NON-NLS-1$
+            AndmoreAndroidPlugin.PLUGIN_ID + ".reuse.last.used.device"; //$NON-NLS-1$
 
     /** Device on which the last launch happened. */
     public static final String ATTR_LAST_USED_DEVICE =
-            AdtPlugin.PLUGIN_ID + ".last.used.device"; //$NON-NLS-1$
+            AndmoreAndroidPlugin.PLUGIN_ID + ".last.used.device"; //$NON-NLS-1$
 
     /**
      * Launch action:
@@ -67,7 +67,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
      * <li>2: Do Nothing</li>
      * </ul>
      */
-    public final static String ATTR_LAUNCH_ACTION = AdtPlugin.PLUGIN_ID + ".action"; //$NON-NLS-1$
+    public final static String ATTR_LAUNCH_ACTION = AndmoreAndroidPlugin.PLUGIN_ID + ".action"; //$NON-NLS-1$
 
     /** Default launch action. This launches the activity that is setup to be found in the HOME
      * screen.
@@ -83,11 +83,11 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
     /**
      * Activity to be launched if {@link #ATTR_LAUNCH_ACTION} is 1
      */
-    public static final String ATTR_ACTIVITY = AdtPlugin.PLUGIN_ID + ".activity"; //$NON-NLS-1$
+    public static final String ATTR_ACTIVITY = AndmoreAndroidPlugin.PLUGIN_ID + ".activity"; //$NON-NLS-1$
 
-    public static final String ATTR_AVD_NAME = AdtPlugin.PLUGIN_ID + ".avd"; //$NON-NLS-1$
+    public static final String ATTR_AVD_NAME = AndmoreAndroidPlugin.PLUGIN_ID + ".avd"; //$NON-NLS-1$
 
-    public static final String ATTR_SPEED = AdtPlugin.PLUGIN_ID + ".speed"; //$NON-NLS-1$
+    public static final String ATTR_SPEED = AndmoreAndroidPlugin.PLUGIN_ID + ".speed"; //$NON-NLS-1$
 
     /**
      * Index of the default network speed setting for the emulator.<br>
@@ -95,7 +95,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
      */
     public static final int DEFAULT_SPEED = 0;
 
-    public static final String ATTR_DELAY = AdtPlugin.PLUGIN_ID + ".delay"; //$NON-NLS-1$
+    public static final String ATTR_DELAY = AndmoreAndroidPlugin.PLUGIN_ID + ".delay"; //$NON-NLS-1$
 
     /**
      * Index of the default network latency setting for the emulator.<br>
@@ -103,16 +103,16 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
      */
     public static final int DEFAULT_DELAY = 0;
 
-    public static final String ATTR_COMMANDLINE = AdtPlugin.PLUGIN_ID + ".commandline"; //$NON-NLS-1$
+    public static final String ATTR_COMMANDLINE = AndmoreAndroidPlugin.PLUGIN_ID + ".commandline"; //$NON-NLS-1$
 
-    public static final String ATTR_WIPE_DATA = AdtPlugin.PLUGIN_ID + ".wipedata"; //$NON-NLS-1$
+    public static final String ATTR_WIPE_DATA = AndmoreAndroidPlugin.PLUGIN_ID + ".wipedata"; //$NON-NLS-1$
     public static final boolean DEFAULT_WIPE_DATA = false;
 
-    public static final String ATTR_NO_BOOT_ANIM = AdtPlugin.PLUGIN_ID + ".nobootanim"; //$NON-NLS-1$
+    public static final String ATTR_NO_BOOT_ANIM = AndmoreAndroidPlugin.PLUGIN_ID + ".nobootanim"; //$NON-NLS-1$
     public static final boolean DEFAULT_NO_BOOT_ANIM = false;
 
     public static final String ATTR_DEBUG_PORT =
-        AdtPlugin.PLUGIN_ID + ".debugPort"; //$NON-NLS-1$
+        AndmoreAndroidPlugin.PLUGIN_ID + ".debugPort"; //$NON-NLS-1$
 
     @Override
     public void launch(ILaunchConfiguration configuration, String mode,
@@ -131,7 +131,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
         } else {
             // wrong type, not sure how we got there, but we don't do
             // anything else
-            AdtPlugin.printErrorToConsole(project, "Wrong Launch Type!");
+            AndmoreAndroidPlugin.printErrorToConsole(project, "Wrong Launch Type!");
             return;
         }
 
@@ -143,7 +143,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
         }
 
         if (project == null) {
-            AdtPlugin.printErrorToConsole("Couldn't get project object!");
+            AndmoreAndroidPlugin.printErrorToConsole("Couldn't get project object!");
             androidLaunch.stopLaunch();
             return;
         }
@@ -156,18 +156,18 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
 
         // check if the project has errors, and abort in this case.
         if (ProjectHelper.hasError(project, true)) {
-            AdtPlugin.displayError("Android Launch",
+            AndmoreAndroidPlugin.displayError("Android Launch",
                     "Your project contains error(s), please fix them before running your application.");
             return;
         }
 
-        AdtPlugin.printToConsole(project, "------------------------------"); //$NON-NLS-1$
-        AdtPlugin.printToConsole(project, "Android Launch!");
+        AndmoreAndroidPlugin.printToConsole(project, "------------------------------"); //$NON-NLS-1$
+        AndmoreAndroidPlugin.printToConsole(project, "Android Launch!");
 
         // check if the project is using the proper sdk.
         // if that throws an exception, we simply let it propagate to the caller.
         if (checkAndroidProject(project) == false) {
-            AdtPlugin.printErrorToConsole(project, "Project is not an Android Project. Aborting!");
+            AndmoreAndroidPlugin.printErrorToConsole(project, "Project is not an Android Project. Aborting!");
             androidLaunch.stopLaunch();
             return;
         }
@@ -187,22 +187,22 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
                 // We need to ask the user to restart eclipse.
                 // This shouldn't happen, but it's better to let the user know in case it does.
                 if (connections == -1 || restarts == -1) {
-                    AdtPlugin.printErrorToConsole(project,
+                    AndmoreAndroidPlugin.printErrorToConsole(project,
                             "The connection to adb is down, and a severe error has occured.",
                             "You must restart adb and Eclipse.",
                             String.format(
                                     "Please ensure that adb is correctly located at '%1$s' and can be executed.",
-                                    AdtPlugin.getOsAbsoluteAdb()));
+                                    AndmoreAndroidPlugin.getOsAbsoluteAdb()));
                     return;
                 }
 
                 if (restarts == 0) {
-                    AdtPlugin.printErrorToConsole(project,
+                    AndmoreAndroidPlugin.printErrorToConsole(project,
                             "Connection with adb was interrupted.",
                             String.format("%1$s attempts have been made to reconnect.", connections),
                             "You may want to manually restart adb from the Devices view.");
                 } else {
-                    AdtPlugin.printErrorToConsole(project,
+                    AndmoreAndroidPlugin.printErrorToConsole(project,
                             "Connection with adb was interrupted, and attempts to reconnect have failed.",
                             String.format("%1$s attempts have been made to restart adb.", restarts),
                             "You may want to manually restart adb from the Devices view.");
@@ -216,7 +216,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
 
         // since adb is working, we let the user know
         // TODO have a verbose mode for launch with more info (or some of the less useful info we now have).
-        AdtPlugin.printToConsole(project, "adb is running normally.");
+        AndmoreAndroidPlugin.printToConsole(project, "adb is running normally.");
 
         // make a config class
         AndroidLaunchConfiguration config = new AndroidLaunchConfiguration();
@@ -238,7 +238,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
         ManifestData manifestData = AndroidManifestHelper.parseForData(project);
 
         if (manifestData == null) {
-            AdtPlugin.printErrorToConsole(project, "Failed to parse AndroidManifest: aborting!");
+            AndmoreAndroidPlugin.printErrorToConsole(project, "Failed to parse AndroidManifest: aborting!");
             androidLaunch.stopLaunch();
             return;
         }
@@ -265,13 +265,13 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
             if (activities.length == 0) {
                 // if the activities list is null, then the manifest is empty
                 // and we can't launch the app. We'll revert to a sync-only launch
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                         "The Manifest defines no activity!",
                         "The launch will only sync the application package on the device!");
                 config.mLaunchAction = ACTION_DO_NOTHING;
             } else if (activityName == null) {
                 // if the activity we got is null, we look for the default one.
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                         "No activity specified! Getting the launcher activity.");
                 Activity launcherActivity = manifestData.getLauncherActivity();
                 if (launcherActivity != null) {
@@ -295,7 +295,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
 
                 // if we didn't find a match, we revert to the default activity if any.
                 if (match == false) {
-                    AdtPlugin.printErrorToConsole(project,
+                    AndmoreAndroidPlugin.printErrorToConsole(project,
                             "The specified activity does not exist! Getting the launcher activity.");
                     Activity launcherActivity = manifestData.getLauncherActivity();
                     if (launcherActivity != null) {
@@ -386,13 +386,13 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
         // check if the project is a java and an android project.
         if (project.hasNature(JavaCore.NATURE_ID) == false) {
             String msg = String.format("%1$s is not a Java project!", project.getName());
-            AdtPlugin.displayError("Android Launch", msg);
+            AndmoreAndroidPlugin.displayError("Android Launch", msg);
             return false;
         }
 
         if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
             String msg = String.format("%1$s is not an Android project!", project.getName());
-            AdtPlugin.displayError("Android Launch", msg);
+            AndmoreAndroidPlugin.displayError("Android Launch", msg);
             return false;
         }
 
@@ -416,7 +416,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
     }
 
     private final void revertToNoActionLaunch(IProject project, AndroidLaunchConfiguration config) {
-        AdtPlugin.printErrorToConsole(project,
+        AndmoreAndroidPlugin.printErrorToConsole(project,
                 "No Launcher activity found!",
                 "The launch will only sync the application package on the device!");
         config.mLaunchAction = ACTION_DO_NOTHING;

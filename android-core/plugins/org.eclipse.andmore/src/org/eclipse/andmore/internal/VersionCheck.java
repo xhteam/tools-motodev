@@ -21,10 +21,10 @@ import com.android.sdklib.repository.FullRevision;
 import com.android.sdklib.repository.FullRevision.PreviewComparison;
 import com.android.sdklib.repository.PkgProps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.Messages;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler.Solution;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler.Solution;
 import org.osgi.framework.Constants;
 import org.osgi.framework.Version;
 
@@ -68,7 +68,7 @@ public class VersionCheck {
      * @return true if compatible.
      */
     public static boolean checkVersion(String osSdkPath, CheckSdkErrorHandler errorHandler) {
-        AdtPlugin plugin = AdtPlugin.getDefault();
+        AndmoreAndroidPlugin plugin = AndmoreAndroidPlugin.getDefault();
         String osLibs = osSdkPath + SdkConstants.OS_SDK_TOOLS_LIB_FOLDER;
 
         // get the plugin property file, and grab the minimum plugin version required

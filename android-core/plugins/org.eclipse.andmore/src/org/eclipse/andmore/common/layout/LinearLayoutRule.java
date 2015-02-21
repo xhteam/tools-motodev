@@ -60,7 +60,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 /**
  * An {@link IViewRule} for android.widget.LinearLayout and all its derived
@@ -1052,7 +1052,7 @@ public class LinearLayoutRule extends BaseLayoutRule {
             try {
                 return Float.parseFloat(weight);
             } catch (NumberFormatException nfe) {
-                AdtPlugin.log(nfe, "Invalid weight %1$s", weight);
+                AndmoreAndroidPlugin.log(nfe, "Invalid weight %1$s", weight);
             }
         }
 

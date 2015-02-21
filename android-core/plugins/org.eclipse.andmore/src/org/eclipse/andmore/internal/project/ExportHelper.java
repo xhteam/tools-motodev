@@ -27,7 +27,7 @@ import com.android.tools.lint.detector.api.LintUtils;
 import com.android.xml.AndroidManifest;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.build.BuildHelper;
 import org.eclipse.andmore.internal.build.DexException;
@@ -110,7 +110,7 @@ public final class ExportHelper {
             // debuggable in the manifest will override this and generate a debug build
             IResource manifestResource = project.findMember(SdkConstants.FN_ANDROID_MANIFEST_XML);
             if (manifestResource.getType() != IResource.FILE) {
-                throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("%1$s missing.", SdkConstants.FN_ANDROID_MANIFEST_XML)));
             }
 
@@ -212,7 +212,7 @@ public final class ExportHelper {
                         proguardConfigFiles.add(proguardConfigFile);
                         runProguard = true;
                     } else {
-                        throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                        throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                                 "Invalid proguard configuration file path " + proguardConfigFile
                                 + " does not exist or is not a regular file", null));
                     }
@@ -290,37 +290,37 @@ public final class ExportHelper {
         } catch (ProguardResultException e) {
             String msg = String.format("Proguard returned with error code %d. See console",
                     e.getErrorCode());
-            AdtPlugin.printErrorToConsole(project, msg);
-            AdtPlugin.printErrorToConsole(project, (Object[]) e.getOutput());
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            AndmoreAndroidPlugin.printErrorToConsole(project, msg);
+            AndmoreAndroidPlugin.printErrorToConsole(project, (Object[]) e.getOutput());
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     msg, e));
         } catch (ProguardExecException e) {
             String msg = String.format("Failed to run proguard: %s", e.getMessage());
-            AdtPlugin.printErrorToConsole(project, msg);
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            AndmoreAndroidPlugin.printErrorToConsole(project, msg);
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     msg, e));
         } catch (DuplicateFileException e) {
             String msg = String.format(
                     "Found duplicate file for APK: %1$s\nOrigin 1: %2$s\nOrigin 2: %3$s",
                     e.getArchivePath(), e.getFile1(), e.getFile2());
-            AdtPlugin.printErrorToConsole(project, msg);
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            AndmoreAndroidPlugin.printErrorToConsole(project, msg);
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     e.getMessage(), e));
         } catch (NativeLibInJarException e) {
             String msg = e.getMessage();
 
-            AdtPlugin.printErrorToConsole(project, msg);
-            AdtPlugin.printErrorToConsole(project, (Object[]) e.getAdditionalInfo());
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            AndmoreAndroidPlugin.printErrorToConsole(project, msg);
+            AndmoreAndroidPlugin.printErrorToConsole(project, (Object[]) e.getAdditionalInfo());
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     e.getMessage(), e));
         } catch (DexException e) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     e.getMessage(), e));
         } catch (ApkCreationException e) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     e.getMessage(), e));
         } catch (Exception e) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Failed to export application", e));
         } finally {
             // move back to a debug build.
@@ -339,7 +339,7 @@ public final class ExportHelper {
         }
 
         if (buildToolInfo == null) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "No Build Tools installed in the SDK."));
         }
         return buildToolInfo;
@@ -377,7 +377,7 @@ public final class ExportHelper {
                                 monitor);
 
                         // this is unsigned export. Let's tell the developers to run zip align
-                        AdtPlugin.displayWarning("Android IDE Plug-in", String.format(
+                        AndmoreAndroidPlugin.displayWarning("Android IDE Plug-in", String.format(
                                 "An unsigned package of the application was saved at\n%1$s\n\n" +
                                 "Before publishing the application you will need to:\n" +
                                 "- Sign the application with your release key,\n" +
@@ -387,7 +387,7 @@ public final class ExportHelper {
 
                         return Status.OK_STATUS;
                     } catch (CoreException e) {
-                        AdtPlugin.displayError("Android IDE Plug-in", String.format(
+                        AndmoreAndroidPlugin.displayError("Android IDE Plug-in", String.format(
                                 "Error exporting application:\n\n%1$s", e.getMessage()));
                         return e.getStatus();
                     }

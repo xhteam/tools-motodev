@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.lint;
 import static com.android.SdkConstants.UNIT_PX;
 import static com.android.SdkConstants.VALUE_N_DP;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.text.IDocument;
@@ -53,7 +53,7 @@ final class ConvertToDpFix extends DocumentFix implements IInputValidator {
     @Override
     protected void apply(IDocument document, IStructuredModel model, Node node, int start,
             int end) {
-        Shell shell = AdtPlugin.getShell();
+        Shell shell = AndmoreAndroidPlugin.getShell();
         InputDensityDialog densityDialog = new InputDensityDialog(shell);
         if (densityDialog.open() == Window.OK) {
             int dpi = densityDialog.getDensity();
@@ -73,7 +73,7 @@ final class ConvertToDpFix extends DocumentFix implements IInputValidator {
                             String newValue = String.format(VALUE_N_DP, dp);
                             attribute.setNodeValue(newValue);
                         } catch (NumberFormatException nufe) {
-                            AdtPlugin.log(nufe, null);
+                            AndmoreAndroidPlugin.log(nufe, null);
                         }
                     }
                 }
@@ -88,7 +88,7 @@ final class ConvertToDpFix extends DocumentFix implements IInputValidator {
 
     @Override
     public Image getImage() {
-        return AdtPlugin.getAndroidLogo();
+        return AndmoreAndroidPlugin.getAndroidLogo();
     }
 
     // ---- Implements IInputValidator ----

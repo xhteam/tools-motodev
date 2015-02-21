@@ -33,7 +33,7 @@ import com.android.utils.ILogger;
 import com.google.common.collect.Sets;
 import com.google.common.io.Closeables;
 
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler.Solution;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler.Solution;
 import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.VersionCheck;
 import org.eclipse.andmore.internal.actions.SdkManagerAction;
@@ -129,12 +129,12 @@ import java.util.Set;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class AdtPlugin extends AbstractUIPlugin implements ILogger {
+public class AndmoreAndroidPlugin extends AbstractUIPlugin implements ILogger {
     /** The plug-in ID */
     public static final String PLUGIN_ID = "org.eclipse.andmore"; //$NON-NLS-1$
 
     /** singleton instance */
-    private static AdtPlugin sPlugin;
+    private static AndmoreAndroidPlugin sPlugin;
 
     private static Image sAndroidLogo;
     private static ImageDescriptor sAndroidLogoDesc;
@@ -201,7 +201,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
     /**
      * The constructor
      */
-    public AdtPlugin() {
+    public AndmoreAndroidPlugin() {
         sPlugin = this;
     }
 
@@ -287,7 +287,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             mRed = null;
         }
 
-        synchronized (AdtPlugin.class) {
+        synchronized (AndmoreAndroidPlugin.class) {
             sPlugin = null;
         }
     }
@@ -324,7 +324,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      *
      * @return the shared instance
      */
-    public static synchronized AdtPlugin getDefault() {
+    public static synchronized AndmoreAndroidPlugin getDefault() {
         return sPlugin;
     }
 
@@ -335,7 +335,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      */
     @NonNull
     public static Display getDisplay() {
-        synchronized (AdtPlugin.class) {
+        synchronized (AndmoreAndroidPlugin.class) {
             if (sPlugin != null) {
                 IWorkbench bench = sPlugin.getWorkbench();
                 if (bench != null) {
@@ -362,7 +362,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      */
     @Nullable
     public static Shell getShell() {
-        Display display = AdtPlugin.getDisplay();
+        Display display = AndmoreAndroidPlugin.getDisplay();
         Shell shell = display.getActiveShell();
         if (shell == null) {
             Shell[] shells = display.getShells();
@@ -456,7 +456,6 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      * @param file the file to be read
      * @return the String read from the file, or null if there was an error
      */
-    @SuppressWarnings("resource") // Eclipse doesn't understand Closeables.closeQuietly yet
     @Nullable
     public static String readFile(@NonNull IFile file) {
         InputStream contents = null;
@@ -478,8 +477,11 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             // which is handled by this IOException catch.
 
         } finally {
-            Closeables.closeQuietly(reader);
-            Closeables.closeQuietly(contents);
+        	try {
+				Closeables.close(reader, true);
+				Closeables.close(contents, true);
+			} catch (IOException e) {
+			}
         }
 
         return null;
@@ -495,7 +497,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
         try {
             return readFile(new FileReader(file));
         } catch (FileNotFoundException e) {
-            AdtPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
         }
 
         return null;
@@ -517,13 +519,13 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             fw = new FileWriter(file);
             fw.write(content);
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } finally {
             if (fw != null) {
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }
@@ -544,7 +546,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             String charset = file.getCharset();
             return streamContains(new InputStreamReader(contents, charset), string);
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
         }
 
         return false;
@@ -561,7 +563,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
         try {
             return streamContains(new FileReader(file), string);
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't read file %1$s", file); //$NON-NLS-1$
         }
 
         return false;
@@ -606,14 +608,14 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                 }
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't read stream"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't read stream"); //$NON-NLS-1$
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, "Can't read stream"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Can't read stream"); //$NON-NLS-1$
             }
         }
 
@@ -711,7 +713,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                     contents.close();
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, "Can't read layout file"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Can't read layout file"); //$NON-NLS-1$
             }
         }
 
@@ -746,7 +748,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                     bufferedReader.close();
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, "Can't read input stream"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Can't read input stream"); //$NON-NLS-1$
             }
         }
 
@@ -760,8 +762,9 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      * @return null if the file could not be read
      */
     public static String readEmbeddedTextFile(String filepath) {
+    	InputStream is = null;
         try {
-            InputStream is = readEmbeddedFileAsStream(filepath);
+            is = readEmbeddedFileAsStream(filepath);
             if (is != null) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 try {
@@ -778,8 +781,14 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                 }
             }
         } catch (IOException e) {
-            // we'll just return null
-            AdtPlugin.log(e, "Failed to read text file '%s'", filepath);  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to read text file '%s'", filepath);  //$NON-NLS-1$
+        } finally {
+        	if (is != null) {
+        		try {
+					is.close();
+				} catch (IOException e) {
+				}
+        	}
         }
 
         return null;
@@ -792,8 +801,9 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      * @return null if the file could not be read
      */
     public static byte[] readEmbeddedFile(String filepath) {
+    	InputStream is = null;
         try {
-            InputStream is = readEmbeddedFileAsStream(filepath);
+            is = readEmbeddedFileAsStream(filepath);
             if (is != null) {
                 // create a buffered reader to facilitate reading.
                 BufferedInputStream stream = new BufferedInputStream(is);
@@ -813,7 +823,14 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             }
         } catch (IOException e) {
             // we'll just return null;.
-            AdtPlugin.log(e, "Failed to read binary file '%s'", filepath);  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to read binary file '%s'", filepath);  //$NON-NLS-1$
+        } finally {
+        	if (is != null) {
+        		try {
+					is.close();
+				} catch (IOException e) {
+				}
+        	}
         }
 
         return null;
@@ -834,10 +851,10 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
             }
         } catch (MalformedURLException e) {
             // we'll just return null.
-            AdtPlugin.log(e, "Failed to read stream '%s'", filepath);  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to read stream '%s'", filepath);  //$NON-NLS-1$
         } catch (IOException e) {
             // we'll just return null;.
-            AdtPlugin.log(e, "Failed to read stream '%s'", filepath);  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to read stream '%s'", filepath);  //$NON-NLS-1$
         }
 
         return null;
@@ -850,11 +867,11 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      */
     public static URL getEmbeddedFileUrl(String filepath) {
         Bundle bundle = null;
-        synchronized (AdtPlugin.class) {
+        synchronized (AndmoreAndroidPlugin.class) {
             if (sPlugin != null) {
                 bundle = sPlugin.getBundle();
             } else {
-                AdtPlugin.log(IStatus.WARNING, "ADT Plugin is missing");    //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(IStatus.WARNING, "ADT Plugin is missing");    //$NON-NLS-1$
                 return null;
             }
         }
@@ -868,7 +885,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
         URL url = bundle.getEntry(path);
 
         if (url == null) {
-            AdtPlugin.log(IStatus.INFO, "Bundle file URL not found at path '%s'", path); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.INFO, "Bundle file URL not found at path '%s'", path); //$NON-NLS-1$
         }
 
         return url;
@@ -1092,7 +1109,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
 
         // now make sure it's not docked.
         ConsolePlugin.getDefault().getConsoleManager().showConsoleView(
-                AdtPlugin.getDefault().getAndroidConsole());
+                AndmoreAndroidPlugin.getDefault().getAndroidConsole());
     }
 
     /**
@@ -1143,12 +1160,11 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
 
             /**
              * Handle an error, which is the case where the check did not find any SDK.
-             * This returns false to {@link AdtPlugin#checkSdkLocationAndId()}.
+             * This returns false to {@link AndmoreAndroidPlugin#checkSdkLocationAndId()}.
              */
             @Override
             public boolean handleError(Solution solution, String message) {
-            	System.out.println("Message: " + message);
-                //displayMessage(solution, message, MessageDialog.ERROR);
+                displayMessage(solution, message, MessageDialog.ERROR);
                 return false;
             }
 
@@ -1156,12 +1172,11 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
              * Handle an warning, which is the case where the check found an SDK
              * but it might need to be repaired or is missing an expected component.
              *
-             * This returns true to {@link AdtPlugin#checkSdkLocationAndId()}.
+             * This returns true to {@link AndmoreAndroidPlugin#checkSdkLocationAndId()}.
              */
             @Override
             public boolean handleWarning(Solution solution, String message) {
-            	System.out.println("Message: " + message);
-                //displayMessage(solution, message, MessageDialog.WARNING);
+                displayMessage(solution, message, MessageDialog.WARNING);
                 return true;
             }
 
@@ -1175,7 +1190,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                     public void run() {
                         Shell shell = disp.getActiveShell();
                         if (shell == null) {
-                            shell = AdtPlugin.getShell();
+                            shell = AndmoreAndroidPlugin.getShell();
                         }
                         if (shell == null) {
                             return;
@@ -1192,6 +1207,8 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                         case OPEN_SDK_MANAGER:
                             customLabel = "Open SDK Manager";
                             break;
+						default:
+							break;
                         }
 
                         String btnLabels[] = new String[customLabel == null ? 1 : 2];
@@ -1219,6 +1236,8 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                             case OPEN_SDK_MANAGER:
                                 openSdkManager();
                                 break;
+							default:
+								break;
                             }
                         }
                     }
@@ -1245,9 +1264,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
 
             private void openP2Update() {
                 Display disp = getDisplay();
-                if (disp == null) {
-                    return;
-                }
+                
                 disp.asyncExec(new Runnable() {
                     @Override
                     public void run() {
@@ -1268,7 +1285,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                             try {
                                 is.executeCommand(cmdId, null/*event*/);
                             } catch (Exception ignore) {
-                                AdtPlugin.log(ignore, "Failed to execute command %s", cmdId);
+                                AndmoreAndroidPlugin.log(ignore, "Failed to execute command %s", cmdId);
                             }
                         }
                     }
@@ -1472,14 +1489,14 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                     final List<ITargetChangeListener> listeners =
                         (List<ITargetChangeListener>)mTargetChangeListeners.clone();
                     final SubMonitor progress2 = progress;
-                    AdtPlugin.getDisplay().asyncExec(new Runnable() {
+                    AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                         @Override
                         public void run() {
                             for (ITargetChangeListener listener : listeners) {
                                 try {
                                     listener.onSdkLoaded();
                                 } catch (Exception e) {
-                                    AdtPlugin.log(e, "Failed to update a TargetChangeListener."); //$NON-NLS-1$
+                                    AndmoreAndroidPlugin.log(e, "Failed to update a TargetChangeListener."); //$NON-NLS-1$
                                 } finally {
                                     progress2.worked(1);
                                 }
@@ -1518,7 +1535,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
     // ----- Methods for Editors -------
 
     public void startEditors() {
-        sAndroidLogoDesc = imageDescriptorFromPlugin(AdtPlugin.PLUGIN_ID,
+        sAndroidLogoDesc = imageDescriptorFromPlugin(AndmoreAndroidPlugin.PLUGIN_ID,
                 "/icons/android.png"); //$NON-NLS-1$
         sAndroidLogo = sAndroidLogoDesc.createImage();
 
@@ -1601,7 +1618,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      *      it on their own.
      * <ul>
      *
-     * This is called by the {@link AdtPlugin} during initialization.
+     * This is called by the {@link AndmoreAndroidPlugin} during initialization.
      *
      * @param monitor The main Resource Monitor object.
      */
@@ -1717,14 +1734,14 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
         final List<ITargetChangeListener> listeners =
             (List<ITargetChangeListener>)mTargetChangeListeners.clone();
 
-        AdtPlugin.getDisplay().asyncExec(new Runnable() {
+        AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
                 for (ITargetChangeListener listener : listeners) {
                     try {
                         listener.onProjectTargetChange(project);
                     } catch (Exception e) {
-                        AdtPlugin.log(e, "Failed to update a TargetChangeListener.");  //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(e, "Failed to update a TargetChangeListener.");  //$NON-NLS-1$
                     }
                 }
             }
@@ -1740,7 +1757,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
         final List<ITargetChangeListener> listeners =
             (List<ITargetChangeListener>)mTargetChangeListeners.clone();
 
-        Display display = AdtPlugin.getDisplay();
+        Display display = AndmoreAndroidPlugin.getDisplay();
         if (display == null || display.isDisposed()) {
             return;
         }
@@ -1751,7 +1768,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                     try {
                         listener.onTargetLoaded(target);
                     } catch (Exception e) {
-                        AdtPlugin.log(e, "Failed to update a TargetChangeListener.");  //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(e, "Failed to update a TargetChangeListener.");  //$NON-NLS-1$
                     }
                 }
             }

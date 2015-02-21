@@ -39,7 +39,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -292,7 +292,7 @@ public class RenameResourceParticipant extends RenameParticipant {
                 return refactoring;
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -352,7 +352,7 @@ public class RenameResourceParticipant extends RenameParticipant {
                 sIgnore = true;
                 return mFieldRefactoring.checkAllConditions(pm);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             } finally {
                 sIgnore = false;
             }
@@ -525,9 +525,9 @@ public class RenameResourceParticipant extends RenameParticipant {
 
             return true;
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } finally {
             if (model != null) {
                 model.releaseFromRead();
@@ -704,7 +704,7 @@ public class RenameResourceParticipant extends RenameParticipant {
 
             return t.getField(name);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;

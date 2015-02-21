@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui.tree;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
@@ -131,7 +131,7 @@ class UiElementDetail implements IDetailsPage {
                     // Finally reset the dirty flag if everything was saved properly
                     mIsDirty = false;
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "Detail node failed to commit XML attribute!"); //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(e, "Detail node failed to commit XML attribute!"); //$NON-NLS-1$
                 }
             }
         });
@@ -286,7 +286,7 @@ class UiElementDetail implements IDetailsPage {
                 } catch(Exception e) {
                     // The FormText parser is really really basic and will fail as soon as the
                     // HTML javadoc is ever so slightly malformatted.
-                    AdtPlugin.log(e,
+                    AndmoreAndroidPlugin.log(e,
                             "Malformed javadoc, rejected by FormText for node %1$s: '%2$s'", //$NON-NLS-1$
                             ui_node.getDescriptor().getXmlName(),
                             tooltip);
@@ -330,7 +330,7 @@ class UiElementDetail implements IDetailsPage {
                 } else {
                     // The XML has an extra unknown attribute.
                     // This is not expected to happen so it is ignored.
-                    AdtPlugin.log(IStatus.INFO,
+                    AndmoreAndroidPlugin.log(IStatus.INFO,
                             "Attribute %1$s not declared in node %2$s, ignored.", //$NON-NLS-1$
                             attr_desc.getXmlLocalName(),
                             ui_node.getDescriptor().getXmlName());

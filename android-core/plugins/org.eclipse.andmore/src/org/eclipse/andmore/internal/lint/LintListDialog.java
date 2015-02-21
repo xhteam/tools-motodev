@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.lint;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -224,7 +224,7 @@ class LintListDialog extends TitleAreaDialog implements SelectionListener {
                         close();
                     }
                 } else {
-                    AdtPlugin.log(IStatus.ERROR, "Did not find associated editor to apply fix");
+                    AndmoreAndroidPlugin.log(IStatus.ERROR, "Did not find associated editor to apply fix");
                 }
             }
         } else if (source == mIgnoreTypeButton) {

@@ -25,7 +25,7 @@ import com.android.resources.ResourceType;
 import com.android.util.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IFileListener;
@@ -97,7 +97,7 @@ public final class CompiledResourcesMonitor implements IFileListener, IProjectLi
             String className = getRClassName(project);
             if (className == null) {
                 // We need to abort.
-                AdtPlugin.log(IStatus.ERROR,
+                AndmoreAndroidPlugin.log(IStatus.ERROR,
                         "fileChanged: failed to find manifest package for project %1$s", //$NON-NLS-1$
                         project.getName());
                 return;
@@ -184,7 +184,7 @@ public final class CompiledResourcesMonitor implements IFileListener, IProjectLi
                 // Find the classname
                 if (className == null) {
                     // We need to abort.
-                    AdtPlugin.log(IStatus.ERROR,
+                    AndmoreAndroidPlugin.log(IStatus.ERROR,
                             "projectOpenedWithWorkspace: failed to find manifest package for project %1$s", //$NON-NLS-1$
                             project.getName());
                     return;
@@ -235,7 +235,7 @@ public final class CompiledResourcesMonitor implements IFileListener, IProjectLi
                     }
                 } catch (Error e) {
                     // Log this error with the class name we're trying to load and abort.
-                    AdtPlugin.log(e, "loadAndParseRClass failed to find class %1$s", className); //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(e, "loadAndParseRClass failed to find class %1$s", className); //$NON-NLS-1$
                 }
             }
         } catch (ClassNotFoundException e) {

@@ -19,7 +19,7 @@ import static com.android.SdkConstants.ANDROID_URI;
 
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.core.resources.IFile;
@@ -112,9 +112,9 @@ abstract class SetPropertyFix extends DocumentFix {
         try {
             IFile file = (IFile) mMarker.getResource();
             super.apply(document);
-            AdtPlugin.openFile(file, mSelect, true);
+            AndmoreAndroidPlugin.openFile(file, mSelect, true);
         } catch (PartInitException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         // Invoke code assist

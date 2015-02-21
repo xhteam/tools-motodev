@@ -22,7 +22,7 @@ import com.android.annotations.Nullable;
 import com.android.sdklib.IAndroidTarget;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
 import org.eclipse.andmore.internal.lint.EclipseLintRunner;
@@ -178,7 +178,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
         super.init(site, input);
         // Trigger a check to see if the SDK needs to be reloaded (which will
         // invoke onSdkLoaded or ITargetChangeListener asynchronously as needed).
-        AdtPlugin.getDefault().refreshSdk();
+        AndmoreAndroidPlugin.getDefault().refreshSdk();
     }
 
     /**
@@ -201,7 +201,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                     initUiRootNode(true /*force*/);
                 }
             };
-            AdtPlugin.getDefault().addTargetListener(mTargetListener);
+            AndmoreAndroidPlugin.getDefault().addTargetListener(mTargetListener);
         }
     }
 
@@ -289,7 +289,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                             }
                         }
                     } catch (CoreException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             };
@@ -431,7 +431,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
         if (defaultPageId == null) {
             IFile file = getInputFile();
             if (file != null) {
-                QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID,
+                QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
                         getClass().getSimpleName() + PREF_CURRENT_PAGE);
                 String pageId;
                 try {
@@ -453,7 +453,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                 // AssertionError from setActivePage when the index is out of bounds.
                 // Generally speaking we just want to ignore any exception and fall back on the
                 // first page rather than crash the editor load. Logging the error is enough.
-                AdtPlugin.log(e, "Selecting page '%s' in AndroidXmlEditor failed", defaultPageId);
+                AndmoreAndroidPlugin.log(e, "Selecting page '%s' in AndroidXmlEditor failed", defaultPageId);
             }
         } else if (AdtPrefs.getPrefs().isXmlEditorPreferred(getPersistenceCategory())) {
             setActivePage(mTextPageIndex);
@@ -537,7 +537,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
 
         IFile file = getInputFile();
         if (file != null) {
-            QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID,
+            QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
                     getClass().getSimpleName() + PREF_CURRENT_PAGE);
             try {
                 file.setPersistentProperty(qname, Integer.toString(newPageIndex));
@@ -591,7 +591,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
         }
 
         if (mTargetListener != null) {
-            AdtPlugin.getDefault().removeTargetListener(mTargetListener);
+            AndmoreAndroidPlugin.getDefault().removeTargetListener(mTargetListener);
             mTargetListener = null;
         }
 
@@ -822,7 +822,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                     IconFactory.getInstance().getIcon(ICON_XML_PAGE));
 
             if (!(mTextEditor.getTextViewer().getDocument() instanceof IStructuredDocument)) {
-                Status status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                Status status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "Error opening the Android XML editor. Is the document an XML file?");
                 throw new RuntimeException("Android XML Editor Error", new CoreException(status));
             }
@@ -834,7 +834,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                     xml_model.addModelStateListener(mXmlModelStateListener);
                     mXmlModelStateListener.modelChanged(xml_model);
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "Error while loading editor"); //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(e, "Error while loading editor"); //$NON-NLS-1$
                 } finally {
                     xml_model.releaseFromRead();
                 }
@@ -1041,7 +1041,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                 } catch (Throwable t) {
                     // This is never supposed to happen unless we suddenly don't have a model.
                     // If it does, we don't want to even try to modify anyway.
-                    AdtPlugin.log(t, "XML Editor failed to get model to edit");  //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(t, "XML Editor failed to get model to edit");  //$NON-NLS-1$
                     return;
                 }
             }
@@ -1094,12 +1094,12 @@ public abstract class AndroidXmlEditor extends FormEditor {
                         mIgnoreXmlUpdate = oldIgnore;
                     }
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "Failed to clean up undo unit");
+                    AndmoreAndroidPlugin.log(e, "Failed to clean up undo unit");
                 }
                 model.releaseFromEdit();
 
                 if (mIsEditXmlModelPending < 0) {
-                    AdtPlugin.log(IStatus.ERROR,
+                    AndmoreAndroidPlugin.log(IStatus.ERROR,
                             "wrapEditXmlModel finished with invalid nested counter==%1$d", //$NON-NLS-1$
                             mIsEditXmlModelPending);
                     mIsEditXmlModelPending = 0;
@@ -1113,7 +1113,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                     try {
                         mXmlModelStateListener.modelChanged(readModel);
                     } catch (Exception e) {
-                        AdtPlugin.log(e, "Error while notifying changes"); //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(e, "Error while notifying changes"); //$NON-NLS-1$
                     } finally {
                         readModel.releaseFromRead();
                     }
@@ -1205,7 +1205,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
      */
     public final Document getXmlDocument(IStructuredModel model) {
         if (model == null) {
-            AdtPlugin.log(IStatus.WARNING, "Android Editor: No XML model for root node."); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.WARNING, "Android Editor: No XML model for root node."); //$NON-NLS-1$
             return null;
         }
 
@@ -1408,7 +1408,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                 }
             } catch (BadLocationException e) {
                 // This cannot happen because we already clamped the offsets
-                AdtPlugin.log(e, e.toString());
+                AndmoreAndroidPlugin.log(e, e.toString());
             }
         }
 
@@ -1560,7 +1560,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, "Could not obtain indentation"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Could not obtain indentation"); //$NON-NLS-1$
         }
 
         return ""; //$NON-NLS-1$

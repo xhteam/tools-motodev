@@ -40,7 +40,7 @@ import com.android.ide.common.resources.ResourceItem;
 import com.android.io.IAbstractFile;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -80,14 +80,14 @@ import java.util.Set;
 @SuppressWarnings("restriction") // XML model
 public class IncludeFinder {
     /** Qualified name for the per-project persistent property include-map */
-    private final static QualifiedName CONFIG_INCLUDES = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName CONFIG_INCLUDES = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "includes");//$NON-NLS-1$
 
     /**
      * Qualified name for the per-project non-persistent property storing the
      * {@link IncludeFinder} for this project
      */
-    private final static QualifiedName INCLUDE_FINDER = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName INCLUDE_FINDER = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "includefinder"); //$NON-NLS-1$
 
     /** Project that the include finder locates includes for */
@@ -138,7 +138,7 @@ public class IncludeFinder {
             try {
                 project.setSessionProperty(INCLUDE_FINDER, finder);
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't store IncludeFinder");
+                AndmoreAndroidPlugin.log(e, "Can't store IncludeFinder");
             }
         }
 
@@ -375,7 +375,7 @@ public class IncludeFinder {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Can't store include settings");
+            AndmoreAndroidPlugin.log(e, "Can't store include settings");
         }
     }
 
@@ -404,7 +404,7 @@ public class IncludeFinder {
                 return true;
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Can't read include settings");
+            AndmoreAndroidPlugin.log(e, "Can't read include settings");
         }
 
         return false;
@@ -473,13 +473,13 @@ public class IncludeFinder {
                     // The actual file may not exist anymore (e.g. when deleting a layout file
                     // or when the workspace is out of sync.)
                     if (!hadXmlModel) {
-                        String xml = AdtPlugin.readFile(file);
+                        String xml = AndmoreAndroidPlugin.readFile(file);
                         if (xml != null) {
                             includes = findIncludes(xml);
                         }
                     }
                 } else {
-                    String xml = AdtPlugin.readFile(resourceFile);
+                    String xml = AndmoreAndroidPlugin.readFile(resourceFile);
                     if (xml != null) {
                         includes = findIncludes(xml);
                     }
@@ -804,7 +804,7 @@ public class IncludeFinder {
                                     sRefreshing = true;
                                     marker.delete();
                                 } catch (CoreException e) {
-                                    AdtPlugin.log(e, "Can't delete problem marker");
+                                    AndmoreAndroidPlugin.log(e, "Can't delete problem marker");
                                 } finally {
                                     sRefreshing = false;
                                 }
@@ -891,7 +891,7 @@ public class IncludeFinder {
         if (display != null) {
             display.asyncExec(runnable);
         } else {
-            AdtPlugin.log(IStatus.WARNING, "Could not find display");
+            AndmoreAndroidPlugin.log(IStatus.WARNING, "Could not find display");
         }
     }
 

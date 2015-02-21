@@ -46,7 +46,7 @@ import com.android.ide.common.resources.ResourceResolver;
 import com.android.ide.common.xml.XmlFormatStyle;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -485,9 +485,9 @@ public class ExtractStyleRefactoring extends VisualRefactoring {
                 }
             }
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } finally {
             if (model != null) {
                 model.releaseFromRead();
@@ -495,7 +495,7 @@ public class ExtractStyleRefactoring extends VisualRefactoring {
         }
 
         if (insertAtIndex == -1) {
-            String contents = AdtPlugin.readFile(file);
+            String contents = AndmoreAndroidPlugin.readFile(file);
             insertAtIndex = contents.indexOf("</" + TAG_RESOURCES + ">"); //$NON-NLS-1$
             if (insertAtIndex == -1) {
                 insertAtIndex = contents.length();

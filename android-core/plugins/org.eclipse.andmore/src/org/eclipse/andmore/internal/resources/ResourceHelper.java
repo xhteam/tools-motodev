@@ -64,7 +64,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.Hyperlinks;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -147,7 +147,7 @@ public class ResourceHelper {
             sIconMap.put(ScreenHeightQualifier.class,       factory.getIcon("height")); //$NON-NLS-1$
             sIconMap.put(SmallestScreenWidthQualifier.class,factory.getIcon("swidth")); //$NON-NLS-1$
         } catch (Throwable t) {
-            AdtPlugin.log(t , null);
+            AndmoreAndroidPlugin.log(t , null);
         }
     }
 
@@ -409,7 +409,7 @@ public class ResourceHelper {
                         return Pair.of(file, region);
                     }
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "Cannot access XML value model");
+                    AndmoreAndroidPlugin.log(e, "Cannot access XML value model");
                 } finally {
                     if (model != null) {
                         model.endRecording(editRequester);
@@ -469,7 +469,7 @@ public class ResourceHelper {
             }
 
             error = String.format("Failed to generate %1$s: %2$s", name, error);
-            AdtPlugin.displayError("New Android XML File", error);
+            AndmoreAndroidPlugin.displayError("New Android XML File", error);
         }
         return null;
     }
@@ -578,7 +578,7 @@ public class ResourceHelper {
                         value = findColorValue(items);
                         continue;
                     } catch (Exception e) {
-                        AdtPlugin.log(e, "Failed parsing color file %1$s", file.getName());
+                        AndmoreAndroidPlugin.log(e, "Failed parsing color file %1$s", file.getName());
                     } finally {
                         if (bis != null) {
                             try {

@@ -62,7 +62,7 @@ import static org.eclipse.andmore.common.layout.GravityHelper.GRAVITY_VERT_MASK;
 
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.GravityHelper;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.layout.gle2.CanvasViewInfo;
@@ -343,7 +343,7 @@ class RelativeLayoutConversionHelper {
             try {
                 return Float.parseFloat(weight);
             } catch (NumberFormatException nfe) {
-                AdtPlugin.log(nfe, "Invalid weight %1$s", weight);
+                AndmoreAndroidPlugin.log(nfe, "Invalid weight %1$s", weight);
             }
         }
 
@@ -1618,7 +1618,7 @@ class RelativeLayoutConversionHelper {
             if (name.equals(LINEAR_LAYOUT) || name.equals(RELATIVE_LAYOUT)) {
                 // Don't delete layouts that provide a background image or gradient
                 if (element.hasAttributeNS(ANDROID_URI, ATTR_BACKGROUND)) {
-                    AdtPlugin.log(IStatus.WARNING,
+                    AndmoreAndroidPlugin.log(IStatus.WARNING,
                             "Did not flatten layout %1$s because it defines a '%2$s' attribute",
                             VisualRefactoring.getId(element), ATTR_BACKGROUND);
                     return false;

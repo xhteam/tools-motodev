@@ -26,7 +26,7 @@ import com.android.ide.common.rendering.api.Result;
 import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.wizards.newxmlfile.NewXmlFileWizard;
 import org.eclipse.core.resources.IProject;
@@ -211,7 +211,7 @@ public class PlayAnimationMenu extends SubmenuAction {
 
                 if (!r.isSuccess()) {
                     if (r.getErrorMessage() != null) {
-                        AdtPlugin.log(r.getException(), r.getErrorMessage());
+                        AndmoreAndroidPlugin.log(r.getException(), r.getErrorMessage());
                     }
                 }
             }

@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 import com.android.annotations.NonNull;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.refactorings.core.RefactoringTestBase;
 import org.eclipse.core.resources.IFolder;
@@ -135,7 +135,7 @@ public class AndroidTypeMoveParticipantTest extends RefactoringTestBase {
         processor.setUpdateQualifiedNames(true);
         assertTrue(policy.canEnable());
         processor.setDestination(ReorgDestinationFactory.createDestination(destinationFolder));
-        Shell parent = AdtPlugin.getShell();
+        Shell parent = AndmoreAndroidPlugin.getShell();
         assertNotNull(parent);
         processor.setCreateTargetQueries(new CreateTargetQueries(parent));
         processor.setReorgQueries(new ReorgQueries(parent));

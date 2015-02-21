@@ -48,7 +48,7 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
@@ -404,7 +404,7 @@ class TemplateHandler {
             return Files.toString(new File(mRootPath,
                     relativePath.replace('/', File.separatorChar)), Charsets.UTF_8);
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null;
         }
     }
@@ -415,7 +415,7 @@ class TemplateHandler {
         try {
             return Files.toString(file, Charsets.UTF_8);
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null;
         }
     }
@@ -431,7 +431,7 @@ class TemplateHandler {
         try {
             return Files.toByteArray(new File(mRootPath, relativePath));
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null;
         }
     }
@@ -511,7 +511,7 @@ class TemplateHandler {
                                 try {
                                     copy(path, to);
                                 } catch (IOException ioe) {
-                                    AdtPlugin.log(ioe, null);
+                                    AndmoreAndroidPlugin.log(ioe, null);
                                 }
                             }
                         }
@@ -525,7 +525,7 @@ class TemplateHandler {
             });
         } catch (Exception e) {
             sMostRecentException = e;
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -658,7 +658,7 @@ class TemplateHandler {
                                 try {
                                     copy(path, to);
                                 } catch (IOException ioe) {
-                                    AdtPlugin.log(ioe, null);
+                                    AndmoreAndroidPlugin.log(ioe, null);
                                 }
                             }
                         } else if (!name.equals("recipe") && !name.equals(TAG_DEPENDENCY)) { //$NON-NLS-1$
@@ -666,14 +666,14 @@ class TemplateHandler {
                         }
                     } catch (Exception e) {
                         sMostRecentException = e;
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             });
 
         } catch (Exception e) {
             sMostRecentException = e;
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -710,7 +710,7 @@ class TemplateHandler {
 
         IFile to = getTargetFile(toPath);
         if (to.exists()) {
-            currentXml = AdtPlugin.readFile(to);
+            currentXml = AndmoreAndroidPlugin.readFile(to);
         }
 
         if (currentXml == null) {
@@ -874,7 +874,7 @@ class TemplateHandler {
                         // really confusing if the new parameter is not set. This is
                         // really an error in the template, since we shouldn't have conflicts
                         // like that, but we need to do something to help track this down.
-                        AdtPlugin.log(null,
+                        AndmoreAndroidPlugin.log(null,
                                 "Warning: Ignoring name conflict in resource file for name %1$s",
                                 name);
                     } else {
@@ -915,7 +915,7 @@ class TemplateHandler {
         }
 
         ManifestMerger merger = new ManifestMerger(
-                MergerLog.wrapSdkLog(AdtPlugin.getDefault()),
+                MergerLog.wrapSdkLog(AndmoreAndroidPlugin.getDefault()),
                 new AdtManifestMergeCallback()).setExtractPackagePrefix(true);
         return currentManifest != null &&
                 fragment != null &&
@@ -996,7 +996,7 @@ class TemplateHandler {
                         options = javaProject.getOptions(true);
                     }
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
             if (options == null) {
@@ -1018,7 +1018,7 @@ class TemplateHandler {
 
                 return doc.get();
             } catch (Exception e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 
@@ -1209,24 +1209,24 @@ class TemplateHandler {
             return null;
         }
         if (!template.isSupported()) {
-            String versionString = AdtPlugin.getDefault().getBundle().getHeaders().get(
+            String versionString = AndmoreAndroidPlugin.getDefault().getBundle().getHeaders().get(
                     Constants.BUNDLE_VERSION);
             Version version = new Version(versionString);
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("This template requires a more recent version of the " +
                             "Android Eclipse plugin. Please update from version %1$d.%2$d.%3$d.",
                             version.getMajor(), version.getMinor(), version.getMicro()));
         }
         int templateMinSdk = template.getMinSdk();
         if (templateMinSdk > currentMinSdk && currentMinSdk >= 1) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("This template requires a minimum SDK version of at " +
                             "least %1$d, and the current min version is %2$d",
                             templateMinSdk, currentMinSdk));
         }
         int templateMinBuildApi = template.getMinBuildApi();
         if (templateMinBuildApi >  buildApi && buildApi >= 1) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("This template requires a build target API version of at " +
                             "least %1$d, and the current version is %2$d",
                             templateMinBuildApi, buildApi));

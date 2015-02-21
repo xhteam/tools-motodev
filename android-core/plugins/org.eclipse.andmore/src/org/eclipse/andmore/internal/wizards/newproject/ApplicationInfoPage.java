@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.wizards.newproject;
 import com.android.SdkConstants;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.internal.sdk.Sdk.ITargetChangeListener;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
@@ -85,7 +85,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
 
         setTitle("Application Info");
         setDescription("Configure the new Android Project");
-        AdtPlugin.getDefault().addTargetListener(this);
+        AndmoreAndroidPlugin.getDefault().addTargetListener(this);
     }
 
     /**
@@ -274,7 +274,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
 
     @Override
     public void dispose() {
-        AdtPlugin.getDefault().removeTargetListener(this);
+        AndmoreAndroidPlugin.getDefault().removeTargetListener(this);
         super.dispose();
     }
 
@@ -479,14 +479,14 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
                     IStatus validTestPackage = validatePackage(mValues.testPackageName);
                     if (validTestPackage != null) {
                         status = new Status(validTestPackage.getSeverity(),
-                                AdtPlugin.PLUGIN_ID,
+                                AndmoreAndroidPlugin.PLUGIN_ID,
                                 validTestPackage.getMessage() + " (in test package)");
                     }
                 }
 
                 if (status == null || status.getSeverity() != IStatus.ERROR) {
                     if (mValues.projectName.equals(mValues.testProjectName)) {
-                        status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                        status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                              "The main project name and the test project name must be different.");
                     }
                 }
@@ -525,7 +525,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
                 // a directory that is empty.
                 File f = path.toFile();
                 if (f.exists() && !f.isDirectory()) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "A directory name must be specified.");
                 } else if (f.isDirectory()) {
                     // However if the directory exists, we should put a
@@ -534,7 +534,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
                     // using the directory.)
                     String[] l = f.list();
                     if (l != null && l.length != 0) {
-                        return new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                        return new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                                 "The selected output directory is not empty.");
                     }
                 }
@@ -542,7 +542,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
                 IPath destPath = path.removeLastSegments(1).append(mValues.testProjectName);
                 File dest = destPath.toFile();
                 if (dest.exists()) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format(
                                     "There is already a file or directory named \"%1$s\" in the selected location.",
                             mValues.testProjectName));
@@ -591,11 +591,11 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
             if (!found) {
                 String projectPath = projectDir.getPath();
                 if (allDirs.length > 0) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format("%1$s can not be found under %2$s.", osTarget,
                             projectPath));
                 } else {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format("No source folders can be found in %1$s.",
                             projectPath));
                 }
@@ -620,7 +620,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
         // If the current target is a preview, explicitly indicate minSdkVersion
         // must be set to this target name.
         if (target.getVersion().isPreview() && !target.getVersion().equals(mValues.minSdk)) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format(
                             "The SDK target is a preview. Min SDK Version must be set to '%s'.",
                             target.getVersion().getCodename()));
@@ -628,7 +628,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
 
         if (!target.getVersion().equals(mValues.minSdk)) {
             return new Status(target.getVersion().isPreview() ? IStatus.ERROR : IStatus.WARNING,
-                    AdtPlugin.PLUGIN_ID,
+                    AndmoreAndroidPlugin.PLUGIN_ID,
                     "The API level for the selected SDK target does not match the Min SDK Version."
                     );
         }
@@ -639,7 +639,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
     public static IStatus validatePackage(String packageFieldContents) {
         // Validate package
         if (packageFieldContents == null || packageFieldContents.length() == 0) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Package name must be specified.");
         } else if (packageFieldContents.equals(DUMMY_PACKAGE)) {
             // The dummy package name is just a placeholder package (which isn't even valid
@@ -648,7 +648,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
             // what's wrong with this specific package. (And the reason we provide a dummy
             // package rather than a blank line is to make it more clear to beginners what
             // we're looking for.
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Package name must be specified.");
         }
         // Check it's a valid package string
@@ -663,7 +663,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
         // validated that if such a dot exist, it's not the first nor last characters of the
         // string.)
         if (packageFieldContents.indexOf('.') == -1) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Package name must have at least two identifiers.");
         }
 
@@ -672,11 +672,11 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
 
     public static IStatus validateClass(String className) {
         if (className == null || className.length() == 0) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Class name must be specified.");
         }
         if (className.indexOf('.') != -1) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Enter just a class name, not a full package name");
         }
         return JavaConventions.validateJavaTypeName(className, JDK_15, JDK_15);
@@ -700,12 +700,12 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
     public static IStatus validateActivity(String activityFieldContents) {
         // Validate activity field
         if (activityFieldContents == null || activityFieldContents.length() == 0) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Activity name must be specified.");
         } else if (ACTIVITY_NAME_SUFFIX.equals(activityFieldContents)) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, "Enter a valid activity name");
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, "Enter a valid activity name");
         } else if (activityFieldContents.contains("..")) { //$NON-NLS-1$
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Package segments in activity name cannot be empty (..)");
         }
         // The activity field can actually contain part of a sub-package name
@@ -740,7 +740,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
         if (packageName.length() > 0) {
             status = JavaConventions.validatePackageName(packageName, JDK_15, JDK_15);
             if (!status.isOK()) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         status.getMessage() + " (in the activity name)");
             }
         }

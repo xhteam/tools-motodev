@@ -48,7 +48,7 @@ import com.android.sdklib.devices.State;
 import com.android.utils.Pair;
 import com.google.common.base.Objects;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.RenderService;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttributes;
@@ -104,7 +104,7 @@ public class Configuration {
      * is shared for all files
      */
     public final static QualifiedName NAME_RENDER_STATE =
-        new QualifiedName(AdtPlugin.PLUGIN_ID, "render");          //$NON-NLS-1$
+        new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "render");          //$NON-NLS-1$
 
     private final static String MARKER_FRAMEWORK = "-";            //$NON-NLS-1$
     private final static String MARKER_PROJECT = "+";              //$NON-NLS-1$
@@ -895,7 +895,7 @@ public class Configuration {
 
             return Pair.of(Locale.ANY, ConfigurationMatcher.findDefaultRenderTarget(chooser));
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -929,7 +929,7 @@ public class Configuration {
 
             project.setPersistentProperty(NAME_RENDER_STATE, sb.toString());
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 

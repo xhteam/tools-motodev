@@ -24,7 +24,7 @@ import com.android.ide.common.resources.ResourceItem;
 import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageUtils;
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -174,7 +174,7 @@ public class ResourceNameValidator implements IInputValidator {
 
             return null;
         } catch (Exception e) {
-            AdtPlugin.log(e, "Validation failed: %s", e.toString());
+            AndmoreAndroidPlugin.log(e, "Validation failed: %s", e.toString());
             return ""; //$NON-NLS-1$
         }
     }

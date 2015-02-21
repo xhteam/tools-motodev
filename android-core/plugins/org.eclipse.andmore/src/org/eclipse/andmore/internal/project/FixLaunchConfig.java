@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.LaunchConfigDelegate;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -72,7 +72,7 @@ public class FixLaunchConfig extends Thread {
 
         if (mDisplayPrompt) {
             // ask the user if he really wants to fix the launch config
-            boolean res = AdtPlugin.displayPrompt(
+            boolean res = AndmoreAndroidPlugin.displayPrompt(
                     "Launch Configuration Update",
                     "The package definition in the manifest changed.\nDo you want to update your Launch Configuration(s)?");
 
@@ -111,7 +111,7 @@ public class FixLaunchConfig extends Thread {
                 // couldn't get the working copy. we output the error in the console
                 String msg = String.format("Failed to modify %1$s: %2$s", projectName,
                         e.getMessage());
-                AdtPlugin.printErrorToConsole(mProject, msg);
+                AndmoreAndroidPlugin.printErrorToConsole(mProject, msg);
             }
         }
 

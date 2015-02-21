@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.wizards.project;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.Sample;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -37,7 +37,7 @@ public class TreeLabelProvider extends LabelProvider {
 	private static final Image studio = new Image(null, AndroidPlugin.getImageDescriptor(
 			AndroidPlugin.ANDROID_MOTOROLA_BRAND_ICON_PATH).getImageData());
 
-	private static final Image android = AdtPlugin.getAndroidLogo();
+	private static final Image android = AndmoreAndroidPlugin.getAndroidLogo();
 
 	/*
 	 * (non-Javadoc)

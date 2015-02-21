@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.export;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.ui.SectionHelper.ManifestSectionPart;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
@@ -191,7 +191,7 @@ abstract class AbstractPropertiesFieldsPart extends ManifestSectionPart {
 
             } catch (BadLocationException e) {
                 // TODO log it
-                AdtPlugin.log(e, "Failed to replace in export.properties");
+                AndmoreAndroidPlugin.log(e, "Failed to replace in export.properties");
             }
         }
 
@@ -228,7 +228,7 @@ abstract class AbstractPropertiesFieldsPart extends ManifestSectionPart {
                     allKeywords.remove(key);
                 } catch (BadLocationException e) {
                     // TODO log it
-                    AdtPlugin.log(e, "Failed to append to export.properties: %s", line);
+                    AndmoreAndroidPlugin.log(e, "Failed to append to export.properties: %s", line);
                 } finally {
                     mInternalTextUpdate = false;
                 }
@@ -301,7 +301,7 @@ abstract class AbstractPropertiesFieldsPart extends ManifestSectionPart {
 
             } catch (BadLocationException e) {
                 // TODO log it
-                AdtPlugin.log(e, "Failed to set field to export.properties value");
+                AndmoreAndroidPlugin.log(e, "Failed to set field to export.properties value");
             }
         }
 

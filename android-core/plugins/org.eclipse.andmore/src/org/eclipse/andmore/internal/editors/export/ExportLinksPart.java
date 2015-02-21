@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.export;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidTextEditor;
 import org.eclipse.andmore.internal.editors.ui.SectionHelper.ManifestSectionPart;
 import org.eclipse.jface.text.DocumentEvent;
@@ -71,7 +71,7 @@ final class ExportLinksPart extends ManifestSectionPart {
         mFormText = createFormText(table, toolkit, true, buf.toString(),
                 false /* setupLayoutData */);
 
-        Image androidLogo = AdtPlugin.getAndroidLogo();
+        Image androidLogo = AndmoreAndroidPlugin.getAndroidLogo();
         mFormText.setImage("android_img", androidLogo); //$NON-NLS-1$
 
         // Listener for default actions (page change, URL web browser)

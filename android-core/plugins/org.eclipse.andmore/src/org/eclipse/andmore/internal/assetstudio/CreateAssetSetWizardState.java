@@ -22,7 +22,7 @@ import com.android.assetstudiolib.GraphicGenerator;
 import com.android.assetstudiolib.GraphicGenerator.Shape;
 import com.android.assetstudiolib.GraphicGeneratorContext;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.wizards.templates.TemplateManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.graphics.RGB;
@@ -164,7 +164,7 @@ public class CreateAssetSetWizardState implements GraphicGeneratorContext {
         try {
             return getCachedImage(relativeName, true);
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null;
         }
     }

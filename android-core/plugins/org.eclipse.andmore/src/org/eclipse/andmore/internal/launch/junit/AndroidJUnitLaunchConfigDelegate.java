@@ -22,7 +22,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Instrumentation;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.AndroidLaunch;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration;
 import org.eclipse.andmore.internal.launch.AndroidLaunchController;
@@ -58,10 +58,10 @@ import org.eclipse.swt.widgets.Display;
 public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
 
     /** Launch config attribute that stores instrumentation runner. */
-    static final String ATTR_INSTR_NAME = AdtPlugin.PLUGIN_ID + ".instrumentation"; //$NON-NLS-1$
+    static final String ATTR_INSTR_NAME = AndmoreAndroidPlugin.PLUGIN_ID + ".instrumentation"; //$NON-NLS-1$
 
     /** Launch config attribute that stores the test size annotation to run. */
-    static final String ATTR_TEST_SIZE = AdtPlugin.PLUGIN_ID + ".testSize"; //$NON-NLS-1$
+    static final String ATTR_TEST_SIZE = AndmoreAndroidPlugin.PLUGIN_ID + ".testSize"; //$NON-NLS-1$
 
     private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
@@ -74,7 +74,7 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
 
         String runner = getRunner(project, configuration, manifestData);
         if (runner == null) {
-            AdtPlugin.displayError(LaunchMessages.LaunchDialogTitle,
+            AndmoreAndroidPlugin.displayError(LaunchMessages.LaunchDialogTitle,
                     String.format(LaunchMessages.AndroidJUnitDelegate_NoRunnerMsg_s,
                             project.getName()));
             androidLaunch.stopLaunch();
@@ -83,7 +83,7 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
         // get the target app's package
         final String targetAppPackage = getTargetPackage(manifestData, runner);
         if (targetAppPackage == null) {
-            AdtPlugin.displayError(LaunchMessages.LaunchDialogTitle,
+            AndmoreAndroidPlugin.displayError(LaunchMessages.LaunchDialogTitle,
                     String.format(LaunchMessages.AndroidJUnitDelegate_NoTargetMsg_3s,
                             project.getName(), runner, SdkConstants.FN_ANDROID_MANIFEST_XML));
             androidLaunch.stopLaunch();
@@ -229,11 +229,11 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
                     BaseProjectHelper.getJavaProject(project), manifestData);
             runner = instrFinder.getValidInstrumentationTestRunner();
             if (runner != null) {
-                AdtPlugin.printErrorToConsole(project, String.format(
+                AndmoreAndroidPlugin.printErrorToConsole(project, String.format(
                         LaunchMessages.AndroidJUnitDelegate_NoRunnerConfigMsg_s, runner));
                 return runner;
             }
-            AdtPlugin.printErrorToConsole(project, String.format(
+            AndmoreAndroidPlugin.printErrorToConsole(project, String.format(
                     LaunchMessages.AndroidJUnitDelegate_NoRunnerConsoleMsg_4s,
                     project.getName(),
                     SdkConstants.CLASS_INSTRUMENTATION_RUNNER,
@@ -241,7 +241,7 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
                     SdkConstants.FN_ANDROID_MANIFEST_XML));
             return null;
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Error when retrieving instrumentation info"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error when retrieving instrumentation info"); //$NON-NLS-1$
         }
 
         return null;
@@ -267,7 +267,7 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
             }
             return attrValue;
         } catch (CoreException e) {
-            AdtPlugin.log(e, String.format("Error when retrieving launch info %1$s",  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, String.format("Error when retrieving launch info %1$s",  //$NON-NLS-1$
                     attributeName));
         }
         return null;

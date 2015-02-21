@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.draw9patch;
 
 import static com.android.SdkConstants.DOT_9PNG;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage;
 import org.eclipse.andmore.internal.editors.draw9patch.ui.ImageViewer;
 import org.eclipse.andmore.internal.editors.draw9patch.ui.MainFrame;
@@ -107,7 +107,7 @@ public class Draw9PatchEditor extends EditorPart implements ImageViewer.UpdateLi
         if (!hasNinePatchExtension) {
             String patchedName = NinePatchedImage.getNinePatchedFileName(mFileName);
             doConvert = MessageDialog
-                    .openQuestion(AdtPlugin.getDisplay().getActiveShell(),
+                    .openQuestion(AndmoreAndroidPlugin.getDisplay().getActiveShell(),
                             "Warning",
                             String.format(
                                     "The file \"%s\" doesn't seem to be a 9-patch file. \n"
@@ -154,7 +154,7 @@ public class Draw9PatchEditor extends EditorPart implements ImageViewer.UpdateLi
 
                 mNinePatchedImage.clearDirtyFlag();
 
-                AdtPlugin.getDisplay().asyncExec(new Runnable() {
+                AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                     @Override
                     public void run() {
                         setPartName(mFileName);
@@ -162,7 +162,7 @@ public class Draw9PatchEditor extends EditorPart implements ImageViewer.UpdateLi
                     }
                 });
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
     }
@@ -208,7 +208,7 @@ public class Draw9PatchEditor extends EditorPart implements ImageViewer.UpdateLi
     }
 
     private IPath showSaveAsDialog() {
-        SaveAsDialog dialog = new SaveAsDialog(AdtPlugin.getDisplay().getActiveShell());
+        SaveAsDialog dialog = new SaveAsDialog(AndmoreAndroidPlugin.getDisplay().getActiveShell());
 
         IFile dest = mProject.getFile(NinePatchedImage.getNinePatchedFileName(
                 mFileEditorInput.getFile().getProjectRelativePath().toOSString()));
@@ -225,7 +225,7 @@ public class Draw9PatchEditor extends EditorPart implements ImageViewer.UpdateLi
 
     private static boolean showConvertMessageBox(String fileName) {
         return MessageDialog.openQuestion(
-                AdtPlugin.getDisplay().getActiveShell(),
+                AndmoreAndroidPlugin.getDisplay().getActiveShell(),
                 "Warning",
                 String.format("The file \"%s\" doesn't seem to be a 9-patch file. \n"
                         + "Do you want to convert?", fileName));

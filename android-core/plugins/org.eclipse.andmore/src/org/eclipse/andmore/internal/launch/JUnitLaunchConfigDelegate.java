@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.launch;
 import com.android.SdkConstants;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
@@ -127,8 +127,8 @@ public class JUnitLaunchConfigDelegate extends JUnitLaunchConfigurationDelegate 
             // This should not happen as we depend on the org.junit
             // plugin explicitly; the error is logged here so that the user can
             // trace back the cause when the test fails to run
-            AdtPlugin.log(e, "Could not find a valid junit.jar");
-            AdtPlugin.printErrorToConsole(projectName,
+            AndmoreAndroidPlugin.log(e, "Could not find a valid junit.jar");
+            AndmoreAndroidPlugin.printErrorToConsole(projectName,
                     "Could not find a valid junit.jar");
             // Return the classpath as-is (with no junit.jar) anyway because we
             // will let the actual launch config fails.

@@ -39,7 +39,7 @@ import com.android.sdklib.devices.Device;
 import com.android.sdklib.devices.State;
 import com.google.common.base.Splitter;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttributes;
 import org.eclipse.andmore.internal.sdk.AndroidTargetData;
@@ -72,7 +72,7 @@ public class ConfigurationDescription {
      * device to render the current layout with
      */
     public final static QualifiedName NAME_CONFIG_STATE =
-        new QualifiedName(AdtPlugin.PLUGIN_ID, "state");//$NON-NLS-1$
+        new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "state");//$NON-NLS-1$
 
     /** The project corresponding to this configuration's description */
     public final IProject project;
@@ -121,7 +121,7 @@ public class ConfigurationDescription {
      */
     @Nullable
     public static String getDescription(@NonNull IFile file) {
-        return AdtPlugin.getFileProperty(file, NAME_CONFIG_STATE);
+        return AndmoreAndroidPlugin.getFileProperty(file, NAME_CONFIG_STATE);
     }
 
     /**
@@ -131,7 +131,7 @@ public class ConfigurationDescription {
      * @param description the description
      */
     public static void setDescription(@NonNull IFile file, @NonNull String description) {
-        AdtPlugin.setFileProperty(file, NAME_CONFIG_STATE, description);
+        AndmoreAndroidPlugin.setFileProperty(file, NAME_CONFIG_STATE, description);
     }
 
     /**

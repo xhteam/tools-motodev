@@ -34,7 +34,7 @@ import com.android.ide.common.xml.XmlFormatStyle;
 import com.android.ide.common.xml.XmlPrettyPrinter;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -157,7 +157,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                 }
             }
             catch (BadLocationException e) {
-                AdtPlugin.log(e, "Formatting error");
+                AndmoreAndroidPlugin.log(e, "Formatting error");
             }
         }
     }
@@ -409,7 +409,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                 index--;
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         // If there are multiple blank lines before the insert position, collapse them down
@@ -441,7 +441,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         if (prefs.removeEmptyLines && prevNewlineIndex != -1 && beginsWithNewline) {
             replaceStart = prevNewlineIndex + 1;
@@ -463,7 +463,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         boolean endsWithNewline = false;
         for (int i = formatted.length() - 1; i >= 0; i--) {
@@ -509,7 +509,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         replaceStart += firstDifference;
@@ -733,7 +733,7 @@ public class AndroidXmlFormattingStrategy extends ContextBasedFormattingStrategy
                         }
                     }
                 } catch (BadLocationException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
 

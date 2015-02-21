@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
 import org.eclipse.andmore.android.common.log.AndmoreLogger;
@@ -99,7 +99,7 @@ public class SdkUtils {
 	 * @return
 	 */
 	public static String getSdkToolsPath() {
-		return AdtPlugin.getOsSdkToolsFolder();
+		return AndmoreAndroidPlugin.getOsSdkToolsFolder();
 	}
 
 	public static IAndroidTarget getTargetByAPILevel(Integer apiLevel) {
@@ -149,7 +149,7 @@ public class SdkUtils {
 	 * @return
 	 */
 	public static String getAdbPath() {
-		return AdtPlugin.getOsAbsoluteAdb();
+		return AndmoreAndroidPlugin.getOsAbsoluteAdb();
 	}
 
 	/**
@@ -405,7 +405,7 @@ public class SdkUtils {
 		if (vmInfo == null) {
 			String errMsg = NLS.bind(AndroidNLS.EXC_SdkUtils_CannotCreateTheVMInstance, name);
 
-			IStatus status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, errMsg);
+			IStatus status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, errMsg);
 			throw new CoreException(status);
 		}
 

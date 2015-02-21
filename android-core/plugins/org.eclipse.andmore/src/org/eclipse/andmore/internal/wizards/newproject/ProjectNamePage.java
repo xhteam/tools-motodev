@@ -25,7 +25,7 @@ import com.android.SdkConstants;
 import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Activity;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.VersionCheck;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
@@ -446,10 +446,10 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
         if (!mCheckedSdkUptodate) {
             // Ensure that we have a recent enough version of the Tools that the right templates
             // are available
-            File file = new File(AdtPlugin.getOsSdkFolder(), OS_SDK_TOOLS_LIB_FOLDER
+            File file = new File(AndmoreAndroidPlugin.getOsSdkFolder(), OS_SDK_TOOLS_LIB_FOLDER
                     + File.separator + FN_PROJECT_PROGUARD_FILE);
             if (!file.exists()) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("You do not have the latest version of the "
                         + "SDK Tools installed: Please update. (Missing %1$s)", file.getPath()));
             } else {
@@ -492,7 +492,7 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
                 // a directory that is empty.
                 File f = path.toFile();
                 if (f.exists() && !f.isDirectory()) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "A directory name must be specified.");
                 } else if (f.isDirectory()) {
                     // However if the directory exists, we should put a
@@ -501,19 +501,19 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
                     // using the directory.)
                     String[] l = f.list();
                     if (l != null && l.length != 0) {
-                        return new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                        return new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                                 "The selected output directory is not empty.");
                     }
                 }
             } else {
                 // Otherwise validate the path string is not empty
                 if (mValues.projectLocation.getPath().length() == 0) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "A directory name must be specified.");
                 }
                 File dest = path.toFile();
                 if (dest.exists()) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format(
                                     "There is already a file or directory named \"%1$s\" in the selected location.",
                             mValues.projectName));
@@ -523,7 +523,7 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
             // Must be an existing directory
             File f = path.toFile();
             if (!f.isDirectory()) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "An existing directory name must be specified.");
             }
 
@@ -531,7 +531,7 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
             String osPath = path.append(SdkConstants.FN_ANDROID_MANIFEST_XML).toOSString();
             File manifestFile = new File(osPath);
             if (!manifestFile.isFile()) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format(
                                 "Choose a valid Android code directory\n" +
                                 "(%1$s not found in %2$s.)",
@@ -541,12 +541,12 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
             // Parse it and check the important fields.
             ManifestData manifestData = AndroidManifestHelper.parseForData(osPath);
             if (manifestData == null) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("File %1$s could not be parsed.", osPath));
             }
             String packageName = manifestData.getPackage();
             if (packageName == null || packageName.length() == 0) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("No package name defined in %1$s.", osPath));
             }
             Activity[] activities = manifestData.getActivities();
@@ -554,14 +554,14 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
                 // This is acceptable now as long as no activity needs to be
                 // created
                 if (mValues.createActivity) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format("No activity name defined in %1$s.", osPath));
                 }
             }
 
             // If there's already a .project, tell the user to use import instead.
             if (path.append(".project").toFile().exists()) {  //$NON-NLS-1$
-                return new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                         "An Eclipse project already exists in this directory.\n" +
                         "Consider using File > Import > Existing Project instead.");
             }
@@ -572,7 +572,7 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
 
     public static IStatus validateProjectName(String projectName) {
         if (projectName == null || projectName.length() == 0) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Project name must be specified");
         } else {
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -584,7 +584,7 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
                 // conflict *later* when creating the project resource, so let's check it now.
                 for (IProject existingProj : workspace.getRoot().getProjects()) {
                     if (projectName.equalsIgnoreCase(existingProj.getName())) {
-                        return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                        return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                                 "A project with that name already exists in the workspace");
                     }
                 }

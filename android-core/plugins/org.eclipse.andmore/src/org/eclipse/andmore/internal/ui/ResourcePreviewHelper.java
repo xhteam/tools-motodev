@@ -22,7 +22,7 @@ import com.android.ide.common.rendering.api.ResourceValue;
 import com.android.ide.common.resources.ResourceResolver;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageUtils;
@@ -159,7 +159,7 @@ public class ResourcePreviewHelper {
                                         image = ImageUtils.scale(image, scale, scale);
                                     }
                                 } catch (IOException e) {
-                                    AdtPlugin.log(e, "Can't read preview image %1$s", path);
+                                    AndmoreAndroidPlugin.log(e, "Can't read preview image %1$s", path);
                                 }
                             }
                         }
@@ -177,7 +177,7 @@ public class ResourcePreviewHelper {
                 // because if it's a severe type of error (such as an InternalError shown
                 // in issue #18623) then a dialog will pop up and interfere with the
                 // preview, so just log a warning (unfortunately without the trace) instead.
-                AdtPlugin.log(IStatus.WARNING, "Can't generate preview for %1$s", resource);
+                AndmoreAndroidPlugin.log(IStatus.WARNING, "Can't generate preview for %1$s", resource);
             }
 
             Display display = mEditor.getSite().getShell().getDisplay();

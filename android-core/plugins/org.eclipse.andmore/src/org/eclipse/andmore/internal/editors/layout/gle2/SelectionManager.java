@@ -31,7 +31,7 @@ import com.android.ide.common.api.RuleAction;
 import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.common.layout.GridLayoutRule;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -1218,7 +1218,7 @@ public class SelectionManager implements ISelectionProvider {
         String currentId = primary.getStringAttr(ANDROID_URI, ATTR_ID);
         currentId = BaseViewRule.stripIdPrefix(currentId);
         InputDialog d = new InputDialog(
-                    AdtPlugin.getDisplay().getActiveShell(),
+                    AndmoreAndroidPlugin.getDisplay().getActiveShell(),
                     "Set ID",
                     "New ID:",
                     currentId,

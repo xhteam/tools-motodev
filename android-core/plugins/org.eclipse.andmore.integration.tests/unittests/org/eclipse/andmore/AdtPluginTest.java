@@ -23,27 +23,27 @@ import junit.framework.TestCase;
 public class AdtPluginTest extends TestCase {
     public void testReaderContains() throws Exception {
         String input = "this is a test";
-        assertFalse(AdtPlugin.streamContains(new StringReader(input), "hello"));
-        assertTrue(AdtPlugin.streamContains(new StringReader(input), "this"));
-        assertFalse(AdtPlugin.streamContains(new StringReader(input), "thiss"));
-        assertTrue(AdtPlugin.streamContains(new StringReader(input), "is a"));
-        assertTrue(AdtPlugin.streamContains(new StringReader("ABC ABCDAB ABCDABCDABDE"),
+        assertFalse(AndmoreAndroidPlugin.streamContains(new StringReader(input), "hello"));
+        assertTrue(AndmoreAndroidPlugin.streamContains(new StringReader(input), "this"));
+        assertFalse(AndmoreAndroidPlugin.streamContains(new StringReader(input), "thiss"));
+        assertTrue(AndmoreAndroidPlugin.streamContains(new StringReader(input), "is a"));
+        assertTrue(AndmoreAndroidPlugin.streamContains(new StringReader("ABC ABCDAB ABCDABCDABDE"),
                 "ABCDABD"));
-        assertFalse(AdtPlugin.streamContains(new StringReader("ABC ABCDAB ABCDABCDABDE"),
+        assertFalse(AndmoreAndroidPlugin.streamContains(new StringReader("ABC ABCDAB ABCDABCDABDE"),
                 "ABCEABD"));
     }
 
     public void testReadStream() throws Exception {
         String input = "this is a test";
-        String contents = AdtPlugin.readFile(new StringReader(input));
+        String contents = AndmoreAndroidPlugin.readFile(new StringReader(input));
         assertEquals(input, contents);
     }
 
     public void testReadWriteFile() throws Exception {
         File temp = File.createTempFile("test", ".txt");
         String myContent = "this is\na test";
-        AdtPlugin.writeFile(temp, myContent);
-        String readBack = AdtPlugin.readFile(temp);
+        AndmoreAndroidPlugin.writeFile(temp, myContent);
+        String readBack = AndmoreAndroidPlugin.readFile(temp);
         assertEquals(myContent, readBack);
     }
 }

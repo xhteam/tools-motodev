@@ -22,7 +22,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.xml.AndroidXPathFactory;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -78,7 +78,7 @@ public class MenuEditorDelegate extends CommonXmlDelegate {
         try {
             getEditor().addPage(new MenuTreePage(getEditor()));
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
         }
 
      }
@@ -120,7 +120,7 @@ public class MenuEditorDelegate extends CommonXmlDelegate {
 
                     // TODO ? startMonitoringMarkers();
                 } catch (XPathExpressionException e) {
-                    AdtPlugin.log(e, "XPath error when trying to find '%s' element in XML.", //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(e, "XPath error when trying to find '%s' element in XML.", //$NON-NLS-1$
                             root_desc.getXmlName());
                 }
             }

@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.preferences;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
@@ -30,7 +30,7 @@ public class LaunchPreferencePage extends FieldEditorPreferencePage implements
 
     public LaunchPreferencePage() {
         super(GRID);
-        setPreferenceStore(AdtPlugin.getDefault().getPreferenceStore());
+        setPreferenceStore(AndmoreAndroidPlugin.getDefault().getPreferenceStore());
         setDescription(Messages.LaunchPreferencePage_Title);
     }
 

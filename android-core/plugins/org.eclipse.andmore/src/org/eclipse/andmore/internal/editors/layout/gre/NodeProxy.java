@@ -24,7 +24,7 @@ import com.android.ide.common.api.INodeHandler;
 import com.android.ide.common.api.Margins;
 import com.android.ide.common.api.Rect;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
@@ -487,7 +487,7 @@ public class NodeProxy implements INode {
     }
 
     private void warnPrintf(String msg, Object...params) {
-        AdtPlugin.printToConsole(
+        AndmoreAndroidPlugin.printToConsole(
                 mNode == null ? "" : mNode.getDescriptor().getXmlLocalName(),
                 String.format(msg, params)
                 );

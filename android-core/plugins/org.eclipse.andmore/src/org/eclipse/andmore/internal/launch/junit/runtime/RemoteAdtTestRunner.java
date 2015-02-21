@@ -25,7 +25,7 @@ import com.android.ddmlib.testrunner.ITestRunListener;
 import com.android.ddmlib.testrunner.RemoteAndroidTestRunner;
 import com.android.ddmlib.testrunner.TestIdentifier;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -185,7 +185,7 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
             totalTests += collector.getTestCaseCount();
         }
 
-        AdtPlugin.printToConsole(mLaunchInfo.getProject(), "Sending test information to Eclipse");
+        AndmoreAndroidPlugin.printToConsole(mLaunchInfo.getProject(), "Sending test information to Eclipse");
         notifyTestRunStarted(totalTests);
         sendTestTrees(perDeviceCollectors);
 
@@ -253,22 +253,22 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
                 setupRunner();
                 mRunner.run(mListener);
             } catch (TimeoutException e) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         LaunchMessages.RemoteAdtTestRunner_RunTimeoutException,
                         e);
             } catch (IOException e) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format(LaunchMessages.RemoteAdtTestRunner_RunIOException_s,
                                 e.getMessage()),
                         e);
             } catch (AdbCommandRejectedException e) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format(
                                 LaunchMessages.RemoteAdtTestRunner_RunAdbCommandRejectedException_s,
                                 e.getMessage()),
                         e);
             } catch (ShellCommandUnresponsiveException e) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         LaunchMessages.RemoteAdtTestRunner_RunTimeoutException,
                         e);
             }
@@ -368,7 +368,7 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
      * @param errorMessage
      */
     private void reportError(String errorMessage) {
-        AdtPlugin.printErrorToConsole(mLaunchInfo.getProject(),
+        AndmoreAndroidPlugin.printErrorToConsole(mLaunchInfo.getProject(),
                 String.format(LaunchMessages.RemoteAdtTestRunner_RunFailedMsg_s, errorMessage));
         // is this needed?
         //notifyTestRunStopped(-1);
@@ -464,7 +464,7 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
         @Override
         public synchronized void testRunEnded(long elapsedTime, Map<String, String> runMetrics) {
             mNotifier.testRunEnded(mDeviceName, elapsedTime);
-            AdtPlugin.printToConsole(mLaunchInfo.getProject(),
+            AndmoreAndroidPlugin.printToConsole(mLaunchInfo.getProject(),
                     LaunchMessages.RemoteAdtTestRunner_RunCompleteMsg);
         }
 
@@ -481,7 +481,7 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
         @Override
         public synchronized void testRunStopped(long elapsedTime) {
             notifyTestRunStopped(elapsedTime);
-            AdtPlugin.printToConsole(mLaunchInfo.getProject(),
+            AndmoreAndroidPlugin.printToConsole(mLaunchInfo.getProject(),
                     LaunchMessages.RemoteAdtTestRunner_RunStoppedMsg);
         }
 
@@ -497,7 +497,7 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
     protected boolean connect() {
         boolean result = super.connect();
         if (!result) {
-            AdtPlugin.printErrorToConsole(mLaunchInfo.getProject(),
+            AndmoreAndroidPlugin.printErrorToConsole(mLaunchInfo.getProject(),
                     "Connect to Eclipse test result listener failed");
         }
         return result;
@@ -507,10 +507,10 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
     @Override
     public void runFailed(String message, Exception exception) {
         if (exception != null) {
-            AdtPlugin.logAndPrintError(exception, mLaunchInfo.getProject().getName(),
+            AndmoreAndroidPlugin.logAndPrintError(exception, mLaunchInfo.getProject().getName(),
                     "Test launch failed: %s", message);
         } else {
-            AdtPlugin.printErrorToConsole(mLaunchInfo.getProject(), "Test launch failed: %s",
+            AndmoreAndroidPlugin.printErrorToConsole(mLaunchInfo.getProject(), "Test launch failed: %s",
                     message);
         }
     }

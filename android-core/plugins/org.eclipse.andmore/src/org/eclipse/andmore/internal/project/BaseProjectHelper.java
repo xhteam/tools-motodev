@@ -22,7 +22,7 @@ import com.android.annotations.Nullable;
 import com.google.common.collect.Lists;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -168,7 +168,7 @@ public final class BaseProjectHelper {
 
             return marker;
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Failed to add marker '%1$s' to '%2$s'", //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to add marker '%1$s' to '%2$s'", //$NON-NLS-1$
                     markerId, resource.getFullPath());
         }
 

@@ -27,7 +27,7 @@ import com.android.annotations.Nullable;
 import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.uimodel.UiViewElementNode;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -109,7 +109,7 @@ public class FragmentMenu extends SubmenuAction {
                     source = type.getSource();
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
             // Find layouts. This is based on just skimming the Fragment class and looking
             // for layout references of the form R.layout.*.

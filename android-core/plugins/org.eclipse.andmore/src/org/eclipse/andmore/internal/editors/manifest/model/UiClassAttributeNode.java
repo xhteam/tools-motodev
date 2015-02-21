@@ -20,7 +20,7 @@ import com.android.SdkConstants;
 import com.android.xml.AndroidManifest;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.TextAttributeDescriptor;
@@ -381,7 +381,7 @@ public class UiClassAttributeNode extends UiTextAttributeNode {
                     }
                 }
             } catch (JavaModelException e1) {
-                AdtPlugin.log(e1, "UiClassAttributeNode HandleBrowser failed");
+                AndmoreAndroidPlugin.log(e1, "UiClassAttributeNode HandleBrowser failed");
             }
         }
     }
@@ -429,9 +429,9 @@ public class UiClassAttributeNode extends UiTextAttributeNode {
                     }
                 }
             } catch (JavaModelException e) {
-                AdtPlugin.log(e, "UiClassAttributeNode HandleLabel failed");
+                AndmoreAndroidPlugin.log(e, "UiClassAttributeNode HandleLabel failed");
             } catch (PartInitException e) {
-                AdtPlugin.log(e, "UiClassAttributeNode HandleLabel failed");
+                AndmoreAndroidPlugin.log(e, "UiClassAttributeNode HandleLabel failed");
             }
         }
     }
@@ -727,7 +727,7 @@ public class UiClassAttributeNode extends UiTextAttributeNode {
             combined.addAll(library);
             return combined.toArray(new String[combined.size()]);
         } catch (Exception e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;

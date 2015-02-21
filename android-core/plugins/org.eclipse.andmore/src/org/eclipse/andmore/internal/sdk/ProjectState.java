@@ -23,7 +23,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -646,7 +646,7 @@ public final class ProjectState {
                     // reload the properties with the new values from the disk.
                     mProperties.reload();
                 } catch (Exception e) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, String.format(
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, String.format(
                             "Failed to save %1$s for project %2$s",
                                     mProperties.getType() .getFilename(), mProject.getName()),
                             e);

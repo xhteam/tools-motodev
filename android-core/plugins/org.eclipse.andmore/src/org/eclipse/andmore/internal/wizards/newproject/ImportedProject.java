@@ -30,7 +30,7 @@ import com.android.sdklib.internal.project.ProjectProperties.PropertyType;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IResource;
@@ -77,10 +77,10 @@ class ImportedProject {
                 mManifest = AndroidManifestParser.parse(new FolderWrapper(mLocation));
             } catch (SAXException e) {
                 // Some sort of error in the manifest file: report to the user in a better way?
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 return null;
             } catch (Exception e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 return null;
             }
         }

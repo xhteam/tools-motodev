@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.editors.layout.gle2;
 
 import static com.android.SdkConstants.DOT_PNG;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -41,7 +41,7 @@ class ExportScreenshotAction extends Action {
 
     @Override
     public void run() {
-        Shell shell = AdtPlugin.getShell();
+        Shell shell = AndmoreAndroidPlugin.getShell();
 
         ImageOverlay imageOverlay = mCanvas.getImageOverlay();
         BufferedImage image = imageOverlay.getAwtImage();
@@ -71,7 +71,7 @@ class ExportScreenshotAction extends Action {
                 try {
                     ImageIO.write(image, "PNG", file); //$NON-NLS-1$
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         } else {

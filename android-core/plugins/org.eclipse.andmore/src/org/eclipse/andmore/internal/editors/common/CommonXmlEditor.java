@@ -20,7 +20,7 @@ import com.android.ide.common.resources.ResourceFolder;
 import com.android.resources.ResourceFolderType;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.animator.AnimationEditorDelegate;
@@ -127,7 +127,7 @@ public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInpu
                 // It starts by our editor namespace but it's not the right ID.
                 // This is an old Android XML ID. Change it to our new ID.
                 IDE.setDefaultEditor(file, ID);
-                AdtPlugin.log(IStatus.INFO,
+                AndmoreAndroidPlugin.log(IStatus.INFO,
                         "Changed legacy editor ID %s for %s",   //$NON-NLS-1$
                         id,
                         file.getFullPath());
@@ -157,7 +157,7 @@ public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInpu
             if (mDelegate == null) {
                 // We didn't find any editor.
                 // We'll use the PlainXmlEditorDelegate as a catch-all editor.
-                AdtPlugin.log(IStatus.INFO,
+                AndmoreAndroidPlugin.log(IStatus.INFO,
                         "No valid Android XML Editor Delegate found for file %1$s [Res %2$s, type %3$s]",
                         file.getFullPath(),
                         resFolder,
@@ -184,7 +184,7 @@ public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInpu
             if (mDelegate == null) {
                 // We didn't find any editor.
                 // We'll use the PlainXmlEditorDelegate as a catch-all editor.
-                AdtPlugin.log(IStatus.INFO,
+                AndmoreAndroidPlugin.log(IStatus.INFO,
                         "No valid Android XML Editor Delegate found for file %1$s [Res %2$s, type %3$s]",
                         ((IURIEditorInput) editorInput).getURI().toString(),
                         folderName,
@@ -195,7 +195,7 @@ public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInpu
 
         if (mDelegate == null) {
             // We can't do anything if we don't have a valid file.
-            AdtPlugin.log(IStatus.INFO,
+            AndmoreAndroidPlugin.log(IStatus.INFO,
                     "Android XML Editor cannot process non-file input %1$s",   //$NON-NLS-1$
                     (editorInput == null ? "null" : editorInput.toString()));   //$NON-NLS-1$
             throw new PartInitException("Android XML Editor cannot process this input.");

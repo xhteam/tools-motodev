@@ -24,7 +24,7 @@ import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Severity;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -90,7 +90,7 @@ class GlobalLintConfiguration extends Configuration {
     }
 
     private IPreferenceStore getStore() {
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         return store;
     }
 

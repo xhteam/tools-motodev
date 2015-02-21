@@ -34,7 +34,7 @@ import com.android.ide.common.api.RuleAction;
 import com.android.ide.common.api.SegmentType;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.ViewRule;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -141,7 +141,7 @@ public class RulesEngine {
                 return rule.getDisplayName();
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.getDisplayName() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.getDisplayName() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -171,7 +171,7 @@ public class RulesEngine {
 
                 return actions;
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.getContextMenu() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.getContextMenu() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -195,7 +195,7 @@ public class RulesEngine {
                 mInsertType = InsertType.CREATE;
                 return rule.getDefaultActionId(selectedNode);
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.getDefaultAction() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.getDefaultAction() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -226,7 +226,7 @@ public class RulesEngine {
                 mInsertType = InsertType.CREATE;
                 rule.addLayoutActions(actions, parentNode, children);
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.getContextMenu() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.getContextMenu() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -252,7 +252,7 @@ public class RulesEngine {
                 return rule.getSelectionHint(parentNode, childNode);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.getSelectionHint() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.getSelectionHint() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -271,7 +271,7 @@ public class RulesEngine {
                 rule.paintSelectionFeedback(gcWrapper, parentNode, childNodes, view);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.callPaintSelectionFeedback() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.callPaintSelectionFeedback() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -294,7 +294,7 @@ public class RulesEngine {
                 return rule.onDropEnter(targetNode, targetView, elements);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onDropEnter() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.onDropEnter() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -320,7 +320,7 @@ public class RulesEngine {
                 return rule.onDropMove(targetNode, elements, feedback, where);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onDropMove() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.onDropMove() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -343,7 +343,7 @@ public class RulesEngine {
                 rule.onDropLeave(targetNode, elements, feedback);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onDropLeave() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.onDropLeave() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -367,7 +367,7 @@ public class RulesEngine {
                 rule.onDropped(targetNode, elements, feedback, where);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onDropped() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.onDropped() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -384,7 +384,7 @@ public class RulesEngine {
             try {
                 feedback.painter.paint(gc, targetNode, feedback);
             } catch (Exception e) {
-                AdtPlugin.log(e, "DropFeedback.painter failed: %s",
+                AndmoreAndroidPlugin.log(e, "DropFeedback.painter failed: %s",
                         e.toString());
             }
         }
@@ -429,7 +429,7 @@ public class RulesEngine {
                 rule.onPaste(targetNode, targetView, pastedElements);
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onPaste() failed: %s",
+                AndmoreAndroidPlugin.log(e, "%s.onPaste() failed: %s",
                         rule.getClass().getSimpleName(),
                         e.toString());
             }
@@ -450,7 +450,7 @@ public class RulesEngine {
                 return rule.onResizeBegin(child, parent, horizontalEdge, verticalEdge,
                         childView, parentView);
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onResizeBegin() failed: %s", rule.getClass().getSimpleName(),
+                AndmoreAndroidPlugin.log(e, "%s.onResizeBegin() failed: %s", rule.getClass().getSimpleName(),
                         e.toString());
             }
         }
@@ -466,7 +466,7 @@ public class RulesEngine {
             try {
                 rule.onResizeUpdate(feedback, child, parent, newBounds, modifierMask);
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onResizeUpdate() failed: %s", rule.getClass().getSimpleName(),
+                AndmoreAndroidPlugin.log(e, "%s.onResizeUpdate() failed: %s", rule.getClass().getSimpleName(),
                         e.toString());
             }
         }
@@ -480,7 +480,7 @@ public class RulesEngine {
             try {
                 rule.onResizeEnd(feedback, child, parent, newBounds);
             } catch (Exception e) {
-                AdtPlugin.log(e, "%s.onResizeEnd() failed: %s", rule.getClass().getSimpleName(),
+                AndmoreAndroidPlugin.log(e, "%s.onResizeEnd() failed: %s", rule.getClass().getSimpleName(),
                         e.toString());
             }
         }
@@ -589,7 +589,7 @@ public class RulesEngine {
                     parentRule.onRemovingChildren(children, parentNode,
                             mInsertType == InsertType.MOVE_WITHIN);
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "%s.onDispose() failed: %s",
+                    AndmoreAndroidPlugin.log(e, "%s.onDispose() failed: %s",
                             parentRule.getClass().getSimpleName(),
                             e.toString());
                 }
@@ -631,7 +631,7 @@ public class RulesEngine {
                 try {
                     rule.onDispose();
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "%s.onDispose() failed: %s",
+                    AndmoreAndroidPlugin.log(e, "%s.onDispose() failed: %s",
                             rule.getClass().getSimpleName(),
                             e.toString());
                 }
@@ -828,10 +828,10 @@ public class RulesEngine {
             // class.
         } catch (InstantiationException e) {
             // This is NOT an expected error: fail.
-            AdtPlugin.log(e, "load rule error (%s): %s", realFqcn, e.toString());
+            AndmoreAndroidPlugin.log(e, "load rule error (%s): %s", realFqcn, e.toString());
         } catch (IllegalAccessException e) {
             // This is NOT an expected error: fail.
-            AdtPlugin.log(e, "load rule error (%s): %s", realFqcn, e.toString());
+            AndmoreAndroidPlugin.log(e, "load rule error (%s): %s", realFqcn, e.toString());
         }
 
         // Memorize in the cache that we couldn't find a rule for this real FQCN
@@ -866,7 +866,7 @@ public class RulesEngine {
                 rule.onDispose();
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, "%s.onInit() failed: %s",
+            AndmoreAndroidPlugin.log(e, "%s.onInit() failed: %s",
                     rule.getClass().getSimpleName(),
                     e.toString());
         }

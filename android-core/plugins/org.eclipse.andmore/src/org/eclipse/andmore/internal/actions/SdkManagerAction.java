@@ -27,7 +27,7 @@ import com.android.utils.GrabProcessOutput.Wait;
 import com.android.sdkuilib.repository.SdkUpdaterWindow;
 import com.android.sdkuilib.repository.SdkUpdaterWindow.SdkInvocationContext;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -68,7 +68,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
     public void run(IAction action) {
         // Although orthogonal to the sdk manager action, this is a good time
         // to check whether the SDK has changed on disk.
-        AdtPlugin.getDefault().refreshSdk();
+        AndmoreAndroidPlugin.getDefault().refreshSdk();
 
         if (!openExternalSdkManager()) {
             // If we failed to execute the sdk manager, check the SDK location.
@@ -78,9 +78,9 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
             // to run the SdkManagerAction (it might run openExternalSdkManager though.)
             // If checkSdkLocationAndId tries to open the SDK Manager, it end up using
             // the internal one.
-            if (AdtPlugin.getDefault().checkSdkLocationAndId()) {
+            if (AndmoreAndroidPlugin.getDefault().checkSdkLocationAndId()) {
                 // The SDK check was successful, yet the sdk manager fail to launch anyway.
-                AdtPlugin.displayError(
+                AndmoreAndroidPlugin.displayError(
                         "Android SDK",
                         "Failed to run the Android SDK Manager. Check the Android Console View for details.");
             }
@@ -118,7 +118,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
      * Opens the SDK Manager as an external application.
      * This call is asynchronous, it doesn't wait for the manager to be closed.
      * <p/>
-     * Important: this method must NOT invoke {@link AdtPlugin#checkSdkLocationAndId}
+     * Important: this method must NOT invoke {@link AndmoreAndroidPlugin#checkSdkLocationAndId}
      * (in any of its variations) since the dialog uses this method to invoke the sdk
      * manager if needed.
      *
@@ -136,7 +136,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
         final AtomicBoolean returnValue = new AtomicBoolean(false);
 
         final CloseableProgressMonitorDialog p =
-            new CloseableProgressMonitorDialog(AdtPlugin.getShell());
+            new CloseableProgressMonitorDialog(AndmoreAndroidPlugin.getShell());
         p.setOpenOnRun(true);
         try {
             p.run(true /*fork*/, true /*cancelable*/, new IRunnableWithProgress() {
@@ -170,7 +170,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
                             SdkConstants.androidCmdName());
 
                     if (!androidBat.exists()) {
-                        AdtPlugin.printErrorToConsole("SDK Manager",
+                        AndmoreAndroidPlugin.printErrorToConsole("SDK Manager",
                                 "Missing %s file in Android SDK.", SdkConstants.androidCmdName());
                         return;
                     }
@@ -235,7 +235,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
                 }
             });
         } catch (Exception e) {
-            AdtPlugin.log(e, "SDK Manager exec failed");    //$NON-NLS-1#
+            AndmoreAndroidPlugin.log(e, "SDK Manager exec failed");    //$NON-NLS-1#
             return false;
         }
 
@@ -261,7 +261,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
         // log window now.)
 
         SdkUpdaterWindow window = new SdkUpdaterWindow(
-                AdtPlugin.getShell(),
+                AndmoreAndroidPlugin.getShell(),
                 new AdtConsoleSdkLog() {
                     @Override
                     public void info(@NonNull String msgFormat, Object... args) {
@@ -332,7 +332,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
              */
             @Override
             public void onSdkReload() {
-                AdtPlugin.getDefault().reparseSdk();
+                AndmoreAndroidPlugin.getDefault().reparseSdk();
             }
         };
 

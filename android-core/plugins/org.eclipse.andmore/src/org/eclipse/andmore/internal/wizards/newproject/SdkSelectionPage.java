@@ -28,7 +28,7 @@ import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
 import com.android.utils.NullLogger;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.internal.sdk.Sdk.ITargetChangeListener;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
@@ -66,12 +66,12 @@ class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
         mValues = values;
 
         setTitle("Select Build Target");
-        AdtPlugin.getDefault().addTargetListener(this);
+        AndmoreAndroidPlugin.getDefault().addTargetListener(this);
     }
 
     @Override
     public void dispose() {
-        AdtPlugin.getDefault().removeTargetListener(this);
+        AndmoreAndroidPlugin.getDefault().removeTargetListener(this);
         super.dispose();
     }
 
@@ -338,7 +338,7 @@ class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
                 }
             } catch (Exception e) {
                 // Ignore. Don't use a sample which manifest doesn't parse correctly.
-                AdtPlugin.log(IStatus.INFO,
+                AndmoreAndroidPlugin.log(IStatus.INFO,
                         "NPW ignoring malformed manifest %s",   //$NON-NLS-1$
                         manifestFile.getAbsolutePath());
             }
@@ -400,7 +400,7 @@ class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
     private void validatePage() {
         String error = null;
 
-        if (AdtPlugin.getDefault().getSdkLoadStatus() == LoadStatus.LOADING) {
+        if (AndmoreAndroidPlugin.getDefault().getSdkLoadStatus() == LoadStatus.LOADING) {
             error = "The SDK is still loading; please wait.";
         }
 

@@ -159,7 +159,7 @@ public class SourceRevealer implements ISourceRevealer {
                                 }
 
                             } catch (JavaModelException e) {
-                                AdtPlugin.log(e, null);
+                                AndmoreAndroidPlugin.log(e, null);
                             }
                         }
                     }
@@ -194,7 +194,7 @@ public class SourceRevealer implements ISourceRevealer {
                                 }
                             }
                         } catch (JavaModelException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                         }
                     }
                 }
@@ -244,7 +244,7 @@ public class SourceRevealer implements ISourceRevealer {
             marker.delete();
             return true;
         } catch (CoreException e) {
-            AdtPlugin.printErrorToConsole(e.getMessage());
+            AndmoreAndroidPlugin.printErrorToConsole(e.getMessage());
             return false;
         }
     }
@@ -258,7 +258,7 @@ public class SourceRevealer implements ISourceRevealer {
             JavaUI.openInEditor(method);
             return true;
         } catch (Exception e) {
-            AdtPlugin.printErrorToConsole(e.getMessage());
+            AndmoreAndroidPlugin.printErrorToConsole(e.getMessage());
             return false;
         }
     }
@@ -405,7 +405,7 @@ public class SourceRevealer implements ISourceRevealer {
                     requestor,
                     new NullProgressMonitor());
         } catch (CoreException e) {
-            AdtPlugin.printErrorToConsole(e.getMessage());
+            AndmoreAndroidPlugin.printErrorToConsole(e.getMessage());
             return Collections.emptyList();
         }
 
@@ -458,7 +458,7 @@ public class SourceRevealer implements ISourceRevealer {
             try {
                 workbench.showPerspective(perspectiveId, window);
             } catch (WorkbenchException e) {
-                AdtPlugin.printErrorToConsole(e.getMessage());
+                AndmoreAndroidPlugin.printErrorToConsole(e.getMessage());
             }
         }
     }

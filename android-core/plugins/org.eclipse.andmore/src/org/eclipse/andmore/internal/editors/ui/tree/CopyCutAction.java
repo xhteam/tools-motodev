@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.ui.tree;
 import org.apache.xml.serialize.Method;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
 import org.eclipse.jface.action.Action;
@@ -141,7 +141,7 @@ public class CopyCutAction extends Action {
                 }
 
             } catch (Exception e) {
-                AdtPlugin.log(e, "CopyCutAction failed for UI node %1$s", //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "CopyCutAction failed for UI node %1$s", //$NON-NLS-1$
                         uiNode.getBreadcrumbTrailDescription(true));
             }
         } // for uiNode

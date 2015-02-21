@@ -24,7 +24,7 @@ import com.android.sdklib.internal.build.DebugKeyProvider;
 import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
 import com.android.sdkstats.DdmsPreferenceStore;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.gle2.RenderPreviewMode;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
@@ -35,47 +35,47 @@ import java.io.File;
 import java.util.Locale;
 
 public final class AdtPrefs extends AbstractPreferenceInitializer {
-    public final static String PREFS_SDK_DIR = AdtPlugin.PLUGIN_ID + ".sdk"; //$NON-NLS-1$
+    public final static String PREFS_SDK_DIR = AndmoreAndroidPlugin.PLUGIN_ID + ".sdk"; //$NON-NLS-1$
 
-    public final static String PREFS_BUILD_RES_AUTO_REFRESH = AdtPlugin.PLUGIN_ID + ".resAutoRefresh"; //$NON-NLS-1$
+    public final static String PREFS_BUILD_RES_AUTO_REFRESH = AndmoreAndroidPlugin.PLUGIN_ID + ".resAutoRefresh"; //$NON-NLS-1$
 
-    public final static String PREFS_BUILD_FORCE_ERROR_ON_NATIVELIB_IN_JAR = AdtPlugin.PLUGIN_ID + ".forceErrorNativeLibInJar"; //$NON-NLS-1$
+    public final static String PREFS_BUILD_FORCE_ERROR_ON_NATIVELIB_IN_JAR = AndmoreAndroidPlugin.PLUGIN_ID + ".forceErrorNativeLibInJar"; //$NON-NLS-1$
 
-    public final static String PREFS_BUILD_SKIP_POST_COMPILE_ON_FILE_SAVE = AdtPlugin.PLUGIN_ID + ".skipPostCompileOnFileSave"; //$NON-NLS-1$
+    public final static String PREFS_BUILD_SKIP_POST_COMPILE_ON_FILE_SAVE = AndmoreAndroidPlugin.PLUGIN_ID + ".skipPostCompileOnFileSave"; //$NON-NLS-1$
 
-    public final static String PREFS_BUILD_VERBOSITY = AdtPlugin.PLUGIN_ID + ".buildVerbosity"; //$NON-NLS-1$
+    public final static String PREFS_BUILD_VERBOSITY = AndmoreAndroidPlugin.PLUGIN_ID + ".buildVerbosity"; //$NON-NLS-1$
 
-    public final static String PREFS_DEFAULT_DEBUG_KEYSTORE = AdtPlugin.PLUGIN_ID + ".defaultDebugKeyStore"; //$NON-NLS-1$
+    public final static String PREFS_DEFAULT_DEBUG_KEYSTORE = AndmoreAndroidPlugin.PLUGIN_ID + ".defaultDebugKeyStore"; //$NON-NLS-1$
 
-    public final static String PREFS_CUSTOM_DEBUG_KEYSTORE = AdtPlugin.PLUGIN_ID + ".customDebugKeyStore"; //$NON-NLS-1$
+    public final static String PREFS_CUSTOM_DEBUG_KEYSTORE = AndmoreAndroidPlugin.PLUGIN_ID + ".customDebugKeyStore"; //$NON-NLS-1$
 
-    public final static String PREFS_HOME_PACKAGE = AdtPlugin.PLUGIN_ID + ".homePackage"; //$NON-NLS-1$
+    public final static String PREFS_HOME_PACKAGE = AndmoreAndroidPlugin.PLUGIN_ID + ".homePackage"; //$NON-NLS-1$
 
-    public final static String PREFS_EMU_OPTIONS = AdtPlugin.PLUGIN_ID + ".emuOptions"; //$NON-NLS-1$
+    public final static String PREFS_EMU_OPTIONS = AndmoreAndroidPlugin.PLUGIN_ID + ".emuOptions"; //$NON-NLS-1$
 
-    public final static String PREFS_MONITOR_DENSITY = AdtPlugin.PLUGIN_ID + ".monitorDensity"; //$NON-NLS-1$
+    public final static String PREFS_MONITOR_DENSITY = AndmoreAndroidPlugin.PLUGIN_ID + ".monitorDensity"; //$NON-NLS-1$
 
-    public final static String PREFS_FORMAT_GUI_XML = AdtPlugin.PLUGIN_ID + ".formatXml"; //$NON-NLS-1$
-    public final static String PREFS_PREFER_XML = AdtPlugin.PLUGIN_ID + ".xmlEditor"; //$NON-NLS-1$
-    public final static String PREFS_USE_CUSTOM_XML_FORMATTER = AdtPlugin.PLUGIN_ID + ".androidForm"; //$NON-NLS-1$
+    public final static String PREFS_FORMAT_GUI_XML = AndmoreAndroidPlugin.PLUGIN_ID + ".formatXml"; //$NON-NLS-1$
+    public final static String PREFS_PREFER_XML = AndmoreAndroidPlugin.PLUGIN_ID + ".xmlEditor"; //$NON-NLS-1$
+    public final static String PREFS_USE_CUSTOM_XML_FORMATTER = AndmoreAndroidPlugin.PLUGIN_ID + ".androidForm"; //$NON-NLS-1$
 
-    public final static String PREFS_PALETTE_MODE = AdtPlugin.PLUGIN_ID + ".palette"; //$NON-NLS-1$
+    public final static String PREFS_PALETTE_MODE = AndmoreAndroidPlugin.PLUGIN_ID + ".palette"; //$NON-NLS-1$
 
-    public final static String PREFS_USE_ECLIPSE_INDENT = AdtPlugin.PLUGIN_ID + ".eclipseIndent"; //$NON-NLS-1$
-    public final static String PREVS_REMOVE_EMPTY_LINES = AdtPlugin.PLUGIN_ID + ".removeEmpty"; //$NON-NLS-1$
-    public final static String PREFS_ONE_ATTR_PER_LINE = AdtPlugin.PLUGIN_ID + ".oneAttrPerLine"; //$NON-NLS-1$
-    public final static String PREFS_SPACE_BEFORE_CLOSE = AdtPlugin.PLUGIN_ID + ".spaceBeforeClose"; //$NON-NLS-1$
-    public final static String PREFS_FORMAT_ON_SAVE = AdtPlugin.PLUGIN_ID + ".formatOnSave"; //$NON-NLS-1$
-    public final static String PREFS_LINT_ON_SAVE = AdtPlugin.PLUGIN_ID + ".lintOnSave"; //$NON-NLS-1$
-    public final static String PREFS_LINT_ON_EXPORT = AdtPlugin.PLUGIN_ID + ".lintOnExport"; //$NON-NLS-1$
-    public final static String PREFS_ATTRIBUTE_SORT = AdtPlugin.PLUGIN_ID + ".attrSort"; //$NON-NLS-1$
-    public final static String PREFS_LINT_SEVERITIES = AdtPlugin.PLUGIN_ID + ".lintSeverities"; //$NON-NLS-1$
-    public final static String PREFS_FIX_LEGACY_EDITORS = AdtPlugin.PLUGIN_ID + ".fixLegacyEditors"; //$NON-NLS-1$
-    public final static String PREFS_SHARED_LAYOUT_EDITOR = AdtPlugin.PLUGIN_ID + ".sharedLayoutEditor"; //$NON-NLS-1$
-    public final static String PREFS_PREVIEWS = AdtPlugin.PLUGIN_ID + ".previews"; //$NON-NLS-1$
-    public final static String PREFS_SKIP_LINT_LIBS = AdtPlugin.PLUGIN_ID + ".skipLintLibs"; //$NON-NLS-1$
-    public final static String PREFS_AUTO_PICK_TARGET = AdtPlugin.PLUGIN_ID + ".autoPickTarget"; //$NON-NLS-1$
-    public final static String PREFS_REFACTOR_IDS = AdtPlugin.PLUGIN_ID + ".refactorIds"; //$NON-NLS-1$
+    public final static String PREFS_USE_ECLIPSE_INDENT = AndmoreAndroidPlugin.PLUGIN_ID + ".eclipseIndent"; //$NON-NLS-1$
+    public final static String PREVS_REMOVE_EMPTY_LINES = AndmoreAndroidPlugin.PLUGIN_ID + ".removeEmpty"; //$NON-NLS-1$
+    public final static String PREFS_ONE_ATTR_PER_LINE = AndmoreAndroidPlugin.PLUGIN_ID + ".oneAttrPerLine"; //$NON-NLS-1$
+    public final static String PREFS_SPACE_BEFORE_CLOSE = AndmoreAndroidPlugin.PLUGIN_ID + ".spaceBeforeClose"; //$NON-NLS-1$
+    public final static String PREFS_FORMAT_ON_SAVE = AndmoreAndroidPlugin.PLUGIN_ID + ".formatOnSave"; //$NON-NLS-1$
+    public final static String PREFS_LINT_ON_SAVE = AndmoreAndroidPlugin.PLUGIN_ID + ".lintOnSave"; //$NON-NLS-1$
+    public final static String PREFS_LINT_ON_EXPORT = AndmoreAndroidPlugin.PLUGIN_ID + ".lintOnExport"; //$NON-NLS-1$
+    public final static String PREFS_ATTRIBUTE_SORT = AndmoreAndroidPlugin.PLUGIN_ID + ".attrSort"; //$NON-NLS-1$
+    public final static String PREFS_LINT_SEVERITIES = AndmoreAndroidPlugin.PLUGIN_ID + ".lintSeverities"; //$NON-NLS-1$
+    public final static String PREFS_FIX_LEGACY_EDITORS = AndmoreAndroidPlugin.PLUGIN_ID + ".fixLegacyEditors"; //$NON-NLS-1$
+    public final static String PREFS_SHARED_LAYOUT_EDITOR = AndmoreAndroidPlugin.PLUGIN_ID + ".sharedLayoutEditor"; //$NON-NLS-1$
+    public final static String PREFS_PREVIEWS = AndmoreAndroidPlugin.PLUGIN_ID + ".previews"; //$NON-NLS-1$
+    public final static String PREFS_SKIP_LINT_LIBS = AndmoreAndroidPlugin.PLUGIN_ID + ".skipLintLibs"; //$NON-NLS-1$
+    public final static String PREFS_AUTO_PICK_TARGET = AndmoreAndroidPlugin.PLUGIN_ID + ".autoPickTarget"; //$NON-NLS-1$
+    public final static String PREFS_REFACTOR_IDS = AndmoreAndroidPlugin.PLUGIN_ID + ".refactorIds"; //$NON-NLS-1$
 
     /** singleton instance */
     private final static AdtPrefs sThis = new AdtPrefs();
@@ -398,7 +398,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
 
     public void setLintOnSave(boolean on) {
         mLintOnSave = on;
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_LINT_ON_SAVE, on);
     }
 
@@ -408,7 +408,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
 
     public void setLintOnExport(boolean on) {
         mLintOnExport = on;
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_LINT_ON_EXPORT, on);
     }
 
@@ -430,7 +430,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
      */
     public void setSharedLayoutEditor(boolean on) {
         mSharedLayoutEditor = on;
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_SHARED_LAYOUT_EDITOR, on);
 
         // TODO: If enabling a shared editor, go and close all editors that are aliasing
@@ -454,7 +454,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
         mPalette = palette;
 
         // need to save this new value to the store
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_PALETTE_MODE, palette);
     }
 
@@ -466,7 +466,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
         mMonitorDensity = density;
 
         // need to save this new value to the store
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_MONITOR_DENSITY, density);
     }
 
@@ -487,13 +487,13 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
         }
 
         // need to save this new value to the store
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         store.setValue(PREFS_SDK_DIR, mOsSdkLocation);
     }
 
     @Override
     public void initializeDefaultPreferences() {
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         initializeStoreWithDefaults(store);
     }
 
@@ -528,9 +528,9 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
             store.setDefault(PREFS_DEFAULT_DEBUG_KEYSTORE,
                     DebugKeyProvider.getDefaultKeyStoreOsPath());
         } catch (KeytoolException e) {
-            AdtPlugin.log(e, "Get default debug keystore path failed"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Get default debug keystore path failed"); //$NON-NLS-1$
         } catch (AndroidLocationException e) {
-            AdtPlugin.log(e, "Get default debug keystore path failed"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Get default debug keystore path failed"); //$NON-NLS-1$
         }
     }
 
@@ -565,7 +565,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
                 mPreferXmlEditor &= ~editorType;
             }
             assert ((mPreferXmlEditor & editorType) != 0) == xml;
-            IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+            IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
             store.setValue(PREFS_PREFER_XML, xml);
         }
     }
@@ -587,7 +587,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
      */
     public void setPreviewMode(@NonNull RenderPreviewMode previewMode) {
         mPreviewMode = previewMode;
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         if (previewMode != RenderPreviewMode.NONE) {
             store.setValue(PREFS_PREVIEWS, previewMode.name().toLowerCase(Locale.US));
         } else {
@@ -611,7 +611,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
      */
     public void setAutoPickRenderTarget(boolean autoPick) {
         mAutoPickTarget = autoPick;
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         if (autoPick) {
             store.setToDefault(PREFS_AUTO_PICK_TARGET);
         } else {
@@ -627,7 +627,7 @@ public final class AdtPrefs extends AbstractPreferenceInitializer {
     public void setSkipLibrariesFromLint(boolean exclude) {
         if (exclude != mSkipLibrariesFromLint) {
             mSkipLibrariesFromLint = exclude;
-            IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+            IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
             if (exclude) {
                 store.setValue(PREFS_SKIP_LINT_LIBS, true);
             } else {

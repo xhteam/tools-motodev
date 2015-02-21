@@ -70,7 +70,7 @@ import org.apache.xerces.xni.QName;
 import org.apache.xerces.xni.XMLAttributes;
 import org.apache.xerces.xni.XMLLocator;
 import org.apache.xerces.xni.XNIException;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
@@ -308,10 +308,10 @@ public class Hyperlinks {
     private static boolean openManifestName(IProject project, XmlContext context) {
         if (isActivity(context)) {
             String fqcn = getActivityClassFqcn(context);
-            return AdtPlugin.openJavaClass(project, fqcn);
+            return AndmoreAndroidPlugin.openJavaClass(project, fqcn);
         } else if (isService(context)) {
             String fqcn = getServiceClassFqcn(context);
-            return AdtPlugin.openJavaClass(project, fqcn);
+            return AndmoreAndroidPlugin.openJavaClass(project, fqcn);
         } else if (isBuiltinPermission(context)) {
             String permission = context.getAttribute().getValue();
             // Mutate something like android.permission.ACCESS_CHECKIN_PROPERTIES
@@ -322,7 +322,7 @@ public class Hyperlinks {
 
             URL url = getDocUrl(relative);
             if (url != null) {
-                AdtPlugin.openUrl(url);
+                AndmoreAndroidPlugin.openUrl(url);
                 return true;
             } else {
                 return false;
@@ -343,7 +343,7 @@ public class Hyperlinks {
             }
             URL url = getDocUrl(relative);
             if (url != null) {
-                AdtPlugin.openUrl(url);
+                AndmoreAndroidPlugin.openUrl(url);
                 return true;
             } else {
                 return false;
@@ -459,7 +459,7 @@ public class Hyperlinks {
             // If not, fallback to the online documentation
             return new URL("http://developer.android.com/reference/" + relative); //$NON-NLS-1$
         } catch (MalformedURLException e) {
-            AdtPlugin.log(e, "Can't create URL for %1$s", docs);
+            AndmoreAndroidPlugin.log(e, "Can't create URL for %1$s", docs);
             return null;
         }
     }
@@ -569,7 +569,7 @@ public class Hyperlinks {
         if (isManifestName(context)) {
             return openManifestName(project, context);
         } else if (isClassElement(context) || isClassAttribute(context)) {
-            return AdtPlugin.openJavaClass(project, getClassFqcn(context));
+            return AndmoreAndroidPlugin.openJavaClass(project, getClassFqcn(context));
         } else if (isOnClickAttribute(context)) {
             return openOnClickMethod(project, context.getAttribute().getValue());
         } else {
@@ -585,10 +585,10 @@ public class Hyperlinks {
         IFile file = AdtUtils.pathToIFile(filePath);
         if (file != null && file.exists()) {
             try {
-                AdtPlugin.openFile(file, region);
+                AndmoreAndroidPlugin.openFile(file, region);
                 return;
             } catch (PartInitException ex) {
-                AdtPlugin.log(ex, "Can't open %$1s", filePath); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(ex, "Can't open %$1s", filePath); //$NON-NLS-1$
             }
         } else {
             // It's not a path in the workspace; look externally
@@ -615,7 +615,7 @@ public class Hyperlinks {
 
                         return;
                     } catch (PartInitException ex) {
-                        AdtPlugin.log(ex, "Can't open %$1s", filePath); //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(ex, "Can't open %$1s", filePath); //$NON-NLS-1$
                     }
                 }
             }
@@ -702,7 +702,7 @@ public class Hyperlinks {
             }
             return ok;
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         return false;
     }
@@ -894,7 +894,7 @@ public class Hyperlinks {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, ""); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, ""); //$NON-NLS-1$
         }
 
         return null;
@@ -909,7 +909,7 @@ public class Hyperlinks {
             if (model == null) {
                 // There is no open or cached model for the file; see if the file looks
                 // like it's interesting (content contains the String name we are looking for)
-                if (AdtPlugin.fileContains(file, name)) {
+                if (AndmoreAndroidPlugin.fileContains(file, name)) {
                     // Yes, so parse content
                     model = StructuredModelManager.getModelManager().getModelForRead(file);
                 }
@@ -920,9 +920,9 @@ public class Hyperlinks {
                 return findValueInDocument(type, name, file, document);
             }
         } catch (IOException e) {
-            AdtPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
         } finally {
             if (model != null) {
                 model.releaseFromRead();
@@ -998,7 +998,7 @@ public class Hyperlinks {
             if (model == null) {
                 // There is no open or cached model for the file; see if the file looks
                 // like it's interesting (content contains the String name we are looking for)
-                if (AdtPlugin.fileContains(file, id)) {
+                if (AndmoreAndroidPlugin.fileContains(file, id)) {
                     // Yes, so parse content
                     model = StructuredModelManager.getModelManager().getModelForRead(file);
                 }
@@ -1009,9 +1009,9 @@ public class Hyperlinks {
                 return findIdInDocument(id, file, document);
             }
         } catch (IOException e) {
-            AdtPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Can't parse %1$s", file); //$NON-NLS-1$
         } finally {
             if (model != null) {
                 model.releaseFromRead();
@@ -1082,7 +1082,7 @@ public class Hyperlinks {
         // We can't use the StructureModelManager on files outside projects
         // There is no open or cached model for the file; see if the file looks
         // like it's interesting (content contains the String name we are looking for)
-        if (AdtPlugin.fileContains(file, name)) {
+        if (AndmoreAndroidPlugin.fileContains(file, name)) {
             try {
                 InputSource is = new InputSource(new FileInputStream(file));
                 OffsetTrackingParser parser = new OffsetTrackingParser();
@@ -1380,7 +1380,7 @@ public class Hyperlinks {
                             return getResourceLinks(range, url);
                         }
                     } catch (BadLocationException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             }
@@ -1609,9 +1609,9 @@ public class Hyperlinks {
                 Pair<IFile,IRegion> def = findIdDefinition(project, mName);
                 if (def != null) {
                     try {
-                        AdtPlugin.openFile(def.getFirst(), def.getSecond());
+                        AndmoreAndroidPlugin.openFile(def.getFirst(), def.getSecond());
                     } catch (PartInitException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                     return;
                 }
@@ -1638,9 +1638,9 @@ public class Hyperlinks {
                             region = target.getSecond();
                         }
                     }
-                    AdtPlugin.openFile(file, region);
+                    AndmoreAndroidPlugin.openFile(file, region);
                 } catch (PartInitException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             } else if (wrappedFile instanceof FileWrapper) {
                 File file = ((FileWrapper) wrappedFile);
@@ -1762,7 +1762,7 @@ public class Hyperlinks {
                     }
                 }
             } catch (BadLocationException e) {
-                AdtPlugin.log(e, ""); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, ""); //$NON-NLS-1$
             }
             return new Region(start, length);
         }
@@ -1880,7 +1880,7 @@ public class Hyperlinks {
                     node.setUserData(KEY_OFFSET, offset, null);
                 }
             } catch (org.xml.sax.SAXException ex) {
-                AdtPlugin.log(ex, ""); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(ex, ""); //$NON-NLS-1$
             }
         }
 

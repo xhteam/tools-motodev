@@ -25,7 +25,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.tools.lint.client.api.IssueRegistry;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.XmlEditorMultiOutline;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
@@ -265,7 +265,7 @@ public class LayoutEditorDelegate extends CommonXmlDelegate
                     return;
                 }
             } else {
-                AdtPlugin.log(IStatus.ERROR,
+                AndmoreAndroidPlugin.log(IStatus.ERROR,
                         "Input is not of type FileEditorInput: %1$s",  //$NON-NLS-1$
                         input.toString());
             }
@@ -292,7 +292,7 @@ public class LayoutEditorDelegate extends CommonXmlDelegate
                 }
             }
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
         }
     }
 

@@ -29,7 +29,7 @@ import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.assetstudio.OpenCreateAssetSetWizardAction;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
@@ -603,9 +603,9 @@ public class ResourceChooser extends AbstractElementListSelectionDialog implemen
                 String error = mInputValidator.isValid(current);
                 IStatus status;
                 if (error != null) {
-                    status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, error);
+                    status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, error);
                 } else {
-                    status = new Status(IStatus.OK, AdtPlugin.PLUGIN_ID, null);
+                    status = new Status(IStatus.OK, AndmoreAndroidPlugin.PLUGIN_ID, null);
                 }
                 updateStatus(status);
             }
@@ -641,7 +641,7 @@ public class ResourceChooser extends AbstractElementListSelectionDialog implemen
     @Nullable
     private String createNewFile(ResourceType type) {
         // Show a name/value dialog entering the key name and the value
-        Shell shell = AdtPlugin.getShell();
+        Shell shell = AndmoreAndroidPlugin.getShell();
         if (shell == null) {
             return null;
         }
@@ -649,7 +649,7 @@ public class ResourceChooser extends AbstractElementListSelectionDialog implemen
         ResourceNameValidator validator = ResourceNameValidator.create(true /*allowXmlExtension*/,
                 mProject, mResourceType);
         InputDialog d = new InputDialog(
-                AdtPlugin.getShell(),
+                AndmoreAndroidPlugin.getShell(),
                 "Enter name",  // title
                 "Enter name",
                 "", //$NON-NLS-1$
@@ -674,7 +674,7 @@ public class ResourceChooser extends AbstractElementListSelectionDialog implemen
     @Nullable
     private String createNewValue(ResourceType type) {
         // Show a name/value dialog entering the key name and the value
-        Shell shell = AdtPlugin.getShell();
+        Shell shell = AndmoreAndroidPlugin.getShell();
         if (shell == null) {
             return null;
         }
@@ -904,18 +904,18 @@ public class ResourceChooser extends AbstractElementListSelectionDialog implemen
             IStatus status;
             computeResult();
             if (mName.length() == 0) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, "Enter a name");
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, "Enter a name");
             } else if (mValue.length() == 0) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, "Enter a value");
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, "Enter a value");
             } else {
                 if (mValidator == null) {
                     mValidator = ResourceNameValidator.create(false, mProject, mResourceType);
                 }
                 String error = mValidator.isValid(mName);
                 if (error != null) {
-                    status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, error);
+                    status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, error);
                 } else {
-                    status = new Status(IStatus.OK, AdtPlugin.PLUGIN_ID, null);
+                    status = new Status(IStatus.OK, AndmoreAndroidPlugin.PLUGIN_ID, null);
                 }
             }
             updateStatus(status);

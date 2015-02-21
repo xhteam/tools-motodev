@@ -33,7 +33,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlPrettyPrinter;
@@ -238,7 +238,7 @@ public class NewProjectCreator  {
     private boolean validateNewProjectLocationIsEmpty(IPath destination) {
         File f = new File(destination.toOSString());
         if (f.isDirectory() && f.list().length > 0) {
-            return AdtPlugin.displayPrompt("New Android Project",
+            return AndmoreAndroidPlugin.displayPrompt("New Android Project",
                     "You are going to create a new Android Project in an existing, non-empty, directory. Are you sure you want to proceed?");
         }
         return true;
@@ -361,7 +361,7 @@ public class NewProjectCreator  {
             final Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put(PARAM_PROJECT, projectName);
             parameters.put(PARAM_PACKAGE, packageName);
-            parameters.put(PARAM_SDK_TOOLS_DIR, AdtPlugin.getOsSdkToolsFolder());
+            parameters.put(PARAM_SDK_TOOLS_DIR, AndmoreAndroidPlugin.getOsSdkToolsFolder());
             parameters.put(PARAM_IS_NEW_PROJECT, Boolean.FALSE);
             parameters.put(PARAM_SRC_FOLDER, SdkConstants.FD_SOURCES);
 
@@ -424,7 +424,7 @@ public class NewProjectCreator  {
         parameters.put(PARAM_PROJECT, mValues.projectName);
         parameters.put(PARAM_PACKAGE, mValues.packageName);
         parameters.put(PARAM_APPLICATION, STRING_RSRC_PREFIX + STRING_APP_NAME);
-        parameters.put(PARAM_SDK_TOOLS_DIR, AdtPlugin.getOsSdkToolsFolder());
+        parameters.put(PARAM_SDK_TOOLS_DIR, AndmoreAndroidPlugin.getOsSdkToolsFolder());
         parameters.put(PARAM_IS_NEW_PROJECT, mValues.mode == Mode.ANY && !mValues.useExisting);
         parameters.put(PARAM_SAMPLE_LOCATION, mValues.chosenSample);
         parameters.put(PARAM_SRC_FOLDER, mValues.sourceFolder);
@@ -480,7 +480,7 @@ public class NewProjectCreator  {
 
         parameters.put(PARAM_PACKAGE, pkg);
         parameters.put(PARAM_APPLICATION, STRING_RSRC_PREFIX + STRING_APP_NAME);
-        parameters.put(PARAM_SDK_TOOLS_DIR, AdtPlugin.getOsSdkToolsFolder());
+        parameters.put(PARAM_SDK_TOOLS_DIR, AndmoreAndroidPlugin.getOsSdkToolsFolder());
         parameters.put(PARAM_IS_NEW_PROJECT, !mValues.useExisting);
         parameters.put(PARAM_SRC_FOLDER, mValues.sourceFolder);
         parameters.put(PARAM_SDK_TARGET, mValues.target);
@@ -541,7 +541,7 @@ public class NewProjectCreator  {
             mRunnableContext.run(true /* fork */, true /* cancelable */, op);
         } catch (InvocationTargetException e) {
 
-            AdtPlugin.log(e, "New Project Wizard failed");
+            AndmoreAndroidPlugin.log(e, "New Project Wizard failed");
 
             // The runnable threw an exception
             Throwable t = e.getTargetException();
@@ -550,10 +550,10 @@ public class NewProjectCreator  {
                 if (core.getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
                     // The error indicates the file system is not case sensitive
                     // and there's a resource with a similar name.
-                    MessageDialog.openError(AdtPlugin.getShell(),
+                    MessageDialog.openError(AndmoreAndroidPlugin.getShell(),
                             "Error", "Error: Case Variant Exists");
                 } else {
-                    ErrorDialog.openError(AdtPlugin.getShell(),
+                    ErrorDialog.openError(AndmoreAndroidPlugin.getShell(),
                             "Error", core.getMessage(), core.getStatus());
                 }
             } else {
@@ -567,7 +567,7 @@ public class NewProjectCreator  {
                 if (msg == null) {
                     msg = t.toString();
                 }
-                MessageDialog.openError(AdtPlugin.getShell(), "Error", msg);
+                MessageDialog.openError(AndmoreAndroidPlugin.getShell(), "Error", msg);
             }
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -651,7 +651,7 @@ public class NewProjectCreator  {
                                 try {
                                     sourceDir.copy(destDir, EFS.OVERWRITE, null);
                                 } catch (CoreException e) {
-                                    AdtPlugin.log(e, null);
+                                    AndmoreAndroidPlugin.log(e, null);
                                 }
                             }
                         };
@@ -758,7 +758,7 @@ public class NewProjectCreator  {
             try {
                 projectPopulator.populate(project);
             } catch (InvocationTargetException ite) {
-                AdtPlugin.log(ite, null);
+                AndmoreAndroidPlugin.log(ite, null);
             }
         }
 
@@ -860,7 +860,7 @@ public class NewProjectCreator  {
                     String msg = String.format(
                             "Failed to save %1$s for project %2$s",
                             SdkConstants.FN_PROJECT_PROPERTIES, project.getName());
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
                 }
             }
         }
@@ -918,10 +918,10 @@ public class NewProjectCreator  {
                     creator.createEclipseProject(submonitor, project, description, parameters,
                             dictionary, projectPopulator, true);
                 } catch (IOException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "Unexpected error while creating project", e));
                 } catch (StreamException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "Unexpected error while creating project", e));
                 }
                 if (workingSets != null && workingSets.length > 0) {
@@ -982,14 +982,14 @@ public class NewProjectCreator  {
         if (!file.exists()) {
 
             // Read manifest template
-            String manifestTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_MANIFEST);
+            String manifestTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_MANIFEST);
 
             // Replace all keyword parameters
             manifestTemplate = replaceParameters(manifestTemplate, parameters);
 
             if (manifestTemplate == null) {
                 // Inform the user there will be not manifest.
-                AdtPlugin.logAndPrintError(null, "Create Project" /*TAG*/,
+                AndmoreAndroidPlugin.logAndPrintError(null, "Create Project" /*TAG*/,
                         "Failed to generate the Android manifest. Missing template %s",
                         TEMPLATE_MANIFEST);
                 // Abort now, there's no need to continue
@@ -998,7 +998,7 @@ public class NewProjectCreator  {
 
             if (parameters.containsKey(PARAM_ACTIVITY)) {
                 // now get the activity template
-                String activityTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_ACTIVITIES);
+                String activityTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_ACTIVITIES);
 
                 // If the activity name doesn't contain any dot, it's in the form
                 // "ClassName" and we need to expand it to ".ClassName" in the XML.
@@ -1013,7 +1013,7 @@ public class NewProjectCreator  {
                 String activities = replaceParameters(activityTemplate, parameters);
 
                 // set the intent.
-                String intent = AdtPlugin.readEmbeddedTextFile(TEMPLATE_INTENT_LAUNCHER);
+                String intent = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_INTENT_LAUNCHER);
 
                 if (activities != null) {
                     if (intent != null) {
@@ -1032,14 +1032,14 @@ public class NewProjectCreator  {
             // Handle the case of the test projects
             if (parameters.containsKey(PARAM_TEST_TARGET_PACKAGE)) {
                 // Set the uses-library needed by the test project
-                String usesLibrary = AdtPlugin.readEmbeddedTextFile(TEMPLATE_TEST_USES_LIBRARY);
+                String usesLibrary = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_TEST_USES_LIBRARY);
                 if (usesLibrary != null) {
                     manifestTemplate = manifestTemplate.replaceAll(
                             PH_TEST_USES_LIBRARY, usesLibrary);
                 }
 
                 // Set the instrumentation element needed by the test project
-                String instru = AdtPlugin.readEmbeddedTextFile(TEMPLATE_TEST_INSTRUMENTATION);
+                String instru = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_TEST_INSTRUMENTATION);
                 if (instru != null) {
                     manifestTemplate = manifestTemplate.replaceAll(
                             PH_TEST_INSTRUMENTATION, instru);
@@ -1056,7 +1056,7 @@ public class NewProjectCreator  {
 
             String minSdkVersion = (String) parameters.get(PARAM_MIN_SDK_VERSION);
             if (minSdkVersion != null && minSdkVersion.length() > 0) {
-                String usesSdkTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_USES_SDK);
+                String usesSdkTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_USES_SDK);
                 if (usesSdkTemplate != null) {
                     String usesSdk = replaceParameters(usesSdkTemplate, parameters);
                     manifestTemplate = manifestTemplate.replaceAll(PH_USES_SDK, usesSdk);
@@ -1094,10 +1094,10 @@ public class NewProjectCreator  {
                                      + VALUES_DIRECTORY + AndmoreAndroidConstants.WS_SEP + STRINGS_FILE);
         if (!file.exists()) {
             // get the Strings.xml template
-            String stringDefinitionTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_STRINGS);
+            String stringDefinitionTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_STRINGS);
 
             // get the template for one string
-            String stringTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_STRING);
+            String stringTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(TEMPLATE_STRING);
 
             // get all the string names
             Set<String> stringNames = strings.keySet();
@@ -1162,7 +1162,7 @@ public class NewProjectCreator  {
             IFile file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
                     + DRAWABLE_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
-                addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
+                addFile(file, AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
             }
         } else {
             // do all 4 icons.
@@ -1172,28 +1172,28 @@ public class NewProjectCreator  {
             file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
                     + DRAWABLE_XHDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
-                addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_XHDPI), monitor);
+                addFile(file, AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_XHDPI), monitor);
             }
 
             // high density
             file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
                     + DRAWABLE_HDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
-                addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_HDPI), monitor);
+                addFile(file, AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_HDPI), monitor);
             }
 
             // medium density
             file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
                     + DRAWABLE_MDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
-                addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
+                addFile(file, AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
             }
 
             // low density
             file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
                     + DRAWABLE_LDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
-                addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_LDPI), monitor);
+                addFile(file, AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_LDPI), monitor);
             }
         }
     }
@@ -1447,7 +1447,7 @@ public class NewProjectCreator  {
             throws CoreException, IOException {
 
         // Read existing file.
-        String template = AdtPlugin.readEmbeddedTextFile(
+        String template = AndmoreAndroidPlugin.readEmbeddedTextFile(
                 TEMPLATES_DIRECTORY + resourceFilename);
 
         // Replace all keyword parameters
@@ -1477,11 +1477,11 @@ public class NewProjectCreator  {
     private String replaceParameters(String str, Map<String, Object> parameters) {
 
         if (parameters == null) {
-            AdtPlugin.log(IStatus.ERROR,
+            AndmoreAndroidPlugin.log(IStatus.ERROR,
                     "NPW replace parameters: null parameter map. String: '%s'", str);  //$NON-NLS-1$
             return str;
         } else if (str == null) {
-            AdtPlugin.log(IStatus.ERROR,
+            AndmoreAndroidPlugin.log(IStatus.ERROR,
                     "NPW replace parameters: null template string");  //$NON-NLS-1$
             return str;
         }
@@ -1490,7 +1490,7 @@ public class NewProjectCreator  {
             if (entry != null && entry.getValue() instanceof String) {
                 Object value = entry.getValue();
                 if (value == null) {
-                    AdtPlugin.log(IStatus.ERROR,
+                    AndmoreAndroidPlugin.log(IStatus.ERROR,
                     "NPW replace parameters: null value for key '%s' in template '%s'",  //$NON-NLS-1$
                     entry.getKey(),
                     str);

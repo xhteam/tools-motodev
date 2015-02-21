@@ -67,7 +67,7 @@ import com.android.tools.lint.detector.api.LintUtils;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
 import org.eclipse.andmore.common.layout.BaseViewRule;
@@ -236,14 +236,14 @@ public class GraphicalEditorPart extends EditorPart
      * this file
      */
     public final static QualifiedName NAME_INITIAL_STATE =
-        new QualifiedName(AdtPlugin.PLUGIN_ID, "initialstate");//$NON-NLS-1$
+        new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "initialstate");//$NON-NLS-1$
 
     /**
      * Session-property on files which specifies the inclusion-context (reference to another layout
      * which should be "including" this layout) when the file is opened
      */
     public final static QualifiedName NAME_INCLUDE =
-        new QualifiedName(AdtPlugin.PLUGIN_ID, "includer");//$NON-NLS-1$
+        new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "includer");//$NON-NLS-1$
 
     /** Reference to the layout editor */
     private final LayoutEditorDelegate mEditorDelegate;
@@ -326,11 +326,11 @@ public class GraphicalEditorPart extends EditorPart
 
         if (mTargetListener == null) {
             mTargetListener = new TargetListener();
-            AdtPlugin.getDefault().addTargetListener(mTargetListener);
+            AndmoreAndroidPlugin.getDefault().addTargetListener(mTargetListener);
 
             // Trigger a check to see if the SDK needs to be reloaded (which will
             // invoke onSdkLoaded asynchronously as needed).
-            AdtPlugin.getDefault().refreshSdk();
+            AndmoreAndroidPlugin.getDefault().refreshSdk();
         }
     }
 
@@ -376,11 +376,11 @@ public class GraphicalEditorPart extends EditorPart
                     file.setSessionProperty(NAME_INITIAL_STATE, null);
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't read session property %1$s", NAME_INITIAL_STATE);
+                AndmoreAndroidPlugin.log(e, "Can't read session property %1$s", NAME_INITIAL_STATE);
             }
         }
 
-        IPreferenceStore preferenceStore = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore preferenceStore = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         PluginFlyoutPreferences preferences;
         preferences = new PluginFlyoutPreferences(preferenceStore, PREF_PALETTE);
         preferences.initializeDefaults(DOCK_WEST, STATE_OPEN, 200);
@@ -626,7 +626,7 @@ public class GraphicalEditorPart extends EditorPart
         getSite().setSelectionProvider(null);
 
         if (mTargetListener != null) {
-            AdtPlugin.getDefault().removeTargetListener(mTargetListener);
+            AndmoreAndroidPlugin.getDefault().removeTargetListener(mTargetListener);
             mTargetListener = null;
         }
 
@@ -841,7 +841,7 @@ public class GraphicalEditorPart extends EditorPart
             ResourceRepository frameworkRes = getFrameworkResources();
 
             if (frameworkRes == null) {
-                AdtPlugin.log(IStatus.ERROR, "Failed to get ProjectResource for the framework");
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Failed to get ProjectResource for the framework");
             } else {
                 // get the framework resource values based on the current config
                 mConfiguredFrameworkRes = frameworkRes.getConfiguredResources(
@@ -1107,7 +1107,7 @@ public class GraphicalEditorPart extends EditorPart
         }
         mDockingStateVersion = sDockingStateVersion;
 
-        IPreferenceStore preferenceStore = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore preferenceStore = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         PluginFlyoutPreferences preferences;
         preferences = new PluginFlyoutPreferences(preferenceStore, PREF_PALETTE);
         mPaletteComposite.apply(preferences);
@@ -1160,7 +1160,7 @@ public class GraphicalEditorPart extends EditorPart
                     mEditedFile.setSessionProperty(NAME_INCLUDE, null);
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't access session property %1$s", NAME_INCLUDE);
+                AndmoreAndroidPlugin.log(e, "Can't access session property %1$s", NAME_INCLUDE);
             }
         }
 
@@ -1378,7 +1378,7 @@ public class GraphicalEditorPart extends EditorPart
 
             // also print it in the error console.
             IProject iProject = mEditedFile.getProject();
-            AdtPlugin.printErrorToConsole(iProject.getName(), message);
+            AndmoreAndroidPlugin.printErrorToConsole(iProject.getName(), message);
             return false;
         }
 
@@ -2133,7 +2133,7 @@ public class GraphicalEditorPart extends EditorPart
                     }
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
 
             if (logger.seenTagPrefix(LayoutLog.TAG_RESOURCES_RESOLVE_THEME_ATTR)) {
@@ -2455,14 +2455,14 @@ public class GraphicalEditorPart extends EditorPart
                     @SuppressWarnings("restriction")
                     String id = BuildPathsPropertyPage.PROP_ID;
                     PreferencesUtil.createPropertyDialogOn(
-                            AdtPlugin.getShell(),
+                            AndmoreAndroidPlugin.getShell(),
                             getProject(), id, null, null).open();
                     break;
                 case LINK_OPEN_CLASS:
-                    AdtPlugin.openJavaClass(getProject(), (String) mData[0]);
+                    AndmoreAndroidPlugin.openJavaClass(getProject(), (String) mData[0]);
                     break;
                 case LINK_OPEN_LINE:
-                    boolean success = AdtPlugin.openStackTraceLine(
+                    boolean success = AndmoreAndroidPlugin.openStackTraceLine(
                             (String) mData[0],   // class
                             (String) mData[1],   // method
                             (String) mData[2],   // file
@@ -2479,7 +2479,7 @@ public class GraphicalEditorPart extends EditorPart
                         IWorkbenchPage page = workbenchWindow.getActivePage();
                         page.showView("org.eclipse.pde.runtime.LogView"); //$NON-NLS-1$
                     } catch (PartInitException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                     break;
                 case LINK_CHANGE_CLASS_TO:
@@ -2532,9 +2532,9 @@ public class GraphicalEditorPart extends EditorPart
                     try {
                         edits.apply(document);
                     } catch (MalformedTreeException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     } catch (BadLocationException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                     break;
                 case IGNORE_FIDELITY_WARNING:
@@ -2560,7 +2560,7 @@ public class GraphicalEditorPart extends EditorPart
                     RenderSecurityManager.sEnabled = false;
                     recomputeLayout();
 
-                    MessageDialog.openInformation(AdtPlugin.getShell(),
+                    MessageDialog.openInformation(AndmoreAndroidPlugin.getShell(),
                         "Disabled Rendering Sandbox",
                         "The custom view rendering sandbox was disabled for this session.\n\n" +
                         "You can turn it off permanently by adding\n" +

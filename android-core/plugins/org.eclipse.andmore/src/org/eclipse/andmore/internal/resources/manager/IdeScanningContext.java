@@ -26,7 +26,7 @@ import com.android.ide.common.resources.ResourceRepository;
 import com.android.ide.common.resources.ScanningContext;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.sdk.AndroidTargetData;
@@ -128,7 +128,7 @@ public class IdeScanningContext extends ScanningContext {
         // resource tree is locked for modifications and attempting to create a
         // marker will throw a org.eclipse.core.internal.resources.ResourceException.
         if (async) {
-            AdtPlugin.getDisplay().asyncExec(new Runnable() {
+            AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                 @Override
                 public void run() {
                     updateMarkers(false);

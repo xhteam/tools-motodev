@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.layout.refactoring;
 import static org.junit.Assert.*;
 import static com.android.SdkConstants.DOT_XML;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.refactoring.ExtractIncludeRefactoring;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.resources.IFile;
@@ -113,7 +113,7 @@ public class ExtractIncludeRefactoringTest extends RefactoringTest {
 	@Test
 	public void testExtract7() throws Exception {
 		// Just like testExtract6, except we turn on auto-formatting
-		IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 		AdtPrefs.init(store);
 		AdtPrefs prefs = AdtPrefs.getPrefs();
 		prefs.initializeStoreWithDefaults(store);

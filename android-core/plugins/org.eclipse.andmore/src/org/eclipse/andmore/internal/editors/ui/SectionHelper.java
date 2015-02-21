@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.jface.text.DefaultInformationControl;
 import org.eclipse.swt.events.DisposeEvent;
@@ -175,7 +175,7 @@ public final class SectionHelper {
                 reflow.setAccessible(true);
                 reflow.invoke(section);
             } catch (Exception e) {
-                AdtPlugin.log(e, "Error when invoking Section.reflow");
+                AndmoreAndroidPlugin.log(e, "Error when invoking Section.reflow");
             }
 
             section.layout(true /* changed */, true /* all */);

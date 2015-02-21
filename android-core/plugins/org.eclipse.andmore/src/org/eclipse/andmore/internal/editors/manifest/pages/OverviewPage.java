@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.manifest.pages;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -78,7 +78,7 @@ public final class OverviewPage extends FormPage implements IPageImageProvider {
         super.createFormContent(managedForm);
         ScrolledForm form = managedForm.getForm();
         form.setText("Android Manifest");
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         Composite body = form.getBody();
         FormToolkit toolkit = managedForm.getToolkit();

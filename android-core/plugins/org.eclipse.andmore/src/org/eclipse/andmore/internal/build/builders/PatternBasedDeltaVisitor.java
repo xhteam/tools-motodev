@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.build.builders;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.BuildHelper;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -61,7 +61,7 @@ class PatternBasedDeltaVisitor implements IResourceDeltaVisitor {
         mDeltaProject = deltaProject;
         mLogName = logName;
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s (%s): Delta for %s",               //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s (%s): Delta for %s",               //$NON-NLS-1$
                     mMainProject.getName(), mLogName, mDeltaProject.getName());
         }
     }
@@ -102,11 +102,11 @@ class PatternBasedDeltaVisitor implements IResourceDeltaVisitor {
                         String cfs_logName = set.getLogName();
 
                         if (cfs_logName != null) {
-                            AdtPlugin.log(IStatus.INFO, "%s (%s:%s): %s",              //$NON-NLS-1$
+                            AndmoreAndroidPlugin.log(IStatus.INFO, "%s (%s:%s): %s",              //$NON-NLS-1$
                                     mMainProject.getName(), mLogName, cfs_logName,
                                     resource.getFullPath().toString());
                         } else {
-                            AdtPlugin.log(IStatus.INFO, "%s (%s): %s",                 //$NON-NLS-1$
+                            AndmoreAndroidPlugin.log(IStatus.INFO, "%s (%s): %s",                 //$NON-NLS-1$
                                     mMainProject.getName(), mLogName,
                                     resource.getFullPath().toString());
                         }
@@ -120,11 +120,11 @@ class PatternBasedDeltaVisitor implements IResourceDeltaVisitor {
                         String cfs_logName = set.getLogName();
 
                         if (cfs_logName != null) {
-                            AdtPlugin.log(IStatus.INFO, "%s (%s:%s): %s",              //$NON-NLS-1$
+                            AndmoreAndroidPlugin.log(IStatus.INFO, "%s (%s:%s): %s",              //$NON-NLS-1$
                                     mMainProject.getName(), mLogName, cfs_logName,
                                     resource.getFullPath().toString());
                         } else {
-                            AdtPlugin.log(IStatus.INFO, "%s (%s): %s",                 //$NON-NLS-1$
+                            AndmoreAndroidPlugin.log(IStatus.INFO, "%s (%s): %s",                 //$NON-NLS-1$
                                     mMainProject.getName(), mLogName,
                                     resource.getFullPath().toString());
                         }

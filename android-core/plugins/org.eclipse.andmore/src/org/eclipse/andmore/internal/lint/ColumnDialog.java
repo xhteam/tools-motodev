@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.lint;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -98,10 +98,10 @@ class ColumnDialog extends SelectionStatusDialog implements Listener, IStructure
             computeResult();
 
             if (mViewer.getCheckedElements().length <= 1) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "Must selected at least one column");
             } else {
-                status = new Status(IStatus.OK, AdtPlugin.PLUGIN_ID, null);
+                status = new Status(IStatus.OK, AndmoreAndroidPlugin.PLUGIN_ID, null);
             }
             updateStatus(status);
         }

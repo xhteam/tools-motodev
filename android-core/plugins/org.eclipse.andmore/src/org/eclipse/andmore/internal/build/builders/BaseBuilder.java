@@ -24,7 +24,7 @@ import com.android.io.StreamException;
 import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.BuildHelper;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
@@ -221,7 +221,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
             }
         } catch (CoreException ce) {
             String msg = String.format(Messages.Marker_Delete_Error, markerId, resource.toString());
-            AdtPlugin.printErrorToConsole(getProject(), msg);
+            AndmoreAndroidPlugin.printErrorToConsole(getProject(), msg);
         }
     }
 
@@ -238,7 +238,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
             }
         } catch (CoreException ce) {
             String msg = String.format(Messages.Marker_Delete_Error, markerId, folder.toString());
-            AdtPlugin.printErrorToConsole(getProject(), msg);
+            AndmoreAndroidPlugin.printErrorToConsole(getProject(), msg);
         }
     }
 
@@ -338,11 +338,11 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
             mBuildToolInfo = sdk.getLatestBuildTool();
 
             if (mBuildToolInfo == null) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, iProject,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, iProject,
                         "No \"Build Tools\" package available; use SDK Manager to install one.");
                 throw new AbortBuildException();
             } else {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, iProject,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, iProject,
                         String.format("Using default Build Tools revision %s",
                                 mBuildToolInfo.getRevision())
                         );
@@ -410,7 +410,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
             }
         }
 
-        AdtPlugin.logAndPrintError(e, getProject().getName(), msg);
+        AndmoreAndroidPlugin.logAndPrintError(e, getProject().getName(), msg);
         BaseProjectHelper.markResource(target, AndmoreAndroidConstants.MARKER_ADT, msg,
                 IMarker.SEVERITY_ERROR);
     }
@@ -423,7 +423,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
      * @param message the message to log and to associate with the marker.
      */
     protected void handleException(Throwable t, String message) {
-        AdtPlugin.logAndPrintError(t, getProject().getName(), message);
+        AndmoreAndroidPlugin.logAndPrintError(t, getProject().getName(), message);
         markProject(AndmoreAndroidConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
     }
 

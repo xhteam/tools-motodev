@@ -20,7 +20,7 @@ import com.android.ide.common.resources.configuration.FolderConfiguration;
 import com.android.resources.ResourceFolderType;
 import com.google.common.base.Charsets;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.configuration.ConfigurationChooser;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -70,7 +70,7 @@ class CreateNewConfigJob extends Job {
             if (file.exists()) {
                 String message = String.format("File 'res/%1$s/%2$s' already exists!",
                         folderName, mFromFile.getName());
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, message);
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, message);
             }
 
             // Read current document contents instead of from file: mFromFile.getContents()
@@ -104,9 +104,9 @@ class CreateNewConfigJob extends Job {
 
                     // Finally open the new layout
                     try {
-                        AdtPlugin.openFile(file, null, false);
+                        AndmoreAndroidPlugin.openFile(file, null, false);
                     } catch (PartInitException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             });
@@ -114,15 +114,15 @@ class CreateNewConfigJob extends Job {
             String message = String.format(
                     "Failed to create File 'res/%1$s/%2$s' : %3$s",
                     folderName, mFromFile.getName(), e2.getMessage());
-            AdtPlugin.displayError("Layout Creation", message);
+            AndmoreAndroidPlugin.displayError("Layout Creation", message);
 
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     message, e2);
         } catch (CoreException e2) {
             String message = String.format(
                     "Failed to create File 'res/%1$s/%2$s' : %3$s",
                     folderName, mFromFile.getName(), e2.getMessage());
-            AdtPlugin.displayError("Layout Creation", message);
+            AndmoreAndroidPlugin.displayError("Layout Creation", message);
 
             return e2.getStatus();
         }

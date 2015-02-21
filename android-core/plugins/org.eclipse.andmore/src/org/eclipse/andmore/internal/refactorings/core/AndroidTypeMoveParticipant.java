@@ -33,7 +33,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.utils.SdkUtils;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -257,9 +257,9 @@ public class AndroidTypeMoveParticipant extends MoveParticipant {
 
             return true;
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } finally {
             if (model != null) {
                 model.releaseFromRead();

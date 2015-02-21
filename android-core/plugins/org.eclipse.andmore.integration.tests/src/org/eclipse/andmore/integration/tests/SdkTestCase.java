@@ -18,7 +18,7 @@ package org.eclipse.andmore.integration.tests;
 import static org.eclipse.andmore.test.utils.XMLAssert.*;
 
 import org.custommonkey.xmlunit.*;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 import com.android.SdkConstants;
 import com.google.common.base.Charsets;

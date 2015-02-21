@@ -25,7 +25,7 @@ import com.android.ide.common.sdk.LoadStatus;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.editors.animator.AnimDescriptors;
 import org.eclipse.andmore.internal.editors.animator.AnimatorDescriptors;
@@ -333,21 +333,21 @@ public class AndroidTargetData {
                         @Override
                         public void error(String tag, String message, Throwable throwable,
                                 Object data) {
-                            AdtPlugin.log(throwable, message);
+                            AndmoreAndroidPlugin.log(throwable, message);
                         }
 
                         @Override
                         public void error(String tag, String message, Object data) {
-                            AdtPlugin.log(IStatus.ERROR, message);
+                            AndmoreAndroidPlugin.log(IStatus.ERROR, message);
                         }
 
                         @Override
                         public void warning(String tag, String message, Object data) {
-                            AdtPlugin.log(IStatus.WARNING, message);
+                            AndmoreAndroidPlugin.log(IStatus.WARNING, message);
                         }
                     });
             if (!ok) {
-                AdtPlugin.log(IStatus.ERROR,
+                AndmoreAndroidPlugin.log(IStatus.ERROR,
                         "LayoutLibrary initialization failed");
             }
             mLayoutBridgeInit = true;

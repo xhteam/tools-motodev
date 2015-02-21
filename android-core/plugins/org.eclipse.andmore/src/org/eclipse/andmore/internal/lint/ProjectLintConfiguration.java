@@ -24,7 +24,7 @@ import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -36,7 +36,7 @@ import java.io.File;
 class ProjectLintConfiguration extends DefaultConfiguration {
     private boolean mFatalOnly;
 
-    private final static QualifiedName CONFIGURATION_NAME = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName CONFIGURATION_NAME = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "lintconfig"); //$NON-NLS-1$
 
     @VisibleForTesting
@@ -73,7 +73,7 @@ class ProjectLintConfiguration extends DefaultConfiguration {
             try {
                 project.setSessionProperty(CONFIGURATION_NAME, configuration);
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't store lint configuration");
+                AndmoreAndroidPlugin.log(e, "Can't store lint configuration");
             }
         }
         return configuration;

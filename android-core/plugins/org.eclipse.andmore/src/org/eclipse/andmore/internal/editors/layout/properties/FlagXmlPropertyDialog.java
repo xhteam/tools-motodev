@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.layout.properties;
 import com.android.annotations.NonNull;
 import com.google.common.base.Splitter;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -60,7 +60,7 @@ implements IStructuredContentProvider, ICheckStateListener, SelectionListener, K
             boolean isRadio,
             @NonNull String[] flags,
             @NonNull XmlProperty property) {
-        super(parentShell, AdtPlugin.getDefault());
+        super(parentShell, AndmoreAndroidPlugin.getDefault());
         mTitle = title;
         mIsRadio = isRadio;
         mFlags = flags;

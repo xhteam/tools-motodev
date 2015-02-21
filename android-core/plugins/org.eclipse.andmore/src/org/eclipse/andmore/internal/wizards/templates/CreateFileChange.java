@@ -21,7 +21,7 @@ import com.google.common.io.Closeables;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -97,7 +97,7 @@ public class CreateFileChange extends ResourceChange {
             file.create(is, false, new SubProgressMonitor(pm, 1));
             pm.worked(1);
         } catch (Exception ioe) {
-            AdtPlugin.log(ioe, null);
+            AndmoreAndroidPlugin.log(ioe, null);
         } finally {
             Closeables.closeQuietly(is);
             pm.done();

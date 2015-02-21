@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.SdkUtils;
 import org.eclipse.andmore.android.AndmoreEventManager;
@@ -121,7 +121,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 			if ((changeMask & Client.CHANGE_NAME) == Client.CHANGE_NAME) {
 				String applicationName = client.getClientData().getClientDescription();
 				if (applicationName != null) {
-					IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+					IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 					String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 					if (home.equals(applicationName)) {
 						String serialNumber = client.getDevice().getSerialNumber();

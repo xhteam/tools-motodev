@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.actions;
 import com.android.sdkuilib.repository.AvdManagerWindow;
 import com.android.sdkuilib.repository.AvdManagerWindow.AvdInvocationContext;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.jface.action.IAction;
@@ -51,17 +51,17 @@ public class AvdManagerAction implements IWorkbenchWindowActionDelegate, IObject
         if (sdk != null) {
             // Although orthogonal to the avd manager action, this is a good time
             // to check whether the SDK has changed on disk.
-            AdtPlugin.getDefault().refreshSdk();
+            AndmoreAndroidPlugin.getDefault().refreshSdk();
 
             // Runs the updater window, directing all logs to the ADT console.
             AvdManagerWindow window = new AvdManagerWindow(
-                    AdtPlugin.getShell(),
+                    AndmoreAndroidPlugin.getShell(),
                     new AdtConsoleSdkLog(),
                     sdk.getSdkOsLocation(),
                     AvdInvocationContext.IDE);
             window.open();
         } else {
-            AdtPlugin.displayError("Android SDK",
+            AndmoreAndroidPlugin.displayError("Android SDK",
                     "Location of the Android SDK has not been setup in the preferences.");
         }
     }

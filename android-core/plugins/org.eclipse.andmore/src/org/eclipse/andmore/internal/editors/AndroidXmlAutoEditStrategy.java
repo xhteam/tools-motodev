@@ -24,7 +24,7 @@ import static org.eclipse.wst.xml.core.internal.regions.DOMRegionContext.XML_TAG
 
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
 import org.eclipse.jface.text.BadLocationException;
@@ -290,7 +290,7 @@ public class AndroidXmlAutoEditStrategy implements IAutoEditStrategy {
                         copyPreviousLineIndentation(doc, c);
                     }
                 } catch (BadLocationException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 } finally {
                     model.releaseFromRead();
                 }

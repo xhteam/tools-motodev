@@ -27,7 +27,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.text.BadLocationException;
@@ -89,7 +89,7 @@ public class RefactoringUtil {
      * @param message the message
      */
     public static void logInfo(String message) {
-        AdtPlugin.log(IStatus.INFO, AdtPlugin.PLUGIN_ID, message);
+        AndmoreAndroidPlugin.log(IStatus.INFO, AndmoreAndroidPlugin.PLUGIN_ID, message);
     }
 
     /**
@@ -98,7 +98,7 @@ public class RefactoringUtil {
      * @param e the exception
      */
     public static void log(Throwable e) {
-        AdtPlugin.log(e, e.getMessage());
+        AndmoreAndroidPlugin.log(e, e.getMessage());
     }
 
     /**

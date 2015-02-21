@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.sdk;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttrsXmlParser;
 import org.eclipse.andmore.common.resources.platform.ViewClassInfo;
 import org.eclipse.andmore.common.resources.platform.ViewClassInfo.LayoutParamsInfo;
@@ -202,14 +202,14 @@ public class LayoutParamsParser {
                 progress.worked(1);
             }
         } catch (ClassNotFoundException e) {
-            AdtPlugin.log(e, "Problem loading class %1$s or %2$s",  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem loading class %1$s or %2$s",  //$NON-NLS-1$
                     rootClassName, groupClassName);
         } catch (InvalidAttributeValueException e) {
-            AdtPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
         } catch (ClassFormatError e) {
-            AdtPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
         } catch (IOException e) {
-            AdtPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem loading classes"); //$NON-NLS-1$
         }
     }
 

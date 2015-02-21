@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 
 /**
@@ -106,7 +106,7 @@ public class AMReceiver extends MultiLineReceiver {
 
                     }
 
-                    AdtPlugin.printToConsole(mLaunchInfo.getProject(), msg);
+                    AndmoreAndroidPlugin.printToConsole(mLaunchInfo.getProject(), msg);
 
                     // launch another thread, that waits a bit and attempts another launch
                     new Thread("Delayed Launch attempt") {
@@ -141,9 +141,9 @@ public class AMReceiver extends MultiLineReceiver {
 
         // then we display them in the console
         if (warning || error) {
-            AdtPlugin.printErrorToConsole(mLaunchInfo.getProject(), array.toArray());
+            AndmoreAndroidPlugin.printErrorToConsole(mLaunchInfo.getProject(), array.toArray());
         } else {
-            AdtPlugin.printToConsole(mLaunchInfo.getProject(), array.toArray());
+            AndmoreAndroidPlugin.printToConsole(mLaunchInfo.getProject(), array.toArray());
         }
 
         // if error then we cancel the launch, and remove the delayed info

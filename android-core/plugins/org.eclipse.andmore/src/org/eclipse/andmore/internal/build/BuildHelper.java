@@ -40,7 +40,7 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
@@ -172,7 +172,7 @@ public class BuildHelper {
         long startCrunchTime = 0;
         if (BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Starting Initial Packaging (.ap_)"; //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
             startCrunchTime = System.nanoTime();
         }
 
@@ -195,7 +195,7 @@ public class BuildHelper {
         if (BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Ending Initial Package (.ap_). \nTime Elapsed: " //$NON-NLS-1$
                             + ((System.nanoTime() - startCrunchTime)/MILLION) + "ms";     //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
         }
     }
 
@@ -220,7 +220,7 @@ public class BuildHelper {
         long startPackageTime = 0;
         if (BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Starting Initial Packaging (.ap_)";    //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
             startPackageTime = System.nanoTime();
         }
 
@@ -294,7 +294,7 @@ public class BuildHelper {
         if (BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Ending Initial Package (.ap_). \nTime Elapsed: " //$NON-NLS-1$
                             + ((System.nanoTime() - startPackageTime)/MILLION) + "ms";    //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
         }
     }
 
@@ -336,7 +336,7 @@ public class BuildHelper {
             throws ApkCreationException, KeytoolException, AndroidLocationException,
             NativeLibInJarException, DuplicateFileException, CoreException {
 
-        AdtPlugin adt = AdtPlugin.getDefault();
+        AndmoreAndroidPlugin adt = AndmoreAndroidPlugin.getDefault();
         if (adt == null) {
             return;
         }
@@ -346,10 +346,10 @@ public class BuildHelper {
         String keystoreOsPath = store.getString(AdtPrefs.PREFS_CUSTOM_DEBUG_KEYSTORE);
         if (keystoreOsPath == null || new File(keystoreOsPath).isFile() == false) {
             keystoreOsPath = DebugKeyProvider.getDefaultKeyStoreOsPath();
-            AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, mProject,
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, mProject,
                     Messages.ApkBuilder_Using_Default_Key);
         } else {
-            AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, mProject,
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, mProject,
                     String.format(Messages.ApkBuilder_Using_s_To_Sign, keystoreOsPath));
         }
 
@@ -518,7 +518,7 @@ public class BuildHelper {
 
         // prepare the command line for proguard
         List<String> command = new ArrayList<String>();
-        command.add(AdtPlugin.getOsAbsoluteProguard());
+        command.add(AndmoreAndroidPlugin.getOsAbsoluteProguard());
 
         for (File configFile : proguardConfigs) {
             command.add("-include"); //$NON-NLS-1$
@@ -598,7 +598,7 @@ public class BuildHelper {
             for (String c : commandArray) {
                 sb.append(c).append(' ');
             }
-            AdtPlugin.printToConsole(mProject, sb.toString());
+            AndmoreAndroidPlugin.printToConsole(mProject, sb.toString());
         }
 
         // launch
@@ -648,7 +648,7 @@ public class BuildHelper {
     private String[] createWindowsProguardConfig(List<String> command) throws IOException {
 
         // Arg 0 is the proguard.bat path and arg 1 is the user config file
-        String launcher = AdtPlugin.readFile(new File(command.get(0)));
+        String launcher = AndmoreAndroidPlugin.readFile(new File(command.get(0)));
         if (launcher.contains("%*")) {                                      //$NON-NLS-1$
             // This is the launcher from Tools R12. Don't work around it.
             return null;
@@ -737,7 +737,7 @@ public class BuildHelper {
         DexWrapper wrapper = sdk.getDexWrapper(mBuildToolInfo);
 
         if (wrapper == null) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     Messages.ApkBuilder_UnableBuild_Dex_Not_loaded));
         }
 
@@ -945,7 +945,7 @@ public class BuildHelper {
                 sb.append(c);
                 sb.append(' ');
             }
-            AdtPlugin.printToConsole(mProject, sb.toString());
+            AndmoreAndroidPlugin.printToConsole(mProject, sb.toString());
         }
 
         // Benchmarking start
@@ -953,7 +953,7 @@ public class BuildHelper {
         if (BENCHMARK_FLAG) {
             String msg = "BENCHMARK ADT: Starting " + aaptCommand  //$NON-NLS-1$
                          + " call to Aapt";                        //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
             startAaptTime = System.nanoTime();
         }
 
@@ -990,7 +990,7 @@ public class BuildHelper {
             String msg = "BENCHMARK ADT: Ending " + aaptCommand                  //$NON-NLS-1$
                          + " call to Aapt.\nBENCHMARK ADT: Time Elapsed: "       //$NON-NLS-1$
                          + ((System.nanoTime() - startAaptTime)/MILLION) + "ms"; //$NON-NLS-1$
-            AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS, mProject, msg);
         }
     }
 
@@ -1076,7 +1076,7 @@ public class BuildHelper {
                 }
             } catch (JavaModelException jme) {
                 // can't resolve the container? ignore it.
-                AdtPlugin.log(jme, "Failed to resolve ClasspathContainer: %s", entry.getPath());
+                AndmoreAndroidPlugin.log(jme, "Failed to resolve ClasspathContainer: %s", entry.getPath());
             }
         }
     }
@@ -1201,10 +1201,10 @@ public class BuildHelper {
                             // If benchmarking always print the lines that
                             // correspond to benchmarking info returned by ADT
                             if (BENCHMARK_FLAG && line.startsWith("BENCHMARK:")) {    //$NON-NLS-1$
-                                AdtPlugin.printBuildToConsole(BuildVerbosity.ALWAYS,
+                                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.ALWAYS,
                                         project, line);
                             } else {
-                                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
+                                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
                                         project, line);
                             }
                         }
@@ -1215,7 +1215,7 @@ public class BuildHelper {
                         if (line != null) {
                             stderr.add(line);
                             if (BuildVerbosity.VERBOSE == AdtPrefs.getPrefs().getBuildVerbosity()) {
-                                AdtPlugin.printErrorToConsole(project, line);
+                                AndmoreAndroidPlugin.printErrorToConsole(project, line);
                             }
                         }
                     }

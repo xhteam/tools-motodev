@@ -27,7 +27,7 @@ import com.android.sdkuilib.internal.widgets.AvdSelector.DisplayMode;
 import com.android.sdkuilib.internal.widgets.AvdSelector.IAvdFilter;
 import com.android.utils.NullLogger;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
 import org.eclipse.andmore.internal.launch.AvdCompatibility.Compatibility;
@@ -589,7 +589,7 @@ public class EmulatorConfigTab extends AbstractLaunchConfigurationTab {
         configuration.setAttribute(LaunchConfigDelegate.ATTR_NO_BOOT_ANIM,
                 LaunchConfigDelegate.DEFAULT_NO_BOOT_ANIM);
 
-        IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         String emuOptions = store.getString(AdtPrefs.PREFS_EMU_OPTIONS);
         configuration.setAttribute(LaunchConfigDelegate.ATTR_COMMANDLINE, emuOptions);
    }

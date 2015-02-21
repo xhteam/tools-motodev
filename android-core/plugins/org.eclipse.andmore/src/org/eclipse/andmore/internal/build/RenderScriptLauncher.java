@@ -20,7 +20,7 @@ import com.android.annotations.NonNull;
 import com.android.sdklib.build.RenderScriptProcessor.CommandLineLauncher;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -84,7 +84,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                     sb.append(' ').append(c);
                 }
                 String cmd_line = sb.toString();
-                AdtPlugin.printToConsole(mProject, cmd_line);
+                AndmoreAndroidPlugin.printToConsole(mProject, cmd_line);
             }
 
             String[] commandArray = new String[1 + arguments.size()];
@@ -116,7 +116,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                     if (parsingError || mVerbose) {
                         // display the message in the console.
                         if (parsingError) {
-                            AdtPlugin.printErrorToConsole(mProject, stdErr.toArray());
+                            AndmoreAndroidPlugin.printErrorToConsole(mProject, stdErr.toArray());
 
                             // mark the project
                             BaseProjectHelper.markResource(mProject,
@@ -124,7 +124,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                                     "Unparsed Renderscript error! Check the console for output.",
                                     IMarker.SEVERITY_ERROR);
                         } else {
-                            AdtPlugin.printToConsole(mProject, stdErr.toArray());
+                            AndmoreAndroidPlugin.printToConsole(mProject, stdErr.toArray());
                         }
                     }
                     return;
@@ -144,7 +144,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
             String msg = String.format(
                     "Error executing Renderscript. Please check %1$s is present at %2$s",
                     executable.getName(), executable.getAbsolutePath());
-            AdtPlugin.log(IStatus.ERROR, msg);
+            AndmoreAndroidPlugin.log(IStatus.ERROR, msg);
             BaseProjectHelper.markResource(mProject, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, msg,
                     IMarker.SEVERITY_ERROR);
             throw e;
@@ -153,7 +153,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
             String msg = String.format(
                     "Error executing Renderscript. Please check %1$s is present at %2$s",
                     executable.getName(), executable.getAbsolutePath());
-            AdtPlugin.log(IStatus.ERROR, msg);
+            AndmoreAndroidPlugin.log(IStatus.ERROR, msg);
             BaseProjectHelper.markResource(mProject, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, msg,
                     IMarker.SEVERITY_ERROR);
             throw e;
@@ -163,7 +163,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
             mSourceOutFolder.refreshLocal(IResource.DEPTH_ONE, mMonitor);
             mResOutFolder.refreshLocal(IResource.DEPTH_ONE, mMonitor);
         } catch (CoreException e) {
-            AdtPlugin.log(e, "failed to refresh folders");
+            AndmoreAndroidPlugin.log(e, "failed to refresh folders");
         }
 
         return;

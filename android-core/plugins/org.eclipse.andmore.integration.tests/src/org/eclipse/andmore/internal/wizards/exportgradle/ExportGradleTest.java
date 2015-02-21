@@ -21,7 +21,7 @@ import static com.android.sdklib.internal.project.ProjectProperties.PROPERTY_LIB
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.sdk.ProjectState;
@@ -55,7 +55,7 @@ import java.util.Collections;
 
 @Ignore
 public class ExportGradleTest extends AdtProjectTest {
-	private QualifiedName ERROR_KEY = new QualifiedName(AdtPlugin.PLUGIN_ID, "JobErrorKey");
+	private QualifiedName ERROR_KEY = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "JobErrorKey");
 	private Throwable mLastThrown;
 
 	@Override

@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui.tree;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -334,7 +334,7 @@ public final class UiTreeBlock extends MasterDetailsBlock implements ICommitXml 
         changeRootAndDescriptors(mUiRootNode, mDescriptorFilters, false /* refresh */);
 
         // Listen on resource framework changes to refresh the tree
-        AdtPlugin.getDefault().addTargetListener(targetListener);
+        AndmoreAndroidPlugin.getDefault().addTargetListener(targetListener);
 
         // Remove listeners when the tree widget gets disposed.
         tree.addDisposeListener(new DisposeListener() {
@@ -351,7 +351,7 @@ public final class UiTreeBlock extends MasterDetailsBlock implements ICommitXml 
                     mUiRootNode.removeUpdateListener(mUiEnableListener);
                 }
 
-                AdtPlugin.getDefault().removeTargetListener(targetListener);
+                AndmoreAndroidPlugin.getDefault().removeTargetListener(targetListener);
                 if (mClipboard != null) {
                     mClipboard.dispose();
                     mClipboard = null;

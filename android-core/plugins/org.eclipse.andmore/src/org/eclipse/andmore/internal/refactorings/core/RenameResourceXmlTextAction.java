@@ -28,7 +28,7 @@ import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -223,7 +223,7 @@ public final class RenameResourceXmlTextAction extends Action {
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -335,7 +335,7 @@ public final class RenameResourceXmlTextAction extends Action {
                 return fqcn;
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -367,7 +367,7 @@ public final class RenameResourceXmlTextAction extends Action {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;

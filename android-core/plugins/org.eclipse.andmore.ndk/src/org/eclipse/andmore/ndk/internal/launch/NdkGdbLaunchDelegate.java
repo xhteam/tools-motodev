@@ -34,7 +34,7 @@ import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.google.common.base.Joiner;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchController;
 import org.eclipse.andmore.internal.launch.DeviceChooserDialog;
@@ -104,7 +104,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		}
 
 		if (project == null) {
-			AdtPlugin.printErrorToConsole(Messages.NdkGdbLaunchDelegate_LaunchError_CouldNotGetProject);
+			AndmoreAndroidPlugin.printErrorToConsole(Messages.NdkGdbLaunchDelegate_LaunchError_CouldNotGetProject);
 			return false;
 		}
 
@@ -116,7 +116,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 
 		// check if the project has errors, and abort in this case.
 		if (ProjectHelper.hasError(project, true)) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ProjectHasErrors);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ProjectHasErrors);
 			return false;
 		}
 
@@ -133,7 +133,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		monitor.setTaskName(Messages.NdkGdbLaunchDelegate_Action_ObtainAppAbis);
 		Collection<NativeAbi> appAbis = NdkHelper.getApplicationAbis(project, monitor);
 		if (appAbis.size() == 0) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_UnableToDetectAppAbi);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_UnableToDetectAppAbi);
 			return false;
 		}
 
@@ -152,10 +152,10 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 			final IAndroidTarget projectTarget = Sdk.getCurrent().getTarget(project);
 			final DeviceChooserResponse response = new DeviceChooserResponse();
 			final boolean continueLaunch[] = new boolean[] { false };
-			AdtPlugin.getDisplay().syncExec(new Runnable() {
+			AndmoreAndroidPlugin.getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
-					DeviceChooserDialog dialog = new DeviceChooserDialog(AdtPlugin.getDisplay().getActiveShell(),
+					DeviceChooserDialog dialog = new DeviceChooserDialog(AndmoreAndroidPlugin.getDisplay().getActiveShell(),
 							response, manifestData.getPackage(), projectTarget, minSdkVersion, false /***
 					 * 
 					 * FIXME!
@@ -179,11 +179,11 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		monitor.setTaskName(Messages.NdkGdbLaunchDelegate_Action_CheckAndroidDeviceVersion);
 		AndroidVersion deviceVersion = Sdk.getDeviceVersion(device);
 		if (deviceVersion == null) {
-			AdtPlugin.printErrorToConsole(project,
+			AndmoreAndroidPlugin.printErrorToConsole(project,
 					Messages.NdkGdbLaunchDelegate_LaunchError_UnknownAndroidDeviceVersion);
 			return false;
 		} else if (!deviceVersion.isGreaterOrEqualThan(8)) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_Api8Needed);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_Api8Needed);
 			return false;
 		}
 
@@ -195,10 +195,10 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		// get the abi that is supported by both the device and the application
 		NativeAbi compatAbi = getCompatibleAbi(deviceAbi1, deviceAbi2, appAbis);
 		if (compatAbi == null) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoCompatibleAbi);
-			AdtPlugin.printErrorToConsole(project,
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoCompatibleAbi);
+			AndmoreAndroidPlugin.printErrorToConsole(project,
 					String.format("ABI's supported by the application: %s", JOINER.join(appAbis)));
-			AdtPlugin.printErrorToConsole(project, String.format("ABI's supported by the device: %s, %s", //$NON-NLS-1$
+			AndmoreAndroidPlugin.printErrorToConsole(project, String.format("ABI's supported by the device: %s, %s", //$NON-NLS-1$
 					deviceAbi1, deviceAbi2));
 			return false;
 		}
@@ -207,13 +207,13 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		monitor.setTaskName(Messages.NdkGdbLaunchDelegate_Action_SyncAppToDevice);
 		IFile apk = ProjectHelper.getApplicationPackage(project);
 		if (apk == null) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NullApk);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NullApk);
 			return false;
 		}
 		try {
 			device.installPackage(apk.getLocation().toOSString(), true);
 		} catch (InstallException e1) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_InstallError, e1);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_InstallError, e1);
 			return false;
 		}
 
@@ -231,7 +231,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 				throw new RuntimeException(receiver.getOutput());
 			}
 		} catch (Exception e) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ActivityLaunchError, e);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ActivityLaunchError, e);
 			return false;
 		}
 
@@ -250,7 +250,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 			pull(device, "/system/bin/app_process", solibFolder); //$NON-NLS-1$
 			pull(device, "/system/lib/libc.so", solibFolder); //$NON-NLS-1$
 		} catch (Exception e) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_PullFileError, e);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_PullFileError, e);
 			return false;
 		}
 
@@ -278,7 +278,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		try {
 			attached = attachLatch.await(3, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			AdtPlugin.printErrorToConsole(project,
+			AndmoreAndroidPlugin.printErrorToConsole(project,
 					Messages.NdkGdbLaunchDelegate_LaunchError_InterruptedWaitingForGdbserver);
 			return false;
 		}
@@ -287,14 +287,14 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		// occurred
 		if (!attached) {
 			if (gdbServer.getLaunchException() != null) {
-				AdtPlugin.printErrorToConsole(project,
+				AndmoreAndroidPlugin.printErrorToConsole(project,
 						Messages.NdkGdbLaunchDelegate_LaunchError_gdbserverLaunchException,
 						gdbServer.getLaunchException());
 			} else {
-				AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_gdbserverOutput,
+				AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_gdbserverOutput,
 						gdbServer.getShellOutput());
 			}
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_VerifyIfDebugBuild);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_VerifyIfDebugBuild);
 
 			// shut down the gdbserver thread
 			gdbServer.setCancelled();
@@ -306,7 +306,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		try {
 			appDir = getAppDirectory(device, manifestData.getPackage(), 5, TimeUnit.SECONDS);
 		} catch (Exception e) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ObtainingAppFolder, e);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_ObtainingAppFolder, e);
 			return false;
 		}
 
@@ -319,7 +319,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 			device.createForward(Integer.parseInt(localport), String.format("%s/%s", appDir, DEBUG_SOCKET), //$NON-NLS-1$
 					DeviceUnixSocketNamespace.FILESYSTEM);
 		} catch (Exception e) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_PortForwarding, e);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_PortForwarding, e);
 			return false;
 		}
 
@@ -398,7 +398,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 
 		String eval = manager.performStringSubstitution(expr);
 		if (DEBUG) {
-			AdtPlugin.printToConsole("Substitute: ", expr, " --> ", eval);
+			AndmoreAndroidPlugin.printToConsole("Substitute: ", expr, " --> ", eval);
 		}
 
 		return eval;
@@ -422,7 +422,7 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 	private String getActivityToLaunch(String activityNameInLaunchConfig, Activity launcherActivity,
 			Activity[] activities, IProject project) {
 		if (activities.length == 0) {
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoActivityInManifest);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoActivityInManifest);
 			return null;
 		} else if (activityNameInLaunchConfig == null && launcherActivity != null) {
 			return launcherActivity.getName();
@@ -433,11 +433,11 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 				}
 			}
 
-			AdtPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoSuchActivity);
+			AndmoreAndroidPlugin.printErrorToConsole(project, Messages.NdkGdbLaunchDelegate_LaunchError_NoSuchActivity);
 			if (launcherActivity != null) {
 				return launcherActivity.getName();
 			} else {
-				AdtPlugin.printErrorToConsole(Messages.NdkGdbLaunchDelegate_LaunchError_NoLauncherActivity);
+				AndmoreAndroidPlugin.printErrorToConsole(Messages.NdkGdbLaunchDelegate_LaunchError_NoLauncherActivity);
 				return null;
 			}
 		}

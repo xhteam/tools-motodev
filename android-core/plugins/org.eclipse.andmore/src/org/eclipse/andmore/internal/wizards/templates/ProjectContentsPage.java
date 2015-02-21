@@ -16,7 +16,7 @@
 package org.eclipse.andmore.internal.wizards.templates;
 
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.wizards.newproject.WorkingSetGroup;
 import org.eclipse.andmore.internal.wizards.newproject.WorkingSetHelper;
 import org.eclipse.core.runtime.IPath;
@@ -322,7 +322,7 @@ public class ProjectContentsPage extends WizardPage
         if (values.projectName != null) {
             File dest = Platform.getLocation().append(values.projectName).toFile();
             if (dest.exists()) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, String.format(
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, String.format(
                    "There is already a file or directory named \"%1$s\" in the selected location.",
                         values.projectName));
             }
@@ -338,20 +338,20 @@ public class ProjectContentsPage extends WizardPage
 
         String location = mLocationText.getText();
         if (location.trim().isEmpty()) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Provide a valid file system location where the project should be created.");
         }
 
         File f = new File(location);
         if (f.exists()) {
             if (!f.isDirectory()) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("'%s' is not a valid folder.", location));
             }
 
             File[] children = f.listFiles();
             if (children != null && children.length > 0) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         String.format("Folder '%s' is not empty.", location));
             }
         }
@@ -360,17 +360,17 @@ public class ProjectContentsPage extends WizardPage
         // exists and is a writable folder
         File parent = f.getParentFile();
         if (!parent.exists()) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("Folder '%s' does not exist.", parent.getName()));
         }
 
         if (!parent.isDirectory()) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("'%s' is not a folder.", parent.getName()));
         }
 
         if (!parent.canWrite()) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("'%s' is not writeable.", parent.getName()));
         }
 

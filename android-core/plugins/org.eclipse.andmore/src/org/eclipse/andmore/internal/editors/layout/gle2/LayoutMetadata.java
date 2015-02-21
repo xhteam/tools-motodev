@@ -30,7 +30,7 @@ import com.android.ide.common.rendering.api.AdapterBinding;
 import com.android.ide.common.rendering.api.DataBindingItem;
 import com.android.ide.common.rendering.api.ResourceReference;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.ProjectCallback;
@@ -191,7 +191,7 @@ public class LayoutMetadata {
                 if (variations.isEmpty()) {
                     return;
                 }
-                Display display = AdtPlugin.getDisplay();
+                Display display = AndmoreAndroidPlugin.getDisplay();
                 WorkbenchJob job = new WorkbenchJob(display, "Update alternate views") {
                     @Override
                     public IStatus runInUIThread(IProgressMonitor monitor) {
@@ -217,7 +217,7 @@ public class LayoutMetadata {
                                     editor.setIgnoreXmlUpdate(old);
                                 }
                             } catch (Exception e) {
-                                AdtPlugin.log(e, variation.getFullPath().toOSString());
+                                AndmoreAndroidPlugin.log(e, variation.getFullPath().toOSString());
                             }
                         }
                         return Status.OK_STATUS;

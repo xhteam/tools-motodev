@@ -21,8 +21,8 @@ import java.io.File;
 
 import com.android.ide.common.sdk.LoadStatus;
 
-import org.eclipse.andmore.AdtPlugin;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.AndroidTargetParser;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -60,7 +60,7 @@ public abstract class SdkLoadingTestCase extends SdkTestCase {
 	 * Gets the current SDK from ADT, waiting if necessary.
 	 */
 	private Sdk loadSdk() {
-		AdtPlugin adt = AdtPlugin.getDefault();
+		AndmoreAndroidPlugin adt = AndmoreAndroidPlugin.getDefault();
 
 		// We'll never get an AdtPlugin object when running this with the
 		// non-Eclipse jUnit test runner.

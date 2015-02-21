@@ -21,7 +21,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.google.common.collect.Lists;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.build.SourceChangeHandler;
 import org.eclipse.andmore.internal.build.builders.BaseBuilder.BaseDeltaVisitor;
@@ -294,12 +294,12 @@ class PreCompilerDeltaVisitor extends BaseDeltaVisitor implements IResourceDelta
                     if (kind == IResourceDelta.REMOVED) {
                         // We print an error just so that it's red, but it's just a warning really.
                         String msg = String.format(Messages.s_Removed_Recreating_s, fileName);
-                        AdtPlugin.printErrorToConsole(mBuilder.getProject(), msg);
+                        AndmoreAndroidPlugin.printErrorToConsole(mBuilder.getProject(), msg);
                     } else if (kind == IResourceDelta.CHANGED) {
                         // the file was modified manually! we can't allow it.
                         String msg = String.format(Messages.s_Modified_Manually_Recreating_s,
                                 fileName);
-                        AdtPlugin.printErrorToConsole(mBuilder.getProject(), msg);
+                        AndmoreAndroidPlugin.printErrorToConsole(mBuilder.getProject(), msg);
                     }
                 }
             } else {
@@ -346,7 +346,7 @@ class PreCompilerDeltaVisitor extends BaseDeltaVisitor implements IResourceDelta
                     break;
             }
             if (message != null) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
                         mBuilder.getProject(), message);
             }
 

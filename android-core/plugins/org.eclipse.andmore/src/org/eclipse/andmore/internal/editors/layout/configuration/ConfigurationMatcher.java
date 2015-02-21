@@ -42,7 +42,7 @@ import com.android.sdklib.repository.PkgProps;
 import com.android.utils.Pair;
 import com.android.utils.SparseIntArray;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
@@ -152,7 +152,7 @@ public class ConfigurationMatcher {
             return match.getFile().equals(mEditedFile);
         } else {
             // if we stop here that means the current file is not even a match!
-            AdtPlugin.log(IStatus.ERROR, "Current file is not a match for the given config.");
+            AndmoreAndroidPlugin.log(IStatus.ERROR, "Current file is not a match for the given config.");
         }
 
         return false;
@@ -335,12 +335,12 @@ public class ConfigurationMatcher {
             if (favorCurrentConfig) {
                 // quick check
                 if (!editedConfig.isMatchFor(currentConfig)) {
-                    AdtPlugin.log(IStatus.ERROR,
+                    AndmoreAndroidPlugin.log(IStatus.ERROR,
                         "favorCurrentConfig can only be true if the current config is compatible");
                 }
 
                 // just display the warning
-                AdtPlugin.printErrorToConsole(mEditedFile.getProject(),
+                AndmoreAndroidPlugin.printErrorToConsole(mEditedFile.getProject(),
                         String.format(
                                 "'%1$s' is not a best match for any device/locale combination.",
                                 editedConfig.toDisplayString()),
@@ -366,7 +366,7 @@ public class ConfigurationMatcher {
                 mConfiguration.syncFolderConfig();
 
                 // TODO: display a better warning!
-                AdtPlugin.printErrorToConsole(mEditedFile.getProject(),
+                AndmoreAndroidPlugin.printErrorToConsole(mEditedFile.getProject(),
                         String.format(
                                 "'%1$s' is not a best match for any device/locale combination.",
                                 editedConfig.toDisplayString()),

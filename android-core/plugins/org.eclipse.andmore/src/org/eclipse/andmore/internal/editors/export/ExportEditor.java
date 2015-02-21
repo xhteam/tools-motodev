@@ -17,7 +17,7 @@
 package org.eclipse.andmore.internal.editors.export;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidTextEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.DocumentEvent;
@@ -66,7 +66,7 @@ public class ExportEditor extends AndroidTextEditor {
             mExportPropsPage = new ExportPropertiesPage(this);
             addPage(mExportPropsPage);
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
         }
 
     }

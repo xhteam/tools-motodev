@@ -25,7 +25,7 @@ import com.android.ide.common.xml.XmlFormatStyle;
 import com.android.resources.ResourceFolderType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -92,7 +92,7 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
 
         // Trigger a check to see if the SDK needs to be reloaded (which will
         // invoke onSdkLoaded asynchronously as needed).
-        AdtPlugin.getDefault().refreshSdk();
+        AndmoreAndroidPlugin.getDefault().refreshSdk();
     }
 
     /**
@@ -139,13 +139,13 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
         } else {
             // Open the file
             // This has to be delayed in order for focus handling to work correctly
-            AdtPlugin.getDisplay().asyncExec(new Runnable() {
+            AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                 @Override
                 public void run() {
                     IFile file = created.getFirst();
                     IRegion region = created.getSecond();
                     try {
-                        IEditorPart editor = AdtPlugin.openFile(file, null,
+                        IEditorPart editor = AndmoreAndroidPlugin.openFile(file, null,
                                 false /*showEditorTab*/);
                         if (editor instanceof AndroidXmlEditor) {
                             final AndroidXmlEditor xmlEditor = (AndroidXmlEditor)editor;
@@ -155,7 +155,7 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
                             }
                         }
                     } catch (PartInitException e) {
-                        AdtPlugin.log(e, "Failed to create %1$s: missing type", //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(e, "Failed to create %1$s: missing type", //$NON-NLS-1$
                                 file.getFullPath().toString());
                     }
                 }});
@@ -172,14 +172,14 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
         if (type == null) {
             // this is not expected to happen
             String name = file.getFullPath().toString();
-            AdtPlugin.log(IStatus.ERROR, "Failed to create %1$s: missing type", name);  //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.ERROR, "Failed to create %1$s: missing type", name);  //$NON-NLS-1$
             return null;
         }
         String xmlns = type.getXmlns();
         String root = mMainPage.getRootElement();
         if (root == null) {
             // this is not expected to happen
-            AdtPlugin.log(IStatus.ERROR, "Failed to create %1$s: missing root element", //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.ERROR, "Failed to create %1$s: missing root element", //$NON-NLS-1$
                     file.toString());
             return null;
         }
@@ -196,7 +196,7 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
         boolean need_delete = false;
 
         if (file.exists()) {
-            if (!AdtPlugin.displayPrompt("New Android XML File",
+            if (!AndmoreAndroidPlugin.displayPrompt("New Android XML File",
                 String.format("Do you want to overwrite the file %1$s ?", name))) {
                 // abort if user selects cancel.
                 return null;
@@ -293,7 +293,7 @@ public class NewXmlFileWizard extends Wizard implements INewWizard {
         }
 
         error = String.format("Failed to generate %1$s: %2$s", name, error);
-        AdtPlugin.displayError("New Android XML File", error);
+        AndmoreAndroidPlugin.displayError("New Android XML File", error);
         return null;
     }
 

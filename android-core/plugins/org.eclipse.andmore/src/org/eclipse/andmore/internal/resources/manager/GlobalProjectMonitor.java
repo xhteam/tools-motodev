@@ -22,7 +22,7 @@ import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.ResourceFolder;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -233,7 +233,7 @@ public final class GlobalProjectMonitor {
                             bundle.listener.fileChanged((IFile)r, delta.getMarkerDeltas(), kind,
                                     r.getFileExtension(), delta.getFlags(), mIsAndroidProject);
                         } catch (Throwable t) {
-                            AdtPlugin.log(t,"Failed to call IFileListener.fileChanged");
+                            AndmoreAndroidPlugin.log(t,"Failed to call IFileListener.fileChanged");
                         }
                     }
                 }
@@ -247,7 +247,7 @@ public final class GlobalProjectMonitor {
                         try {
                             bundle.listener.folderChanged((IFolder)r, kind, mIsAndroidProject);
                         } catch (Throwable t) {
-                            AdtPlugin.log(t,"Failed to call IFileListener.folderChanged");
+                            AndmoreAndroidPlugin.log(t,"Failed to call IFileListener.folderChanged");
                         }
                     }
                 }
@@ -281,7 +281,7 @@ public final class GlobalProjectMonitor {
                             try {
                                 pl.projectOpened(project);
                             } catch (Throwable t) {
-                                AdtPlugin.log(t,"Failed to call IProjectListener.projectOpened");
+                                AndmoreAndroidPlugin.log(t,"Failed to call IProjectListener.projectOpened");
                             }
                         }
                     } else {
@@ -290,7 +290,7 @@ public final class GlobalProjectMonitor {
                             try {
                                 pl.projectClosed(project);
                             } catch (Throwable t) {
-                                AdtPlugin.log(t,"Failed to call IProjectListener.projectClosed");
+                                AndmoreAndroidPlugin.log(t,"Failed to call IProjectListener.projectClosed");
                             }
                         }
                     }
@@ -302,7 +302,7 @@ public final class GlobalProjectMonitor {
                             try {
                                 pl.projectRenamed(project, from);
                             } catch (Throwable t) {
-                                AdtPlugin.log(t,"Failed to call IProjectListener.projectRenamed");
+                                AndmoreAndroidPlugin.log(t,"Failed to call IProjectListener.projectRenamed");
                             }
                         }
                     }
@@ -477,7 +477,7 @@ public final class GlobalProjectMonitor {
             try {
                 listener.resourceChangeEventStart();
             } catch (Throwable t) {
-                AdtPlugin.log(t,"Failed to call IResourceEventListener.resourceChangeEventStart");
+                AndmoreAndroidPlugin.log(t,"Failed to call IResourceEventListener.resourceChangeEventStart");
             }
         }
     }
@@ -487,7 +487,7 @@ public final class GlobalProjectMonitor {
             try {
                 listener.resourceChangeEventEnd();
             } catch (Throwable t) {
-                AdtPlugin.log(t,"Failed to call IResourceEventListener.resourceChangeEventEnd");
+                AndmoreAndroidPlugin.log(t,"Failed to call IResourceEventListener.resourceChangeEventEnd");
             }
         }
     }
@@ -516,7 +516,7 @@ public final class GlobalProjectMonitor {
                             try {
                                 pl.projectDeleted(project);
                             } catch (Throwable t) {
-                                AdtPlugin.log(t,"Failed to call IProjectListener.projectDeleted");
+                                AndmoreAndroidPlugin.log(t,"Failed to call IProjectListener.projectDeleted");
                             }
                         }
                     } catch (CoreException e) {

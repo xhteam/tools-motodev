@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.XmlnsAttributeDescriptor;
 import org.eclipse.andmore.internal.editors.manifest.ManifestEditor;
@@ -59,7 +59,7 @@ public class UiElementPart extends ManifestSectionPart {
         if (uiElementNode == null) {
             // This is serious and should never happen. Instead of crashing, simply abort.
             // There will be no UI, which will prevent further damage.
-            AdtPlugin.log(IStatus.ERROR, "Missing node to edit!"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(IStatus.ERROR, "Missing node to edit!"); //$NON-NLS-1$
             return;
         }
     }
@@ -221,7 +221,7 @@ public class UiElementPart extends ManifestSectionPart {
             } else {
                 // The XML has an extra attribute which wasn't declared in
                 // AndroidManifestDescriptors. This is not a problem, we just ignore it.
-                AdtPlugin.log(IStatus.WARNING,
+                AndmoreAndroidPlugin.log(IStatus.WARNING,
                         "Attribute %1$s not declared in node %2$s, ignored.", //$NON-NLS-1$
                         attr_desc.getXmlLocalName(),
                         uiNode.getDescriptor().getXmlName());

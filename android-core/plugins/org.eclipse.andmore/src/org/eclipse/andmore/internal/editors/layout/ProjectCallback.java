@@ -49,7 +49,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
 import org.eclipse.andmore.internal.editors.layout.gle2.LayoutMetadata;
 import org.eclipse.andmore.internal.editors.layout.gle2.RenderLogger;
@@ -674,7 +674,7 @@ public final class ProjectCallback extends LegacyCallback {
     private void appendToIdeLog(Throwable exception, String format, Object ... args) {
         boolean token = RenderSecurityManager.enterSafeRegion(mCredential);
         try {
-            AdtPlugin.log(exception, format, args);
+            AndmoreAndroidPlugin.log(exception, format, args);
         } finally {
             RenderSecurityManager.exitSafeRegion(token);
         }

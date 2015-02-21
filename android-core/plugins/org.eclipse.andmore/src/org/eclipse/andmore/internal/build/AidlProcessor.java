@@ -23,7 +23,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.io.FileOp;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.builders.BaseBuilder;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
@@ -157,7 +157,7 @@ public class AidlProcessor extends SourceProcessor {
                     IPath relative = sourceFile.getFullPath().makeRelativeTo(sourceFolderPath);
                     name = relative.toString();
                 }
-                AdtPlugin.printToConsole(project, "AIDL: " + name);
+                AndmoreAndroidPlugin.printToConsole(project, "AIDL: " + name);
             }
 
             // Remove the AIDL error markers from the aidl file
@@ -251,7 +251,7 @@ public class AidlProcessor extends SourceProcessor {
                     sb.append(' ');
                 }
                 String cmd_line = sb.toString();
-                AdtPlugin.printToConsole(project, cmd_line);
+                AndmoreAndroidPlugin.printToConsole(project, cmd_line);
             }
 
             Process p = Runtime.getRuntime().exec(command);
@@ -273,13 +273,13 @@ public class AidlProcessor extends SourceProcessor {
                     if (parsingError || verbose) {
                         // display the message in the console.
                         if (parsingError) {
-                            AdtPlugin.printErrorToConsole(project, stdErr.toArray());
+                            AndmoreAndroidPlugin.printErrorToConsole(project, stdErr.toArray());
 
                             // mark the project
                             BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_AIDL,
                                     Messages.Unparsed_AIDL_Errors, IMarker.SEVERITY_ERROR);
                         } else {
-                            AdtPlugin.printToConsole(project, stdErr.toArray());
+                            AndmoreAndroidPlugin.printToConsole(project, stdErr.toArray());
                         }
                     }
                     return false;

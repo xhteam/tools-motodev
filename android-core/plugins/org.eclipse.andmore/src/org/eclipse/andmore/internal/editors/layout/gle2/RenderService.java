@@ -43,7 +43,7 @@ import com.android.sdklib.devices.Device;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.ContextPullParser;
 import org.eclipse.andmore.internal.editors.layout.ProjectCallback;
@@ -171,7 +171,7 @@ public class RenderService {
             sdkPath = sdk != null ? sdk.getSdkOsLocation() : null;
         }
         RenderSecurityManager securityManager = new RenderSecurityManager(sdkPath, projectPath);
-        securityManager.setLogger(AdtPlugin.getDefault());
+        securityManager.setLogger(AndmoreAndroidPlugin.getDefault());
 
         // Make sure this is initialized before we attempt to use it from layoutlib
         Toolkit.getDefaultToolkit();
@@ -444,9 +444,9 @@ public class RenderService {
                         String xmlText = Files.toString(layoutFile, Charsets.UTF_8);
                         topParser.setInput(new StringReader(xmlText));
                     } catch (IOException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     } catch (XmlPullParserException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             }

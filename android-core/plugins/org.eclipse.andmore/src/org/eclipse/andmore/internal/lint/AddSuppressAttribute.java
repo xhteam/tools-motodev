@@ -26,7 +26,7 @@ import com.android.sdklib.SdkVersionInfo;
 import com.android.tools.lint.checks.ApiDetector;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -123,7 +123,7 @@ class AddSuppressAttribute implements ICompletionProposal {
             // (so the user doesn't have to re-run lint just to see it disappear)
             mMarker.delete();
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Could not remove marker");
+            AndmoreAndroidPlugin.log(e, "Could not remove marker");
         }
     }
 

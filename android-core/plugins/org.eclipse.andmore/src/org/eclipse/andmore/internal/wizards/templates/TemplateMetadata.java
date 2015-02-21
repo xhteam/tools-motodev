@@ -45,7 +45,7 @@ import com.android.assetstudiolib.GraphicGenerator;
 import com.android.utils.Pair;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.assetstudio.AssetType;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState.SourceType;
@@ -142,7 +142,7 @@ class TemplateMetadata {
                     mMinApi = Integer.parseInt(api);
                 } catch (NumberFormatException nufe) {
                     // Templates aren't allowed to contain codenames, should always be an integer
-                    AdtPlugin.log(nufe, null);
+                    AndmoreAndroidPlugin.log(nufe, null);
                     mMinApi = 1;
                 }
             }
@@ -160,7 +160,7 @@ class TemplateMetadata {
                     mMinBuildApi = Integer.parseInt(api);
                 } catch (NumberFormatException nufe) {
                     // Templates aren't allowed to contain codenames, should always be an integer
-                    AdtPlugin.log(nufe, null);
+                    AndmoreAndroidPlugin.log(nufe, null);
                     mMinBuildApi = 1;
                 }
             }
@@ -177,7 +177,7 @@ class TemplateMetadata {
                 try {
                     mRevision = Integer.parseInt(revision);
                 } catch (NumberFormatException nufe) {
-                    AdtPlugin.log(nufe, null);
+                    AndmoreAndroidPlugin.log(nufe, null);
                     mRevision = 1;
                 }
             }
@@ -248,7 +248,7 @@ class TemplateMetadata {
                     }
                 }
                 if (!found) {
-                    AdtPlugin.log(null, "Unknown asset type %1$s", typeString);
+                    AndmoreAndroidPlugin.log(null, "Unknown asset type %1$s", typeString);
                 }
             }
 
@@ -281,7 +281,7 @@ class TemplateMetadata {
                     }
                 }
                 if (!found) {
-                    AdtPlugin.log(null, "Unknown shape %1$s", shapeString);
+                    AndmoreAndroidPlugin.log(null, "Unknown shape %1$s", shapeString);
                 }
             }
             String trimString = getAttributeOrNull(icon, ATTR_TRIM);
@@ -304,7 +304,7 @@ class TemplateMetadata {
                     }
                 }
                 if (!found) {
-                    AdtPlugin.log(null, "Unknown source type %1$s", sourceTypeString);
+                    AndmoreAndroidPlugin.log(null, "Unknown source type %1$s", sourceTypeString);
                 }
             }
             mIconState.clipartName = getAttributeOrNull(icon, ATTR_CLIPART_NAME);
@@ -379,7 +379,7 @@ class TemplateMetadata {
                     Attr attribute = (Attr) attributes.item(j);
                     Parameter parameter = mParameterMap.get(attribute.getName());
                     if (parameter == null) {
-                        AdtPlugin.log(null, "Unexpected parameter in template thumbnail: %1$s",
+                        AndmoreAndroidPlugin.log(null, "Unexpected parameter in template thumbnail: %1$s",
                                 attribute.getName());
                         continue;
                     }

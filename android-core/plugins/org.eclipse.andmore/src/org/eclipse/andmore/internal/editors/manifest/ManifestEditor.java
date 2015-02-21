@@ -24,7 +24,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.manifest.descriptors.AndroidManifestDescriptors;
@@ -181,7 +181,7 @@ public final class ManifestEditor extends AndroidXmlEditor {
             // We don't expect exceptions from the above calls, but we *really*
             // need to make sure that nothing can prevent the save function from
             // getting called!
-            AdtPlugin.log(t, null);
+            AndmoreAndroidPlugin.log(t, null);
         }
 
         // Actually save
@@ -201,7 +201,7 @@ public final class ManifestEditor extends AndroidXmlEditor {
                 }
             }
         } catch (Throwable t) {
-            AdtPlugin.log(t, null);
+            AndmoreAndroidPlugin.log(t, null);
         }
     }
 
@@ -216,7 +216,7 @@ public final class ManifestEditor extends AndroidXmlEditor {
             addPage(mPermissionPage = new PermissionPage(this));
             addPage(mInstrumentationPage = new InstrumentationPage(this));
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
         }
     }
 
@@ -534,9 +534,9 @@ public final class ManifestEditor extends AndroidXmlEditor {
                             IRegion region = new Region(indexedRegion.getStartOffset(),
                                     indexedRegion.getEndOffset() - indexedRegion.getStartOffset());
                             try {
-                                AdtPlugin.openFile(getInputFile(), region, true /*show*/);
+                                AndmoreAndroidPlugin.openFile(getInputFile(), region, true /*show*/);
                             } catch (PartInitException e) {
-                                AdtPlugin.log(e, null);
+                                AndmoreAndroidPlugin.log(e, null);
                             }
                         } else {
                             show(node);

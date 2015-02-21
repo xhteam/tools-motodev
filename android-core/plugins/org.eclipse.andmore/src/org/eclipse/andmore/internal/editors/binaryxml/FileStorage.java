@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.binaryxml;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -60,7 +60,7 @@ public class FileStorage implements IStorage {
         try {
             stream = new FileInputStream(mFile);
         } catch (Exception e) {
-            throw new CoreException(new Status(IStatus.ERROR, AdtPlugin.getDefault().getBundle()
+            throw new CoreException(new Status(IStatus.ERROR, AndmoreAndroidPlugin.getDefault().getBundle()
                     .getSymbolicName(), IStatus.ERROR, mFile.getAbsolutePath(), e));
         }
         return stream;

@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.lint;
 
 import com.android.tools.lint.checks.TypographyDetector;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -72,7 +72,7 @@ final class TypographyFix extends DocumentFix {
                             document.replace(edit.offset + region.getStartOffset(),
                                     edit.length, edit.replaceWith);
                         } catch (BadLocationException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                         }
                     }
                 }
