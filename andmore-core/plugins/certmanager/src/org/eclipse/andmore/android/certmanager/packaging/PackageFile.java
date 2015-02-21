@@ -47,7 +47,7 @@ import java.util.zip.ZipEntry;
 
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.common.IAndroidConstants;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.core.runtime.IBundleGroup;
@@ -341,7 +341,7 @@ public class PackageFile {
 						inputStream.close();
 					}
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
 				}
 			}
 		}
@@ -417,7 +417,7 @@ public class PackageFile {
 					jarOut.finish();
 					jarOut.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while writing jar file. " + e.getMessage());
+					AndmoreLogger.error("Could not close stream while writing jar file. " + e.getMessage());
 				}
 			}
 		}
@@ -534,12 +534,12 @@ public class PackageFile {
 				commandLine.append(" ");
 			}
 
-			StudioLogger.info(PackageFile.class, "Zipaligning package: " + commandLine.toString());
+			AndmoreLogger.info(PackageFile.class, "Zipaligning package: " + commandLine.toString());
 			Runtime.getRuntime().exec(command);
 		} catch (IOException e) {
-			StudioLogger.error(PackageFile.class, "Error while zipaligning package", e);
+			AndmoreLogger.error(PackageFile.class, "Error while zipaligning package", e);
 		} catch (Exception e) {
-			StudioLogger.error(PackageFile.class, "Zipalign application cannot be executed - insuficient permissions",
+			AndmoreLogger.error(PackageFile.class, "Zipalign application cannot be executed - insuficient permissions",
 					e);
 		}
 	}

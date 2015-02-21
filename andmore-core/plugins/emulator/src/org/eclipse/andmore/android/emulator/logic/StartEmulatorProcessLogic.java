@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.logic;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.io.File;
 import java.util.Collection;
@@ -29,7 +29,7 @@ import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.SdkUtils;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
@@ -311,7 +311,7 @@ public class StartEmulatorProcessLogic implements IAndroidLogic {
 							AndroidLogicUtils.testProcessStatus(p);
 						}
 					} catch (Exception e) {
-						StudioLogger.info(StartEmulatorProcessLogic.class,
+						AndmoreLogger.info(StartEmulatorProcessLogic.class,
 								"Trying to stop the emulator process: execution stopped too early");
 						DialogWithToggleUtils.showError(EmulatorPlugin.EMULATOR_UNEXPECTEDLY_STOPPED,
 								EmulatorNLS.GEN_Error,
@@ -320,7 +320,7 @@ public class StartEmulatorProcessLogic implements IAndroidLogic {
 						try {
 							instance.stop(true);
 						} catch (InstanceStopException ise) {
-							StudioLogger.error(StartEmulatorProcessLogic.class,
+							AndmoreLogger.error(StartEmulatorProcessLogic.class,
 									"Error trying to stop instance on process error", ise);
 						}
 					}

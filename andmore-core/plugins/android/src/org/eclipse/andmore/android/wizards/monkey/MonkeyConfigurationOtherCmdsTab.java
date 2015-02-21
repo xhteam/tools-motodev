@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.wizards.monkey;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.monkey.options.MonkeyOptionsMgt;
 import org.eclipse.andmore.android.nativeos.NativeUIUtils;
@@ -89,7 +89,7 @@ public class MonkeyConfigurationOtherCmdsTab extends AbstractLaunchConfiguration
 					IMonkeyConfigurationConstants.DEFAULT_VERBOSE_VALUE);
 			monkeyOptionsComposite.reloadValues(otherCmds);
 		} catch (CoreException e) {
-			StudioLogger.error(MonkeyConfigurationOtherCmdsTab.class,
+			AndmoreLogger.error(MonkeyConfigurationOtherCmdsTab.class,
 					"Failed to initialize Monkey Launch Configuration Other Cmds:" + e.getMessage());
 		}
 

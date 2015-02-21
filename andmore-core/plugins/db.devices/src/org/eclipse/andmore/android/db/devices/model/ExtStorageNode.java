@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.andmore.android.DDMSFacade;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEventManager;
@@ -253,7 +253,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
 		try {
 			preferences.flush();
 		} catch (BackingStoreException e) {
-			StudioLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
+			AndmoreLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
 		}
 	}
 
@@ -295,7 +295,7 @@ public class ExtStorageNode extends AbstractTreeNode implements IDbDeviceMapperN
 					}
 				}
 			} catch (BackingStoreException e) {
-				StudioLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
 			}
 		}
 	}

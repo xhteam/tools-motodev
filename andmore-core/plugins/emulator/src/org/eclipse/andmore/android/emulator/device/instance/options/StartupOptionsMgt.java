@@ -26,7 +26,7 @@ import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.i18n.EmulatorNLS;
 import org.eclipse.core.runtime.IStatus;
@@ -170,7 +170,7 @@ public class StartupOptionsMgt implements IStartupOptionsConstants {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error("Failed to load startup options");
+			AndmoreLogger.error("Failed to load startup options");
 		}
 
 	}

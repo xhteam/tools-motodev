@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.db.core.model;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -36,7 +36,7 @@ import java.util.Set;
 import org.eclipse.andmore.android.common.CommonPlugin;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.andmore.android.db.core.model.Field.AutoIncrementType;
 import org.eclipse.core.runtime.IPath;
@@ -91,10 +91,10 @@ public class DbModel {
 	 * 
 	 * @param dbPath
 	 *            SQLite3 database file path
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 *             if dbPath does not contains a valid SQLite3 database file
 	 */
-	public DbModel(IPath dbPath) throws MotodevDbException {
+	public DbModel(IPath dbPath) throws AndmoreDbException {
 		this(dbPath, false);
 	}
 
@@ -107,10 +107,10 @@ public class DbModel {
 	 *            SQLite3 database file path
 	 * @param create
 	 *            flag indicating if the database should be created
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 *             if dbPath does not contains a valid SQLite3 database file
 	 */
-	public DbModel(IPath dbPath, boolean create) throws MotodevDbException {
+	public DbModel(IPath dbPath, boolean create) throws AndmoreDbException {
 		this(dbPath, create, false);
 	}
 
@@ -123,16 +123,16 @@ public class DbModel {
 	 *            SQLite3 database file path
 	 * @param create
 	 *            flag indicating if the database should be created
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 *             if dbPath does not contains a valid SQLite3 database file
 	 */
-	public DbModel(IPath dbPath, boolean create, boolean overwrite) throws MotodevDbException {
+	public DbModel(IPath dbPath, boolean create, boolean overwrite) throws AndmoreDbException {
 		if (create) {
 			File dbFile = dbPath.toFile();
 			try {
 				DbCoreActivator.getDefault().copyTemplateDbFile(dbFile, overwrite);
 			} catch (IOException e) {
-				throw new MotodevDbException(e);
+				throw new AndmoreDbException(e);
 			}
 		}
 
@@ -140,7 +140,7 @@ public class DbModel {
 		if (isValidSQLiteDatabase(dbPath.toFile())) {
 			connProfile = getProfile(dbPath);
 		} else {
-			throw new MotodevDbException(NLS.bind(DbCoreNLS.DbModel_Not_Valid_Database, dbPath.toOSString()));
+			throw new AndmoreDbException(NLS.bind(DbCoreNLS.DbModel_Not_Valid_Database, dbPath.toOSString()));
 		}
 	}
 
@@ -154,7 +154,7 @@ public class DbModel {
 		if ((allDrivers == null) || (!allDrivers.contains(driverPath))) {
 			String templateId = "org.eclipse.datatools.enablement.sqlite.3_5_9.driver"; //$NON-NLS-1$
 			driverMan.createNewDriverInstance(templateId, JDBC_DRIVER_INSTANCE_NAME, driverPath);
-			info("Created a MOTODEV Studio JDBC driver instance at Data Tools."); //$NON-NLS-1$
+			info("Created a JDBC driver instance at Data Tools."); //$NON-NLS-1$
 		}
 	}
 
@@ -166,11 +166,11 @@ public class DbModel {
 		String jarList = driverMan.getFullJarList();
 		if ((jarList != null) && (jarList.contains(DbModel.JDBC_DRIVER_INSTANCE_NAME))) {
 			driverMan.removeDriverInstance(DbModel.JDBC_DRIVER_INSTANCE_NAME);
-			info("Removed the MOTODEV Studio JDBC driver instance from Data Tools."); //$NON-NLS-1$
+			info("Removed the JDBC driver instance from Data Tools."); //$NON-NLS-1$
 		}
 	}
 
-	private IConnectionProfile getProfile(IPath dbPath) throws MotodevDbException {
+	private IConnectionProfile getProfile(IPath dbPath) throws AndmoreDbException {
 		String fullPath = dbPath.toOSString();
 		IConnectionProfile profile = null;
 		profile = ProfileManager.getInstance().getProfileByFullPath(fullPath);
@@ -183,7 +183,7 @@ public class DbModel {
 				profile = ProfileManager.getInstance().createProfile(fullPath, "", PROVIDER_ID, prop); //$NON-NLS-1$
 				profile.setBaseProperties(prop);
 			} catch (ConnectionProfileException e) {
-				throw new MotodevDbException(NLS.bind("Unable to create Profile for db {0}", dbPath.toOSString()));
+				throw new AndmoreDbException(NLS.bind("Unable to create Profile for db {0}", dbPath.toOSString()));
 			}
 
 		}

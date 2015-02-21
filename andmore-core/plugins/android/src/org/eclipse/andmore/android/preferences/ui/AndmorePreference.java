@@ -23,15 +23,15 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * This class represents the root preference page (MOTODEV Studio), implemented
+ * This class represents the root preference page (Eclipse Andmore), implemented
  * according User Interface Standards.
  */
-public class MotodevStudioPreference extends PreferencePage implements IWorkbenchPreferencePage {
+public class AndmorePreference extends PreferencePage implements IWorkbenchPreferencePage {
 
 	/**
 	 * Default constructor
 	 */
-	public MotodevStudioPreference() {
+	public AndmorePreference() {
 		// Empty
 	}
 
@@ -41,7 +41,7 @@ public class MotodevStudioPreference extends PreferencePage implements IWorkbenc
 	 * @param title
 	 *            The preference page title
 	 */
-	public MotodevStudioPreference(String title) {
+	public AndmorePreference(String title) {
 		super(title);
 	}
 
@@ -53,7 +53,7 @@ public class MotodevStudioPreference extends PreferencePage implements IWorkbenc
 	 * @param image
 	 *            The prefence page image
 	 */
-	public MotodevStudioPreference(String title, ImageDescriptor image) {
+	public AndmorePreference(String title, ImageDescriptor image) {
 		super(title, image);
 	}
 

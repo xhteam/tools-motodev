@@ -6,7 +6,7 @@
     access this dialog, select the project in which the database is to be created using the Package Explorer. Then,
     either right-click the project and select <menucascade><uicontrol>MOTODEV Studio</uicontrol><uicontrol>Create
         Database</uicontrol></menucascade> or select <menucascade><uicontrol>Manage Database</uicontrol><uicontrol
-        >Create Database</uicontrol></menucascade> from the MOTODEV menu.</shortdesc>
+        >Create Database</uicontrol></menucascade> from the Andmore menu.</shortdesc>
   <prolog>
     <metadata>
       <keywords>

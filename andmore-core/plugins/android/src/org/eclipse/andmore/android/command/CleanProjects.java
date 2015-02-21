@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -72,7 +72,7 @@ public class CleanProjects extends AbstractHandler {
 					monitor.worked(1);
 				} catch (CoreException e) {
 					// Just log the error. Not much we can do about it.
-					StudioLogger.error(CleanProjectsJob.class, "Error cleaning project " + p.getName() + ". ", e);
+					AndmoreLogger.error(CleanProjectsJob.class, "Error cleaning project " + p.getName() + ". ", e);
 				}
 			}
 

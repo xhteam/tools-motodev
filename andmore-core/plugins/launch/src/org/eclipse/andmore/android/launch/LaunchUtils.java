@@ -26,7 +26,7 @@ import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.core.devfrm.DeviceFrameworkManager;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
 import org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance;
@@ -172,7 +172,7 @@ public class LaunchUtils {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e);
+			AndmoreLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e);
 		}
 
 		return activities;
@@ -219,7 +219,7 @@ public class LaunchUtils {
 				}
 			}
 		} catch (CoreException e) {
-			StudioLogger.error(LaunchUtils.class,
+			AndmoreLogger.error(LaunchUtils.class,
 					"Error updating launch configuration values for : " + configuration.getName(), e);
 		}
 	}

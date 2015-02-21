@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/map.dtd">
-<map title="MOTODEV Studio for Android User's Guide" id="com.motorola.studio.android.tooldocs.studio.helpbase">
+<map title="Eclipse Andmore User's Guide" id="org.eclipse.andmore.android.tooldocs.studio.helpbase">
   <topicmeta>
     <copyright>
       <copyryear year="2009-2012"/>

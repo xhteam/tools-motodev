@@ -118,7 +118,7 @@ public class PartRefBean implements ILayoutConstants, ILayoutBean {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.skin.android.parser.ILayoutBean#
+	 * org.eclipse.andmore.android.emulator.skin.android.parser.ILayoutBean#
 	 * setKeyValue(java.lang.String, java.lang.String)
 	 */
 	@Override

@@ -19,7 +19,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 /**
- * Command to open the New Activity wizard through the MOTODEV menu
+ * Command to open the New Activity wizard through the Andmore menu
  */
 public class NewActivityWizard extends NewWizardHandler {
 	/*

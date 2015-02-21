@@ -20,7 +20,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
@@ -83,13 +83,13 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 		} catch (InvocationTargetException e) {
 			String errMsg = NLS.bind(AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject, e
 					.getCause().getLocalizedMessage());
-			StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
+			AndmoreLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
 
 			EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
 		} catch (InterruptedException e) {
 			String errMsg = NLS.bind(AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject,
 					e.getLocalizedMessage());
-			StudioLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
+			AndmoreLogger.error(NewAndroidWidgetProjectWizard.class, errMsg, e);
 
 			EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
 		}
@@ -97,7 +97,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 		if (doSave.saved) {
 			// Collecting usage data for statistical purposes
 			try {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_CREATE,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_CREATE,
 						UsageDataConstants.KIND_APP_MANAGEMENT, this.project.getSourceType().name().toLowerCase(),
 						AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle().getVersion().toString());
 			} catch (Throwable e) {
@@ -138,7 +138,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 		try {
 			project.finalize();
 		} catch (Throwable e) {
-			StudioLogger.error(NewAndroidWidgetProjectWizard.class, e.getLocalizedMessage(), e);
+			AndmoreLogger.error(NewAndroidWidgetProjectWizard.class, e.getLocalizedMessage(), e);
 		}
 		return super.performCancel();
 	}
@@ -176,7 +176,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 				// Set auto-build off for performance reasons
 				ResourcesPlugin.getWorkspace().setDescription(wsd);
 			} catch (CoreException e) {
-				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+				AndmoreLogger.error(NewAndroidWidgetProjectWizard.class,
 						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
 			}
 
@@ -190,7 +190,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 			try {
 				p.build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
 			} catch (Exception e1) {
-				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+				AndmoreLogger.error(NewAndroidWidgetProjectWizard.class,
 						"Sleep error when cleaning workspace after project creation: " //$NON-NLS-1$
 								+ e1.getMessage());
 			}
@@ -200,7 +200,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 				// roollback the auto-bulding setting to the original state
 				ResourcesPlugin.getWorkspace().setDescription(wsd);
 			} catch (CoreException e) {
-				StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+				AndmoreLogger.error(NewAndroidWidgetProjectWizard.class,
 						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
 			}
 
@@ -240,7 +240,7 @@ public class NewAndroidWidgetProjectWizard extends BasicNewProjectResourceWizard
 									new Path(file.getAbsolutePath()), null, null);
 							javaProject.setRawClasspath(newClasspath, new NullProgressMonitor());
 						} catch (JavaModelException e) {
-							StudioLogger.error(NewAndroidWidgetProjectWizard.class,
+							AndmoreLogger.error(NewAndroidWidgetProjectWizard.class,
 									"Error while setting up the oms.jar on the project classpath: " //$NON-NLS-1$
 											+ e.getMessage());
 						}

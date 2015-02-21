@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.mat.ui.editorPanes">
       <pane
-            class="org.eclipse.andmore.android.mat.panes.MotodevPane"
-            id="org.eclipse.andmore.android.mat.MotodevPane">
+            class="org.eclipse.andmore.android.mat.panes.AndmorePane"
+            id="org.eclipse.andmore.android.mat.AndmorePane">
       </pane>
    </extension>
    <extension
@@ -24,7 +24,7 @@
             copyright="%copyright"
             description="%service_dumpHPROF_description"
             handler="org.eclipse.andmore.android.mat.services.DumpHPROFHandler"
-            icon="icons/motodev_pane.png"
+            icon="icons/plate16.png"
             id="org.eclipse.andmore.android.mat.dumpHprofService"
             name="%service_dumpHPROF_name"
             provider="%providerName"
@@ -87,7 +87,7 @@
             locationURI="popup:org.eclipse.andmore.android.emulator.view.popup">
          <command
                commandId="org.eclipse.andmore.android.mat.commandDumpHprof"
-               icon="icons/motodev_pane.png"
+               icon="icons/plate16.png"
                id="dumpHPROF.command"
                label="%command_dumpHPROF_name"
                style="push">

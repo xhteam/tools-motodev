@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DdmsRunnable;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
+import org.eclipse.andmore.android.AndmoreEventManager;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.IRootNode;
@@ -48,7 +48,7 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode {
 	private DisconnectDeviceListener disconnectedListener = new DisconnectDeviceListener(this);
 
 	public DevicesRootNode() {
-		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
 	}
 
 	/*
@@ -159,9 +159,9 @@ public class DevicesRootNode extends AbstractTreeNode implements IRootNode {
 	@Override
 	public void cleanUp() {
 		super.cleanUp();
-		StudioAndroidEventManager.removeEventListener(StudioAndroidEventManager.EventType.DEVICE_CONNECTED,
+		AndmoreEventManager.removeEventListener(AndmoreEventManager.EventType.DEVICE_CONNECTED,
 				connectedListener);
-		StudioAndroidEventManager.removeEventListener(StudioAndroidEventManager.EventType.DEVICE_DISCONNECTED,
+		AndmoreEventManager.removeEventListener(AndmoreEventManager.EventType.DEVICE_DISCONNECTED,
 				disconnectedListener);
 	}
 }

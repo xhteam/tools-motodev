@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.perspective;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -28,7 +28,7 @@ import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
 /**
- * Command to open the MOTODEV Web Resources in a Web Browser Editor
+ * Command to open the Andmore Web Resources in a Web Browser Editor
  */
 public class OpenWebResources extends AbstractHandler {
 	/*
@@ -44,7 +44,7 @@ public class OpenWebResources extends AbstractHandler {
 			IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			if (activeWindow != null) {
 				IWorkbenchPage activePage = activeWindow.getActivePage();
-				MotodevStudioAndroidPerspective.openAndmoreInfoOnWebBrowserEditor(activePage);
+				AndmorePerspective.openAndmoreInfoOnWebBrowserEditor(activePage);
 			}
 		} else {
 
@@ -56,13 +56,13 @@ public class OpenWebResources extends AbstractHandler {
 			IWebBrowser browser;
 			try {
 				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL, "MOTODEV",
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL, "Andmore",
 						null, null);
 
-				browser.openURL(MotodevStudioAndroidPerspective.getWebResourcesURL());
+				browser.openURL(AndmorePerspective.getWebResourcesURL());
 
 			} catch (PartInitException e) {
-				StudioLogger.error("Error opening the Web Resources page: " + e.getMessage());
+				AndmoreLogger.error("Error opening the Web Resources page: " + e.getMessage());
 			}
 
 		}

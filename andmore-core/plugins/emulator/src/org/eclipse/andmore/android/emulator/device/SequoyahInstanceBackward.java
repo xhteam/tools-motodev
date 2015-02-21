@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.emulator.device;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.device.refresh.InstancesListRefresh;
 import org.eclipse.sequoyah.device.common.utilities.exception.SequoyahException;
 import org.eclipse.sequoyah.device.framework.DevicePlugin;
@@ -53,7 +53,7 @@ public class SequoyahInstanceBackward implements IStartup {
 									DevicePlugin.SEQUOYAH_STATUS_OFF, oldInstance.getProperties()));
 					InstanceRegistry.getInstance().removeInstance(oldInstance);
 				} catch (SequoyahException e) {
-					StudioLogger.error(SequoyahInstanceBackward.class,
+					AndmoreLogger.error(SequoyahInstanceBackward.class,
 							"An error ocurred trying to backward old instance: " + oldInstance.getName(), e);
 				}
 

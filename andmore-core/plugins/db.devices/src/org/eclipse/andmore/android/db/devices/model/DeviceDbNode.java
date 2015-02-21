@@ -23,12 +23,12 @@ import java.util.Set;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DDMSUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.andmore.android.db.core.model.TableModel;
 import org.eclipse.andmore.android.db.core.ui.AbstractDbResultManagerAdapter;
@@ -136,11 +136,11 @@ public class DeviceDbNode extends DbNode implements IDbNode {
 	 *            the flag is false the behavior is the same as the constructor
 	 *            DeviceDbNode(IPath remoteDbPath, String serialNumber,
 	 *            ITreeNode parent)
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 *             if a problem occurred during database creation.
 	 */
 	public DeviceDbNode(IPath remoteDbPath, String serialNumber, ITreeNode parent, boolean create)
-			throws MotodevDbException {
+			throws AndmoreDbException {
 		this(remoteDbPath, serialNumber, parent);
 		if (create) {
 			try {
@@ -152,14 +152,14 @@ public class DeviceDbNode extends DbNode implements IDbNode {
 					IStatus status = pushLocalDbFile(false);
 					if (!status.isOK()) {
 						deleteLocalDbModel();
-						throw new MotodevDbException(DbDevicesNLS.DeviceDbNode_Create_Device_Db_Failed);
+						throw new AndmoreDbException(DbDevicesNLS.DeviceDbNode_Create_Device_Db_Failed);
 					}
 				} else {
-					throw new MotodevDbException(DbDevicesNLS.DeviceDbNode_Could_Not_Create_DeviceDbNode);
+					throw new AndmoreDbException(DbDevicesNLS.DeviceDbNode_Could_Not_Create_DeviceDbNode);
 				}
 
 			} catch (IOException e) {
-				throw new MotodevDbException(DbDevicesNLS.DeviceDbNode_Could_Not_Create_DeviceDbNode, e);
+				throw new AndmoreDbException(DbDevicesNLS.DeviceDbNode_Could_Not_Create_DeviceDbNode, e);
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public class DeviceDbNode extends DbNode implements IDbNode {
 		if ((model == null) && status.isOK()) {
 			try {
 				model = new DbModel(Path.fromOSString(tempFile.getAbsolutePath()));
-			} catch (MotodevDbException e) {
+			} catch (AndmoreDbException e) {
 				status = new Status(IStatus.ERROR, DbDevicesPlugin.PLUGIN_ID, e.getMessage());
 			}
 		}
@@ -465,7 +465,7 @@ public class DeviceDbNode extends DbNode implements IDbNode {
 				try {
 					stream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
 				}
 			}
 		}
@@ -530,7 +530,7 @@ public class DeviceDbNode extends DbNode implements IDbNode {
 				try {
 					stream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error("Could not close stream: ", e.getMessage()); //$NON-NLS-1$
 				}
 			}
 		}

@@ -27,7 +27,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -170,7 +170,7 @@ public class MonkeyOptionsMgt implements IMonkeyOptionsConstants {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error("Failed to load monkey options");
+			AndmoreLogger.error("Failed to load monkey options");
 		}
 
 	}

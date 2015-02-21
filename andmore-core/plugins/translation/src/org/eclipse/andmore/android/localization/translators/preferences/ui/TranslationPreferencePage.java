@@ -19,7 +19,7 @@ package org.eclipse.andmore.android.localization.translators.preferences.ui;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.localization.translators.GoogleTranslatorConstants;
 import org.eclipse.andmore.android.localization.translators.TranslationPlugin;
 import org.eclipse.andmore.android.localization.translators.i18n.TranslateNLS;
@@ -122,14 +122,14 @@ public class TranslationPreferencePage extends PreferencePage implements IWorkbe
 				try {
 					browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
 							| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL,
-							"MOTODEV", null, null); //$NON-NLS-1$
+							"ANDMORE", null, null); //$NON-NLS-1$
 
 					browser.openURL(new URL(GOOGLE_APIS_CONSOLE_LINK));
 				} catch (PartInitException ex) {
-					StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
+					AndmoreLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
 							+ ex.getMessage());
 				} catch (MalformedURLException ex) {
-					StudioLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
+					AndmoreLogger.error("Error opening the Google APIs Console link: " //$NON-NLS-1$
 							+ ex.getMessage());
 				}
 			}

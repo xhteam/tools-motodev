@@ -35,7 +35,7 @@ public class StringNode extends AbstractSimpleNameResourceNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType
+	 * org.eclipse.andmore.android.model.resources.AbstractResourceNode#getNodeType
 	 * ()
 	 */
 	@Override
@@ -46,7 +46,7 @@ public class StringNode extends AbstractSimpleNameResourceNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.resources.types.
+	 * @see org.eclipse.andmore.android.model.resources.types.
 	 * AbstractSimpleNameResourceNode#setNodeValue(java.lang.String)
 	 */
 	@Override

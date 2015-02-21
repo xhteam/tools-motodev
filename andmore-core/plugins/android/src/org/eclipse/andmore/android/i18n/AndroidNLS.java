@@ -50,13 +50,13 @@ public class AndroidNLS extends NLS {
 
 	public static String MonkeyWizardPage_CountCommand;
 
-	public static String MotodevHProfDumpHandler_saveHProfFile;
+	public static String AndmoreHProfDumpHandler_saveHProfFile;
 
-	public static String MotodevHProfDumpHandler_warnAboutHprofSavePrefMsg;
+	public static String AndmoreHProfDumpHandler_warnAboutHprofSavePrefMsg;
 
-	public static String MotodevHProfDumpHandler_warnAboutHprofSavePrefTitle;
+	public static String AndmoreHProfDumpHandler_warnAboutHprofSavePrefTitle;
 
-	public static String MotodevStudioPropertyPage_ChangeProguardSettingsProblem;
+	public static String AndmorePropertyPage_ChangeProguardSettingsProblem;
 
 	public static String UninstallAppWizardPage_ColumnPackageKiind;
 

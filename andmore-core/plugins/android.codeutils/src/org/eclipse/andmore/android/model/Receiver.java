@@ -63,7 +63,7 @@ public class Receiver extends Launcher {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.BuildingBlockModel#getStatus()
+	 * @see org.eclipse.andmore.android.model.BuildingBlockModel#getStatus()
 	 */
 	@Override
 	public IStatus getStatus() {
@@ -73,7 +73,7 @@ public class Receiver extends Launcher {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#needMoreInformation()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#needMoreInformation()
 	 */
 	@Override
 	public boolean needMoreInformation() {

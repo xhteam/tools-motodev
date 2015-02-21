@@ -13,7 +13,7 @@
   </prolog>
   <taskbody>
     <context>
-      <p>By default, MOTODEV Studio for Android opens the device emulator in an Eclipse view. Except on Mac OS X, to
+      <p>By default, Eclipse Andmore opens the device emulator in an Eclipse view. Except on Mac OS X, to
         work with the emulator in a separate window simply close the Android Emulator view and click <uicontrol
         >No</uicontrol> when you are asked if running emulator instances should be stopped. The reverse works as you
         might expect: while the emulator is running externally if you open the Android Emulator view the emulator will

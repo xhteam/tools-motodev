@@ -177,7 +177,7 @@ public class EclipseEnvironmentManager implements EnvironmentManager {
 				throw new RuntimeException("Could not get logger.properties URL."); //$NON-NLS-1$
 			}
 		} else {
-			throw new RuntimeException("Could not get com.motorola.studio.platform.logger activator."); //$NON-NLS-1$
+			throw new RuntimeException("Could not get org.eclipse.andmore.android.logger activator."); //$NON-NLS-1$
 		}
 	}
 

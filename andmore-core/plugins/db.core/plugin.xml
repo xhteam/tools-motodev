@@ -14,11 +14,11 @@
          point="org.eclipse.ui.views">
       <view
             category="studioAndroidViewCategory"
-            class="org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView"
+            class="org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView"
             icon="icons/database_explorer_view.png"
-            id="com.motorola.studio.android.db.databaseView"
-            name="%motodevDatabaseViewName"
-            restorable="true">me="%motodevDatabaseViewName"
+            id="org.eclipse.andmore.android.db.databaseView"
+            name="%andmoreDatabaseViewName"
+            restorable="true">me="%andmoreDatabaseViewName"
             restorable="true">
       </view>
    </extension>
@@ -328,7 +328,7 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:com.motorola.studio.android.db.databaseView">
+            locationURI="toolbar:org.eclipse.andmore.android.db.databaseView">
          <command
                commandId="org.eclipse.andmore.android.db.core.collapseAll"
                icon="platform:/plugin/org.eclipse.datatools.connectivity.sqm.core.ui/icons/collapseall.gif"
@@ -374,7 +374,7 @@
          <command
                commandId="org.eclipse.datatools.sqltools.sqlscrapbook.commands.openscrapbook"
                icon="platform:/plugin/org.eclipse.datatools.sqltools.sqlscrapbook/images/scrapbook.gif"
-               id="com.motorola.studio.android.db.commands.openscrapbookinview"
+               id="org.eclipse.andmore.android.db.commands.openscrapbookinview"
                label="%open_sql_scrapbook"
                tooltip="%open_sql_scrapbook_tooltip">
          </command>
@@ -398,7 +398,7 @@
                    style="push">
                    <parameter
                          name="org.eclipse.ui.perspectives.showPerspective.perspectiveId"
-                         value="com.motorola.studio.android.db.perspective">
+                         value="org.eclipse.andmore.android.db.perspective">
                    </parameter>
              </command>
              <command
@@ -536,22 +536,22 @@
             class="org.eclipse.andmore.android.db.core.DbPerspective"
             fixed="false"
             icon="icons/obj16/dbplate.gif"
-            id="com.motorola.studio.android.db.perspective"
+            id="org.eclipse.andmore.android.db.perspective"
             name="%db_perspective">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="com.motorola.studio.android.perspective">
+            targetID="org.eclipse.andmore.android.perspective">
          <perspectiveShortcut
-               id="com.motorola.studio.android.db.perspective">
+               id="org.eclipse.andmore.android.db.perspective">
          </perspectiveShortcut>
       </perspectiveExtension>
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <perspectiveShortcut
-               id="com.motorola.studio.android.db.perspective">
+               id="org.eclipse.andmore.android.db.perspective">
          </perspectiveShortcut>
       </perspectiveExtension>
    </extension>

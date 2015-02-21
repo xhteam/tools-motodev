@@ -33,7 +33,7 @@ public class PersistentToggleState extends State {
 	 */
 	@Override
 	public Object getValue() {
-		ITreeNode treeNode = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+		ITreeNode treeNode = DbCoreActivator.getAndmoreDatabaseExplorerView().getSelectedItemOnTree();
 		if (treeNode instanceof DeviceNode) {
 			DeviceNode devNode = (DeviceNode) treeNode;
 			boolean filterEnabled = devNode.mustFilterAppsWithDb();

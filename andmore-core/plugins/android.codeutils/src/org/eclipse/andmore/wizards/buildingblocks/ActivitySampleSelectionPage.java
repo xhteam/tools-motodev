@@ -108,7 +108,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewBuildingBlocksWizard
 	 * #getBuildBlock()
 	 */
 	@Override
@@ -130,7 +130,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -147,7 +147,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage
 	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
 	 */
@@ -250,7 +250,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -261,7 +261,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override
@@ -273,7 +273,7 @@ public class ActivitySampleSelectionPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getIntentFiltersActions()
 	 */
 	@Override

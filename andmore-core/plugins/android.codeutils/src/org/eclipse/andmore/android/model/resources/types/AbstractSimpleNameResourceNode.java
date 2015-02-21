@@ -45,9 +45,9 @@ public abstract class AbstractSimpleNameResourceNode extends AbstractResourceNod
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * org.eclipse.andmore.android.model.resources.types.AbstractResourceNode
 	 * #canAddChildNode
-	 * (com.motorola.studio.android.model.resources.types.AbstractResourceNode)
+	 * (org.eclipse.andmore.android.model.resources.types.AbstractResourceNode)
 	 */
 	@Override
 	protected boolean canAddChildNode(AbstractResourceNode node) {
@@ -59,7 +59,7 @@ public abstract class AbstractSimpleNameResourceNode extends AbstractResourceNod
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * org.eclipse.andmore.android.model.resources.types.AbstractResourceNode
 	 * #isAttributeValid(java.lang.String)
 	 */
 	@Override

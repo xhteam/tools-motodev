@@ -19,12 +19,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEvent;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEventManager;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.andmore.android.db.core.model.TableModel;
@@ -119,7 +119,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 				status = dbNode.createTables(tables);
 			}
 			putChild(dbNode);
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			status = new Status(IStatus.ERROR, DbCoreActivator.PLUGIN_ID, NLS.bind(
 					DbCoreNLS.ProjectNode_Error_While_Creating_DB, dbName), e);
 		}
@@ -159,7 +159,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 					try {
 						dbNode = new DbNode(new Path(file.getAbsolutePath()), this);
 						dbNodes.add(dbNode);
-					} catch (MotodevDbException e) {
+					} catch (AndmoreDbException e) {
 						// Invalid db file found do nothing with it.
 					}
 				}
@@ -190,7 +190,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 	 * 
 	 * @param file
 	 * @return
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 *             if dbPath does not contains a valid SQLite3 database file
 	 */
 	public void addDb(File file) {
@@ -204,9 +204,9 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 					putChild(dN);
 				}
 			}
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			String message = NLS.bind(DbCoreNLS.ProjectNode_Failed_ToVerify_If_DB_Is_Valid, file.getName());
-			StudioLogger.error(ProjectNode.class, message, e);
+			AndmoreLogger.error(ProjectNode.class, message, e);
 		}
 	}
 
@@ -291,7 +291,7 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 			try {
 				event.getDelta().accept(new ResourceDeltaVisior(this));
 			} catch (CoreException e) {
-				StudioLogger.error(ProjectNode.class, "Error listening to changes in resources", e); //$NON-NLS-1$
+				AndmoreLogger.error(ProjectNode.class, "Error listening to changes in resources", e); //$NON-NLS-1$
 			}
 			break;
 		}
@@ -333,11 +333,11 @@ public class ProjectNode extends AbstractTreeNode implements IDbCreatorNode, IRe
 				// of copying db from one project to another
 				switch (delta.getKind()) {
 				case IResourceDelta.ADDED:
-					StudioLogger.info("Database added: " + res.getFullPath()); //$NON-NLS-1$
+					AndmoreLogger.info("Database added: " + res.getFullPath()); //$NON-NLS-1$
 					addDb(res.getLocation().toFile());
 					break;
 				case IResourceDelta.REMOVED:
-					StudioLogger.info("Database deleted: " + res.getFullPath()); //$NON-NLS-1$
+					AndmoreLogger.info("Database deleted: " + res.getFullPath()); //$NON-NLS-1$
 					IDbNode dbNode = getDatabaseNodeFromFile(res.getLocation().toFile());
 					if (dbNode != null) {
 						removeDb(dbNode);

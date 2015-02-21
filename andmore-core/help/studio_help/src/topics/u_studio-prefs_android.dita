@@ -2,8 +2,8 @@
 <!DOCTYPE reference
   PUBLIC "-//OASIS//DTD DITA Reference//EN" "../dtd/reference.dtd">
 <reference xml:lang="en-us" id="u_studio-prefs_android">
-  <title>MOTODEV Studio for Android preferences</title>
-  <shortdesc>Contains preferences specific to MOTODEV Studio for Android. </shortdesc>
+  <title>Eclipse Andmore preferences</title>
+  <shortdesc>Contains preferences specific to Eclipse Andmore. </shortdesc>
   <prolog>
     <metadata>
       <keywords>
@@ -17,7 +17,7 @@
       select <menucascade><uicontrol>MOTODEV Studio</uicontrol><uicontrol>MOTODEV Studio for
       Android</uicontrol></menucascade>.</section>
     <section>
-      <title>MOTODEV Studio for Android Dialogs</title>
+      <title>Eclipse Andmore Dialogs</title>
       <simpletable>
         <strow>
           <stentry>

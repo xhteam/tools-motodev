@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.devices.services.i18n;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * NLS class for the plugin com.motorola.studio.android.device.service.console
+ * NLS class for the plugin org.eclipse.andmore.android.device.service.console
  */
 public class ServicesNLS extends NLS {
 	static {

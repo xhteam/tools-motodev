@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.model.java;
 
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.model.WidgetProvider;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -207,7 +207,7 @@ public class WidgetProviderClass extends JavaClass {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.java.JavaClass#addComments()
+	 * @see org.eclipse.andmore.android.model.java.JavaClass#addComments()
 	 */
 	@Override
 	protected void addComments() throws AndroidException {
@@ -247,17 +247,17 @@ public class WidgetProviderClass extends JavaClass {
 		} catch (IllegalArgumentException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-			StudioLogger.error(BroadcastReceiverClass.class, errMsg, e);
+			AndmoreLogger.error(BroadcastReceiverClass.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} catch (MalformedTreeException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-			StudioLogger.error(BroadcastReceiverClass.class, errMsg, e);
+			AndmoreLogger.error(BroadcastReceiverClass.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} catch (BadLocationException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorApplyingCommentsToCode, className);
 
-			StudioLogger.error(BroadcastReceiverClass.class, errMsg, e);
+			AndmoreLogger.error(BroadcastReceiverClass.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		}
 	}

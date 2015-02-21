@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -72,7 +72,7 @@ public class WirelessServiceHandler extends ServiceHandler {
 
 			subMonitor.worked(100);
 		} catch (Exception e) {
-			StudioLogger.error(WirelessServiceHandler.class, "Problems trying to retrieve handset's sdk version.", e);
+			AndmoreLogger.error(WirelessServiceHandler.class, "Problems trying to retrieve handset's sdk version.", e);
 		}
 
 		// if it was not possible to retrieve the sdk version
@@ -106,7 +106,7 @@ public class WirelessServiceHandler extends ServiceHandler {
 								subMonitor.worked(200);
 							} catch (Exception e) {
 								canReachIPAddress = false;
-								StudioLogger.error(this.getClass(),
+								AndmoreLogger.error(this.getClass(),
 										NLS.bind(RemoteDeviceNLS.ERR_WirelessWizard_Reach_IP, host), e);
 							}
 

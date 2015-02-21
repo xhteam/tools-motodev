@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -90,7 +90,7 @@ public abstract class DbRootNodeReader {
 
 							treeNodeList.put(id, treeNode);
 						} catch (CoreException e) {
-							StudioLogger
+							AndmoreLogger
 									.error(DbRootNodeReader.class,
 											"Unexpected error with the root node extension point. Name:" + name + " ID:" + id, e); //$NON-NLS-1$ //$NON-NLS-2$
 							failedNodeNames.add(name);

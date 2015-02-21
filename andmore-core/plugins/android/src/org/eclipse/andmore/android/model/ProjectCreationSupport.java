@@ -33,7 +33,7 @@ import org.eclipse.andmore.android.ProjectUtils;
 import org.eclipse.andmore.android.SdkUtils;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidStatus;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
@@ -687,7 +687,7 @@ public class ProjectCreationSupport {
 				try {
 					stream.close();
 				} catch (IOException e) {
-					StudioLogger.info("Create image from template could not close stream. " + e.getMessage());
+					AndmoreLogger.info("Create image from template could not close stream. " + e.getMessage());
 				}
 			}
 		}
@@ -748,7 +748,7 @@ public class ProjectCreationSupport {
 							stream.close();
 						}
 					} catch (IOException e) {
-						StudioLogger.info("Could not close stream while creating manifest", e.getMessage());
+						AndmoreLogger.info("Could not close stream while creating manifest", e.getMessage());
 					}
 				}
 			}
@@ -815,7 +815,7 @@ public class ProjectCreationSupport {
 							stream.close();
 						}
 					} catch (IOException e) {
-						StudioLogger.info("Could not close stream while creating manifest for widget", e.getMessage());
+						AndmoreLogger.info("Could not close stream while creating manifest for widget", e.getMessage());
 					}
 				}
 			}
@@ -997,7 +997,7 @@ public class ProjectCreationSupport {
 				MessageDialog.openError(container.getShell(), AndroidNLS.UI_GenericErrorDialogTitle, t.getMessage());
 			}
 		} catch (InterruptedException e) {
-			StudioLogger.error(ProjectCreationSupport.class, "Error creating project.", e); //$NON-NLS-1$
+			AndmoreLogger.error(ProjectCreationSupport.class, "Error creating project.", e); //$NON-NLS-1$
 		}
 
 		return created;
@@ -1038,7 +1038,7 @@ public class ProjectCreationSupport {
 			project.delete(false, true, new NullProgressMonitor());
 		} catch (CoreException e1) {
 			// Do nothing
-			StudioLogger.error(ProjectCreationSupport.class, e1.getLocalizedMessage(), e1);
+			AndmoreLogger.error(ProjectCreationSupport.class, e1.getLocalizedMessage(), e1);
 		}
 
 		if (existingResources.isEmpty()) {
@@ -1046,7 +1046,7 @@ public class ProjectCreationSupport {
 				FileUtil.deleteDirRecursively(project.getLocation().toFile());
 			} catch (IOException e) {
 				// Do nothing
-				StudioLogger.error(ProjectCreationSupport.class, e.getLocalizedMessage(), e);
+				AndmoreLogger.error(ProjectCreationSupport.class, e.getLocalizedMessage(), e);
 			}
 		} else {
 			File root = new File(project.getWorkspace().getRoot().getLocation().toFile(), project.getName());

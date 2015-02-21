@@ -25,7 +25,7 @@ import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.ui.composite.KeyPropertiesBlock;
 import org.eclipse.andmore.android.certmanager.ui.model.EntryNode;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -94,7 +94,7 @@ public class CertificateInfoDialog extends Dialog {
 			EclipseUtils.showErrorDialog(
 					CertificateManagerNLS.CertificatePropertiesHandler_ErrorGettingCertificateOrKeypairProperties,
 					e.getMessage());
-			StudioLogger.error(CertificateInfoDialog.class,
+			AndmoreLogger.error(CertificateInfoDialog.class,
 					CertificateManagerNLS.CertificatePropertiesHandler_ErrorGettingCertificateOrKeypairProperties, e);
 		}
 		return newComposite;

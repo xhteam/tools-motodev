@@ -23,7 +23,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.wizards.elements.FileChooser;
 import org.eclipse.andmore.android.wizards.installapp.DeployWizard.INSTALL_TYPE;
@@ -329,13 +329,13 @@ public class DeployWizardPage extends WizardPage {
 
 		} catch (Exception e) {
 			// Could not read the jar file
-			StudioLogger.error(DeployWizardPage.class, "Deploy: Could not verify file " + packagePath, e);
+			AndmoreLogger.error(DeployWizardPage.class, "Deploy: Could not verify file " + packagePath, e);
 		} finally {
 			if (jar != null) {
 				try {
 					jar.close();
 				} catch (IOException e) {
-					StudioLogger.error(DeployWizardPage.class, "Error closing package after verification", e);
+					AndmoreLogger.error(DeployWizardPage.class, "Error closing package after verification", e);
 				}
 			}
 		}

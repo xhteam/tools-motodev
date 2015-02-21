@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.android.launch;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -40,12 +40,12 @@ public class LaunchPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(LaunchPlugin.class, "Starting MOTODEV Android Launch Plugin...");
+		AndmoreLogger.debug(LaunchPlugin.class, "Starting Andmore Launch Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(LaunchPlugin.class, "MOTODEV Android Launch Plugin started.");
+		AndmoreLogger.debug(LaunchPlugin.class, "Andmore Launch Plugin started.");
 	}
 
 	/*

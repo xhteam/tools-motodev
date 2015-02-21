@@ -5,7 +5,7 @@
   <shortdesc>Creates an Android Package file (.apk) for each APK configuration of each selected project. This dialog
     appears when you select <uicontrol>Export</uicontrol> from the <uicontrol>File</uicontrol> menu, and then select <menucascade>
       <uicontrol>Android</uicontrol>
-      <uicontrol>Export Android Application using MOTODEV Studio for Android</uicontrol>
+      <uicontrol>Export Android Application using Eclipse Andmore</uicontrol>
     </menucascade> from the list of export destinations.</shortdesc>
   <prolog>
     <metadata>
@@ -43,7 +43,7 @@
           <stentry>If selected, the exported Android Packages are signed according to the remaining fields in this
             section. Note that if you do not sign the Android Package when you export it, you can later sign it by
             right-clicking it in the Package Explorer view and selecting <uicontrol>Sign Android Package</uicontrol>
-            from the <uicontrol>MOTODEV Studio for Android</uicontrol> menu.</stentry>
+            from the <uicontrol>Eclipse Andmore</uicontrol> menu.</stentry>
         </strow>
         <strow>
           <stentry><uicontrol>Keystore</uicontrol></stentry>

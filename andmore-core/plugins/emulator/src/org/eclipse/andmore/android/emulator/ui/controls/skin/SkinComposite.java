@@ -15,9 +15,9 @@
  */
 package org.eclipse.andmore.android.emulator.ui.controls.skin;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.util.Collection;
 
@@ -1019,7 +1019,7 @@ public class SkinComposite extends Composite implements IAndroidComposite {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.ui.controls.IAndroidComposite#
+	 * @see org.eclipse.andmore.android.emulator.ui.controls.IAndroidComposite#
 	 * getMouseListener()
 	 */
 	@Override
@@ -1030,7 +1030,7 @@ public class SkinComposite extends Composite implements IAndroidComposite {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.ui.controls.IAndroidComposite#
+	 * @see org.eclipse.andmore.android.emulator.ui.controls.IAndroidComposite#
 	 * getMouseMoveListener()
 	 */
 	@Override

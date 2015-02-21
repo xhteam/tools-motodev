@@ -15,7 +15,7 @@
 package org.eclipse.andmore.android.emulator.device.instance;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
 import org.eclipse.andmore.android.emulator.core.utils.EmulatorCoreUtils;
@@ -74,7 +74,7 @@ public class AndroidDevInstListener extends InstanceAdapter {
 
 		if (instance instanceof AndroidDeviceInstance) {
 			final AndroidDeviceInstance androidDevice = (AndroidDeviceInstance) instance;
-			StudioLogger.info("The android device instance status was updated: " + instance + " Status: "
+			AndmoreLogger.info("The android device instance status was updated: " + instance + " Status: "
 					+ instance.getStatus());
 
 			if (androidDevice.isStarted()) {
@@ -82,7 +82,7 @@ public class AndroidDevInstListener extends InstanceAdapter {
 				if ((transitionId != null) && transitionId.equals("org.eclipse.andmore.android.emulator.startService")) {
 					// If it is coming from other state than the started,
 					// connect to VNC server
-					StudioLogger.info("The emulator " + instance
+					AndmoreLogger.info("The emulator " + instance
 							+ " transitioned to started state. Try to estabilish a VNC connection...");
 
 					new Thread(new Runnable() {

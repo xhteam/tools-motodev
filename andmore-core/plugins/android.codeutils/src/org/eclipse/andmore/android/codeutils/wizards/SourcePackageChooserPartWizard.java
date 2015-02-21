@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -112,7 +112,7 @@ public class SourcePackageChooserPartWizard extends NewTypeWizardPage {
 						setPackageFragmentRoot(possibleRoots[0], true);
 					}
 				} catch (JavaModelException e) {
-					StudioLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
+					AndmoreLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
 					IStatus status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
 					EclipseUtils.showErrorDialog(CodeUtilsNLS.Db_GenerateManagementClassesError,
 							CodeUtilsNLS.Db_GenerateManagementClassesError, status);

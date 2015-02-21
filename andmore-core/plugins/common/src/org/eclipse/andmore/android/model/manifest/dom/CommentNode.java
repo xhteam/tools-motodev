@@ -30,9 +30,9 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * canContains
-	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * (org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode
 	 * .NodeType)
 	 */
 	@Override
@@ -44,7 +44,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeProperties()
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeType()
 	 */
 	@Override
@@ -68,7 +68,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * isNodeValid()
 	 */
 	@Override
@@ -81,8 +81,8 @@ public class CommentNode extends AndroidManifestNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#addChild
-	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode)
+	 * org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#addChild
+	 * (org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode)
 	 */
 	@Override
 	public void addChild(AndroidManifestNode child) {
@@ -92,7 +92,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * addUnknownProperty(java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -104,7 +104,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * canAddUnknownProperty(java.lang.String)
 	 */
 	@Override
@@ -116,9 +116,9 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getAllChildrenFromType
-	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * (org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode
 	 * .NodeType)
 	 */
 	@Override
@@ -148,7 +148,7 @@ public class CommentNode extends AndroidManifestNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getSpecificNodeErrors()
 	 */
 	@Override

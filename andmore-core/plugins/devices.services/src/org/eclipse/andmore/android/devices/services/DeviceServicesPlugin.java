@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.services.console.ADBShellHandler;
 import org.eclipse.andmore.android.devices.services.console.EmulatorConsoleHandler;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
@@ -145,13 +145,13 @@ public class DeviceServicesPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(DeviceServicesPlugin.class, "Starting MOTODEV Android Device Services Plugin...");
+		AndmoreLogger.debug(DeviceServicesPlugin.class, "Starting Andmore Device Services Plugin...");
 
 		super.start(context);
 		plugin = this;
 		PlatformUI.getWorkbench().addWorkbenchListener(workbenchListener);
 
-		StudioLogger.debug(DeviceServicesPlugin.class, "MOTODEV Android Device Services Plugin started.");
+		AndmoreLogger.debug(DeviceServicesPlugin.class, "Andmore Device Services Plugin started.");
 	}
 
 	/*

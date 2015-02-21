@@ -31,7 +31,7 @@ import org.apache.commons.httpclient.auth.AuthState;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.andmore.android.common.utilities.ui.LoginPasswordDialogCreator;
 import org.eclipse.core.internal.net.ProxyManager;
@@ -82,7 +82,7 @@ public class HttpUtils {
 
 		subMonitor.beginTask(UtilitiesNLS.HttpUtils_MonitorTask_PreparingConnection, 300);
 
-		StudioLogger.debug(HttpUtils.class, "Verifying proxy usage for opening http connection"); //$NON-NLS-1$
+		AndmoreLogger.debug(HttpUtils.class, "Verifying proxy usage for opening http connection"); //$NON-NLS-1$
 
 		// Try to retrieve proxy configuration to use if necessary
 		IProxyService proxyService = ProxyManager.getProxyManager();
@@ -91,12 +91,12 @@ public class HttpUtils {
 			Authenticator.setDefault(new NetAuthenticator());
 			if (url.startsWith("https")) {
 				proxyData = proxyService.getProxyData(IProxyData.HTTPS_PROXY_TYPE);
-				StudioLogger.debug(HttpUtils.class, "Using https proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(HttpUtils.class, "Using https proxy"); //$NON-NLS-1$
 			} else if (url.startsWith("http")) {
 				proxyData = proxyService.getProxyData(IProxyData.HTTP_PROXY_TYPE);
-				StudioLogger.debug(HttpUtils.class, "Using http proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(HttpUtils.class, "Using http proxy"); //$NON-NLS-1$
 			} else {
-				StudioLogger.debug(HttpUtils.class, "Not using any proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(HttpUtils.class, "Not using any proxy"); //$NON-NLS-1$
 			}
 		}
 
@@ -133,7 +133,7 @@ public class HttpUtils {
 		subMonitor.worked(100);
 		subMonitor.setTaskName(UtilitiesNLS.HttpUtils_MonitorTask_ContactingSite);
 		do {
-			StudioLogger.info(HttpUtils.class, "Attempting to make a connection"); //$NON-NLS-1$
+			AndmoreLogger.info(HttpUtils.class, "Attempting to make a connection"); //$NON-NLS-1$
 
 			// retry to connect to the site once, also set the timeout for 5
 			// seconds
@@ -150,12 +150,12 @@ public class HttpUtils {
 				String authenticationRealm = authorizationState.getRealm();
 
 				if (getMethod.getStatusCode() == HttpStatus.SC_UNAUTHORIZED) {
-					StudioLogger.debug(HttpUtils.class, "Client requested authentication; retrieving credentials"); //$NON-NLS-1$
+					AndmoreLogger.debug(HttpUtils.class, "Client requested authentication; retrieving credentials"); //$NON-NLS-1$
 
 					credentials = authenticationRealmCache.get(authenticationRealm);
 
 					if (credentials == null) {
-						StudioLogger.debug(HttpUtils.class, "Credentials not found; prompting user for login/password"); //$NON-NLS-1$
+						AndmoreLogger.debug(HttpUtils.class, "Credentials not found; prompting user for login/password"); //$NON-NLS-1$
 
 						subMonitor.setTaskName(UtilitiesNLS.HttpUtils_MonitorTask_WaitingAuthentication);
 
@@ -182,7 +182,7 @@ public class HttpUtils {
 
 					subMonitor.worked(100);
 				} else if (getMethod.getStatusCode() == HttpStatus.SC_OK) {
-					StudioLogger.debug(HttpUtils.class, "Http connection suceeded"); //$NON-NLS-1$
+					AndmoreLogger.debug(HttpUtils.class, "Http connection suceeded"); //$NON-NLS-1$
 
 					subMonitor.setTaskName(UtilitiesNLS.HttpUtils_MonitorTask_RetrievingSiteContent);
 					if ((authenticationRealm != null) && (credentials != null)) {
@@ -193,7 +193,7 @@ public class HttpUtils {
 						subMonitor.worked(100);
 					}
 
-					StudioLogger.info(HttpUtils.class, "Retrieving site content"); //$NON-NLS-1$
+					AndmoreLogger.info(HttpUtils.class, "Retrieving site content"); //$NON-NLS-1$
 
 					// if the stream should not be returned (ex: only testing
 					// the connection is

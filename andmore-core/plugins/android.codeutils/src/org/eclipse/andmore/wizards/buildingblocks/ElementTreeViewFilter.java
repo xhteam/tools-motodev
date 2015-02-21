@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.wizards.buildingblocks;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -53,7 +53,7 @@ class ElementTreeViewFilter extends TypedViewerFilter {
 			try {
 				select = (((IPackageFragmentRoot) element).getKind() == IPackageFragmentRoot.K_SOURCE);
 			} catch (JavaModelException e) {
-				StudioLogger.error(ElementTreeViewFilter.class, e.getLocalizedMessage(), e);
+				AndmoreLogger.error(ElementTreeViewFilter.class, e.getLocalizedMessage(), e);
 			}
 		} else {
 			select = super.select(viewer, parent, element);

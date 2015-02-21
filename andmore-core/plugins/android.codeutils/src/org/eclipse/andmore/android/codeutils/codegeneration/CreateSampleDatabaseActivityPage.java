@@ -24,7 +24,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.db.utils.DatabaseUtils;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.model.ActivityBasedOnTemplate;
 import org.eclipse.andmore.wizards.buildingblocks.Method;
@@ -96,7 +96,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	 * 
 	 * @param activity
 	 *            an
-	 *            {@code com.motorola.studio.android.model.ActivityBasedOnTemplate}
+	 *            {@code org.eclipse.andmore.android.model.ActivityBasedOnTemplate}
 	 *            to be used as the building block model.
 	 */
 	public CreateSampleDatabaseActivityPage(ActivityBasedOnTemplate activity) {
@@ -106,7 +106,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage
 	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
 	 */
@@ -160,7 +160,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getIntentFiltersActions()
 	 */
 	@Override
@@ -177,7 +177,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -188,7 +188,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getHelpId()
 	 */
 	@Override
@@ -199,7 +199,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override
@@ -211,7 +211,7 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -280,11 +280,11 @@ public class CreateSampleDatabaseActivityPage extends NewLauncherWizardPage {
 					treeNodeColletion.add(treeNodeDatabase);
 				} catch (ConnectionProfileException e) {
 					// Log error
-					StudioLogger.error(DatabaseUtils.class, "A error ocurred while retrieving the connection profile.",
+					AndmoreLogger.error(DatabaseUtils.class, "A error ocurred while retrieving the connection profile.",
 							e);
 				} catch (IOException e) {
 					// Log error
-					StudioLogger.error(DatabaseUtils.class, "An I/O error ocurred.", e);
+					AndmoreLogger.error(DatabaseUtils.class, "An I/O error ocurred.", e);
 				}
 			}
 		}

@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.help.handlers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -44,18 +44,18 @@ public class OpenHelpStudioHandler extends AbstractHandler {
 			if (FileUtil.getOS() == FileUtil.OS_LINUX) {
 				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
 						| IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.AS_EXTERNAL,
-						"MOTODEVHelpStudio", null, null);
+						"AndmoreHelpStudio", null, null);
 			} else {
 				browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-						| IWorkbenchBrowserSupport.NAVIGATION_BAR, "MOTODEVHelpStudio", null, null);
+						| IWorkbenchBrowserSupport.NAVIGATION_BAR, "AndmoreHelpStudio", null, null);
 			}
 
 			browser.openURL(new URL(URL_STRING));
 
 		} catch (PartInitException e) {
-			StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: " + e.getMessage());
+			AndmoreLogger.error("Error opening Eclipse Andmore Discussion Board - Studio page: " + e.getMessage());
 		} catch (MalformedURLException e) {
-			StudioLogger.error("Error opening MOTODEV Studio Discussion Board - Studio page: " + e.getMessage());
+			AndmoreLogger.error("Error opening Eclipse Andmore Discussion Board - Studio page: " + e.getMessage());
 		}
 		return null;
 	}

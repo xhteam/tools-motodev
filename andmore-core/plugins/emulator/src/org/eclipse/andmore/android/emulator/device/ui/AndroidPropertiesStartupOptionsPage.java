@@ -17,7 +17,7 @@ package org.eclipse.andmore.android.emulator.device.ui;
 
 import java.util.Properties;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.core.exception.SkinException;
 import org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin;
 import org.eclipse.andmore.android.emulator.core.skin.SkinFramework;
@@ -102,7 +102,7 @@ public class AndroidPropertiesStartupOptionsPage extends PropertyPage implements
 		try {
 			skin = sm.getSkinById(emuInstance.getSkinId(), emuInstance.getSkinPath());
 		} catch (SkinException e) {
-			StudioLogger.error(this.getClass(), "Error reading instance skin during startup options page creation", e);
+			AndmoreLogger.error(this.getClass(), "Error reading instance skin during startup options page creation", e);
 			canCalculateScale = false;
 		}
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.andmore.android.common.IAndroidConstants;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
@@ -49,7 +49,7 @@ class ElementTreeContentProvider extends StandardJavaElementContentProvider {
 					androidProjects.add(obj);
 				}
 			} catch (CoreException ce) {
-				StudioLogger.error(ElementTreeContentProvider.class, ce.getLocalizedMessage(), ce);
+				AndmoreLogger.error(ElementTreeContentProvider.class, ce.getLocalizedMessage(), ce);
 			}
 
 		}

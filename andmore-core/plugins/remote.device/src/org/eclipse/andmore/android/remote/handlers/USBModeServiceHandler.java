@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -69,7 +69,7 @@ public class USBModeServiceHandler extends ServiceHandler {
 
 			subMonitor.worked(100);
 		} catch (Exception e) {
-			StudioLogger.error(USBModeServiceHandler.class, RemoteDeviceNLS.USBModeServiceHandler_2, e);
+			AndmoreLogger.error(USBModeServiceHandler.class, RemoteDeviceNLS.USBModeServiceHandler_2, e);
 		}
 
 		// if it was not possible to retrieve the sdk version
@@ -120,7 +120,7 @@ public class USBModeServiceHandler extends ServiceHandler {
 										NLS.bind(RemoteDeviceNLS.USBModeServiceHandler_MsgSuccess, host));
 							}
 						} catch (IOException e) {
-							StudioLogger.error(this.getClass(), NLS.bind(
+							AndmoreLogger.error(this.getClass(), NLS.bind(
 									"It was not possible to switch the android device {0} connection mode to USB.", //$NON-NLS-1$
 									device.getDeviceName()), e);
 							EclipseUtils.showErrorDialog(RemoteDeviceNLS.Title_ReturningToUSBConnectionDialog, NLS

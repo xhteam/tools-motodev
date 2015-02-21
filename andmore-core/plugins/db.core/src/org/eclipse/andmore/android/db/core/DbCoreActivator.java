@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.db.core;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.andmore.android.common.CommonPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.db.core.model.DbModel;
-import org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView;
+import org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -75,7 +75,7 @@ public class DbCoreActivator extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(DbCoreActivator.class, "Starting MOTODEV Studio for Android Database Core Plugin...");
+		AndmoreLogger.debug(DbCoreActivator.class, "Starting Eclipse Andmore Database Core Plugin...");
 
 		super.start(context);
 		plugin = this;
@@ -83,7 +83,7 @@ public class DbCoreActivator extends AbstractUIPlugin {
 		DbModel.assertDriverExistsAtModel();
 		DbModel.cleanPreviousProfiles();
 
-		StudioLogger.debug(DbCoreActivator.class, "MOTODEV Studio for Android Database Core Plugin started.");
+		AndmoreLogger.debug(DbCoreActivator.class, "Eclipse Andmore Database Core Plugin started.");
 	}
 
 	/*
@@ -169,17 +169,17 @@ public class DbCoreActivator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Retrieves the {@link MOTODEVDatabaseExplorerView} instance if it's
+	 * Retrieves the {@link AndmoreDatabaseExplorerView} instance if it's
 	 * active.
 	 * 
-	 * @return the active instance of the {@link MOTODEVDatabaseExplorerView},
+	 * @return the active instance of the {@link AndmoreDatabaseExplorerView},
 	 *         or null if there's no active db view.
 	 */
-	public static MOTODEVDatabaseExplorerView getMOTODEVDatabaseExplorerView() {
-		IViewPart view = EclipseUtils.getActiveView(MOTODEVDatabaseExplorerView.VIEW_ID);
+	public static AndmoreDatabaseExplorerView getAndmoreDatabaseExplorerView() {
+		IViewPart view = EclipseUtils.getActiveView(AndmoreDatabaseExplorerView.VIEW_ID);
 
-		if (view instanceof MOTODEVDatabaseExplorerView) {
-			return (MOTODEVDatabaseExplorerView) view;
+		if (view instanceof AndmoreDatabaseExplorerView) {
+			return (AndmoreDatabaseExplorerView) view;
 		}
 
 		return null;

@@ -54,7 +54,7 @@ import com.android.ddmuilib.handler.BaseFileHandler;
  * Class to handle post HPROF dumping things. Based on the existing HprofHandler
  * from ADT.
  */
-public class MotodevHProfDumpHandler extends BaseFileHandler implements IHprofDumpHandler {
+public class AndmoreHProfDumpHandler extends BaseFileHandler implements IHprofDumpHandler {
 	public final static String SAVE_ACTION = "hprof.save"; //$NON-NLS-1$
 
 	public final static String OPEN_ACTION = "hprof.open"; //$NON-NLS-1$
@@ -86,7 +86,7 @@ public class MotodevHProfDumpHandler extends BaseFileHandler implements IHprofDu
 		this.selectedApp = selectedApp;
 	}
 
-	public MotodevHProfDumpHandler(Shell parentShell, IProgressMonitor monitor) {
+	public AndmoreHProfDumpHandler(Shell parentShell, IProgressMonitor monitor) {
 		super(parentShell);
 		this.progressMonitor = monitor;
 	}
@@ -161,7 +161,7 @@ public class MotodevHProfDumpHandler extends BaseFileHandler implements IHprofDu
 					try {
 						promptAndPull(syncService,
 								client.getClientData().getClientDescription() + HPROF_FILE_EXTENSION, remoteFilePath,
-								AndroidNLS.MotodevHProfDumpHandler_saveHProfFile);
+								AndroidNLS.AndmoreHProfDumpHandler_saveHProfFile);
 					} catch (Exception e) {
 						displayErrorFromUiThread(AndroidNLS.UI_Hprof_Handler_Dialog_Unable_to_download_Hprof
 								+ FORMATTED_ERROR_STRING, targetDevice.getSerialNumber(), e.getLocalizedMessage());
@@ -235,8 +235,8 @@ public class MotodevHProfDumpHandler extends BaseFileHandler implements IHprofDu
 			@Override
 			public void run() {
 				boolean openPrefPage = DialogWithToggleUtils.showQuestion(AndroidPlugin.WARN_ABOUT_HPROF_PREFERENCE,
-						AndroidNLS.MotodevHProfDumpHandler_warnAboutHprofSavePrefTitle,
-						AndroidNLS.MotodevHProfDumpHandler_warnAboutHprofSavePrefMsg);
+						AndroidNLS.AndmoreHProfDumpHandler_warnAboutHprofSavePrefTitle,
+						AndroidNLS.AndmoreHProfDumpHandler_warnAboutHprofSavePrefMsg);
 				if (openPrefPage) {
 					IWorkbench workbench = PlatformUI.getWorkbench();
 					IWorkbenchWindow ww = workbench.getActiveWorkbenchWindow();

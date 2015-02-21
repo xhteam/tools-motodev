@@ -16,7 +16,7 @@
 package org.eclipse.andmore.android.common.exception;
 
 /**
- * Represents the base exception to be used in MOTODEV Studio for Android
+ * Represents the base exception to be used in Eclipse Andmore
  */
 public class AndroidException extends Exception {
 	private static final long serialVersionUID = 1854601362994563511L;

@@ -24,7 +24,7 @@ public class CollapseAllHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		DbCoreActivator.getMOTODEVDatabaseExplorerView().collapseAllTreeItems();
+		DbCoreActivator.getAndmoreDatabaseExplorerView().collapseAllTreeItems();
 		return null;
 	}
 

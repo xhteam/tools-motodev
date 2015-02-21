@@ -48,7 +48,7 @@ class P2InstallableItem extends InstallableItem {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.installer.utilities.InstallableItem#
+	 * @see org.eclipse.andmore.android.installer.utilities.InstallableItem#
 	 * hasPrerequrementsFulfilled()
 	 */
 	@Override
@@ -60,7 +60,7 @@ class P2InstallableItem extends InstallableItem {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.installer.utilities.InstallableItem#
+	 * @see org.eclipse.andmore.android.installer.utilities.InstallableItem#
 	 * getMaxBufferSize()
 	 */
 	@Override

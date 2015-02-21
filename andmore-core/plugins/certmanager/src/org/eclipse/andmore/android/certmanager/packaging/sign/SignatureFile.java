@@ -26,7 +26,7 @@ import java.util.jar.Manifest;
 import org.bouncycastle.util.encoders.Base64Encoder;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.packaging.PackageFile;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * This class implements the package signature file, that follows the jar
@@ -127,7 +127,7 @@ public class SignatureFile {
 				try {
 					stream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream writing signature file. " + e.getMessage());
+					AndmoreLogger.error("Could not close stream writing signature file. " + e.getMessage());
 				}
 			}
 		}
@@ -164,12 +164,12 @@ public class SignatureFile {
 							encodedStream.close();
 						}
 					} catch (IOException e) {
-						StudioLogger.error("Could not close stream: " + e.getMessage());
+						AndmoreLogger.error("Could not close stream: " + e.getMessage());
 					}
 				}
 			}
 		} catch (IOException e) {
-			StudioLogger.error(SignatureFile.class, "I/O error digesting manifest entries: " + e.getMessage());
+			AndmoreLogger.error(SignatureFile.class, "I/O error digesting manifest entries: " + e.getMessage());
 
 			throw new SignException("I/O error digesting manifest entries", e);
 		} finally {
@@ -178,13 +178,13 @@ public class SignatureFile {
 					baos.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Could not close stream: " + e.getMessage());
+				AndmoreLogger.error("Could not close stream: " + e.getMessage());
 			}
 		}
 
 		// I/O exceptions below are thrown unmodified
 		signatureFile.write(outputStream);
 
-		StudioLogger.info(SignatureFile.class, "Signature file was written");
+		AndmoreLogger.info(SignatureFile.class, "Signature file was written");
 	}
 }

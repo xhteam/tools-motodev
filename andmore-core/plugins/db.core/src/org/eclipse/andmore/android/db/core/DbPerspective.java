@@ -21,14 +21,14 @@ import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 
 /**
- * The MOTODEV Database Perspective factory
+ * The Andmore Database Perspective factory
  */
 public class DbPerspective implements IPerspectiveFactory {
 	private static String VIEW_SQL_RESULTS = "org.eclipse.datatools.sqltools.result.resultView"; //$NON-NLS-1$
 
 	private static String VIEW_TML_DEV_MGT = "org.eclipse.sequoyah.device.framework.ui.InstanceMgtView"; //$NON-NLS-1$
 
-	public static String VIEW_MOTODEV_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
+	public static String VIEW_ANDMORE_DATABASE = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
 	private static String VIEW_FILE_EXPLORER = "org.eclipse.andmore.ddms.views.FileExplorerView"; //$NON-NLS-1$
 
@@ -38,7 +38,7 @@ public class DbPerspective implements IPerspectiveFactory {
 
 	private static String ACTIONSET_NAVIGATE = "org.eclipse.ui.NavigateActionSet"; //$NON-NLS-1$
 
-	private static String PERSPECTIVE_MOTODEV = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
+	private static String PERSPECTIVE_ANDMORE = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
 
 	private static String VIEW_SNIPPETS = "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$
 
@@ -58,7 +58,7 @@ public class DbPerspective implements IPerspectiveFactory {
 		layout.setEditorAreaVisible(true);
 
 		IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, 0.25f, editorArea); //$NON-NLS-1$
-		left.addView(VIEW_MOTODEV_DATABASE);
+		left.addView(VIEW_ANDMORE_DATABASE);
 
 		IFolderLayout leftBottom = layout.createFolder("leftBottom", IPageLayout.BOTTOM, 0.59f, "left"); //$NON-NLS-1$ //$NON-NLS-2$
 		leftBottom.addView(VIEW_SNIPPETS);
@@ -75,12 +75,12 @@ public class DbPerspective implements IPerspectiveFactory {
 		layout.addActionSet(ACTIONSET_LAUNCH);
 		layout.addActionSet(ACTIONSET_NAVIGATE);
 
-		layout.addShowViewShortcut(VIEW_MOTODEV_DATABASE);
+		layout.addShowViewShortcut(VIEW_ANDMORE_DATABASE);
 		layout.addShowViewShortcut(VIEW_SQL_RESULTS);
 		layout.addShowViewShortcut(VIEW_TML_DEV_MGT);
 		layout.addShowViewShortcut(VIEW_FILE_EXPLORER);
 		layout.addShowViewShortcut(VIEW_CONSOLE);
 
-		layout.addPerspectiveShortcut(PERSPECTIVE_MOTODEV);
+		layout.addPerspectiveShortcut(PERSPECTIVE_ANDMORE);
 	}
 }

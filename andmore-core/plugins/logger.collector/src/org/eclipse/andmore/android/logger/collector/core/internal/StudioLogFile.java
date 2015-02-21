@@ -33,7 +33,7 @@ public class StudioLogFile implements ILogFile {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogFilePath
+	 * org.eclipse.andmore.android.logger.collector.core.ILogFile#getLogFilePath
 	 * ()
 	 */
 	@Override
@@ -60,7 +60,7 @@ public class StudioLogFile implements ILogFile {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.platform.logger.collector.core.ILogFile#getLogName()
+	 * org.eclipse.andmore.android.logger.collector.core.ILogFile#getLogName()
 	 */
 	@Override
 	public String getLogName() {
@@ -70,7 +70,7 @@ public class StudioLogFile implements ILogFile {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.platform.logger.collector.core.ILogFile#
+	 * @see org.eclipse.andmore.android.logger.collector.core.ILogFile#
 	 * getOutputSubfolderName()
 	 */
 	@Override

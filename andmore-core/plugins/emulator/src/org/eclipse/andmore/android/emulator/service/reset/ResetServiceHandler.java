@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.emulator.service.reset;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
@@ -76,7 +76,7 @@ public class ResetServiceHandler extends ServiceHandler {
 
 		// Collecting usage data for statistical purposes
 		try {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_RESET, UsageDataConstants.KIND_EMULATOR,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_RESET, UsageDataConstants.KIND_EMULATOR,
 					UsageDataConstants.DESCRIPTION_DEFAULT, EmulatorPlugin.PLUGIN_ID, EmulatorPlugin.getDefault()
 							.getBundle().getVersion().toString());
 		} catch (Throwable e) {
@@ -88,7 +88,7 @@ public class ResetServiceHandler extends ServiceHandler {
 
 	@Override
 	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
-		StudioLogger.info("Updating reset service");
+		AndmoreLogger.info("Updating reset service");
 		return Status.OK_STATUS;
 	}
 

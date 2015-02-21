@@ -3,7 +3,7 @@
 <reference id="u_emulator_android" xml:lang="en-us">
   <title>Android Emulator view</title>
   <shortdesc>The Android Emulator view allows you to see and interact with a running AVD. This allows you to test your
-    applications without needing an Android device, all from within MOTODEV Studio for Android. Note that this view
+    applications without needing an Android device, all from within Eclipse Andmore. Note that this view
     displays all running AVDs; if there are none, the view is empty. </shortdesc>
   <prolog>
     <metadata>

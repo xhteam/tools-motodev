@@ -286,7 +286,7 @@ public class MonkeyOptionsComposite extends AbstractPropertiesComposite implemen
 	/**
 	 * Update command line value
 	 * 
-	 * @see com.motorola.studio.android.emulator.device.ui.AbstractPropertiesComposite#notifyCompositeChangeListeners()
+	 * @see org.eclipse.andmore.android.emulator.device.ui.AbstractPropertiesComposite#notifyCompositeChangeListeners()
 	 */
 	@Override
 	protected void notifyCompositeChangeListeners() {

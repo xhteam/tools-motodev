@@ -29,8 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.android.StudioAndroidEventManager.EventType;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager.EventType;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
@@ -142,7 +142,7 @@ public class DDMSUtils {
 	};
 
 	static {
-		StudioAndroidEventManager.asyncAddDeviceChangeListeners(null, disconnectedListener);
+		AndmoreEventManager.asyncAddDeviceChangeListeners(null, disconnectedListener);
 	}
 
 	public static void takeScreenshot(final String serialNumber) {
@@ -279,7 +279,7 @@ public class DDMSUtils {
 			responses[0] = languageCommandResult.replaceAll("\\n$", "");
 			responses[1] = countryCommandResult.replaceAll("\\n$", "");
 		} catch (IOException e) {
-			StudioLogger.error("Deploy: Could not execute adb current language command.");
+			AndmoreLogger.error("Deploy: Could not execute adb current language command.");
 		}
 		return responses;
 	}
@@ -320,7 +320,7 @@ public class DDMSUtils {
 						bean.setCanOverwrite(wizard.canOverwrite());
 					}
 				} catch (Throwable e) {
-					StudioLogger.error(DDMSFacade.class, "Error executing deploy wizard", e);
+					AndmoreLogger.error(DDMSFacade.class, "Error executing deploy wizard", e);
 				}
 			}
 		});
@@ -342,13 +342,13 @@ public class DDMSUtils {
 						consoleOut.close();
 					}
 				} catch (IOException e) {
-					StudioLogger.error("Install App: could not close console stream" + e.getMessage());
+					AndmoreLogger.error("Install App: could not close console stream" + e.getMessage());
 				}
 			}
 		}
 
 		if (status.isOK()) {
-			StudioAndroidEventManager.fireEvent(EventType.PACKAGE_INSTALLED, serialNumber);
+			AndmoreEventManager.fireEvent(EventType.PACKAGE_INSTALLED, serialNumber);
 		}
 
 		return status;
@@ -429,12 +429,12 @@ public class DDMSUtils {
 							bufferedReader.close();
 						}
 					} catch (IOException e) {
-						StudioLogger.error("Uninstall app could not close stream. " + e.getMessage());
+						AndmoreLogger.error("Uninstall app could not close stream. " + e.getMessage());
 					}
 
 				}
 			} else {
-				StudioLogger.error(DDMSFacade.class,
+				AndmoreLogger.error(DDMSFacade.class,
 						"Impossible to check APK package name. No android targets found inside SDK");
 			}
 
@@ -467,7 +467,7 @@ public class DDMSUtils {
 		} catch (Exception e) {
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID,
 					AndroidNLS.ERR_DDMSFacade_UninstallPackageException, e);
-			StudioLogger.error(DDMSFacade.class, "Failed to remove package: " + packageName + ". " + e.getMessage());
+			AndmoreLogger.error(DDMSFacade.class, "Failed to remove package: " + packageName + ". " + e.getMessage());
 		}
 		return status;
 	}
@@ -491,7 +491,7 @@ public class DDMSUtils {
 
 		} catch (Exception e) {
 			EclipseUtils.showErrorDialog(AndroidNLS.UI_MonkeyError_Title, AndroidNLS.UI_MonkeyError_Msg);
-			StudioLogger.error(DDMSFacade.class, "Failed to run monkey command: " + command + " " + e.getMessage());
+			AndmoreLogger.error(DDMSFacade.class, "Failed to run monkey command: " + command + " " + e.getMessage());
 		}
 		return status;
 	}
@@ -510,7 +510,7 @@ public class DDMSUtils {
 
 		IStatus returnStatus = null;
 		for (String packageToUninstall : packagesToUninstall) {
-			StudioLogger.info(DDMSUtils.class, "Removing package: " + packageToUninstall);
+			AndmoreLogger.info(DDMSUtils.class, "Removing package: " + packageToUninstall);
 			IStatus temp = uninstallPackage(serialNumber, packageToUninstall, outputStream);
 			if (!temp.isOK()) {
 				if (returnStatus == null) {
@@ -542,7 +542,7 @@ public class DDMSUtils {
 		for (String packageToRunMonkey : packagesToRunMonkey) {
 			allPackages += MONKEY_PACKAGES_DIRECTIVE + packageToRunMonkey;
 		}
-		StudioLogger.info(DDMSUtils.class, "Running monkey for: " + allPackages);
+		AndmoreLogger.info(DDMSUtils.class, "Running monkey for: " + allPackages);
 		IStatus temp = runMonkey(serialNumber, allPackages, outputStream, otherCmds);
 		if (!temp.isOK()) {
 			if (returnStatus == null) {
@@ -621,7 +621,7 @@ public class DDMSUtils {
 						consoleOut.close();
 					}
 				} catch (IOException e) {
-					StudioLogger.error("Uninstall App: could not close console stream" + e.getMessage());
+					AndmoreLogger.error("Uninstall App: could not close console stream" + e.getMessage());
 				}
 			}
 		}
@@ -634,7 +634,7 @@ public class DDMSUtils {
 								AndroidNLS.UI_UninstallApp_SucessDialogTitle, AndroidNLS.UI_UninstallApp_Message);
 					}
 				});
-				StudioAndroidEventManager.fireEvent(EventType.PACKAGE_UNINSTALLED, serialNumber);
+				AndmoreEventManager.fireEvent(EventType.PACKAGE_UNINSTALLED, serialNumber);
 			} else {
 				EclipseUtils.showErrorDialog(AndroidNLS.UI_UninstallApp_ERRDialogTitle,
 						AndroidNLS.UI_UninstallApp_ERRUninstallApp, status);
@@ -654,12 +654,12 @@ public class DDMSUtils {
 	private static ILaunchConfiguration createLaunchConfiguration(String deviceName) {
 		ILaunchConfiguration config = null;
 		ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType motodevLaunchType = launchManager
+		ILaunchConfigurationType andmoreLaunchType = launchManager
 				.getLaunchConfigurationType(IMonkeyConfigurationConstants.LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID);
 		String launchConfigurationName = launchManager
 				.generateUniqueLaunchConfigurationNameFrom(IMonkeyConfigurationConstants.NEW_CONFIGURATION_NAME);
 		try {
-			ILaunchConfigurationWorkingCopy workingCopy = motodevLaunchType.newInstance(null, launchConfigurationName);
+			ILaunchConfigurationWorkingCopy workingCopy = andmoreLaunchType.newInstance(null, launchConfigurationName);
 			workingCopy.setAttribute(IMonkeyConfigurationConstants.ATTR_DEVICE_INSTANCE_NAME, deviceName);
 			config = workingCopy.doSave();
 		} catch (CoreException e) {
@@ -716,12 +716,12 @@ public class DDMSUtils {
 			});
 
 		} catch (CoreException e) {
-			StudioLogger.error("Monkey: could not open the launch configuration dialog " + e.getMessage());
+			AndmoreLogger.error("Monkey: could not open the launch configuration dialog " + e.getMessage());
 
 		}
 
 		// UDC log for monkey execution
-		StudioLogger.collectUsageData(UsageDataConstants.WHAT_MONKEY_EXEC, UsageDataConstants.KIND_MONKEY_EXEC,
+		AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_MONKEY_EXEC, UsageDataConstants.KIND_MONKEY_EXEC,
 				"Monkey executed", //$NON-NLS-1$
 				AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle().getBundleContext().getBundle()
 						.getVersion().toString());
@@ -753,7 +753,7 @@ public class DDMSUtils {
 						consoleOut.close();
 					}
 				} catch (IOException e) {
-					StudioLogger.error("Monkey: could not close console stream" + e.getMessage());
+					AndmoreLogger.error("Monkey: could not close console stream" + e.getMessage());
 				}
 			}
 		}
@@ -825,14 +825,14 @@ public class DDMSUtils {
 
 		// Return if no instance is selected
 		if (serialNumber == null) {
-			StudioLogger.error("Abort deploy operation. Serial number is null.");
+			AndmoreLogger.error("Abort deploy operation. Serial number is null.");
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID,
 					AndroidNLS.ERR_DDMSFacade_SerialNumberNullPointer);
 		}
 
 		// Return if instance is not started
 		if (status.isOK() && !DDMSFacade.isDeviceOnline(serialNumber)) {
-			StudioLogger.error("Abort deploy operation. Device is not online.");
+			AndmoreLogger.error("Abort deploy operation. Device is not online.");
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, "");
 		}
 
@@ -848,7 +848,7 @@ public class DDMSUtils {
 							"Error executing the operation. Execution results: " + command_results);
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Deploy: Could not execute adb install command.");
+				AndmoreLogger.error("Deploy: Could not execute adb install command.");
 				status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, e.getMessage());
 			}
 		}
@@ -893,9 +893,9 @@ public class DDMSUtils {
 						DDMSFacade.executeCommand(cmd, consoleOut);
 						consoleOut.write("\n " + serialNumber + ":" + AndroidNLS.UI_ChangeLang_Restart_Device_Manually
 								+ "\n\n");
-						StudioAndroidEventManager.fireEvent(EventType.LANGUAGE_CHANGED, serialNumber);
+						AndmoreEventManager.fireEvent(EventType.LANGUAGE_CHANGED, serialNumber);
 					} catch (IOException e) {
-						StudioLogger.error("Language: Could not execute adb change language command.");
+						AndmoreLogger.error("Language: Could not execute adb change language command.");
 					}
 
 				}
@@ -934,11 +934,11 @@ public class DDMSUtils {
 		// once more wont kill
 		File f = new File(sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Language: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+			AndmoreLogger.error("Language: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Language: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+				AndmoreLogger.error("Language: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 						+ File.separator);
 			}
 		}
@@ -970,11 +970,11 @@ public class DDMSUtils {
 		// once more wont kill
 		File f = new File(sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Language: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+			AndmoreLogger.error("Language: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Language: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+				AndmoreLogger.error("Language: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 						+ File.separator);
 			}
 		}
@@ -1013,11 +1013,11 @@ public class DDMSUtils {
 		// once more wont kill
 		File f = new File(sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Deploy: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+			AndmoreLogger.error("Deploy: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Deploy: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+				AndmoreLogger.error("Deploy: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 						+ File.separator);
 			}
 		}
@@ -1045,11 +1045,11 @@ public class DDMSUtils {
 		// once more wont kill
 		File f = new File(sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Run: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+			AndmoreLogger.error("Run: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Run: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+				AndmoreLogger.error("Run: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 						+ File.separator);
 			}
 		}
@@ -1077,11 +1077,11 @@ public class DDMSUtils {
 		// once more wont kill
 		File f = new File(sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Run: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+			AndmoreLogger.error("Run: Could not find tools folder on " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Run: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
+				AndmoreLogger.error("Run: Invalid tools folder " + sdkPath + DDMSFacade.PLATFORM_TOOLS_FOLDER
 						+ File.separator);
 			}
 		}

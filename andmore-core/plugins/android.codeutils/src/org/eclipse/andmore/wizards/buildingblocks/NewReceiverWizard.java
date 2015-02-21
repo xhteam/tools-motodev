@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.BuildingBlockModel;
@@ -86,11 +86,11 @@ public class NewReceiverWizard extends NewBuildingBlocksWizard {
 					JavaUI.openInEditor(javaFile);
 				} catch (PartInitException e) {
 					// Do nothing
-					StudioLogger.error(NewReceiverWizard.class, "Could not open the broadcast receiver "
+					AndmoreLogger.error(NewReceiverWizard.class, "Could not open the broadcast receiver "
 							+ getBuildingBlock().getName() + " on an editor.", e);
 				} catch (JavaModelException e) {
 					// Do nothing
-					StudioLogger.error(NewReceiverWizard.class, "Could not open the broadcast receiver "
+					AndmoreLogger.error(NewReceiverWizard.class, "Could not open the broadcast receiver "
 							+ getBuildingBlock().getName() + " on an editor.", e);
 				}
 			}
@@ -99,7 +99,7 @@ public class NewReceiverWizard extends NewBuildingBlocksWizard {
 		if (saved) {
 			// Collecting usage data for statistical purposes
 			try {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_RECEIVER,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_RECEIVER,
 						UsageDataConstants.KIND_BUILDINGBLOCK, UsageDataConstants.DESCRIPTION_DEFAULT,
 						CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion()
 								.toString());
@@ -140,7 +140,7 @@ public class NewReceiverWizard extends NewBuildingBlocksWizard {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewBuildingBlocksWizard
 	 * #getBuildingBlock()
 	 */
 	@Override

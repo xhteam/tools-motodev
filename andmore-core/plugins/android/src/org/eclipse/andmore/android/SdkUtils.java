@@ -32,7 +32,7 @@ import java.util.Properties;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
@@ -123,7 +123,7 @@ public class SdkUtils {
 	public static String getTargetAAPTPath(IAndroidTarget target) {
 		IAndroidTarget realTarget = null;
 		if (target == null) {
-			StudioLogger.warn(SdkUtils.class, "Trying to find a suitable aapt application to use"); //$NON-NLS-1$
+			AndmoreLogger.warn(SdkUtils.class, "Trying to find a suitable aapt application to use"); //$NON-NLS-1$
 			IAndroidTarget[] allTargets = Sdk.getCurrent().getTargets();
 			if (allTargets.length > 0) {
 				realTarget = allTargets[0];
@@ -137,7 +137,7 @@ public class SdkUtils {
 		}
 
 		if (realTarget == null) {
-			StudioLogger.warn(SdkUtils.class, "No aapt executable found: do you have an Android platform installed?"); //$NON-NLS-1$
+			AndmoreLogger.warn(SdkUtils.class, "No aapt executable found: do you have an Android platform installed?"); //$NON-NLS-1$
 		}
 
 		return realTarget != null ? realTarget.getPath(IAndroidTarget.ANDROID_JAR) : null;
@@ -160,7 +160,7 @@ public class SdkUtils {
 		try {
 			getVmManager().reloadAvds(NullSdkLogger.getLogger());
 		} catch (Exception e) {
-			StudioLogger.error(SdkUtils.class, "Error while reloading AVDs"); //$NON-NLS-1$
+			AndmoreLogger.error(SdkUtils.class, "Error while reloading AVDs"); //$NON-NLS-1$
 		}
 
 	}
@@ -316,10 +316,10 @@ public class SdkUtils {
 			p.load(configFileStream);
 			skin = p.getProperty(EMU_CONFIG_SKIN_NAME_PROPERTY);
 		} catch (FileNotFoundException e) {
-			StudioLogger.error(SdkUtils.class,
+			AndmoreLogger.error(SdkUtils.class,
 					"Error getting VM skin definition. Could not find file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
 		} catch (IOException e) {
-			StudioLogger.error(SdkUtils.class,
+			AndmoreLogger.error(SdkUtils.class,
 					"Error getting VM skin definition. Could not access file " + configFile.getAbsolutePath(), e); //$NON-NLS-1$
 		} finally {
 			if (configFileStream != null) {
@@ -437,7 +437,7 @@ public class SdkUtils {
 				vmManager.removeAvd(avdToDelete);
 
 			} catch (Exception e) {
-				StudioLogger.error("Could not delete AVD: " + e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not delete AVD: " + e.getMessage()); //$NON-NLS-1$
 			}
 		}
 
@@ -584,7 +584,7 @@ public class SdkUtils {
 		try {
 			Sdk.getCurrent().initProject(project, target);
 		} catch (Exception e) {
-			StudioLogger.error(SdkUtils.class, "Error associating project " + project.getName() //$NON-NLS-1$
+			AndmoreLogger.error(SdkUtils.class, "Error associating project " + project.getName() //$NON-NLS-1$
 					+ " with target " + target.getName()); //$NON-NLS-1$
 		}
 	}
@@ -623,9 +623,9 @@ public class SdkUtils {
 			}
 
 		} catch (AndroidException e) {
-			StudioLogger.error("Error getting min sdk version. " + e.getMessage());
+			AndmoreLogger.error("Error getting min sdk version. " + e.getMessage());
 		} catch (CoreException e) {
-			StudioLogger.error("Error getting min sdk version. " + e.getMessage());
+			AndmoreLogger.error("Error getting min sdk version. " + e.getMessage());
 		}
 		return minSdkVersion;
 	}

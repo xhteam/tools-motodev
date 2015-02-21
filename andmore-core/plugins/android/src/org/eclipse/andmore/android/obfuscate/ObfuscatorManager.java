@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.core.resources.IFile;
@@ -93,11 +93,11 @@ public class ObfuscatorManager {
 				// Do nothing, user just have to press F5
 			}
 		} catch (Exception e) {
-			StudioLogger.error(ObfuscatorManager.class, "Error while setting Proguard to obfuscate", e);
+			AndmoreLogger.error(ObfuscatorManager.class, "Error while setting Proguard to obfuscate", e);
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, "Could not set Proguard to obfuscate", e);
 		}
 
-		StudioLogger.collectUsageData(UsageDataConstants.WHAT_OBFUSCATE, UsageDataConstants.KIND_OBFUSCATE,
+		AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_OBFUSCATE, UsageDataConstants.KIND_OBFUSCATE,
 				UsageDataConstants.DESCRIPTION_DEFAULT, AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle()
 						.getVersion().toString());
 
@@ -129,11 +129,11 @@ public class ObfuscatorManager {
 				// Do nothing, user just have to press F5
 			}
 		} catch (Exception e) {
-			StudioLogger.error(ObfuscatorManager.class, "Error while removing Proguard settings", e);
+			AndmoreLogger.error(ObfuscatorManager.class, "Error while removing Proguard settings", e);
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, "Could not remove Proguard settings", e);
 		}
 
-		StudioLogger.collectUsageData(UsageDataConstants.WHAT_OBFUSCATE, UsageDataConstants.KIND_DESOBFUSCATE,
+		AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_OBFUSCATE, UsageDataConstants.KIND_DESOBFUSCATE,
 				UsageDataConstants.DESCRIPTION_DEFAULT, AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle()
 						.getVersion().toString());
 
@@ -188,7 +188,7 @@ public class ObfuscatorManager {
 					stream.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.info("Could not close stream while reading obfuscator properties file. " + e.getMessage());
+				AndmoreLogger.info("Could not close stream while reading obfuscator properties file. " + e.getMessage());
 			}
 		}
 		return text.toString();
@@ -225,7 +225,7 @@ public class ObfuscatorManager {
 		try {
 			defaultPropertiesContent = read(propertiesFile, false);
 		} catch (IOException e) {
-			StudioLogger.error(ObfuscatorManager.class, e.getMessage(), e);
+			AndmoreLogger.error(ObfuscatorManager.class, e.getMessage(), e);
 		}
 		return ((defaultPropertiesContent != null) && defaultPropertiesContent.contains(PROGUARD_CONFIG_STATEMENT));
 	}
@@ -297,7 +297,7 @@ public class ObfuscatorManager {
 			try {
 				fileURL = proguardFromSDK.toURI().toURL();
 			} catch (MalformedURLException e) {
-				StudioLogger.warn(ObfuscatorManager.class, "Exception converting proguard template file to URL", e);
+				AndmoreLogger.warn(ObfuscatorManager.class, "Exception converting proguard template file to URL", e);
 			}
 		}
 		// copy file bundled with android plugin

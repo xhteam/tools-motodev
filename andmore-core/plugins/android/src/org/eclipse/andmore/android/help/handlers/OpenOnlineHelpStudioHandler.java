@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.help.handlers;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.PlatformUI;
@@ -23,7 +23,7 @@ import org.eclipse.ui.help.IWorkbenchHelpSystem;
 
 public class OpenOnlineHelpStudioHandler extends AbstractHandler {
 
-	private static final String HREF = "/com.motorola.studio.android.tooldocs.studio.helpbase/topics/c_android-studio.html";
+	private static final String HREF = "/org.eclipse.andmore.android.tooldocs.studio.helpbase/topics/c_android-studio.html";
 
 	@Override
 	public final Object execute(final ExecutionEvent event) {
@@ -35,7 +35,7 @@ public class OpenOnlineHelpStudioHandler extends AbstractHandler {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error("Error opening Help Contents through MOTODEV menu: " + e.getMessage());
+			AndmoreLogger.error("Error opening Help Contents through Andmore menu: " + e.getMessage());
 		}
 		return null;
 	}

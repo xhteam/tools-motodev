@@ -15,12 +15,12 @@
  */
 package org.eclipse.andmore.android.emulator.service.start;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.util.Map;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.core.exception.StartCancelledException;
@@ -86,11 +86,11 @@ public class StartEmulatorHandler extends ServiceHandler {
 			}
 
 			description = UsageDataConstants.KEY_TARGET + description;
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_START, UsageDataConstants.KIND_EMULATOR,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_START, UsageDataConstants.KIND_EMULATOR,
 					description, EmulatorPlugin.PLUGIN_ID, EmulatorPlugin.getDefault().getBundle().getVersion()
 							.toString());
 		} catch (Throwable t) {
-			StudioLogger.error(StartEmulatorHandler.class.toString(),
+			AndmoreLogger.error(StartEmulatorHandler.class.toString(),
 					"An exception ocurred during emulator start up process.", t);
 			status = new Status(IStatus.ERROR, EmulatorPlugin.PLUGIN_ID,
 					"An exception ocurred during emulator start up process.");

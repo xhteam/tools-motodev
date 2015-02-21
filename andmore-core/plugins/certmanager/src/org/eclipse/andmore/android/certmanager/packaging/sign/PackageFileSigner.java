@@ -36,13 +36,13 @@ import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.packaging.PackageFile;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * Utility class used to sign package files.
  */
 public class PackageFileSigner {
-	public static final String MOTODEV_STUDIO = "MOTODEV Studio";
+	public static final String ECLIPSE_ANDMORE = "Eclipse Andmore";
 
 	/**
 	 * Signs a package file
@@ -70,7 +70,7 @@ public class PackageFileSigner {
 		} catch (UnrecoverableKeyException e) {
 			throw e;
 		} catch (Exception e) {
-			StudioLogger.error(PackageFileSigner.class, "Error signing package", e);
+			AndmoreLogger.error(PackageFileSigner.class, "Error signing package", e);
 			throw new SignException(e.getMessage(), e);
 		}
 
@@ -141,7 +141,7 @@ public class PackageFileSigner {
 							fileInputStream.close();
 						}
 					} catch (IOException e) {
-						StudioLogger.error("Could not close stream while signing package. " + e.getMessage());
+						AndmoreLogger.error("Could not close stream while signing package. " + e.getMessage());
 					}
 				}
 			}
@@ -187,7 +187,7 @@ public class PackageFileSigner {
 				try {
 					sigFileOutStream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while adding signature files to package. "
+					AndmoreLogger.error("Could not close stream while adding signature files to package. "
 							+ e.getMessage());
 				}
 			}
@@ -209,7 +209,7 @@ public class PackageFileSigner {
 				try {
 					sigBlockFileOutStream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while adding signature files to package. "
+					AndmoreLogger.error("Could not close stream while adding signature files to package. "
 							+ e.getMessage());
 				}
 			}

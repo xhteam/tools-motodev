@@ -41,7 +41,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.proxy.ProxyAuthenticator;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
@@ -197,7 +197,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 			String descriptionToLog = UsageDataConstants.KEY_TRANSLATION_PROVIDER + UsageDataConstants.VALUE_GOOGLE
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_FROM_LANG + from
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_TO_LANG + to;
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
 					UsageDataConstants.KIND_LOCALIZATION, descriptionToLog, TranslationPlugin.PLUGIN_ID,
 					TranslationPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable t) {
@@ -254,7 +254,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_FROM_LANG + fromLanguage
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_TO_LANG + "several languages"; //$NON-NLS-1$
 
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
 					UsageDataConstants.KIND_LOCALIZATION, descriptionToLog, TranslationPlugin.PLUGIN_ID,
 					TranslationPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable t) {
@@ -300,7 +300,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_FROM_LANG + fromLanguage
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_TO_LANG + toLanguage;
 
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
 					UsageDataConstants.KIND_LOCALIZATION, descriptionToLog, TranslationPlugin.PLUGIN_ID,
 					TranslationPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable t) {
@@ -345,7 +345,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_FROM_LANG + fromLanguage
 					+ UsageDataConstants.SEPARATOR + UsageDataConstants.KEY_TRANSLATION_TO_LANG + toLanguage;
 
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_LOCALIZATION_AUTOMATICTRANSLATION,
 					UsageDataConstants.KIND_LOCALIZATION, descriptionToLog, TranslationPlugin.PLUGIN_ID,
 					TranslationPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable t) {
@@ -543,7 +543,7 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 		try {
 			translationURL = new URL(urlBuilder.toString());
 		} catch (MalformedURLException e) {
-			StudioLogger.error(getClass(), "Unable to create translation URL", e);
+			AndmoreLogger.error(getClass(), "Unable to create translation URL", e);
 		}
 
 		return translationURL;
@@ -605,12 +605,12 @@ public final class GoogleTranslator extends ITranslator implements GoogleTransla
 			String urlStr = url.toString();
 			if (urlStr.startsWith("https")) {
 				proxyData = proxyService.getProxyData(IProxyData.HTTPS_PROXY_TYPE);
-				StudioLogger.debug(GoogleTranslator.class, "Using https proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(GoogleTranslator.class, "Using https proxy"); //$NON-NLS-1$
 			} else if (urlStr.startsWith("http")) {
 				proxyData = proxyService.getProxyData(IProxyData.HTTP_PROXY_TYPE);
-				StudioLogger.debug(GoogleTranslator.class, "Using http proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(GoogleTranslator.class, "Using http proxy"); //$NON-NLS-1$
 			} else {
-				StudioLogger.debug(GoogleTranslator.class, "Not using any proxy"); //$NON-NLS-1$
+				AndmoreLogger.debug(GoogleTranslator.class, "Not using any proxy"); //$NON-NLS-1$
 			}
 		}
 

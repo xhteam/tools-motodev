@@ -211,7 +211,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getBuildBlock()
 	 */
 	@Override
@@ -222,7 +222,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage
 	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
 	 */
@@ -266,7 +266,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#typeNameChanged()
 	 */
 	@Override
@@ -296,7 +296,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -307,7 +307,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -318,7 +318,7 @@ public class NewProviderMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override

@@ -24,7 +24,7 @@ import java.util.List;
 import org.apache.xerces.parsers.DOMParser;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.model.resources.types.AbstractResourceNode;
 import org.eclipse.andmore.android.model.resources.types.AbstractSimpleNameResourceNode;
 import org.eclipse.andmore.android.model.resources.types.ColorNode;
@@ -87,12 +87,12 @@ public class AbstractResourceFileParser implements IResourceTypesAttributes {
 		} catch (SAXException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_AbstractResourceFileParser_ErrorParsingTheXMLFile,
 					sourceFileName, e.getLocalizedMessage());
-			StudioLogger.error(AbstractResourceFileParser.class, errMsg, e);
+			AndmoreLogger.error(AbstractResourceFileParser.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} catch (IOException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_AbstractResourceFileParser_ErrorReadingTheXMLContent,
 					sourceFileName, e.getLocalizedMessage());
-			StudioLogger.error(AbstractResourceFileParser.class, errMsg, e);
+			AndmoreLogger.error(AbstractResourceFileParser.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} finally {
 			if (stringReader != null) {

@@ -2,7 +2,7 @@
 <!DOCTYPE task
   PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task xml:lang="en-us" id="t_project-creating_android">
-  <title>Creating a MOTODEV Studio for Android project</title>
+  <title>Creating a Eclipse Andmore project</title>
   <shortdesc>The New Android project wizard allows you to quickly and easily create a new application for an Android
     device.</shortdesc>
   <prolog>
@@ -63,7 +63,7 @@
       <step>
         <cmd>If the new Android project will contain native (C/C++) code in addition to Java, select <uicontrol>Add
             native support</uicontrol>. Note that you will not be able to select this option unless you have properly
-          installed the Android NDK and configured MOTODEV Studio for Android for native development.</cmd>
+          installed the Android NDK and configured Eclipse Andmore for native development.</cmd>
       </step>
       <step>
         <cmd>If your Java classes should be obfuscated when you create a release version of your app, select <uicontrol

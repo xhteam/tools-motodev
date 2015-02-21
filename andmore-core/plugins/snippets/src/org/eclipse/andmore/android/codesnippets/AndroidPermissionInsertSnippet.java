@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.andmore.android.codesnippets.i18n.AndroidSnippetsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
@@ -62,7 +62,7 @@ public class AndroidPermissionInsertSnippet extends DefaultSnippetInsertion {
 			String snippetLabel = snippetEntry.getLabel();
 
 			if (CodeSnippetsPlugin.getDefault() != null) {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_CODESNIPPET, UsageDataConstants.KIND_CODESNIPPET,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_CODESNIPPET, UsageDataConstants.KIND_CODESNIPPET,
 						"Codesnippet '" + snippetLabel + "' used. Permission added: " + permissionsAdded, //$NON-NLS-1$
 						AndroidSnippetsStartup.SNIPPETS_VIEW_ID, CodeSnippetsPlugin.getDefault().getBundle()
 								.getVersion().toString());
@@ -159,7 +159,7 @@ public class AndroidPermissionInsertSnippet extends DefaultSnippetInsertion {
 					neededPermissions.add(permNameToAdd);
 				} else {
 					// log malformed permission statement
-					StudioLogger.error(AndroidPermissionInsertSnippet.class,
+					AndmoreLogger.error(AndroidPermissionInsertSnippet.class,
 							"Permission code snippet was not in the right format to enable insert of uses-permission on androidmanifest.xml" //$NON-NLS-1$
 									+ snippetText);
 				}
@@ -201,7 +201,7 @@ public class AndroidPermissionInsertSnippet extends DefaultSnippetInsertion {
 
 			AndroidProjectManifestFile.saveToProject(project, androidManifestFile, true);
 		} catch (Exception e) {
-			StudioLogger.error(AndroidPermissionInsertSnippet.class,
+			AndmoreLogger.error(AndroidPermissionInsertSnippet.class,
 					"Error adding snippet permissions to androidmanifest.xml.", e); //$NON-NLS-1$
 		}
 	}

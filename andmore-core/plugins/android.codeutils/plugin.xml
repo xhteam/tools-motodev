@@ -157,7 +157,7 @@
          <command
                commandId="org.eclipse.andmore.android.fillActivityBasedOnLayout"
                icon="icons/obj16/fill_code_from_layout_16x16.png"
-               label="%Motodev_Studio_Fill_Activity_Based_On_Layout"
+               label="%Andmore_Fill_Activity_Based_On_Layout"
                style="push">
            <visibleWhen
                   checkEnabled="false">
@@ -252,7 +252,7 @@
          </command>
          <command
                commandId="org.eclipse.andmore.android.GenerateMenuCode"
-               label="%Motodev_Studio_Generate_Menu_Code"
+               label="%Andmore_Generate_Menu_Code"
                style="push">
                <visibleWhen
                   checkEnabled="false">
@@ -304,7 +304,7 @@
          <command
                commandId="org.eclipse.andmore.android.fillActivityBasedOnLayout"
                icon="icons/obj16/fill_code_from_layout_16x16.png"
-               label="%Motodev_Studio_Fill_Activity_Based_On_Layout"
+               label="%Andmore_Fill_Activity_Based_On_Layout"
                style="push">
          </command>
          <command
@@ -314,7 +314,7 @@
          </command>
          <command
                commandId="org.eclipse.andmore.android.GenerateMenuCode"
-               label="%Motodev_Studio_Generate_Menu_Code"
+               label="%Andmore_Generate_Menu_Code"
                style="push">
          </command>
       </menuContribution>
@@ -361,7 +361,7 @@
       <command
             defaultHandler="org.eclipse.andmore.android.generateviewbylayout.ui.GenerateViewBasedOnLayoutHandler"
             id="org.eclipse.andmore.android.fillActivityBasedOnLayout"
-            name="%Motodev_Studio_Fill_Activity_Based_On_Layout">
+            name="%Andmore_Fill_Activity_Based_On_Layout">
       </command>
       <command
             defaultHandler="org.eclipse.andmore.android.generateviewbylayout.ui.FillOnSaveInstanceStateHandler"
@@ -372,7 +372,7 @@
       <command
             defaultHandler="org.eclipse.andmore.android.generatemenucode.ui.GenerateMenuCodeHandler"
             id="org.eclipse.andmore.android.GenerateMenuCode"
-            name="%Motodev_Studio_Generate_Menu_Code">
+            name="%Andmore_Generate_Menu_Code">
       </command>
    </extension>
 	   <extension

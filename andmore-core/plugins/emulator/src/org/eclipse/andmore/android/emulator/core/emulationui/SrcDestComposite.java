@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.core.emulationui;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
 
 import java.util.Collection;
 import java.util.HashMap;

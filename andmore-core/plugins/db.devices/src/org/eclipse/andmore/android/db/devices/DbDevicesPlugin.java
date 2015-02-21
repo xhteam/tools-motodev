@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.db.devices;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.devices.ui.preferences.DbPreferencePage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -43,15 +43,15 @@ public class DbDevicesPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(DbCoreActivator.class,
-				"Starting MOTODEV Studio for Android Database Devices Support Plugin...");
+		AndmoreLogger.debug(DbCoreActivator.class,
+				"Starting Eclipse Andmore Database Devices Support Plugin...");
 
 		super.start(context);
 		DbPreferencePage.restoreBackWardPref(this.getPreferenceStore());
 		plugin = this;
 
-		StudioLogger.debug(DbCoreActivator.class,
-				"MOTODEV Studio for Android Database Devices Support Plugin started...");
+		AndmoreLogger.debug(DbCoreActivator.class,
+				"Eclipse Andmore Database Devices Support Plugin started...");
 	}
 
 	/*

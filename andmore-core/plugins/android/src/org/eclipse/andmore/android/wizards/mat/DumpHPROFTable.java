@@ -39,7 +39,7 @@ public class DumpHPROFTable extends TableWithLoadingInfo<DumpHPROFWizardPage, Co
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.elements.tablewithloadinginfo.
+	 * @see org.eclipse.andmore.android.wizards.elements.tablewithloadinginfo.
 	 * TableWithLoadingInfo#addTableData(java.util.Collection)
 	 */
 	@Override

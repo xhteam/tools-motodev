@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
 import org.eclipse.andmore.android.remote.instance.RemoteDeviceInstance;
 import org.eclipse.andmore.android.remote.ui.wireless.WirelessWizard;
@@ -186,7 +186,7 @@ public class SwitchFromUSBAndConnectToWirelessRunnable implements IRunnableWithP
 	 * @return Returns the Error status.
 	 */
 	private IStatus handleStatusAndLogDuringException(Exception exception) {
-		StudioLogger.error(this.getClass(), exception.getMessage(), exception);
+		AndmoreLogger.error(this.getClass(), exception.getMessage(), exception);
 		return new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, exception.getMessage());
 	}
 }

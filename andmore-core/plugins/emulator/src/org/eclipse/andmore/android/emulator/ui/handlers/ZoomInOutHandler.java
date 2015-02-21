@@ -32,7 +32,7 @@ public class ZoomInOutHandler extends AbstractZoomHandler {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.ui.handlers.AbstractZoomHandler#
+	 * org.eclipse.andmore.android.emulator.ui.handlers.AbstractZoomHandler#
 	 * getZoomFactor(java.util.Map)
 	 */
 	@SuppressWarnings("rawtypes")
@@ -71,9 +71,9 @@ public class ZoomInOutHandler extends AbstractZoomHandler {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.ui.handlers.AbstractZoomHandler#
+	 * org.eclipse.andmore.android.emulator.ui.handlers.AbstractZoomHandler#
 	 * testZoomFactor
-	 * (com.motorola.studio.android.emulator.ui.view.AndroidViewData,
+	 * (org.eclipse.andmore.android.emulator.ui.view.AndroidViewData,
 	 * java.util.Map, double)
 	 */
 	@SuppressWarnings("rawtypes")

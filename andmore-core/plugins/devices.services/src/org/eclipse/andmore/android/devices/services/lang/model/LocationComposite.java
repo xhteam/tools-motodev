@@ -133,7 +133,7 @@ public class LocationComposite extends Composite {
 	 * 1. The currentLanguageId parameter was obtained through an ADB shell
 	 * command sent to emulator. The ID returned is a String similar to "pt",
 	 * "en", "fr" for Portuguese, English and French respectively. For more
-	 * details, please see: <br> com.motorola.studio.android.adt.DDMSUtils.
+	 * details, please see: <br> org.eclipse.andmore.android.adt.DDMSUtils.
 	 * getCurrentEmulatorLanguageAndCountry method. <p>
 	 * 
 	 * 2. The currentLanguageId parameter is passed to getLanguagesList method
@@ -168,7 +168,7 @@ public class LocationComposite extends Composite {
 	 * 1. The currentCountryId parameter was obtained through an ADB shell
 	 * command sent to emulator. The ID returned is a String similar to "it",
 	 * "us", "ru" for Italy, USA and Russia respectively. For more details,
-	 * please see: <br> com.motorola.studio.android.adt.DDMSUtils.
+	 * please see: <br> org.eclipse.andmore.android.adt.DDMSUtils.
 	 * getCurrentEmulatorLanguageAndCountry method. <p>
 	 * 
 	 * 2. The currentCountryId parameter is passed to getCountriesList method in

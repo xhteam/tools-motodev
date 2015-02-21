@@ -35,7 +35,7 @@ public class DimenNode extends AbstractSimpleNameResourceNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.types.AbstractResourceNode
+	 * org.eclipse.andmore.android.model.resources.types.AbstractResourceNode
 	 * #getNodeType()
 	 */
 	@Override

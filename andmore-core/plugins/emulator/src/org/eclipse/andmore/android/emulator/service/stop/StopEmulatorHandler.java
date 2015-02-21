@@ -15,12 +15,12 @@
  */
 package org.eclipse.andmore.android.emulator.service.stop;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.util.Map;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.device.instance.AndroidDeviceInstance;
@@ -89,7 +89,7 @@ public class StopEmulatorHandler extends ServiceHandler {
 
 		// Collecting usage data for statistical purposes
 		try {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_STOP, UsageDataConstants.KIND_EMULATOR,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_STOP, UsageDataConstants.KIND_EMULATOR,
 					status.toString(), EmulatorPlugin.PLUGIN_ID, EmulatorPlugin.getDefault().getBundle().getVersion()
 							.toString());
 		} catch (Throwable e) {

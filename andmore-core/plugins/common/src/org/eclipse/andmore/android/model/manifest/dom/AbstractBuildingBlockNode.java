@@ -60,7 +60,7 @@ public abstract class AbstractBuildingBlockNode extends AbstractIconLabelNameNod
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.manifest.dom.AbstractIconLabelNameNode
+	 * org.eclipse.andmore.android.model.manifest.dom.AbstractIconLabelNameNode
 	 * #addAdditionalProperties()
 	 */
 	@Override

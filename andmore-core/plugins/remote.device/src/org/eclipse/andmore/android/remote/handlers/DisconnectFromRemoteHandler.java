@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.remote.RemoteDeviceConstants;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -61,12 +61,12 @@ public class DisconnectFromRemoteHandler extends ServiceHandler {
 	 */
 	@Override
 	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
-		StudioLogger.debug("TmL Disconnect from Remote Device Service: start disconnecting from remote device: "
+		AndmoreLogger.debug("TmL Disconnect from Remote Device Service: start disconnecting from remote device: "
 				+ instance);
 
 		if (arguments != null) {
 			if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue()) {
-				StudioLogger.debug("TmL Disconnect from Remote Device Service: dummy transition");
+				AndmoreLogger.debug("TmL Disconnect from Remote Device Service: dummy transition");
 				setSuffix(instance);
 				return Status.OK_STATUS;
 			}
@@ -96,7 +96,7 @@ public class DisconnectFromRemoteHandler extends ServiceHandler {
 			setSuffix(instance);
 		}
 
-		StudioLogger
+		AndmoreLogger
 				.debug("TmL Disconnect from Remote Device Service: finish disconnecting from remote device. status: "
 						+ status.getSeverity());
 
@@ -122,7 +122,7 @@ public class DisconnectFromRemoteHandler extends ServiceHandler {
 	 */
 	private void setSuffix(IInstance instance) {
 		if (instance != null) {
-			StudioLogger.debug("TmL Disconnect from Remote Device Service: removing suffix from instance "
+			AndmoreLogger.debug("TmL Disconnect from Remote Device Service: removing suffix from instance "
 					+ instance.getName());
 			instance.setNameSuffix(null);
 			InstanceEventManager.getInstance().notifyListeners(

@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.generatecode.JDTUtils;
@@ -90,7 +90,7 @@ public class GenerateMenuCodeHandler extends AbstractHandler implements IHandler
 				try {
 					editor = JavaUI.openInEditor(compilationUnit);
 				} catch (Exception e) {
-					StudioLogger
+					AndmoreLogger
 							.warn(GenerateMenuCodeHandler.class,
 									"Unable to open editor or bring it to front for Java file while trying to generate menu code based on xml file", //$NON-NLS-1$
 									e);
@@ -111,7 +111,7 @@ public class GenerateMenuCodeHandler extends AbstractHandler implements IHandler
 										InterruptedException {
 									try {
 										// collect usage data - UDC
-										StudioLogger.collectUsageData(UsageDataConstants.WHAT_VIEW_BY_MENU_EXEC,
+										AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_VIEW_BY_MENU_EXEC,
 												UsageDataConstants.KIND_VIEW_BY_MENU_EXEC,
 												"View by menu feature executed.", //$NON-NLS-1$
 												CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault()
@@ -135,14 +135,14 @@ public class GenerateMenuCodeHandler extends AbstractHandler implements IHandler
 														e.getMessage(), mostSevere);
 											}
 										});
-										StudioLogger.error(this.getClass(),
+										AndmoreLogger.error(this.getClass(),
 												"Error inserting code on activity/fragment based on menu" //$NON-NLS-1$
 														+ ": " + e.getMessage()); //$NON-NLS-1$
 									}
 								}
 							});
 						} catch (Exception e) {
-							StudioLogger.error(this.getClass(),
+							AndmoreLogger.error(this.getClass(),
 									"Error inserting code on activity/fragment based on menu" //$NON-NLS-1$
 											+ ": " + e.getMessage()); //$NON-NLS-1$
 						}
@@ -193,7 +193,7 @@ public class GenerateMenuCodeHandler extends AbstractHandler implements IHandler
 					selectionBean.setJavaProject(resource.getProject());
 					selectionBean.setProject(true);
 				} catch (Exception ex) {
-					StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", ex); //$NON-NLS-1$
+					AndmoreLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", ex); //$NON-NLS-1$
 					throw new RuntimeException(
 							CodeUtilsNLS.GenerateMenuCodeHandler_Error_CannotRetrieveClassInformation, ex);
 				}
@@ -209,7 +209,7 @@ public class GenerateMenuCodeHandler extends AbstractHandler implements IHandler
 						|| JDTUtils.isFragmentSubclass(selectionBean.getJavaFile())
 						|| JDTUtils.isCompatibilityFragmentSubclass(selectionBean.getJavaFile()));
 			} catch (JavaModelException jme) {
-				StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", jme); //$NON-NLS-1$
+				AndmoreLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", jme); //$NON-NLS-1$
 				throw new RuntimeException(CodeUtilsNLS.GenerateMenuCodeHandler_Error_CannotRetrieveClassInformation,
 						jme);
 			}

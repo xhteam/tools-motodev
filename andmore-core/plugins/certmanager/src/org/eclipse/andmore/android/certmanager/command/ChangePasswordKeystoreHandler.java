@@ -28,7 +28,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.ui.PasswordInputDialog;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -109,7 +109,7 @@ public class ChangePasswordKeystoreHandler extends AbstractHandler2 implements I
 							}
 						} catch (Exception e1) {
 							// invalid old password
-							StudioLogger.error(ChangePasswordKeystoreHandler.class, e1.getMessage(), e1);
+							AndmoreLogger.error(ChangePasswordKeystoreHandler.class, e1.getMessage(), e1);
 							cancelledOrChangedPassword = false;
 							EclipseUtils.showErrorDialog(
 									CertificateManagerNLS.ChangePasswordKeystoreHandler_Error_WrongOldKeystorePassword,

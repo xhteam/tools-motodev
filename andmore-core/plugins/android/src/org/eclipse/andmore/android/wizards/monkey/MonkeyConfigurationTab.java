@@ -22,7 +22,7 @@ import java.util.Map;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.DevicesManager;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.wizards.elements.sorting.TableItemSortStringSetActionListener;
@@ -494,7 +494,7 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public Image getImage() {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(AndroidPlugin.PLUGIN_ID,
-				IMonkeyConfigurationConstants.MOTODEV_APP_ICO).createImage();
+				IMonkeyConfigurationConstants.ANDMORE_APP_ICO).createImage();
 	}
 
 	@Override
@@ -549,7 +549,7 @@ public class MonkeyConfigurationTab extends AbstractLaunchConfigurationTab {
 			e.data = UPDATE_WIDGETS_EVENT;
 			mainComposite.notifyListeners(SWT.Modify, e);
 		} catch (CoreException e) {
-			StudioLogger.error(MonkeyConfigurationTab.class,
+			AndmoreLogger.error(MonkeyConfigurationTab.class,
 					"Failed to initialize Monkey Launch Configuration:" + e.getMessage());
 		}
 

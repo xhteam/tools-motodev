@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
 
 import org.eclipse.andmore.android.common.CommonPlugin;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -140,11 +140,11 @@ public class AndroidUtils {
 							"android:name"); //$NON-NLS-1$
 				}
 			} catch (Exception e) {
-				StudioLogger.warn("It was not possible to reach ADT methods (reflection break)", e.getMessage());
+				AndmoreLogger.warn("It was not possible to reach ADT methods (reflection break)", e.getMessage());
 				try {
 					attributeValues = getIntentFilterPermissions().toArray(attributeValues);
 				} catch (IOException e1) {
-					StudioLogger.error(UtilitiesNLS.AndroidUtils_NotPossibleToReachPermissionsFile_Error,
+					AndmoreLogger.error(UtilitiesNLS.AndroidUtils_NotPossibleToReachPermissionsFile_Error,
 							e1.getMessage());
 				}
 				EclipseUtils.showWarningDialog(UtilitiesNLS.AndroidUtils_ERROR_GETINTENTPERMISSIONSBYREFLECTION_TITLE,
@@ -455,7 +455,7 @@ public class AndroidUtils {
 				api = (Integer) apiLevel;
 			}
 		} catch (Exception e) {
-			StudioLogger.info("It was not possible to reach ADT methods (reflection break)", e.getMessage());
+			AndmoreLogger.info("It was not possible to reach ADT methods (reflection break)", e.getMessage());
 			throw new AndroidException(UtilitiesNLS.AndroidUtils_NotPossibleToGetAPIVersionNumber_Error);
 		}
 		return api;

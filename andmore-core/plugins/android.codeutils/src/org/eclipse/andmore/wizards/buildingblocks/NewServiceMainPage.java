@@ -39,7 +39,7 @@ public class NewServiceMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getBuildBlock()
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class NewServiceMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -76,7 +76,7 @@ public class NewServiceMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -87,7 +87,7 @@ public class NewServiceMainPage extends NewBuildingBlocksWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override

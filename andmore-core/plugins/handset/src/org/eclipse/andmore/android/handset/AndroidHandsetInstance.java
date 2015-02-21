@@ -36,7 +36,7 @@ public class AndroidHandsetInstance extends AbstractMobileInstance implements IS
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getSerialNumber()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getSerialNumber()
 	 */
 	@Override
 	public String getSerialNumber() {
@@ -46,7 +46,7 @@ public class AndroidHandsetInstance extends AbstractMobileInstance implements IS
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getDeviceName()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getDeviceName()
 	 */
 	@Override
 	public String getDeviceName() {

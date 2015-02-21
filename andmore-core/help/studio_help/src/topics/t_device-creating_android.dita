@@ -3,8 +3,8 @@
   PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task xml:lang="en-us" id="t_device-creating_android">
   <title>Creating an Android Virtual Device (AVD)</title>
-  <shortdesc>Although MOTODEV Studio for Android recognizes Android Virtual Devices (AVDs) created from the command
-    line, it is much simpler to create them from within MOTODEV Studio for Android.</shortdesc>
+  <shortdesc>Although Eclipse Andmore recognizes Android Virtual Devices (AVDs) created from the command
+    line, it is much simpler to create them from within Eclipse Andmore.</shortdesc>
   <prolog>
     <metadata>
       <keywords>

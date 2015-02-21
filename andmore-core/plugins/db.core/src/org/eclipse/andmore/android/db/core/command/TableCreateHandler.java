@@ -116,7 +116,7 @@ public class TableCreateHandler extends AbstractHandler {
 
 	private ITableCreatorNode getSelectedItem() {
 		ITableCreatorNode selectedNode = null;
-		ITreeNode selectedItem = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+		ITreeNode selectedItem = DbCoreActivator.getAndmoreDatabaseExplorerView().getSelectedItemOnTree();
 
 		if (selectedItem instanceof ITableCreatorNode) {
 			selectedNode = (ITableCreatorNode) selectedItem;

@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.core.skin;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.File;
 import java.util.Collection;
@@ -36,7 +36,7 @@ import org.eclipse.osgi.util.NLS;
  * DESCRIPTION: This class is the entrance point to the Android Emulator Skin
  * Contribution Framework module. Through this, other modules are able to
  * retrieve information about all plugins plugged at
- * com.motorola.studio.android.emulator.skin extension point.
+ * org.eclipse.andmore.android.emulator.skin extension point.
  *
  * RESPONSIBILITY: - Provide information about plugged skins
  *

@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.remote;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +23,8 @@ import java.util.List;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DdmsRunnable;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.remote.instance.RemoteDeviceInstance;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.sequoyah.device.common.utilities.exception.SequoyahException;
@@ -143,16 +143,16 @@ public class RemoteDevicePlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(RemoteDevicePlugin.class, "Starting MOTODEV Android Remote Device Plugin...");
+		AndmoreLogger.debug(RemoteDevicePlugin.class, "Starting Andmore Remote Device Plugin...");
 
 		super.start(context);
 		plugin = this;
 		AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
-		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
 		InstanceEventManager.getInstance().addInstanceListener(tmlListener);
 		PlatformUI.getWorkbench().addWorkbenchListener(workbenchListener);
 
-		StudioLogger.debug(RemoteDevicePlugin.class, "Starting MOTODEV Android Remote Device Plugin started.");
+		AndmoreLogger.debug(RemoteDevicePlugin.class, "Starting Andmore Remote Device Plugin started.");
 	}
 
 	/*
@@ -165,7 +165,7 @@ public class RemoteDevicePlugin extends AbstractUIPlugin {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
-		StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
 		InstanceEventManager.getInstance().removeInstanceListener(tmlListener);
 		PlatformUI.getWorkbench().removeWorkbenchListener(workbenchListener);
 		plugin = null;

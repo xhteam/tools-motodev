@@ -24,11 +24,11 @@
             <uicontrol>Properties</uicontrol>, select <uicontrol>MOTODEV Studio</uicontrol> from the list of properties,
           and then select <uicontrol>Obfuscate Java classes</uicontrol>. Clear this option if you want to prevent
           obfuscation of this project in future project builds.</li>
-        <li>To enable or disable obfuscation for multiple projects, select <uicontrol>Enable/Disable Obfuscation</uicontrol> from the MOTODEV menu. In the dialog that appears select those projects that should be
+        <li>To enable or disable obfuscation for multiple projects, select <uicontrol>Enable/Disable Obfuscation</uicontrol> from the Andmore menu. In the dialog that appears select those projects that should be
           obfuscated (ensuring that any projects that should not be obfuscated are not selected), then click <uicontrol
             >OK</uicontrol>. </li>
       </ul>
-      <p>Whichever of the above you use to enable obfuscation, MOTODEV Studio for Android enables and configures
+      <p>Whichever of the above you use to enable obfuscation, Eclipse Andmore enables and configures
         ProGuard for you. If needed you can then further customize it as outlined on the ProGuard page within the
         Android developer documentation.</p>
       <note>ProGuard requires that your development computer have a full JDK (Java Development Kit) installed; you

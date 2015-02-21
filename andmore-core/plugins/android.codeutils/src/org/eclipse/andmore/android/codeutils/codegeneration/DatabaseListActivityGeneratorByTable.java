@@ -26,7 +26,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.db.utils.DatabaseUtils;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.IDatabaseSampleActivityParametersWizardCollector;
 import org.eclipse.core.resources.IProject;
@@ -277,7 +277,7 @@ public class DatabaseListActivityGeneratorByTable implements IDatabaseSampleActi
 					getSqlOpenHelperClassName(), isOverrideContentProviders, generateDao, subMonitor.newChild(10),
 					false);
 		} catch (Exception e) {
-			StudioLogger.error(DatabaseListActivityGeneratorByTable.class,
+			AndmoreLogger.error(DatabaseListActivityGeneratorByTable.class,
 					CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE, e);
 			IStatus status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
 			EclipseUtils.showErrorDialog(CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE,

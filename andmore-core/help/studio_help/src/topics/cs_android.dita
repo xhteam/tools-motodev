@@ -5,7 +5,7 @@
   <title>Android CS Help</title>
   <shortdesc/>
   <csbody/>
-  <!-- Plug-in: com.motorola.studio.android.emulator -->
+  <!-- Plug-in: org.eclipse.andmore.android.emulator -->
   <cshelp id="emulator">
     <title>Android Emulator view</title>
     <shortdesc>Presents a simulated handset to which you can deploy and test your applications.</shortdesc>
@@ -14,25 +14,25 @@
       <link href="u_emulator_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="newproj">
     <title>New Android Project wizard</title>
-    <shortdesc>Creates a new MOTODEV Studio for Android project.</shortdesc>
+    <shortdesc>Creates a new Eclipse Andmore project.</shortdesc>
     <csbody/>
     <related-links>
       <link href="u_new-proj_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="newwdgproj">
     <title>New Android Widget Project wizard</title>
-    <shortdesc>Creates a new MOTODEV Studio for Android project for an Android widget.</shortdesc>
+    <shortdesc>Creates a new Eclipse Andmore project for an Android widget.</shortdesc>
     <csbody/>
     <related-links>
       <link href="u_new-proj-widget_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="newactivity">
     <title>New Activity wizard</title>
     <shortdesc>Creates a new activity in an existing project.</shortdesc>
@@ -41,7 +41,7 @@
       <link href="u_new-activity.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="new-activity-based-on-template">
     <title>New Android Activity Based on Template wizard</title>
     <shortdesc>Creates a new activity, based on a sample activity, in an existing project.</shortdesc>
@@ -50,7 +50,7 @@
       <link href="u_new-activity-template.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="newbcastrcvr">
     <title>New Broadcast Receiver wizard</title>
     <shortdesc>Creates a new broadcast receiver in an existing project.</shortdesc>
@@ -59,7 +59,7 @@
       <link href="u_new-broadcast-receiver.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="newcontprov">
     <title>New Content Provider wizard</title>
     <shortdesc>Creates a new content provider in an existing project.</shortdesc>
@@ -68,7 +68,7 @@
       <link href="u_new-content-provider.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="newwidgtprvd">
     <title>New Android Widget Provider wizard</title>
     <shortdesc>Creates a new Android widget provider in an existing project.</shortdesc>
@@ -77,7 +77,7 @@
       <link href="u_new-widget-provider.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="newservice">
     <title>New Service wizard</title>
     <shortdesc>Creates a new Android service in an existing project.</shortdesc>
@@ -86,7 +86,7 @@
       <link href="u_new-service.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="started_instances_selection_dialog">
     <title>Preferred AVD Offline dialog</title>
     <shortdesc>Shown when the AVD specified by a run configuration is not running, and a compatible AVD is running. This dialog allows you to specify whether the app should be deployed to the compatible AVD or the specified AVD.</shortdesc>
@@ -95,7 +95,7 @@
       <link href="u_avd-offline-dialog.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.platform.logger.collector -->
+  <!-- Plug-in: org.eclipse.andmore.android.logger.collector -->
   <cshelp id="collectlogs">
     <title>Collect Log Files dialog</title>
     <shortdesc>Allows you to collect Eclipse and Studio log files and package them into a single ZIP archive.</shortdesc>
@@ -123,7 +123,7 @@
       <link href="u_new-device.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.emulator -->
+  <!-- Plug-in: org.eclipse.andmore.android.emulator -->
   <cshelp id="newdevmain">
     <title>New Android Virtual Device Instance dialog (main information)</title>
     <shortdesc>Supply basic information about the AVD, such as the target operating system and the device skin to use.</shortdesc>
@@ -132,7 +132,7 @@
       <link href="u_new-device-main_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.emulator -->
+  <!-- Plug-in: org.eclipse.andmore.android.emulator -->
   <cshelp id="newdevstartup">
     <title>New Android Virtual Device Instance dialog (startup options)</title>
     <shortdesc>Supply options to use when starting the AVD.</shortdesc>
@@ -141,9 +141,9 @@
       <link href="u_new-device-startup_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.launch -->
+  <!-- Plug-in: org.eclipse.andmore.android.launch -->
   <cshelp id="mainLaunchTab">
-    <title>MOTODEV Studio for Android Application - run/debug configuration dialog</title>
+    <title>Eclipse Andmore Application - run/debug configuration dialog</title>
     <shortdesc>A run configuration brings together all of the information needed to run a specific executable on a
       specific device instance, making it simple to repeatedly run that executable on that device instance.</shortdesc>
     <csbody/>
@@ -151,7 +151,7 @@
       <link href="u_run-config-main.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.launch.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.launch.ui -->
   <!-- the above plug-in doesn't exist... -->
   <cshelp id="DeviceSelectionDialog">
     <title>Instance Selection dialog</title>
@@ -161,7 +161,7 @@
       <link href="u_select-instance.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.launch -->
+  <!-- Plug-in: org.eclipse.andmore.android.launch -->
   <cshelp id="activitySelectionDialog">
     <title>Activity Selection dialog</title>
     <shortdesc>Select an activity.</shortdesc>
@@ -170,7 +170,7 @@
       <link href="u_select-activity.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.launch -->
+  <!-- Plug-in: org.eclipse.andmore.android.launch -->
   <cshelp id="projectSelectionDialog">
     <title>Project Selection dialog</title>
     <shortdesc>Select a project.</shortdesc>
@@ -197,7 +197,7 @@
       <link href="u_mpkg-unsign_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.platform.tools.sign.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.tools.sign.ui -->
   <cshelp id="appsigning">
     <title>Application Signing Tool view</title>
     <shortdesc>Automates the digital signing of applications for Android devices.</shortdesc>
@@ -206,7 +206,7 @@
       <link href="u_app-signing-view.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="preference-emulator-view">
     <title>Android Emulator preferences</title>
     <shortdesc>Contains preferences that control the operation of the Android Emulator view.</shortdesc>
@@ -215,16 +215,16 @@
       <link href="u_studio-prefs_emulator.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="preference-android-emulator">
-    <title>MOTODEV Studio for Android preferences</title>
-    <shortdesc>Contains preferences specific to MOTODEV Studio for Android.</shortdesc>
+    <title>Eclipse Andmore preferences</title>
+    <shortdesc>Contains preferences specific to Eclipse Andmore.</shortdesc>
     <csbody/>
     <related-links>
       <link href="u_studio-prefs_android.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <!-- Currently this one is not linked from anywhere, but should be Preferences > MOTODEV Studio > MOTODEV Login -->
   <cshelp id="preference-motoappstore">
     <title>MOTODEV Login preferences</title>
@@ -243,7 +243,7 @@
       <link href="u_studio-prefs_db.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.platform.tools.sign.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.tools.sign.ui -->
   <cshelp id="create-key-pair">
     <title>Create Key Pair dialog</title>
     <shortdesc>Create a public/private key pair.</shortdesc>
@@ -252,7 +252,7 @@
       <link href="u_sign-create-key-pair.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.platform.tools.sign.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.tools.sign.ui -->
   <cshelp id="import-cert">
     <title>Import Certificate dialog</title>
     <shortdesc>Import a certificate.</shortdesc>
@@ -261,7 +261,7 @@
       <link href="u_sign-import-cert.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.platform.tools.sign.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.tools.sign.ui -->
   <cshelp id="import-key">
     <title>Import Key dialog</title>
     <shortdesc>Import a key.</shortdesc>
@@ -288,7 +288,7 @@
       <link href="u_sign-import-keystore.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.packaging.ui -->
+  <!-- Plug-in: org.eclipse.andmore.android.packaging.ui -->
   <cshelp id="packaging_help">
     <title>Export Android Package Files dialog</title>
     <shortdesc>Create Android package files for selected projects.</shortdesc>
@@ -297,7 +297,7 @@
       <link href="u_pkg-export.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="install_app">
     <title>Install application dialog</title>
     <shortdesc>Specify a package to be installed.</shortdesc>
@@ -306,7 +306,7 @@
       <link href="u_pkg-install.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="uninstall_app">
     <title>Uninstall Application dialog</title>
     <shortdesc>Specify one or more packages to be removed from a device.</shortdesc>
@@ -333,7 +333,7 @@
       <link href="u_db-sql-scrapbook.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="create_db_classes">
     <title>Database Management Classes</title>
     <shortdesc>Generate classes that allow you to manage and access a database.</shortdesc>
@@ -342,7 +342,7 @@
       <link href="u_db-classes-create.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.installer -->
+  <!-- Plug-in: org.eclipse.andmore.android.installer -->
   <cshelp id="configuration_dialog">
     <title>Download Components</title>
     <shortdesc>Downloads and installs new components, such as SDKs, SDK add-ons, language packs, and code samples.</shortdesc>
@@ -351,7 +351,7 @@
       <link href="u_download-components.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.installer -->
+  <!-- Plug-in: org.eclipse.andmore.android.installer -->
   <cshelp id="sdk_download_location">
     <title>SDK Download Location</title>
     <shortdesc>Specifies the location to which the Android SDK should be downloaded.</shortdesc>
@@ -360,7 +360,7 @@
       <link href="u_sdk-download-location.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.installer -->
+  <!-- Plug-in: org.eclipse.andmore.android.installer -->
   <cshelp id="sdk_download_retry">
     <title>SDK Not Found</title>
     <shortdesc>Indicates that the chosen SDK could not be downloaded due to a problem with your Internet connection.</shortdesc>
@@ -369,7 +369,7 @@
       <link href="u_download-components.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.devices.services -->
+  <!-- Plug-in: org.eclipse.andmore.android.devices.services -->
   <cshelp id="langPage">
     <title>Emulator Language</title>
     <shortdesc>Changes the device's language configuration.</shortdesc>
@@ -378,7 +378,7 @@
       <link href="u_emulator-language.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="dump_hprof">
     <title>Analyze Memory Using MAT dialog</title>
     <shortdesc>Select the running application to be analyzed using MAT, the Eclipse memory analyzer.</shortdesc>
@@ -387,12 +387,12 @@
       <link href="u_memory-analyze-app-select.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="monkey">
     <title>Run Configurations (Monkey) dialog</title>
     <shortdesc>The Android UI/Application Exerciser Monkey sends pseudo-random events (within limits you set) to your
       application. This can prove to be an effective way to exercise little-used paths within your code, thus uncovering
-      bugs you might otherwise not find. Within MOTODEV Studio for Android you create "Test events with Monkey" run
+      bugs you might otherwise not find. Within Eclipse Andmore you create "Test events with Monkey" run
       configurations that specify the device on which to test, the packages to be exercised, the number of pseudo-random
       events to send, and other constraints on how the events are generated. These configurations allow you to create
       repeatable test scenarios for your applications.</shortdesc>
@@ -401,7 +401,7 @@
       <link href="u_run-config-monkey-main.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="obuscation_property">
     <title>MOTODEV Studio</title>
     <shortdesc>Use this dialog to control whether Java classes should be obfuscated when the parent Android project is
@@ -411,7 +411,7 @@
       <link href="u_obfuscation-prop.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android -->
+  <!-- Plug-in: org.eclipse.andmore.android -->
   <cshelp id="obfuscation-dialog">
     <title>Obfuscation</title>
     <shortdesc>Obfuscate the Java classes that make up one or more Android projects.</shortdesc>
@@ -420,7 +420,7 @@
       <link href="u_obfuscate-projects.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="generate-code-from-layout-dialog">
     <title>Generate Java Code Based on Layout</title>
     <shortdesc>Generates boilerplate code for selected UI elements defined in an activity's or fragment's layout file.</shortdesc>
@@ -429,7 +429,7 @@
       <link href="u_code-generator.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.videos.views -->
+  <!-- Plug-in: org.eclipse.andmore.android.videos.views -->
   <cshelp id="MOTODEVVideosView">
     <title>MOTODEV Video Tutorials view</title>
     <shortdesc>Presents tutorial videos that demonstrate how to use MOTODEV Studio.</shortdesc>
@@ -456,7 +456,7 @@
       <link href="u_db-table-create.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="generate-code-from-context-menu-dialog">
     <title>Generate Options Menu Code Based on XML file</title>
     <shortdesc>Generates options menu code from a selected XML-format menu definition file in your project's res/menu
@@ -466,7 +466,7 @@
       <link href="u_options-menu-code-create.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="defineconnectiondatabasepage">
     <title>Select Database Table dialog</title>
     <shortdesc>Allows you to select the database table to be displayed when creating a new activity based upon the Database List template.</shortdesc>
@@ -475,7 +475,7 @@
       <link href="u_select-table.dita"/>
     </related-links>
   </cshelp>
-  <!-- Plug-in: com.motorola.studio.android.codeutils -->
+  <!-- Plug-in: org.eclipse.andmore.android.codeutils -->
   <cshelp id="selectcolumnspage">
     <title>Select Table Columns dialog</title>
     <shortdesc>Allows you to select the database table's columns to be displayed when creating a new activity based upon the Database List template.</shortdesc>

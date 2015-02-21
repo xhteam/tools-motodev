@@ -22,7 +22,7 @@ import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
 import org.eclipse.andmore.android.certmanager.ui.model.SigningAndKeysModelManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.equinox.security.storage.ISecurePreferences;
 import org.eclipse.equinox.security.storage.SecurePreferencesFactory;
@@ -30,15 +30,15 @@ import org.eclipse.equinox.security.storage.StorageException;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Manages old MOTODEV keystore available at
- * <user_home>\motodevstudio\tools\motodev.keystore (to keep backward
+ * Manages old keystore available at
+ * <user_home>\motodevstudio\tools\andmore.keystore (to keep backward
  * compatibility)
  */
 public class BackwardKeystoreManager {
 	/**
-	 * MOTODEV Studio directory.
+	 * Eclipse Andmore directory.
 	 */
-	private static final String MOTODEV_TOOLS_PATH = File.separator + "motodevstudio" + File.separator + "tools"; //$NON-NLS-1$ //$NON-NLS-2$
+	private static final String ANDMORE_TOOLS_PATH = File.separator + "eclipseandmore" + File.separator + "tools"; //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * Path to user home directory.
@@ -48,9 +48,9 @@ public class BackwardKeystoreManager {
 	/**
 	 * Full path where the files will be.
 	 */
-	private static final String TOOLS_FULL_PATH = USER_HOME_PATH + MOTODEV_TOOLS_PATH;
+	private static final String TOOLS_FULL_PATH = USER_HOME_PATH + ANDMORE_TOOLS_PATH;
 
-	private static final String KS_FILENAME_NEW = TOOLS_FULL_PATH + File.separatorChar + "motodev.keystore"; //$NON-NLS-1$
+	private static final String KS_FILENAME_NEW = TOOLS_FULL_PATH + File.separatorChar + "andmore.keystore"; //$NON-NLS-1$
 
 	/**
 	 * The constant contains the keysotre type.
@@ -103,20 +103,20 @@ public class BackwardKeystoreManager {
 				oldPassword = null;
 			}
 		} catch (Exception e) {
-			StudioLogger.error(BackwardKeystoreManager.class, e.getMessage(), e);
+			AndmoreLogger.error(BackwardKeystoreManager.class, e.getMessage(), e);
 		}
 		return oldPassword;
 	}
 
 	/**
-	 * Maps old keystore if the <user_home>\motodevstudio\tools\motodev.keystore
+	 * Maps old keystore if the <user_home>\motodevstudio\tools\andmore.keystore
 	 * file exists.
 	 */
 	public void mapOldKeystore() {
-		File motodevKeystoreFile = new File(KS_FILENAME_NEW);
-		if (motodevKeystoreFile.exists()) {
+		File andmoreKeystoreFile = new File(KS_FILENAME_NEW);
+		if (andmoreKeystoreFile.exists()) {
 			// we found backward (old default MOTODEV keystore) => import it
-			KeyStoreNode keyStoreNode = new KeyStoreNode(motodevKeystoreFile, KS_TYPE);
+			KeyStoreNode keyStoreNode = new KeyStoreNode(andmoreKeystoreFile, KS_TYPE);
 
 			try {
 				SigningAndKeysModelManager.getInstance().mapKeyStore(keyStoreNode);
@@ -142,7 +142,7 @@ public class BackwardKeystoreManager {
 			} catch (Exception e) {
 				// error
 				EclipseUtils.showErrorDialog(NLS.bind(
-						CertificateManagerNLS.KeystoreManagerView_ErrorImportingBackwardKeystore, motodevKeystoreFile),
+						CertificateManagerNLS.KeystoreManagerView_ErrorImportingBackwardKeystore, andmoreKeystoreFile),
 						e.getMessage());
 			}
 		}

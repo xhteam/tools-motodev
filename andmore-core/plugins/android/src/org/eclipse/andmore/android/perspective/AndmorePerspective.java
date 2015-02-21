@@ -19,7 +19,7 @@ package org.eclipse.andmore.android.perspective;
 import java.net.URL;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.internal.ui.JavaPerspectiveFactory;
@@ -39,7 +39,7 @@ import org.eclipse.ui.internal.intro.IIntroConstants;
 import org.osgi.framework.BundleContext;
 
 @SuppressWarnings("restriction")
-public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
+public class AndmorePerspective extends JavaPerspectiveFactory {
 	private static String VIEW_PACKAGE_EXPLORER = "org.eclipse.jdt.ui.PackageExplorer";
 
 	private static String VIEW_PROBLEM = "org.eclipse.ui.views.ProblemView";
@@ -102,9 +102,9 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 
 	private static String VIEW_APPLICATION_SIGNING_TOOL = "org.eclipse.andmore.android.packaging.ui.signingview";
 
-	private static final String STUDIO_INFO_INITIAL_PAGE_PROPERTY = "studio.android.initial.page";
+	private static final String ANDMORE_INFO_INITIAL_PAGE_PROPERTY = "andmore.android.initial.page";
 
-	private static final String STUDIO_INFO_INITIAL_PAGE_FILE = "MOTODEV/index.html";
+	private static final String ANDMORE_INFO_INITIAL_PAGE_FILE = "andmore/index.html";
 
 	private static IPerspectiveListener perspectiveListener = null;
 
@@ -127,26 +127,22 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 
 		IFolderLayout leftBottom = layout.createFolder("leftBottom", IPageLayout.BOTTOM, 0.59f, "left");
 		leftBottom.addView(VIEW_SNIPPETS);
-		leftBottom.addView(VIEW_OUTLINE);
 
 		IFolderLayout right = layout.createFolder("right", IPageLayout.RIGHT, 0.6f, editorArea);
-		right.addView(VIEW_ANDROID_EMULATOR);
+		right.addView(VIEW_OUTLINE);
 
 		IFolderLayout bottomMiddle = layout.createFolder("bottomMiddle", IPageLayout.BOTTOM, 0.59f, editorArea);
 		bottomMiddle.addView(VIEW_TML_DEV_MGT);
-		bottomMiddle.addView(DDMSVIEW_EMULATOR_CONTROL);
 		bottomMiddle.addView(DDMSVIEW_LOGCAT);
 		bottomMiddle.addView(VIEW_CONSOLE);
 		bottomMiddle.addView(VIEW_PROBLEM);
 		bottomMiddle.addView(VIEW_APPLICATION_SIGNING_TOOL);
 
 		layout.addShowViewShortcut(VIEW_TML_DEV_MGT);
-		layout.addShowViewShortcut(VIEW_ANDROID_EMULATOR);
 		layout.addShowViewShortcut(VIEW_SNIPPETS);
 		layout.addShowViewShortcut(VIEW_APPLICATION_SIGNING_TOOL);
 
 		layout.addPerspectiveShortcut(PERSPECTIVE_ANDROID);
-		layout.addPerspectiveShortcut(PERSPECTIVE_OPHONE);
 		layout.addPerspectiveShortcut(PERSPECTIVE_DDMS);
 		layout.addPerspectiveShortcut(PERSPECTIVE_DEBUG);
 		layout.addPerspectiveShortcut(PERSPECTIVE_EMULATOR);
@@ -268,27 +264,27 @@ public class MotodevStudioAndroidPerspective extends JavaPerspectiveFactory {
 
 		try {
 			BundleContext context = AndroidPlugin.getDefault().getBundle().getBundleContext();
-			String initialPage = context.getProperty(STUDIO_INFO_INITIAL_PAGE_PROPERTY);
-			StudioLogger.debug(MotodevStudioAndroidPerspective.class, "Read initial page property:"
-					+ STUDIO_INFO_INITIAL_PAGE_PROPERTY + " = " + initialPage);
+			String initialPage = context.getProperty(ANDMORE_INFO_INITIAL_PAGE_PROPERTY);
+			AndmoreLogger.debug(AndmorePerspective.class, "Read initial page property:"
+					+ ANDMORE_INFO_INITIAL_PAGE_PROPERTY + " = " + initialPage);
 			if (initialPage != null) {
-				StudioLogger.debug(MotodevStudioAndroidPerspective.class,
+				AndmoreLogger.debug(AndmorePerspective.class,
 						"Using the customized URL to be opened in the Web Browser Editor:" + initialPage);
 				initialPageURL = new URL(initialPage);
 			}
 		} catch (Exception e) {
-			StudioLogger.error(MotodevStudioAndroidPerspective.class,
+			AndmoreLogger.error(AndmorePerspective.class,
 					"Unable to read customized URL to be opened in the Web Browser Editor..." + e.getMessage());
 		}
 
 		if (initialPageURL == null) {
 			try {
-				StudioLogger.debug(MotodevStudioAndroidPerspective.class,
+				AndmoreLogger.debug(AndmorePerspective.class,
 						"Use the default URL to be opened in the Web Browser Editor.");
 				URL installDir = Platform.getInstallLocation().getURL();
-				initialPageURL = new URL(installDir, STUDIO_INFO_INITIAL_PAGE_FILE);
+				initialPageURL = new URL(installDir, ANDMORE_INFO_INITIAL_PAGE_FILE);
 			} catch (Exception e) {
-				StudioLogger.error(MotodevStudioAndroidPerspective.class,
+				AndmoreLogger.error(AndmorePerspective.class,
 						"Unable to show Web Browser Editor with URL: " + e.getMessage());
 			}
 		}

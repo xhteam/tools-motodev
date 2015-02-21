@@ -21,7 +21,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import org.eclipse.andmore.android.common.IAndroidConstants;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
@@ -96,7 +96,7 @@ public class AndroidPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(AndroidPlugin.class, "Starting MOTODEV Android Plugin...");
+		AndmoreLogger.debug(AndroidPlugin.class, "Starting Andmore Plugin...");
 
 		super.start(context);
 		plugin = this;
@@ -117,11 +117,11 @@ public class AndroidPlugin extends AbstractUIPlugin {
 				 * any OS.
 				 */
 				if (window != null) {
-					StudioLogger.debug(AndroidPlugin.class, "Starting DDMS facade WITHOUT using listener...");
+					AndmoreLogger.debug(AndroidPlugin.class, "Starting DDMS facade WITHOUT using listener...");
 
 					DDMSFacade.setup();
 
-					StudioLogger.debug(AndroidPlugin.class, "DDMS facade started WITHOUT using listener.");
+					AndmoreLogger.debug(AndroidPlugin.class, "DDMS facade started WITHOUT using listener.");
 				} else {
 					workbench.addWindowListener(new IWindowListener() {
 
@@ -142,11 +142,11 @@ public class AndroidPlugin extends AbstractUIPlugin {
 
 						@Override
 						public void windowOpened(IWorkbenchWindow window) {
-							StudioLogger.debug(AndroidPlugin.class, "Starting DDMS facade using listener...");
+							AndmoreLogger.debug(AndroidPlugin.class, "Starting DDMS facade using listener...");
 
 							DDMSFacade.setup();
 
-							StudioLogger.debug(AndroidPlugin.class, "DDMS facade started using listener.");
+							AndmoreLogger.debug(AndroidPlugin.class, "DDMS facade started using listener.");
 						}
 					});
 				}
@@ -173,7 +173,7 @@ public class AndroidPlugin extends AbstractUIPlugin {
 							 * set, to avoid exceptions in the loop. The
 							 * exception occurs when a listener remove itself.
 							 */
-							StudioLogger.debug(AndroidPlugin.this, "Notify SDK loader listeners");
+							AndmoreLogger.debug(AndroidPlugin.this, "Notify SDK loader listeners");
 							Set<Runnable> setListeners = new HashSet<Runnable>(listeners);
 							for (Runnable listener : setListeners) {
 								try {
@@ -181,7 +181,7 @@ public class AndroidPlugin extends AbstractUIPlugin {
 								} catch (Throwable e) {
 									// Log error of this listener and keep
 									// handling the next listener...
-									StudioLogger.error(AndroidPlugin.class,
+									AndmoreLogger.error(AndroidPlugin.class,
 											"Error while handling SDK loader procedure.", e);
 								}
 							}
@@ -192,7 +192,7 @@ public class AndroidPlugin extends AbstractUIPlugin {
 		});
 		t.start();
 
-		StudioLogger.debug(AndroidPlugin.class, "MOTODEV Android Plugin started.");
+		AndmoreLogger.debug(AndroidPlugin.class, "Andmore Plugin started.");
 	}
 
 	/*

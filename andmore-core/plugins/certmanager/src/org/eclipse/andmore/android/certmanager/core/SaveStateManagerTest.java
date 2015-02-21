@@ -33,7 +33,7 @@ public class SaveStateManagerTest extends TestCase {
 
 	File adtKeystoreFile = null;
 
-	File motodevKeystoreFile = null;
+	File andmoreKeystoreFile = null;
 
 	/*
 	 * (non-Javadoc)
@@ -43,8 +43,6 @@ public class SaveStateManagerTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		manager = SaveStateManager.getInstance();
-		adtKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\adt.keystore");
-		motodevKeystoreFile = new File("C:\\Users\\gdpr78\\motodevstudio\\tools\\motodev.keystore");
 
 		super.setUp();
 	}
@@ -53,7 +51,7 @@ public class SaveStateManagerTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 		manager.removeEntry(adtKeystoreFile);
-		manager.removeEntry(motodevKeystoreFile);
+		manager.removeEntry(andmoreKeystoreFile);
 	}
 
 	@Test
@@ -76,11 +74,11 @@ public class SaveStateManagerTest extends TestCase {
 	public void testListKeystoresMapped() {
 		try {
 			manager.addEntry(adtKeystoreFile, JKS);
-			manager.addEntry(motodevKeystoreFile, "JKS");
+			manager.addEntry(andmoreKeystoreFile, "JKS");
 
 			assert ((manager.getMappedKeystores() != null) && (manager.getMappedKeystores().size() == 2)
 					&& manager.getMappedKeystores().contains(adtKeystoreFile) && manager.getMappedKeystores().contains(
-					motodevKeystoreFile));
+					andmoreKeystoreFile));
 		} catch (Exception e) {
 			// error
 			assert (false);
@@ -118,11 +116,11 @@ public class SaveStateManagerTest extends TestCase {
 	@Test
 	public void testRemoveEntry() {
 		try {
-			manager.addEntry(motodevKeystoreFile, "JKS");
-			assert (manager.isKeystoreMapped(motodevKeystoreFile) == true);
+			manager.addEntry(andmoreKeystoreFile, "JKS");
+			assert (manager.isKeystoreMapped(andmoreKeystoreFile) == true);
 
-			manager.removeEntry(motodevKeystoreFile);
-			assert (manager.isKeystoreMapped(motodevKeystoreFile) == false);
+			manager.removeEntry(andmoreKeystoreFile);
+			assert (manager.isKeystoreMapped(andmoreKeystoreFile) == false);
 		} catch (Exception e) {
 			// error
 			assert (false);

@@ -23,8 +23,8 @@ import com.android.ddmlib.IDevice;
 import com.android.ddmlib.IDevice.DeviceState;
 
 /**
- * DESCRIPTION: The device change listener to be used by the whole MOTODEV
- * Studio for Android tool. Other plugins should not register listeners in DDMS.
+ * DESCRIPTION: The device change listener to be used by the whole 
+ *  tool. Other plugins should not register listeners in DDMS.
  * Instead, use DDMSFacade
  *
  * RESPONSIBILITY: Delegate the deviceConnected and deviceDisconnected events to
@@ -34,7 +34,7 @@ import com.android.ddmlib.IDevice.DeviceState;
  *
  * USAGE: This class shall be used by DDMS and DDMSFacade only
  */
-public class StudioDeviceChangeListener implements IDeviceChangeListener, IStartup {
+public class AndmoreDeviceChangeListener implements IDeviceChangeListener, IStartup {
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -39,7 +39,7 @@ import org.eclipse.wst.common.snippets.internal.ui.SnippetsView;
 
 /**
  * This class register listeners in the Snippets View to monitor changes on its
- * selection. This way, MOTODEV Studio for Android displays the snippet preview
+ * selection. This way, Eclipse Andmore displays the snippet preview
  * when appropriate
  * 
  */
@@ -295,7 +295,7 @@ public class AndroidSnippetsStartup implements IStartup {
 						// it must add the mouse listener to the Snippets View
 						// again next time the view is opened
 						if (searchContributionItem != null) {
-							searchContributionItem.clean();
+							// EHC 20150220 searchContributionItem.clean();
 							searchContributionItem.getParent().remove(searchContributionItem);
 						}
 

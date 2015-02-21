@@ -3,7 +3,7 @@
 <reference id="u_obfuscate-projects" xml:lang="en-us">
   <title>Obfuscation dialog</title>
   <shortdesc>Use this dialog to enable or disable obfuscation of the Java classes in one or more Android projects. You
-    access this dialog by selecting <uicontrol>Enable/Disable Obfuscation</uicontrol> from the MOTODEV menu.</shortdesc>
+    access this dialog by selecting <uicontrol>Enable/Disable Obfuscation</uicontrol> from the Andmore menu.</shortdesc>
   <prolog>
     <metadata>
       <keywords>

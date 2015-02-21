@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.emulator.device.refresh.InstancesListRefresh;
 import org.eclipse.core.runtime.CoreException;
@@ -57,7 +57,7 @@ public class WizardMainPageOperation extends DeviceWizardRunnable {
 		} catch (CoreException e) {
 			EclipseUtils.showErrorDialog("Could not create instance ", e.getStatus().getMessage());
 
-			StudioLogger.error(WizardMainPageOperation.class, "Could not create AVD: " + tmlPage.getInstanceName(), e);
+			AndmoreLogger.error(WizardMainPageOperation.class, "Could not create AVD: " + tmlPage.getInstanceName(), e);
 		}
 
 		Collection<String> vmInstances = SdkUtils.getAllValidVmNames();

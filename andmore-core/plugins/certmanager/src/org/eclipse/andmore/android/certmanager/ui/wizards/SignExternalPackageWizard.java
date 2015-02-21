@@ -32,7 +32,7 @@ import org.eclipse.andmore.android.certmanager.packaging.sign.PackageFileSigner;
 import org.eclipse.andmore.android.certmanager.packaging.sign.SignException;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -131,7 +131,7 @@ public class SignExternalPackageWizard extends Wizard {
 									// Sign the new package
 									PackageFileSigner.signPackage(pack,
 											SignExternalPackageWizard.this.page.getSelectedKeyEntry(),
-											keyEntryPassword, PackageFileSigner.MOTODEV_STUDIO);
+											keyEntryPassword, PackageFileSigner.ECLIPSE_ANDMORE);
 									keepTrying = false;
 								} catch (UnrecoverableKeyException sE) {
 									keyEntryPassword = SignExternalPackageWizard.this.page.getPasswordProvider()
@@ -152,19 +152,19 @@ public class SignExternalPackageWizard extends Wizard {
 							PackageFile.zipAlign(file);
 						} catch (IOException e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(SignExternalPackageWizard.class.toString(),
+							AndmoreLogger.error(SignExternalPackageWizard.class.toString(),
 									"Impossible write to package: " + selected + " " + e.getMessage());
 						} catch (SignException e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(SignExternalPackageWizard.class.toString(),
+							AndmoreLogger.error(SignExternalPackageWizard.class.toString(),
 									"Impossible sign the package: " + selected + " " + e.getMessage());
 						} catch (SecurityException e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(SignExternalPackageWizard.class.toString(),
+							AndmoreLogger.error(SignExternalPackageWizard.class.toString(),
 									"Impossible sign the package: " + selected + " " + e.getMessage());
 						} catch (Exception e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(SignExternalPackageWizard.class.toString(),
+							AndmoreLogger.error(SignExternalPackageWizard.class.toString(),
 									"Impossible sign the package: " + selected + " " + e.getMessage());
 						} finally {
 							System.gc(); // Force garbage collector to avoid
@@ -185,7 +185,7 @@ public class SignExternalPackageWizard extends Wizard {
 							} catch (IOException e) {
 								// Silent exception. Only log the deletion
 								// exception.
-								StudioLogger.error(CertificateManagerActivator.PLUGIN_ID, "Deleting temporary files");
+								AndmoreLogger.error(CertificateManagerActivator.PLUGIN_ID, "Deleting temporary files");
 							}
 						}
 					} else {
@@ -202,9 +202,9 @@ public class SignExternalPackageWizard extends Wizard {
 			PlatformUI.getWorkbench().getProgressService()
 					.runInUI(new ProgressMonitorDialog(getShell()), finishAction, null);
 		} catch (InvocationTargetException e1) {
-			StudioLogger.error(SignExternalPackageWizard.class.toString(), "Error running finish actions");
+			AndmoreLogger.error(SignExternalPackageWizard.class.toString(), "Error running finish actions");
 		} catch (InterruptedException e1) {
-			StudioLogger.error(SignExternalPackageWizard.class.toString(), "Error running finish actions");
+			AndmoreLogger.error(SignExternalPackageWizard.class.toString(), "Error running finish actions");
 		}
 
 		if (ResourcesPlugin.getWorkspace().getRoot().getLocation().isPrefixOf(this.page.getSourcePath())) {
@@ -225,9 +225,9 @@ public class SignExternalPackageWizard extends Wizard {
 			try {
 				PlatformUI.getWorkbench().getProgressService().run(false, false, op);
 			} catch (InvocationTargetException e) {
-				StudioLogger.error(SignExternalPackageWizard.class.toString(), "Error refreshing workspace");
+				AndmoreLogger.error(SignExternalPackageWizard.class.toString(), "Error refreshing workspace");
 			} catch (InterruptedException e) {
-				StudioLogger.error(SignExternalPackageWizard.class.toString(), "Error refreshing workspace");
+				AndmoreLogger.error(SignExternalPackageWizard.class.toString(), "Error refreshing workspace");
 			}
 		}
 		if (!defectivePackages.isEmpty()) {

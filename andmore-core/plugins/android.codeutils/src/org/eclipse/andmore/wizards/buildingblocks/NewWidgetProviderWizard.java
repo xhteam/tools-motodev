@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.BuildingBlockModel;
@@ -87,11 +87,11 @@ public class NewWidgetProviderWizard extends NewBuildingBlocksWizard {
 					JavaUI.openInEditor(javaFile);
 				} catch (PartInitException e) {
 					// Do nothing
-					StudioLogger.error(NewWidgetProviderWizard.class, "Could not open the widget provider "
+					AndmoreLogger.error(NewWidgetProviderWizard.class, "Could not open the widget provider "
 							+ getBuildingBlock().getName() + " on an editor.", e);
 				} catch (JavaModelException e) {
 					// Do nothing
-					StudioLogger.error(NewWidgetProviderWizard.class, "Could not open the widget provider "
+					AndmoreLogger.error(NewWidgetProviderWizard.class, "Could not open the widget provider "
 							+ getBuildingBlock().getName() + " on an editor.", e);
 				}
 			}
@@ -100,7 +100,7 @@ public class NewWidgetProviderWizard extends NewBuildingBlocksWizard {
 		if (saved) {
 			// Collecting usage data for statistical purposes
 			try {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_WIDGET_PROVIDER,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_WIDGET_PROVIDER,
 						UsageDataConstants.KIND_BUILDINGBLOCK, UsageDataConstants.DESCRIPTION_DEFAULT,
 						CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion()
 								.toString());

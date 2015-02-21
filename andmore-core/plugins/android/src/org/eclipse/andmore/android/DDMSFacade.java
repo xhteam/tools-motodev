@@ -37,10 +37,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.andmore.AdtPlugin;
-import org.eclipse.andmore.android.StudioAndroidEventManager.EventType;
+import org.eclipse.andmore.android.AndmoreEventManager.EventType;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.utilities.TelnetFrameworkAndroid;
@@ -259,7 +259,7 @@ public class DDMSFacade {
 								if (home.equals(applicationName)) {
 									String serialNum = finalClient.getDevice().getSerialNumber();
 									synchronized (completelyUpDevices) {
-										StudioLogger.debug("Completely Up Device: " + serialNum); //$NON-NLS-1$
+										AndmoreLogger.debug("Completely Up Device: " + serialNum); //$NON-NLS-1$
 										completelyUpDevices.add(serialNum);
 									}
 								}
@@ -273,7 +273,7 @@ public class DDMSFacade {
 	}
 
 	static void deviceStatusChanged(IDevice device) {
-		StudioLogger.debug("Device changed: " + device.getSerialNumber()); //$NON-NLS-1$
+		AndmoreLogger.debug("Device changed: " + device.getSerialNumber()); //$NON-NLS-1$
 		synchronized (connectedDevices) {
 			connectedDevices.put(device.getSerialNumber(), device);
 		}
@@ -282,7 +282,7 @@ public class DDMSFacade {
 			String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 			if (device.getClient(home) != null) {
 				synchronized (completelyUpDevices) {
-					StudioLogger.debug("Completely Up Device: " + device.getSerialNumber()); //$NON-NLS-1$
+					AndmoreLogger.debug("Completely Up Device: " + device.getSerialNumber()); //$NON-NLS-1$
 					if (!completelyUpDevices.contains(device.getSerialNumber())) {
 						completelyUpDevices.add(device.getSerialNumber());
 					}
@@ -298,7 +298,7 @@ public class DDMSFacade {
 	 */
 	static void deviceConnected(IDevice device) {
 		final String serialNumber = device.getSerialNumber();
-		StudioLogger.debug("Device connected: " + serialNumber); //$NON-NLS-1$
+		AndmoreLogger.debug("Device connected: " + serialNumber); //$NON-NLS-1$
 		synchronized (connectedDevices) {
 			connectedDevices.put(serialNumber, device);
 		}
@@ -332,14 +332,14 @@ public class DDMSFacade {
 			IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
 			String home = store.getString(AdtPrefs.PREFS_HOME_PACKAGE);
 			if (device.getClient(home) != null) {
-				StudioLogger.debug("Completely Up Device: " + serialNumber); //$NON-NLS-1$
+				AndmoreLogger.debug("Completely Up Device: " + serialNumber); //$NON-NLS-1$
 				synchronized (completelyUpDevices) {
 					completelyUpDevices.add(serialNumber);
 				}
 			}
 		}
 
-		StudioAndroidEventManager.fireEvent(EventType.DEVICE_CONNECTED, serialNumber);
+		AndmoreEventManager.fireEvent(EventType.DEVICE_CONNECTED, serialNumber);
 	}
 
 	/**
@@ -349,14 +349,14 @@ public class DDMSFacade {
 	 */
 	static void deviceDisconnected(IDevice device) {
 		final String serialNumber = device.getSerialNumber();
-		StudioLogger.debug("Device disconnected: " + serialNumber); //$NON-NLS-1$
+		AndmoreLogger.debug("Device disconnected: " + serialNumber); //$NON-NLS-1$
 		synchronized (completelyUpDevices) {
 			completelyUpDevices.remove(serialNumber);
 		}
 		synchronized (connectedDevices) {
 			connectedDevices.remove(serialNumber);
 		}
-		StudioAndroidEventManager.fireEvent(EventType.DEVICE_DISCONNECTED, serialNumber);
+		AndmoreEventManager.fireEvent(EventType.DEVICE_DISCONNECTED, serialNumber);
 		avdNameMap.remove(device.getSerialNumber());
 
 	}
@@ -401,13 +401,13 @@ public class DDMSFacade {
 
 		// Return if no instance is selected
 		if (serialNumber == null) {
-			StudioLogger.error("Abort run operation. Serial number is null."); //$NON-NLS-1$
+			AndmoreLogger.error("Abort run operation. Serial number is null."); //$NON-NLS-1$
 			return new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, AndroidNLS.ERR_DDMSFacade_SerialNumberNullPointer);
 		}
 
 		// Return if instance is not started
 		if (!isDeviceOnline(serialNumber)) {
-			StudioLogger.error("Abort run operation. Device is not online."); //$NON-NLS-1$
+			AndmoreLogger.error("Abort run operation. Device is not online."); //$NON-NLS-1$
 			return new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, ""); //$NON-NLS-1$
 		}
 
@@ -415,7 +415,7 @@ public class DDMSFacade {
 			String[] cmd = createRunCommand(serialNumber, activityName, debugMode);
 			executeCommand(cmd, processOut);
 		} catch (IOException e) {
-			StudioLogger.error("Deploy: Could not execute adb install command."); //$NON-NLS-1$
+			AndmoreLogger.error("Deploy: Could not execute adb install command."); //$NON-NLS-1$
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, e.getMessage());
 		}
 
@@ -540,7 +540,7 @@ public class DDMSFacade {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				StudioLogger.error("Execute command: thread has been interrupted"); //$NON-NLS-1$
+				AndmoreLogger.error("Execute command: thread has been interrupted"); //$NON-NLS-1$
 			}
 
 			if (timeout > 0) {
@@ -548,7 +548,7 @@ public class DDMSFacade {
 					testTimeout(timeoutLimit, ((timeoutMsg != null) ? timeoutMsg : AndroidNLS.ERR_GenericTimeout));
 				} catch (TimeoutException e) {
 					p.destroy();
-					StudioLogger.debug("The timeout " + timeout //$NON-NLS-1$
+					AndmoreLogger.debug("The timeout " + timeout //$NON-NLS-1$
 							+ " has been reached when executing the command " + fullCmd); //$NON-NLS-1$
 					return new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, e.getMessage(), e);
 				}
@@ -560,7 +560,7 @@ public class DDMSFacade {
 				p.getErrorStream(), out);
 
 		if (errorCode != 0) {
-			StudioLogger.debug("Command " + cmd + " returned an error code: " + errorCode); //$NON-NLS-1$ //$NON-NLS-2$
+			AndmoreLogger.debug("Command " + cmd + " returned an error code: " + errorCode); //$NON-NLS-1$ //$NON-NLS-2$
 			status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID,
 					NLS.bind(AndroidNLS.ERR_CommandError, errorCode) + "\n" //$NON-NLS-1$
 							+ ((!commandResults[1].equals("")) ? commandResults[1] //$NON-NLS-1$
@@ -619,13 +619,13 @@ public class DDMSFacade {
 				}
 			}
 		} catch (IOException e) {
-			StudioLogger.error("Cannot read command outputs"); //$NON-NLS-1$
+			AndmoreLogger.error("Cannot read command outputs"); //$NON-NLS-1$
 		} finally {
 			try {
 				brInput.close();
 				brError.close();
 			} catch (IOException e) {
-				StudioLogger.error("Could not close console stream: " + e.getMessage());
+				AndmoreLogger.error("Could not close console stream: " + e.getMessage());
 			}
 		}
 
@@ -663,11 +663,11 @@ public class DDMSFacade {
 		// once more wont kill
 		File f = new File(sdkPath + PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Run: Could not find tools folder on " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
+			AndmoreLogger.error("Run: Could not find tools folder on " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Run: Invalid tools folder " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
+				AndmoreLogger.error("Run: Invalid tools folder " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
 						+ File.separator);
 			}
 		}
@@ -797,7 +797,7 @@ public class DDMSFacade {
 			final IProgressMonitor monitor) throws IOException {
 		Map<String, Collection<String>> cmdAnswers = new LinkedHashMap<String, Collection<String>>();
 		for (String remoteCommand : remoteCommands) {
-			StudioLogger.debug(remoteCommand);
+			AndmoreLogger.debug(remoteCommand);
 			Collection<String> answers = executeShellCmd(serialNumber, remoteCommand, monitor);
 			cmdAnswers.put(remoteCommand, answers);
 		}
@@ -828,7 +828,7 @@ public class DDMSFacade {
 					}
 				}, 0);
 			} catch (Exception e) {
-				StudioLogger.error(DDMSFacade.class, "Error executing shell command " + cmd //$NON-NLS-1$
+				AndmoreLogger.error(DDMSFacade.class, "Error executing shell command " + cmd //$NON-NLS-1$
 						+ " at device " + serialNumber, e); //$NON-NLS-1$
 			}
 		}
@@ -866,7 +866,7 @@ public class DDMSFacade {
 					}
 				}
 			} catch (IOException e) {
-				StudioLogger.error("IOException while executing an app on device. " + e.getMessage());
+				AndmoreLogger.error("IOException while executing an app on device. " + e.getMessage());
 			}
 		}
 		return instanceProperties;
@@ -1096,7 +1096,7 @@ public class DDMSFacade {
 			}
 		});
 
-		MotodevHProfDumpHandler hprofHandler = new MotodevHProfDumpHandler(shell[0], monitor);
+		AndmoreHProfDumpHandler hprofHandler = new AndmoreHProfDumpHandler(shell[0], monitor);
 		monitor.setTaskName(AndroidNLS.DumpHprofFile_SettingApplicationToAnalyse);
 		hprofHandler.setSelectedApp(clientDescription);
 		monitor.worked(25);
@@ -1166,7 +1166,7 @@ public class DDMSFacade {
 		try {
 			device.createForward(from, to);
 		} catch (Exception e) {
-			StudioLogger.error(DDMSFacade.class, "Error creating forward of device: " //$NON-NLS-1$
+			AndmoreLogger.error(DDMSFacade.class, "Error creating forward of device: " //$NON-NLS-1$
 					+ serialNumber + " from " + from + " to " + to, e); //$NON-NLS-1$ //$NON-NLS-2$
 			ok = false;
 		}
@@ -1296,11 +1296,11 @@ public class DDMSFacade {
 				try {
 					service = device.getSyncService();
 				} catch (IOException e) {
-					StudioLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
 				} catch (com.android.ddmlib.TimeoutException e) {
-					StudioLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
 				} catch (AdbCommandRejectedException e) {
-					StudioLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.debug("Couldn't get sync service; cause: " + e.getMessage()); //$NON-NLS-1$
 				}
 			}
 
@@ -1311,12 +1311,12 @@ public class DDMSFacade {
 			}
 
 			if (monitor.isCanceled()) {
-				StudioLogger.info("Operation canceled by the user"); //$NON-NLS-1$
+				AndmoreLogger.info("Operation canceled by the user"); //$NON-NLS-1$
 				return null;
 			}
 
 			if (System.currentTimeMillis() > timeoutLimit) {
-				StudioLogger.error("The emulator was not up within the set timeout"); //$NON-NLS-1$
+				AndmoreLogger.error("The emulator was not up within the set timeout"); //$NON-NLS-1$
 				throw new AndroidException("Timeout while preparing to transfer files to the Device. " + device); //$NON-NLS-1$
 			}
 		} while (service == null);
@@ -1387,24 +1387,24 @@ public class DDMSFacade {
 
 					String resultMessage = null;
 					if (isPush) {
-						StudioLogger.debug("Push " + absLocalFile + " to " + remotePath); //$NON-NLS-1$ //$NON-NLS-2$
+						AndmoreLogger.debug("Push " + absLocalFile + " to " + remotePath); //$NON-NLS-1$ //$NON-NLS-2$
 						try {
 							service.pushFile(absLocalFile, remotePath, syncMonitor);
 						} catch (SyncException e1) {
-							StudioLogger.debug("Push result: " + "SyncException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+							AndmoreLogger.debug("Push result: " + "SyncException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 							resultMessage = NLS.bind(AndroidNLS.CON_ConsolePush, absLocalFile, remotePath)
 									+ ": " + e1.getLocalizedMessage(); //$NON-NLS-1$
 						} catch (FileNotFoundException e1) {
-							StudioLogger.debug("Push result: " + "FileNotFoundException occured " //$NON-NLS-1$ //$NON-NLS-2$
+							AndmoreLogger.debug("Push result: " + "FileNotFoundException occured " //$NON-NLS-1$ //$NON-NLS-2$
 									+ e1.getMessage());
 							resultMessage = NLS.bind(AndroidNLS.CON_ConsolePush, absLocalFile, remotePath)
 									+ ": " + e1.getLocalizedMessage(); //$NON-NLS-1$
 						} catch (IOException e1) {
-							StudioLogger.debug("Push result: " + "IOException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+							AndmoreLogger.debug("Push result: " + "IOException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 							resultMessage = NLS.bind(AndroidNLS.CON_ConsolePush, absLocalFile, remotePath)
 									+ ": " + e1.getLocalizedMessage(); //$NON-NLS-1$
 						} catch (com.android.ddmlib.TimeoutException e1) {
-							StudioLogger.debug("Push result: " + "TimeoutException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+							AndmoreLogger.debug("Push result: " + "TimeoutException occured " + e1.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 							resultMessage = NLS.bind(AndroidNLS.CON_ConsolePush, absLocalFile, remotePath)
 									+ ": " + e1.getLocalizedMessage(); //$NON-NLS-1$
 						}
@@ -1440,16 +1440,16 @@ public class DDMSFacade {
 								service.pullFile(fileToPull, absLocalFile, syncMonitor);
 							} catch (FileNotFoundException e) {
 								resultMessage = e.getLocalizedMessage();
-								StudioLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
+								AndmoreLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
 							} catch (SyncException e) {
 								resultMessage = e.getLocalizedMessage();
-								StudioLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
+								AndmoreLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
 							} catch (IOException e) {
 								resultMessage = e.getLocalizedMessage();
-								StudioLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
+								AndmoreLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
 							} catch (com.android.ddmlib.TimeoutException e) {
 								resultMessage = e.getLocalizedMessage();
-								StudioLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
+								AndmoreLogger.debug("Pull result: " + e.getMessage()); //$NON-NLS-1$
 							}
 
 							if ((outputStream != null) && (resultMessage != null)) {
@@ -1465,7 +1465,7 @@ public class DDMSFacade {
 							}
 						} else {
 							resultMessage = NLS.bind(AndroidNLS.DDMSFacade_Remote_File_Not_Found, remotePath);
-							StudioLogger.debug("Pull result: File not found " + remotePath); //$NON-NLS-1$
+							AndmoreLogger.debug("Pull result: File not found " + remotePath); //$NON-NLS-1$
 						}
 					}
 
@@ -1615,7 +1615,7 @@ public class DDMSFacade {
 		subMonitor.worked(1000);
 
 		if (status.isOK()) {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_REMOTE_USB, UsageDataConstants.KIND_REMOTE_DEVICE,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_REMOTE_USB, UsageDataConstants.KIND_REMOTE_DEVICE,
 					UsageDataConstants.DESCRIPTION_DEFAULT, AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault()
 							.getBundle().getVersion().toString());
 		}
@@ -1841,11 +1841,11 @@ public class DDMSFacade {
 		// once more wont kill
 		File f = new File(sdkPath + PLATFORM_TOOLS_FOLDER + File.separator);
 		if (!f.exists()) {
-			StudioLogger.error("Run: Could not find tools folder on " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
+			AndmoreLogger.error("Run: Could not find tools folder on " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
 					+ File.separator);
 		} else {
 			if (!f.isDirectory()) {
-				StudioLogger.error("Run: Invalid tools folder " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
+				AndmoreLogger.error("Run: Invalid tools folder " + sdkPath + PLATFORM_TOOLS_FOLDER //$NON-NLS-1$
 						+ File.separator);
 			}
 		}
@@ -1898,7 +1898,7 @@ public class DDMSFacade {
 			// trying to write on /sdcard folder (it works for phones previous
 			// from Platform 2.2)
 			if (!deleteFileFromDevice(serialNumber, tempSdCardFile.getName(), SDCARD_FOLDER)) {
-				StudioLogger
+				AndmoreLogger
 						.error("DDMSFacade: Could not delete tempfile from /sdcard when checking if card is enabled"); //$NON-NLS-1$
 			}
 			hasSdCard = true;
@@ -1912,7 +1912,7 @@ public class DDMSFacade {
 				// trying to write on /mnt/sdcard folder (it works for phones
 				// since Platform 2.2)
 				if (!deleteFileFromDevice(serialNumber, tempMntFile.getName(), MNT_SDCARD_FOLDER)) {
-					StudioLogger
+					AndmoreLogger
 							.error("DDMSFacade: Could not delete tempfile from /mnt/sdcard when checking if card is enabled"); //$NON-NLS-1$
 				}
 				hasSdCard = true;

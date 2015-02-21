@@ -16,7 +16,7 @@
 package org.eclipse.andmore.android.nativeos;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 
@@ -38,7 +38,7 @@ public class NativeUIUtils {
 		try {
 			return (Class.forName(nameClass)).newInstance();
 		} catch (Exception ex) {
-			StudioLogger
+			AndmoreLogger
 					.error(NativeUIUtils.class, "Error resolving OS dependent class for native windows feature", ex);
 			return null;
 		}

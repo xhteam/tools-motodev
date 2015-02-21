@@ -38,7 +38,7 @@ import org.eclipse.ui.PlatformUI;
  * This class is responsible for handling the command that marks/unmarks Android
  * project to be obfuscated.
  * 
- * Its proposal at first is to be called from the motodev menu
+ * Its proposal at first is to be called from the Andmore menu
  */
 public class ObfuscateProjectsHandler extends AbstractHandler {
 

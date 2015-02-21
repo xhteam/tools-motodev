@@ -23,7 +23,7 @@ public interface IMonkeyConfigurationConstants {
 
 	public final static String LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID = "monkeyLaunchConfigurationType";
 
-	public final static String MOTODEV_APP_ICO = "icons/monkey/motodevapp.gif";
+	public final static String ANDMORE_APP_ICO = "icons/monkey/monkey_16.png";
 
 	public final static String DEFAULT_VALUE = "";
 

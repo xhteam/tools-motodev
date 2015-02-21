@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.installer.InstallerException;
 import org.eclipse.andmore.android.installer.InstallerPlugin;
 import org.eclipse.andmore.android.installer.i18n.InstallerNLS;
@@ -344,7 +344,7 @@ class P2Utilities {
 							+ installableItensNames + ") could not be downloaded.");
 				}
 			} catch (InterruptedException e) {
-				StudioLogger.error("Error while trying to launch p2 job");
+				AndmoreLogger.error("Error while trying to launch p2 job");
 				result = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 						InstallerNLS.P2Utilities_ErrorWhileLaunchingP2Job, null);
 			}
@@ -406,7 +406,7 @@ class P2Utilities {
 								+ installableItensNames + ") could not be downloaded.");
 					}
 				} catch (InterruptedException e) {
-					StudioLogger.error("Error while trying to launch p2 job");
+					AndmoreLogger.error("Error while trying to launch p2 job");
 					result = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 							InstallerNLS.P2Utilities_ErrorWhileLaunchingP2Job, null);
 				}
@@ -653,7 +653,7 @@ class P2Utilities {
 				ProvisioningUI.getDefaultUI().manageJob(provisioningJob, ProvisioningJob.RESTART_NONE);
 				provisioningJob.schedule();
 			} catch (Exception e) {
-				StudioLogger.error(P2Utilities.class, "updateIu error when schedulling Job. ", e);
+				AndmoreLogger.error(P2Utilities.class, "updateIu error when schedulling Job. ", e);
 			}
 
 			try {
@@ -661,14 +661,14 @@ class P2Utilities {
 				result = provisioningJob.getResult();
 			} catch (InterruptedException e) {
 
-				StudioLogger.error(P2Utilities.class, "Error while trying to launch p2 job.", e);
+				AndmoreLogger.error(P2Utilities.class, "Error while trying to launch p2 job.", e);
 				result = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 						InstallerNLS.P2Utilities_ErrorWhileLaunchingP2Job, null);
 			}
 		}
 
 		if (!result.isOK()) {
-			StudioLogger.error(
+			AndmoreLogger.error(
 					P2Utilities.class,
 					"updateIu exiting with status different from ok. " + result.toString() + " - "
 							+ result.getMessage());

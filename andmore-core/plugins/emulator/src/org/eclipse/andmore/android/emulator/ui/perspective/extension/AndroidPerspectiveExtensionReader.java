@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.ui.perspective.extension;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;

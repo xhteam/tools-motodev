@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.eclipse.andmore.android.DDMSFacade;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.core.devfrm.DeviceFrameworkManager;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
@@ -98,7 +98,7 @@ public class DeviceViewsSync {
 			syncMethods[DEVICE_VIEW] = this.getClass().getDeclaredMethod("syncDeviceView", parameterTypes);
 			syncMethods[DDMS_VIEW] = this.getClass().getDeclaredMethod("syncDDMSView", parameterTypes);
 		} catch (Exception e) {
-			StudioLogger.error("Could not add syncronization method: " + e.getMessage());
+			AndmoreLogger.error("Could not add syncronization method: " + e.getMessage());
 		}
 
 	}
@@ -192,7 +192,7 @@ public class DeviceViewsSync {
 				try {
 					syncMethods[i].invoke(this, arglist);
 				} catch (Exception e) {
-					StudioLogger.error("Could not call syncronization method for " + i + " : " + e.getMessage());
+					AndmoreLogger.error("Could not call syncronization method for " + i + " : " + e.getMessage());
 				}
 			}
 		}
@@ -214,12 +214,12 @@ public class DeviceViewsSync {
 			if (emulatorInstance != null) {
 				AbstractAndroidView.setInstance(emulatorInstance);
 			} else {
-				StudioLogger.warn("Could not synchronize with Emulator View: " + instanceName
+				AndmoreLogger.warn("Could not synchronize with Emulator View: " + instanceName
 						+ " not in DeviceFrameworkManager model");
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error("Could not synchronize with Emulator View: " + e.getMessage());
+			AndmoreLogger.error("Could not synchronize with Emulator View: " + e.getMessage());
 		}
 	}
 
@@ -238,11 +238,11 @@ public class DeviceViewsSync {
 				IInstance tmlInstance = tmlInstances.get(0);
 				InstanceMgtView.setSeletectedInstance(tmlInstance);
 			} else {
-				StudioLogger.warn("Could not synchronize with Device Management View: " + instanceName
+				AndmoreLogger.warn("Could not synchronize with Device Management View: " + instanceName
 						+ " not in TmL InstanceManager model");
 			}
 		} catch (Exception e) {
-			StudioLogger.error("Could not synchronize with Device Management View: " + e.getMessage());
+			AndmoreLogger.error("Could not synchronize with Device Management View: " + e.getMessage());
 		}
 
 	}
@@ -259,11 +259,11 @@ public class DeviceViewsSync {
 			if (device != null) {
 				DdmsPlugin.getDefault().selectionChanged(device, null);
 			} else {
-				StudioLogger
+				AndmoreLogger
 						.warn("Could not synchronize with DDMS Devices View: Could not retrieve Device object from ADT model");
 			}
 		} catch (Exception e) {
-			StudioLogger.error("Could not synchronize with DDMS Devices View: " + e.getMessage());
+			AndmoreLogger.error("Could not synchronize with DDMS Devices View: " + e.getMessage());
 		}
 
 	}

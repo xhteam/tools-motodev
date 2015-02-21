@@ -17,7 +17,7 @@ package org.eclipse.andmore.android.wizards.elements;
 
 import java.io.File;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.model.AndroidProject;
 import org.eclipse.andmore.android.model.IWizardModel;
@@ -177,7 +177,7 @@ public class LocationGroup extends Composite {
 
 					notifyListeners(IWizardModel.MODIFIED, new Event());
 				} else {
-					StudioLogger.error(LocationGroup.class, "Ilegal State with New Project radio buttons."); //$NON-NLS-1$
+					AndmoreLogger.error(LocationGroup.class, "Ilegal State with New Project radio buttons."); //$NON-NLS-1$
 				}
 			}
 		};

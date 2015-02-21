@@ -24,7 +24,7 @@ import java.util.List;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.db.utils.DatabaseUtils;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
 import org.eclipse.andmore.android.model.manifest.AndroidManifestFile;
@@ -103,7 +103,7 @@ public class DatabaseManagementClassesCreationMainPage extends NewTypeWizardPage
 					updateProject(null);
 				}
 			} catch (JavaModelException jme) {
-				StudioLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, jme);
+				AndmoreLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, jme);
 				IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, jme.getLocalizedMessage());
 				EclipseUtils.showErrorDialog(CodeUtilsNLS.Db_GenerateManagementClassesError,
 						CodeUtilsNLS.Db_GenerateManagementClassesError, status);
@@ -370,7 +370,7 @@ public class DatabaseManagementClassesCreationMainPage extends NewTypeWizardPage
 		try {
 			updateProject(project);
 		} catch (JavaModelException e) {
-			StudioLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
+			AndmoreLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
 			IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e.getLocalizedMessage());
 			EclipseUtils.showErrorDialog(CodeUtilsNLS.Db_GenerateManagementClassesError,
 					CodeUtilsNLS.Db_GenerateManagementClassesError, status);
@@ -471,7 +471,7 @@ public class DatabaseManagementClassesCreationMainPage extends NewTypeWizardPage
 			// set focus on the name text field
 			setFocus();
 		} catch (Exception e) {
-			StudioLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
+			AndmoreLogger.error(this.getClass(), CodeUtilsNLS.Db_GenerateManagementClassesError, e);
 			IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e.getLocalizedMessage());
 			EclipseUtils.showErrorDialog(CodeUtilsNLS.Db_GenerateManagementClassesError,
 					CodeUtilsNLS.Db_GenerateManagementClassesError, status);

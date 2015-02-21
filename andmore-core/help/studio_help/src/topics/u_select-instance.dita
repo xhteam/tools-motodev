@@ -15,7 +15,7 @@
   </prolog>
   <refbody>
     <section>
-      <p>This dialog displays the set of device instances currently known to MOTODEV Studio for Android. This includes
+      <p>This dialog displays the set of device instances currently known to Eclipse Andmore. This includes
         physical devices that are currently connected to your development computer as well as any AVDs you have created
         (whether or not they are running). Note that if you create a run configuration that targets a physical Android
         device and then unplug that device, the configuration becomes invalid. You can only run such a configuration if

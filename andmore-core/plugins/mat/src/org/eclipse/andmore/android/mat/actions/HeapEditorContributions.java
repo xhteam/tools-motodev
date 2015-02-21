@@ -25,19 +25,19 @@ import org.eclipse.mat.ui.editor.MultiPaneEditor;
 @SuppressWarnings("restriction")
 public class HeapEditorContributions implements IMultiPaneEditorContributor {
 
-	private Action openMotodevPane;
+	private Action openAndmorePane;
 
 	@Override
 	public void contributeToToolbar(IToolBarManager manager) {
 		manager.add(new Separator());
 
-		manager.add(openMotodevPane);
+		manager.add(openAndmorePane);
 
 	}
 
 	@Override
 	public void init(MultiPaneEditor editor) {
-		openMotodevPane = new OpenMotodevPaneAction();
+		openAndmorePane = new OpenAndmorePaneAction();
 
 	}
 

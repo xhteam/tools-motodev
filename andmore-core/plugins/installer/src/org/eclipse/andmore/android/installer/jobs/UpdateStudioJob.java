@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.installer.InstallerException;
 import org.eclipse.andmore.android.installer.InstallerPlugin;
@@ -120,11 +120,11 @@ public class UpdateStudioJob extends Job {
 					BACKEND.P2, submonitor.newChild(40));
 
 			if (itemsToInstall.size() == 0) {
-				StudioLogger.info(this.getClass(), "listAvailable updates returned an empty list"); //$NON-NLS-1$
+				AndmoreLogger.info(this.getClass(), "listAvailable updates returned an empty list"); //$NON-NLS-1$
 			}
 
 			if (!status.isOK()) {
-				StudioLogger.info(this.getClass(), "Error listing available updates " + status.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.info(this.getClass(), "Error listing available updates " + status.getMessage()); //$NON-NLS-1$
 				if (status.getSeverity() == IStatus.INFO) {
 					EclipseUtils.showInformationDialog(InstallerNLS.UpdateStudio_AlreadyUpdatedInformationDialogTitle,
 							InstallerNLS.UpdateStudio_AlreadyUpdatedInformationDialogText);
@@ -163,11 +163,11 @@ public class UpdateStudioJob extends Job {
 							status = installManager.updateStudio(updateSites, BACKEND.P2, submonitor.newChild(60));
 
 							if (updateSites.isEmpty()) {
-								StudioLogger.info(this.getClass(),
+								AndmoreLogger.info(this.getClass(),
 										"Tryed to update from Studio but updateSites[] is empty. Status message = " //$NON-NLS-1$
 												+ status.getMessage());
 							} else {
-								StudioLogger.info(this.getClass(), "Tryed to update from [" + updateSites.toString() //$NON-NLS-1$
+								AndmoreLogger.info(this.getClass(), "Tryed to update from [" + updateSites.toString() //$NON-NLS-1$
 										+ "]. Status message = " + status.getMessage()); //$NON-NLS-1$
 							}
 
@@ -190,7 +190,7 @@ public class UpdateStudioJob extends Job {
 							}
 
 						} else if (monitor.isCanceled()) {
-							StudioLogger
+							AndmoreLogger
 									.info(this.getClass(), "Setting status to CANCEL since monitor was canceled 1."); //$NON-NLS-1$
 							status = Status.CANCEL_STATUS;
 						} else if (status.getSeverity() == IStatus.INFO) {
@@ -201,24 +201,24 @@ public class UpdateStudioJob extends Job {
 							EclipseUtils.showErrorDialog(InstallerNLS.UpdateStudio_UpdateErrorTitle,
 									InstallerNLS.UpdateStudioJob_UpdateErrorMessage, status);
 							status = Status.CANCEL_STATUS;
-							StudioLogger.info(this.getClass(), "Setting status to CANCEL 2."); //$NON-NLS-1$
+							AndmoreLogger.info(this.getClass(), "Setting status to CANCEL 2."); //$NON-NLS-1$
 						}
 					}
 				}
 
 				if (monitor.isCanceled()) {
-					StudioLogger.info(this.getClass(), "Setting status to CANCEL since monitor was canceled 3."); //$NON-NLS-1$
+					AndmoreLogger.info(this.getClass(), "Setting status to CANCEL since monitor was canceled 3."); //$NON-NLS-1$
 					status = Status.CANCEL_STATUS;
 				}
 			}
 		} catch (InstallerException e) {
-			StudioLogger.error(this.getClass(), "Error when retrieving installable units for update", e); //$NON-NLS-1$
+			AndmoreLogger.error(this.getClass(), "Error when retrieving installable units for update", e); //$NON-NLS-1$
 			status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0, InstallerNLS.UpdateStudio_UpdateErrorText,
 					null);
 		}
 
 		if (!status.isOK()) {
-			StudioLogger.info(this.getClass(), "Update Studio job exiting with status different from ok: " //$NON-NLS-1$
+			AndmoreLogger.info(this.getClass(), "Update Studio job exiting with status different from ok: " //$NON-NLS-1$
 					+ status.getMessage());
 		}
 

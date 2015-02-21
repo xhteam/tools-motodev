@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.device.definition;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;

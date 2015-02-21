@@ -95,7 +95,7 @@ public class RemoteDeviceWizardPage extends WizardPage implements IInstancePrope
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.
+	 * @see org.eclipse.andmore.android.remote.ui.RemotePropertiesComposite.
 	 * RemotePropertiesChangedListener#propertiesChanged()
 	 */
 	@Override

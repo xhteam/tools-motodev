@@ -49,7 +49,7 @@ public class FilterDbApplicationHandler extends AbstractHandler implements IHand
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		if (node == null) {
-			node = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+			node = DbCoreActivator.getAndmoreDatabaseExplorerView().getSelectedItemOnTree();
 		}
 		if (node instanceof IDeviceNode) {
 			boolean oldValue = HandlerUtil.toggleCommandState(event.getCommand());

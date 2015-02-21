@@ -25,7 +25,7 @@ public class ChangeZoomHandler extends AbstractZoomHandler {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.ui.handlers.AbstractZoomHandler#
+	 * org.eclipse.andmore.android.emulator.ui.handlers.AbstractZoomHandler#
 	 * getZoomFactor(java.util.Map)
 	 */
 	@SuppressWarnings("rawtypes")

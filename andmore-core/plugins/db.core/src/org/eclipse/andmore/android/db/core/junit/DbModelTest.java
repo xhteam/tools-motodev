@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.andmore.android.db.core.model.Field;
 import org.eclipse.andmore.android.db.core.model.TableModel;
@@ -39,7 +39,7 @@ public class DbModelTest {
 		DbModel model = null;
 		try {
 			model = new DbModel(path);
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			e.printStackTrace();
 		}
 		IStatus s = model.connect();

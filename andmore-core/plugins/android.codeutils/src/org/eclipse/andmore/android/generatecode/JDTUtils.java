@@ -23,7 +23,7 @@ import java.util.List;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatemenucode.model.codegenerators.CodeGeneratorBasedOnMenuVisitor;
 import org.eclipse.andmore.android.generatemenucode.model.codegenerators.CodeGeneratorDataBasedOnMenu;
 import org.eclipse.andmore.android.generateviewbylayout.GenerateCodeBasedOnLayoutVisitor;
@@ -77,11 +77,11 @@ public class JDTUtils {
 
 		CodeGeneratorBasedOnMenuVisitor visitor = new CodeGeneratorBasedOnMenuVisitor();
 		CompilationUnit cpAstNode = parse(compUnit);
-		StudioLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
+		AndmoreLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
 		try {
 			cpAstNode.accept(visitor);
 		} catch (IllegalArgumentException illegalArgumentException) {
-			StudioLogger.error("Error while trying to visit code to get an inflated menu:"
+			AndmoreLogger.error("Error while trying to visit code to get an inflated menu:"
 					+ compUnit.getResource().getName());
 		}
 		return visitor.getInflatedMenuName();
@@ -368,7 +368,7 @@ public class JDTUtils {
 			throws AndroidException {
 		GenerateCodeBasedOnLayoutVisitor visitor = new GenerateCodeBasedOnLayoutVisitor();
 		CompilationUnit cpAstNode = parse(compUnit);
-		StudioLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
+		AndmoreLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
 		try {
 			cpAstNode.accept(visitor);
 		} catch (IllegalArgumentException illegalArgumentException) {
@@ -382,7 +382,7 @@ public class JDTUtils {
 			// layout set or inflate not declared
 			throw new AndroidException(CodeUtilsNLS.UI_ChooseLayoutItemsDialog_Error_onCreate_Not_Declared);
 		} else {
-			StudioLogger.info("Trying to read layout: " + layout); //$NON-NLS-1$            
+			AndmoreLogger.info("Trying to read layout: " + layout); //$NON-NLS-1$            
 			try {
 				codeGeneratorData = new CodeGeneratorDataBasedOnLayout();
 				codeGeneratorData.init(visitor.getLayoutName(), layout.getLocation().toFile());
@@ -423,7 +423,7 @@ public class JDTUtils {
 			String menuFileName, CodeGeneratorDataBasedOnMenu.TYPE typeAssociated) throws AndroidException {
 		CodeGeneratorBasedOnMenuVisitor visitor = new CodeGeneratorBasedOnMenuVisitor();
 		CompilationUnit cpAstNode = parse(compUnit);
-		StudioLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
+		AndmoreLogger.info("Trying to visit code for class: " + compUnit.getResource().getName()); //$NON-NLS-1$
 		try {
 			cpAstNode.accept(visitor);
 		} catch (IllegalArgumentException illegalArgumentException) {
@@ -433,7 +433,7 @@ public class JDTUtils {
 		IFile menu = project.getFile(File.separator + IAndroidConstants.FD_RES + File.separator
 				+ IAndroidConstants.FD_MENU + File.separator + menuFileName);
 		CodeGeneratorDataBasedOnMenu codeGeneratorData = null;
-		StudioLogger.info("Trying to read menu: " + menu); //$NON-NLS-1$            
+		AndmoreLogger.info("Trying to read menu: " + menu); //$NON-NLS-1$            
 		try {
 			codeGeneratorData = new CodeGeneratorDataBasedOnMenu();
 			codeGeneratorData.init(menuFileName, menu.getLocation().toFile());

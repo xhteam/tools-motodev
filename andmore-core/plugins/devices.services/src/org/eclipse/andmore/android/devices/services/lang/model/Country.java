@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.services.DeviceServicesPlugin;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -102,7 +102,7 @@ public class Country {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error("Change Language TmL Service: could not load countries list");
+			AndmoreLogger.error("Change Language TmL Service: could not load countries list");
 		}
 
 	}

@@ -22,7 +22,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatecode.JDTUtils;
 import org.eclipse.andmore.android.generatemenucode.model.codegenerators.CodeGeneratorDataBasedOnMenu;
 import org.eclipse.andmore.android.generatemenucode.model.codegenerators.JavaModifierBasedOnMenu;
@@ -244,7 +244,7 @@ public class GenerateMenuCodeDialog extends TitleAreaDialog {
 						i++;
 					}
 				} catch (CoreException e) {
-					StudioLogger.info("Project nature could not be checked."); //$NON-NLS-1$
+					AndmoreLogger.info("Project nature could not be checked."); //$NON-NLS-1$
 				}
 			}
 
@@ -303,7 +303,7 @@ public class GenerateMenuCodeDialog extends TitleAreaDialog {
 						}
 					}
 				} catch (JavaModelException e) {
-					StudioLogger.info("Could not get available classes for the selected project"); //$NON-NLS-1$
+					AndmoreLogger.info("Could not get available classes for the selected project"); //$NON-NLS-1$
 				}
 
 				classNameComboBox.setEnabled(classNameComboBox.getItemCount() > 0);

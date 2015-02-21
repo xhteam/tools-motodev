@@ -2,7 +2,7 @@
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task id="t_app-uninstalling-android" xml:lang="en-us">
   <title>Uninstalling Android applications</title>
-  <shortdesc>From within MOTODEV Studio for Android you can easily uninstall applications from a connected device or
+  <shortdesc>From within Eclipse Andmore you can easily uninstall applications from a connected device or
     emulator.</shortdesc>
   <prolog>
     <metadata>

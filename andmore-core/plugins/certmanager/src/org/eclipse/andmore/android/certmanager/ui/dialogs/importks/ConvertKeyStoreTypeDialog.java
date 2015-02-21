@@ -30,7 +30,7 @@ import org.eclipse.andmore.android.certmanager.exception.InvalidPasswordExceptio
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.CellEditor;
@@ -398,7 +398,7 @@ public class ConvertKeyStoreTypeDialog extends TitleAreaDialog {
 		try {
 			password = keyStore.getPasswordProvider().getKeyStorePassword(false);
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+			AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 		}
 
 		if (password == null) {
@@ -419,7 +419,7 @@ public class ConvertKeyStoreTypeDialog extends TitleAreaDialog {
 					validateUi();
 				}
 			} catch (KeyStoreManagerException e) {
-				StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+				AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 			} catch (InvalidPasswordException e) {
 				validateUi();
 			}

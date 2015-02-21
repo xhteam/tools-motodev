@@ -2,7 +2,7 @@
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task id="t_app-memory-analyzing" xml:lang="en-us">
   <title>Analyzing Memory with MAT</title>
-  <shortdesc>MOTODEV Studio for Android provides an interface to MAT, the Eclipse memory analyzer. MAT analyzes the Java
+  <shortdesc>Eclipse Andmore provides an interface to MAT, the Eclipse memory analyzer. MAT analyzes the Java
     heap and can be extremely helpful when trying to track down memory leaks. It is also a valuable tool when trying to
     reduce your app's memory consumption.</shortdesc>
   <prolog>
@@ -14,7 +14,7 @@
   </prolog>
   <taskbody>
     <context>
-      <p>MOTODEV Studio for Android will generate an HPROF binary formatted heap dump for a selected process on a
+      <p>Eclipse Andmore will generate an HPROF binary formatted heap dump for a selected process on a
         running emulator (or handset, provided that the handset has an SD card installed; on a handset the HPROF file is
         written to the SD card), and will then launch MAT to analyze the heap dump.</p>
     </context>
@@ -22,12 +22,12 @@
       <step>
         <cmd>From the Device Management view, right-click the running emulator or connected device on which the app or
           service to be analyzed is running and select <uicontrol>Analyze Memory with MAT</uicontrol>.</cmd>
-        <stepresult>MOTODEV Studio for Android displays a dialog showing all of the running applications and services on
+        <stepresult>Eclipse Andmore displays a dialog showing all of the running applications and services on
           the selected device.</stepresult>
       </step>
       <step>
         <cmd>Select the application or service you wish to analyze and click <uicontrol>Finish</uicontrol>.</cmd>
-        <stepresult>MOTODEV Studio for Android generates an HPROF file from the selected application or service and
+        <stepresult>Eclipse Andmore generates an HPROF file from the selected application or service and
           presents a basic analysis in the form of a pie chart in an editor view. It then launches the Getting Started
           Wizard, from which you can select a report.</stepresult>
       </step>

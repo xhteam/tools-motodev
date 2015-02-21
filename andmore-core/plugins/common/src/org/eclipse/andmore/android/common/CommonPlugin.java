@@ -16,14 +16,14 @@
 
 package org.eclipse.andmore.android.common;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -40,7 +40,7 @@ public class CommonPlugin extends AbstractUIPlugin {
 
 	private static final String JDBC_DRIVER_PATH = "res/androidjdbc.jar";
 
-	public static final String JDBC_DRIVER_INSTANCE_NAME = "motodev_jdbc_driver";
+	public static final String JDBC_DRIVER_INSTANCE_NAME = "andmore_jdbc_driver";
 
 	// The shared instance
 	private static CommonPlugin plugin;
@@ -54,12 +54,12 @@ public class CommonPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(CommonPlugin.class, "Starting MOTODEV Android Common Plugin...");
+		AndmoreLogger.debug(CommonPlugin.class, "Starting Andmore Common Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(CommonPlugin.class, "MOTODEV Android Common Plugin started.");
+		AndmoreLogger.debug(CommonPlugin.class, "Andmore Common Plugin started.");
 	}
 
 	/*

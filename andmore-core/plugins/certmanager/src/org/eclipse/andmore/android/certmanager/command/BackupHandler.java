@@ -35,7 +35,7 @@ import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.ui.dialogs.BackupDialog;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -178,7 +178,7 @@ public class BackupHandler extends AbstractHandler2 implements IHandler {
 					zos.flush();
 					zos.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close steam while creating zip archive. " + e.getMessage());
+					AndmoreLogger.error("Could not close steam while creating zip archive. " + e.getMessage());
 				}
 			}
 		}

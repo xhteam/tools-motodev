@@ -77,7 +77,7 @@ public class CreateDatabaseManagementClassesAction extends Action {
 					// on selection from package explorer
 					Object selectionElement = getSelectionElement(window);
 					if (selectionElement == null) {
-						// the wizard was requested to open from MOTODEV menu -
+						// the wizard was requested to open from Andmore menu -
 						// open wizard without selecting project or .db file
 						resource = null;
 					} else {

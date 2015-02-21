@@ -18,7 +18,7 @@ package org.eclipse.andmore.wizards.buildingblocks;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.model.Activity;
 import org.eclipse.core.runtime.CoreException;
@@ -64,7 +64,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewBuildingBlocksWizard
 	 * #getBuildBlock()
 	 */
 	@Override
@@ -75,7 +75,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -92,7 +92,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage
 	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
 	 */
@@ -171,7 +171,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 							nextWd.setTitle(wizard.getWindowTitle());
 							nextWd.open();
 						} catch (CoreException e) {
-							StudioLogger
+							AndmoreLogger
 									.error(NewActivityMainPage.class,
 											"could not open new activity based on template wizard from inside new activity wizard");
 						}
@@ -213,7 +213,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -224,7 +224,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override
@@ -236,7 +236,7 @@ public class NewActivityMainPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getIntentFiltersActions()
 	 */
 	@Override

@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.mat.i18n.MatNLS;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -50,7 +50,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 @SuppressWarnings("restriction")
-public class MotodevPane extends CompositeHeapEditorPane {
+public class AndmorePane extends CompositeHeapEditorPane {
 
 	// Select statement
 	private String queryFirstPart = "select * from \"";
@@ -61,10 +61,10 @@ public class MotodevPane extends CompositeHeapEditorPane {
 	private String queryString;
 
 	// Pane title
-	private static final String PANE_TITLE = MatNLS.Motodev_Pane_Title;
+	private static final String PANE_TITLE = MatNLS.Andmore_Pane_Title;
 
 	// Pane ID
-	public final static String MOTODEV_PANE_ID = "org.eclipse.andmore.android.mat.MotodevPane";
+	public final static String ANDMORE_PANE_ID = "org.eclipse.andmore.android.mat.AndmorePane";
 
 	private Action executeAction;
 
@@ -211,7 +211,7 @@ public class MotodevPane extends CompositeHeapEditorPane {
 					w.close();
 					o.close();
 				} catch (IOException e) {
-					StudioLogger.error(e.getMessage());
+					AndmoreLogger.error(e.getMessage());
 				}
 			}
 
@@ -249,7 +249,7 @@ public class MotodevPane extends CompositeHeapEditorPane {
 				try {
 					// force parsing of OQL query
 					SnapshotFactory.createQuery(query);
-					new OQLJob(MotodevPane.this, query, state).schedule();
+					new OQLJob(AndmorePane.this, query, state).schedule();
 				} catch (final OQLParseException e) {
 					createExceptionPane(e, query);
 				} catch (Exception e) {

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatemenucode.model.codegenerators.CodeGeneratorDataBasedOnMenu;
 import org.eclipse.andmore.android.generateviewbylayout.model.CodeGeneratorDataBasedOnLayout;
 import org.eclipse.core.resources.IFile;
@@ -67,7 +67,7 @@ public abstract class JavaCodeModifier {
 		IResource resource = codeGeneratorData.getResource();
 		if (resource instanceof IFile) {
 			IFile java = (IFile) resource;
-			StudioLogger
+			AndmoreLogger
 					.info("Trying to insert code for class: " + java.getFullPath() + " based  on resource " + getDataResource()); //$NON-NLS-1$
 			IDocument document = null;
 			try {
@@ -98,20 +98,20 @@ public abstract class JavaCodeModifier {
 							try {
 								compUnit.applyTextEdit(edit, theMonitor);
 							} catch (JavaModelException e) {
-								StudioLogger.error(this.getClass(), "Error applying changes: " + e.getMessage(), e); //$NON-NLS-1$
+								AndmoreLogger.error(this.getClass(), "Error applying changes: " + e.getMessage(), e); //$NON-NLS-1$
 							}
 
 						}
 					});
 				} catch (CoreException e) {
-					StudioLogger.error(this.getClass(), "Error changing AST activity/fragment: " + e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error(this.getClass(), "Error changing AST activity/fragment: " + e.getMessage()); //$NON-NLS-1$
 					throw new JavaModelException(e);
 				} catch (RuntimeException rte) {
-					StudioLogger.error(this.getClass(), "Error changing AST activity/fragment: " + rte.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error(this.getClass(), "Error changing AST activity/fragment: " + rte.getMessage()); //$NON-NLS-1$
 					throw new JavaModelException(rte, IJavaModelStatusConstants.CORE_EXCEPTION);
 				}
 			} catch (CoreException e) {
-				StudioLogger.error(this.getClass(),
+				AndmoreLogger.error(this.getClass(),
 						"Error creating IDocument from java file: " + java + " message: " + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 				throw new JavaModelException(e, IJavaModelStatusConstants.CORE_EXCEPTION);
 			} finally {

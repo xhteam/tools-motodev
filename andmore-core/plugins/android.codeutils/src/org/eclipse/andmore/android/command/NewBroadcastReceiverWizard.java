@@ -20,7 +20,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 /**
- * Command to open the New Broadcast Receiver wizard through the MOTODEV menu
+ * Command to open the New Broadcast Receiver wizard through the Andmore menu
  */
 public class NewBroadcastReceiverWizard extends NewWizardHandler {
 	/*

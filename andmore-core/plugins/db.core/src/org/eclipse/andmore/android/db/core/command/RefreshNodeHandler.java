@@ -98,7 +98,7 @@ public class RefreshNodeHandler extends AbstractHandler implements IHandler {
 	}
 
 	private ITreeNode getSelectedItem() {
-		ITreeNode selectedNode = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+		ITreeNode selectedNode = DbCoreActivator.getAndmoreDatabaseExplorerView().getSelectedItemOnTree();
 
 		return selectedNode;
 	}

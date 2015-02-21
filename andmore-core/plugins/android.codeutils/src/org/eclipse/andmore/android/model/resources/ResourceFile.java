@@ -27,7 +27,7 @@ import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.model.resources.parser.AbstractResourceFileParser;
 import org.eclipse.andmore.android.model.resources.types.AbstractResourceNode;
 import org.eclipse.andmore.android.model.resources.types.AbstractSimpleNameResourceNode;
@@ -126,7 +126,7 @@ public class ResourceFile extends AbstractResourceFileParser {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			StudioLogger.error(ResourceFile.class, CodeUtilsNLS.EXC_ResourceFile_ErrorCreatingTheDocumentBuilder, e);
+			AndmoreLogger.error(ResourceFile.class, CodeUtilsNLS.EXC_ResourceFile_ErrorCreatingTheDocumentBuilder, e);
 			throw new AndroidException(CodeUtilsNLS.EXC_ResourceFile_ErrorCreatingTheDocumentBuilder);
 		}
 
@@ -238,14 +238,14 @@ public class ResourceFile extends AbstractResourceFileParser {
 			xmlSerializer.serialize(xmlDocument);
 			content = writer.toString();
 		} catch (IOException e) {
-			StudioLogger.error(ResourceFile.class, CodeUtilsNLS.EXC_ResourceFile_ErrorFormattingTheXMLOutput, e);
+			AndmoreLogger.error(ResourceFile.class, CodeUtilsNLS.EXC_ResourceFile_ErrorFormattingTheXMLOutput, e);
 			throw new AndroidException(CodeUtilsNLS.EXC_ResourceFile_ErrorFormattingTheXMLOutput);
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while retrieving resource xml content. "
+					AndmoreLogger.error("Could not close stream while retrieving resource xml content. "
 							+ e.getMessage());
 				}
 			}

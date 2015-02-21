@@ -47,9 +47,9 @@ public abstract class AbstractSimpleNameNode extends AndroidManifestNode impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * canContains
-	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * (org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode
 	 * .NodeType)
 	 */
 	@Override
@@ -61,7 +61,7 @@ public abstract class AbstractSimpleNameNode extends AndroidManifestNode impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeProperties()
 	 */
 	@Override
@@ -78,7 +78,7 @@ public abstract class AbstractSimpleNameNode extends AndroidManifestNode impleme
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * isNodeValid()
 	 */
 	@Override

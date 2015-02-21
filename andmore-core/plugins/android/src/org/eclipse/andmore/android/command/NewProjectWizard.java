@@ -20,7 +20,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 /**
- * Command to open the New Project wizard through the MOTODEV menu
+ * Command to open the New Project wizard through the Andmore menu
  */
 public class NewProjectWizard extends NewWizardHandler {
 	/*

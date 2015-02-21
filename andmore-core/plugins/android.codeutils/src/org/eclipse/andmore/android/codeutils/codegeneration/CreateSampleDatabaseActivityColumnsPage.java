@@ -87,7 +87,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	 * 
 	 * @param activity
 	 *            an
-	 *            {@code com.motorola.studio.android.model.ActivityBasedOnTemplate}
+	 *            {@code org.eclipse.andmore.android.model.ActivityBasedOnTemplate}
 	 *            to be used as the building block model.
 	 */
 	public CreateSampleDatabaseActivityColumnsPage(ActivityBasedOnTemplate activity) {
@@ -97,7 +97,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage
 	 * #createIntermediateControls(org.eclipse.swt.widgets.Composite)
 	 */
@@ -148,7 +148,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getIntentFiltersActions()
 	 */
 	@Override
@@ -165,7 +165,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -176,7 +176,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getHelpId()
 	 */
 	@Override
@@ -187,7 +187,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -198,7 +198,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override
@@ -209,7 +209,7 @@ public class CreateSampleDatabaseActivityColumnsPage extends NewLauncherWizardPa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#canFlipToNextPage()
 	 */
 	@Override

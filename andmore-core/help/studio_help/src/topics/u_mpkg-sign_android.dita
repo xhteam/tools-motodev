@@ -19,7 +19,7 @@
       </menucascade>, or when you select <menucascade>
         <uicontrol>Signing</uicontrol>
         <uicontrol>Sign Android Package</uicontrol>
-      </menucascade> from the MOTODEV menu. <simpletable>
+      </menucascade> from the Andmore menu. <simpletable>
         <strow>
           <stentry><uicontrol>Packages folder</uicontrol></stentry>
           <stentry>Path to the folder in which the Android package (.apk) files reside.</stentry>

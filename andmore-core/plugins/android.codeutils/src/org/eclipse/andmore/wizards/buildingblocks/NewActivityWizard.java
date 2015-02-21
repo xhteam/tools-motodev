@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.Activity;
@@ -67,7 +67,7 @@ public class NewActivityWizard extends NewBuildingBlocksWizard {
 				getBuildingBlock().getProject().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor);
 			} catch (CoreException ce) {
 				// build failed - show a warning message
-				StudioLogger.error(this.getClass(), ce.getMessage(), ce);
+				AndmoreLogger.error(this.getClass(), ce.getMessage(), ce);
 				EclipseUtils.showWarningDialog(CodeUtilsNLS.UI_NewActivityWizard_TitleNewActivityWizard,
 						CodeUtilsNLS.NewActivityWizard_MessageSomeProblemsOccurredWhileBuildingProject);
 			} catch (AndroidException e) {
@@ -128,11 +128,11 @@ public class NewActivityWizard extends NewBuildingBlocksWizard {
 					JavaUI.openInEditor(javaFile);
 				} catch (PartInitException e) {
 					// Do nothing
-					StudioLogger.error(NewActivityWizard.class, "Could not open the activity " //$NON-NLS-1$
+					AndmoreLogger.error(NewActivityWizard.class, "Could not open the activity " //$NON-NLS-1$
 							+ getBuildingBlock().getName() + " on an editor.", e); //$NON-NLS-1$
 				} catch (JavaModelException e) {
 					// Do nothing
-					StudioLogger.error(NewActivityWizard.class, "Could not open the activity " //$NON-NLS-1$
+					AndmoreLogger.error(NewActivityWizard.class, "Could not open the activity " //$NON-NLS-1$
 							+ getBuildingBlock().getName() + " on an editor.", e); //$NON-NLS-1$
 				}
 			}
@@ -141,7 +141,7 @@ public class NewActivityWizard extends NewBuildingBlocksWizard {
 		if (saved) {
 			// Collecting usage data for statistical purposes
 			try {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_ACTIVITY,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_ACTIVITY,
 						UsageDataConstants.KIND_BUILDINGBLOCK, UsageDataConstants.DESCRIPTION_DEFAULT,
 						CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion()
 								.toString());
@@ -183,7 +183,7 @@ public class NewActivityWizard extends NewBuildingBlocksWizard {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewBuildingBlocksWizard
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewBuildingBlocksWizard
 	 * #getBuildingBlock()
 	 */
 	@Override

@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * This class is a Manifest digester. It generates digested hashes for each
@@ -100,7 +100,7 @@ public class ManifestDigester {
 
 		result = getDigestedManifest(auxManifest);
 
-		StudioLogger.info(SignatureFile.class, "Created digest for main manifest attributes");
+		AndmoreLogger.info(SignatureFile.class, "Created digest for main manifest attributes");
 
 		return result;
 	}
@@ -135,11 +135,11 @@ public class ManifestDigester {
 			messageDigest.reset();
 			digestedManifestBytes = messageDigest.digest(baos.toByteArray());
 		} catch (IOException e) {
-			StudioLogger.error(SignatureFile.class, "I/O error encoding manifest digest: " + e.getMessage());
+			AndmoreLogger.error(SignatureFile.class, "I/O error encoding manifest digest: " + e.getMessage());
 
 			throw new SignException("I/O error encoding manifest digest", e);
 		} catch (NoSuchAlgorithmException e) {
-			StudioLogger.error(SignatureFile.class, "Error getting message digester");
+			AndmoreLogger.error(SignatureFile.class, "Error getting message digester");
 
 			throw new SignException("Could digest the manifest");
 		} finally {
@@ -153,12 +153,12 @@ public class ManifestDigester {
 		}
 
 		if (digestedManifestBytes == null) {
-			StudioLogger.error(SignatureFile.class, "Error encoding manifest digest");
+			AndmoreLogger.error(SignatureFile.class, "Error encoding manifest digest");
 
 			throw new SignException("Could not encode manifest digest");
 		}
 
-		StudioLogger.info(SignatureFile.class, "Created manifest digest");
+		AndmoreLogger.info(SignatureFile.class, "Created manifest digest");
 
 		return digestedManifestBytes;
 	}

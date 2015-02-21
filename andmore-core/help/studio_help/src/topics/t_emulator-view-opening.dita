@@ -12,9 +12,9 @@
   </prolog>
   <taskbody>
     <context>
-      <p>MOTODEV Studio for Android can open the Android Emulator view for you whenever you start an AVD from the Device
+      <p>Eclipse Andmore can open the Android Emulator view for you whenever you start an AVD from the Device
         Management view or whenever you launch one of the run configurations that targets an AVD (which automatically
-        starts the AVD, which can open the Android Emulator view). At the point where MOTODEV Studio for Android
+        starts the AVD, which can open the Android Emulator view). At the point where Eclipse Andmore
         determines that you might want the Android Emulator view opened, it prompts you. If you say "no", the view is
         not opened: instead the emulator launches and runs in an external window.</p>
       <p>To explicitly open the Android Emulator view:</p>
@@ -28,7 +28,7 @@
       </step>
       <step>
         <cmd>Select <menucascade>
-            <uicontrol>MOTODEV Studio for Android</uicontrol><uicontrol>Android Emulator</uicontrol>
+            <uicontrol>Eclipse Andmore</uicontrol><uicontrol>Android Emulator</uicontrol>
           </menucascade>.</cmd>
       </step>
     </steps>

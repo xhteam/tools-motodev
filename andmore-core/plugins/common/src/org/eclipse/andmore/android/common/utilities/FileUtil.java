@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.common.utilities;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -45,7 +45,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.eclipse.andmore.android.common.CommonPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -112,7 +112,7 @@ public class FileUtil {
 				}
 			}
 
-			StudioLogger.info("The directory " + fromDir.getName() + " was successfully copied to " //$NON-NLS-1$ //$NON-NLS-2$
+			AndmoreLogger.info("The directory " + fromDir.getName() + " was successfully copied to " //$NON-NLS-1$ //$NON-NLS-2$
 					+ toDir.getName() + "."); //$NON-NLS-1$
 
 		} else {
@@ -141,7 +141,7 @@ public class FileUtil {
 					}
 				}
 			}
-			StudioLogger.error(errorMessage);
+			AndmoreLogger.error(errorMessage);
 			throw new IOException("Error copying directory: " + errorMessage); //$NON-NLS-1$
 		}
 	}
@@ -177,9 +177,9 @@ public class FileUtil {
 			targetFileOutStream = new FileOutputStream(target);
 			targetFileChannel = targetFileOutStream.getChannel();
 			targetFileChannel.transferFrom(sourceFileChannel, 0, sourceFileChannel.size());
-			StudioLogger.info("The file " + source + " was successfully copied to " + target + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			AndmoreLogger.info("The file " + source + " was successfully copied to " + target + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} catch (IOException e) {
-			StudioLogger.error("Error copying file" + source + "to " + target + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			AndmoreLogger.error("Error copying file" + source + "to " + target + "."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			throw e;
 		} finally {
 			try {
@@ -187,7 +187,7 @@ public class FileUtil {
 					sourceFileChannel.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Error closing file " + source + "."); //$NON-NLS-1$ //$NON-NLS-2$
+				AndmoreLogger.error("Error closing file " + source + "."); //$NON-NLS-1$ //$NON-NLS-2$
 				throw e;
 			}
 
@@ -196,7 +196,7 @@ public class FileUtil {
 					targetFileChannel.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Error closing file" + target + "."); //$NON-NLS-1$ //$NON-NLS-2$
+				AndmoreLogger.error("Error closing file" + target + "."); //$NON-NLS-1$ //$NON-NLS-2$
 				throw e;
 			}
 
@@ -205,7 +205,7 @@ public class FileUtil {
 					sourceFileInStream.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Error closing file" + source + "."); //$NON-NLS-1$ //$NON-NLS-2$
+				AndmoreLogger.error("Error closing file" + source + "."); //$NON-NLS-1$ //$NON-NLS-2$
 				throw e;
 			}
 
@@ -214,7 +214,7 @@ public class FileUtil {
 					targetFileOutStream.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Error closing file" + target + "."); //$NON-NLS-1$ //$NON-NLS-2$
+				AndmoreLogger.error("Error closing file" + target + "."); //$NON-NLS-1$ //$NON-NLS-2$
 				throw e;
 			}
 
@@ -254,19 +254,19 @@ public class FileUtil {
 				success = success && directory.delete();
 			} else {
 				String errorMessage = directory.getName() + " is not a diretory."; //$NON-NLS-1$
-				StudioLogger.error(errorMessage);
+				AndmoreLogger.error(errorMessage);
 				throw new IOException(errorMessage);
 			}
 		} else {
 			String errorMessage = "The directory does not exist."; //$NON-NLS-1$
-			StudioLogger.error(errorMessage);
+			AndmoreLogger.error(errorMessage);
 			success = false;
 			throw new IOException(errorMessage);
 		}
 
 		if ((success) && (!dirName.equals(""))) //$NON-NLS-1$
 		{
-			StudioLogger.info("The directory " + dirName + "was successfully deleted."); //$NON-NLS-1$ //$NON-NLS-2$
+			AndmoreLogger.info("The directory " + dirName + "was successfully deleted."); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		return success;
@@ -284,7 +284,7 @@ public class FileUtil {
 	public static void deleteFile(File fileToDelete) throws IOException {
 		if ((fileToDelete != null) && fileToDelete.exists() && fileToDelete.isFile() && fileToDelete.canWrite()) {
 			fileToDelete.delete();
-			StudioLogger.info("The file " + fileToDelete.getName() + "was successfully deleted."); //$NON-NLS-1$ //$NON-NLS-2$
+			AndmoreLogger.info("The file " + fileToDelete.getName() + "was successfully deleted."); //$NON-NLS-1$ //$NON-NLS-2$
 		} else {
 			String errorMessage = ""; //$NON-NLS-1$
 			if (fileToDelete == null) {
@@ -304,7 +304,7 @@ public class FileUtil {
 
 			}
 
-			StudioLogger.error(errorMessage);
+			AndmoreLogger.error(errorMessage);
 			throw new IOException("Cannot delete file: " + errorMessage); //$NON-NLS-1$
 		}
 	}
@@ -371,7 +371,7 @@ public class FileUtil {
 			int i = fileName.lastIndexOf(".") + 1; //$NON-NLS-1$
 			return (i == 0) ? "" : fileName.substring(i); //$NON-NLS-1$
 		} else {
-			StudioLogger.error("The file " + fileName + " does not exist."); //$NON-NLS-1$ //$NON-NLS-2$
+			AndmoreLogger.error("The file " + fileName + " does not exist."); //$NON-NLS-1$ //$NON-NLS-2$
 			return null;
 		}
 	}
@@ -421,11 +421,11 @@ public class FileUtil {
 		List<File> targetDirList = getFilesComposingPath(getCanonicalFile(targetFile));
 
 		if (homeDirList.size() == 0) {
-			StudioLogger.info("Home Dir has no parent."); //$NON-NLS-1$
+			AndmoreLogger.info("Home Dir has no parent."); //$NON-NLS-1$
 		}
 
 		if (targetDirList.size() == 0) {
-			StudioLogger.info("Target Dir has no parent."); //$NON-NLS-1$
+			AndmoreLogger.info("Target Dir has no parent."); //$NON-NLS-1$
 		}
 
 		// get the index of the last common directory between sourceFile and
@@ -518,7 +518,7 @@ public class FileUtil {
 				}
 			}
 
-			StudioLogger.error(errorMessage);
+			AndmoreLogger.error(errorMessage);
 			throw new IOException("Error listing files: " + errorMessage); //$NON-NLS-1$
 		}
 
@@ -566,7 +566,7 @@ public class FileUtil {
 			f = aFile.getCanonicalFile();
 		} catch (IOException e) {
 			// this should never happens
-			StudioLogger.error(FileUtil.class, "FileUtil.getCanonicalFile: IOException e", e); //$NON-NLS-1$
+			AndmoreLogger.error(FileUtil.class, "FileUtil.getCanonicalFile: IOException e", e); //$NON-NLS-1$
 
 			// since it's not possible to read from filesystem, return a File
 			// using String
@@ -982,7 +982,7 @@ public class FileUtil {
 			zipFile = new ZipFile(file);
 		} catch (Throwable e) {
 			unziped = false;
-			StudioLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() //$NON-NLS-1$
+			AndmoreLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() //$NON-NLS-1$
 					+ " to " + extractDestination, e); //$NON-NLS-1$
 
 		}
@@ -1009,7 +1009,7 @@ public class FileUtil {
 					}
 				} catch (Throwable t) {
 					unziped = false;
-					StudioLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
+					AndmoreLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
 							+ extractDestination, t);
 				} finally {
 					try {
@@ -1047,7 +1047,7 @@ public class FileUtil {
 			zipFile = new ZipFile(file);
 		} catch (Throwable e) {
 			unziped = false;
-			StudioLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() //$NON-NLS-1$
+			AndmoreLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() //$NON-NLS-1$
 					+ " to " + extractDestination, e); //$NON-NLS-1$
 
 		}
@@ -1101,12 +1101,12 @@ public class FileUtil {
 					}
 				} catch (IOException e) {
 					unziped = false;
-					StudioLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
+					AndmoreLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
 							+ extractDestination, e);
 					throw e;
 				} catch (Throwable t) {
 					unziped = false;
-					StudioLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
+					AndmoreLogger.error(FileUtil.class, "Error extracting file: " + file.getAbsolutePath() + " to " //$NON-NLS-1$ //$NON-NLS-2$
 							+ extractDestination, t);
 				} finally {
 					try {
@@ -1424,7 +1424,7 @@ public class FileUtil {
 			// hard
 			// coded value for the algorithm name. However, if it happens, log
 			// it.
-			warn("MOTODEV Studio could not find an instance of the MessageDigest for the MD5 algorithm"); //$NON-NLS-1$
+			warn("Eclipse Andmore could not find an instance of the MessageDigest for the MD5 algorithm"); //$NON-NLS-1$
 			throw new IOException(UtilitiesNLS.FileUtil_Get_MD5_Algorithm_Failed);
 		} finally {
 			if (fis != null) {
