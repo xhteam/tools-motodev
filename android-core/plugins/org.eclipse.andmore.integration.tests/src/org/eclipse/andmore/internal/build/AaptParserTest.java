@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.build;
 import static org.junit.Assert.*;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.core.resources.IFile;
@@ -191,7 +191,7 @@ public class AaptParserTest extends AdtProjectTest {
 		assertNotNull(markers);
 		assertEquals(1, markers.length);
 
-		String fileContents = AdtPlugin.readFile(file);
+		String fileContents = AndmoreAndroidPlugin.readFile(file);
 		int rangeBegin = getCaretOffset(file, expectCaretBegin);
 		int rangeEnd = getCaretOffset(file, expectCaretEnd);
 

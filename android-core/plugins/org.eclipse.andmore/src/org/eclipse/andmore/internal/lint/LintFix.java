@@ -38,7 +38,7 @@ import com.android.tools.lint.checks.UselessViewDetector;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Issue.OutputFormat;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.IDocument;
@@ -120,9 +120,9 @@ abstract class LintFix implements ICompletionProposal {
         try {
             mMarker.delete();
         } catch (PartInitException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -204,7 +204,7 @@ abstract class LintFix implements ICompletionProposal {
                     return Collections.singletonList(fix);
                 }
             } catch (Throwable t) {
-                AdtPlugin.log(t, null);
+                AndmoreAndroidPlugin.log(t, null);
             }
         }
 

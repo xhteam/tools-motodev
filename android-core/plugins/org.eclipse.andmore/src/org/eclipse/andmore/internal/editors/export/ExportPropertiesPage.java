@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.export;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
@@ -59,7 +59,7 @@ public final class ExportPropertiesPage extends FormPage {
         super.createFormContent(managedForm);
         ScrolledForm form = managedForm.getForm();
         form.setText("Android Export Properties");
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         Composite body = form.getBody();
         FormToolkit toolkit = managedForm.getToolkit();

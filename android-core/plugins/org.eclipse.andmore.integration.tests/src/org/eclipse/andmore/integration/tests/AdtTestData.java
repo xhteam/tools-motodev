@@ -17,7 +17,7 @@ package org.eclipse.andmore.integration.tests;
 
 import com.android.SdkConstants;
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
@@ -120,7 +120,7 @@ public class AdtTestData {
 
 		if (!path.exists()) {
 			// On Windows at least this ends up using the wrong plugin path.
-			String pkgAdt = AdtPlugin.class.getPackage().getName();
+			String pkgAdt = AndmoreAndroidPlugin.class.getPackage().getName();
 			String pkgTests = AdtTestData.class.getPackage().getName();
 
 			if (mOsRootDataPath.contains(pkgAdt)) {

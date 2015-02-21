@@ -31,7 +31,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.google.common.collect.Maps;
 import com.google.common.collect.ObjectArrays;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.common.resources.platform.AttrsXmlParser;
@@ -265,7 +265,7 @@ public final class CustomViewDescriptorService {
         if (parser == null) {
             parser = new AttrsXmlParser(
                     file.getFile().getOsLocation(),
-                    AdtPlugin.getDefault(), 20);
+                    AndmoreAndroidPlugin.getDefault(), 20);
             parser.preload();
             mParserCache.put(file, parser);
         }
@@ -587,7 +587,7 @@ public final class CustomViewDescriptorService {
                         try {
                             type = javaProject.findType(fqcn);
                         } catch (CoreException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                         }
                         if (type == null || !type.exists()) {
                             return true;

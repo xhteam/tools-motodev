@@ -21,7 +21,7 @@ import com.android.annotations.Nullable;
 import com.android.ide.common.rendering.RenderSecurityManager;
 import com.android.ide.common.rendering.api.LayoutLog;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.IStatus;
 
 import java.util.ArrayList;
@@ -316,9 +316,9 @@ public class RenderLogger extends LayoutLog {
         boolean token = RenderSecurityManager.enterSafeRegion(mCredential);
         try {
             if (throwable != null) {
-                AdtPlugin.log(throwable, "%1$s: %2$s", mName, description);
+                AndmoreAndroidPlugin.log(throwable, "%1$s: %2$s", mName, description);
             } else {
-                AdtPlugin.log(severity, "%1$s: %2$s", mName, description);
+                AndmoreAndroidPlugin.log(severity, "%1$s: %2$s", mName, description);
             }
         } finally {
             RenderSecurityManager.exitSafeRegion(token);

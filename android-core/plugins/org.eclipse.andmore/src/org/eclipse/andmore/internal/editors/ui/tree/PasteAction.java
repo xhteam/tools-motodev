@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.ui.tree;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.uimodel.UiDocumentNode;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
@@ -116,7 +116,7 @@ public class PasteAction extends Action {
                         }
 
                     } catch (BadLocationException e) {
-                        AdtPlugin.log(e,
+                        AndmoreAndroidPlugin.log(e,
                                 "ParseAction failed for UI Node %2$s, content '%1$s'", //$NON-NLS-1$
                                 mUiNode.getBreadcrumbTrailDescription(true), data);
                     }

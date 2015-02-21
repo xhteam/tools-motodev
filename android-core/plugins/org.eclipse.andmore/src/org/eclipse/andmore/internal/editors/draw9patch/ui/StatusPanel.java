@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.draw9patch.ui;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -124,7 +124,7 @@ public class StatusPanel extends Composite implements KeyListener {
         buildCheckboxes(checkPanel);
 
         mHelpLabel = new Label(container, SWT.BORDER_SOLID | SWT.BOLD | SWT.WRAP);
-        mHelpLabel.setBackground(new Color(AdtPlugin.getDisplay(), 0xFF, 0xFF, 0xFF));
+        mHelpLabel.setBackground(new Color(AndmoreAndroidPlugin.getDisplay(), 0xFF, 0xFF, 0xFF));
         FormData hintForm = new FormData();
         hintForm.left = new FormAttachment(checkPanel, 5);
         hintForm.right = new FormAttachment(mXPosLabel, -10);

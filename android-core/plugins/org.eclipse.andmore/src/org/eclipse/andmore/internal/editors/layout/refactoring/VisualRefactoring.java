@@ -32,7 +32,7 @@ import com.android.annotations.VisibleForTesting;
 import com.android.ide.common.xml.XmlFormatStyle;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlPrettyPrinter;
@@ -337,7 +337,7 @@ public abstract class VisualRefactoring extends Refactoring {
                 newEditor.reformatDocument();
             }
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Can't open new included layout");
+            AndmoreAndroidPlugin.log(e, "Can't open new included layout");
         }
     }
 
@@ -1033,7 +1033,7 @@ public abstract class VisualRefactoring extends Refactoring {
                 try {
                     rootEdit.addChild(setAttribute);
                 } catch (MalformedTreeException mte) {
-                    AdtPlugin.log(mte, "Could not replace attribute %1$s with %2$s",
+                    AndmoreAndroidPlugin.log(mte, "Could not replace attribute %1$s with %2$s",
                             attributeName, attributeValue);
                     throw mte;
                 }
@@ -1172,7 +1172,7 @@ public abstract class VisualRefactoring extends Refactoring {
                 }
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -1201,7 +1201,7 @@ public abstract class VisualRefactoring extends Refactoring {
                 rootEdit.addChild(new ReplaceEdit(lineStart, indentEnd, indent));
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -1258,7 +1258,7 @@ public abstract class VisualRefactoring extends Refactoring {
                 endOffset = Math.min(doc.getLength(), lineEnd + 1);
             }
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
 
@@ -1293,10 +1293,10 @@ public abstract class VisualRefactoring extends Refactoring {
         try {
             edit.apply(document);
         } catch (MalformedTreeException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null; // Abort formatting
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null; // Abort formatting
         }
 

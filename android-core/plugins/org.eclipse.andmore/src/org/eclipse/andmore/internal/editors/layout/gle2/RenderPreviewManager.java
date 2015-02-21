@@ -42,7 +42,7 @@ import com.android.sdklib.devices.Screen;
 import com.android.sdklib.devices.State;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -683,7 +683,7 @@ public class RenderPreviewManager {
             name = getUniqueName();
         }
         InputDialog d = new InputDialog(
-                AdtPlugin.getShell(),
+                AndmoreAndroidPlugin.getShell(),
                 "Add as Thumbnail Preview",  // title
                 "Name of thumbnail:",
                 name,
@@ -1126,7 +1126,7 @@ public class RenderPreviewManager {
             mManualList.load(getChooser().getDevices());
             mPreviews = mManualList.createPreviews(mCanvas);
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -1135,7 +1135,7 @@ public class RenderPreviewManager {
             try {
                 mManualList.save();
             } catch (IOException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
     }
@@ -1275,7 +1275,7 @@ public class RenderPreviewManager {
                 IDE.openEditor(site.getWorkbenchWindow().getActivePage(), input,
                         CommonXmlEditor.ID);
             } catch (PartInitException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
             return;
         }

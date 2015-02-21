@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.wizards.templates;
 
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -240,7 +240,7 @@ class InstallDependencyPage extends WizardPage implements SelectionListener {
         List<Pair<String, Integer>> dependencies = mTemplate.getDependencies();
         if (dependencies.size() > 1 || dependencies.size() == 1
                 && !dependencies.get(0).getFirst().equals(SUPPORT_LIBRARY_NAME)) {
-            status = new Status(IStatus.WARNING, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Unsupported template dependency: Upgrade your Android Eclipse plugin");
         }
 

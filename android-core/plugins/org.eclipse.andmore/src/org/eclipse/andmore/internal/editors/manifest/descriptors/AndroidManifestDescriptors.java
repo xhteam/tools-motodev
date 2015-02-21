@@ -20,7 +20,7 @@ import com.android.SdkConstants;
 import com.android.ide.common.api.IAttributeInfo;
 import com.android.ide.common.api.IAttributeInfo.Format;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.common.resources.platform.AttrsXmlParser;
 import org.eclipse.andmore.common.resources.platform.DeclareStyleableInfo;
@@ -563,8 +563,8 @@ public final class AndroidManifestDescriptors implements IDescriptorProvider {
                 }
             }
 
-            AdtPlugin.log(IStatus.WARNING, "%s", sb.toString());
-            AdtPlugin.printToConsole((String)null, sb);
+            AndmoreAndroidPlugin.log(IStatus.WARNING, "%s", sb.toString());
+            AndmoreAndroidPlugin.printToConsole((String)null, sb);
             sb.setLength(0);
         }
 
@@ -577,8 +577,8 @@ public final class AndroidManifestDescriptors implements IDescriptorProvider {
                 }
             }
 
-            AdtPlugin.log(IStatus.WARNING, "%s", sb.toString());
-            AdtPlugin.printToConsole((String)null, sb);
+            AndmoreAndroidPlugin.log(IStatus.WARNING, "%s", sb.toString());
+            AndmoreAndroidPlugin.printToConsole((String)null, sb);
         }
 
         return true;

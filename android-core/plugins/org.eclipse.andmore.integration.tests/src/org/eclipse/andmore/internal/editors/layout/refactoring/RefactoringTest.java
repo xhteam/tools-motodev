@@ -21,7 +21,7 @@ import static com.android.SdkConstants.DOT_XML;
 
 import com.android.ide.common.rendering.api.ViewInfo;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.CanvasViewInfo;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.layout.refactoring.VisualRefactoring;
@@ -71,7 +71,7 @@ public abstract class RefactoringTest extends AdtProjectTest {
 		// Ensure that the defaults are initialized so for example formatting
 		// options are
 		// initialized properly
-		IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 		AdtPrefs.init(store);
 		AdtPrefs prefs = AdtPrefs.getPrefs();
 		prefs.initializeStoreWithDefaults(store);
@@ -122,7 +122,7 @@ public abstract class RefactoringTest extends AdtProjectTest {
 				TextFileChange tf = (TextFileChange) change;
 				TextEdit edit = tf.getEdit();
 				IFile file = tf.getFile();
-				String contents = AdtPlugin.readFile(file);
+				String contents = AndmoreAndroidPlugin.readFile(file);
 				assertEquals(contents, xml);
 				if (edit instanceof MultiTextEdit) {
 					MultiTextEdit edits = (MultiTextEdit) edit;

@@ -55,7 +55,7 @@ import static org.eclipse.andmore.common.layout.GravityHelper.GRAVITY_VERT_MASK;
 
 import com.android.ide.common.api.IViewMetadata.FillPreference;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
 import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.common.layout.GravityHelper;
@@ -296,7 +296,7 @@ class GridLayoutConverter {
                         // it is non-fatal so just warn instead of letting
                         // refactoring
                         // operation abort
-                        AdtPlugin.log(IStatus.WARNING,
+                        AndmoreAndroidPlugin.log(IStatus.WARNING,
                                 "Could not remove unsupported attribute %1$s; " + //$NON-NLS-1$
                                         "already modified during refactoring?", //$NON-NLS-1$
                                 attribute.getLocalName());
@@ -974,7 +974,7 @@ class GridLayoutConverter {
                     || name.equals(TABLE_LAYOUT) || name.equals(TABLE_ROW)) {
                 // Don't delete layouts that provide a background image or gradient
                 if (element.hasAttributeNS(ANDROID_URI, ATTR_BACKGROUND)) {
-                    AdtPlugin.log(IStatus.WARNING,
+                    AndmoreAndroidPlugin.log(IStatus.WARNING,
                             "Did not flatten layout %1$s because it defines a '%2$s' attribute",
                             VisualRefactoring.getId(element), ATTR_BACKGROUND);
                     return false;

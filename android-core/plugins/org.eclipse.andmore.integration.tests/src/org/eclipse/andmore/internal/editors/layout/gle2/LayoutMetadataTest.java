@@ -24,7 +24,7 @@ import static com.android.SdkConstants.TOOLS_URI;
 
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
 import org.eclipse.andmore.common.layout.BaseViewRule;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.gle2.LayoutMetadata;
@@ -83,7 +83,7 @@ public class LayoutMetadataTest extends AdtProjectTest {
 	private Pair<IDocument, UiElementNode> getNode(String filename, String targetId) throws Exception,
 			PartInitException {
 		IFile file = getLayoutFile(getProject(), filename);
-		AdtPlugin.openFile(file, null);
+		AndmoreAndroidPlugin.openFile(file, null);
 		IEditorPart newEditor = AdtUtils.getActiveEditor();
 		assertTrue(newEditor instanceof AndroidXmlEditor);
 		AndroidXmlEditor xmlEditor = (AndroidXmlEditor) newEditor;

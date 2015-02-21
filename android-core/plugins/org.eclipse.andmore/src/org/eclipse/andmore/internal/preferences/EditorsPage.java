@@ -22,7 +22,7 @@ import static com.android.ide.common.xml.XmlAttributeSortOrder.NO_SORTING;
 
 import com.android.sdkuilib.internal.widgets.ResolutionChooserDialog;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
@@ -50,7 +50,7 @@ public class EditorsPage extends FieldEditorPreferencePage implements IWorkbench
      */
     public EditorsPage() {
         super(GRID);
-        setPreferenceStore(AdtPlugin.getDefault().getPreferenceStore());
+        setPreferenceStore(AndmoreAndroidPlugin.getDefault().getPreferenceStore());
     }
 
     @Override

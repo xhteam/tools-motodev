@@ -37,7 +37,7 @@ import com.android.resources.ResourceType;
 import com.android.utils.SdkUtils;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
@@ -158,7 +158,7 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
                     }
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
 
             mManifestFile = (IFile) manifestResource;
@@ -304,7 +304,7 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
                                 }
                             }
                         } catch (CoreException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                         } finally {
                             sIgnore = false;
                         }
@@ -315,7 +315,7 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -398,9 +398,9 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
 
             return true;
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } finally {
             if (model != null) {
                 model.releaseFromRead();

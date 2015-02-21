@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.values;
 
 import com.android.ide.common.resources.ResourceFolder;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IPageImageProvider;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -95,7 +95,7 @@ public final class ValuesTreePage extends FormPage implements IPageImageProvider
             form.setText("Android Resources");
         }
 
-        form.setImage(AdtPlugin.getAndroidLogo());
+        form.setImage(AndmoreAndroidPlugin.getAndroidLogo());
 
         UiElementNode resources = mEditor.getUiRootNode();
         UiTreeBlock block = new UiTreeBlock(mEditor, resources,

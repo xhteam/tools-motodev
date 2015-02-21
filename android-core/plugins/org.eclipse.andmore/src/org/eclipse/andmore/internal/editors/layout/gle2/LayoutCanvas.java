@@ -27,7 +27,7 @@ import com.android.ide.common.rendering.api.Capability;
 import com.android.ide.common.rendering.api.RenderSession;
 import com.android.resources.Density;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.configuration.ConfigurationChooser;
@@ -119,7 +119,7 @@ import java.util.Set;
 @SuppressWarnings("restriction") // For WorkBench "Show In" support
 public class LayoutCanvas extends Canvas {
     private final static QualifiedName NAME_ZOOM =
-        new QualifiedName(AdtPlugin.PLUGIN_ID, "zoom");//$NON-NLS-1$
+        new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "zoom");//$NON-NLS-1$
 
     private static final boolean DEBUG = false;
 
@@ -273,7 +273,7 @@ public class LayoutCanvas extends Canvas {
         // Unit test suite passes a null here; TODO: Replace with mocking
         IFile file = editorDelegate != null ? editorDelegate.getEditor().getInputFile() : null;
         if (file != null) {
-            String zoom = AdtPlugin.getFileProperty(file, NAME_ZOOM);
+            String zoom = AndmoreAndroidPlugin.getFileProperty(file, NAME_ZOOM);
             if (zoom != null) {
                 try {
                     double initialScale = Double.parseDouble(zoom);
@@ -831,7 +831,7 @@ public class LayoutCanvas extends Canvas {
         String zoomValue = (Math.abs(scale - 1.0) < 0.0001) ? null : Double.toString(scale);
         IFile file = mEditorDelegate.getEditor().getInputFile();
         if (file != null) {
-            AdtPlugin.setFileProperty(file, NAME_ZOOM, zoomValue);
+            AndmoreAndroidPlugin.setFileProperty(file, NAME_ZOOM, zoomValue);
         }
     }
 
@@ -1208,7 +1208,7 @@ public class LayoutCanvas extends Canvas {
                 EditorUtility.openInEditor(xmlFile, true);
                 return;
             } catch (PartInitException ex) {
-                AdtPlugin.log(ex, "Can't open %$1s", url); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(ex, "Can't open %$1s", url); //$NON-NLS-1$
             }
         } else {
             // It's not a path in the workspace; look externally
@@ -1221,7 +1221,7 @@ public class LayoutCanvas extends Canvas {
                         IDE.openEditorOnFileStore(page, fileStore);
                         return;
                     } catch (PartInitException ex) {
-                        AdtPlugin.log(ex, "Can't open %$1s", url); //$NON-NLS-1$
+                        AndmoreAndroidPlugin.log(ex, "Can't open %$1s", url); //$NON-NLS-1$
                     }
                 }
             }
@@ -1662,7 +1662,7 @@ public class LayoutCanvas extends Canvas {
 
     private void debugPrintf(String message, Object... params) {
         if (DEBUG) {
-            AdtPlugin.printToConsole("Canvas", String.format(message, params));
+            AndmoreAndroidPlugin.printToConsole("Canvas", String.format(message, params));
         }
     }
 

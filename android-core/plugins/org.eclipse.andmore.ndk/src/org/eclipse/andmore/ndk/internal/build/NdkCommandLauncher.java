@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.ndk.internal.build;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.ndk.internal.NdkManager;
 import org.eclipse.cdt.core.CommandLauncher;
 import org.eclipse.cdt.utils.CygPath;
@@ -46,7 +46,7 @@ public class NdkCommandLauncher extends CommandLauncher {
 			try {
 				sCygPath = new CygPath();
 			} catch (IOException e) {
-				AdtPlugin.printErrorToConsole("Unable to launch cygpath. Is Cygwin on the path?", e);
+				AndmoreAndroidPlugin.printErrorToConsole("Unable to launch cygpath. Is Cygwin on the path?", e);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class NdkCommandLauncher extends CommandLauncher {
 					String path = sCygPath.getFileName(commandPath.toString());
 					commandPath = new Path(path);
 				} catch (IOException e) {
-					AdtPlugin.printErrorToConsole("Unexpected error while transforming cygwin path.", e);
+					AndmoreAndroidPlugin.printErrorToConsole("Unexpected error while transforming cygwin path.", e);
 				}
 			}
 

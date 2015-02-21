@@ -19,7 +19,7 @@ import static com.android.SdkConstants.ANDROID_URI;
 
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -52,7 +52,7 @@ final class AddPrefixFix extends DocumentFix {
         try {
             document.replace(start, 0, prefix + ':');
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 

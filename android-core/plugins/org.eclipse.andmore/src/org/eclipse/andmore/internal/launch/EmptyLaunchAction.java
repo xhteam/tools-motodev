@@ -19,7 +19,7 @@ import com.android.ddmlib.IDevice;
 
 import java.util.Collection;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 /**
  * A launch action that does nothing after the application has been installed
@@ -38,7 +38,7 @@ public class EmptyLaunchAction implements IAndroidLaunchAction {
         // we're not supposed to do anything, just return;
         String msg = String.format("%1$s installed on device",
                 info.getPackageFile().getFullPath().toOSString());
-        AdtPlugin.printToConsole(info.getProject(), msg, "Done!");
+        AndmoreAndroidPlugin.printToConsole(info.getProject(), msg, "Done!");
         // return false so launch controller will not wait for debugger to attach
         return false;
     }

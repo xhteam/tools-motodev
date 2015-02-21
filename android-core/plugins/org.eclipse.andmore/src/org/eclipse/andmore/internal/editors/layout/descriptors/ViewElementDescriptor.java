@@ -22,7 +22,7 @@ import static com.android.SdkConstants.ANDROID_WIDGET_PREFIX;
 import static com.android.SdkConstants.VIEW;
 import static com.android.SdkConstants.VIEW_TAG;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
@@ -197,7 +197,7 @@ public class ViewElementDescriptor extends ElementDescriptor {
 
         Image icon = factory.getIcon(name);
         if (icon == null) {
-            icon = AdtPlugin.getAndroidLogo();
+            icon = AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         return icon;

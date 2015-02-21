@@ -26,16 +26,16 @@ public class ToolsLocator implements IToolsLocator {
 
     @Override
     public String getAdbLocation() {
-        return AdtPlugin.getOsAbsoluteAdb();
+        return AndmoreAndroidPlugin.getOsAbsoluteAdb();
     }
 
     @Override
     public String getHprofConvLocation() {
-        return AdtPlugin.getOsAbsoluteHprofConv();
+        return AndmoreAndroidPlugin.getOsAbsoluteHprofConv();
     }
 
     @Override
     public String getTraceViewLocation() {
-        return AdtPlugin.getOsAbsoluteTraceview();
+        return AndmoreAndroidPlugin.getOsAbsoluteTraceview();
     }
 }

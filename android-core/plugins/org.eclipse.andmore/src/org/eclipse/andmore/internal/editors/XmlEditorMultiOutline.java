@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -151,7 +151,7 @@ public class XmlEditorMultiOutline extends Page implements IContentOutlinePage,
                 try {
                     ((IPageBookViewPage) page).init(getSite());
                 } catch (PartInitException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
             page.createControl(mPageBook);

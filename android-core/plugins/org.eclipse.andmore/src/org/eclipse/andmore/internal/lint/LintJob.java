@@ -29,7 +29,7 @@ import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -129,7 +129,7 @@ public final class LintJob extends Job {
                             scope = Scope.CLASS_FILE_SCOPE;
                         }
                     } else {
-                        return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
+                        return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, IStatus.ERROR,
                             "Only XML & Java files are supported for single file lint", null); //$NON-NLS-1$
                     }
                 }
@@ -164,7 +164,7 @@ public final class LintJob extends Job {
             mFatal = mClient.hasFatalErrors();
             return Status.OK_STATUS;
         } catch (Exception e) {
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, IStatus.ERROR,
                               "Failed", e); //$NON-NLS-1$
         } finally {
             if (monitor != null) {

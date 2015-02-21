@@ -28,7 +28,7 @@ import com.android.resources.ResourceType;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.configuration.FlagManager;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
@@ -398,7 +398,7 @@ public class AddTranslationDialog extends Dialog implements ControlListener, Sel
             AdtUtils.ensureExists(parent);
             InputStream source = new ByteArrayInputStream(sb.toString().getBytes(Charsets.UTF_8));
             file.create(source, true, new NullProgressMonitor());
-            AdtPlugin.openFile(file, null, true /*showEditorTab*/);
+            AndmoreAndroidPlugin.openFile(file, null, true /*showEditorTab*/);
 
             // Ensure that the project resources updates itself to notice the new language.
             // In theory, this shouldn't be necessary.
@@ -408,7 +408,7 @@ public class AddTranslationDialog extends Dialog implements ControlListener, Sel
             manager.getResourceFolder(folder);
             RenderPreviewManager.bumpRevision();
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 

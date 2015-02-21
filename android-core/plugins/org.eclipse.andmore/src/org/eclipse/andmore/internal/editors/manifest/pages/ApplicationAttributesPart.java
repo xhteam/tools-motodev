@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.manifest.pages;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.XmlnsAttributeDescriptor;
 import org.eclipse.andmore.internal.editors.manifest.ManifestEditor;
@@ -130,7 +130,7 @@ final class ApplicationAttributesPart extends UiElementPart {
             } else {
                 // The XML has an extra attribute which wasn't declared in
                 // AndroidManifestDescriptors. This is not a problem, we just ignore it.
-                AdtPlugin.log(IStatus.WARNING,
+                AndmoreAndroidPlugin.log(IStatus.WARNING,
                         "Attribute %1$s not declared in node %2$s, ignored.", //$NON-NLS-1$
                         attr_desc.getXmlLocalName(),
                         uiElementNode.getDescriptor().getXmlName());

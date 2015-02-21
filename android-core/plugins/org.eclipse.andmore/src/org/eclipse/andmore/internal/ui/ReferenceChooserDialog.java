@@ -20,7 +20,7 @@ import com.android.ide.common.resources.ResourceItem;
 import com.android.ide.common.resources.ResourceRepository;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.properties.PropertyFactory;
 import org.eclipse.andmore.internal.refactorings.extractstring.ExtractStringRefactoring;
 import org.eclipse.andmore.internal.refactorings.extractstring.ExtractStringWizard;
@@ -246,16 +246,16 @@ public class ReferenceChooserDialog extends SelectionStatusDialog {
         IStatus status;
         if (treeSelection != null) {
             if (treeSelection.getSegmentCount() == 2) {
-                status = new Status(IStatus.OK, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.OK, AndmoreAndroidPlugin.PLUGIN_ID,
                         IStatus.OK, "", //$NON-NLS-1$
                         null);
             } else {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         IStatus.ERROR, "You must select a Resource Item",
                         null);
             }
         } else {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     IStatus.ERROR, "", //$NON-NLS-1$
                     null);
         }

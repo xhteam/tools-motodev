@@ -29,7 +29,7 @@ import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -453,7 +453,7 @@ public class NewTemplatePage extends WizardPage
                 } catch (NumberFormatException nufe) {
                     // Templates aren't allowed to contain codenames, should
                     // always be an integer
-                    AdtPlugin.log(nufe, null);
+                    AndmoreAndroidPlugin.log(nufe, null);
                     minSdk = 1;
                 }
             }
@@ -465,7 +465,7 @@ public class NewTemplatePage extends WizardPage
                 } catch (NumberFormatException nufe) {
                     // Templates aren't allowed to contain codenames, should
                     // always be an integer
-                    AdtPlugin.log(nufe, null);
+                    AndmoreAndroidPlugin.log(nufe, null);
                     minBuildApi = 1;
                 }
             }
@@ -512,7 +512,7 @@ public class NewTemplatePage extends WizardPage
                             new ByteArrayInputStream(data));
                     mDisposePreviewImage = true;
                 } catch (Exception e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
             if (mPreviewImage == null) {
@@ -603,7 +603,7 @@ public class NewTemplatePage extends WizardPage
 
         if (status == null || status.isOK()) {
             if (mChooseProject && mValues.project == null) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "Please select an Android project.");
             }
         }
@@ -618,7 +618,7 @@ public class NewTemplatePage extends WizardPage
                String value = parameter.value == null ? "" : parameter.value.toString();
                String error = validator.isValid(value);
                if (error != null) {
-                   IStatus s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, error);
+                   IStatus s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, error);
                    if (decoration != null) {
                        updateDecorator(decoration, s, parameter.help);
                    }
@@ -664,7 +664,7 @@ public class NewTemplatePage extends WizardPage
         if (index != -1 && index < optionIds.length) {
             Integer requiredMinSdk = optionIds[index];
             if (requiredMinSdk > minSdk) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format(
                             "%1$s \"%2$s\" requires a minimum SDK version of at " +
                             "least %3$d, and the current min version is %4$d",
@@ -677,7 +677,7 @@ public class NewTemplatePage extends WizardPage
         if (index != -1 && index < optionIds.length) {
             Integer requiredBuildApi = optionIds[index];
             if (requiredBuildApi > buildApi) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format(
                         "%1$s \"%2$s\"  requires a build target API version of at " +
                         "least %3$d, and the current version is %4$d",
@@ -811,7 +811,7 @@ public class NewTemplatePage extends WizardPage
                 scope = SearchEngine.createJavaSearchScope(classes, IJavaSearchScope.SOURCES);
             }
 
-            Shell parent = AdtPlugin.getShell();
+            Shell parent = AndmoreAndroidPlugin.getShell();
             final SelectionDialog dialog = JavaUI.createTypeDialog(
                     parent,
                     new ProgressMonitorDialog(parent),
@@ -848,9 +848,9 @@ public class NewTemplatePage extends WizardPage
                 return ((IType) types[0]).getFullyQualifiedName();
             }
         } catch (JavaModelException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         return null;
     }

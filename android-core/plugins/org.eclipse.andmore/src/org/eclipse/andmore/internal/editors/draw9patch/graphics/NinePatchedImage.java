@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.draw9patch.graphics;
 import static com.android.SdkConstants.DOT_9PNG;
 import static com.android.SdkConstants.DOT_PNG;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Rectangle;
@@ -102,7 +102,7 @@ public class NinePatchedImage {
 
     public Image getImage() {
         if (mBaseImage == null) {
-            mBaseImage = new Image(AdtPlugin.getDisplay(), mBaseImageData);
+            mBaseImage = new Image(AndmoreAndroidPlugin.getDisplay(), mBaseImageData);
         }
         return mBaseImage;
     }

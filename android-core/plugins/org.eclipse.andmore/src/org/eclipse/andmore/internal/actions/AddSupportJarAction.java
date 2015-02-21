@@ -28,7 +28,7 @@ import com.android.utils.NullLogger;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.ProjectState;
@@ -141,7 +141,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
             try {
                 return copyJarIntoProject(project, jarPath) != null;
             } catch (Exception e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 
@@ -166,7 +166,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
 
         final Sdk sdk = Sdk.getCurrent();
         if (sdk == null) {
-            AdtPlugin.printErrorToConsole(
+            AndmoreAndroidPlugin.printErrorToConsole(
                     AddSupportJarAction.class.getSimpleName(),   // tag
                     "Error: Android SDK is not loaded yet."); //$NON-NLS-1$
             return null;
@@ -190,7 +190,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
         // and get the installation path of the library.
 
         AdtUpdateDialog window = new AdtUpdateDialog(
-                AdtPlugin.getShell(),
+                AndmoreAndroidPlugin.getShell(),
                 new AdtConsoleSdkLog(),
                 sdkLocation);
 
@@ -200,7 +200,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
         // containing the v7 support
 
         if (!result.getFirst().booleanValue()) {
-            AdtPlugin.printErrorToConsole("Failed to install Android Support library");
+            AndmoreAndroidPlugin.printErrorToConsole("Failed to install Android Support library");
             return null;
         }
 
@@ -212,7 +212,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
         final File jarPath = new File(path, ANDROID_SUPPORT_V4_JAR);
 
         if (!jarPath.isFile()) {
-            AdtPlugin.printErrorToConsole("Android Support Jar not found:",
+            AndmoreAndroidPlugin.printErrorToConsole("Android Support Jar not found:",
                     jarPath.getAbsolutePath());
             return null;
         }
@@ -487,7 +487,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
                 try {
                     copy.save();
                 } catch (Exception e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
 
@@ -495,7 +495,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
 
             return newProject;
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return null;
         }
     }
@@ -558,7 +558,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
                         String msg = String.format(
                                 "Failed to save %1$s for project %2$s",
                                 SdkConstants.FN_PROJECT_PROPERTIES, dependentProject.getName());
-                        AdtPlugin.log(e, msg);
+                        AndmoreAndroidPlugin.log(e, msg);
                     }
 
                     // Project fix-ups
@@ -570,7 +570,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
 
                     return Status.OK_STATUS;
                 } catch (Exception e) {
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, IStatus.ERROR,
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, IStatus.ERROR,
                             "Failed", e); //$NON-NLS-1$
                 } finally {
                     if (monitor != null) {
@@ -586,7 +586,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
                 job.join();
                 return job.getState() == IStatus.OK;
             } catch (InterruptedException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 

@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.lint;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -53,7 +53,7 @@ class DosLineEndingsFix extends LintFix {
                 }
                 next = c;
             } catch (BadLocationException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 return;
             }
         }

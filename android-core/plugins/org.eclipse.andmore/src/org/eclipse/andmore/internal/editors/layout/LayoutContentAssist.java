@@ -32,7 +32,7 @@ import com.android.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 import com.google.common.collect.ObjectArrays;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidContentAssist;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.layout.descriptors.CustomViewDescriptorService;
@@ -225,7 +225,7 @@ public final class LayoutContentAssist extends AndroidContentAssist {
                         false /* skipEndTag */, replaceLength);
                 return true;
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 

@@ -24,7 +24,7 @@ import com.android.SdkConstants;
 import com.android.xml.AndroidManifest;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
@@ -171,11 +171,11 @@ class ApplicationPackageNameRefactoring extends Refactoring {
                 try {
                     rewrittenImports.addChild( irw.rewriteImports(null) );
                 } catch (MalformedTreeException e) {
-                    Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-                    AdtPlugin.getDefault().getLog().log(s);
+                    Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+                    AndmoreAndroidPlugin.getDefault().getLog().log(s);
                 } catch (CoreException e) {
-                    Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-                    AdtPlugin.getDefault().getLog().log(s);
+                    Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+                    AndmoreAndroidPlugin.getDefault().getLog().log(s);
                 }
             }
         }
@@ -212,11 +212,11 @@ class ApplicationPackageNameRefactoring extends Refactoring {
         try {
             sdoc = modelManager.createStructuredDocumentFor(file);
         } catch (IOException e) {
-            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-            AdtPlugin.getDefault().getLog().log(s);
+            Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+            AndmoreAndroidPlugin.getDefault().getLog().log(s);
         } catch (CoreException e) {
-            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-            AdtPlugin.getDefault().getLog().log(s);
+            Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+            AndmoreAndroidPlugin.getDefault().getLog().log(s);
         }
 
         if (sdoc == null) {
@@ -303,11 +303,11 @@ class ApplicationPackageNameRefactoring extends Refactoring {
         try {
             sdoc = modelManager.createStructuredDocumentFor(file);
         } catch (IOException e) {
-            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-            AdtPlugin.getDefault().getLog().log(s);
+            Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+            AndmoreAndroidPlugin.getDefault().getLog().log(s);
         } catch (CoreException e) {
-            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-            AdtPlugin.getDefault().getLog().log(s);
+            Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+            AndmoreAndroidPlugin.getDefault().getLog().log(s);
         }
 
         if (sdoc == null) {
@@ -547,11 +547,11 @@ class ApplicationPackageNameRefactoring extends Refactoring {
             try {
                 return this.mRewriter.rewriteAST();
             } catch (JavaModelException e) {
-                Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-                AdtPlugin.getDefault().getLog().log(s);
+                Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+                AndmoreAndroidPlugin.getDefault().getLog().log(s);
             } catch (IllegalArgumentException e) {
-                Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-                AdtPlugin.getDefault().getLog().log(s);
+                Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+                AndmoreAndroidPlugin.getDefault().getLog().log(s);
             }
             return null;
         }

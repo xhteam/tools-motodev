@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.uimodel;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
@@ -113,7 +113,7 @@ public class UiListAttributeNode extends UiAbstractTextAttributeNode {
         String[] values = getPossibleValues(null);
 
         if (values == null) {
-            AdtPlugin.log(IStatus.ERROR,
+            AndmoreAndroidPlugin.log(IStatus.ERROR,
                     "FrameworkResourceManager did not provide values yet for %1$s",
                     getDescriptor().getXmlLocalName());
         } else {

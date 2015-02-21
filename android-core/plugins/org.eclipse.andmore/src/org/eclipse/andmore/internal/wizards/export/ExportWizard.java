@@ -25,7 +25,7 @@ import com.android.utils.GrabProcessOutput;
 import com.android.utils.GrabProcessOutput.IProcessOutput;
 import com.android.utils.GrabProcessOutput.Wait;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
 import org.eclipse.andmore.internal.project.ExportHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
@@ -277,7 +277,7 @@ public final class ExportWizard extends Wizard implements IExportWizard {
                     mPrivateKey = entry.getPrivateKey();
                     mCertificate = (X509Certificate)entry.getCertificate();
 
-                    AdtPlugin.printToConsole(mProject,
+                    AndmoreAndroidPlugin.printToConsole(mProject,
                             String.format("New keystore %s has been created.",
                                     mDestinationFile.getAbsolutePath()),
                             "Certificate fingerprints:",
@@ -321,7 +321,7 @@ public final class ExportWizard extends Wizard implements IExportWizard {
                         return false;
                     }
                 } else {
-                    AdtPlugin.displayWarning("Export Wizard",
+                    AndmoreAndroidPlugin.displayWarning("Export Wizard",
                             "The zipalign tool was not found in the SDK.\n\n" +
                             "Please update to the latest SDK and re-export your application\n" +
                             "or run zipalign manually.\n\n" +
@@ -389,7 +389,7 @@ public final class ExportWizard extends Wizard implements IExportWizard {
      * Returns an image descriptor for the wizard logo.
      */
     private void setImageDescriptor() {
-        ImageDescriptor desc = AdtPlugin.getImageDescriptor(PROJECT_LOGO_LARGE);
+        ImageDescriptor desc = AndmoreAndroidPlugin.getImageDescriptor(PROJECT_LOGO_LARGE);
         setDefaultPageImageDescriptor(desc);
     }
 
@@ -537,14 +537,14 @@ public final class ExportWizard extends Wizard implements IExportWizard {
             message = sb.toString();
         }
 
-        AdtPlugin.displayError("Export Wizard", message);
+        AndmoreAndroidPlugin.displayError("Export Wizard", message);
     }
 
     private void displayError(Throwable t) {
         String message = getExceptionMessage(t);
         displayError(message);
 
-        AdtPlugin.log(t, "Export Wizard Error");
+        AndmoreAndroidPlugin.log(t, "Export Wizard Error");
     }
 
     /**
@@ -576,7 +576,7 @@ public final class ExportWizard extends Wizard implements IExportWizard {
                         @Override
                         public void out(@Nullable String line) {
                             if (line != null) {
-                                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
+                                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
                                         project, line);
                             }
                         }

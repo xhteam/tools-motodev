@@ -24,7 +24,7 @@ import com.android.ddmlib.TimeoutException;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 /**
  * Launches the given activity
@@ -57,7 +57,7 @@ public class ActivityLaunchAction implements IAndroidLaunchAction {
         try {
             String msg = String.format("Starting activity %1$s on device %2$s", mActivity,
                     device);
-            AdtPlugin.printToConsole(info.getProject(), msg);
+            AndmoreAndroidPlugin.printToConsole(info.getProject(), msg);
 
             // In debug mode, we need to add the info to the list of application monitoring
             // client changes.
@@ -75,20 +75,20 @@ public class ActivityLaunchAction implements IAndroidLaunchAction {
                 return false;
             }
         } catch (TimeoutException e) {
-            AdtPlugin.printErrorToConsole(info.getProject(), "Launch error: timeout");
+            AndmoreAndroidPlugin.printErrorToConsole(info.getProject(), "Launch error: timeout");
             return false;
         } catch (AdbCommandRejectedException e) {
-            AdtPlugin.printErrorToConsole(info.getProject(), String.format(
+            AndmoreAndroidPlugin.printErrorToConsole(info.getProject(), String.format(
                     "Launch error: adb rejected command: %1$s", e.getMessage()));
             return false;
         } catch (ShellCommandUnresponsiveException e) {
             // we didn't get the output but that's ok, just log it
-            AdtPlugin.log(e, "No command output when running: '%1$s' on device %2$s", command,
+            AndmoreAndroidPlugin.log(e, "No command output when running: '%1$s' on device %2$s", command,
                     device);
         } catch (IOException e) {
             // something went wrong trying to launch the app.
             // lets stop the Launch
-            AdtPlugin.printErrorToConsole(info.getProject(),
+            AndmoreAndroidPlugin.printErrorToConsole(info.getProject(),
                     String.format("Launch error: %s", e.getMessage()));
             return false;
         }

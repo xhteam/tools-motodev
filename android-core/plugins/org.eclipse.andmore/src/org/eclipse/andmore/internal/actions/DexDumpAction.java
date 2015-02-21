@@ -24,7 +24,7 @@ import com.android.utils.GrabProcessOutput.IProcessOutput;
 import com.android.utils.GrabProcessOutput.Wait;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.filesystem.EFS;
@@ -122,14 +122,14 @@ public class DexDumpAction implements IObjectActionDelegate {
 
             Sdk current = Sdk.getCurrent();
             if (current == null) {
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                         "DexDump: missing current SDK");                            //$NON-NLS-1$
                 return Status.OK_STATUS;
             }
 
             BuildToolInfo buildToolInfo = current.getLatestBuildTool();
             if (buildToolInfo == null) {
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                     "SDK missing build tools. Please install build tools using SDK Manager.");
                 return Status.OK_STATUS;
             }
@@ -139,7 +139,7 @@ public class DexDumpAction implements IObjectActionDelegate {
 
             IPath binPath = project.getFolder(SdkConstants.FD_OUTPUT).getLocation();
             if (binPath == null) {
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                     "DexDump: missing project /bin folder. Please compile first."); //$NON-NLS-1$
                 return Status.OK_STATUS;
             }
@@ -147,7 +147,7 @@ public class DexDumpAction implements IObjectActionDelegate {
             File classesDexFile =
                 new File(binPath.toOSString(), SdkConstants.FN_APK_CLASSES_DEX);
             if (!classesDexFile.exists()) {
-                AdtPlugin.printErrorToConsole(project,
+                AndmoreAndroidPlugin.printErrorToConsole(project,
                     "DexDump: missing classex.dex for project. Please compile first.");//$NON-NLS-1$
                 return Status.OK_STATUS;
             }
@@ -157,7 +157,7 @@ public class DexDumpAction implements IObjectActionDelegate {
                         "dexdump_" + project.getName() + "_",         //$NON-NLS-1$ //$NON-NLS-2$
                         ".txt");                                                    //$NON-NLS-1$
             } catch (Exception e) {
-                AdtPlugin.logAndPrintError(e, project.getName(),
+                AndmoreAndroidPlugin.logAndPrintError(e, project.getName(),
                         "DexDump: createTempFile failed.");                         //$NON-NLS-1$
                 return Status.OK_STATUS;
             }
@@ -192,7 +192,7 @@ public class DexDumpAction implements IObjectActionDelegate {
                                 @Override
                                 public void err(@Nullable String line) {
                                     if (line != null) {
-                                        AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
+                                        AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE,
                                                 project, line);
                                     }
                                 }
@@ -203,7 +203,7 @@ public class DexDumpAction implements IObjectActionDelegate {
                         // temp file in the finally block.
                         removeDstFile = false;
                     } else {
-                        AdtPlugin.printErrorToConsole(project,
+                        AndmoreAndroidPlugin.printErrorToConsole(project,
                             "DexDump failed with code " + Integer.toString(err));       //$NON-NLS-1$
                         return Status.OK_STATUS;
                     }
@@ -221,7 +221,7 @@ public class DexDumpAction implements IObjectActionDelegate {
             // --- Open the temp file in an editor
 
             final String dstPath = dstFile.getAbsolutePath();
-            AdtPlugin.getDisplay().asyncExec(new Runnable() {
+            AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                 @Override
                 public void run() {
                     IFileStore fileStore =
@@ -237,7 +237,7 @@ public class DexDumpAction implements IObjectActionDelegate {
                             try {
                                 IDE.openEditorOnFileStore(page, fileStore);
                             } catch (PartInitException e) {
-                                AdtPlugin.logAndPrintError(e, project.getName(),
+                                AndmoreAndroidPlugin.logAndPrintError(e, project.getName(),
                                 "Opening DexDump result failed. Result is available at %1$s", //$NON-NLS-1$
                                 dstPath);
                             }
@@ -253,7 +253,7 @@ public class DexDumpAction implements IObjectActionDelegate {
             return Status.OK_STATUS;
 
         } catch (IOException e) {
-            AdtPlugin.logAndPrintError(e, project.getName(),
+            AndmoreAndroidPlugin.logAndPrintError(e, project.getName(),
                     "DexDump failed.");                                     //$NON-NLS-1$
             return Status.OK_STATUS;
 
@@ -263,7 +263,7 @@ public class DexDumpAction implements IObjectActionDelegate {
                 try {
                     dstFile.delete();
                 } catch (Exception e) {
-                    AdtPlugin.logAndPrintError(e, project.getName(),
+                    AndmoreAndroidPlugin.logAndPrintError(e, project.getName(),
                             "DexDump: can't delete temp file %1$s.",        //$NON-NLS-1$
                             dstFile.getAbsoluteFile());
                 }

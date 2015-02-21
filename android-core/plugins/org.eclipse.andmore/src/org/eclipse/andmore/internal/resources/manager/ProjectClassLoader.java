@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.resources.manager;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.BuildHelper;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -328,7 +328,7 @@ public final class ProjectClassLoader extends ClassLoader {
                         }
                     } catch (JavaModelException jme) {
                         // can't resolve the container? ignore it.
-                        AdtPlugin.log(jme, "Failed to resolve ClasspathContainer: %s",
+                        AndmoreAndroidPlugin.log(jme, "Failed to resolve ClasspathContainer: %s",
                                 e.getPath());
                     }
                 }

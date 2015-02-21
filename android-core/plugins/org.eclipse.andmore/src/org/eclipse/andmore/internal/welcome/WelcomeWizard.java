@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.welcome;
 import com.android.sdkstats.DdmsPreferenceStore;
 import com.android.sdkuilib.internal.repository.ui.AdtUpdateDialog;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.core.runtime.IStatus;
@@ -62,7 +62,7 @@ public class WelcomeWizard extends Wizard {
         mShowUsagePage = showUsageOptinPage;
 
         setWindowTitle("Welcome to Android Development");
-        ImageDescriptor image = AdtPlugin.getImageDescriptor("icons/android-64.png"); //$NON-NLS-1$
+        ImageDescriptor image = AndmoreAndroidPlugin.getImageDescriptor("icons/android-64.png"); //$NON-NLS-1$
         setDefaultPageImageDescriptor(image);
     }
 
@@ -131,7 +131,7 @@ public class WelcomeWizard extends Wizard {
                             }
                             installSdk(path, apiLevels);
                         } catch (Exception e) {
-                            AdtPlugin.logAndPrintError(e, "ADT Welcome Wizard",
+                            AndmoreAndroidPlugin.logAndPrintError(e, "ADT Welcome Wizard",
                                     "Installation failed");
                         }
                     }
@@ -154,7 +154,7 @@ public class WelcomeWizard extends Wizard {
     private boolean installSdk(File path, Set<Integer> apiLevels) {
         if (!path.isDirectory()) {
             if (!path.mkdirs()) {
-                AdtPlugin.logAndPrintError(null, "ADT Welcome Wizard",
+                AndmoreAndroidPlugin.logAndPrintError(null, "ADT Welcome Wizard",
                         "Failed to create directory %1$s",
                         path.getAbsolutePath());
                 return false;
@@ -163,7 +163,7 @@ public class WelcomeWizard extends Wizard {
 
         // Get a shell to use for the SDK installation. There are cases where getActiveShell
         // returns null so attempt to obtain it through other means.
-        Display display = AdtPlugin.getDisplay();
+        Display display = AndmoreAndroidPlugin.getDisplay();
         Shell shell = display.getActiveShell();
         if (shell == null) {
             IWorkbench workbench = PlatformUI.getWorkbench();
@@ -175,7 +175,7 @@ public class WelcomeWizard extends Wizard {
         boolean disposeShell = false;
         if (shell == null) {
             shell = new Shell(display);
-            AdtPlugin.log(IStatus.WARNING, "No parent shell for SDK installation dialog");
+            AndmoreAndroidPlugin.log(IStatus.WARNING, "No parent shell for SDK installation dialog");
             disposeShell = true;
         }
 
@@ -198,7 +198,7 @@ public class WelcomeWizard extends Wizard {
         }
 
         if (!result) {
-            AdtPlugin.printErrorToConsole("Failed to install Android SDK.");
+            AndmoreAndroidPlugin.printErrorToConsole("Failed to install Android SDK.");
             return false;
         }
 

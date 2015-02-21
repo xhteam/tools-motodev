@@ -35,7 +35,7 @@ import com.android.utils.Pair;
 import com.google.common.base.Splitter;
 import com.google.common.io.Closeables;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.layout.descriptors.LayoutDescriptors;
 import org.eclipse.andmore.internal.editors.layout.descriptors.ViewElementDescriptor;
@@ -140,7 +140,7 @@ public class ViewMetadataRepository {
             DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.parse(is);
         } catch (Exception e) {
-            AdtPlugin.log(e, "Parsing palette file failed");
+            AndmoreAndroidPlugin.log(e, "Parsing palette file failed");
             return null;
         } finally {
             Closeables.closeQuietly(paletteStream);
@@ -242,7 +242,7 @@ public class ViewMetadataRepository {
                     }
                 }
             } catch (Exception e) {
-                AdtPlugin.log(e, "Invalid palette metadata"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Invalid palette metadata"); //$NON-NLS-1$
             }
         }
 

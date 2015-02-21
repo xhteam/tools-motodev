@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.ndk.internal.launch;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.AndroidLaunchController;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -68,7 +68,7 @@ public class NdkGdbLaunchShortcut implements ILaunchShortcut {
 
 		// verify that this project has C/C++ nature
 		if (!CoreModel.hasCCNature(project) && !CoreModel.hasCNature(project)) {
-			AdtPlugin.printErrorToConsole(project,
+			AndmoreAndroidPlugin.printErrorToConsole(project,
 					String.format("Selected project (%s) does not have C/C++ nature. "
 							+ "To add native support, right click on the project, "
 							+ "Android Tools -> Add Native Support", project.getName()));
@@ -96,7 +96,7 @@ public class NdkGdbLaunchShortcut implements ILaunchShortcut {
 			try {
 				config = setNdkDefaults(config, project);
 			} catch (CoreException e) {
-				AdtPlugin.printErrorToConsole(project, "Unable to create launch configuration for project.");
+				AndmoreAndroidPlugin.printErrorToConsole(project, "Unable to create launch configuration for project.");
 				return;
 			}
 		}

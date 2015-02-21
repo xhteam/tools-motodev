@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.wizards.newproject;
 
 import com.android.tools.lint.detector.api.LintUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -269,15 +269,15 @@ class ImportPage extends WizardPage implements SelectionListener, IStructuredCon
         // Validate project name -- unless we're creating a sample, in which case
         // the user will get a chance to pick the name on the Sample page
         if (mProjectPaths == null || mProjectPaths.isEmpty()) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Select a directory to search for existing Android projects");
         } else if (mValues.importProjects == null || mValues.importProjects.isEmpty()) {
-            status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+            status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                     "Select at least one project");
         } else {
             for (ImportedProject project : mValues.importProjects) {
                 if (mCheckboxTableViewer.getGrayed(project)) {
-                    status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             String.format("Cannot import %1$s because the project name is in use",
                                     project.getProjectName()));
                     break;
@@ -289,7 +289,7 @@ class ImportPage extends WizardPage implements SelectionListener, IStructuredCon
                         if (mValues.importProjects.size() > 1) {
                             String message = String.format("%1$s: %2$s",
                                     project.getProjectName(), status.getMessage());
-                            status = new Status(status.getSeverity(), AdtPlugin.PLUGIN_ID,
+                            status = new Status(status.getSeverity(), AndmoreAndroidPlugin.PLUGIN_ID,
                                     message);
                         }
                         break;

@@ -21,7 +21,7 @@ import com.android.ide.common.rendering.LayoutLibrary;
 import com.android.ide.common.resources.ResourceRepository;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttrsXmlParser;
 import org.eclipse.andmore.common.resources.platform.DeclareStyleableInfo;
 import org.eclipse.andmore.common.resources.platform.ViewClassInfo;
@@ -129,7 +129,7 @@ public final class AndroidTargetParser {
             progress.subTask("Attributes definitions");
             AttrsXmlParser attrsXmlParser = new AttrsXmlParser(
                     mAndroidTarget.getPath(IAndroidTarget.ATTRIBUTES),
-                    AdtPlugin.getDefault(),
+                    AndmoreAndroidPlugin.getDefault(),
                     1000);
             attrsXmlParser.preload();
 
@@ -139,7 +139,7 @@ public final class AndroidTargetParser {
             AttrsXmlParser attrsManifestXmlParser = new AttrsXmlParser(
                     mAndroidTarget.getPath(IAndroidTarget.MANIFEST_ATTRIBUTES),
                     attrsXmlParser,
-                    AdtPlugin.getDefault(), 1100);
+                    AndmoreAndroidPlugin.getDefault(), 1100);
             attrsManifestXmlParser.preload();
             progress.worked(1);
 
@@ -266,7 +266,7 @@ public final class AndroidTargetParser {
             // now load the layout lib bridge
             LayoutLibrary layoutBridge =  LayoutLibrary.load(
                     mAndroidTarget.getPath(IAndroidTarget.LAYOUT_LIB),
-                    AdtPlugin.getDefault(),
+                    AndmoreAndroidPlugin.getDefault(),
                     "ADT plug-in");
 
             progress.worked(1);
@@ -298,9 +298,9 @@ public final class AndroidTargetParser {
 
             return Status.OK_STATUS;
         } catch (Exception e) {
-            AdtPlugin.logAndPrintError(e, TAG, "SDK parser failed"); //$NON-NLS-1$
-            AdtPlugin.printToConsole("SDK parser failed", e.getMessage());
-            return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, "SDK parser failed", e);
+            AndmoreAndroidPlugin.logAndPrintError(e, TAG, "SDK parser failed"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.printToConsole("SDK parser failed", e.getMessage());
+            return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, "SDK parser failed", e);
         }
     }
 
@@ -318,9 +318,9 @@ public final class AndroidTargetParser {
                     mAndroidTarget.getName(),                       // monitor task label
                     monitor);
         } catch (InvalidAttributeValueException e) {
-            AdtPlugin.log(e, "Problem preloading classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem preloading classes"); //$NON-NLS-1$
         } catch (IOException e) {
-            AdtPlugin.log(e, "Problem preloading classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Problem preloading classes"); //$NON-NLS-1$
         }
     }
 
@@ -364,7 +364,7 @@ public final class AndroidTargetParser {
                 return list.toArray(new String[list.size()]);
             }
         } catch (ClassNotFoundException e) {
-            AdtPlugin.logAndPrintError(e, TAG,
+            AndmoreAndroidPlugin.logAndPrintError(e, TAG,
                     "Collect permissions failed, class %1$s not found in %2$s", //$NON-NLS-1$
                     SdkConstants.CLASS_MANIFEST_PERMISSION,
                     mAndroidTarget.getPath(IAndroidTarget.ANDROID_JAR));
@@ -415,14 +415,14 @@ public final class AndroidTargetParser {
                 }
             }
         } catch (IOException e) {
-            AdtPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
             }
 
             try {
@@ -430,7 +430,7 @@ public final class AndroidTargetParser {
                     fr.close();
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(e, "Failed to read SDK values"); //$NON-NLS-1$
             }
         }
     }
@@ -460,7 +460,7 @@ public final class AndroidTargetParser {
             }
             // if the parsing failed, we'll use the old loader below.
         } catch (FileNotFoundException e) {
-            AdtPlugin.log(e, "Android Framework Parser"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Android Framework Parser"); //$NON-NLS-1$
             // the file does not exist, we'll use the old loader below.
         }
 
@@ -504,13 +504,13 @@ public final class AndroidTargetParser {
                 groupList.addAll(groups);
             }
         } catch (NoClassDefFoundError e) {
-            AdtPlugin.logAndPrintError(e, TAG,
+            AndmoreAndroidPlugin.logAndPrintError(e, TAG,
                     "Collect preferences failed, class %1$s not found in %2$s",
                     e.getMessage(),
                     classLoader.getSource());
         } catch (Throwable e) {
-            AdtPlugin.log(e, "Android Framework Parser: failed to collect preference classes"); //$NON-NLS-1$
-            AdtPlugin.printErrorToConsole("Android Framework Parser",
+            AndmoreAndroidPlugin.log(e, "Android Framework Parser: failed to collect preference classes"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.printErrorToConsole("Android Framework Parser",
                     "failed to collect preference classes");
         }
     }
@@ -530,10 +530,10 @@ public final class AndroidTargetParser {
             if (map.containsKey(key)) {
                 map2.put(key, map.get(key));
             } else {
-                AdtPlugin.log(IStatus.WARNING,
+                AndmoreAndroidPlugin.log(IStatus.WARNING,
                         "Menu declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath());
-                AdtPlugin.printErrorToConsole("Android Framework Parser",
+                AndmoreAndroidPlugin.printErrorToConsole("Android Framework Parser",
                         String.format("Menu declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath()));
             }
@@ -556,10 +556,10 @@ public final class AndroidTargetParser {
             if (map.containsKey(key)) {
                 map2.put(key, map.get(key));
             } else {
-                AdtPlugin.log(IStatus.WARNING,
+                AndmoreAndroidPlugin.log(IStatus.WARNING,
                         "Searchable declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath());
-                AdtPlugin.printErrorToConsole("Android Framework Parser",
+                AndmoreAndroidPlugin.printErrorToConsole("Android Framework Parser",
                         String.format("Searchable declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath()));
             }
@@ -581,10 +581,10 @@ public final class AndroidTargetParser {
             if (map.containsKey(key)) {
                 map2.put(key, map.get(key));
             } else {
-                AdtPlugin.log(IStatus.WARNING,
+                AndmoreAndroidPlugin.log(IStatus.WARNING,
                         "AppWidget declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath());
-                AdtPlugin.printErrorToConsole("Android Framework Parser",
+                AndmoreAndroidPlugin.printErrorToConsole("Android Framework Parser",
                         String.format("AppWidget declare-styleable %1$s not found in file %2$s", //$NON-NLS-1$
                         key, attrsXmlParser.getOsAttrsXmlPath()));
             }

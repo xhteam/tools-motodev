@@ -27,7 +27,7 @@ import com.android.sdklib.build.JarListSanitizer.Sha1Exception;
 import com.android.sdklib.build.RenderScriptProcessor;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -206,7 +206,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
         JarListSanitizer sanitizer = new JarListSanitizer(
                 iProject.getFolder(SdkConstants.FD_OUTPUT).getLocation().toFile(),
                 new AndroidPrintStream(iProject, null /*prefix*/,
-                        AdtPlugin.getOutStream()));
+                        AndmoreAndroidPlugin.getOutStream()));
 
         String errorMessage = null;
 
@@ -256,7 +256,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
                                                 IClasspathAttribute.JAVADOC_LOCATION_ATTRIBUTE_NAME,
                                                 docPath.toURI().toURL().toString());
                                     } catch (MalformedURLException e) {
-                                        AdtPlugin.log(e, "Failed to process 'doc' attribute for %s",
+                                        AndmoreAndroidPlugin.log(e, "Failed to process 'doc' attribute for %s",
                                                 jarProperties.getAbsolutePath());
                                     }
                                 }
@@ -265,7 +265,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
                         } catch (FileNotFoundException e) {
                             // shouldn't happen since we check upfront
                         } catch (IOException e) {
-                            AdtPlugin.log(e, "Failed to read %s", jarProperties.getAbsolutePath());
+                            AndmoreAndroidPlugin.log(e, "Failed to read %s", jarProperties.getAbsolutePath());
                         } finally {
                             if (is != null) {
                                 try {
@@ -292,7 +292,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
             }
         } catch (DifferentLibException e) {
             errorMessage = e.getMessage();
-            AdtPlugin.printErrorToConsole(iProject, (Object[]) e.getDetails());
+            AndmoreAndroidPlugin.printErrorToConsole(iProject, (Object[]) e.getDetails());
         } catch (Sha1Exception e) {
             errorMessage = e.getMessage();
         }
@@ -309,7 +309,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
         final Set<File> jarFiles = new HashSet<File>();
         final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
-        AdtPlugin plugin = AdtPlugin.getDefault();
+        AndmoreAndroidPlugin plugin = AndmoreAndroidPlugin.getDefault();
         if (plugin == null) { // This is totally weird, but I've seen it happen!
             return null;
         }
@@ -396,7 +396,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
     private static IClasspathContainer allocateContainer(IJavaProject javaProject,
             List<IClasspathEntry> entries, IPath id, String description) {
 
-        if (AdtPlugin.getDefault() == null) { // This is totally weird, but I've seen it happen!
+        if (AndmoreAndroidPlugin.getDefault() == null) { // This is totally weird, but I've seen it happen!
             return null;
         }
 
@@ -589,7 +589,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
                 }
             } catch (JavaModelException jme) {
                 // can't resolve the container? ignore it.
-                AdtPlugin.log(jme, "Failed to resolve ClasspathContainer: %s", entry.getPath());
+                AndmoreAndroidPlugin.log(jme, "Failed to resolve ClasspathContainer: %s", entry.getPath());
             }
         }
     }

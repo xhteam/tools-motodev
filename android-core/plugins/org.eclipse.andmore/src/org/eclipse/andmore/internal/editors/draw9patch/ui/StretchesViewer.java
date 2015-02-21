@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.draw9patch.ui;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.GraphicsUtilities;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage.Projection;
@@ -69,7 +69,7 @@ public class StretchesViewer extends Composite {
     public StretchesViewer(Composite parent, int style) {
         super(parent, style);
 
-        mBackgroundLayer = AdtPlugin.getImageDescriptor(CHECKER_PNG_PATH).createImage();
+        mBackgroundLayer = AndmoreAndroidPlugin.getImageDescriptor(CHECKER_PNG_PATH).createImage();
 
         setLayout(new FillLayout(SWT.VERTICAL));
 
@@ -133,7 +133,7 @@ public class StretchesViewer extends Composite {
                 mContentAreaImageData.setAlpha(x, y, PADDING_COLOR_ALPHA);
             }
         }
-        return new Image(AdtPlugin.getDisplay(), mContentAreaImageData);
+        return new Image(AndmoreAndroidPlugin.getDisplay(), mContentAreaImageData);
     }
 
     public void setScale(int scale) {

@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.layout.configuration;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.resources.ResourceHelper;
 import org.eclipse.core.resources.IProject;
@@ -67,7 +67,7 @@ class ActivityMenuListener extends SelectionAdapter {
             case ACTION_OPEN_ACTIVITY: {
                 Configuration configuration = mConfigChooser.getConfiguration();
                 String fqcn = configuration.getActivity();
-                AdtPlugin.openJavaClass(mConfigChooser.getProject(), fqcn);
+                AndmoreAndroidPlugin.openJavaClass(mConfigChooser.getProject(), fqcn);
                 break;
             }
             case ACTION_SELECT_ACTIVITY: {

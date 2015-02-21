@@ -43,7 +43,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;
 import com.android.ide.common.xml.XmlFormatStyle;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.descriptors.ViewElementDescriptor;
@@ -545,7 +545,7 @@ public class ChangeLayoutRefactoring extends VisualRefactoring {
                                 // Sometimes refactoring has modified attribute; not removing
                                 // it is non-fatal so just warn instead of letting refactoring
                                 // operation abort
-                                AdtPlugin.log(IStatus.WARNING,
+                                AndmoreAndroidPlugin.log(IStatus.WARNING,
                                         "Could not remove unsupported attribute %1$s; " + //$NON-NLS-1$
                                         "already modified during refactoring?", //$NON-NLS-1$
                                         attribute.getLocalName());

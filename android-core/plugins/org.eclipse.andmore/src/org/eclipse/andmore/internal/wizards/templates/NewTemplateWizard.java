@@ -23,7 +23,7 @@ import static org.eclipse.andmore.internal.wizards.templates.NewProjectWizard.AT
 
 import com.android.annotations.NonNull;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -164,7 +164,7 @@ public class NewTemplateWizard extends TemplateWizard {
             @NonNull final IWorkbench mWorkbench) {
         if (!relativePaths.isEmpty()) {
             // This has to be delayed in order for focus handling to work correctly
-            AdtPlugin.getDisplay().asyncExec(new Runnable() {
+            AndmoreAndroidPlugin.getDisplay().asyncExec(new Runnable() {
                 @Override
                 public void run() {
                     for (String path : relativePaths) {
@@ -172,9 +172,9 @@ public class NewTemplateWizard extends TemplateWizard {
                         if (resource != null) {
                             if (resource instanceof IFile) {
                                 try {
-                                    AdtPlugin.openFile((IFile) resource, null, false);
+                                    AndmoreAndroidPlugin.openFile((IFile) resource, null, false);
                                 } catch (PartInitException e) {
-                                    AdtPlugin.log(e, "Failed to open %1$s", //$NON-NLS-1$
+                                    AndmoreAndroidPlugin.log(e, "Failed to open %1$s", //$NON-NLS-1$
                                             resource.getFullPath().toString());
                                 }
                             }

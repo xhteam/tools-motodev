@@ -27,7 +27,7 @@ import static com.android.SdkConstants.VIEW_TAG;
 
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
@@ -192,7 +192,7 @@ public class UiViewElementNode extends UiElementNode {
             return img;
         }
 
-        return AdtPlugin.getAndroidLogo();
+        return AndmoreAndroidPlugin.getAndroidLogo();
     }
 
     /**

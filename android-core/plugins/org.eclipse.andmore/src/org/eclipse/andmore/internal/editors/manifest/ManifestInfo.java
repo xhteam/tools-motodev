@@ -46,7 +46,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.io.IFolderWrapper;
@@ -246,7 +246,7 @@ public class ManifestInfo {
      * Qualified name for the per-project non-persistent property storing the
      * {@link ManifestInfo} for this project
      */
-    final static QualifiedName MANIFEST_FINDER = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    final static QualifiedName MANIFEST_FINDER = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "manifest"); //$NON-NLS-1$
 
     /**
@@ -287,7 +287,7 @@ public class ManifestInfo {
             try {
                 project.setSessionProperty(MANIFEST_FINDER, finder);
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't store ManifestInfo");
+                AndmoreAndroidPlugin.log(e, "Can't store ManifestInfo");
             }
         }
 
@@ -384,9 +384,9 @@ public class ManifestInfo {
             }
 
         } catch (SAXException e) {
-            AdtPlugin.log(e, "Malformed manifest");
+            AndmoreAndroidPlugin.log(e, "Malformed manifest");
         } catch (Exception e) {
-            AdtPlugin.log(e, "Could not read Manifest data");
+            AndmoreAndroidPlugin.log(e, "Could not read Manifest data");
         }
     }
 
@@ -595,7 +595,7 @@ public class ManifestInfo {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -680,7 +680,7 @@ public class ManifestInfo {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return activities;
@@ -716,7 +716,7 @@ public class ManifestInfo {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return activities;
@@ -788,7 +788,7 @@ public class ManifestInfo {
                                     }
                                 }
                             } catch (Exception e) {
-                                AdtPlugin.log(e, "Can't find range information for %1$s",
+                                AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s",
                                         resource.getName());
                             } finally {
                                 provider.disconnect(resource);
@@ -819,7 +819,7 @@ public class ManifestInfo {
                         }
                     }
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
 

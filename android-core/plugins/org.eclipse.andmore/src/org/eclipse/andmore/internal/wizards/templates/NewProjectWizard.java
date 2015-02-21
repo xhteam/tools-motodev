@@ -22,7 +22,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;
 import com.android.assetstudiolib.GraphicGenerator;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.andmore.internal.assetstudio.AssetType;
@@ -302,7 +302,7 @@ public class NewProjectWizard extends TemplateWizard {
                 public void populate(IProject project) throws InvocationTargetException {
                     // Copy in the proguard file; templates don't provide this one.
                     // add the default proguard config
-                    File libFolder = new File(AdtPlugin.getOsSdkToolsFolder(),
+                    File libFolder = new File(AndmoreAndroidPlugin.getOsSdkToolsFolder(),
                             SdkConstants.FD_LIB);
                     try {
                         assert project == mProject;
@@ -313,13 +313,13 @@ public class NewProjectWizard extends TemplateWizard {
                                 SdkConstants.FN_PROJECT_PROGUARD_FILE,
                                 new NullProgressMonitor());
                     } catch (Exception e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
 
                     try {
                         mProject.refreshLocal(DEPTH_INFINITE, new NullProgressMonitor());
                     } catch (CoreException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
 
                     // Render the project template
@@ -331,7 +331,7 @@ public class NewProjectWizard extends TemplateWizard {
                                     changes.toArray(new Change[changes.size()]));
                             composite.perform(monitor);
                         } catch (CoreException e) {
-                            AdtPlugin.log(e, null);
+                            AndmoreAndroidPlugin.log(e, null);
                             throw new InvocationTargetException(e);
                         } finally {
                             monitor.done();
@@ -368,7 +368,7 @@ public class NewProjectWizard extends TemplateWizard {
             try {
                 mProject.refreshLocal(DEPTH_INFINITE, new NullProgressMonitor());
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
 
             List<Runnable> finalizingTasks = getFinalizingActions();
@@ -378,7 +378,7 @@ public class NewProjectWizard extends TemplateWizard {
 
             return true;
         } catch (Exception ioe) {
-            AdtPlugin.log(ioe, null);
+            AndmoreAndroidPlugin.log(ioe, null);
             return false;
         }
     }
@@ -422,7 +422,7 @@ public class NewProjectWizard extends TemplateWizard {
                         changes.toArray(new Change[changes.size()]));
                 composite.perform(monitor);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 throw new InvocationTargetException(e);
             } finally {
                 monitor.done();

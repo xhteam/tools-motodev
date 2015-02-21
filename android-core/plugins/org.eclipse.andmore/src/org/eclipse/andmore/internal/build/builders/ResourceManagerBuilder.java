@@ -22,7 +22,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
@@ -142,16 +142,16 @@ public class ResourceManagerBuilder extends BaseBuilder {
             }
 
             markProject(AndmoreAndroidConstants.MARKER_ADT, errorMessage, IMarker.SEVERITY_ERROR);
-            AdtPlugin.printErrorToConsole(project, errorMessage);
+            AndmoreAndroidPlugin.printErrorToConsole(project, errorMessage);
 
             return null;
         }
 
         // Check that the SDK directory has been setup.
-        String osSdkFolder = AdtPlugin.getOsSdkFolder();
+        String osSdkFolder = AndmoreAndroidPlugin.getOsSdkFolder();
 
         if (osSdkFolder == null || osSdkFolder.length() == 0) {
-            AdtPlugin.printErrorToConsole(project, Messages.No_SDK_Setup_Error);
+            AndmoreAndroidPlugin.printErrorToConsole(project, Messages.No_SDK_Setup_Error);
             markProject(AndmoreAndroidConstants.MARKER_ADT, Messages.No_SDK_Setup_Error,
                     IMarker.SEVERITY_ERROR);
 
@@ -195,7 +195,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
                         resource.getFullPath().toString());
             }
 
-            AdtPlugin.printErrorToConsole(project, message);
+            AndmoreAndroidPlugin.printErrorToConsole(project, message);
             markProject(AndmoreAndroidConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
 
             return null;
@@ -217,7 +217,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
             // create the new source folder, if needed
             IFolder genFolder = project.getFolder(SdkConstants.FD_GEN_SOURCES);
             if (genFolderPresent == false) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         "Creating 'gen' source folder for generated Java files");
                 genFolder.create(true /* force */, true /* local */,
                         new SubProgressMonitor(monitor, 10));
@@ -300,7 +300,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
         // Check the preference to be sure we are supposed to refresh
         // the folders.
         if (AdtPrefs.getPrefs().getBuildForceResResfresh()) {
-            AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, Messages.Refreshing_Res);
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, Messages.Refreshing_Res);
 
             // refresh the res folder.
             IFolder resFolder = project.getFolder(AndmoreAndroidConstants.WS_RESOURCES);

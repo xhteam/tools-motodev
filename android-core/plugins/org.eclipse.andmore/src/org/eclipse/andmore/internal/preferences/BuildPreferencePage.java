@@ -20,7 +20,7 @@ import com.android.prefs.AndroidLocation.AndroidLocationException;
 import com.android.sdklib.internal.build.DebugKeyProvider;
 import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
 import org.eclipse.andmore.internal.utils.FingerprintUtils;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -62,7 +62,7 @@ public class BuildPreferencePage extends FieldEditorPreferencePage implements
 
     public BuildPreferencePage() {
         super(GRID);
-        mPrefStore = AdtPlugin.getDefault().getPreferenceStore();
+        mPrefStore = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
         setPreferenceStore(mPrefStore);
         setDescription(Messages.BuildPreferencePage_Title);
     }

@@ -40,7 +40,7 @@ import com.android.ide.common.api.INode;
 import com.android.ide.common.api.InsertType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
 import org.eclipse.andmore.common.layout.GridLayoutRule;
@@ -774,7 +774,7 @@ public class OutlinePage extends ContentOutlinePage
                 return v.getIcon();
             }
 
-            return AdtPlugin.getAndroidLogo();
+            return AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         /**

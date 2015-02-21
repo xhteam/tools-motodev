@@ -22,7 +22,7 @@ import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IProject;
@@ -150,7 +150,7 @@ public class AndroidPropertyPage extends PropertyPage {
                     String msg = String.format(
                             "Failed to save %1$s for project %2$s",
                             SdkConstants.FN_PROJECT_PROPERTIES, mProject.getName());
-                    AdtPlugin.log(e, msg);
+                    AndmoreAndroidPlugin.log(e, msg);
                 }
             }
         }

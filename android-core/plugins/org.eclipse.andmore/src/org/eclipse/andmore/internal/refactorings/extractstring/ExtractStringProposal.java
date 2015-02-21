@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.refactorings.extractstring;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IBuffer;
@@ -156,7 +156,7 @@ public class ExtractStringProposal implements IJavaCompletionProposal {
 
             return sb.toString();
         } catch (JavaModelException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return "Initiates the Extract String refactoring operation";
@@ -169,7 +169,7 @@ public class ExtractStringProposal implements IJavaCompletionProposal {
 
     @Override
     public Image getImage() {
-        return AdtPlugin.getAndroidLogo();
+        return AndmoreAndroidPlugin.getAndroidLogo();
     }
 
     @Override

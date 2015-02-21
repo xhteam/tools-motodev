@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 
 import com.android.ide.common.sdk.LoadStatus;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.integration.tests.DialogMonitor;
 import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
@@ -90,7 +90,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 		// Prevent preview icon computation during plugin test to make test
 		// faster
 		
-		if (AdtPlugin.getDefault() == null) {
+		if (AndmoreAndroidPlugin.getDefault() == null) {
 			fail("This test must be run as an Eclipse plugin test, not a plain JUnit test!");
 		}
 				
@@ -100,7 +100,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 
 		Sdk current = Sdk.getCurrent();
 		assertNotNull(current);
-		LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
+		LoadStatus sdkStatus = AndmoreAndroidPlugin.getDefault().getSdkLoadStatus();
 		assertSame(LoadStatus.LOADED, sdkStatus);
 		IAndroidTarget target = current.getTarget(getProject());
 		IJavaProject javaProject = BaseProjectHelper.getJavaProject(getProject());
@@ -260,7 +260,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 		}
 		IFile file = parent.getFile(new Path(name));
 		if (overwrite && file.exists()) {
-			String currentContents = AdtPlugin.readFile(file);
+			String currentContents = AndmoreAndroidPlugin.readFile(file);
 			String newContents = readTestFile(sourceName, true);
 			if (currentContents == null || !currentContents.equals(newContents)) {
 				file.delete(true, new NullProgressMonitor());
@@ -349,7 +349,7 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	protected int getCaretOffset(IFile file, String caretLocation) {
 		assertTrue(caretLocation, caretLocation.contains("^"));
 
-		String fileContent = AdtPlugin.readFile(file);
+		String fileContent = AndmoreAndroidPlugin.readFile(file);
 		return getCaretOffset(fileContent, caretLocation);
 	}
 

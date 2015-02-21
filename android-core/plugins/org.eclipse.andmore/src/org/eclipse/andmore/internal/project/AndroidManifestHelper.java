@@ -22,7 +22,7 @@ import com.android.io.FileWrapper;
 import com.android.io.IAbstractFile;
 import com.android.io.StreamException;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.XmlErrorHandler.XmlErrorListener;
 import org.eclipse.andmore.io.IFileWrapper;
 import org.eclipse.core.resources.IFile;
@@ -101,25 +101,25 @@ public class AndroidManifestHelper {
         try {
             return parseUnchecked(manifestFile, gatherData, errorListener);
         } catch (ParserConfigurationException e) {
-            AdtPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
+            AndmoreAndroidPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
                     "Bad parser configuration for %s: %s",
                     manifestFile.getOsLocation(),
                     e.getMessage());
         } catch (SAXException e) {
-            AdtPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
+            AndmoreAndroidPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
                     "Parser exception for %s: %s",
                     manifestFile.getOsLocation(),
                     e.getMessage());
         } catch (IOException e) {
             // Don't log a console error when failing to read a non-existing file
             if (!(e instanceof FileNotFoundException)) {
-                AdtPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
+                AndmoreAndroidPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
                         "I/O error for %s: %s",
                         manifestFile.getOsLocation(),
                         e.getMessage());
             }
         } catch (StreamException e) {
-            AdtPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
+            AndmoreAndroidPlugin.logAndPrintError(e, AndroidManifestHelper.class.getCanonicalName(),
                     "Unable to read %s: %s",
                     manifestFile.getOsLocation(),
                     e.getMessage());

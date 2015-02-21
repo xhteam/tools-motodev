@@ -21,7 +21,7 @@ import static com.android.SdkConstants.FN_FRAMEWORK_LIBRARY;
 
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -68,7 +68,7 @@ public class CustomViewFinder {
      * Qualified name for the per-project non-persistent property storing the
      * {@link CustomViewFinder} for this project
      */
-    private final static QualifiedName CUSTOM_VIEW_FINDER = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName CUSTOM_VIEW_FINDER = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "viewfinder"); //$NON-NLS-1$
 
     /** Project that this view finder locates views for */
@@ -109,7 +109,7 @@ public class CustomViewFinder {
             try {
                 project.setSessionProperty(CUSTOM_VIEW_FINDER, finder);
             } catch (CoreException e) {
-                AdtPlugin.log(e, "Can't store CustomViewFinder");
+                AndmoreAndroidPlugin.log(e, "Can't store CustomViewFinder");
             }
         }
 
@@ -149,7 +149,7 @@ public class CustomViewFinder {
             try {
                 job.join();
             } catch (InterruptedException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
     }
@@ -263,7 +263,7 @@ public class CustomViewFinder {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
 

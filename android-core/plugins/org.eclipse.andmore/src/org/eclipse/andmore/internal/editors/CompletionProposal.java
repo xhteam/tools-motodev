@@ -20,7 +20,7 @@ import static com.android.SdkConstants.XMLNS;
 import com.android.ide.common.api.IAttributeInfo;
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -177,7 +177,7 @@ class CompletionProposal implements ICompletionProposal {
                     }
                     return type.getAttachedJavadoc(new NullProgressMonitor());
                 } catch (JavaModelException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }

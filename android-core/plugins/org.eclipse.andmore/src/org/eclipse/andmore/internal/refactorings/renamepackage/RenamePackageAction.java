@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.refactorings.renamepackage;
 
 import com.android.ide.common.xml.ManifestData;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
@@ -103,7 +103,7 @@ public class RenamePackageAction implements IObjectActionDelegate {
                     // enforce a save as a convenience.
                     RefactoringSaveHelper save_helper = new RefactoringSaveHelper(
                             RefactoringSaveHelper.SAVE_ALL_ALWAYS_ASK);
-                    if (save_helper.saveEditors(AdtPlugin.getShell())) {
+                    if (save_helper.saveEditors(AndmoreAndroidPlugin.getShell())) {
                         promptNewName(project);
                     }
                 }
@@ -143,7 +143,7 @@ public class RenamePackageAction implements IObjectActionDelegate {
             }
         };
 
-        InputDialog dialog = new InputDialog(AdtPlugin.getShell(),
+        InputDialog dialog = new InputDialog(AndmoreAndroidPlugin.getShell(),
                 "Rename Application Package", "Enter new package name:", oldPackageNameString,
                 validator);
 
@@ -166,10 +166,10 @@ public class RenamePackageAction implements IObjectActionDelegate {
             new ApplicationPackageNameRefactoringWizard(package_name_refactoring);
         RefactoringWizardOpenOperation op = new RefactoringWizardOpenOperation(wizard);
         try {
-            op.run(AdtPlugin.getShell(), package_name_refactoring.getName());
+            op.run(AndmoreAndroidPlugin.getShell(), package_name_refactoring.getName());
         } catch (InterruptedException e) {
-            Status s = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, e.getMessage(), e);
-            AdtPlugin.getDefault().getLog().log(s);
+            Status s = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, e.getMessage(), e);
+            AndmoreAndroidPlugin.getDefault().getLog().log(s);
         }
     }
 }

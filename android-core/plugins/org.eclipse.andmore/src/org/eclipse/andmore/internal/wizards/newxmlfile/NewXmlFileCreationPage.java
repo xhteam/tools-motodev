@@ -35,7 +35,7 @@ import com.android.utils.Pair;
 import com.android.utils.SdkUtils;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -571,14 +571,14 @@ class NewXmlFileCreationPage extends WizardPage {
             }
         };
 
-        AdtPlugin.getDefault().addTargetListener(mSdkTargetChangeListener);
+        AndmoreAndroidPlugin.getDefault().addTargetListener(mSdkTargetChangeListener);
     }
 
     @Override
     public void dispose() {
 
         if (mSdkTargetChangeListener != null) {
-            AdtPlugin.getDefault().removeTargetListener(mSdkTargetChangeListener);
+            AndmoreAndroidPlugin.getDefault().removeTargetListener(mSdkTargetChangeListener);
             mSdkTargetChangeListener = null;
         }
 
@@ -831,7 +831,7 @@ class NewXmlFileCreationPage extends WizardPage {
                     // is an old project for which a target hasn't been affected or if the
                     // target no longer exists in this SDK. Simply log the error and dismiss.
 
-                    AdtPlugin.log(IStatus.INFO,
+                    AndmoreAndroidPlugin.log(IStatus.INFO,
                             "NewXmlFile wizard: no platform target for project %s",  //$NON-NLS-1$
                             project.getName());
                     continue;
@@ -845,7 +845,7 @@ class NewXmlFileCreationPage extends WizardPage {
                         // doesn't have any data yet.
                         // Lets log a warning and silently ignore this root.
 
-                        AdtPlugin.log(IStatus.INFO,
+                        AndmoreAndroidPlugin.log(IStatus.INFO,
                               "NewXmlFile wizard: no data for target %s, project %s",  //$NON-NLS-1$
                               target.getName(), project.getName());
                         continue;

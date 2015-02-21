@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.internal.filebuffers.SynchronizableDocument;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -192,7 +192,7 @@ public abstract class AndroidTextEditor extends FormEditor implements IResourceC
             if (getEditorInput() instanceof IFileEditorInput) {
                 IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 
-                QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID,
+                QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
                         getClass().getSimpleName() + PREF_CURRENT_PAGE);
                 String pageId;
                 try {
@@ -214,7 +214,7 @@ public abstract class AndroidTextEditor extends FormEditor implements IResourceC
                 // AssertionError from setActivePage when the index is out of bounds.
                 // Generally speaking we just want to ignore any exception and fall back on the
                 // first page rather than crash the editor load. Logging the error is enough.
-                AdtPlugin.log(e, "Selecting page '%s' in AndroidXmlEditor failed", defaultPageId);
+                AndmoreAndroidPlugin.log(e, "Selecting page '%s' in AndroidXmlEditor failed", defaultPageId);
             }
         }
     }
@@ -266,7 +266,7 @@ public abstract class AndroidTextEditor extends FormEditor implements IResourceC
         if (getEditorInput() instanceof IFileEditorInput) {
             IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 
-            QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID,
+            QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
                     getClass().getSimpleName() + PREF_CURRENT_PAGE);
             try {
                 file.setPersistentProperty(qname, Integer.toString(newPageIndex));
@@ -573,7 +573,7 @@ public abstract class AndroidTextEditor extends FormEditor implements IResourceC
 
                 operation.run();
             } catch(IllegalStateException e) {
-                AdtPlugin.log(e, "wrapRewriteSession failed");
+                AndmoreAndroidPlugin.log(e, "wrapRewriteSession failed");
                 e.printStackTrace();
             } finally {
                 if (session != null) {

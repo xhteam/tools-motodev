@@ -28,7 +28,7 @@ import com.android.tools.lint.detector.api.Severity;
 import com.android.utils.SdkUtils;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -280,7 +280,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
                     if (start != -1 && end != -1) {
                         region = new Region(start, end - start);
                     }
-                    part = AdtPlugin.openFile(file, region, true /* showEditor */);
+                    part = AndmoreAndroidPlugin.openFile(file, region, true /* showEditor */);
                 }
 
                 if (isJava) {
@@ -302,7 +302,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
                     }
                 }
             } catch (PartInitException pie) {
-                AdtPlugin.log(pie, null);
+                AndmoreAndroidPlugin.log(pie, null);
             }
         }
     }
@@ -503,7 +503,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
                 sb.append(issue.getMoreInfo());
             }
 
-            MessageDialog.openInformation(AdtPlugin.getShell(), "More Info",
+            MessageDialog.openInformation(AndmoreAndroidPlugin.getShell(), "More Info",
                     sb.toString());
         }
 

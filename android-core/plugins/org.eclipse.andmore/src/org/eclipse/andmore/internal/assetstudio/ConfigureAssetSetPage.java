@@ -32,7 +32,7 @@ import com.android.assetstudiolib.TextRenderUtil;
 import com.android.assetstudiolib.Util;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState.SourceType;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
@@ -786,7 +786,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                                 img.addMouseListener(clickListener);
                             }
                         } catch (IOException e1) {
-                            AdtPlugin.log(e1, null);
+                            AndmoreAndroidPlugin.log(e1, null);
                         }
                     }
                     outer.pack();
@@ -886,7 +886,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                             SWT.NONE, swtImage);
                 }
             } catch (IOException e1) {
-                AdtPlugin.log(e1, null);
+                AndmoreAndroidPlugin.log(e1, null);
             }
             mClipartPreviewPanel.pack();
             mClipartPreviewPanel.layout();
@@ -1079,7 +1079,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                         sourceImage = Util.paddedImage(sourceImage, padding);
                     }
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                     return categoryMap;
                 }
                 break;
@@ -1156,7 +1156,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                 options = new TabIconGenerator.TabOptions();
                 break;
             default:
-                AdtPlugin.log(IStatus.ERROR, "Unsupported asset type: %1$s", type);
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Unsupported asset type: %1$s", type);
                 return categoryMap;
         }
 
@@ -1206,7 +1206,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                     try {
                         file.delete(true, new NullProgressMonitor());
                     } catch (CoreException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
                 AdtUtils.createWsParentDirectory(file.getParent());
@@ -1219,15 +1219,15 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                     InputStream is = new ByteArrayInputStream(bytes);
                     file.create(is, true /*force*/, null /*progress*/);
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
 
                 try {
                     file.getParent().refreshLocal(1, new NullProgressMonitor());
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }

@@ -27,7 +27,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -253,7 +253,7 @@ public class TemplateManager {
                 }
             }
         } catch (IOException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;

@@ -26,7 +26,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.core.resources.IFile;
@@ -872,7 +872,7 @@ public class DomUtilities {
             builder = factory.newDocumentBuilder();
             return builder.newDocument();
         } catch (ParserConfigurationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return null;
@@ -898,7 +898,7 @@ public class DomUtilities {
             return builder.parse(is);
         } catch (Exception e) {
             if (logParserErrors) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 

@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.lint;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.text.IDocument;
@@ -38,7 +38,7 @@ abstract class DocumentFix extends LintFix {
     @Override
     public void apply(IDocument document) {
         if (!(document instanceof IStructuredDocument)) {
-            AdtPlugin.log(null, "Unexpected document type: %1$s. Can't fix.",
+            AndmoreAndroidPlugin.log(null, "Unexpected document type: %1$s. Can't fix.",
                     document.getClass().getName());
             return;
         }

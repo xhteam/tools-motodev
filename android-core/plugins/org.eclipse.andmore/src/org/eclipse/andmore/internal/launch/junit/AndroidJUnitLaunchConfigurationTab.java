@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.launch.junit;
 import com.android.SdkConstants;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
 import org.eclipse.andmore.internal.launch.MainLaunchConfigTab;
@@ -508,7 +508,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
             mapResources(config);
         } catch (CoreException e) {
             // TODO: does the real error need to be extracted out of CoreException
-            AdtPlugin.log(e, "Error occurred saving configuration"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error occurred saving configuration"); //$NON-NLS-1$
         }
         AndroidJUnitLaunchConfigDelegate.setJUnitDefaults(config);
 
@@ -566,7 +566,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
             setErrorMessage(e.getMessage());
             return;
         } catch (InvocationTargetException e) {
-            AdtPlugin.log(e.getTargetException(), "Error finding test types"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e.getTargetException(), "Error finding test types"); //$NON-NLS-1$
             return;
         } finally {
             mTestRadioButton.setSelection(radioSetting[0]);
@@ -729,7 +729,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
                 return;
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, "validatePage failed"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "validatePage failed"); //$NON-NLS-1$
         }
 
         validateInstrumentation();
@@ -1027,7 +1027,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
                 return;
             }
         } catch (CoreException e) {
-            AdtPlugin.logAndPrintError(e, project.getName(),
+            AndmoreAndroidPlugin.logAndPrintError(e, project.getName(),
                     LaunchMessages.AndroidJUnitTab_LoadInstrError_s,
                     SdkConstants.FN_ANDROID_MANIFEST_XML);
         }

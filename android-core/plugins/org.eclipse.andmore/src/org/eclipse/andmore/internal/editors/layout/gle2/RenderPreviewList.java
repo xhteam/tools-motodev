@@ -21,7 +21,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlPrettyPrinter;
 import org.eclipse.andmore.internal.editors.layout.configuration.Configuration;
@@ -45,7 +45,7 @@ class RenderPreviewList {
     private static final String PREVIEW_FILE_NAME = "previews.xml"; //$NON-NLS-1$
 
     /** Qualified name for the per-project persistent property include-map */
-    private final static QualifiedName PREVIEW_LIST = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName PREVIEW_LIST = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "previewlist");//$NON-NLS-1$
 
     private final IProject mProject;
@@ -75,7 +75,7 @@ class RenderPreviewList {
             try {
                 project.setSessionProperty(PREVIEW_LIST, list);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 

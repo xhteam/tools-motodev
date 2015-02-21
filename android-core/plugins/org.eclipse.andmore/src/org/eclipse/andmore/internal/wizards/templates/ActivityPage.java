@@ -24,7 +24,7 @@ import static org.eclipse.andmore.internal.wizards.templates.TemplateHandler.PRE
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -199,7 +199,7 @@ class ActivityPage extends WizardPage implements SelectionListener {
                         mDisposePreviewImage = true;
                         input.close();
                     } catch (IOException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
             } else {
@@ -265,7 +265,7 @@ class ActivityPage extends WizardPage implements SelectionListener {
 
         if (mValues.createActivity) {
             if (mList.getSelectionCount() < 1) {
-                status = new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                status = new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                         "Select an activity type");
             } else {
                 TemplateHandler templateHandler = mValues.activityValues.getTemplateHandler();

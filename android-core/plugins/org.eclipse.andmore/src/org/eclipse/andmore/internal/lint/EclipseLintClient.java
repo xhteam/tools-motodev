@@ -47,7 +47,7 @@ import com.android.utils.Pair;
 import com.android.utils.SdkUtils;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.uimodel.UiViewElementNode;
@@ -198,9 +198,9 @@ public class EclipseLintClient extends LintClient {
     public void log(@NonNull Severity severity, @Nullable Throwable exception,
             @Nullable String format, @Nullable Object... args) {
         if (exception == null) {
-            AdtPlugin.log(IStatus.WARNING, format, args);
+            AndmoreAndroidPlugin.log(IStatus.WARNING, format, args);
         } else {
-            AdtPlugin.log(exception, format, args);
+            AndmoreAndroidPlugin.log(exception, format, args);
         }
     }
 
@@ -213,7 +213,7 @@ public class EclipseLintClient extends LintClient {
                 IFile file = AdtUtils.fileToIFile(context.file);
                 if (file == null || !file.exists()) {
                     String path = context.file.getPath();
-                    AdtPlugin.log(IStatus.ERROR, "Can't find file %1$s in workspace", path);
+                    AndmoreAndroidPlugin.log(IStatus.ERROR, "Can't find file %1$s in workspace", path);
                     return null;
                 }
 
@@ -232,9 +232,9 @@ public class EclipseLintClient extends LintClient {
                         return domModel.getDocument();
                     }
                 } catch (IOException e) {
-                    AdtPlugin.log(e, "Cannot read XML file");
+                    AndmoreAndroidPlugin.log(e, "Cannot read XML file");
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
 
                 return null;
@@ -417,7 +417,7 @@ public class EclipseLintClient extends LintClient {
             try {
                 marker.setAttribute(MARKER_CHECKID_PROPERTY, issue.getId());
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 
@@ -484,7 +484,7 @@ public class EclipseLintClient extends LintClient {
                     resource.deleteMarkers(MARKER_LINT, false, IResource.DEPTH_INFINITE);
                 }
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 
@@ -520,7 +520,7 @@ public class EclipseLintClient extends LintClient {
                 try {
                     marker.delete();
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }
@@ -538,7 +538,7 @@ public class EclipseLintClient extends LintClient {
                 return resource.findMarkers(MARKER_LINT, false, IResource.DEPTH_INFINITE);
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return new IMarker[0];
@@ -572,7 +572,7 @@ public class EclipseLintClient extends LintClient {
                         return adjustOffsets(doc, startOffset, endOffset);
                     }
                 } catch (Exception e) {
-                    AdtPlugin.log(e, "Can't find range information for %1$s", file.getName());
+                    AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s", file.getName());
                 } finally {
                     provider.disconnect(file);
                 }
@@ -722,13 +722,13 @@ public class EclipseLintClient extends LintClient {
             IResource resource = marker.getResource();
             if (resource instanceof IFile) {
                 IEditorPart editor =
-                        AdtPlugin.openFile((IFile) resource, region, true /* showEditorTab */);
+                        AndmoreAndroidPlugin.openFile((IFile) resource, region, true /* showEditorTab */);
                 if (editor != null) {
                     IDE.gotoMarker(editor, marker);
                 }
             }
         } catch (PartInitException ex) {
-            AdtPlugin.log(ex, null);
+            AndmoreAndroidPlugin.log(ex, null);
         }
     }
 
@@ -753,7 +753,7 @@ public class EclipseLintClient extends LintClient {
         IFile file = AdtUtils.fileToIFile(f);
         if (file == null || !file.exists()) {
             String path = f.getPath();
-            AdtPlugin.log(IStatus.ERROR, "Can't find file %1$s in workspace", path);
+            AndmoreAndroidPlugin.log(IStatus.ERROR, "Can't find file %1$s in workspace", path);
             return readPlainFile(f);
         }
 
@@ -764,9 +764,9 @@ public class EclipseLintClient extends LintClient {
                 model = modelManager.getModelForRead(file);
                 return model.getStructuredDocument().get();
             } catch (IOException e) {
-                AdtPlugin.log(e, "Cannot read XML file");
+                AndmoreAndroidPlugin.log(e, "Cannot read XML file");
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             } finally {
                 if (model != null) {
                     // TODO: This may be too early...
@@ -874,7 +874,7 @@ public class EclipseLintClient extends LintClient {
                         }
                     }
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
 
@@ -1082,7 +1082,7 @@ public class EclipseLintClient extends LintClient {
                         int lineOffset = mDocument.getLineOffset(line);
                         column = offset - lineOffset;
                     } catch (BadLocationException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
 
@@ -1176,7 +1176,7 @@ public class EclipseLintClient extends LintClient {
 
                     return null;
                 } catch (Throwable t) {
-                    AdtPlugin.log(t, "Failed converting ECJ parse tree to Lombok for file %1$s",
+                    AndmoreAndroidPlugin.log(t, "Failed converting ECJ parse tree to Lombok for file %1$s",
                             context.file.getPath());
                     return null;
                 }

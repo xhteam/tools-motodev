@@ -24,7 +24,7 @@ import com.android.ide.common.resources.ResourceFolder;
 import com.android.resources.ResourceType;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IFileListener;
@@ -316,7 +316,7 @@ public final class LayoutReloadMonitor {
                         try {
                             listener.reloadLayout(flags, libraryChanged);
                         } catch (Throwable t) {
-                            AdtPlugin.log(t, "Failed to call ILayoutReloadListener.reloadLayout");
+                            AndmoreAndroidPlugin.log(t, "Failed to call ILayoutReloadListener.reloadLayout");
                         }
                     }
                 }

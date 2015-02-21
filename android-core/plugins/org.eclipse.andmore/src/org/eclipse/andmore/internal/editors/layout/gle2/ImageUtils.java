@@ -32,7 +32,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.api.Rect;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 
@@ -684,7 +684,7 @@ public class ImageUtils {
             try {
                 return ImageIO.read(stream);
             } catch (IOException e) {
-                AdtPlugin.log(e, "Could not read %1$s", name);
+                AndmoreAndroidPlugin.log(e, "Could not read %1$s", name);
             } finally {
                 try {
                     stream.close();

@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.project;
 import com.android.SdkConstants;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -39,7 +39,7 @@ public class FolderDecorator implements ILightweightLabelDecorator {
     private ImageDescriptor mDescriptor;
 
     public FolderDecorator() {
-        mDescriptor = AdtPlugin.getImageDescriptor("/icons/android_project.png"); //$NON-NLS-1$
+        mDescriptor = AndmoreAndroidPlugin.getImageDescriptor("/icons/android_project.png"); //$NON-NLS-1$
     }
 
     @Override
@@ -73,7 +73,7 @@ public class FolderDecorator implements ILightweightLabelDecorator {
                 }
             } catch (CoreException e) {
                 // log the error
-                AdtPlugin.log(e, "Unable to get nature of project '%s'.", project.getName());
+                AndmoreAndroidPlugin.log(e, "Unable to get nature of project '%s'.", project.getName());
             }
         }
     }

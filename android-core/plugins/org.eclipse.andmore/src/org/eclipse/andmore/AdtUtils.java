@@ -617,9 +617,9 @@ public class AdtUtils {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (BadLocationException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return matchingMarkers;
@@ -791,7 +791,7 @@ public class AdtUtils {
 
                         if (reveal) {
                             // Update editor selection after format
-                            Display display = AdtPlugin.getDisplay();
+                            Display display = AndmoreAndroidPlugin.getDisplay();
                             if (display != null) {
                                 display.asyncExec(new Runnable() {
                                     @Override
@@ -928,7 +928,7 @@ public class AdtUtils {
                 }
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -1210,7 +1210,7 @@ public class AdtUtils {
      * @param save whether unsaved editors should be saved first
      */
     public static void closeEditors(@NonNull final IProject project, final boolean save) {
-        final Display display = AdtPlugin.getDisplay();
+        final Display display = AndmoreAndroidPlugin.getDisplay();
         if (display == null || display.isDisposed()) {
             return;
         }
@@ -1269,7 +1269,7 @@ public class AdtUtils {
      * @param save whether unsaved editors should be saved first
      */
     public static void closeEditors(@NonNull final IFile file, final boolean save) {
-        final Display display = AdtPlugin.getDisplay();
+        final Display display = AndmoreAndroidPlugin.getDisplay();
         if (display == null || display.isDisposed()) {
             return;
         }
@@ -1338,7 +1338,7 @@ public class AdtUtils {
                 return document.getLineInformation(line);
             }
         } catch (Exception e) {
-            AdtPlugin.log(e, "Can't find range information for %1$s", file.getName());
+            AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s", file.getName());
         } finally {
             provider.disconnect(file);
         }
@@ -1394,7 +1394,7 @@ public class AdtUtils {
                         }
                     }
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }
@@ -1408,8 +1408,8 @@ public class AdtUtils {
      * @return true if the current thread is the UI thread
      */
     public static boolean isUiThread() {
-        return AdtPlugin.getDisplay() != null
-                && AdtPlugin.getDisplay().getThread() == Thread.currentThread();
+        return AndmoreAndroidPlugin.getDisplay() != null
+                && AndmoreAndroidPlugin.getDisplay().getThread() == Thread.currentThread();
     }
 
     /**

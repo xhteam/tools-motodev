@@ -29,7 +29,7 @@ import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.ide.common.resources.configuration.FolderConfiguration;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -89,9 +89,9 @@ class ConfigurationMenuListener extends SelectionAdapter {
         switch (mAction) {
             case ACTION_SELECT_CONFIG: {
                 try {
-                    AdtPlugin.openFile(mResource, null, false);
+                    AndmoreAndroidPlugin.openFile(mResource, null, false);
                 } catch (PartInitException ex) {
-                    AdtPlugin.log(ex, null);
+                    AndmoreAndroidPlugin.log(ex, null);
                 }
                 return;
             }

@@ -23,7 +23,7 @@ import com.android.ide.common.api.IDragElement;
 import com.android.ide.common.api.IDragElement.IDragAttribute;
 import com.android.ide.common.api.INode;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.descriptors.ViewElementDescriptor;
@@ -423,7 +423,7 @@ public class ClipboardSupport {
     }
 
     private void debugPrintf(String message, Object... params) {
-        if (DEBUG) AdtPlugin.printToConsole("Clipboard", String.format(message, params));
+        if (DEBUG) AndmoreAndroidPlugin.printToConsole("Clipboard", String.format(message, params));
     }
 
 }

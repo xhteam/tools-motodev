@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.ndk.internal;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.ndk.internal.launch.NdkLaunchConstants;
 import org.eclipse.cdt.core.CommandLauncher;
 import org.eclipse.cdt.core.ICommandLauncher;
@@ -61,7 +61,7 @@ public class NdkHelper {
 		try {
 			launcher.execute(getPathToMake(), args, null, project.getLocation(), monitor);
 		} catch (CoreException e) {
-			AdtPlugin.printErrorToConsole(e.getLocalizedMessage());
+			AndmoreAndroidPlugin.printErrorToConsole(e.getLocalizedMessage());
 			return Collections.emptyList();
 		}
 
@@ -79,7 +79,7 @@ public class NdkHelper {
 			try {
 				nativeAbis.add(NativeAbi.getByString(abi));
 			} catch (IllegalArgumentException e) {
-				AdtPlugin.printErrorToConsole(project, "Unknown Application ABI: ", abi);
+				AndmoreAndroidPlugin.printErrorToConsole(project, "Unknown Application ABI: ", abi);
 			}
 		}
 
@@ -104,7 +104,7 @@ public class NdkHelper {
 		try {
 			launcher.execute(getPathToMake(), args, null, project.getLocation(), monitor);
 		} catch (CoreException e) {
-			AdtPlugin.printErrorToConsole(e.getLocalizedMessage());
+			AndmoreAndroidPlugin.printErrorToConsole(e.getLocalizedMessage());
 			return null;
 		}
 

@@ -27,7 +27,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.sdklib.IAndroidTarget;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.resources.ResourceHelper;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IProjectListener;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IRawDeltaListener;
@@ -442,7 +442,7 @@ public final class ResourceManager {
                         }
                     }
                 } else {
-                    AdtPlugin.log(IStatus.WARNING, "Unexpected delta type: %1$s",
+                    AndmoreAndroidPlugin.log(IStatus.WARNING, "Unexpected delta type: %1$s",
                             delta.getResource().toString());
                 }
             }
@@ -493,7 +493,7 @@ public final class ResourceManager {
             FrameworkResources resources = new FrameworkResources(frameworkRes);
 
             resources.loadResources();
-            resources.loadPublicResources(AdtPlugin.getDefault());
+            resources.loadPublicResources(AndmoreAndroidPlugin.getDefault());
             return resources;
         }
 
@@ -533,7 +533,7 @@ public final class ResourceManager {
                 try {
                     listener.folderChanged(project, folder, eventType);
                 } catch (Throwable t) {
-                    AdtPlugin.log(t,
+                    AndmoreAndroidPlugin.log(t,
                             "Failed to execute ResourceManager.IResouceListener.folderChanged()"); //$NON-NLS-1$
                 }
             }
@@ -546,7 +546,7 @@ public final class ResourceManager {
                 try {
                     listener.fileChanged(project, file, eventType);
                 } catch (Throwable t) {
-                    AdtPlugin.log(t,
+                    AndmoreAndroidPlugin.log(t,
                             "Failed to execute ResourceManager.IResouceListener.fileChanged()"); //$NON-NLS-1$
                 }
             }
@@ -585,7 +585,7 @@ public final class ResourceManager {
     }
 
     /** Qualified name for the per-project persistent property "needs aapt" */
-    private final static QualifiedName NEED_AAPT = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName NEED_AAPT = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "aapt");//$NON-NLS-1$
 
     /**
@@ -612,7 +612,7 @@ public final class ResourceManager {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e,  null);
+            AndmoreAndroidPlugin.log(e,  null);
         }
     }
 
@@ -632,7 +632,7 @@ public final class ResourceManager {
             // on other dirty projects. When they are built, they will issue their
             // own clear flag requests.
         } catch (CoreException e) {
-            AdtPlugin.log(e,  null);
+            AndmoreAndroidPlugin.log(e,  null);
         }
     }
 
@@ -647,7 +647,7 @@ public final class ResourceManager {
             String b = project.getPersistentProperty(NEED_AAPT);
             return b != null && Boolean.valueOf(b);
         } catch (CoreException e) {
-            AdtPlugin.log(e,  null);
+            AndmoreAndroidPlugin.log(e,  null);
         }
 
         return false;

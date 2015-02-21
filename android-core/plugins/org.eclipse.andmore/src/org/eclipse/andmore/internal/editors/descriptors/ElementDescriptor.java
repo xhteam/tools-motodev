@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.descriptors;
 import static com.android.SdkConstants.ANDROID_NS_NAME_PREFIX;
 import static com.android.SdkConstants.ANDROID_URI;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -268,7 +268,7 @@ public class ElementDescriptor implements Comparable<ElementDescriptor> {
             icon = getGenericIcon();
         }
         if (icon == null) {
-            icon = AdtPlugin.getAndroidLogo();
+            icon = AndmoreAndroidPlugin.getAndroidLogo();
         }
         return icon;
     }
@@ -287,7 +287,7 @@ public class ElementDescriptor implements Comparable<ElementDescriptor> {
         int color = hasChildren() ? IconFactory.COLOR_BLUE : IconFactory.COLOR_GREEN;
         int shape = hasChildren() ? IconFactory.SHAPE_RECT : IconFactory.SHAPE_CIRCLE;
         ImageDescriptor id = factory.getImageDescriptor(mXmlName, color, shape);
-        return id != null ? id : AdtPlugin.getAndroidLogoDesc();
+        return id != null ? id : AndmoreAndroidPlugin.getAndroidLogoDesc();
     }
 
     /* Returns the list of allowed attributes. */

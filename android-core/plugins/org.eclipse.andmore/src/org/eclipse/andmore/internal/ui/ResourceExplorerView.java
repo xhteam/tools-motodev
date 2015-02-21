@@ -21,7 +21,7 @@ import com.android.ide.common.resources.ResourceItem;
 import com.android.io.IAbstractFile;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IResourceEventListener;
@@ -95,7 +95,7 @@ public class ResourceExplorerView extends ViewPart implements ISelectionListener
         mTree.setHeaderVisible(true);
         mTree.setLinesVisible(true);
 
-        final IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+        final IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
 
         // create 2 columns. The main one with the resources, and an "info" column.
         createTreeColumn(mTree, "Resources", SWT.LEFT,
@@ -165,12 +165,12 @@ public class ResourceExplorerView extends ViewPart implements ISelectionListener
         });
 
         // set up the resource manager to send us resource change notification
-        AdtPlugin.getDefault().getResourceMonitor().addResourceEventListener(this);
+        AndmoreAndroidPlugin.getDefault().getResourceMonitor().addResourceEventListener(this);
     }
 
     @Override
     public void dispose() {
-        AdtPlugin.getDefault().getResourceMonitor().removeResourceEventListener(this);
+        AndmoreAndroidPlugin.getDefault().getResourceMonitor().removeResourceEventListener(this);
 
         super.dispose();
     }

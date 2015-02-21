@@ -20,7 +20,7 @@ import static com.android.SdkConstants.DOT_XML;
 
 import com.android.tools.lint.detector.api.LintUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -81,7 +81,7 @@ public class RunLintAction implements IObjectActionDelegate, IMenuCreator,
         List<IProject> projects = AdtUtils.getSelectedProjects(selection);
 
         if (projects.isEmpty() && warn) {
-            MessageDialog.openWarning(AdtPlugin.getShell(), "Lint",
+            MessageDialog.openWarning(AndmoreAndroidPlugin.getShell(), "Lint",
                     "Could not run Lint: Select an Android project first.");
         }
 

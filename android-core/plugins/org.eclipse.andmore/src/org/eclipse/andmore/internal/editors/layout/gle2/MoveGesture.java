@@ -21,7 +21,7 @@ import com.android.ide.common.api.InsertType;
 import com.android.ide.common.api.Point;
 import com.android.ide.common.api.Rect;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gre.NodeFactory;
 import org.eclipse.andmore.internal.editors.layout.gre.NodeProxy;
 import org.eclipse.andmore.internal.editors.layout.gre.RulesEngine;
@@ -167,7 +167,7 @@ public class MoveGesture extends DropGesture {
      */
     @Override
     public void dragEnter(DropTargetEvent event) {
-        if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "drag enter", event);
+        if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "drag enter", event);
 
         // Make sure we don't have any residual data from an earlier operation.
         clearDropInfo();
@@ -215,7 +215,7 @@ public class MoveGesture extends DropGesture {
      */
     @Override
     public void dragOperationChanged(DropTargetEvent event) {
-        if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "drag changed", event);
+        if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "drag changed", event);
 
         checkDataType(event);
         recomputeDragType(event);
@@ -247,7 +247,7 @@ public class MoveGesture extends DropGesture {
      */
     @Override
     public void dragLeave(DropTargetEvent event) {
-        if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "drag leave");
+        if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "drag leave");
 
         // dragLeave is unfortunately called right before data is about to be dropped
         // (between the last dropMove and the next dropAccept). That means we can't just
@@ -277,7 +277,7 @@ public class MoveGesture extends DropGesture {
      */
     @Override
     public void dropAccept(DropTargetEvent event) {
-        if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "drop accept");
+        if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "drop accept");
 
         checkDataType(event);
 
@@ -309,7 +309,7 @@ public class MoveGesture extends DropGesture {
      */
     @Override
     public void drop(final DropTargetEvent event) {
-        if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "dropped");
+        if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "dropped");
 
         SimpleElement[] elements = null;
 
@@ -322,7 +322,7 @@ public class MoveGesture extends DropGesture {
         }
 
         if (elements == null || elements.length < 1) {
-            if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "drop missing drop data");
+            if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "drop missing drop data");
             return;
         }
 
@@ -337,7 +337,7 @@ public class MoveGesture extends DropGesture {
                 // Attempt to create a root node accordingly.
                 createDocumentRoot(elements);
             } else {
-                if (DEBUG) AdtPlugin.printErrorToConsole("DEBUG", "dropped on null targetNode");
+                if (DEBUG) AndmoreAndroidPlugin.printErrorToConsole("DEBUG", "dropped on null targetNode");
             }
             return;
         }

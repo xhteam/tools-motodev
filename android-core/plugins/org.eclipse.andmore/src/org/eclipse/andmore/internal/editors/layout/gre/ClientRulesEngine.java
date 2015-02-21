@@ -38,7 +38,7 @@ import com.android.ide.common.resources.ResourceRepository;
 import com.android.resources.ResourceType;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -138,7 +138,7 @@ class ClientRulesEngine implements IClientRulesEngine {
 
     @Override
     public void debugPrintf(@NonNull String msg, Object... params) {
-        AdtPlugin.printToConsole(
+        AndmoreAndroidPlugin.printToConsole(
                 mFqcn == null ? "<unknown>" : mFqcn,
                 String.format(msg, params)
                 );
@@ -152,7 +152,7 @@ class ClientRulesEngine implements IClientRulesEngine {
     @Override
     public void displayAlert(@NonNull String message) {
         MessageDialog.openInformation(
-                AdtPlugin.getShell(),
+                AndmoreAndroidPlugin.getShell(),
                 mFqcn,  // title
                 message);
     }
@@ -178,7 +178,7 @@ class ClientRulesEngine implements IClientRulesEngine {
                     try {
                         return filter.validate(newText);
                     } catch (Exception e) {
-                        AdtPlugin.log(e, "Custom validator failed: %s", e.toString());
+                        AndmoreAndroidPlugin.log(e, "Custom validator failed: %s", e.toString());
                         return ""; //$NON-NLS-1$
                     }
                 }
@@ -186,7 +186,7 @@ class ClientRulesEngine implements IClientRulesEngine {
         }
 
         InputDialog d = new InputDialog(
-                    AdtPlugin.getShell(),
+                    AndmoreAndroidPlugin.getShell(),
                     mFqcn,  // title
                     message,
                     value == null ? "" : value, //$NON-NLS-1$
@@ -335,7 +335,7 @@ class ClientRulesEngine implements IClientRulesEngine {
             // get the resource repository for this project and the system resources.
             ResourceRepository projectRepository =
                 ResourceManager.getInstance().getProjectResources(project);
-            Shell shell = AdtPlugin.getShell();
+            Shell shell = AndmoreAndroidPlugin.getShell();
             if (shell == null) {
                 return null;
             }
@@ -374,7 +374,7 @@ class ClientRulesEngine implements IClientRulesEngine {
         GraphicalEditorPart editor = mRulesEngine.getEditor();
         IProject project = editor.getProject();
         if (project != null) {
-            Shell shell = AdtPlugin.getShell();
+            Shell shell = AndmoreAndroidPlugin.getShell();
             if (shell == null) {
                 return null;
             }
@@ -473,7 +473,7 @@ class ClientRulesEngine implements IClientRulesEngine {
                 scope = SearchEngine.createJavaSearchScope(subTypes, IJavaSearchScope.SOURCES);
             }
 
-            Shell parent = AdtPlugin.getShell();
+            Shell parent = AndmoreAndroidPlugin.getShell();
             final AtomicReference<String> returnValue =
                 new AtomicReference<String>();
             final AtomicReference<SelectionDialog> dialogHolder =
@@ -538,9 +538,9 @@ class ClientRulesEngine implements IClientRulesEngine {
                 return ((IType) types[0]).getFullyQualifiedName();
             }
         } catch (JavaModelException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         return null;
     }
@@ -565,7 +565,7 @@ class ClientRulesEngine implements IClientRulesEngine {
                 scope = SearchEngine.createJavaSearchScope(viewTypes, IJavaSearchScope.SOURCES);
             }
 
-            Shell parent = AdtPlugin.getShell();
+            Shell parent = AndmoreAndroidPlugin.getShell();
             final AtomicReference<String> returnValue =
                 new AtomicReference<String>();
             final AtomicReference<SelectionDialog> dialogHolder =
@@ -630,9 +630,9 @@ class ClientRulesEngine implements IClientRulesEngine {
                 return ((IType) types[0]).getFullyQualifiedName();
             }
         } catch (JavaModelException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         return null;
     }

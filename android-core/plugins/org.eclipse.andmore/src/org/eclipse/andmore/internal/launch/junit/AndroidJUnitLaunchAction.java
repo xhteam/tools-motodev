@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.launch.junit;
 import com.android.ddmlib.IDevice;
 import com.google.common.base.Joiner;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.DelayedLaunchInfo;
 import org.eclipse.andmore.internal.launch.IAndroidLaunchAction;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
@@ -67,7 +67,7 @@ class AndroidJUnitLaunchAction implements IAndroidLaunchAction {
     public boolean doLaunchAction(DelayedLaunchInfo info, Collection<IDevice> devices) {
         String msg = String.format(LaunchMessages.AndroidJUnitLaunchAction_LaunchInstr_2s,
                 mLaunchInfo.getRunner(), JOINER.join(devices));
-        AdtPlugin.printToConsole(info.getProject(), msg);
+        AndmoreAndroidPlugin.printToConsole(info.getProject(), msg);
 
         try {
            mLaunchInfo.setDebugMode(info.isDebugMode());
@@ -81,7 +81,7 @@ class AndroidJUnitLaunchAction implements IAndroidLaunchAction {
 
            // TODO: need to add AMReceiver-type functionality somewhere
         } catch (CoreException e) {
-            AdtPlugin.printErrorToConsole(info.getProject(),
+            AndmoreAndroidPlugin.printErrorToConsole(info.getProject(),
                     LaunchMessages.AndroidJUnitLaunchAction_LaunchFail);
         }
         return true;
@@ -279,8 +279,8 @@ class AndroidJUnitLaunchAction implements IAndroidLaunchAction {
          */
         public void run() {
             if (Display.getCurrent() != null) {
-                AdtPlugin.log(IStatus.ERROR, "Adt test runner executed on UI thread");
-                AdtPlugin.printErrorToConsole(mJUnitInfo.getProject(),
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Adt test runner executed on UI thread");
+                AndmoreAndroidPlugin.printErrorToConsole(mJUnitInfo.getProject(),
                         "Test launch failed due to internal error: Running tests on UI thread");
                 terminate();
                 return;

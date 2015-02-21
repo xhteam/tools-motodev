@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.sdk;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -32,9 +32,9 @@ public class AdtConsoleSdkLog implements ILogger {
     @Override
     public void error(@Nullable Throwable t, @Nullable String errorFormat, Object... args) {
         if (t != null) {
-            AdtPlugin.logAndPrintError(t, TAG, "Error: " + errorFormat, args);
+            AndmoreAndroidPlugin.logAndPrintError(t, TAG, "Error: " + errorFormat, args);
         } else {
-            AdtPlugin.printErrorToConsole(TAG, String.format(errorFormat, args));
+            AndmoreAndroidPlugin.printErrorToConsole(TAG, String.format(errorFormat, args));
         }
     }
 
@@ -43,7 +43,7 @@ public class AdtConsoleSdkLog implements ILogger {
         String msg = String.format(msgFormat, args);
         for (String s : msg.split("\n")) {
             if (s.trim().length() > 0) {
-                AdtPlugin.printToConsole(TAG, s);
+                AndmoreAndroidPlugin.printToConsole(TAG, s);
             }
         }
     }
@@ -55,6 +55,6 @@ public class AdtConsoleSdkLog implements ILogger {
 
     @Override
     public void warning(@NonNull String warningFormat, Object... args) {
-        AdtPlugin.printToConsole(TAG, String.format("Warning: " + warningFormat, args));
+        AndmoreAndroidPlugin.printToConsole(TAG, String.format("Warning: " + warningFormat, args));
     }
 }

@@ -31,7 +31,7 @@ import com.android.tools.lint.checks.ApiDetector;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Scope;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.core.resources.IMarker;
@@ -145,7 +145,7 @@ class AddSuppressAnnotation implements IMarkerResolution2 {
                 mMarker.delete();
             }
         } catch (Exception ex) {
-            AdtPlugin.log(ex, "Could not add suppress annotation");
+            AndmoreAndroidPlugin.log(ex, "Could not add suppress annotation");
         }
     }
 

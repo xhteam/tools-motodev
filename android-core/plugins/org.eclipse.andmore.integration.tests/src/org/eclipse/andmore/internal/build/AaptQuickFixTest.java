@@ -22,7 +22,7 @@ import static com.android.SdkConstants.FD_RES_COLOR;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.build.AaptQuickFix;
@@ -184,7 +184,7 @@ public class AaptQuickFixTest extends AdtProjectTest {
 		assertTrue(proposal.getDisplayString().contains("Create resource"));
 
 		IDocument document = new Document();
-		String fileContent = AdtPlugin.readFile(file);
+		String fileContent = AndmoreAndroidPlugin.readFile(file);
 		document.set(fileContent);
 
 		// Apply quick fix
@@ -206,7 +206,7 @@ public class AaptQuickFixTest extends AdtProjectTest {
 		ISourceViewer newViewer = newEditor.getStructuredSourceViewer();
 		Point selectedRange = newViewer.getSelectedRange();
 
-		String newFileContents = AdtPlugin.readFile(newFile);
+		String newFileContents = AndmoreAndroidPlugin.readFile(newFile);
 
 		// Insert selection markers -- [ ] for the selection range, ^ for the
 		// caret
@@ -283,7 +283,7 @@ public class AaptQuickFixTest extends AdtProjectTest {
 
 		// Open the file to ensure we can get an XML model with
 		// getExistingModelForEdit:
-		AdtPlugin.openFile(file, null);
+		AndmoreAndroidPlugin.openFile(file, null);
 		IEditorPart newEditor = AdtUtils.getActiveEditor();
 		assertTrue(newEditor instanceof AndroidXmlEditor);
 

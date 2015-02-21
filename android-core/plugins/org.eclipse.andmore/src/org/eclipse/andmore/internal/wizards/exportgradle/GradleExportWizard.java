@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.wizards.exportgradle;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -95,10 +95,10 @@ public class GradleExportWizard extends Wizard implements IExportWizard {
         try {
             getContainer().run(false, false, runnable);
         } catch (InvocationTargetException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return false;
         } catch (InterruptedException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return false;
         }
         if (page.getErrorMessage() != null) {

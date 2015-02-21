@@ -29,7 +29,7 @@ import com.android.ide.common.xml.XmlAttributeSortOrder;
 import com.android.utils.SdkUtils;
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
@@ -1516,7 +1516,7 @@ public class UiElementNode implements IPropertySource {
                     listener.uiElementNodeUpdated(this, state);
                 } catch (Exception e) {
                     // prevent a crashing listener from crashing the whole invocation chain
-                    AdtPlugin.log(e, "UIElement Listener failed: %s, state=%s",  //$NON-NLS-1$
+                    AndmoreAndroidPlugin.log(e, "UIElement Listener failed: %s, state=%s",  //$NON-NLS-1$
                             getBreadcrumbTrailDescription(true),
                             state.toString());
                 }

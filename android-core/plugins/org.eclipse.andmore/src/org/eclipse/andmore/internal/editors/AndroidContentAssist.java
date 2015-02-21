@@ -34,7 +34,7 @@ import com.android.ide.common.api.IAttributeInfo.Format;
 import com.android.utils.Pair;
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.IDescriptorProvider;
@@ -146,7 +146,7 @@ public abstract class AndroidContentAssist implements IContentAssistProcessor {
             mEditor = AndroidXmlEditor.fromTextViewer(viewer);
             if (mEditor == null) {
                 // This should not happen. Duck and forget.
-                AdtPlugin.log(IStatus.ERROR, "Editor not found during completion");
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Editor not found during completion");
                 return null;
             }
         }

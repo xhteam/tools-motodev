@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.manifest.model;
 
 import com.android.ide.common.xml.ManifestData;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.TextAttributeDescriptor;
 import org.eclipse.andmore.internal.editors.manifest.ManifestEditor;
@@ -274,7 +274,7 @@ public class UiManifestPkgAttrNode extends UiTextAttributeNode {
                                     true, /* activate */
                                     IWorkbenchPage.MATCH_INPUT);
                         } catch (PartInitException e) {
-                            AdtPlugin.log(e,
+                            AndmoreAndroidPlugin.log(e,
                                     "Opening editor failed for %s",  //$NON-NLS-1$
                                     manifestFile.getFullPath());
                         }

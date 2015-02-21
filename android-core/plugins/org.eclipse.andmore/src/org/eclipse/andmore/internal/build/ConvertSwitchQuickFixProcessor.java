@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.build;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -125,7 +125,7 @@ public class ConvertSwitchQuickFixProcessor implements IQuickFixProcessor {
                     }
                 }
             } catch (Exception e) {
-                AdtPlugin.log(e, "Can't validate error message in %1$s", file.getName());
+                AndmoreAndroidPlugin.log(e, "Can't validate error message in %1$s", file.getName());
             } finally {
                 provider.disconnect(file);
             }
@@ -184,7 +184,7 @@ public class ConvertSwitchQuickFixProcessor implements IQuickFixProcessor {
 
         @Override
         public void apply(IDocument document) {
-            Shell shell = AdtPlugin.getShell();
+            Shell shell = AndmoreAndroidPlugin.getShell();
             ConvertSwitchDialog dialog = new ConvertSwitchDialog(shell, mExpression);
             dialog.open();
         }
@@ -207,7 +207,7 @@ public class ConvertSwitchQuickFixProcessor implements IQuickFixProcessor {
 
         @Override
         public Image getImage() {
-            return AdtPlugin.getAndroidLogo();
+            return AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         @Override

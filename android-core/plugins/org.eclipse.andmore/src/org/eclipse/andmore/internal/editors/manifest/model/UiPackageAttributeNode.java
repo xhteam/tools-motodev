@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.manifest.model;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.TextAttributeDescriptor;
@@ -185,7 +185,7 @@ public class UiPackageAttributeNode extends UiTextAttributeNode {
                         JavaCore.create(project), 0);
                 dlg.setTitle("Select Android Package");
                 dlg.setMessage("Select the package for the Android project.");
-                Window.setDefaultImage(AdtPlugin.getAndroidLogo());
+                Window.setDefaultImage(AndmoreAndroidPlugin.getAndroidLogo());
 
                 if (dlg.open() == Window.OK) {
                     Object[] results = dlg.getResult();
@@ -213,13 +213,13 @@ public class UiPackageAttributeNode extends UiTextAttributeNode {
 
             IProject project = getProject();
             if (project == null) {
-                AdtPlugin.log(IStatus.ERROR, "Failed to get project for UiPackageAttribute"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Failed to get project for UiPackageAttribute"); //$NON-NLS-1$
                 return;
             }
 
             IWorkbenchPartSite site = getUiParent().getEditor().getSite();
             if (site == null) {
-                AdtPlugin.log(IStatus.ERROR, "Failed to get editor site for UiPackageAttribute"); //$NON-NLS-1$
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Failed to get editor site for UiPackageAttribute"); //$NON-NLS-1$
                 return;
             }
 

@@ -25,7 +25,7 @@ import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.resources.ResourceHelper;
@@ -92,7 +92,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
         try {
             message = (String) marker.getAttribute(IMarker.MESSAGE);
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return message != null
@@ -112,7 +112,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                     };
             }
         } catch (CoreException e1) {
-            AdtPlugin.log(e1, null);
+            AndmoreAndroidPlugin.log(e1, null);
         }
 
         int start = marker.getAttribute(IMarker.CHAR_START, 0);
@@ -130,7 +130,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                     };
                 }
             } catch (Exception e) {
-                AdtPlugin.log(e, "Can't find range information for %1$s", markerResource);
+                AndmoreAndroidPlugin.log(e, "Can't find range information for %1$s", markerResource);
             } finally {
                 provider.disconnect(markerResource);
             }
@@ -198,7 +198,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                     }
                 }
             } catch (BadLocationException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 
@@ -246,7 +246,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                     }
                 }
             } catch (Exception e) {
-                AdtPlugin.log(e, "Can't look up XML model");
+                AndmoreAndroidPlugin.log(e, "Can't look up XML model");
             }
 
             return null;
@@ -290,7 +290,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
 
         @Override
         public Image getImage() {
-            return AdtPlugin.getAndroidLogo();
+            return AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         @Override
@@ -309,9 +309,9 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
         @Override
         public void run(IMarker marker) {
             try {
-                AdtPlugin.openFile(mFile, null);
+                AndmoreAndroidPlugin.openFile(mFile, null);
             } catch (PartInitException e) {
-                AdtPlugin.log(e, "Can't open file %1$s", mFile.getName());
+                AndmoreAndroidPlugin.log(e, "Can't open file %1$s", mFile.getName());
             }
 
             IndexedRegion indexedRegion = perform(mFile);
@@ -319,9 +319,9 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                 try {
                     IRegion region =
                         new Region(indexedRegion.getStartOffset(), indexedRegion.getLength());
-                    AdtPlugin.openFile(mFile, region);
+                    AndmoreAndroidPlugin.openFile(mFile, region);
                 } catch (PartInitException e) {
-                    AdtPlugin.log(e, "Can't open file %1$s", mFile.getName());
+                    AndmoreAndroidPlugin.log(e, "Can't open file %1$s", mFile.getName());
                 }
             }
         }
@@ -371,9 +371,9 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                 IFile file = location.getFirst();
                 IRegion region = location.getSecond();
                 try {
-                    AdtPlugin.openFile(file, region);
+                    AndmoreAndroidPlugin.openFile(file, region);
                 } catch (PartInitException e) {
-                    AdtPlugin.log(e, "Can't open file %1$s", file.getName());
+                    AndmoreAndroidPlugin.log(e, "Can't open file %1$s", file.getName());
                 }
             }
         }
@@ -403,7 +403,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
 
         @Override
         public Image getImage() {
-            return AdtPlugin.getAndroidLogo();
+            return AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         @Override

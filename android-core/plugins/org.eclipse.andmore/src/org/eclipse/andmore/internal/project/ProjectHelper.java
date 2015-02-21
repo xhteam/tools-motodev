@@ -26,7 +26,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.builders.PostCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.PreCompilerBuilder;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -286,8 +286,8 @@ public final class ProjectHelper {
      * @throws JavaModelException
      */
     public static void fixProject(IProject project) throws JavaModelException {
-        if (AdtPlugin.getOsSdkFolder().length() == 0) {
-            AdtPlugin.printToConsole(project, "Unknown SDK Location, project not fixed.");
+        if (AndmoreAndroidPlugin.getOsSdkFolder().length() == 0) {
+            AndmoreAndroidPlugin.printToConsole(project, "Unknown SDK Location, project not fixed.");
             return;
         }
 
@@ -363,7 +363,7 @@ public final class ProjectHelper {
         try {
             m2eNature = javaProject.getProject().hasNature("org.eclipse.m2e.core.maven2Nature");
         } catch (CoreException e) {
-            AdtPlugin.log(e, "Failed to query project %s for m2e nature",
+            AndmoreAndroidPlugin.log(e, "Failed to query project %s for m2e nature",
                     javaProject.getProject().getName());
         }
 
@@ -522,7 +522,7 @@ public final class ProjectHelper {
                 javaProject.getProject().build(IncrementalProjectBuilder.CLEAN_BUILD,
                         new NullProgressMonitor());
             } catch (CoreException e) {
-                AdtPlugin.printErrorToConsole(javaProject.getProject(),
+                AndmoreAndroidPlugin.printErrorToConsole(javaProject.getProject(),
                         "Project compiler settings changed. Clean your project.");
             }
         }
@@ -741,7 +741,7 @@ public final class ProjectHelper {
      */
     public static boolean saveStringProperty(IResource resource, String propertyName,
             String value) {
-        QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID, propertyName);
+        QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, propertyName);
 
         try {
             resource.setPersistentProperty(qname, value);
@@ -759,7 +759,7 @@ public final class ProjectHelper {
      * @return the property value or null if it was not found.
      */
     public static String loadStringProperty(IResource resource, String propertyName) {
-        QualifiedName qname = new QualifiedName(AdtPlugin.PLUGIN_ID, propertyName);
+        QualifiedName qname = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, propertyName);
 
         try {
             String value = resource.getPersistentProperty(qname);
@@ -961,7 +961,7 @@ public final class ProjectHelper {
         IFolder outputLocation = BaseProjectHelper.getAndroidOutputFolder(project);
 
         if (outputLocation == null) {
-            AdtPlugin.printErrorToConsole(project,
+            AndmoreAndroidPlugin.printErrorToConsole(project,
                     "Failed to get the output location of the project. Check build path properties"
                     );
             return null;
@@ -978,7 +978,7 @@ public final class ProjectHelper {
         }
 
         String msg = String.format("Could not find %1$s!", packageName);
-        AdtPlugin.printErrorToConsole(project, msg);
+        AndmoreAndroidPlugin.printErrorToConsole(project, msg);
 
         return null;
     }
@@ -1120,7 +1120,7 @@ public final class ProjectHelper {
             androidProjectList = getAndroidProjectDependencies(
                                     BaseProjectHelper.getJavaProject(project));
         } catch (JavaModelException e) {
-            AdtPlugin.printErrorToConsole(project, e);
+            AndmoreAndroidPlugin.printErrorToConsole(project, e);
         }
         // Recursively build dependencies
         for (IJavaProject dependency : androidProjectList) {

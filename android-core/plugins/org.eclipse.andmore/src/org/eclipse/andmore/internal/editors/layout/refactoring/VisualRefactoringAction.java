@@ -16,7 +16,7 @@
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.gle2.CanvasViewInfo;
@@ -154,7 +154,7 @@ abstract class VisualRefactoringAction implements IWorkbenchWindowActionDelegate
             try {
                 action = mClass.newInstance();
             } catch (Exception e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 return;
             }
             IEditorSite site = mEditorDelegate.getEditor().getEditorSite();

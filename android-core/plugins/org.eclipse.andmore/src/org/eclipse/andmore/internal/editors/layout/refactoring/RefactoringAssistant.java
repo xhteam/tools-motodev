@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.layout.refactoring;
 import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
@@ -325,7 +325,7 @@ public class RefactoringAssistant implements IQuickAssistProcessor {
 
         @Override
         public Image getImage() {
-            return AdtPlugin.getAndroidLogo();
+            return AndmoreAndroidPlugin.getAndroidLogo();
         }
 
         @Override

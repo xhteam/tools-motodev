@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.wizards.templates;
 import static org.eclipse.core.resources.IResource.DEPTH_INFINITE;
 
 import com.android.annotations.NonNull;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.assetstudio.ConfigureAssetSetPage;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState;
 import org.eclipse.andmore.internal.editors.IconFactory;
@@ -72,7 +72,7 @@ abstract class TemplateWizard extends Wizard implements INewWizard {
 
         // Trigger a check to see if the SDK needs to be reloaded (which will
         // invoke onSdkLoaded asynchronously as needed).
-        AdtPlugin.getDefault().refreshSdk();
+        AndmoreAndroidPlugin.getDefault().refreshSdk();
     }
 
     @Override
@@ -167,7 +167,7 @@ abstract class TemplateWizard extends Wizard implements INewWizard {
                         changes.toArray(new Change[changes.size()]));
                 composite.perform(monitor);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
                 throw new InvocationTargetException(e);
             } finally {
                 monitor.done();
@@ -178,7 +178,7 @@ abstract class TemplateWizard extends Wizard implements INewWizard {
         try {
             getProject().refreshLocal(DEPTH_INFINITE, new NullProgressMonitor());
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
         return true;
     }
@@ -197,10 +197,10 @@ abstract class TemplateWizard extends Wizard implements INewWizard {
             });
 
         } catch (InvocationTargetException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return false;
         } catch (InterruptedException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return false;
         }
 

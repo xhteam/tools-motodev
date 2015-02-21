@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.properties;
 import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.project.ProjectChooserHelper;
 import org.eclipse.andmore.internal.project.ProjectChooserHelper.IProjectChooserFilter;
 import org.eclipse.andmore.internal.sdk.ProjectState;
@@ -122,8 +122,8 @@ final class LibraryProperties {
 
     LibraryProperties(Composite parent) {
 
-        mMatchIcon = AdtPlugin.getImageDescriptor("/icons/match.png").createImage(); //$NON-NLS-1$
-        mErrorIcon = AdtPlugin.getImageDescriptor("/icons/error.png").createImage(); //$NON-NLS-1$
+        mMatchIcon = AndmoreAndroidPlugin.getImageDescriptor("/icons/match.png").createImage(); //$NON-NLS-1$
+        mErrorIcon = AndmoreAndroidPlugin.getImageDescriptor("/icons/error.png").createImage(); //$NON-NLS-1$
 
         // Layout has 2 column
         mTop = new Composite(parent, SWT.NONE);

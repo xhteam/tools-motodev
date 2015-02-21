@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.assetstudio;
 import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -137,7 +137,7 @@ public class CreateAssetSetWizard extends Wizard implements INewWizard {
                     try {
                         file.delete(true, new NullProgressMonitor());
                     } catch (CoreException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
                 }
 
@@ -152,15 +152,15 @@ public class CreateAssetSetWizard extends Wizard implements INewWizard {
                     file.create(is, true /*force*/, null /*progress*/);
                     mCreatedFiles.add(file);
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
 
                 try {
                     file.getParent().refreshLocal(1, new NullProgressMonitor());
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 }
             }
         }
@@ -173,7 +173,7 @@ public class CreateAssetSetWizard extends Wizard implements INewWizard {
 
     private void selectFiles(IProject project, List<? extends IResource> createdFiles) {
         // Attempt to select the newly created files in the Package Explorer
-        IWorkbench workbench = AdtPlugin.getDefault().getWorkbench();
+        IWorkbench workbench = AndmoreAndroidPlugin.getDefault().getWorkbench();
         IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
         IViewPart viewPart = page.findView(JavaUI.ID_PACKAGES);
         if (viewPart != null) {
@@ -182,7 +182,7 @@ public class CreateAssetSetWizard extends Wizard implements INewWizard {
             try {
                 javaProject = BaseProjectHelper.getJavaProject(project);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
             final ISelectionProvider provider = site.getSelectionProvider();
             if (provider != null) {

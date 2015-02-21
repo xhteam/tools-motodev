@@ -21,7 +21,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.ui.ErrorImageComposite;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -181,7 +181,7 @@ public class IconFactory {
         ImageDescriptor id = mImageDescMap.get(key);
         if (id == null && !mImageDescMap.containsKey(key)) {
             id = AbstractUIPlugin.imageDescriptorFromPlugin(
-                    AdtPlugin.PLUGIN_ID,
+                    AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("/icons/%1$s.png", osName)); //$NON-NLS-1$
 
             if (id == null) {
@@ -240,7 +240,7 @@ public class IconFactory {
         ImageDescriptor id = mImageDescMap.get(key);
         if (id == null && !mImageDescMap.containsKey(key)) {
             id = AbstractUIPlugin.imageDescriptorFromPlugin(
-                    AdtPlugin.PLUGIN_ID,
+                    AndmoreAndroidPlugin.PLUGIN_ID,
                     String.format("/icons/%1$s.png", key)); //$NON-NLS-1$
             if (id == null) {
                 if (fallbackKey == null) {

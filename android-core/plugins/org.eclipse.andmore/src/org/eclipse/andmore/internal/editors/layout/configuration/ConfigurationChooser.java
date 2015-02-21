@@ -59,7 +59,7 @@ import com.android.utils.Pair;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
@@ -257,7 +257,7 @@ public class ConfigurationChooser extends Composite
         ToolItem separator7 = new ToolItem(rightToolBar, SWT.SEPARATOR);
 
         mTargetCombo = new ToolItem(rightToolBar, SWT.DROP_DOWN);
-        mTargetCombo.setImage(AdtPlugin.getAndroidLogo());
+        mTargetCombo.setImage(AndmoreAndroidPlugin.getAndroidLogo());
         mTargetCombo.setToolTipText("Android version to use when rendering layouts in Eclipse");
 
         SelectionListener listener = new SelectionAdapter() {
@@ -518,7 +518,7 @@ public class ConfigurationChooser extends Composite
 
         try {
             // only attempt to do anything if the SDK and targets are loaded.
-            LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
+            LoadStatus sdkStatus = AndmoreAndroidPlugin.getDefault().getSdkLoadStatus();
 
             if (sdkStatus == LoadStatus.LOADED) {
                 setVisible(true);
@@ -714,7 +714,7 @@ public class ConfigurationChooser extends Composite
         AndroidTargetData targetData = null;
 
         // only attempt to do anything if the SDK and targets are loaded.
-        LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
+        LoadStatus sdkStatus = AndmoreAndroidPlugin.getDefault().getSdkLoadStatus();
         if (sdkStatus == LoadStatus.LOADED) {
             mDisableUpdates++; // we do not want to trigger onXXXChange when setting
 
@@ -838,7 +838,7 @@ public class ConfigurationChooser extends Composite
      */
     public void ensureVisible() {
         if (!isVisible()) {
-            LoadStatus sdkStatus = AdtPlugin.getDefault().getSdkLoadStatus();
+            LoadStatus sdkStatus = AndmoreAndroidPlugin.getDefault().getSdkLoadStatus();
             if (sdkStatus == LoadStatus.LOADED) {
                 onXmlModelLoaded();
             }

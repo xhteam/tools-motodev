@@ -21,7 +21,7 @@ import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.DocumentDescriptor;
@@ -73,7 +73,7 @@ public class OtherXmlEditorDelegate extends CommonXmlDelegate {
         try {
             getEditor().addPage(new OtherXmlTreePage(getEditor()));
         } catch (PartInitException e) {
-            AdtPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
+            AndmoreAndroidPlugin.log(e, "Error creating nested page"); //$NON-NLS-1$
         }
 
     }

@@ -42,7 +42,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.build.AidlProcessor;
 import org.eclipse.andmore.internal.build.Messages;
@@ -250,7 +250,7 @@ public class PreCompilerBuilder extends BaseBuilder {
         IProject project = getProject();
 
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s BUILD(PRE)", project.getName());
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s BUILD(PRE)", project.getName());
         }
 
         // For the PreCompiler, only the library projects are considered Referenced projects,
@@ -300,11 +300,11 @@ public class PreCompilerBuilder extends BaseBuilder {
             String minSdkVersion = null;
 
             if (kind == FULL_BUILD) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Start_Full_Pre_Compiler);
 
                 if (DEBUG_LOG) {
-                    AdtPlugin.log(IStatus.INFO, "%s full build!", project.getName());
+                    AndmoreAndroidPlugin.log(IStatus.INFO, "%s full build!", project.getName());
                 }
 
                 // do some clean up.
@@ -317,7 +317,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 mAidlProcessor.prepareFullBuild(project);
                 mRenderScriptSourceChangeHandler.prepareFullBuild();
             } else {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Start_Inc_Pre_Compiler);
 
                 // Go through the resources and see if something changed.
@@ -427,7 +427,7 @@ public class PreCompilerBuilder extends BaseBuilder {
             // if there was some XML errors, we just return w/o doing
             // anything since we've put some markers in the files anyway.
             if (dv != null && dv.mXmlError) {
-                AdtPlugin.printErrorToConsole(project, Messages.Xml_Error);
+                AndmoreAndroidPlugin.printErrorToConsole(project, Messages.Xml_Error);
 
                 return result;
             }
@@ -436,7 +436,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 FullRevision minBuildToolsRev = new FullRevision(19,0,3);
                 if (mBuildToolInfo.getRevision().compareTo(minBuildToolsRev) == -1) {
                     String msg = "RenderScript support mode requires Build-Tools 19.0.3 or later.";
-                    AdtPlugin.printErrorToConsole(project, msg);
+                    AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                     markProject(AndmoreAndroidConstants.MARKER_ADT, msg, IMarker.SEVERITY_ERROR);
 
                     return result;
@@ -449,7 +449,7 @@ public class PreCompilerBuilder extends BaseBuilder {
             if (manifestFile == null) {
                 String msg = String.format(Messages.s_File_Missing,
                         SdkConstants.FN_ANDROID_MANIFEST_XML);
-                AdtPlugin.printErrorToConsole(project, msg);
+                AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                 markProject(AndmoreAndroidConstants.MARKER_ADT, msg, IMarker.SEVERITY_ERROR);
 
                 return result;
@@ -474,7 +474,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                         // this with an exception.
                         String msg = String.format(Messages.s_Contains_Xml_Error,
                                 SdkConstants.FN_ANDROID_MANIFEST_XML);
-                        AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
+                        AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
                         markProject(AndmoreAndroidConstants.MARKER_ADT, msg, IMarker.SEVERITY_ERROR);
 
                         return result;
@@ -540,7 +540,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                         String msg = String.format(
                                 "Platform %1$s is a preview and requires application manifest to set %2$s to '%1$s'",
                                 codename, AndroidManifest.ATTRIBUTE_MIN_SDK_VERSION);
-                        AdtPlugin.printErrorToConsole(project, msg);
+                        AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                         BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                                 msg, IMarker.SEVERITY_ERROR);
                         return result;
@@ -550,7 +550,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                                 "Attribute %1$s (%2$d) is higher than the project target API level (%3$d)",
                                 AndroidManifest.ATTRIBUTE_MIN_SDK_VERSION,
                                 minSdkValue, targetVersion.getApiLevel());
-                        AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
+                        AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, msg);
                         BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                                 msg, IMarker.SEVERITY_WARNING);
                     }
@@ -563,7 +563,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                         String msg = String.format(
                                 "Manifest attribute '%1$s' is set to '%2$s'. Integer is expected.",
                                 AndroidManifest.ATTRIBUTE_MIN_SDK_VERSION, minSdkVersion);
-                        AdtPlugin.printErrorToConsole(project, msg);
+                        AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                         BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                                 msg, IMarker.SEVERITY_ERROR);
                         return result;
@@ -572,7 +572,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                         String msg = String.format(
                                 "Value of manifest attribute '%1$s' does not match platform codename '%2$s'",
                                 AndroidManifest.ATTRIBUTE_MIN_SDK_VERSION, codename);
-                        AdtPlugin.printErrorToConsole(project, msg);
+                        AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                         BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                                 msg, IMarker.SEVERITY_ERROR);
                         return result;
@@ -590,7 +590,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 String msg = String.format(
                         "Platform %1$s is a preview and requires application manifests to set %2$s to '%1$s'",
                         codename, AndroidManifest.ATTRIBUTE_MIN_SDK_VERSION);
-                AdtPlugin.printErrorToConsole(project, msg);
+                AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                 BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT, msg,
                         IMarker.SEVERITY_ERROR);
                 return result;
@@ -600,7 +600,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 // looks like the AndroidManifest file isn't valid.
                 String msg = String.format(Messages.s_Doesnt_Declare_Package_Error,
                         SdkConstants.FN_ANDROID_MANIFEST_XML);
-                AdtPlugin.printErrorToConsole(project, msg);
+                AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                 BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                         msg, IMarker.SEVERITY_ERROR);
 
@@ -610,7 +610,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 String msg = String.format(
                         "Application package '%1$s' must have a minimum of 2 segments.",
                         SdkConstants.FN_ANDROID_MANIFEST_XML);
-                AdtPlugin.printErrorToConsole(project, msg);
+                AndmoreAndroidPlugin.printErrorToConsole(project, msg);
                 BaseProjectHelper.markResource(manifestFile, AndmoreAndroidConstants.MARKER_ADT,
                         msg, IMarker.SEVERITY_ERROR);
 
@@ -623,7 +623,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 // The manifest package has changed, the user may want to update
                 // the launch configuration
                 if (mManifestPackage != null) {
-                    AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                    AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                             Messages.Checking_Package_Change);
 
                     FixLaunchConfig flc = new FixLaunchConfig(project, mManifestPackage,
@@ -708,7 +708,7 @@ public class PreCompilerBuilder extends BaseBuilder {
             boolean compiledTheResources = mMustCompileResources;
             if (mMustCompileResources) {
                 if (DEBUG_LOG) {
-                    AdtPlugin.log(IStatus.INFO, "%s compiling resources!", project.getName());
+                    AndmoreAndroidPlugin.log(IStatus.INFO, "%s compiling resources!", project.getName());
                 }
 
                 IFile proguardFile = null;
@@ -722,7 +722,7 @@ public class PreCompilerBuilder extends BaseBuilder {
 
             if (processorStatus == SourceProcessor.COMPILE_STATUS_NONE &&
                     compiledTheResources == false) {
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.Nothing_To_Compile);
             }
         } catch (AbortBuildException e) {
@@ -748,7 +748,7 @@ public class PreCompilerBuilder extends BaseBuilder {
         super.clean(monitor);
 
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s CLEAN(PRE)", getProject().getName());
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s CLEAN(PRE)", getProject().getName());
         }
 
         doClean(getProject(), monitor);
@@ -758,7 +758,7 @@ public class PreCompilerBuilder extends BaseBuilder {
     }
 
     private void doClean(IProject project, IProgressMonitor monitor) throws CoreException {
-        AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+        AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                 Messages.Removing_Generated_Classes);
 
         // remove all the derived resources from the 'gen' source folder.
@@ -813,7 +813,7 @@ public class PreCompilerBuilder extends BaseBuilder {
             }
 
         } catch (Throwable throwable) {
-            AdtPlugin.log(throwable, "Failed to finish PrecompilerBuilder#startupOnInitialize()");
+            AndmoreAndroidPlugin.log(throwable, "Failed to finish PrecompilerBuilder#startupOnInitialize()");
         }
     }
 
@@ -922,13 +922,13 @@ public class PreCompilerBuilder extends BaseBuilder {
             IFolder folder = getGenManifestPackageFolder();
             if (folder.exists(new Path(BuildConfigGenerator.BUILD_CONFIG_NAME)) == false) {
                 mMustCreateBuildConfig = true;
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
                         String.format("Class %1$s is missing!",
                                 BuildConfigGenerator.BUILD_CONFIG_NAME));
             } else if (debugMode != mLastBuildConfigMode) {
                 // else if the build mode changed, force creation
                 mMustCreateBuildConfig = true;
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
                         String.format("Different build mode, must update %1$s!",
                                 BuildConfigGenerator.BUILD_CONFIG_NAME));
             }
@@ -936,10 +936,10 @@ public class PreCompilerBuilder extends BaseBuilder {
 
         if (mMustCreateBuildConfig) {
             if (DEBUG_LOG) {
-                AdtPlugin.log(IStatus.INFO, "%s generating BuilderConfig!", getProject().getName());
+                AndmoreAndroidPlugin.log(IStatus.INFO, "%s generating BuilderConfig!", getProject().getName());
             }
 
-            AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, getProject(),
                     String.format("Generating %1$s...", BuildConfigGenerator.BUILD_CONFIG_NAME));
             generator.generate();
 
@@ -952,7 +952,7 @@ public class PreCompilerBuilder extends BaseBuilder {
     private boolean mergeManifest(IFolder androidOutFolder, List<IProject> libProjects,
             boolean enabled) throws CoreException {
         if (DEBUG_LOG) {
-            AdtPlugin.log(IStatus.INFO, "%s merging manifests!", getProject().getName());
+            AndmoreAndroidPlugin.log(IStatus.INFO, "%s merging manifests!", getProject().getName());
         }
 
         IFile outFile = androidOutFolder.getFile(SdkConstants.FN_ANDROID_MANIFEST_XML);
@@ -985,12 +985,12 @@ public class PreCompilerBuilder extends BaseBuilder {
                 MergerLog.wrapSdkLog(new ILogger() {
                     @Override
                     public void warning(@NonNull String warningFormat, Object... args) {
-                        AdtPlugin.printToConsole(getProject(), String.format(warningFormat, args));
+                        AndmoreAndroidPlugin.printToConsole(getProject(), String.format(warningFormat, args));
                     }
 
                     @Override
                     public void info(@NonNull String msgFormat, Object... args) {
-                        AdtPlugin.printToConsole(getProject(), String.format(msgFormat, args));
+                        AndmoreAndroidPlugin.printToConsole(getProject(), String.format(msgFormat, args));
                     }
 
                     @Override
@@ -1077,7 +1077,7 @@ public class PreCompilerBuilder extends BaseBuilder {
             removeMarkersFromResource(manifest, AndmoreAndroidConstants.MARKER_AAPT_COMPILE);
             removeMarkersFromContainer(resFolder, AndmoreAndroidConstants.MARKER_AAPT_COMPILE);
 
-            AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+            AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                     Messages.Preparing_Generated_Files);
 
             // we need to figure out where to store the R class.
@@ -1215,7 +1215,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                 sb.append(' ');
             }
             String cmd_line = sb.toString();
-            AdtPlugin.printToConsole(project, cmd_line);
+            AndmoreAndroidPlugin.printToConsole(project, cmd_line);
         }
 
         // launch
@@ -1236,9 +1236,9 @@ public class PreCompilerBuilder extends BaseBuilder {
             // if we couldn't parse the output we display it in the console.
             if (parsingError) {
                 if (returnCode != 0) {
-                    AdtPlugin.printErrorToConsole(project, stdErr.toArray());
+                    AndmoreAndroidPlugin.printErrorToConsole(project, stdErr.toArray());
                 } else {
-                    AdtPlugin.printBuildToConsole(BuildVerbosity.NORMAL,
+                    AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.NORMAL,
                             project, stdErr.toArray());
                 }
             }
@@ -1258,7 +1258,7 @@ public class PreCompilerBuilder extends BaseBuilder {
                             IMarker.SEVERITY_ERROR);
                 }
 
-                AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
+                AndmoreAndroidPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project,
                         Messages.AAPT_Error);
 
                 // abort if exec failed.

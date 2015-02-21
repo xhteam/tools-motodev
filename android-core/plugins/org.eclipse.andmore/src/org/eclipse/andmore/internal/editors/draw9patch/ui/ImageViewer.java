@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.draw9patch.ui;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage.Chunk;
 import org.eclipse.andmore.internal.editors.draw9patch.graphics.NinePatchedImage.Tick;
@@ -56,19 +56,19 @@ public class ImageViewer extends Canvas implements PaintListener, KeyListener, M
 
     public static final String HELP_MESSAGE_KEY_TIPS2 = "Release Shift to draw pixels.";
 
-    private static final Color BLACK_COLOR = AdtPlugin.getDisplay().getSystemColor(SWT.COLOR_BLACK);
-    private static final Color RED_COLOR = AdtPlugin.getDisplay().getSystemColor(SWT.COLOR_RED);
+    private static final Color BLACK_COLOR = AndmoreAndroidPlugin.getDisplay().getSystemColor(SWT.COLOR_BLACK);
+    private static final Color RED_COLOR = AndmoreAndroidPlugin.getDisplay().getSystemColor(SWT.COLOR_RED);
 
     private static final Color BACK_COLOR
-            = new Color(AdtPlugin.getDisplay(), new RGB(0x00, 0xFF, 0x00));
+            = new Color(AndmoreAndroidPlugin.getDisplay(), new RGB(0x00, 0xFF, 0x00));
     private static final Color LOCK_COLOR
-            = new Color(AdtPlugin.getDisplay(), new RGB(0xFF, 0x00, 0x00));
+            = new Color(AndmoreAndroidPlugin.getDisplay(), new RGB(0xFF, 0x00, 0x00));
     private static final Color PATCH_COLOR
-            = new Color(AdtPlugin.getDisplay(), new RGB(0xFF, 0xFF, 0x00));
+            = new Color(AndmoreAndroidPlugin.getDisplay(), new RGB(0xFF, 0xFF, 0x00));
     private static final Color PATCH_ONEWAY_COLOR
-            = new Color(AdtPlugin.getDisplay(), new RGB(0x00, 0x00, 0xFF));
+            = new Color(AndmoreAndroidPlugin.getDisplay(), new RGB(0x00, 0x00, 0xFF));
     private static final Color CORRUPTED_COLOR
-            = new Color(AdtPlugin.getDisplay(), new RGB(0xFF, 0x00, 0x00));
+            = new Color(AndmoreAndroidPlugin.getDisplay(), new RGB(0xFF, 0x00, 0x00));
 
     private static final int NONE_ALPHA = 0xFF;
     private static final int LOCK_ALPHA = 50;
@@ -149,7 +149,7 @@ public class ImageViewer extends Canvas implements PaintListener, KeyListener, M
                     mChunks = mNinePatchedImage.getChunks(mChunks);
                     mBadChunks = mNinePatchedImage.getCorruptedChunks(mBadChunks);
 
-                    AdtPlugin.getDisplay().asyncExec(mUpdateRunnable);
+                    AndmoreAndroidPlugin.getDisplay().asyncExec(mUpdateRunnable);
 
                 } catch (InterruptedException e) {
                 }
@@ -207,7 +207,7 @@ public class ImageViewer extends Canvas implements PaintListener, KeyListener, M
 
         mUpdateThread.start();
 
-        mBackgroundLayer = AdtPlugin.getImageDescriptor(CHECKER_PNG_PATH).createImage();
+        mBackgroundLayer = AndmoreAndroidPlugin.getImageDescriptor(CHECKER_PNG_PATH).createImage();
 
         addMouseListener(this);
         addMouseMoveListener(this);
@@ -471,12 +471,12 @@ public class ImageViewer extends Canvas implements PaintListener, KeyListener, M
         // Use buffer
         GC bufferGc = null;
         if (mBufferImage == null) {
-            mBufferImage = new Image(AdtPlugin.getDisplay(), pe.width, pe.height);
+            mBufferImage = new Image(AndmoreAndroidPlugin.getDisplay(), pe.width, pe.height);
         } else {
             int width = mBufferImage.getBounds().width;
             int height = mBufferImage.getBounds().height;
             if (width != pe.width || height != pe.height) {
-                mBufferImage = new Image(AdtPlugin.getDisplay(), pe.width, pe.height);
+                mBufferImage = new Image(AndmoreAndroidPlugin.getDisplay(), pe.width, pe.height);
             }
         }
 

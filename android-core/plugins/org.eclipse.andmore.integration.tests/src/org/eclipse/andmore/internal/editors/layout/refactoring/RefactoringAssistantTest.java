@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -65,7 +65,7 @@ public class RefactoringAssistantTest extends AdtProjectTest {
 		IFile file = getTestDataFile(project, name, FD_RES + "/" + FD_RES_LAYOUT + "/" + name);
 
 		// Determine the offset
-		String fileContent = AdtPlugin.readFile(file);
+		String fileContent = AndmoreAndroidPlugin.readFile(file);
 		int caretDelta = caretLocation.indexOf("^");
 		assertTrue(caretLocation, caretDelta != -1);
 		String caretContext = caretLocation.substring(0, caretDelta)

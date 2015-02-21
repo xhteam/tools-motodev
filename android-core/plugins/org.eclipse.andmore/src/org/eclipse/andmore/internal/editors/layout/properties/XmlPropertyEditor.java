@@ -35,7 +35,7 @@ import com.android.ide.common.resources.ResourceResolver;
 import com.android.resources.ResourceType;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.layout.BaseViewRule;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -259,7 +259,7 @@ class XmlPropertyEditor extends AbstractTextPropertyEditor {
                                         }
                                     }
                                 } catch (IOException e) {
-                                    AdtPlugin.log(e, value);
+                                    AndmoreAndroidPlugin.log(e, value);
                                 }
                             }
                             cache.put(value, swtImage);
@@ -330,10 +330,10 @@ class XmlPropertyEditor extends AbstractTextPropertyEditor {
                 && text != null && !text.isEmpty()
                 && !text.equals(old)) {
             XmlProperty xmlProperty = (XmlProperty) property;
-            IPreferenceStore store = AdtPlugin.getDefault().getPreferenceStore();
+            IPreferenceStore store = AndmoreAndroidPlugin.getDefault().getPreferenceStore();
             String refactorPref = store.getString(AdtPrefs.PREFS_REFACTOR_IDS);
             boolean performRefactor = false;
-            Shell shell = AdtPlugin.getShell();
+            Shell shell = AndmoreAndroidPlugin.getShell();
             if (refactorPref == null
                     || refactorPref.isEmpty()
                     || refactorPref.equals(MessageDialogWithToggle.PROMPT)) {
@@ -468,7 +468,7 @@ class XmlPropertyEditor extends AbstractTextPropertyEditor {
                         // get the resource repository for this project and the system resources.
                         ResourceRepository projectRepository =
                             ResourceManager.getInstance().getProjectResources(project);
-                        Shell shell = AdtPlugin.getShell();
+                        Shell shell = AndmoreAndroidPlugin.getShell();
                         ReferenceChooserDialog dlg = new ReferenceChooserDialog(
                                 project,
                                 projectRepository,
@@ -524,7 +524,7 @@ class XmlPropertyEditor extends AbstractTextPropertyEditor {
     }
 
     /** Qualified name for the per-project persistent property include-map */
-    private final static QualifiedName CACHE_NAME = new QualifiedName(AdtPlugin.PLUGIN_ID,
+    private final static QualifiedName CACHE_NAME = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID,
             "property-images");//$NON-NLS-1$
 
     @NonNull
@@ -541,7 +541,7 @@ class XmlPropertyEditor extends AbstractTextPropertyEditor {
 
             return cache;
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
             return Maps.newHashMap();
         }
     }

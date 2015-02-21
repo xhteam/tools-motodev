@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.manifest.pages;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -86,7 +86,7 @@ final class OverviewLinksPart extends ManifestSectionPart {
 
         AndroidManifestDescriptors manifestDescriptor = editor.getManifestDescriptors();
 
-        Image androidLogo = AdtPlugin.getAndroidLogo();
+        Image androidLogo = AndmoreAndroidPlugin.getAndroidLogo();
         mFormText.setImage("android_img", androidLogo); //$NON-NLS-1$
         mFormText.setImage("srce_img", IconFactory.getInstance().getIcon(AndroidXmlEditor.ICON_XML_PAGE));
 

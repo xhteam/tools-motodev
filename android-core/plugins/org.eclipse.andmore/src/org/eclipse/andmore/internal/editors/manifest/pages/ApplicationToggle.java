@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.manifest.pages;
 
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.DescriptorsUtils;
 import org.eclipse.andmore.internal.editors.manifest.ManifestEditor;
 import org.eclipse.andmore.internal.editors.ui.UiElementPart;
@@ -135,7 +135,7 @@ final class ApplicationToggle extends UiElementPart {
                     Sdk.getCurrent().getDocumentationBaseUrl());
 
             mTooltipFormText.setText(tooltip, true /* parseTags */, true /* expandURLs */);
-            mTooltipFormText.setImage(DescriptorsUtils.IMAGE_KEY, AdtPlugin.getAndroidLogo());
+            mTooltipFormText.setImage(DescriptorsUtils.IMAGE_KEY, AndmoreAndroidPlugin.getAndroidLogo());
             mTooltipFormText.addHyperlinkListener(getEditor().createHyperlinkListener());
             isVisible = true;
         }

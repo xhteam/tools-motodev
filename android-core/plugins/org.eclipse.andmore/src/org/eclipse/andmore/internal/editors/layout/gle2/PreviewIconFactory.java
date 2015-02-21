@@ -35,7 +35,7 @@ import com.android.ide.common.resources.ResourceResolver;
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.descriptors.DocumentDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -129,7 +129,7 @@ public class PreviewIconFactory {
             try {
                 return ImageDescriptor.createFromURL(file.toURI().toURL());
             } catch (MalformedURLException e) {
-                AdtPlugin.log(e, "Could not create image descriptor for %s", file);
+                AndmoreAndroidPlugin.log(e, "Could not create image descriptor for %s", file);
             }
         }
 
@@ -350,14 +350,14 @@ public class PreviewIconFactory {
                             sb.append(fqn);
                         }
                     }
-                    AdtPlugin.log(IStatus.WARNING, "Failed to render set of icons for %1$s",
+                    AndmoreAndroidPlugin.log(IStatus.WARNING, "Failed to render set of icons for %1$s",
                             sb.toString());
 
                     if (session.getResult().getException() != null) {
-                        AdtPlugin.log(session.getResult().getException(),
+                        AndmoreAndroidPlugin.log(session.getResult().getException(),
                                 session.getResult().getErrorMessage());
                     } else if (session.getResult().getErrorMessage() != null) {
-                        AdtPlugin.log(IStatus.WARNING, session.getResult().getErrorMessage());
+                        AndmoreAndroidPlugin.log(IStatus.WARNING, session.getResult().getErrorMessage());
                     }
                 }
 
@@ -509,7 +509,7 @@ public class PreviewIconFactory {
     private File getImageDir(boolean create) {
         if (mImageDir == null) {
             // Location for plugin-related state data
-            IPath pluginState = AdtPlugin.getDefault().getStateLocation();
+            IPath pluginState = AndmoreAndroidPlugin.getDefault().getStateLocation();
 
             // We have multiple directories - one for each combination of SDK, theme and device
             // (and later, possibly other qualifiers).
@@ -550,7 +550,7 @@ public class PreviewIconFactory {
             BufferedImage im = ImageUtils.subImage(image, left, top, right, bottom);
             ImageIO.write(im, "PNG", output); //$NON-NLS-1$
         } catch (IOException e) {
-            AdtPlugin.log(e, "Failed writing palette file");
+            AndmoreAndroidPlugin.log(e, "Failed writing palette file");
         }
     }
 
@@ -562,7 +562,7 @@ public class PreviewIconFactory {
                 "background=#%02x%02x%02x\nforeground=#%02x%02x%02x\n", //$NON-NLS-1$
                 bg.red, bg.green, bg.blue,
                 fg.red, fg.green, fg.blue);
-        AdtPlugin.writeFile(file, colors);
+        AndmoreAndroidPlugin.writeFile(file, colors);
     }
 
     public RGB getBackgroundColor() {
@@ -608,7 +608,7 @@ public class PreviewIconFactory {
                     is = new BufferedInputStream(new FileInputStream(file));
                     properties.load(is);
                 } catch (IOException e) {
-                    AdtPlugin.log(e, "Can't read preview properties");
+                    AndmoreAndroidPlugin.log(e, "Can't read preview properties");
                 } finally {
                     if (is != null) {
                         try {
@@ -636,7 +636,7 @@ public class PreviewIconFactory {
             }
             // mForeground is allowed to be null.
         } catch (Throwable t) {
-            AdtPlugin.log(t, "Cannot initialize preview color settings");
+            AndmoreAndroidPlugin.log(t, "Cannot initialize preview color settings");
         }
     }
 }

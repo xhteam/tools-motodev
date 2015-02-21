@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.ProjectUtils;
 import org.eclipse.andmore.android.SdkUtils;
@@ -676,7 +676,7 @@ public class ProjectCreationSupport {
 
 	private static void createImageFromTemplate(IProgressMonitor monitor, IFile imageFile, String fileName)
 			throws CoreException {
-		byte[] buffer = AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + fileName);
+		byte[] buffer = AndmoreAndroidPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + fileName);
 
 		if (buffer != null) {
 			InputStream stream = null;
@@ -714,7 +714,7 @@ public class ProjectCreationSupport {
 				monitor.worked(10);
 				if (parameters.containsKey(ACTIVITY_NAME)) {
 					String activities = readEmbeddedTextFileADT(ACTIVITY_TEMPLATE, parameters);
-					String intent = AdtPlugin.readEmbeddedTextFile(LAUNCHER_INTENT_TEMPLATE);
+					String intent = AndmoreAndroidPlugin.readEmbeddedTextFile(LAUNCHER_INTENT_TEMPLATE);
 					activities = activities.replaceAll(INTENT_FILTERS, intent);
 					manifestTemplate = manifestTemplate.replaceAll(ACTIVITIES, activities);
 					monitor.worked(90);
@@ -825,7 +825,7 @@ public class ProjectCreationSupport {
 	}
 
 	private static String readEmbeddedTextFileADT(String template, Map<String, Object> parameters) {
-		String loadedTemplate = AdtPlugin.readEmbeddedTextFile(template);
+		String loadedTemplate = AndmoreAndroidPlugin.readEmbeddedTextFile(template);
 
 		for (String key : parameters.keySet()) {
 			if (parameters.get(key) instanceof String) {

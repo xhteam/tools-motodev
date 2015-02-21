@@ -27,7 +27,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.sdklib.SdkVersionInfo;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.integration.tests.SdkLoadingTestCase;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -109,7 +109,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 	private static final boolean TEST_JUST_ONE_MIN_SDK = false;
 	private static final boolean TEST_JUST_ONE_BUILD_TARGET = true;
 	private static final boolean TEST_JUST_ONE_TARGET_SDK_VERSION = true;
-	private QualifiedName ERROR_KEY = new QualifiedName(AdtPlugin.PLUGIN_ID, "JobErrorKey");
+	private QualifiedName ERROR_KEY = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "JobErrorKey");
 	private static int sCount = 0;
 	/**
 	 * If true, check this template with all the interesting (
@@ -655,7 +655,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 				} catch (NumberFormatException nufe) {
 					// Templates aren't allowed to contain codenames, should
 					// always be an integer
-					AdtPlugin.log(nufe, null);
+					AndmoreAndroidPlugin.log(nufe, null);
 					optionMinSdk = 1;
 				}
 			}
@@ -667,7 +667,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 				} catch (NumberFormatException nufe) {
 					// Templates aren't allowed to contain codenames, should
 					// always be an integer
-					AdtPlugin.log(nufe, null);
+					AndmoreAndroidPlugin.log(nufe, null);
 					optionMinBuildApi = 1;
 				}
 			}
@@ -870,7 +870,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 		// Then we run ant and look at the exit code to make sure it worked.
 
 		List<String> command = new ArrayList<String>();
-		command.add(AdtPlugin.getOsSdkToolsFolder() + "android" + (CURRENT_PLATFORM == PLATFORM_WINDOWS ? ".bat" : ""));
+		command.add(AndmoreAndroidPlugin.getOsSdkToolsFolder() + "android" + (CURRENT_PLATFORM == PLATFORM_WINDOWS ? ".bat" : ""));
 		command.add("update");
 		command.add("project");
 		command.add("-p");

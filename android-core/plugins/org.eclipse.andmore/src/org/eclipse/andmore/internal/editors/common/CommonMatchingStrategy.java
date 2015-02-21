@@ -21,7 +21,7 @@ import static com.android.SdkConstants.FD_RES_LAYOUT;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.resources.ResourceFolderType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorMatchingStrategy;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -75,7 +75,7 @@ public class CommonMatchingStrategy implements IEditorMatchingStrategy {
             try {
                 return input.equals(editorRef.getEditorInput());
             } catch (PartInitException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             }
         }
 

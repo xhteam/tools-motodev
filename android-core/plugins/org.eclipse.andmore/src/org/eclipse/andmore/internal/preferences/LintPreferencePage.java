@@ -26,7 +26,7 @@ import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.lint.EclipseLintClient;
 import org.eclipse.andmore.internal.lint.EclipseLintRunner;
@@ -116,7 +116,7 @@ public class LintPreferencePage extends PropertyPage implements IWorkbenchPrefer
      * Create the preference page.
      */
     public LintPreferencePage() {
-        setPreferenceStore(AdtPlugin.getDefault().getPreferenceStore());
+        setPreferenceStore(AndmoreAndroidPlugin.getDefault().getPreferenceStore());
     }
 
     @Override

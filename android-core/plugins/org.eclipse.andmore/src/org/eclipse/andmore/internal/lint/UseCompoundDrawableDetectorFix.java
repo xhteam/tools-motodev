@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.lint;
 
 import com.android.tools.lint.checks.UseCompoundDrawableDetector;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.refactoring.UseCompoundDrawableRefactoring;
@@ -49,7 +49,7 @@ class UseCompoundDrawableDetectorFix extends DocumentFix {
 
     @Override
     public Image getImage() {
-        return AdtPlugin.getAndroidLogo();
+        return AndmoreAndroidPlugin.getAndroidLogo();
     }
 
     @Override

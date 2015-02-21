@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.editors.binaryxml;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -75,7 +75,7 @@ public class BinaryXMLMultiPageEditorPart extends XMLMultiPageEditorPart {
                     super.setInput(newInput);
                     return;
                 } catch (Exception e) {
-                    AdtPlugin.log(e, e.getMessage(), null);
+                    AndmoreAndroidPlugin.log(e, e.getMessage(), null);
                 }
             }
         }

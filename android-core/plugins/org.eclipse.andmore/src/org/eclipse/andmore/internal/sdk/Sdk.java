@@ -42,7 +42,7 @@ import com.android.utils.ILogger;
 import com.google.common.collect.Maps;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.build.DexWrapper;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -299,10 +299,10 @@ public final class Sdk  {
                         sb.append(msg);
                     }
                     if (hasError.get()) {
-                        AdtPlugin.printErrorToConsole("Android SDK", sb.toString());
-                        AdtPlugin.displayError("Android SDK", sb.toString());
+                        AndmoreAndroidPlugin.printErrorToConsole("Android SDK", sb.toString());
+                        AndmoreAndroidPlugin.displayError("Android SDK", sb.toString());
                     } else {
-                        AdtPlugin.printToConsole("Android SDK", sb.toString());
+                        AndmoreAndroidPlugin.printToConsole("Android SDK", sb.toString());
                     }
                 }
             }
@@ -518,7 +518,7 @@ public final class Sdk  {
                             PropertyType.LEGACY_DEFAULT);
 
                     if (properties == null) {
-                        AdtPlugin.log(IStatus.ERROR,
+                        AndmoreAndroidPlugin.log(IStatus.ERROR,
                                 "Failed to load properties file for project '%s'",
                                 project.getName());
                         return null;
@@ -538,7 +538,7 @@ public final class Sdk  {
                             properties = ProjectProperties.load(projectLocation,
                                     PropertyType.PROJECT);
                         } catch (Exception e) {
-                            AdtPlugin.log(IStatus.ERROR,
+                            AndmoreAndroidPlugin.log(IStatus.ERROR,
                                     "Failed to rename properties file to %1$s for project '%s2$'",
                                     PropertyType.PROJECT.getFilename(), project.getName());
                         }
@@ -549,7 +549,7 @@ public final class Sdk  {
                 sProjectStateMap.put(project, state);
 
                 // try to resolve the target
-                if (AdtPlugin.getDefault().getSdkLoadStatus() == LoadStatus.LOADED) {
+                if (AndmoreAndroidPlugin.getDefault().getSdkLoadStatus() == LoadStatus.LOADED) {
                     sCurrentSdk.loadTargetAndBuildTools(state);
                 }
             }
@@ -638,7 +638,7 @@ public final class Sdk  {
                         }
                     }
                 } catch (CoreException e2) {
-                    AdtPlugin.log(e2, null);
+                    AndmoreAndroidPlugin.log(e2, null);
                     // Don't return e2.getStatus(); the job control will then produce
                     // a popup with this error, which isn't very interesting for the
                     // user.
@@ -707,7 +707,7 @@ public final class Sdk  {
             Job job = new Job(String.format("Loading data for %1$s", target.getFullName())) {
                 @Override
                 protected IStatus run(IProgressMonitor monitor) {
-                    AdtPlugin plugin = AdtPlugin.getDefault();
+                    AndmoreAndroidPlugin plugin = AndmoreAndroidPlugin.getDefault();
                     try {
                         IStatus status = new AndroidTargetParser(target).run(monitor);
 
@@ -743,8 +743,8 @@ public final class Sdk  {
                             bundle.status = LoadStatus.FAILED;
                         }
 
-                        AdtPlugin.log(t, "Exception in checkAndLoadTargetData.");    //$NON-NLS-1$
-                        return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                        AndmoreAndroidPlugin.log(t, "Exception in checkAndLoadTargetData.");    //$NON-NLS-1$
+                        return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                                 String.format(
                                         "Parsing Data for %1$s failed", //$NON-NLS-1$
                                         target.hashString()),
@@ -805,7 +805,7 @@ public final class Sdk  {
                 dexWrapper = new DexWrapper();
                 IStatus res = dexWrapper.loadDex(dexLocation);
                 if (res != Status.OK_STATUS) {
-                    AdtPlugin.log(null, res.getMessage());
+                    AndmoreAndroidPlugin.log(null, res.getMessage());
                     dexWrapper = null;
                 } else {
                     mDexWrappers.put(dexLocation, dexWrapper);
@@ -934,7 +934,7 @@ public final class Sdk  {
                 SdkConstants.OS_SDK_DOCS_FOLDER);
 
         mDeviceManager = DeviceManager.createInstance(manager.getLocalSdk().getLocation(),
-                                                      AdtPlugin.getDefault());
+                                                      AndmoreAndroidPlugin.getDefault());
 
         // update whatever ProjectState is already present with new IAndroidTarget objects.
         synchronized (LOCK) {
@@ -1169,7 +1169,7 @@ public final class Sdk  {
                             ProjectHelper.fixProjectClasspathEntries(
                                     JavaCore.create(openedProject));
                         } catch (JavaModelException e) {
-                            AdtPlugin.log(e, "error fixing classpath entries");
+                            AndmoreAndroidPlugin.log(e, "error fixing classpath entries");
                             // Don't return e2.getStatus(); the job control will then produce
                             // a popup with this error, which isn't very interesting for the
                             // user.
@@ -1258,7 +1258,7 @@ public final class Sdk  {
                         }
 
                         // update the editors to reload with the new target
-                        AdtPlugin.getDefault().updateTargetListeners(iProject);
+                        AndmoreAndroidPlugin.getDefault().updateTargetListeners(iProject);
                     }
                 } catch (CoreException e) {
                     // This can't happen as it's only for closed project (or non existing)
@@ -1452,7 +1452,7 @@ public final class Sdk  {
      * additional editors, we can rev the scanned version value.
      */
     private void fixEditorAssociations(final IProject project) {
-        QualifiedName KEY = new QualifiedName(AdtPlugin.PLUGIN_ID, "editorbinding"); //$NON-NLS-1$
+        QualifiedName KEY = new QualifiedName(AndmoreAndroidPlugin.PLUGIN_ID, "editorbinding"); //$NON-NLS-1$
 
         try {
             String value = project.getPersistentProperty(KEY);
@@ -1498,7 +1498,7 @@ public final class Sdk  {
                         // TODO change AndroidManifest.xml ID too
 
                     } catch (CoreException e) {
-                        AdtPlugin.log(e, null);
+                        AndmoreAndroidPlugin.log(e, null);
                     }
 
                     return Status.OK_STATUS;
@@ -1520,7 +1520,7 @@ public final class Sdk  {
             job.setPriority(Job.BUILD);
             job.schedule();
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
     }
 
@@ -1534,7 +1534,7 @@ public final class Sdk  {
      */
     private void fixOpenLegacyEditors() {
 
-        AdtPlugin adt = AdtPlugin.getDefault();
+        AndmoreAndroidPlugin adt = AndmoreAndroidPlugin.getDefault();
         if (adt == null) {
             return;
         }
@@ -1598,7 +1598,7 @@ public final class Sdk  {
 
                 boolean ok = page.closeEditor(part, true /*save*/);
 
-                AdtPlugin.log(IStatus.INFO,
+                AndmoreAndroidPlugin.log(IStatus.INFO,
                     "Closed legacy editor ID %s for %s: %s", //$NON-NLS-1$
                     id,
                     file.getFullPath(),
@@ -1609,7 +1609,7 @@ public final class Sdk  {
                     try {
                         page.openEditor(input, CommonXmlEditor.ID);
                     } catch (PartInitException e) {
-                        AdtPlugin.log(e,
+                        AndmoreAndroidPlugin.log(e,
                             "Failed to reopen %s",          //$NON-NLS-1$
                             file.getFullPath());
                     }

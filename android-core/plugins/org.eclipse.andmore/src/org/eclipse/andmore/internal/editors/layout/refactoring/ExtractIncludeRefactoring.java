@@ -40,7 +40,7 @@ import com.android.annotations.VisibleForTesting;
 import com.android.ide.common.xml.XmlFormatStyle;
 import com.android.utils.XmlUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlPrettyPrinter;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -305,9 +305,9 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
                         }
                     }
                 } catch (IOException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 } catch (CoreException e) {
-                    AdtPlugin.log(e, null);
+                    AndmoreAndroidPlugin.log(e, null);
                 } finally {
                     if (model != null) {
                         model.releaseFromRead();
@@ -382,9 +382,9 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
                     }
                 }
             } catch (IOException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             } catch (CoreException e) {
-                AdtPlugin.log(e, null);
+                AndmoreAndroidPlugin.log(e, null);
             } finally {
                 if (model != null) {
                     model.releaseFromRead();
@@ -419,7 +419,7 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
                 }
             }
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return layouts;
@@ -456,7 +456,7 @@ public class ExtractIncludeRefactoring extends VisualRefactoring {
         return new NullChange("Open extracted layout and refresh resources") {
             @Override
             public Change perform(IProgressMonitor pm) throws CoreException {
-                Display display = AdtPlugin.getDisplay();
+                Display display = AndmoreAndroidPlugin.getDisplay();
                 display.asyncExec(new Runnable() {
                     @Override
                     public void run() {

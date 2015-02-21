@@ -20,7 +20,7 @@ import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.sdklib.build.RenderScriptChecker;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IFile;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class RsSourceChangeHandler implements SourceChangeHandler {
                 mChecker.loadDependencies();
             } catch (IOException e) {
                 // failed to load the dependency files, force a compilation, log the error.
-                AdtPlugin.log(e, "Failed to read dependency files");
+                AndmoreAndroidPlugin.log(e, "Failed to read dependency files");
                 mMustCompile = true;
                 return false;
             }

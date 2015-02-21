@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.build;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -71,7 +71,7 @@ public final class DexWrapper {
         try {
             File f = new File(osFilepath);
             if (f.isFile() == false) {
-                return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, String.format(
+                return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, String.format(
                         Messages.DexWrapper_s_does_not_exists, osFilepath));
             }
             URL url = f.toURI().toURL();
@@ -210,9 +210,9 @@ public final class DexWrapper {
     }
 
     private static IStatus createErrorStatus(String message, Throwable e) {
-        AdtPlugin.log(e, message);
-        AdtPlugin.printErrorToConsole(Messages.DexWrapper_Dex_Loader, message);
+        AndmoreAndroidPlugin.log(e, message);
+        AndmoreAndroidPlugin.printErrorToConsole(Messages.DexWrapper_Dex_Loader, message);
 
-        return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID, message, e);
+        return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID, message, e);
     }
 }

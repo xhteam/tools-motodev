@@ -24,8 +24,8 @@ import com.android.utils.GrabProcessOutput.Wait;
 import com.android.sdkstats.DdmsPreferenceStore;
 import com.android.sdkstats.SdkStatsService;
 
-import org.eclipse.andmore.AdtPlugin;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
 import org.eclipse.andmore.base.InstallDetails;
 import org.eclipse.andmore.internal.editors.layout.gle2.LayoutWindowCoordinator;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -52,7 +52,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ADT startup tasks (other than those performed in {@link AdtPlugin#start(org.osgi.framework.BundleContext)}
+ * ADT startup tasks (other than those performed in {@link AndmoreAndroidPlugin#start(org.osgi.framework.BundleContext)}
  * when the plugin is initializing.
  * <p>
  * The main tasks currently performed are:
@@ -91,7 +91,7 @@ public class AdtStartup implements IStartup, IWindowListener {
 
         initializeWindowCoordinator();
 
-        AdtPlugin.getDefault().workbenchStarted();
+        AndmoreAndroidPlugin.getDefault().workbenchStarted();
     }
 
     private boolean isSdkSpecified() {
@@ -113,7 +113,7 @@ public class AdtStartup implements IStartup, IWindowListener {
             File toolsFolder = new File(install.getURL().getFile()).getParentFile();
             if (toolsFolder != null) {
                 File sdkFolder = new File(toolsFolder, "sdk");
-                if (sdkFolder.exists() && AdtPlugin.getDefault().checkSdkLocationAndId(
+                if (sdkFolder.exists() && AndmoreAndroidPlugin.getDefault().checkSdkLocationAndId(
                         sdkFolder.getAbsolutePath(),
                         new SdkValidator())) {
                     return sdkFolder;
@@ -147,7 +147,7 @@ public class AdtStartup implements IStartup, IWindowListener {
 
                 if (ok) {
                     // Verify that the SDK is valid
-                    ok = AdtPlugin.getDefault().checkSdkLocationAndId(
+                    ok = AndmoreAndroidPlugin.getDefault().checkSdkLocationAndId(
                             osSdkPath, new SdkValidator());
                     if (ok) {
                         // Yes, we've seen an SDK location before and we can use it again,
@@ -165,7 +165,7 @@ public class AdtStartup implements IStartup, IWindowListener {
         return !mStore.isAdtUsed();
     }
 
-    private static class SdkValidator extends AdtPlugin.CheckSdkErrorHandler {
+    private static class SdkValidator extends AndmoreAndroidPlugin.CheckSdkErrorHandler {
         @Override
         public boolean handleError(
                 CheckSdkErrorHandler.Solution solution,
@@ -305,8 +305,8 @@ public class AdtStartup implements IStartup, IWindowListener {
 
                     return Status.OK_STATUS;
                 } catch (Throwable t) {
-                    AdtPlugin.log(t, "pingUsageServer failed");       //$NON-NLS-1$
-                    return new Status(IStatus.ERROR, AdtPlugin.PLUGIN_ID,
+                    AndmoreAndroidPlugin.log(t, "pingUsageServer failed");       //$NON-NLS-1$
+                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
                             "pingUsageServer failed", t);    //$NON-NLS-1$
                 }
             }
@@ -326,7 +326,7 @@ public class AdtStartup implements IStartup, IWindowListener {
      */
     private void pingUsageServer() {
         // Report the version of the ADT plugin to the stat server
-        Version version = getVersion(AdtPlugin.getDefault());
+        Version version = getVersion(AndmoreAndroidPlugin.getDefault());
         String adtVersionString = String.format("%1$d.%2$d.%3$d", version.getMajor(), //$NON-NLS-1$
                 version.getMinor(), version.getMicro());
 

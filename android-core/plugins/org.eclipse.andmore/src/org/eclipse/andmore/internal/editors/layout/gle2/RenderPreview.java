@@ -45,7 +45,7 @@ import com.android.sdklib.devices.Screen;
 import com.android.sdklib.devices.State;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.descriptors.DocumentDescriptor;
@@ -562,13 +562,13 @@ public class RenderPreview implements IJobChangeListener {
 
         if (DUMP_RENDER_DIAGNOSTICS) {
             if (log.hasProblems() || !render.isSuccess()) {
-                AdtPlugin.log(IStatus.ERROR, "Found problems rendering preview "
+                AndmoreAndroidPlugin.log(IStatus.ERROR, "Found problems rendering preview "
                         + getDisplayName() + ": "
                         + render.getErrorMessage() + " : "
                         + log.getProblems(false));
                 Throwable exception = render.getException();
                 if (exception != null) {
-                    AdtPlugin.log(exception, "Failure rendering preview " + getDisplayName());
+                    AndmoreAndroidPlugin.log(exception, "Failure rendering preview " + getDisplayName());
                 }
             }
         }
@@ -812,7 +812,7 @@ public class RenderPreview implements IJobChangeListener {
             if (x <= left) {
                 // Edit. For now, just rename
                 InputDialog d = new InputDialog(
-                        AdtPlugin.getShell(),
+                        AndmoreAndroidPlugin.getShell(),
                         "Rename Preview",  // title
                         "Name:",
                         getDisplayName(),

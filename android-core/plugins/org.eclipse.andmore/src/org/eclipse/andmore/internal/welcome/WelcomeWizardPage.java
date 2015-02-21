@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.internal.welcome;
 
-import org.eclipse.andmore.AdtPlugin;
-import org.eclipse.andmore.AdtPlugin.CheckSdkErrorHandler;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -260,8 +260,8 @@ public class WelcomeWizardPage extends WizardPage implements ModifyListener, Sel
                 } else {
                     final AtomicReference<String> errorReference = new AtomicReference<String>();
                     final AtomicReference<String> warningReference = new AtomicReference<String>();
-                    AdtPlugin.getDefault().checkSdkLocationAndId(path,
-                            new AdtPlugin.CheckSdkErrorHandler() {
+                    AndmoreAndroidPlugin.getDefault().checkSdkLocationAndId(path,
+                            new AndmoreAndroidPlugin.CheckSdkErrorHandler() {
                         @Override
                         public boolean handleError(
                                 CheckSdkErrorHandler.Solution solution,

@@ -20,7 +20,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtPlugin;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.internal.ui.IJavaHelpContextIds;
@@ -100,7 +100,7 @@ public class RenameResourceWizard extends RenameRefactoringWizard {
             }
             return RenameResult.name(processor.getNewName());
         } catch (CoreException e) {
-            AdtPlugin.log(e, null);
+            AndmoreAndroidPlugin.log(e, null);
         }
 
         return RenameResult.unavailable();
