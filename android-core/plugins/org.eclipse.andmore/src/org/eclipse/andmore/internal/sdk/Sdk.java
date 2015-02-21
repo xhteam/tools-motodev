@@ -41,7 +41,7 @@ import com.android.sdklib.repository.FullRevision;
 import com.android.utils.ILogger;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.DexWrapper;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -626,13 +626,13 @@ public final class Sdk  {
                 try {
                     if (project.isAccessible()) {
                         // always delete existing marker first
-                        project.deleteMarkers(AdtConstants.MARKER_BUILD_TOOLS, true,
+                        project.deleteMarkers(AndmoreAndroidConstants.MARKER_BUILD_TOOLS, true,
                                 IResource.DEPTH_ZERO);
 
                         // add the new one if needed.
                         if (markerMessage != null) {
                             BaseProjectHelper.markProject(project,
-                                    AdtConstants.MARKER_BUILD_TOOLS,
+                                    AndmoreAndroidConstants.MARKER_BUILD_TOOLS,
                                     markerMessage, IMarker.SEVERITY_ERROR,
                                     IMarker.PRIORITY_HIGH);
                         }
@@ -1280,7 +1280,7 @@ public final class Sdk  {
             try {
                 IProject iProject = file.getProject();
 
-                if (iProject.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                if (iProject.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                     return;
                 }
 

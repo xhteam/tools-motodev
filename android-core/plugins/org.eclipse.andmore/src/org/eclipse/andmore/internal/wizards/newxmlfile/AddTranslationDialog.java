@@ -462,8 +462,6 @@ public class AddTranslationDialog extends Dialog implements ControlListener, Sel
                     ISharedImages sharedImages = workbench.getSharedImages();
                     String iconName = ISharedImages.IMG_OBJS_ERROR_TSK;
                     Image image = sharedImages.getImage(iconName);
-                    @SuppressWarnings("unused")
-                    ImageControl icon = new ImageControl(mErrorPanel, SWT.NONE, image);
 
                     mErrorLabel = new Label(mErrorPanel, SWT.NONE);
                     mErrorLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,

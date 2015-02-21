@@ -21,7 +21,7 @@ import com.android.SdkConstants;
 import com.android.ide.common.resources.configuration.FolderConfiguration;
 import com.android.resources.ResourceFolderType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.ui.ConfigurationSelector;
 import org.eclipse.andmore.internal.ui.ConfigurationSelector.SelectorMode;
 import org.eclipse.core.resources.IFolder;
@@ -84,10 +84,10 @@ class ExtractStringInputPage extends UserInputWizardPage {
                                      "/res/[a-z][a-zA-Z0-9_-]+/[^.]+\\.xml");  //$NON-NLS-1$
     /** Absolute destination folder root, e.g. "/res/" */
     private static final String RES_FOLDER_ABS =
-        AdtConstants.WS_RESOURCES + AdtConstants.WS_SEP;
+        AndmoreAndroidConstants.WS_RESOURCES + AndmoreAndroidConstants.WS_SEP;
     /** Relative destination folder root, e.g. "res/" */
     private static final String RES_FOLDER_REL =
-        SdkConstants.FD_RESOURCES + AdtConstants.WS_SEP;
+        SdkConstants.FD_RESOURCES + AndmoreAndroidConstants.WS_SEP;
 
     private static final String DEFAULT_RES_FILE_PATH = "/res/values/strings.xml";  //$NON-NLS-1$
 
@@ -475,7 +475,7 @@ class ExtractStringInputPage extends UserInputWizardPage {
             mConfigSelector.getConfiguration(mTempConfig);
             StringBuffer sb = new StringBuffer(RES_FOLDER_ABS);
             sb.append(mTempConfig.getFolderName(ResourceFolderType.VALUES));
-            sb.append(AdtConstants.WS_SEP);
+            sb.append(AndmoreAndroidConstants.WS_SEP);
 
             String newPath = sb.toString();
 
@@ -577,7 +577,7 @@ class ExtractStringInputPage extends UserInputWizardPage {
             if (wsFolderPath.startsWith(RES_FOLDER_ABS)) {
                 wsFolderPath = wsFolderPath.substring(RES_FOLDER_ABS.length());
 
-                int pos = wsFolderPath.indexOf(AdtConstants.WS_SEP_CHAR);
+                int pos = wsFolderPath.indexOf(AndmoreAndroidConstants.WS_SEP_CHAR);
                 if (pos >= 0) {
                     wsFolderPath = wsFolderPath.substring(0, pos);
                 }

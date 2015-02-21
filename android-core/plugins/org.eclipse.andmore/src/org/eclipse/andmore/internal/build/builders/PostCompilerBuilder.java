@@ -28,7 +28,7 @@ import com.android.sdklib.build.SealedApkException;
 import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.build.AaptExecException;
@@ -121,7 +121,7 @@ public class PostCompilerBuilder extends BaseBuilder {
     private ResourceMarker mResourceMarker = new ResourceMarker() {
         @Override
         public void setWarning(IResource resource, String message) {
-            BaseProjectHelper.markResource(resource, AdtConstants.MARKER_PACKAGING,
+            BaseProjectHelper.markResource(resource, AndmoreAndroidConstants.MARKER_PACKAGING,
                     message, IMarker.SEVERITY_WARNING);
         }
     };
@@ -143,8 +143,8 @@ public class PostCompilerBuilder extends BaseBuilder {
         }
 
         // Clear the project of the generic markers
-        removeMarkersFromContainer(project, AdtConstants.MARKER_AAPT_PACKAGE);
-        removeMarkersFromContainer(project, AdtConstants.MARKER_PACKAGING);
+        removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_AAPT_PACKAGE);
+        removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_PACKAGING);
 
         // also remove the files in the output folder (but not the Eclipse output folder).
         IFolder javaOutput = BaseProjectHelper.getJavaOutputFolder(project);
@@ -355,7 +355,7 @@ public class PostCompilerBuilder extends BaseBuilder {
             }
 
             // remove older packaging markers.
-            removeMarkersFromContainer(javaProject.getProject(), AdtConstants.MARKER_PACKAGING);
+            removeMarkersFromContainer(javaProject.getProject(), AndmoreAndroidConstants.MARKER_PACKAGING);
 
             // finished with the common init and tests. Special case of the library.
             if (isLibrary) {
@@ -441,7 +441,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
             if (mPackageResources == false) {
                 // check the full resource package
-                tmp = androidOutputFolder.findMember(AdtConstants.FN_RESOURCES_AP_);
+                tmp = androidOutputFolder.findMember(AndmoreAndroidConstants.FN_RESOURCES_AP_);
                 if (tmp == null || tmp.exists() == false) {
                     mPackageResources = true;
                 }
@@ -481,11 +481,11 @@ public class PostCompilerBuilder extends BaseBuilder {
             // but not the intermediary ones.
             if (mPackageResources || mConvertToDex || mBuildFinalPackage) {
                 String forceJumboStr = projectState.getProperty(
-                        AdtConstants.DEX_OPTIONS_FORCEJUMBO);
+                        AndmoreAndroidConstants.DEX_OPTIONS_FORCEJUMBO);
                 Boolean jumbo = Boolean.valueOf(forceJumboStr);
 
                 String dexMergerStr = projectState.getProperty(
-                        AdtConstants.DEX_OPTIONS_DISABLE_MERGER);
+                        AndmoreAndroidConstants.DEX_OPTIONS_DISABLE_MERGER);
                 Boolean dexMerger = Boolean.valueOf(dexMergerStr);
 
                 BuildHelper helper = new BuildHelper(
@@ -500,7 +500,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                 IPath androidBinLocation = androidOutputFolder.getLocation();
                 if (androidBinLocation == null) {
-                    markProject(AdtConstants.MARKER_PACKAGING, Messages.Output_Missing,
+                    markProject(AndmoreAndroidConstants.MARKER_PACKAGING, Messages.Output_Missing,
                             IMarker.SEVERITY_ERROR);
                     return allRefProjects;
                 }
@@ -514,7 +514,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     // mark project and exit
                     String msg = String.format(Messages.s_File_Missing,
                             SdkConstants.FN_ANDROID_MANIFEST_XML);
-                    markProject(AdtConstants.MARKER_PACKAGING, msg, IMarker.SEVERITY_ERROR);
+                    markProject(AndmoreAndroidConstants.MARKER_PACKAGING, msg, IMarker.SEVERITY_ERROR);
                     return allRefProjects;
                 }
 
@@ -547,14 +547,14 @@ public class PostCompilerBuilder extends BaseBuilder {
                         AdtPlugin.log(IStatus.INFO, "%s packaging resources!", project.getName());
                     }
                     // remove some aapt_package only markers.
-                    removeMarkersFromContainer(project, AdtConstants.MARKER_AAPT_PACKAGE);
+                    removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_AAPT_PACKAGE);
 
                     try {
                         helper.packageResources(manifestFile, libProjects, null /*resfilter*/,
                                 0 /*versionCode */, osAndroidBinPath,
-                                AdtConstants.FN_RESOURCES_AP_);
+                                AndmoreAndroidConstants.FN_RESOURCES_AP_);
                     } catch (AaptExecException e) {
-                        BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING,
+                        BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                                 e.getMessage(), IMarker.SEVERITY_ERROR);
                         return allRefProjects;
                     } catch (AaptResultException e) {
@@ -570,7 +570,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                             // therefore not all files that should have been marked, were marked),
                             // we put a generic marker on the project and abort.
                             BaseProjectHelper.markResource(project,
-                                    AdtConstants.MARKER_PACKAGING,
+                                    AndmoreAndroidConstants.MARKER_PACKAGING,
                                     Messages.Unparsed_AAPT_Errors,
                                     IMarker.SEVERITY_ERROR);
                         }
@@ -599,7 +599,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                         String message = e.getMessage();
 
                         AdtPlugin.printErrorToConsole(project, message);
-                        BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING,
+                        BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                                 message, IMarker.SEVERITY_ERROR);
 
                         Throwable cause = e.getCause();
@@ -630,14 +630,14 @@ public class PostCompilerBuilder extends BaseBuilder {
                         AdtPlugin.log(IStatus.INFO, "%s making final package!", project.getName());
                     }
                     helper.finalDebugPackage(
-                            osAndroidBinPath + File.separator + AdtConstants.FN_RESOURCES_AP_,
+                            osAndroidBinPath + File.separator + AndmoreAndroidConstants.FN_RESOURCES_AP_,
                         classesDexPath, osFinalPackagePath, libProjects, mResourceMarker);
                 } catch (KeytoolException e) {
                     String eMessage = e.getMessage();
 
                     // mark the project with the standard message
                     String msg = String.format(Messages.Final_Archive_Error_s, eMessage);
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING, msg,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
 
                     // output more info in the console
@@ -655,7 +655,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                     // mark the project with the standard message
                     String msg = String.format(Messages.Final_Archive_Error_s, eMessage);
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING, msg,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
 
                     AdtPlugin.log(e, msg);
@@ -664,13 +664,13 @@ public class PostCompilerBuilder extends BaseBuilder {
 
                     // mark the project with the standard message
                     String msg = String.format(Messages.Final_Archive_Error_s, eMessage);
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING, msg,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
                     AdtPlugin.log(e, msg);
                 } catch (NativeLibInJarException e) {
                     String msg = e.getMessage();
 
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                             msg, IMarker.SEVERITY_ERROR);
 
                     AdtPlugin.printErrorToConsole(project, (Object[]) e.getAdditionalInfo());
@@ -678,7 +678,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                     // mark project and return
                     String msg = String.format(Messages.Final_Archive_Error_s, e.getMessage());
                     AdtPlugin.printErrorToConsole(project, msg);
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING, msg,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg,
                             IMarker.SEVERITY_ERROR);
                     AdtPlugin.log(e, msg);
                 } catch (DuplicateFileException e) {
@@ -687,7 +687,7 @@ public class PostCompilerBuilder extends BaseBuilder {
                             e.getArchivePath(), e.getFile1(), e.getFile2());
                     String msg2 = String.format(Messages.Final_Archive_Error_s, msg1);
                     AdtPlugin.printErrorToConsole(project, msg2);
-                    BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING, msg2,
+                    BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING, msg2,
                             IMarker.SEVERITY_ERROR);
                 }
 
@@ -730,7 +730,7 @@ public class PostCompilerBuilder extends BaseBuilder {
 
             msg = String.format("Unknown error: %1$s", msg);
             AdtPlugin.logAndPrintError(exception, project.getName(), msg);
-            markProject(AdtConstants.MARKER_PACKAGING, msg, IMarker.SEVERITY_ERROR);
+            markProject(AndmoreAndroidConstants.MARKER_PACKAGING, msg, IMarker.SEVERITY_ERROR);
         }
 
         // Benchmarking end
@@ -837,7 +837,7 @@ public class PostCompilerBuilder extends BaseBuilder {
         try {
             helper.updateCrunchCache();
         } catch (AaptExecException e) {
-            BaseProjectHelper.markResource(project, AdtConstants.MARKER_PACKAGING,
+            BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_PACKAGING,
                     e.getMessage(), IMarker.SEVERITY_ERROR);
             return false;
         } catch (AaptResultException e) {
@@ -928,13 +928,13 @@ public class PostCompilerBuilder extends BaseBuilder {
 
         // do a (hopefully quick) search for Precompiler type markers. Those are always only
         // errors.
-        stopOnMarker(iProject, AdtConstants.MARKER_AAPT_COMPILE, IResource.DEPTH_INFINITE,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_AAPT_COMPILE, IResource.DEPTH_INFINITE,
                 false /*checkSeverity*/);
-        stopOnMarker(iProject, AdtConstants.MARKER_AIDL, IResource.DEPTH_INFINITE,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_AIDL, IResource.DEPTH_INFINITE,
                 false /*checkSeverity*/);
-        stopOnMarker(iProject, AdtConstants.MARKER_RENDERSCRIPT, IResource.DEPTH_INFINITE,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, IResource.DEPTH_INFINITE,
                 false /*checkSeverity*/);
-        stopOnMarker(iProject, AdtConstants.MARKER_ANDROID, IResource.DEPTH_ZERO,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_ANDROID, IResource.DEPTH_ZERO,
                 false /*checkSeverity*/);
 
         // do a search for JDT markers. Those can be errors or warnings

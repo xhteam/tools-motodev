@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.build;
 
 import static org.junit.Assert.*;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
@@ -181,13 +181,13 @@ public class AaptParserTest extends AdtProjectTest {
 		// (this usually only happens while debugging so the background thread
 		// has a chance
 		// to get things going)
-		IMarker[] markers = file.findMarkers(AdtConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
+		IMarker[] markers = file.findMarkers(AndmoreAndroidConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
 		for (IMarker marker : markers) {
 			marker.delete();
 		}
 
 		AaptParser.parseOutput(errors, project);
-		markers = file.findMarkers(AdtConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
+		markers = file.findMarkers(AndmoreAndroidConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
 		assertNotNull(markers);
 		assertEquals(1, markers.length);
 

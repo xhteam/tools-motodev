@@ -23,7 +23,7 @@ import com.android.io.IAbstractFile;
 import com.android.io.StreamException;
 import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.BuildHelper;
 import org.eclipse.andmore.internal.build.Messages;
@@ -170,7 +170,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
             IFile file = (IFile)resource;
 
             // remove previous markers
-            removeMarkersFromResource(file, AdtConstants.MARKER_XML);
+            removeMarkersFromResource(file, AndmoreAndroidConstants.MARKER_XML);
 
             // create  the error handler
             XmlErrorHandler reporter = new XmlErrorHandler(file, visitor);
@@ -350,9 +350,9 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
         }
 
         // abort if there are TARGET or ADT type markers
-        stopOnMarker(iProject, AdtConstants.MARKER_TARGET, IResource.DEPTH_ZERO,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_TARGET, IResource.DEPTH_ZERO,
                 false /*checkSeverity*/);
-        stopOnMarker(iProject, AdtConstants.MARKER_ADT, IResource.DEPTH_ZERO,
+        stopOnMarker(iProject, AndmoreAndroidConstants.MARKER_ADT, IResource.DEPTH_ZERO,
                 false /*checkSeverity*/);
     }
 
@@ -411,7 +411,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
         }
 
         AdtPlugin.logAndPrintError(e, getProject().getName(), msg);
-        BaseProjectHelper.markResource(target, AdtConstants.MARKER_ADT, msg,
+        BaseProjectHelper.markResource(target, AndmoreAndroidConstants.MARKER_ADT, msg,
                 IMarker.SEVERITY_ERROR);
     }
 
@@ -424,7 +424,7 @@ public abstract class BaseBuilder extends IncrementalProjectBuilder {
      */
     protected void handleException(Throwable t, String message) {
         AdtPlugin.logAndPrintError(t, getProject().getName(), message);
-        markProject(AdtConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
+        markProject(AndmoreAndroidConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
     }
 
     /**

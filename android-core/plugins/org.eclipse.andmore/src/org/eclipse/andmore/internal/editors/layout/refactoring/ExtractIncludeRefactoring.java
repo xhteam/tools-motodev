@@ -33,7 +33,7 @@ import static com.android.SdkConstants.VIEW_INCLUDE;
 import static com.android.SdkConstants.XMLNS;
 import static com.android.SdkConstants.XMLNS_PREFIX;
 import static com.android.resources.ResourceType.LAYOUT;
-import static org.eclipse.andmore.AdtConstants.WS_SEP;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;

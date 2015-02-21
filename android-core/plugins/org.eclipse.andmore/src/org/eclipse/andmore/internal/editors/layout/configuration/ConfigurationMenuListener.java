@@ -162,9 +162,6 @@ class ConfigurationMenuListener extends SelectionAdapter {
             }
         }
 
-        @SuppressWarnings("unused")
-        MenuItem configSeparator = new MenuItem(menu, SWT.SEPARATOR);
-
         create(menu, "Preview Representative Sample",
                 new ConfigurationMenuListener(chooser, ACTION_PREVIEW_MODE, null,
                         DEFAULT), SWT.RADIO, mode == DEFAULT);

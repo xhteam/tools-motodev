@@ -50,7 +50,7 @@ import java.io.File;
  * </ul>
  *
  */
-public class AdtConstants {
+public class AndmoreAndroidConstants {
     /**
      * The old Editors Plugin ID. It is still used in some places for compatibility.
      * Please do not use for new features.
@@ -218,19 +218,20 @@ public class AdtConstants {
     public final static String MARKER_ATTR_TYPE_PROVIDER = "provider"; //$NON-NLS-1$
 
     /**
-     * Preferred compiler level, i.e. "1.6".
+     * Preferred compiler level, i.e. "1.7".
      */
-    public final static String COMPILER_COMPLIANCE_PREFERRED = JavaCore.VERSION_1_6;
+    public final static String COMPILER_COMPLIANCE_PREFERRED = JavaCore.VERSION_1_7;
     /**
-     * List of valid compiler level, i.e. "1.5" and "1.6"
+     * List of valid compiler level, i.e. "1.5", "1.6", and "1.7"
      */
     public final static String[] COMPILER_COMPLIANCE = {
         JavaCore.VERSION_1_5,
         JavaCore.VERSION_1_6,
+        JavaCore.VERSION_1_7
     };
 
     /** The base URL where to find the Android class & manifest documentation */
-    public static final String CODESITE_BASE_URL = "http://code.google.com/android";  //$NON-NLS-1$
+    public static final String CODESITE_BASE_URL = "http://developer.android.com/reference/packages.html";  //$NON-NLS-1$
 
     public static final String LIBRARY_TEST_RUNNER = "android.test.runner"; //$NON-NLS-1$
 

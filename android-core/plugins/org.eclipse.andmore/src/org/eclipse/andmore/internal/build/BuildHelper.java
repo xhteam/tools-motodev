@@ -39,7 +39,7 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -177,13 +177,13 @@ public class BuildHelper {
         }
 
         // Get the resources folder to crunch from
-        IFolder resFolder = mProject.getFolder(AdtConstants.WS_RESOURCES);
+        IFolder resFolder = mProject.getFolder(AndmoreAndroidConstants.WS_RESOURCES);
         List<String> resPaths = new ArrayList<String>();
         resPaths.add(resFolder.getLocation().toOSString());
 
         // Get the output folder where the cache is stored.
         IFolder binFolder = BaseProjectHelper.getAndroidOutputFolder(mProject);
-        IFolder cacheFolder = binFolder.getFolder(AdtConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
+        IFolder cacheFolder = binFolder.getFolder(AndmoreAndroidConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
         String cachePath = cacheFolder.getLocation().toOSString();
 
         /* For crunching, we don't need the osManifestPath, osAssetsPath, or the configFilter
@@ -228,16 +228,16 @@ public class BuildHelper {
         IFolder binFolder = BaseProjectHelper.getAndroidOutputFolder(mProject);
 
         // get the cache folder
-        IFolder cacheFolder = binFolder.getFolder(AdtConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
+        IFolder cacheFolder = binFolder.getFolder(AndmoreAndroidConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
 
         // get the BC folder
-        IFolder bcFolder = binFolder.getFolder(AdtConstants.WS_BIN_RELATIVE_BC);
+        IFolder bcFolder = binFolder.getFolder(AndmoreAndroidConstants.WS_BIN_RELATIVE_BC);
 
         // get the resource folder
-        IFolder resFolder = mProject.getFolder(AdtConstants.WS_RESOURCES);
+        IFolder resFolder = mProject.getFolder(AndmoreAndroidConstants.WS_RESOURCES);
 
         // and the assets folder
-        IFolder assetsFolder = mProject.getFolder(AdtConstants.WS_ASSETS);
+        IFolder assetsFolder = mProject.getFolder(AndmoreAndroidConstants.WS_ASSETS);
 
         // we need to make sure this one exists.
         if (assetsFolder.exists() == false) {
@@ -265,14 +265,14 @@ public class BuildHelper {
                     // png cache folder first
                     IFolder libBinFolder = BaseProjectHelper.getAndroidOutputFolder(lib);
 
-                    IFolder libCacheFolder = libBinFolder.getFolder(AdtConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
+                    IFolder libCacheFolder = libBinFolder.getFolder(AndmoreAndroidConstants.WS_BIN_RELATIVE_CRUNCHCACHE);
                     addFolderToList(osResPaths, libCacheFolder);
 
-                    IFolder libBcFolder = libBinFolder.getFolder(AdtConstants.WS_BIN_RELATIVE_BC);
+                    IFolder libBcFolder = libBinFolder.getFolder(AndmoreAndroidConstants.WS_BIN_RELATIVE_BC);
                     addFolderToList(osResPaths, libBcFolder);
 
                     // regular res folder next.
-                    IFolder libResFolder = lib.getFolder(AdtConstants.WS_RESOURCES);
+                    IFolder libResFolder = lib.getFolder(AndmoreAndroidConstants.WS_RESOURCES);
                     addFolderToList(osResPaths, libResFolder);
                 }
             }
@@ -472,7 +472,7 @@ public class BuildHelper {
             if (mProjectState.getRenderScriptSupportMode()) {
                 IFolder androidOutputFolder = BaseProjectHelper.getAndroidOutputFolder(mProject);
                 IResource rsLibFolder = androidOutputFolder.getFolder(
-                        AdtConstants.WS_BIN_RELATIVE_RS_LIBS);
+                        AndmoreAndroidConstants.WS_BIN_RELATIVE_RS_LIBS);
                 File rsLibFolderFile = rsLibFolder.getLocation().toFile();
                 if (rsLibFolderFile.isDirectory()) {
                     apkBuilder.addNativeLibraries(rsLibFolderFile);
@@ -1025,7 +1025,7 @@ public class BuildHelper {
                 // have it as non exported).
                 if (e.isExported() ||
                         (e.getEntryKind() == IClasspathEntry.CPE_CONTAINER &&
-                         e.getPath().toString().equals(AdtConstants.CONTAINER_DEPENDENCIES))) {
+                         e.getPath().toString().equals(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES))) {
                     handleCPE(e, javaProject, wsRoot, resMarker);
                 }
             }
@@ -1045,7 +1045,7 @@ public class BuildHelper {
             try {
                 // ignore if it's an Android project, or if it's not a Java Project
                 if (refProject.hasNature(JavaCore.NATURE_ID) &&
-                        refProject.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                        refProject.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                     IJavaProject refJavaProject = JavaCore.create(refProject);
 
                     // get the output folder

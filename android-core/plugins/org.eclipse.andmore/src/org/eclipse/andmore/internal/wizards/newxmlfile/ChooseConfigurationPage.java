@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.wizards.newxmlfile;
 import com.android.SdkConstants;
 import com.android.ide.common.resources.configuration.ResourceQualifier;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.ui.ConfigurationSelector;
 import org.eclipse.andmore.internal.ui.ConfigurationSelector.ConfigurationState;
 import org.eclipse.andmore.internal.ui.ConfigurationSelector.SelectorMode;
@@ -51,9 +51,9 @@ public class ChooseConfigurationPage extends WizardPage {
     private boolean mInternalConfigSelectorUpdate;
 
     /** Absolute destination folder root, e.g. "/res/" */
-    static final String RES_FOLDER_ABS = AdtConstants.WS_RESOURCES + AdtConstants.WS_SEP;
+    static final String RES_FOLDER_ABS = AndmoreAndroidConstants.WS_RESOURCES + AndmoreAndroidConstants.WS_SEP;
     /** Relative destination folder root, e.g. "res/" */
-    static final String RES_FOLDER_REL = SdkConstants.FD_RESOURCES + AdtConstants.WS_SEP;
+    static final String RES_FOLDER_REL = SdkConstants.FD_RESOURCES + AndmoreAndroidConstants.WS_SEP;
 
     /**
      * Create the wizard.
@@ -157,7 +157,7 @@ public class ChooseConfigurationPage extends WizardPage {
         if (wsFolderPath.startsWith(RES_FOLDER_ABS)) {
             wsFolderPath = wsFolderPath.substring(RES_FOLDER_ABS.length());
 
-            int pos = wsFolderPath.indexOf(AdtConstants.WS_SEP_CHAR);
+            int pos = wsFolderPath.indexOf(AndmoreAndroidConstants.WS_SEP_CHAR);
             if (pos >= 0) {
                 wsFolderPath = wsFolderPath.substring(0, pos);
             }

@@ -397,7 +397,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
     /** Returns the absolute traceview path */
     public static String getOsAbsoluteTraceview() {
         return getOsSdkFolder() + SdkConstants.OS_SDK_TOOLS_FOLDER +
-                AdtConstants.FN_TRACEVIEW;
+                AndmoreAndroidConstants.FN_TRACEVIEW;
     }
 
     /** Returns the absolute emulator path */
@@ -407,7 +407,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
 
     public static String getOsAbsoluteHprofConv() {
         return getOsSdkFolder() + SdkConstants.OS_SDK_PLATFORM_TOOLS_FOLDER +
-                AdtConstants.FN_HPROF_CONV;
+                AndmoreAndroidConstants.FN_HPROF_CONV;
     }
 
     /** Returns the absolute proguard path */
@@ -420,7 +420,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
      */
     public static String getUrlDoc() {
         return ProjectHelper.getJavaDocPath(
-                getOsSdkFolder() + AdtConstants.WS_JAVADOC_FOLDER_LEAF);
+                getOsSdkFolder() + AndmoreAndroidConstants.WS_JAVADOC_FOLDER_LEAF);
     }
 
     /**
@@ -828,7 +828,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
     public static InputStream readEmbeddedFileAsStream(String filepath) {
         // attempt to read an embedded file
         try {
-            URL url = getEmbeddedFileUrl(AdtConstants.WS_SEP + filepath);
+            URL url = getEmbeddedFileUrl(AndmoreAndroidConstants.WS_SEP + filepath);
             if (url != null) {
                 return url.openStream();
             }
@@ -861,8 +861,8 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
 
         // attempt to get a file to one of the template.
         String path = filepath;
-        if (!path.startsWith(AdtConstants.WS_SEP)) {
-            path = AdtConstants.WS_SEP + path;
+        if (!path.startsWith(AndmoreAndroidConstants.WS_SEP)) {
+            path = AndmoreAndroidConstants.WS_SEP + path;
         }
 
         URL url = bundle.getEntry(path);
@@ -1651,7 +1651,7 @@ public class AdtPlugin extends AbstractUIPlugin implements ILogger {
                             // as the default editor.
                             IEditorDescriptor desc = IDE.getDefaultEditor(file);
                             String editorId = desc.getId();
-                            if (editorId.startsWith(AdtConstants.EDITORS_NAMESPACE)) {
+                            if (editorId.startsWith(AndmoreAndroidConstants.EDITORS_NAMESPACE)) {
                                 // reset the default editor.
                                 IDE.setDefaultEditor(file, null);
                             }

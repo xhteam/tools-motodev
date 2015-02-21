@@ -46,7 +46,7 @@ import com.android.annotations.NonNull;
 import com.android.ide.common.api.IAttributeInfo.Format;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
 import org.eclipse.andmore.internal.editors.uimodel.UiDocumentNode;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
@@ -76,7 +76,7 @@ public final class DescriptorsUtils {
      * The path in the online documentation for the manifest description.
      * <p/>
      * This is NOT a complete URL. To be used, it needs to be appended
-     * to {@link AdtConstants#CODESITE_BASE_URL} or to the local SDK
+     * to {@link AndmoreAndroidConstants#CODESITE_BASE_URL} or to the local SDK
      * documentation.
      */
     public static final String MANIFEST_SDK_URL = "/reference/android/R.styleable.html#";  //$NON-NLS-1$
@@ -245,7 +245,7 @@ public final class DescriptorsUtils {
         String xmlLocalName = info.getName();
         for (AttributeDescriptor desc : attributes) {
             if (desc.getXmlLocalName().equals(xmlLocalName)) {
-                if (nsUri == desc.getNamespaceUri() ||
+                if (nsUri.equals(desc.getNamespaceUri()) ||
                         (nsUri != null && nsUri.equals(desc.getNamespaceUri()))) {
                     return true;
                 }

@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.internal.editors.layout.refactoring;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -119,7 +119,7 @@ abstract class VisualRefactoringAction implements IWorkbenchWindowActionDelegate
                 if (file.exists()) {
                     IProject proj = file.getProject();
                     try {
-                        if (proj != null && proj.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                        if (proj != null && proj.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                             return file;
                         }
                     } catch (CoreException e) {

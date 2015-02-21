@@ -24,7 +24,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.sdklib.IAndroidTarget;
 import com.android.tools.lint.client.api.IssueRegistry;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.XmlEditorMultiOutline;
@@ -121,7 +121,7 @@ public class LayoutEditorDelegate extends CommonXmlDelegate
      * Use {@link CommonXmlEditor#ID} instead.
      */
     public static final String LEGACY_EDITOR_ID =
-        AdtConstants.EDITORS_NAMESPACE + ".layout.LayoutEditor"; //$NON-NLS-1$
+        AndmoreAndroidConstants.EDITORS_NAMESPACE + ".layout.LayoutEditor"; //$NON-NLS-1$
 
     /** Root node of the UI element hierarchy */
     private UiDocumentNode mUiDocRootNode;

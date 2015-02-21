@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.lint;
 import static com.android.SdkConstants.DOT_JAR;
 import static com.android.SdkConstants.DOT_XML;
 import static com.android.SdkConstants.FD_NATIVE_LIBS;
-import static org.eclipse.andmore.AdtConstants.MARKER_LINT;
+import static org.eclipse.andmore.AndmoreAndroidConstants.MARKER_LINT;
 import static org.eclipse.andmore.AdtUtils.workspacePathToFile;
 
 import com.android.annotations.NonNull;

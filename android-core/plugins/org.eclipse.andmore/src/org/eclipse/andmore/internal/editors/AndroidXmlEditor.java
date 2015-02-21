@@ -21,7 +21,7 @@ import static org.eclipse.wst.sse.ui.internal.actions.StructuredTextEditorAction
 import com.android.annotations.Nullable;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.uimodel.UiElementNode;
@@ -281,7 +281,7 @@ public abstract class AndroidXmlEditor extends FormEditor {
                     gotoMarker.gotoMarker(marker);
                     try {
                         // Lint markers should always jump to XML text
-                        if (marker.getType().equals(AdtConstants.MARKER_LINT)) {
+                        if (marker.getType().equals(AndmoreAndroidConstants.MARKER_LINT)) {
                             IEditorPart editor = AdtUtils.getActiveEditor();
                             if (editor instanceof AndroidXmlEditor) {
                                 AndroidXmlEditor xmlEditor = (AndroidXmlEditor) editor;

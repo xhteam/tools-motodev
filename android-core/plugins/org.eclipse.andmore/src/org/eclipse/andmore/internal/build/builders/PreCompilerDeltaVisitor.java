@@ -20,7 +20,7 @@ import com.android.SdkConstants;
 import com.android.ide.common.xml.ManifestData;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.build.SourceChangeHandler;
@@ -208,9 +208,9 @@ class PreCompilerDeltaVisitor extends BaseDeltaVisitor implements IResourceDelta
                     IFile manifestFile = (IFile)resource;
 
                     if (manifestFile.exists()) {
-                        manifestFile.deleteMarkers(AdtConstants.MARKER_XML, true,
+                        manifestFile.deleteMarkers(AndmoreAndroidConstants.MARKER_XML, true,
                                 IResource.DEPTH_ZERO);
-                        manifestFile.deleteMarkers(AdtConstants.MARKER_ANDROID, true,
+                        manifestFile.deleteMarkers(AndmoreAndroidConstants.MARKER_ANDROID, true,
                                 IResource.DEPTH_ZERO);
                     }
 

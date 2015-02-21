@@ -24,7 +24,7 @@ import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
 import com.google.common.collect.Maps;
 import com.google.common.io.Closeables;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -107,10 +107,10 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
      */
     @Override
     public void initialize(IPath containerPath, IJavaProject project) throws CoreException {
-        if (AdtConstants.CONTAINER_FRAMEWORK.equals(containerPath.toString())) {
+        if (AndmoreAndroidConstants.CONTAINER_FRAMEWORK.equals(containerPath.toString())) {
             IClasspathContainer container = allocateAndroidContainer(project);
             if (container != null) {
-                JavaCore.setClasspathContainer(new Path(AdtConstants.CONTAINER_FRAMEWORK),
+                JavaCore.setClasspathContainer(new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK),
                         new IJavaProject[] { project },
                         new IClasspathContainer[] { container },
                         new NullProgressMonitor());
@@ -141,7 +141,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
 
             // give each project their new container in one call.
             JavaCore.setClasspathContainer(
-                    new Path(AdtConstants.CONTAINER_FRAMEWORK),
+                    new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK),
                     androidProjects, containers, new NullProgressMonitor());
 
             return true;
@@ -196,7 +196,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
 
                             return new AndroidClasspathContainer(
                                     createClasspathEntries(iProject, target, targetName),
-                                    new Path(AdtConstants.CONTAINER_FRAMEWORK),
+                                    new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK),
                                     targetName,
                                     IClasspathContainer.K_DEFAULT_SYSTEM);
                         } else {
@@ -280,7 +280,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
                 };
             }
         } finally {
-           processError(iProject, markerMessage, AdtConstants.MARKER_TARGET, outputToConsole);
+           processError(iProject, markerMessage, AndmoreAndroidConstants.MARKER_TARGET, outputToConsole);
         }
     }
 
@@ -389,7 +389,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
         IClasspathEntry[] entries = createClasspathEntriesFromPaths(paths, target);
 
         return new AndroidClasspathContainer(entries,
-                new Path(AdtConstants.CONTAINER_FRAMEWORK),
+                new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK),
                 targetNameCache, IClasspathContainer.K_DEFAULT_SYSTEM);
     }
 

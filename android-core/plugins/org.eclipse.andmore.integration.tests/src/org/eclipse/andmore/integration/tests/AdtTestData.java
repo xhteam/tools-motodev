@@ -16,7 +16,7 @@
 package org.eclipse.andmore.integration.tests;
 
 import com.android.SdkConstants;
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 
 import org.eclipse.core.runtime.FileLocator;
@@ -83,7 +83,7 @@ public class AdtTestData {
 			}
 		}
 
-		if (mOsRootDataPath.equals(AdtConstants.WS_SEP)) {
+		if (mOsRootDataPath.equals(AndmoreAndroidConstants.WS_SEP)) {
 			sLogger.warning("Resource data not found using class loader!, Defaulting to no path");
 		}
 

@@ -20,7 +20,7 @@ import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Activity;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
@@ -390,7 +390,7 @@ public class LaunchConfigDelegate extends LaunchConfigurationDelegate {
             return false;
         }
 
-        if (project.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+        if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
             String msg = String.format("%1$s is not an Android project!", project.getName());
             AdtPlugin.displayError("Android Launch", msg);
             return false;

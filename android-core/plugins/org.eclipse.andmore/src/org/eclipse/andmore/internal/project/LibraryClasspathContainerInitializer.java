@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import static org.eclipse.andmore.AdtConstants.CONTAINER_DEPENDENCIES;
+import static org.eclipse.andmore.AndmoreAndroidConstants.CONTAINER_DEPENDENCIES;
 
 import com.android.SdkConstants;
 import com.android.ide.common.sdk.LoadStatus;
@@ -26,7 +26,7 @@ import com.android.sdklib.build.JarListSanitizer.DifferentLibException;
 import com.android.sdklib.build.JarListSanitizer.Sha1Exception;
 import com.android.sdklib.build.RenderScriptProcessor;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.sdk.ProjectState;
@@ -90,11 +90,11 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
 
             // give each project their new container in one call.
             JavaCore.setClasspathContainer(
-                    new Path(AdtConstants.CONTAINER_PRIVATE_LIBRARIES),
+                    new Path(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES),
                     androidProjects, libraryContainers, new NullProgressMonitor());
 
             JavaCore.setClasspathContainer(
-                    new Path(AdtConstants.CONTAINER_DEPENDENCIES),
+                    new Path(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES),
                     androidProjects, dependencyContainers, new NullProgressMonitor());
             return true;
         } catch (JavaModelException e) {
@@ -124,19 +124,19 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
 
     @Override
     public void initialize(IPath containerPath, IJavaProject project) throws CoreException {
-        if (AdtConstants.CONTAINER_PRIVATE_LIBRARIES.equals(containerPath.toString())) {
+        if (AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES.equals(containerPath.toString())) {
             IClasspathContainer libraries = allocateLibraryContainer(project);
             if (libraries != null) {
-                JavaCore.setClasspathContainer(new Path(AdtConstants.CONTAINER_PRIVATE_LIBRARIES),
+                JavaCore.setClasspathContainer(new Path(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES),
                         new IJavaProject[] { project },
                         new IClasspathContainer[] { libraries },
                         new NullProgressMonitor());
             }
 
-        } else if(AdtConstants.CONTAINER_DEPENDENCIES.equals(containerPath.toString())) {
+        } else if(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES.equals(containerPath.toString())) {
             IClasspathContainer dependencies = allocateDependencyContainer(project);
             if (dependencies != null) {
-                JavaCore.setClasspathContainer(new Path(AdtConstants.CONTAINER_DEPENDENCIES),
+                JavaCore.setClasspathContainer(new Path(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES),
                         new IJavaProject[] { project },
                         new IClasspathContainer[] { dependencies },
                         new NullProgressMonitor());
@@ -194,7 +194,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
 
         entries.addAll(convertJarsToClasspathEntries(iProject, jarFiles));
 
-        return allocateContainer(javaProject, entries, new Path(AdtConstants.CONTAINER_PRIVATE_LIBRARIES),
+        return allocateContainer(javaProject, entries, new Path(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES),
                 "Android Private Libraries");
     }
 
@@ -297,7 +297,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
             errorMessage = e.getMessage();
         }
 
-        processError(iProject, errorMessage, AdtConstants.MARKER_DEPENDENCY,
+        processError(iProject, errorMessage, AndmoreAndroidConstants.MARKER_DEPENDENCY,
                 true /*outputToConsole*/);
 
         return entries;
@@ -493,7 +493,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
                 // ignore if it's an Android project, or if it's not a Java
                 // Project
                 if (p.hasNature(JavaCore.NATURE_ID)
-                        && p.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                        && p.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
 
                     // process this project's dependencies
                     getDependencyListFromClasspath(p, projects, jarFiles, true /*includeJarFiles*/);
@@ -558,7 +558,7 @@ public class LibraryClasspathContainerInitializer extends BaseClasspathContainer
             try {
                 // ignore if it's an Android project, or if it's not a Java Project
                 if (refProject.hasNature(JavaCore.NATURE_ID) &&
-                        refProject.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                        refProject.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                     // add this project to the list
                     projects.add(refProject);
 

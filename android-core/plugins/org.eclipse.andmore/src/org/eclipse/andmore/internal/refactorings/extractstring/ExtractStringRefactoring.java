@@ -25,7 +25,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.AttributeDescriptor;
 import org.eclipse.andmore.internal.editors.descriptors.ReferenceAttributeDescriptor;
@@ -1027,7 +1027,7 @@ public class ExtractStringRefactoring extends Refactoring {
                         // Add all /res folders (technically we don't need to process /res/values
                         // XML files that contain resources/string elements, but it's easier to
                         // not filter them out.)
-                        IFolder f = mProject.getFolder(AdtConstants.WS_RESOURCES);
+                        IFolder f = mProject.getFolder(AndmoreAndroidConstants.WS_RESOURCES);
                         if (f.exists()) {
                             try {
                                 mFolders.addAll(

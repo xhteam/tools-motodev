@@ -26,7 +26,7 @@ import com.android.sdklib.internal.project.ProjectProperties.PropertyType;
 import com.android.utils.Pair;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IProject;
@@ -245,7 +245,7 @@ public class NewProjectWizardState {
             // name as a default. If the activity name has dots, it's a part of a
             // package specification and only the last identifier must be used.
             if (newActivityName.indexOf('.') != -1) {
-                String[] ids = newActivityName.split(AdtConstants.RE_DOT);
+                String[] ids = newActivityName.split(AndmoreAndroidConstants.RE_DOT);
                 newActivityName = ids[ids.length - 1];
             }
             if (projectName == null || projectName.length() == 0 ||

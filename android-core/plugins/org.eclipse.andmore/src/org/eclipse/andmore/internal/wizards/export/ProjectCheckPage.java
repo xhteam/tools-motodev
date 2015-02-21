@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.wizards.export;
 
 import com.android.ide.common.xml.ManifestData;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -157,7 +157,7 @@ final class ProjectCheckPage extends ExportWizardPage {
             mHasMessage = true;
         } else {
             try {
-                if (project.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                     addError(mErrorComposite, "Project is not an Android project.");
                 } else {
                     // check for errors

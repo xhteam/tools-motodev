@@ -21,7 +21,7 @@ import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 import com.android.xml.AndroidXPathFactory;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -60,7 +60,7 @@ public class ValuesEditorDelegate extends CommonXmlDelegate {
      * Use {@link CommonXmlEditor#ID} instead.
      */
     public static final String LEGACY_EDITOR_ID =
-        AdtConstants.EDITORS_NAMESPACE + ".resources.ResourcesEditor"; //$NON-NLS-1$
+        AndmoreAndroidConstants.EDITORS_NAMESPACE + ".resources.ResourcesEditor"; //$NON-NLS-1$
 
 
     /**

@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.build.builders.PostCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.PreCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.ResourceManagerBuilder;
@@ -134,7 +134,7 @@ public class AndroidNature implements IProjectNature {
         // android builders.
         addNatureToProjectDescription(project, JavaCore.NATURE_ID, monitor);
         if (addAndroidNature) {
-            addNatureToProjectDescription(project, AdtConstants.NATURE_DEFAULT, monitor);
+            addNatureToProjectDescription(project, AndmoreAndroidConstants.NATURE_DEFAULT, monitor);
         }
     }
 
@@ -159,7 +159,7 @@ public class AndroidNature implements IProjectNature {
             String[] newNatures = new String[natures.length + 1];
 
             // Android natures always come first.
-            if (natureId.equals(AdtConstants.NATURE_DEFAULT)) {
+            if (natureId.equals(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                 System.arraycopy(natures, 0, newNatures, 1, natures.length);
                 newNatures[0] = natureId;
             } else {

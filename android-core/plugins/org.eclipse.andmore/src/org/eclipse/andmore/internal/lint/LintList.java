@@ -23,7 +23,7 @@ import com.android.tools.lint.detector.api.Severity;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
@@ -459,7 +459,7 @@ class LintList extends Composite implements IResourceChangeListener, ControlList
         if (mResources == null) {
             return;
         }
-        IMarkerDelta[] deltas = event.findMarkerDeltas(AdtConstants.MARKER_LINT, true);
+        IMarkerDelta[] deltas = event.findMarkerDeltas(AndmoreAndroidConstants.MARKER_LINT, true);
         if (deltas.length > 0) {
             // Update immediately for POST_BUILD events, otherwise do an unconditional
             // update after 30 seconds. This matches the logic in Eclipse's ProblemView

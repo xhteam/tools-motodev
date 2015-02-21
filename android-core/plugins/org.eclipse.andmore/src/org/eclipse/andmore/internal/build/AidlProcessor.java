@@ -22,7 +22,7 @@ import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.io.FileOp;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.builders.BaseBuilder;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -134,7 +134,7 @@ public class AidlProcessor extends SourceProcessor {
         boolean verbose = AdtPrefs.getPrefs().getBuildVerbosity() == BuildVerbosity.VERBOSE;
 
         // remove the generic marker from the project
-        builder.removeMarkersFromResource(project, AdtConstants.MARKER_AIDL);
+        builder.removeMarkersFromResource(project, AndmoreAndroidConstants.MARKER_AIDL);
 
         // prepare the two output folders.
         IFolder genFolder = getGenFolder();
@@ -161,7 +161,7 @@ public class AidlProcessor extends SourceProcessor {
             }
 
             // Remove the AIDL error markers from the aidl file
-            builder.removeMarkersFromResource(sourceFile, AdtConstants.MARKER_AIDL);
+            builder.removeMarkersFromResource(sourceFile, AndmoreAndroidConstants.MARKER_AIDL);
 
             // get the path of the source file.
             IPath sourcePath = sourceFile.getLocation();
@@ -276,7 +276,7 @@ public class AidlProcessor extends SourceProcessor {
                             AdtPlugin.printErrorToConsole(project, stdErr.toArray());
 
                             // mark the project
-                            BaseProjectHelper.markResource(project, AdtConstants.MARKER_AIDL,
+                            BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_AIDL,
                                     Messages.Unparsed_AIDL_Errors, IMarker.SEVERITY_ERROR);
                         } else {
                             AdtPlugin.printToConsole(project, stdErr.toArray());
@@ -288,7 +288,7 @@ public class AidlProcessor extends SourceProcessor {
                 // no stderr output but exec failed.
                 String msg = String.format(Messages.AIDL_Exec_Error_d, returnCode);
 
-                BaseProjectHelper.markResource(project, AdtConstants.MARKER_AIDL,
+                BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_AIDL,
                        msg, IMarker.SEVERITY_ERROR);
 
                 return false;
@@ -296,13 +296,13 @@ public class AidlProcessor extends SourceProcessor {
         } catch (IOException e) {
             // mark the project and exit
             String msg = String.format(Messages.AIDL_Exec_Error_s, command[0]);
-            BaseProjectHelper.markResource(project, AdtConstants.MARKER_AIDL, msg,
+            BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_AIDL, msg,
                     IMarker.SEVERITY_ERROR);
             return false;
         } catch (InterruptedException e) {
             // mark the project and exit
             String msg = String.format(Messages.AIDL_Exec_Error_s, command[0]);
-            BaseProjectHelper.markResource(project, AdtConstants.MARKER_AIDL, msg,
+            BaseProjectHelper.markResource(project, AndmoreAndroidConstants.MARKER_AIDL, msg,
                     IMarker.SEVERITY_ERROR);
             return false;
         }
@@ -345,7 +345,7 @@ public class AidlProcessor extends SourceProcessor {
                 }
 
                 // mark the file
-                BaseProjectHelper.markResource(file, AdtConstants.MARKER_AIDL, msg, line,
+                BaseProjectHelper.markResource(file, AndmoreAndroidConstants.MARKER_AIDL, msg, line,
                         IMarker.SEVERITY_ERROR);
 
                 // success, go to the next line
@@ -395,7 +395,7 @@ public class AidlProcessor extends SourceProcessor {
             String javaName;
             if (replaceExt) {
                 javaName = sourceFile.getName().replaceAll(
-                        AdtConstants.RE_AIDL_EXT, SdkConstants.DOT_JAVA);
+                        AndmoreAndroidConstants.RE_AIDL_EXT, SdkConstants.DOT_JAVA);
             } else {
                 javaName = sourceFile.getName();
             }

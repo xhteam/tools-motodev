@@ -20,7 +20,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
@@ -53,7 +53,7 @@ public class OtherXmlEditorDelegate extends CommonXmlDelegate {
      * Use {@link CommonXmlEditor#ID} instead.
      */
     public static final String LEGACY_EDITOR_ID =
-        AdtConstants.EDITORS_NAMESPACE + ".xml.XmlEditor"; //$NON-NLS-1$
+        AndmoreAndroidConstants.EDITORS_NAMESPACE + ".xml.XmlEditor"; //$NON-NLS-1$
 
     /**
      * Creates the form editor for resources XML files.

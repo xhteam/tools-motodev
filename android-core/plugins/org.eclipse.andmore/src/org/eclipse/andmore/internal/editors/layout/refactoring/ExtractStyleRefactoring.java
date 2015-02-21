@@ -37,7 +37,7 @@ import static com.android.SdkConstants.REFERENCE_STYLE;
 import static com.android.SdkConstants.TAG_ITEM;
 import static com.android.SdkConstants.TAG_RESOURCES;
 import static com.android.SdkConstants.XMLNS_PREFIX;
-import static org.eclipse.andmore.AdtConstants.WS_SEP;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;

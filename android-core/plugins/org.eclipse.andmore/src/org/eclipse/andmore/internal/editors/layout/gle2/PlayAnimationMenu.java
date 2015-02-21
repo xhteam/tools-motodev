@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.editors.layout.gle2;
 
 import static com.android.SdkConstants.FD_RESOURCES;
 import static com.android.SdkConstants.FD_RES_ANIMATOR;
-import static org.eclipse.andmore.AdtConstants.WS_SEP;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP;
 
 import com.android.ide.common.rendering.api.Capability;
 import com.android.ide.common.rendering.api.IAnimationListener;

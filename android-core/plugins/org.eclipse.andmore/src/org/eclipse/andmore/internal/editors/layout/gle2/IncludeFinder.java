@@ -24,8 +24,8 @@ import static com.android.SdkConstants.TOOLS_URI;
 import static com.android.SdkConstants.VIEW_FRAGMENT;
 import static com.android.SdkConstants.VIEW_INCLUDE;
 import static com.android.resources.ResourceType.LAYOUT;
-import static org.eclipse.andmore.AdtConstants.WS_LAYOUTS;
-import static org.eclipse.andmore.AdtConstants.WS_SEP;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_LAYOUTS;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP;
 import static org.eclipse.core.resources.IResourceDelta.ADDED;
 import static org.eclipse.core.resources.IResourceDelta.CHANGED;
 import static org.eclipse.core.resources.IResourceDelta.CONTENT;
@@ -658,7 +658,7 @@ public class IncludeFinder {
     }
 
     /** Start listening on project resources */
-    public static void start() {
+    public synchronized static void start() {
         assert sListener == null;
         sListener = new ResourceListener();
         ResourceManager.getInstance().addListener(sListener);

@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.project;
 
 import com.android.ide.common.xml.AndroidManifestParser.ManifestErrorHandler;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
@@ -98,7 +98,7 @@ public class XmlErrorHandler extends DefaultHandler implements ManifestErrorHand
     public void warning(SAXParseException exception) throws SAXException {
         if (mFile != null) {
             BaseProjectHelper.markResource(mFile,
-                    AdtConstants.MARKER_XML,
+                    AndmoreAndroidConstants.MARKER_XML,
                     exception.getMessage(),
                     exception.getLineNumber(),
                     IMarker.SEVERITY_WARNING);
@@ -127,7 +127,7 @@ public class XmlErrorHandler extends DefaultHandler implements ManifestErrorHand
 
         if (mFile != null) {
             BaseProjectHelper.markResource(mFile,
-                    AdtConstants.MARKER_XML,
+                    AndmoreAndroidConstants.MARKER_XML,
                     message,
                     lineNumber,
                     IMarker.SEVERITY_ERROR);
@@ -159,14 +159,14 @@ public class XmlErrorHandler extends DefaultHandler implements ManifestErrorHand
 
             // mark the file
             IMarker marker = BaseProjectHelper.markResource(getFile(),
-                    AdtConstants.MARKER_ANDROID, result, line, IMarker.SEVERITY_ERROR);
+                    AndmoreAndroidConstants.MARKER_ANDROID, result, line, IMarker.SEVERITY_ERROR);
 
             // add custom attributes to be used by the manifest editor.
             if (marker != null) {
                 try {
-                    marker.setAttribute(AdtConstants.MARKER_ATTR_TYPE,
-                            AdtConstants.MARKER_ATTR_TYPE_ACTIVITY);
-                    marker.setAttribute(AdtConstants.MARKER_ATTR_CLASS, className);
+                    marker.setAttribute(AndmoreAndroidConstants.MARKER_ATTR_TYPE,
+                            AndmoreAndroidConstants.MARKER_ATTR_TYPE_ACTIVITY);
+                    marker.setAttribute(AndmoreAndroidConstants.MARKER_ATTR_CLASS, className);
                 } catch (CoreException e) {
                 }
             }

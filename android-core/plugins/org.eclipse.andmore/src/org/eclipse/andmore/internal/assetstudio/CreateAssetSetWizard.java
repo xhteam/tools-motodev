@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.assetstudio;
 
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -259,7 +259,7 @@ public class CreateAssetSetWizard extends Wizard implements INewWizard {
 
                 // Is this an Android project?
                 try {
-                    if (project == null || !project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                    if (project == null || !project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                         continue;
                     }
                 } catch (CoreException e) {
