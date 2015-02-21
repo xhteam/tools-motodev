@@ -24,7 +24,7 @@ import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.ResourceType;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -173,7 +173,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
                 return null;
             }
             IDocument document = sourceViewer.getDocument();
-            List<IMarker> markers = AdtUtils.findMarkersOnLine(AdtConstants.MARKER_AAPT_COMPILE,
+            List<IMarker> markers = AdtUtils.findMarkersOnLine(AndmoreAndroidConstants.MARKER_AAPT_COMPILE,
                     file, document, invocationContext.getOffset());
             try {
                 for (IMarker marker : markers) {

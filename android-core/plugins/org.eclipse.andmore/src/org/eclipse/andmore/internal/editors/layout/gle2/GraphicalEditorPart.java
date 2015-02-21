@@ -66,7 +66,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.common.layout.BaseLayoutRule;
@@ -2124,7 +2124,7 @@ public class GraphicalEditorPart extends EditorPart
                             if (severity == IMarker.SEVERITY_ERROR) {
                                 hasJavaErrors = true;
                             }
-                        } else if (markerType.equals(AdtConstants.MARKER_AAPT_COMPILE)) {
+                        } else if (markerType.equals(AndmoreAndroidConstants.MARKER_AAPT_COMPILE)) {
                             int severity = marker.getAttribute(IMarker.SEVERITY, -1);
                             if (severity == IMarker.SEVERITY_ERROR) {
                                 hasAaptErrors = true;

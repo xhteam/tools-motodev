@@ -20,7 +20,7 @@ import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.ResourceItem;
 import com.android.io.IAbstractFile;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -76,9 +76,9 @@ public class ResourceExplorerView extends ViewPart implements ISelectionListener
     // Note: keep using the obsolete SdkConstants.EDITORS_NAMESPACE (which used
     // to be the Editors Plugin ID) to keep existing preferences functional.
     private final static String PREFS_COLUMN_RES =
-        AdtConstants.EDITORS_NAMESPACE + "ResourceExplorer.Col1"; //$NON-NLS-1$
+        AndmoreAndroidConstants.EDITORS_NAMESPACE + "ResourceExplorer.Col1"; //$NON-NLS-1$
     private final static String PREFS_COLUMN_2 =
-        AdtConstants.EDITORS_NAMESPACE + "ResourceExplorer.Col2"; //$NON-NLS-1$
+        AndmoreAndroidConstants.EDITORS_NAMESPACE + "ResourceExplorer.Col2"; //$NON-NLS-1$
 
     private Tree mTree;
     private TreeViewer mTreeViewer;
@@ -242,7 +242,7 @@ public class ResourceExplorerView extends ViewPart implements ISelectionListener
         try {
             // if it's an android project, then we get its resources, and feed them
             // to the tree viewer.
-            if (project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+            if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                 if (mCurrentProject != project) {
                     ProjectResources projRes = ResourceManager.getInstance().getProjectResources(
                             project);

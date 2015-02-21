@@ -21,7 +21,7 @@ import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
@@ -71,7 +71,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
         IProject project = getProject();
 
         // Clear the project of the generic markers
-        removeMarkersFromContainer(project, AdtConstants.MARKER_ADT);
+        removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_ADT);
     }
 
     // build() returns a list of project from which this project depends for future compilation.
@@ -84,7 +84,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
         IJavaProject javaProject = JavaCore.create(project);
 
         // Clear the project of the generic markers
-        removeMarkersFromContainer(project, AdtConstants.MARKER_ADT);
+        removeMarkersFromContainer(project, AndmoreAndroidConstants.MARKER_ADT);
 
         // check for existing target marker, in which case we abort.
         // (this means: no SDK, no target, or unresolvable target.)
@@ -141,7 +141,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
                 }
             }
 
-            markProject(AdtConstants.MARKER_ADT, errorMessage, IMarker.SEVERITY_ERROR);
+            markProject(AndmoreAndroidConstants.MARKER_ADT, errorMessage, IMarker.SEVERITY_ERROR);
             AdtPlugin.printErrorToConsole(project, errorMessage);
 
             return null;
@@ -152,7 +152,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
 
         if (osSdkFolder == null || osSdkFolder.length() == 0) {
             AdtPlugin.printErrorToConsole(project, Messages.No_SDK_Setup_Error);
-            markProject(AdtConstants.MARKER_ADT, Messages.No_SDK_Setup_Error,
+            markProject(AndmoreAndroidConstants.MARKER_ADT, Messages.No_SDK_Setup_Error,
                     IMarker.SEVERITY_ERROR);
 
             return null;
@@ -196,7 +196,7 @@ public class ResourceManagerBuilder extends BaseBuilder {
             }
 
             AdtPlugin.printErrorToConsole(project, message);
-            markProject(AdtConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
+            markProject(AndmoreAndroidConstants.MARKER_ADT, message, IMarker.SEVERITY_ERROR);
 
             return null;
         } else if (hasGenSrcFolder == false || genFolderPresent == false) {
@@ -303,12 +303,12 @@ public class ResourceManagerBuilder extends BaseBuilder {
             AdtPlugin.printBuildToConsole(BuildVerbosity.VERBOSE, project, Messages.Refreshing_Res);
 
             // refresh the res folder.
-            IFolder resFolder = project.getFolder(AdtConstants.WS_RESOURCES);
+            IFolder resFolder = project.getFolder(AndmoreAndroidConstants.WS_RESOURCES);
             resFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 
             // Also refresh the assets folder to make sure the ApkBuilder
             // will now it's changed and will force a new resource packaging.
-            IFolder assetsFolder = project.getFolder(AdtConstants.WS_ASSETS);
+            IFolder assetsFolder = project.getFolder(AndmoreAndroidConstants.WS_ASSETS);
             assetsFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
         }
 

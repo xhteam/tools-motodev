@@ -23,7 +23,7 @@ import static com.android.SdkConstants.FN_RESOURCE_BASE;
 import com.android.SdkConstants;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -229,9 +229,9 @@ class ApplicationPackageNameRefactoring extends Refactoring {
         MultiTextEdit multiEdit = new MultiTextEdit();
         ArrayList<TextEditGroup> editGroups = new ArrayList<TextEditGroup>();
 
-        final String oldAppNamespaceString = String.format(AdtConstants.NS_CUSTOM_RESOURCES,
+        final String oldAppNamespaceString = String.format(AndmoreAndroidConstants.NS_CUSTOM_RESOURCES,
                 mOldPackageName.getFullyQualifiedName());
-        final String newAppNamespaceString = String.format(AdtConstants.NS_CUSTOM_RESOURCES,
+        final String newAppNamespaceString = String.format(AndmoreAndroidConstants.NS_CUSTOM_RESOURCES,
                 mNewPackageName.getFullyQualifiedName());
 
         // Prepare the change set

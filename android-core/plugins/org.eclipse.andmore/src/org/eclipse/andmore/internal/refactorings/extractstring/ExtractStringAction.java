@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.refactorings.extractstring;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -168,7 +168,7 @@ public class ExtractStringAction implements IWorkbenchWindowActionDelegate {
                 if (file.exists()) {
                     IProject proj = file.getProject();
                     try {
-                        if (proj != null && proj.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                        if (proj != null && proj.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                             return file;
                         }
                     } catch (CoreException e) {

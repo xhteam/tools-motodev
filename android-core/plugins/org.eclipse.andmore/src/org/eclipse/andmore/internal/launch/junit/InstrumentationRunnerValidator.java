@@ -22,7 +22,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Instrumentation;
 import com.android.ide.common.xml.ManifestData.UsesLibrary;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
@@ -96,7 +96,7 @@ class InstrumentationRunnerValidator {
      */
     private boolean hasTestRunnerLibrary(ManifestData manifestData) {
        for (UsesLibrary lib : manifestData.getUsesLibraries()) {
-           if (AdtConstants.LIBRARY_TEST_RUNNER.equals(lib.getName())) {
+           if (AndmoreAndroidConstants.LIBRARY_TEST_RUNNER.equals(lib.getName())) {
                return true;
            }
        }
@@ -139,7 +139,7 @@ class InstrumentationRunnerValidator {
     String validateInstrumentationRunner(String instrumentation) {
         if (!mHasRunnerLibrary) {
             return String.format(LaunchMessages.InstrValidator_NoTestLibMsg_s,
-                    AdtConstants.LIBRARY_TEST_RUNNER);
+                    AndmoreAndroidConstants.LIBRARY_TEST_RUNNER);
         }
         // check if this instrumentation is the standard test runner
         if (!instrumentation.equals(SdkConstants.CLASS_INSTRUMENTATION_RUNNER)) {

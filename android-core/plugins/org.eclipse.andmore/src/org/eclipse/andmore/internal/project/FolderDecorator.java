@@ -18,7 +18,7 @@ package org.eclipse.andmore.internal.project;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -54,7 +54,7 @@ public class FolderDecorator implements ILightweightLabelDecorator {
             }
 
             try {
-                if (project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                     // check the folder is directly under the project.
                     if (folder.getParent().getType() == IResource.PROJECT) {
                         String name = folder.getName();

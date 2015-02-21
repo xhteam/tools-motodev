@@ -1071,7 +1071,7 @@ public class CanvasViewInfo implements IPropertySource {
                         Integer rank = usedIndexes.get(i);
                         UiViewElementNode found = null;
                         for (UiViewElementNode node : unused) {
-                            if (rankMap.get(node) == rank) {
+                            if (rankMap.get(node).equals(rank)) {
                                 found = node;
                                 break;
                             }

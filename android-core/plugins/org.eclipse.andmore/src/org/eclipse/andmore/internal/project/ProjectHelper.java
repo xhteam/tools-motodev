@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import static org.eclipse.andmore.AdtConstants.COMPILER_COMPLIANCE_PREFERRED;
+import static org.eclipse.andmore.AndmoreAndroidConstants.COMPILER_COMPLIANCE_PREFERRED;
 
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
@@ -25,7 +25,7 @@ import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.build.builders.PostCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.PreCompilerBuilder;
@@ -183,11 +183,11 @@ public final class ProjectHelper {
     public static String getJavaDocPath(String javaDocOSLocation) {
         // first thing we do is convert the \ into /
         String javaDoc = javaDocOSLocation.replaceAll("\\\\", //$NON-NLS-1$
-                AdtConstants.WS_SEP);
+                AndmoreAndroidConstants.WS_SEP);
 
         // then we add file: at the beginning for unix path, and file:/ for non
         // unix path
-        if (javaDoc.startsWith(AdtConstants.WS_SEP)) {
+        if (javaDoc.startsWith(AndmoreAndroidConstants.WS_SEP)) {
             return "file:" + javaDoc; //$NON-NLS-1$
         }
 
@@ -346,11 +346,11 @@ public final class ProjectHelper {
                 }
             } else if (kind == IClasspathEntry.CPE_CONTAINER) {
                 String path = entry.getPath().toString();
-                if (AdtConstants.CONTAINER_FRAMEWORK.equals(path)) {
+                if (AndmoreAndroidConstants.CONTAINER_FRAMEWORK.equals(path)) {
                     foundFrameworkContainer = true;
-                } else if (AdtConstants.CONTAINER_PRIVATE_LIBRARIES.equals(path)) {
+                } else if (AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES.equals(path)) {
                     foundLibrariesContainer = entry;
-                } else if (AdtConstants.CONTAINER_DEPENDENCIES.equals(path)) {
+                } else if (AndmoreAndroidConstants.CONTAINER_DEPENDENCIES.equals(path)) {
                     foundDependenciesContainer = entry;
                 }
             }
@@ -372,7 +372,7 @@ public final class ProjectHelper {
         if (!foundFrameworkContainer) {
             // add the android container to the array
             entries = ProjectHelper.addEntryToClasspath(entries,
-                    JavaCore.newContainerEntry(new Path(AdtConstants.CONTAINER_FRAMEWORK)));
+                    JavaCore.newContainerEntry(new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK)));
         }
 
         // same thing for the library container
@@ -380,14 +380,14 @@ public final class ProjectHelper {
             // add the exported libraries android container to the array
             entries = ProjectHelper.addEntryToClasspath(entries,
                     JavaCore.newContainerEntry(
-                            new Path(AdtConstants.CONTAINER_PRIVATE_LIBRARIES), true));
+                            new Path(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES), true));
         } else if (!m2eNature && !foundLibrariesContainer.isExported()) {
             // the container is present but it's not exported and since there's no m2e nature
             // we do want it to be exported.
             // keep all the other parameters the same.
             entries = ProjectHelper.replaceEntryInClasspath(entries,
                     JavaCore.newContainerEntry(
-                            new Path(AdtConstants.CONTAINER_PRIVATE_LIBRARIES),
+                            new Path(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES),
                             foundLibrariesContainer.getAccessRules(),
                             foundLibrariesContainer.getExtraAttributes(),
                             true));
@@ -399,14 +399,14 @@ public final class ProjectHelper {
             // add the android dependencies container to the array
             entries = ProjectHelper.addEntryToClasspath(entries,
                     JavaCore.newContainerEntry(
-                            new Path(AdtConstants.CONTAINER_DEPENDENCIES), true));
+                            new Path(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES), true));
         } else if (!m2eNature && !foundDependenciesContainer.isExported()) {
             // the container is present but it's not exported and since there's no m2e nature
             // we do want it to be exported.
             // keep all the other parameters the same.
             entries = ProjectHelper.replaceEntryInClasspath(entries,
                     JavaCore.newContainerEntry(
-                            new Path(AdtConstants.CONTAINER_DEPENDENCIES),
+                            new Path(AndmoreAndroidConstants.CONTAINER_DEPENDENCIES),
                             foundDependenciesContainer.getAccessRules(),
                             foundDependenciesContainer.getExtraAttributes(),
                             true));
@@ -511,11 +511,11 @@ public final class ProjectHelper {
         if (result.getFirst().intValue() != COMPILER_COMPLIANCE_OK) {
             // setup the preferred compiler compliance level.
             javaProject.setOption(JavaCore.COMPILER_COMPLIANCE,
-                    AdtConstants.COMPILER_COMPLIANCE_PREFERRED);
+                    AndmoreAndroidConstants.COMPILER_COMPLIANCE_PREFERRED);
             javaProject.setOption(JavaCore.COMPILER_SOURCE,
-                    AdtConstants.COMPILER_COMPLIANCE_PREFERRED);
+                    AndmoreAndroidConstants.COMPILER_COMPLIANCE_PREFERRED);
             javaProject.setOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM,
-                    AdtConstants.COMPILER_COMPLIANCE_PREFERRED);
+                    AndmoreAndroidConstants.COMPILER_COMPLIANCE_PREFERRED);
 
             // clean the project to make sure we recompile
             try {
@@ -530,7 +530,7 @@ public final class ProjectHelper {
 
     /**
      * Makes the given project use JDK 6 (or more specifically,
-     * {@link AdtConstants#COMPILER_COMPLIANCE_PREFERRED} as the compilation
+     * {@link AndmoreAndroidConstants#COMPILER_COMPLIANCE_PREFERRED} as the compilation
      * target, regardless of what the default IDE JDK level is, provided a JRE
      * of the given level is installed.
      *
@@ -587,7 +587,7 @@ public final class ProjectHelper {
         for (IProject p : projects) {
             if (p.isOpen()) {
                 try {
-                    if (p.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                    if (p.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                         // ignore non android projects
                         continue;
                     }
@@ -636,16 +636,16 @@ public final class ProjectHelper {
         String[] natures = description.getNatureIds();
 
         // if the android nature is not the first one, we reorder them
-        if (AdtConstants.NATURE_DEFAULT.equals(natures[0]) == false) {
+        if (AndmoreAndroidConstants.NATURE_DEFAULT.equals(natures[0]) == false) {
             // look for the index
             for (int i = 0 ; i < natures.length ; i++) {
-                if (AdtConstants.NATURE_DEFAULT.equals(natures[i])) {
+                if (AndmoreAndroidConstants.NATURE_DEFAULT.equals(natures[i])) {
                     // if we try to just reorder the array in one pass, this doesn't do
                     // anything. I guess JDT check that we are actually adding/removing nature.
                     // So, first we'll remove the android nature, and then add it back.
 
                     // remove the android nature
-                    removeNature(project, AdtConstants.NATURE_DEFAULT);
+                    removeNature(project, AndmoreAndroidConstants.NATURE_DEFAULT);
 
                     // now add it back at the first index.
                     description = project.getDescription();
@@ -654,7 +654,7 @@ public final class ProjectHelper {
                     String[] newNatures = new String[natures.length + 1];
 
                     // first one is android
-                    newNatures[0] = AdtConstants.NATURE_DEFAULT;
+                    newNatures[0] = AndmoreAndroidConstants.NATURE_DEFAULT;
 
                     // next the rest that was before the android nature
                     System.arraycopy(natures, 0, newNatures, 1, natures.length);
@@ -869,7 +869,7 @@ public final class ProjectHelper {
      * @return true if the option value is supported.
      */
     private static boolean checkCompliance(@NonNull IJavaProject project, String optionValue) {
-        for (String s : AdtConstants.COMPILER_COMPLIANCE) {
+        for (String s : AndmoreAndroidConstants.COMPILER_COMPLIANCE) {
             if (s != null && s.equals(optionValue)) {
                 return true;
             }
@@ -937,7 +937,7 @@ public final class ProjectHelper {
 
             //Verify that the project has also the Android Nature
             try {
-                if (!androidJavaProject.getProject().hasNature(AdtConstants.NATURE_DEFAULT)) {
+                if (!androidJavaProject.getProject().hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                     continue;
                 }
             } catch (CoreException e) {
@@ -991,7 +991,7 @@ public final class ProjectHelper {
      *         is missing.
      */
     public static IFile getManifest(IProject project) {
-        IResource r = project.findMember(AdtConstants.WS_SEP
+        IResource r = project.findMember(AndmoreAndroidConstants.WS_SEP
                 + SdkConstants.FN_ANDROID_MANIFEST_XML);
 
         if (r == null || r.exists() == false || (r instanceof IFile) == false) {

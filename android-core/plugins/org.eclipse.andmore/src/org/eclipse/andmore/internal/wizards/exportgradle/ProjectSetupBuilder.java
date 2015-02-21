@@ -21,7 +21,7 @@ import com.android.annotations.Nullable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -106,7 +106,7 @@ public class ProjectSetupBuilder {
             for (IJavaProject javaProject : selectedProjects) {
                 GradleModule module;
 
-                if (javaProject.getProject().hasNature(AdtConstants.NATURE_DEFAULT)) {
+                if (javaProject.getProject().hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                     module = processAndroidProject(javaProject);
                 } else {
                     module = processJavaProject(javaProject);
@@ -259,7 +259,7 @@ public class ProjectSetupBuilder {
         List<IJavaProject> javaDepProjects = getReferencedProjects(javaProject);
         for (IJavaProject javaDep : javaDepProjects) {
             // Java project should not reference Android project!
-            if (javaDep.getProject().hasNature(AdtConstants.NATURE_DEFAULT)) {
+            if (javaDep.getProject().hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                 throw new InternalException(String.format(
                         "Java project %1$s depends on Android project %2$s!\n" +
                         "This is not a valid dependency",

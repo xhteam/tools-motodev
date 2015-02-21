@@ -27,7 +27,7 @@ import com.android.sdkuilib.internal.repository.ui.AdtUpdateDialog;
 import com.android.utils.NullLogger;
 import com.android.utils.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
@@ -462,7 +462,7 @@ public class AddSupportJarAction implements IObjectActionDelegate {
                     libraryName, "_"); //$NON-NLS-1$
             newProject = root.getProject(name);
             IProjectDescription description = workspace.newProjectDescription(name);
-            String[] natures = new String[] { AdtConstants.NATURE_DEFAULT, JavaCore.NATURE_ID };
+            String[] natures = new String[] { AndmoreAndroidConstants.NATURE_DEFAULT, JavaCore.NATURE_ID };
             description.setNatureIds(natures);
             newProject.create(description, monitor);
 

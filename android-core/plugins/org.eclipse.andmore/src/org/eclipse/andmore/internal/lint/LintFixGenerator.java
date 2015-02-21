@@ -27,7 +27,7 @@ import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -111,7 +111,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
     @Override
     public boolean hasResolutions(IMarker marker) {
         try {
-            assert marker.getType().equals(AdtConstants.MARKER_LINT);
+            assert marker.getType().equals(AndmoreAndroidConstants.MARKER_LINT);
         } catch (CoreException e) {
         }
 
@@ -171,7 +171,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
                 return null;
             }
             IDocument document = sourceViewer.getDocument();
-            List<IMarker> markers = AdtUtils.findMarkersOnLine(AdtConstants.MARKER_LINT,
+            List<IMarker> markers = AdtUtils.findMarkersOnLine(AndmoreAndroidConstants.MARKER_LINT,
                     file, document, invocationContext.getOffset());
             List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
             if (markers.size() > 0) {

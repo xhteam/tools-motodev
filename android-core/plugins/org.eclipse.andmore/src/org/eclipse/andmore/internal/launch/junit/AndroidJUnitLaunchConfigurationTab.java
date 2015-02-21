@@ -17,7 +17,7 @@ package org.eclipse.andmore.internal.launch.junit;
 
 import com.android.SdkConstants;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
@@ -712,7 +712,7 @@ public class AndroidJUnitLaunchConfigurationTab extends AbstractLaunchConfigurat
         validateJavaProject(javaProject);
 
         try {
-            if (!project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+            if (!project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                 setErrorMessage(
                         LaunchMessages.NonAndroidProjectError);
                 return;

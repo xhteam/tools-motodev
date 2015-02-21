@@ -21,7 +21,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.google.common.collect.Lists;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
@@ -466,7 +466,7 @@ public final class BaseProjectHelper {
     public static boolean isAndroidProject(IProject project) {
         // check if it's an android project based on its nature
         try {
-            return project.hasNature(AdtConstants.NATURE_DEFAULT);
+            return project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT);
         } catch (CoreException e) {
             // this exception, thrown by IProject.hasNature(), means the project either doesn't
             // exist or isn't opened. So, in any case we just skip it (the exception will

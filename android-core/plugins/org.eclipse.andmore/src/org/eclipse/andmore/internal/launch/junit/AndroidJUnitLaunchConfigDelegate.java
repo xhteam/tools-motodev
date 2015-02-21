@@ -21,7 +21,7 @@ import com.android.ddmlib.testrunner.IRemoteAndroidTestRunner.TestSize;
 import com.android.ide.common.xml.ManifestData;
 import com.android.ide.common.xml.ManifestData.Instrumentation;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.launch.AndroidLaunch;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration;
@@ -237,7 +237,7 @@ public class AndroidJUnitLaunchConfigDelegate extends LaunchConfigDelegate {
                     LaunchMessages.AndroidJUnitDelegate_NoRunnerConsoleMsg_4s,
                     project.getName(),
                     SdkConstants.CLASS_INSTRUMENTATION_RUNNER,
-                    AdtConstants.LIBRARY_TEST_RUNNER,
+                    AndmoreAndroidConstants.LIBRARY_TEST_RUNNER,
                     SdkConstants.FN_ANDROID_MANIFEST_XML));
             return null;
         } catch (CoreException e) {

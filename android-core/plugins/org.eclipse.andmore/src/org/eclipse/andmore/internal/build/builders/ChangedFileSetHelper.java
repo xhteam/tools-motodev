@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.build.builders;
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -89,10 +89,10 @@ class ChangedFileSetHelper {
                 "resources",                                                       //$NON-NLS-1$
                 SdkConstants.FD_RES + "/**",                                       //$NON-NLS-1$
                 SdkConstants.FD_ASSETS + "/**",                                    //$NON-NLS-1$
-                path + '/' + AdtConstants.WS_BIN_RELATIVE_BC + "/**");             //$NON-NLS-1$
+                path + '/' + AndmoreAndroidConstants.WS_BIN_RELATIVE_BC + "/**");             //$NON-NLS-1$
 
         // output file is based on the project's android output folder
-        set.setOutput(path + '/' + AdtConstants.FN_RESOURCES_AP_);
+        set.setOutput(path + '/' + AndmoreAndroidConstants.FN_RESOURCES_AP_);
 
         return set;
     }

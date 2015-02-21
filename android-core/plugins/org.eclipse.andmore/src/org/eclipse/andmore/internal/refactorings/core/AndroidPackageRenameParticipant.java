@@ -33,7 +33,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.resources.ResourceFolderType;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
@@ -175,7 +175,7 @@ public class AndroidPackageRenameParticipant extends RenameParticipant {
                 IJavaProject javaProject = (IJavaProject) mPackageFragment
                         .getAncestor(IJavaElement.JAVA_PROJECT);
                 mProject = javaProject.getProject();
-                IResource manifestResource = mProject.findMember(AdtConstants.WS_SEP
+                IResource manifestResource = mProject.findMember(AndmoreAndroidConstants.WS_SEP
                         + SdkConstants.FN_ANDROID_MANIFEST_XML);
 
                 if (manifestResource == null || !manifestResource.exists()

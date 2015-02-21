@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.build;
 import com.android.annotations.NonNull;
 import com.android.sdklib.build.RenderScriptProcessor.CommandLineLauncher;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFile;
@@ -120,7 +120,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
 
                             // mark the project
                             BaseProjectHelper.markResource(mProject,
-                                    AdtConstants.MARKER_RENDERSCRIPT,
+                                    AndmoreAndroidConstants.MARKER_RENDERSCRIPT,
                                     "Unparsed Renderscript error! Check the console for output.",
                                     IMarker.SEVERITY_ERROR);
                         } else {
@@ -134,7 +134,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                 String msg = String.format("Error executing Renderscript: Return code %1$d",
                         returnCode);
 
-                BaseProjectHelper.markResource(mProject, AdtConstants.MARKER_AIDL,
+                BaseProjectHelper.markResource(mProject, AndmoreAndroidConstants.MARKER_AIDL,
                        msg, IMarker.SEVERITY_ERROR);
 
                 return;
@@ -145,7 +145,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                     "Error executing Renderscript. Please check %1$s is present at %2$s",
                     executable.getName(), executable.getAbsolutePath());
             AdtPlugin.log(IStatus.ERROR, msg);
-            BaseProjectHelper.markResource(mProject, AdtConstants.MARKER_RENDERSCRIPT, msg,
+            BaseProjectHelper.markResource(mProject, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, msg,
                     IMarker.SEVERITY_ERROR);
             throw e;
         } catch (InterruptedException e) {
@@ -154,7 +154,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                     "Error executing Renderscript. Please check %1$s is present at %2$s",
                     executable.getName(), executable.getAbsolutePath());
             AdtPlugin.log(IStatus.ERROR, msg);
-            BaseProjectHelper.markResource(mProject, AdtConstants.MARKER_RENDERSCRIPT, msg,
+            BaseProjectHelper.markResource(mProject, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, msg,
                     IMarker.SEVERITY_ERROR);
             throw e;
         }
@@ -228,7 +228,7 @@ public class RenderScriptLauncher implements CommandLineLauncher {
                 }
 
                 // mark the file
-                BaseProjectHelper.markResource(f, AdtConstants.MARKER_RENDERSCRIPT, msg, line,
+                BaseProjectHelper.markResource(f, AndmoreAndroidConstants.MARKER_RENDERSCRIPT, msg, line,
                         IMarker.SEVERITY_ERROR);
 
                 // success, go to the next line

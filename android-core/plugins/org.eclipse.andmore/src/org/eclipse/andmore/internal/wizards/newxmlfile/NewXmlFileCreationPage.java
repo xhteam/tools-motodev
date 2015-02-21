@@ -23,7 +23,7 @@ import static com.android.SdkConstants.RES_QUALIFIER_SEP;
 import static com.android.SdkConstants.SCROLL_VIEW;
 import static com.android.SdkConstants.VALUE_FILL_PARENT;
 import static com.android.SdkConstants.VALUE_MATCH_PARENT;
-import static org.eclipse.andmore.AdtConstants.WS_SEP_CHAR;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP_CHAR;
 import static org.eclipse.andmore.internal.wizards.newxmlfile.ChooseConfigurationPage.RES_FOLDER_ABS;
 
 import com.android.SdkConstants;
@@ -34,7 +34,7 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.utils.Pair;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -634,7 +634,7 @@ class NewXmlFileCreationPage extends WizardPage {
 
                 // Is this an Android project?
                 try {
-                    if (project == null || !project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                    if (project == null || !project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                         continue;
                     }
                 } catch (CoreException e) {

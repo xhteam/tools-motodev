@@ -48,7 +48,7 @@ import com.android.util.Pair;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
 import org.eclipse.andmore.internal.editors.layout.gle2.LayoutMetadata;
@@ -298,7 +298,7 @@ public final class ProjectCallback extends LegacyCallback {
                 ManifestData manifestData = AndroidManifestHelper.parseForData(mProject);
                 if (manifestData != null) {
                     String javaPackage = manifestData.getPackage();
-                    mNamespace = String.format(AdtConstants.NS_CUSTOM_RESOURCES, javaPackage);
+                    mNamespace = String.format(AndmoreAndroidConstants.NS_CUSTOM_RESOURCES, javaPackage);
                 }
             } finally {
                 RenderSecurityManager.exitSafeRegion(token);

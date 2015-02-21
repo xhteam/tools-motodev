@@ -153,7 +153,7 @@ public class LintDeltaProcessor implements Runnable {
      *
      * @param resourceMonitor the resource monitor
      */
-    public static void startListening(@NonNull GlobalProjectMonitor resourceMonitor) {
+    public static synchronized void startListening(@NonNull GlobalProjectMonitor resourceMonitor) {
         // Add a file listener which finds out when files have changed. This is listening
         // specifically for saves of Java files, in order to run incremental lint on them.
         // Note that the {@link PostCompilerBuilder} already handles incremental lint files
@@ -191,7 +191,7 @@ public class LintDeltaProcessor implements Runnable {
      *
      * @param resourceMonitor the resource monitor
      */
-    public static void stopListening(@NonNull GlobalProjectMonitor resourceMonitor) {
+    public static synchronized void stopListening(@NonNull GlobalProjectMonitor resourceMonitor) {
         assert sListener != null;
         resourceMonitor.removeFileListener(sListener);
         sListener = null;

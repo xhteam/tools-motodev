@@ -26,7 +26,7 @@ import com.android.io.FolderWrapper;
 import com.android.resources.ResourceFolderType;
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.resources.ResourceHelper;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor.IProjectListener;
@@ -230,7 +230,7 @@ public final class ResourceManager {
         final IProject project = folder.getProject();
 
         try {
-            if (project.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+            if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                 return;
             }
         } catch (CoreException e) {
@@ -315,7 +315,7 @@ public final class ResourceManager {
         final IProject project = file.getProject();
 
         try {
-            if (project.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+            if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                 return;
             }
         } catch (CoreException e) {
@@ -423,7 +423,7 @@ public final class ResourceManager {
                     IProject project = (IProject) delta.getResource();
 
                     try {
-                        if (project.hasNature(AdtConstants.NATURE_DEFAULT) == false) {
+                        if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT) == false) {
                             continue;
                         }
                     } catch (CoreException e) {

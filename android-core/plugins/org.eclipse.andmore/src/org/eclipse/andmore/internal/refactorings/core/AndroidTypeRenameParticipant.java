@@ -36,7 +36,7 @@ import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.utils.SdkUtils;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
@@ -137,7 +137,7 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
             IType type = (IType) element;
             IJavaProject javaProject = (IJavaProject) type.getAncestor(IJavaElement.JAVA_PROJECT);
             mProject = javaProject.getProject();
-            IResource manifestResource = mProject.findMember(AdtConstants.WS_SEP
+            IResource manifestResource = mProject.findMember(AndmoreAndroidConstants.WS_SEP
                     + SdkConstants.FN_ANDROID_MANIFEST_XML);
 
             if (manifestResource == null || !manifestResource.exists()
@@ -234,7 +234,7 @@ public class AndroidTypeRenameParticipant extends RenameParticipant {
             Collection<ProjectState> parentProjects = projectState.getFullParentProjects();
             for (ProjectState parentProject : parentProjects) {
                 IProject project = parentProject.getProject();
-                IResource manifestResource = project.findMember(AdtConstants.WS_SEP
+                IResource manifestResource = project.findMember(AndmoreAndroidConstants.WS_SEP
                         + SdkConstants.FN_ANDROID_MANIFEST_XML);
                 if (manifestResource != null && manifestResource.exists()
                         && manifestResource instanceof IFile) {

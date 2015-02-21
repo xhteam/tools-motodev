@@ -24,7 +24,7 @@ import com.android.ide.common.xml.ManifestData;
 import com.android.resources.ResourceType;
 import com.android.util.Pair;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
@@ -123,7 +123,7 @@ public final class CompiledResourcesMonitor implements IFileListener, IProjectLi
 
         // then split the components of each path by their separators
         String [] pathArray = pathWithoutExtension.split(Pattern.quote(File.separator));
-        String [] packageArray = packageName.split(AdtConstants.RE_DOT);
+        String [] packageArray = packageName.split(AndmoreAndroidConstants.RE_DOT);
 
 
         int pathIndex = 0;
@@ -179,7 +179,7 @@ public final class CompiledResourcesMonitor implements IFileListener, IProjectLi
     public void projectOpenedWithWorkspace(IProject project) {
         try {
             // check this is an android project
-            if (project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+            if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                 String className = getRClassName(project);
                 // Find the classname
                 if (className == null) {

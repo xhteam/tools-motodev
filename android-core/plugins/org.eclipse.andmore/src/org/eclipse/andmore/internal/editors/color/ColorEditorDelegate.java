@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.color;
 
-import static org.eclipse.andmore.AdtConstants.EDITORS_NAMESPACE;
+import static org.eclipse.andmore.AndmoreAndroidConstants.EDITORS_NAMESPACE;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;

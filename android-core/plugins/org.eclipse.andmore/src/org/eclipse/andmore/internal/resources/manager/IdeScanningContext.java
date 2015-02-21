@@ -16,7 +16,7 @@
 package org.eclipse.andmore.internal.resources.manager;
 
 import static com.android.SdkConstants.ANDROID_URI;
-import static org.eclipse.andmore.AdtConstants.MARKER_AAPT_COMPILE;
+import static org.eclipse.andmore.AndmoreAndroidConstants.MARKER_AAPT_COMPILE;
 import static org.eclipse.core.resources.IResource.DEPTH_ONE;
 import static org.eclipse.core.resources.IResource.DEPTH_ZERO;
 

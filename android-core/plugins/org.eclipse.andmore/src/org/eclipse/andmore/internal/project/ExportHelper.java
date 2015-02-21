@@ -26,7 +26,7 @@ import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.android.xml.AndroidManifest;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AndroidPrintStream;
 import org.eclipse.andmore.internal.build.BuildHelper;
@@ -127,10 +127,10 @@ public final class ExportHelper {
             ProjectState projectState = Sdk.getProjectState(project);
 
             // get the jumbo mode option
-            String forceJumboStr = projectState.getProperty(AdtConstants.DEX_OPTIONS_FORCEJUMBO);
+            String forceJumboStr = projectState.getProperty(AndmoreAndroidConstants.DEX_OPTIONS_FORCEJUMBO);
             Boolean jumbo = Boolean.valueOf(forceJumboStr);
 
-            String dexMergerStr = projectState.getProperty(AdtConstants.DEX_OPTIONS_DISABLE_MERGER);
+            String dexMergerStr = projectState.getProperty(AndmoreAndroidConstants.DEX_OPTIONS_DISABLE_MERGER);
             Boolean dexMerger = Boolean.valueOf(dexMergerStr);
 
             BuildToolInfo buildToolInfo = getBuildTools(projectState);
@@ -220,7 +220,7 @@ public final class ExportHelper {
 
                 // get the proguard file output by aapt
                 if (proguardConfigFiles != null) {
-                    IFile proguardFile = androidOutputFolder.getFile(AdtConstants.FN_AAPT_PROGUARD);
+                    IFile proguardFile = androidOutputFolder.getFile(AndmoreAndroidConstants.FN_AAPT_PROGUARD);
                     proguardConfigFiles.add(proguardFile.getLocation().toFile());
                 }
             }

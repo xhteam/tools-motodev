@@ -143,9 +143,13 @@ public final class ProjectState {
                 LibraryState objState = (LibraryState)obj;
                 return mRelativePath.equals(objState.mRelativePath) &&
                         getMainProjectState().equals(objState.getMainProjectState());
-            } else if (obj instanceof ProjectState || obj instanceof IProject) {
+            }
+            
+            if (obj instanceof ProjectState || obj instanceof IProject) {
                 return mProjectState != null && mProjectState.equals(obj);
-            } else if (obj instanceof String) {
+            }
+            
+            if (obj instanceof String) {
                 return normalizePath(mRelativePath).equals(normalizePath((String) obj));
             }
 
@@ -721,7 +725,9 @@ public final class ProjectState {
     public boolean equals(Object obj) {
         if (obj instanceof ProjectState) {
             return mProject.equals(((ProjectState) obj).mProject);
-        } else if (obj instanceof IProject) {
+        }
+        
+        if (obj instanceof IProject) {
             return mProject.equals(obj);
         }
 

@@ -23,7 +23,7 @@ import static org.eclipse.andmore.internal.editors.manifest.descriptors.AndroidM
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.editors.descriptors.ElementDescriptor;
@@ -66,7 +66,7 @@ import java.util.List;
 @SuppressWarnings("restriction")
 public final class ManifestEditor extends AndroidXmlEditor {
 
-    public static final String ID = AdtConstants.EDITORS_NAMESPACE + ".manifest.ManifestEditor"; //$NON-NLS-1$
+    public static final String ID = AndmoreAndroidConstants.EDITORS_NAMESPACE + ".manifest.ManifestEditor"; //$NON-NLS-1$
 
     private final static String EMPTY = ""; //$NON-NLS-1$
 
@@ -342,7 +342,7 @@ public final class ManifestEditor extends AndroidXmlEditor {
         try {
             // get the markers for the file
             IMarker[] markers = inputFile.findMarkers(
-                    AdtConstants.MARKER_ANDROID, true, IResource.DEPTH_ZERO);
+                    AndmoreAndroidConstants.MARKER_ANDROID, true, IResource.DEPTH_ZERO);
 
             AndroidManifestDescriptors desc = getManifestDescriptors();
             if (desc != null) {
@@ -390,12 +390,12 @@ public final class ManifestEditor extends AndroidXmlEditor {
      */
     private void processMarker(IMarker marker, List<UiElementNode> nodeList, int kind) {
         // get the data from the marker
-        String nodeType = marker.getAttribute(AdtConstants.MARKER_ATTR_TYPE, EMPTY);
+        String nodeType = marker.getAttribute(AndmoreAndroidConstants.MARKER_ATTR_TYPE, EMPTY);
         if (nodeType == EMPTY) {
             return;
         }
 
-        String className = marker.getAttribute(AdtConstants.MARKER_ATTR_CLASS, EMPTY);
+        String className = marker.getAttribute(AndmoreAndroidConstants.MARKER_ATTR_CLASS, EMPTY);
         if (className == EMPTY) {
             return;
         }

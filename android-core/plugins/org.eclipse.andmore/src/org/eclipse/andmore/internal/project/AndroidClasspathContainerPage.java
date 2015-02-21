@@ -17,7 +17,7 @@
 
 package org.eclipse.andmore.internal.project;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -63,7 +63,7 @@ public class AndroidClasspathContainerPage extends WizardPage implements IClassp
 
     @Override
     public IClasspathEntry getSelection() {
-        IPath path = new Path(AdtConstants.CONTAINER_FRAMEWORK);
+        IPath path = new Path(AndmoreAndroidConstants.CONTAINER_FRAMEWORK);
 
         final int index = this.mProjectsCombo.getSelectionIndex();
         if (index != -1) {

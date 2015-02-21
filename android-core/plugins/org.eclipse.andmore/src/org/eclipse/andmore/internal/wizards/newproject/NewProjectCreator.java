@@ -32,7 +32,7 @@ import com.android.resources.Density;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferences;
@@ -137,34 +137,34 @@ public class NewProjectCreator  {
     private static final String PH_TEST_INSTRUMENTATION = "TEST-INSTRUMENTATION";   //$NON-NLS-1$
 
     private static final String BIN_DIRECTORY =
-        SdkConstants.FD_OUTPUT + AdtConstants.WS_SEP;
+        SdkConstants.FD_OUTPUT + AndmoreAndroidConstants.WS_SEP;
     private static final String BIN_CLASSES_DIRECTORY =
-        SdkConstants.FD_OUTPUT + AdtConstants.WS_SEP +
-        SdkConstants.FD_CLASSES_OUTPUT + AdtConstants.WS_SEP;
+        SdkConstants.FD_OUTPUT + AndmoreAndroidConstants.WS_SEP +
+        SdkConstants.FD_CLASSES_OUTPUT + AndmoreAndroidConstants.WS_SEP;
     private static final String RES_DIRECTORY =
-        SdkConstants.FD_RESOURCES + AdtConstants.WS_SEP;
+        SdkConstants.FD_RESOURCES + AndmoreAndroidConstants.WS_SEP;
     private static final String ASSETS_DIRECTORY =
-        SdkConstants.FD_ASSETS + AdtConstants.WS_SEP;
+        SdkConstants.FD_ASSETS + AndmoreAndroidConstants.WS_SEP;
     private static final String DRAWABLE_DIRECTORY =
-        SdkConstants.FD_RES_DRAWABLE + AdtConstants.WS_SEP;
+        SdkConstants.FD_RES_DRAWABLE + AndmoreAndroidConstants.WS_SEP;
     private static final String DRAWABLE_XHDPI_DIRECTORY =
             SdkConstants.FD_RES_DRAWABLE + '-' + Density.XHIGH.getResourceValue() +
-            AdtConstants.WS_SEP;
+            AndmoreAndroidConstants.WS_SEP;
     private static final String DRAWABLE_HDPI_DIRECTORY =
             SdkConstants.FD_RES_DRAWABLE + '-' + Density.HIGH.getResourceValue() +
-            AdtConstants.WS_SEP;
+            AndmoreAndroidConstants.WS_SEP;
     private static final String DRAWABLE_MDPI_DIRECTORY =
         SdkConstants.FD_RES_DRAWABLE + '-' + Density.MEDIUM.getResourceValue() +
-        AdtConstants.WS_SEP;
+        AndmoreAndroidConstants.WS_SEP;
     private static final String DRAWABLE_LDPI_DIRECTORY =
         SdkConstants.FD_RES_DRAWABLE + '-' + Density.LOW.getResourceValue() +
-        AdtConstants.WS_SEP;
+        AndmoreAndroidConstants.WS_SEP;
     private static final String LAYOUT_DIRECTORY =
-        SdkConstants.FD_RES_LAYOUT + AdtConstants.WS_SEP;
+        SdkConstants.FD_RES_LAYOUT + AndmoreAndroidConstants.WS_SEP;
     private static final String VALUES_DIRECTORY =
-        SdkConstants.FD_RES_VALUES + AdtConstants.WS_SEP;
+        SdkConstants.FD_RES_VALUES + AndmoreAndroidConstants.WS_SEP;
     private static final String GEN_SRC_DIRECTORY =
-        SdkConstants.FD_GEN_SOURCES + AdtConstants.WS_SEP;
+        SdkConstants.FD_GEN_SOURCES + AndmoreAndroidConstants.WS_SEP;
 
     private static final String TEMPLATES_DIRECTORY = "templates/"; //$NON-NLS-1$
     private static final String TEMPLATE_MANIFEST = TEMPLATES_DIRECTORY
@@ -733,7 +733,7 @@ public class NewProjectCreator  {
         AndroidNature.setupProjectNatures(project, monitor, isAndroidProject);
 
         // Create folders in the project if they don't already exist
-        addDefaultDirectories(project, AdtConstants.WS_ROOT, DEFAULT_DIRECTORIES, monitor);
+        addDefaultDirectories(project, AndmoreAndroidConstants.WS_ROOT, DEFAULT_DIRECTORIES, monitor);
         String[] sourceFolders;
         if (isAndroidProject) {
             sourceFolders = new String[] {
@@ -745,7 +745,7 @@ public class NewProjectCreator  {
                     (String) parameters.get(PARAM_SRC_FOLDER)
                 };
         }
-        addDefaultDirectories(project, AdtConstants.WS_ROOT, sourceFolders, monitor);
+        addDefaultDirectories(project, AndmoreAndroidConstants.WS_ROOT, sourceFolders, monitor);
 
         // Create the resource folders in the project if they don't already exist.
         if (legacy) {
@@ -1090,8 +1090,8 @@ public class NewProjectCreator  {
             throws CoreException, IOException {
 
         // create the IFile object and check if the file doesn't already exist.
-        IFile file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                                     + VALUES_DIRECTORY + AdtConstants.WS_SEP + STRINGS_FILE);
+        IFile file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                                     + VALUES_DIRECTORY + AndmoreAndroidConstants.WS_SEP + STRINGS_FILE);
         if (!file.exists()) {
             // get the Strings.xml template
             String stringDefinitionTemplate = AdtPlugin.readEmbeddedTextFile(TEMPLATE_STRINGS);
@@ -1159,8 +1159,8 @@ public class NewProjectCreator  {
             throws CoreException {
         if (legacy) { // density support
             // do medium density icon only, in the default drawable folder.
-            IFile file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                    + DRAWABLE_DIRECTORY + AdtConstants.WS_SEP + PROJECT_ICON);
+            IFile file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                    + DRAWABLE_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
                 addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
             }
@@ -1169,29 +1169,29 @@ public class NewProjectCreator  {
             IFile file;
 
             // extra high density
-            file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                    + DRAWABLE_XHDPI_DIRECTORY + AdtConstants.WS_SEP + PROJECT_ICON);
+            file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                    + DRAWABLE_XHDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
                 addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_XHDPI), monitor);
             }
 
             // high density
-            file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                    + DRAWABLE_HDPI_DIRECTORY + AdtConstants.WS_SEP + PROJECT_ICON);
+            file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                    + DRAWABLE_HDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
                 addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_HDPI), monitor);
             }
 
             // medium density
-            file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                    + DRAWABLE_MDPI_DIRECTORY + AdtConstants.WS_SEP + PROJECT_ICON);
+            file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                    + DRAWABLE_MDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
                 addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_MDPI), monitor);
             }
 
             // low density
-            file = project.getFile(RES_DIRECTORY + AdtConstants.WS_SEP
-                    + DRAWABLE_LDPI_DIRECTORY + AdtConstants.WS_SEP + PROJECT_ICON);
+            file = project.getFile(RES_DIRECTORY + AndmoreAndroidConstants.WS_SEP
+                    + DRAWABLE_LDPI_DIRECTORY + AndmoreAndroidConstants.WS_SEP + PROJECT_ICON);
             if (!file.exists()) {
                 addFile(file, AdtPlugin.readEmbeddedFile(TEMPLATES_DIRECTORY + ICON_LDPI), monitor);
             }
@@ -1273,7 +1273,7 @@ public class NewProjectCreator  {
             }
         }
 
-        String[] components = packageName.split(AdtConstants.RE_DOT);
+        String[] components = packageName.split(AndmoreAndroidConstants.RE_DOT);
         for (String component : components) {
             pkgFolder = pkgFolder.getFolder(component);
             if (!pkgFolder.exists()) {

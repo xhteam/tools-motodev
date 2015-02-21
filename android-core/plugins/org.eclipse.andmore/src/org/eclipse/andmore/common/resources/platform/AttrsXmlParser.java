@@ -17,7 +17,7 @@
 package org.eclipse.andmore.common.resources.platform;
 
 import static com.android.SdkConstants.DOT_LAYOUT_PARAMS;
-import static org.eclipse.andmore.AdtConstants.DOC_HIDE;
+import static org.eclipse.andmore.AndmoreAndroidConstants.DOC_HIDE;
 
 import com.android.ide.common.api.IAttributeInfo.Format;
 import com.android.utils.ILogger;

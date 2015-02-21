@@ -19,7 +19,7 @@ package org.eclipse.andmore.internal.editors.common;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.resources.ResourceFolderType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
@@ -60,7 +60,7 @@ import org.w3c.dom.Document;
  */
 public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInput {
 
-    public static final String ID = AdtConstants.EDITORS_NAMESPACE + ".CommonXmlEditor"; //$NON-NLS-1$
+    public static final String ID = AndmoreAndroidConstants.EDITORS_NAMESPACE + ".CommonXmlEditor"; //$NON-NLS-1$
 
     /**
      * Registered {@link CommonXmlDelegate}s.
@@ -114,13 +114,13 @@ public class CommonXmlEditor extends AndroidXmlEditor implements IShowEditorInpu
             String id = file_desc == null ? null : file_desc.getId();
             boolean mustChange = id != null &&
                                  !id.equals(ID) &&
-                                 id.startsWith(AdtConstants.EDITORS_NAMESPACE);
+                                 id.startsWith(AndmoreAndroidConstants.EDITORS_NAMESPACE);
             if (!mustChange) {
                 // Maybe this was opened by a manual Open With with a legacy ID?
                 id = site.getId();
                 mustChange = id != null &&
                              !id.equals(ID) &&
-                             id.startsWith(AdtConstants.EDITORS_NAMESPACE);
+                             id.startsWith(AndmoreAndroidConstants.EDITORS_NAMESPACE);
             }
 
             if (mustChange) {

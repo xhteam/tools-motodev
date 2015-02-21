@@ -21,7 +21,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.resources.ResourceNameValidator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -203,7 +203,7 @@ public class RenameResourceProcessor extends RenameProcessor {
     @Override
     public RefactoringParticipant[] loadParticipants(RefactoringStatus status,
             SharableParticipants shared) throws CoreException {
-        String[] affectedNatures = new String[] { AdtConstants.NATURE_DEFAULT };
+        String[] affectedNatures = new String[] { AndmoreAndroidConstants.NATURE_DEFAULT };
         String url = PREFIX_RESOURCE_REF + mType.getName() + '/' + mCurrentName;
         return ParticipantManager.loadRenameParticipants(status, this, url, mRenameArguments,
                 null, affectedNatures, shared);

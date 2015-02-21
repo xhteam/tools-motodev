@@ -30,7 +30,7 @@ import static com.android.SdkConstants.PREFIX_RESOURCE_REF;
 import static com.android.SdkConstants.STYLE_RESOURCE_PREFIX;
 import static com.android.SdkConstants.TAG_ITEM;
 import static com.android.SdkConstants.TAG_RESOURCES;
-import static org.eclipse.andmore.AdtConstants.WS_SEP;
+import static org.eclipse.andmore.AndmoreAndroidConstants.WS_SEP;
 
 import com.android.ide.common.rendering.api.ResourceValue;
 import com.android.ide.common.resources.ResourceDeltaKind;

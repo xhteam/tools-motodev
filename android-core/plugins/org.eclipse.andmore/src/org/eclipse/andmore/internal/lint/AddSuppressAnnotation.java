@@ -398,7 +398,7 @@ class AddSuppressAnnotation implements IMarkerResolution2 {
                 // and on classes, not on variable declarations
                 if (isClassDetector && !(body instanceof MethodDeclaration
                             || body instanceof TypeDeclaration
-                            || body instanceof AnonymousClassDeclaration
+//                            || body instanceof AnonymousClassDeclaration
                             || body instanceof FieldDeclaration)) {
                     continue;
                 }

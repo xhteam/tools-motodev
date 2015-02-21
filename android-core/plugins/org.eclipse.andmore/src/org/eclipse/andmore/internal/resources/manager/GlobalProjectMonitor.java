@@ -21,7 +21,7 @@ import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.ResourceFolder;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.core.resources.IFile;
@@ -256,7 +256,7 @@ public final class GlobalProjectMonitor {
                 IProject project = (IProject)r;
 
                 try {
-                    mIsAndroidProject = project.hasNature(AdtConstants.NATURE_DEFAULT);
+                    mIsAndroidProject = project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT);
                 } catch (CoreException e) {
                     // this can only happen if the project does not exist or is not open, neither
                     // of which can happen here since we are processing changes in the project
@@ -512,7 +512,7 @@ public final class GlobalProjectMonitor {
                 // notify the listeners.
                 for (IProjectListener pl : mProjectListeners) {
                     try {
-                        if (project.hasNature(AdtConstants.NATURE_DEFAULT)) {
+                        if (project.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT)) {
                             try {
                                 pl.projectDeleted(project);
                             } catch (Throwable t) {

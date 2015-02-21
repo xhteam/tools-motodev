@@ -20,7 +20,7 @@ import com.android.SdkConstants;
 import com.android.ide.common.rendering.api.ILayoutPullParser;
 import com.android.layoutlib.api.ILayoutResult.ILayoutViewInfo;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.internal.editors.layout.descriptors.ViewElementDescriptor;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -44,7 +44,7 @@ public class WidgetPullParser extends BasePullParser {
     public WidgetPullParser(ViewElementDescriptor descriptor) {
         mDescriptor = descriptor;
 
-        String[] segments = mDescriptor.getFullClassName().split(AdtConstants.RE_DOT);
+        String[] segments = mDescriptor.getFullClassName().split(AndmoreAndroidConstants.RE_DOT);
         mAttributes[0][1] = segments[segments.length-1];
     }
 

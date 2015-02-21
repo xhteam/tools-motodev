@@ -23,7 +23,7 @@ import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.resources.ResourceType;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.resources.manager.GlobalProjectMonitor;
 import org.eclipse.andmore.internal.resources.manager.ResourceManager;
@@ -196,7 +196,7 @@ public final class LayoutReloadMonitor {
 
                 for (IProject p : referencingProjects) {
                     try {
-                        boolean hasAndroidNature = p.hasNature(AdtConstants.NATURE_DEFAULT);
+                        boolean hasAndroidNature = p.hasNature(AndmoreAndroidConstants.NATURE_DEFAULT);
                         if (hasAndroidNature) {
                             // the changed project is a dependency on an Android project,
                             // update the main project.

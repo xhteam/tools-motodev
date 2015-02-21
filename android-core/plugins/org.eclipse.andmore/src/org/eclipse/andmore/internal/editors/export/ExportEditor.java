@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.internal.editors.export;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.internal.editors.AndroidTextEditor;
 import org.eclipse.core.resources.IFile;
@@ -31,7 +31,7 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public class ExportEditor extends AndroidTextEditor {
 
-    public static final String ID = AdtConstants.EDITORS_NAMESPACE + ".text.ExportEditor"; //$NON-NLS-1$
+    public static final String ID = AndmoreAndroidConstants.EDITORS_NAMESPACE + ".text.ExportEditor"; //$NON-NLS-1$
 
     private ExportPropertiesPage mExportPropsPage;
 

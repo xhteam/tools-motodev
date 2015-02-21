@@ -21,7 +21,7 @@ import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FD_RES_COLOR;
 import static com.android.SdkConstants.FD_RES_LAYOUT;
 
-import org.eclipse.andmore.AdtConstants;
+import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.build.AaptParser;
@@ -131,7 +131,7 @@ public class AaptQuickFixTest extends AdtProjectTest {
 		final ISourceViewer viewer = layoutEditor.getStructuredSourceViewer();
 
 		// Test marker resolution.
-		IMarker[] markers = file.findMarkers(AdtConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
+		IMarker[] markers = file.findMarkers(AndmoreAndroidConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
 		for (IMarker marker : markers) {
 			int start = marker.getAttribute(IMarker.CHAR_START, 0);
 			int end = marker.getAttribute(IMarker.CHAR_END, 0);
@@ -242,7 +242,7 @@ public class AaptQuickFixTest extends AdtProjectTest {
 		final ISourceViewer viewer = layoutEditor.getStructuredSourceViewer();
 
 		// Test marker resolution.
-		IMarker[] markers = file.findMarkers(AdtConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
+		IMarker[] markers = file.findMarkers(AndmoreAndroidConstants.MARKER_AAPT_COMPILE, true, IResource.DEPTH_ZERO);
 		assertEquals(1, markers.length);
 		IMarker marker = markers[0];
 		// Found the target marker. Now check the marker resolution of it.
