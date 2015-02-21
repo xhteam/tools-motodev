@@ -32,7 +32,7 @@ import org.eclipse.andmore.android.certmanager.ui.tree.LastBackupDateColumnLabel
 import org.eclipse.andmore.android.certmanager.ui.tree.NameAliasColumnLabelProvider;
 import org.eclipse.andmore.android.certmanager.ui.tree.PathColumnLabelProvider;
 import org.eclipse.andmore.android.certmanager.ui.tree.TypeColumnLabelProvider;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -52,7 +52,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * View to manage certificates under MOTODEV Studio for Android
+ * View to manage certificates under Eclipse Andmore
  */
 public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListener {
 	/**
@@ -158,7 +158,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
 
 	/**
 	 * Loads the keystores from preference and
-	 * <user_home>\motodevstudio\tools\motodev.keystore
+	 * <user_home>\motodevstudio\tools\andmore.keystore
 	 * 
 	 * @return root node (invisible) that contains as children the keystores.
 	 */
@@ -306,7 +306,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
 						try {
 							getTreeViewer().remove(treeNode, treeNode.getChildren().toArray());
 						} catch (KeyStoreManagerException e) {
-							StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+							AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 						}
 
 						getTreeViewer().refresh(treeNode, true);
@@ -329,7 +329,7 @@ public class KeystoreManagerView extends ViewPart implements IKeyStoreModelListe
 							getTreeViewer().remove(treeNode, treeNode.getChildren().toArray());
 							getTreeViewer().setChildCount(treeNode, 0);
 						} catch (KeyStoreManagerException e) {
-							StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+							AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 						}
 					}
 				}

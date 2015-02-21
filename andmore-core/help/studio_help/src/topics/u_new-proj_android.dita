@@ -2,7 +2,7 @@
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "../dtd/reference.dtd">
 <reference id="u_new-proj_android" xml:lang="en-us">
   <title>New Android Project wizard</title>
-  <shortdesc>Creates a MOTODEV Studio for Android project.</shortdesc>
+  <shortdesc>Creates a Eclipse Andmore project.</shortdesc>
   <prolog>
     <metadata>
       <keywords>
@@ -73,7 +73,7 @@
         </strow>
         <strow>
           <stentry><uicontrol>Add native support</uicontrol></stentry>
-          <stentry>If this project will have native components and you will be using MOTODEV Studio for Android to
+          <stentry>If this project will have native components and you will be using Eclipse Andmore to
             manage and build those components (along with the non-native components, such as Java source files and xml
             layout files), select this option. Note that in order to work with native code within MOTODEV Studio for
             Android you must have the Android NDK properly installed and configured. Also note that you can add native

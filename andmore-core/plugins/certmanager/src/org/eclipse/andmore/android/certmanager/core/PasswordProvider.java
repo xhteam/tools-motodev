@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.equinox.security.storage.ISecurePreferences;
 import org.eclipse.equinox.security.storage.SecurePreferencesFactory;
@@ -411,7 +411,7 @@ public class PasswordProvider {
 											// default value (because password
 											// length should be at least 6
 			} catch (StorageException e) {
-				StudioLogger.debug("It was not possible to get if the " + prefKey + " is saved or not");
+				AndmoreLogger.debug("It was not possible to get if the " + prefKey + " is saved or not");
 				isSaved = false;
 			}
 		}

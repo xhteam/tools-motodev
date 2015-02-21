@@ -69,12 +69,12 @@
        <category name="Andmore Android Core SDK"/>
    </feature>
 
-   <category-def name="MotoDev Studio Plugin" label="MotoDev Plugins">
+   <category-def name="Andmore Plugin" label="Andmore Plugins">
       <description>
          P2 update site for Andmore
       </description>
    </category-def>
-   <category-def name="MotoDev Studio" label="MotoDev Studio">
+   <category-def name="Eclipse Andmore" label="Eclipse Andmore">
       <description>
          All of Andmore
       </description>

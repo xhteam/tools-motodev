@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.device;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.sequoyah.device.common.utilities.logger.LoggerConstants;
 
 /**
@@ -41,7 +41,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void debug(Object message) {
 		if (message instanceof String) {
-			StudioLogger.debug((String) message);
+			AndmoreLogger.debug((String) message);
 		}
 	}
 
@@ -55,7 +55,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void error(Object message, Object throwable) {
 		if (message instanceof String) {
-			StudioLogger.error((String) message);
+			AndmoreLogger.error((String) message);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void error(Object message) {
 		if (message instanceof String) {
-			StudioLogger.error((String) message);
+			AndmoreLogger.error((String) message);
 		}
 	}
 
@@ -81,7 +81,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void fatal(Object message) {
 		if (message instanceof String) {
-			StudioLogger.fatal((String) message);
+			AndmoreLogger.fatal((String) message);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void info(Object message) {
 		if (message instanceof String) {
-			StudioLogger.info((String) message);
+			AndmoreLogger.info((String) message);
 		}
 	}
 
@@ -122,15 +122,15 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 		String priorityStr = (String) priority;
 		if (message instanceof String) {
 			if (priorityStr.equals(LoggerConstants.FATAL)) {
-				StudioLogger.fatal((String) message);
+				AndmoreLogger.fatal((String) message);
 			} else if (priorityStr.equals(LoggerConstants.ERROR)) {
-				StudioLogger.error((String) message);
+				AndmoreLogger.error((String) message);
 			} else if (priorityStr.equals(LoggerConstants.WARNING)) {
-				StudioLogger.warn((String) message);
+				AndmoreLogger.warn((String) message);
 			} else if (priorityStr.equals(LoggerConstants.INFO)) {
-				StudioLogger.info((String) message);
+				AndmoreLogger.info((String) message);
 			} else if (priorityStr.equals(LoggerConstants.DEBUG)) {
-				StudioLogger.debug((String) message);
+				AndmoreLogger.debug((String) message);
 			}
 		}
 	}
@@ -144,7 +144,7 @@ public class SequoyahLogRedirector implements org.eclipse.sequoyah.vnc.utilities
 	@Override
 	public void warn(Object message) {
 		if (message instanceof String) {
-			StudioLogger.warn((String) message);
+			AndmoreLogger.warn((String) message);
 		}
 	}
 

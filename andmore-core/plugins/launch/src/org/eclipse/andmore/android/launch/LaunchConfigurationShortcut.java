@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.ISerialNumbered;
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.DevicesManager;
 import org.eclipse.andmore.android.launch.i18n.LaunchNLS;
 import org.eclipse.core.resources.IProject;
@@ -202,7 +202,7 @@ public class LaunchConfigurationShortcut implements ILaunchShortcut {
 					}
 				}
 			} catch (CoreException e) {
-				StudioLogger.error(LaunchConfigurationShortcut.class,
+				AndmoreLogger.error(LaunchConfigurationShortcut.class,
 						"Error searching for launch configuration for resource: " + resource.getName(), e);
 			}
 		}
@@ -224,12 +224,12 @@ public class LaunchConfigurationShortcut implements ILaunchShortcut {
 		List<ILaunchConfiguration> matches;
 
 		ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType motodevLaunchType = launchManager
+		ILaunchConfigurationType andmoreLaunchType = launchManager
 				.getLaunchConfigurationType(ILaunchConfigurationConstants.LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID);
 
-		ILaunchConfiguration[] motodevLaunchConfigurations = launchManager.getLaunchConfigurations(motodevLaunchType);
-		matches = new ArrayList<ILaunchConfiguration>(motodevLaunchConfigurations.length);
-		for (ILaunchConfiguration launchConfiguration : motodevLaunchConfigurations) {
+		ILaunchConfiguration[] andmoreLaunchConfigurations = launchManager.getLaunchConfigurations(andmoreLaunchType);
+		matches = new ArrayList<ILaunchConfiguration>(andmoreLaunchConfigurations.length);
+		for (ILaunchConfiguration launchConfiguration : andmoreLaunchConfigurations) {
 			if (launchConfiguration
 					.getAttribute(ILaunchConfigurationConstants.ATTR_PROJECT_NAME, "").equals(project.getName())) //$NON-NLS-1$
 			{
@@ -273,7 +273,7 @@ public class LaunchConfigurationShortcut implements ILaunchShortcut {
 	private ILaunchConfiguration createLaunchConfiguration(IResource resource) {
 		ILaunchConfiguration config = null;
 		ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType motodevLaunchType = launchManager
+		ILaunchConfigurationType andmoreLaunchType = launchManager
 				.getLaunchConfigurationType(ILaunchConfigurationConstants.LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID);
 		String projectName;
 
@@ -281,7 +281,7 @@ public class LaunchConfigurationShortcut implements ILaunchShortcut {
 
 		String launchConfigurationName = launchManager.generateLaunchConfigurationName(configBaseName);
 		try {
-			ILaunchConfigurationWorkingCopy workingCopy = motodevLaunchType.newInstance(null, launchConfigurationName);
+			ILaunchConfigurationWorkingCopy workingCopy = andmoreLaunchType.newInstance(null, launchConfigurationName);
 
 			// Set Defaults
 			workingCopy.setAttribute(ILaunchConfigurationConstants.ATTR_PROJECT_NAME,
@@ -320,7 +320,7 @@ public class LaunchConfigurationShortcut implements ILaunchShortcut {
 
 			config = workingCopy.doSave();
 		} catch (CoreException e) {
-			StudioLogger.error(LaunchConfigurationShortcut.class, "Error creating launch configuration for resource: "
+			AndmoreLogger.error(LaunchConfigurationShortcut.class, "Error creating launch configuration for resource: "
 					+ resource.getName(), e);
 		}
 

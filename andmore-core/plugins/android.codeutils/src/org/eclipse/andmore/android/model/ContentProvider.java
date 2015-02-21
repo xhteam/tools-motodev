@@ -23,7 +23,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
 import org.eclipse.andmore.android.model.java.ContentProviderClass;
@@ -69,7 +69,7 @@ public class ContentProvider extends BuildingBlockModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.BuildingBlockModel#getStatus()
+	 * @see org.eclipse.andmore.android.model.BuildingBlockModel#getStatus()
 	 */
 	@Override
 	public IStatus getStatus() {
@@ -94,7 +94,7 @@ public class ContentProvider extends BuildingBlockModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#needMoreInformation()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#needMoreInformation()
 	 */
 	@Override
 	public boolean needMoreInformation() {
@@ -143,7 +143,7 @@ public class ContentProvider extends BuildingBlockModel {
 		if (selectedPermissionsSize > 0) {
 
 			// Logs to UDC the permissions selected
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_PERMISSION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_PERMISSION,
 					UsageDataConstants.KIND_BUILDINGBLOCK_PERMISSION, "permissions: " + permissionList.toString(), //$NON-NLS-1$
 					CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());
 		}

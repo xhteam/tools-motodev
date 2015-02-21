@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.eclipse.andmore.android.ISerialNumbered;
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.device.handlers.OpenNewDeviceWizardHandler;
 import org.eclipse.andmore.android.emulator.device.refresh.InstancesListRefresh;
 import org.eclipse.andmore.android.launch.ILaunchConfigurationConstants;
@@ -82,7 +82,7 @@ import com.android.ide.common.xml.ManifestData.Activity;
 
 /**
  * DESCRIPTION: This class implements the tab that is shown when the user is
- * editing the configuration to run a MOTODEV Studio for Android application
+ * editing the configuration to run a Eclipse Andmore application
  * 
  * RESPONSIBILITY: User interface to allow the user to enter information to
  * launch the application.
@@ -597,7 +597,7 @@ public class LaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public Image getImage() {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(LaunchPlugin.PLUGIN_ID,
-				ILaunchConfigurationConstants.MOTODEV_APP_ICO).createImage();
+				ILaunchConfigurationConstants.ANDMORE_APP_ICO).createImage();
 	}
 
 	@Override
@@ -740,7 +740,7 @@ public class LaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 			activityName = launchConfig.getAttribute(ILaunchConfigurationConstants.ATTR_ACTIVITY,
 					ILaunchConfigurationConstants.DEFAULT_VALUE);
 		} catch (CoreException e) {
-			StudioLogger.error(LaunchConfigurationTab.class,
+			AndmoreLogger.error(LaunchConfigurationTab.class,
 					"Error validating launch configuration " + launchConfig.getName(), e); //$NON-NLS-1$
 		}
 
@@ -805,7 +805,7 @@ public class LaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 			try {
 				manifestParser = AndroidManifestParser.parse(new IFolderWrapper(project));
 			} catch (Exception e) {
-				StudioLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e); //$NON-NLS-1$
+				AndmoreLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e); //$NON-NLS-1$
 			}
 			if (manifestParser != null) {
 				currentActivities = manifestParser.getActivities();

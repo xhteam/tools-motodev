@@ -25,7 +25,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.EntryNode;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
 import org.eclipse.andmore.android.certmanager.ui.wizards.CreateKeyWizard;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -75,7 +75,7 @@ public class CreateKeyJob extends Job {
 			try {
 				this.keyStorePass = keystore.getPasswordProvider().getKeyStorePassword(false);
 			} catch (KeyStoreManagerException e) {
-				StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+				AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 			}
 		}
 	}
@@ -85,27 +85,27 @@ public class CreateKeyJob extends Job {
 		SubMonitor subMonitor = SubMonitor.convert(monitor);
 		subMonitor.beginTask(CREATING_KEY, NUMBER_OF_TASKS);
 
-		StudioLogger.debug(GETTING_KEY_INFO);
+		AndmoreLogger.debug(GETTING_KEY_INFO);
 		subMonitor.worked(1);
 
 		IKeyStoreEntry entryNode = null;
 		try {
-			StudioLogger.debug(CREATING_KEY);
+			AndmoreLogger.debug(CREATING_KEY);
 			subMonitor.worked(1);
 			String keystorePassword = getKeyStorePassword();
 
 			if (keystorePassword != null) {
 				entryNode = EntryNode.createSelfSignedNode(keystore, keystorePassword,
 						certificateDetailsInfo.getAlias(), certificateDetailsInfo);
-				StudioLogger.debug(KEY_CREATED);
+				AndmoreLogger.debug(KEY_CREATED);
 				subMonitor.worked(1);
 
 				if (newKeyBlock.needToSaveKeyPassword()) {
-					StudioLogger.debug(SAVING_KEY_PASSWORD);
+					AndmoreLogger.debug(SAVING_KEY_PASSWORD);
 					subMonitor.worked(1);
 					PasswordProvider passwordProvider = new PasswordProvider(keystore.getFile());
 					passwordProvider.savePassword(entryNode.getAlias(), newKeyBlock.getKeyPassword());
-					StudioLogger.debug(KEY_PASSWORD_SAVED);
+					AndmoreLogger.debug(KEY_PASSWORD_SAVED);
 					subMonitor.worked(1);
 				}
 			}
@@ -113,7 +113,7 @@ public class CreateKeyJob extends Job {
 		} catch (KeyStoreManagerException e) {
 			EclipseUtils.showErrorDialog(CertificateManagerNLS.CreateKeyWizard_ErrorCreatingKey_DialogTitle,
 					e.getMessage());
-			StudioLogger.error(CreateKeyWizard.class,
+			AndmoreLogger.error(CreateKeyWizard.class,
 					CertificateManagerNLS.CreateKeyWizard_ErrorCreatingKey_DialogTitle, e);
 		}
 

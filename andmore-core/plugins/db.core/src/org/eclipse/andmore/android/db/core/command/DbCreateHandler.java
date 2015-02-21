@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.db.core.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
@@ -26,7 +26,7 @@ import org.eclipse.andmore.android.db.core.model.TableModel;
 import org.eclipse.andmore.android.db.core.project.ProjectNode;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
 import org.eclipse.andmore.android.db.core.ui.action.IDbCreatorNode;
-import org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView;
+import org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView;
 import org.eclipse.andmore.android.db.core.ui.wizards.createdb.CreateDatabaseWizard;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -70,7 +70,7 @@ public class DbCreateHandler extends AbstractHandler implements IHandler {
 		IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getActivePart();
 
-		MOTODEVDatabaseExplorerView view = DbCoreActivator.getMOTODEVDatabaseExplorerView();
+		AndmoreDatabaseExplorerView view = DbCoreActivator.getAndmoreDatabaseExplorerView();
 
 		if ((view != null) && activePart.equals(view)) {
 			ITreeNode items = view.getSelectedItemOnTree();
@@ -91,7 +91,7 @@ public class DbCreateHandler extends AbstractHandler implements IHandler {
 								this.dbCreatorNode = dbCreatorNode;
 							}
 						} catch (Exception e) {
-							StudioLogger.info(DbCreateHandler.class, e.getMessage());
+							AndmoreLogger.info(DbCreateHandler.class, e.getMessage());
 						}
 
 					}
@@ -131,7 +131,7 @@ public class DbCreateHandler extends AbstractHandler implements IHandler {
 							try {
 								resource = (IResource) ((IAdaptable) selectionElement).getAdapter(IResource.class);
 							} catch (Exception e) {
-								StudioLogger.error(DbCreateHandler.class, e.getMessage());
+								AndmoreLogger.error(DbCreateHandler.class, e.getMessage());
 							}
 						}
 
@@ -179,7 +179,7 @@ public class DbCreateHandler extends AbstractHandler implements IHandler {
 					((ProjectNode) dbCreatorNode).refreshAssetsFolder();
 				}
 			} catch (Exception e) {
-				StudioLogger.error(DbCreateHandler.class, e.getMessage());
+				AndmoreLogger.error(DbCreateHandler.class, e.getMessage());
 			}
 			if ((status != null) && (!status.isOK())) {
 				EclipseUtils.showErrorDialog(DbCoreNLS.UI_CreateDatabaseWizardPage_CreateDatabase_Error,

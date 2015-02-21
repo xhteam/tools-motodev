@@ -68,7 +68,7 @@ import org.eclipse.andmore.android.certmanager.exception.InvalidPasswordExceptio
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.ui.model.CertificateDetailsInfo;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.osgi.util.NLS;
 
@@ -153,7 +153,7 @@ public class KeyStoreUtils {
 				try {
 					fos.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close steam while writing keystore file. " + e.getMessage());
+					AndmoreLogger.error("Could not close steam while writing keystore file. " + e.getMessage());
 				}
 			}
 		}
@@ -222,7 +222,7 @@ public class KeyStoreUtils {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close steam while loading keystore. " + e.getMessage());
+					AndmoreLogger.error("Could not close steam while loading keystore. " + e.getMessage());
 				}
 			}
 		}
@@ -415,7 +415,7 @@ public class KeyStoreUtils {
 				try {
 					asn1InputStream.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while creating X509 certificate. " + e.getMessage());
+					AndmoreLogger.error("Could not close stream while creating X509 certificate. " + e.getMessage());
 				}
 			}
 		}
@@ -463,7 +463,7 @@ public class KeyStoreUtils {
 			keyStore.deleteEntry(alias);
 			writeKeyStore(keyStore, password, keyStoreFile);
 		} catch (Exception e) {
-			StudioLogger.error(KeyStoreUtils.class, ERROR_DELETING_ALIAS + alias, e);
+			AndmoreLogger.error(KeyStoreUtils.class, ERROR_DELETING_ALIAS + alias, e);
 			throw new KeyStoreManagerException(ERROR_DELETING_ALIAS + alias, e);
 		}
 	}
@@ -508,7 +508,7 @@ public class KeyStoreUtils {
 				writeKeyStore(newKeyStore, password, keyStoreFile);
 			} catch (InvalidPasswordException e) {
 				rollBack = true;
-				StudioLogger.error(KeyStoreUtils.class,
+				AndmoreLogger.error(KeyStoreUtils.class,
 						"Invalid password while trying to create a new keystore, changing a keyStore type.", e);
 
 			} catch (Exception e) {
@@ -518,7 +518,7 @@ public class KeyStoreUtils {
 					oldKsFile.renameTo(keyStoreFile);
 					throw new InvalidPasswordException(e.getMessage());
 				} else {
-					StudioLogger.error(KeyStoreUtils.class,
+					AndmoreLogger.error(KeyStoreUtils.class,
 							"Exception occurred while attempting to change a keyStore type.", e);
 					rollBack = true;
 				}
@@ -580,7 +580,7 @@ public class KeyStoreUtils {
 					}
 					targetKeyStore.setEntry(alias, entry, protectionParameter);
 				} else {
-					StudioLogger.error(KeyStoreUtils.class, NLS.bind(
+					AndmoreLogger.error(KeyStoreUtils.class, NLS.bind(
 							"Alias {0} could not be imported because it doesn't exists on originKeyStore", alias));
 				}
 			}

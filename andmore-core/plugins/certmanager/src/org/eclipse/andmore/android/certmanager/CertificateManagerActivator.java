@@ -17,7 +17,7 @@
 package org.eclipse.andmore.android.certmanager;
 
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -51,7 +51,7 @@ public class CertificateManagerActivator extends AbstractUIPlugin {
 	/**
 	 * Value of Created by attribute
 	 */
-	public static final String CREATED_BY_FIELD_VALUE = "MOTODEV Studio for Android";
+	public static final String CREATED_BY_FIELD_VALUE = "Andmore Project";
 
 	/**
 	 * Package metainf directory name
@@ -95,13 +95,13 @@ public class CertificateManagerActivator extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(CertificateManagerActivator.class,
-				"Starting MOTODEV Studio for Android Key Manager Plugin...");
+		AndmoreLogger.debug(CertificateManagerActivator.class,
+				"Starting Android Key Manager Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(CertificateManagerActivator.class, "MOTODEV Studio for Android Key Manager Plugin started.");
+		AndmoreLogger.debug(CertificateManagerActivator.class, "Key Manager Plugin started.");
 	}
 
 	/*

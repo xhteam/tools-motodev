@@ -32,7 +32,7 @@ public class ReceiverNode extends ServiceNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeType()
 	 */
 	@Override

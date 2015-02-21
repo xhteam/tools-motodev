@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.core.model.AbstractInputLogic;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
 import org.eclipse.andmore.android.utilities.TelnetFrameworkAndroid;
@@ -228,7 +228,7 @@ public class TelnetAndroidInput extends AbstractInputLogic {
 		try {
 			telnet.write("event send " + type + ":" + keysym + ":" + i, null);
 		} catch (IOException e) {
-			StudioLogger.error("Failed to send generic event to Emulator");
+			AndmoreLogger.error("Failed to send generic event to Emulator");
 		}
 	}
 
@@ -276,7 +276,7 @@ public class TelnetAndroidInput extends AbstractInputLogic {
 		try {
 			telnet.write("event send " + type + ":" + keysym + ":" + value, null);
 		} catch (IOException e) {
-			StudioLogger.error("Failed to send generic event to Emulator");
+			AndmoreLogger.error("Failed to send generic event to Emulator");
 		}
 	}
 
@@ -284,7 +284,7 @@ public class TelnetAndroidInput extends AbstractInputLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IInputLogic#sendKey(int,
+	 * org.eclipse.andmore.android.emulator.core.model.IInputLogic#sendKey(int,
 	 * int)
 	 */
 	@Override
@@ -350,7 +350,7 @@ public class TelnetAndroidInput extends AbstractInputLogic {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IInputLogic#sendClick
+	 * org.eclipse.andmore.android.emulator.core.model.IInputLogic#sendClick
 	 * (int, boolean)
 	 */
 	@Override
@@ -367,7 +367,7 @@ public class TelnetAndroidInput extends AbstractInputLogic {
 		try {
 			telnet.write("window scale " + zoomFactor, null);
 		} catch (IOException e) {
-			StudioLogger.error("Failed to send window scale to Emulator");
+			AndmoreLogger.error("Failed to send window scale to Emulator");
 		}
 
 	}

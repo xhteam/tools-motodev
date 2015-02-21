@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.ui.perspective;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.util.Collection;
 import java.util.TreeSet;

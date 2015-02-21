@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.common.utilities.PluginUtils;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
-import org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView;
+import org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
@@ -65,7 +65,7 @@ public final class LoadingJobListener extends JobChangeAdapter {
 	 */
 	@Override
 	public void done(IJobChangeEvent event) {
-		MOTODEVDatabaseExplorerView view = DbCoreActivator.getMOTODEVDatabaseExplorerView();
+		AndmoreDatabaseExplorerView view = DbCoreActivator.getAndmoreDatabaseExplorerView();
 		if (view != null) {
 			final TreeViewer treeViewer = view.getTreeViewer();
 			Job job = event.getJob();

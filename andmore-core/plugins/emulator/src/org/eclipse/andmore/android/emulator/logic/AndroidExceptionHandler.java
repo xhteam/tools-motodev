@@ -15,10 +15,10 @@
  */
 package org.eclipse.andmore.android.emulator.logic;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.IOException;
 import java.util.Collection;

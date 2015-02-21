@@ -140,7 +140,7 @@ public class Activity extends Launcher {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.IWizardModel#save(org.eclipse.jface
+	 * org.eclipse.andmore.android.model.IWizardModel#save(org.eclipse.jface
 	 * .wizard.IWizardContainer, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override

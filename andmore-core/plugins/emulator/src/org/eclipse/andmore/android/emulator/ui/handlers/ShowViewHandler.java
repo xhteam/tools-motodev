@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.ui.handlers;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.emulator.i18n.EmulatorNLS;

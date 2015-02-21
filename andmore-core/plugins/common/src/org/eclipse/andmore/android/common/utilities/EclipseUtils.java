@@ -31,7 +31,7 @@ import java.util.Set;
 import org.eclipse.andmore.android.common.CommonPlugin;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
 import org.eclipse.andmore.android.model.manifest.AndroidManifestFile;
@@ -770,18 +770,18 @@ public class EclipseUtils {
 							break;
 						}
 					} catch (Exception e) {
-						StudioLogger.error(EclipseUtils.class, "Failed to get URL displayed by the opened Web Editor");
+						AndmoreLogger.error(EclipseUtils.class, "Failed to get URL displayed by the opened Web Editor");
 					}
 				}
 			}
 		}
 
 		if (wantedWebEditor != null) {
-			StudioLogger.debug(EclipseUtils.class,
+			AndmoreLogger.debug(EclipseUtils.class,
 					"There is already an opened Web Browser Editor displaying the wanted URL. Simply activate it.");
 			page.activate(wantedWebEditor.getEditor(true));
 		} else {
-			StudioLogger.debug(EclipseUtils.class, "Open new Web Browser Editor for: " + wantedUrl);
+			AndmoreLogger.debug(EclipseUtils.class, "Open new Web Browser Editor for: " + wantedUrl);
 			WebBrowserEditorInput input = new WebBrowserEditorInput(wantedUrl);
 
 			WebBrowserEditor.open(input);
@@ -816,7 +816,7 @@ public class EclipseUtils {
 			URL fileUrl = FileLocator.toFileURL(locationUrl);
 			installLocation = (new File(fileUrl.getFile())).getAbsolutePath();
 		} catch (Exception e) {
-			StudioLogger.error(EclipseUtils.class,
+			AndmoreLogger.error(EclipseUtils.class,
 					"Error finding install location for bundle: " + bundle.getBundleId(), e);
 		}
 		return installLocation;
@@ -918,7 +918,7 @@ public class EclipseUtils {
 			}
 		} catch (IOException ioEx) {
 
-			StudioLogger.error(CommonPlugin.class, "Error while reading an embedded resource", ioEx); //$NON-NLS-1$
+			AndmoreLogger.error(CommonPlugin.class, "Error while reading an embedded resource", ioEx); //$NON-NLS-1$
 
 		} finally {
 			if (bufferedReader != null) {

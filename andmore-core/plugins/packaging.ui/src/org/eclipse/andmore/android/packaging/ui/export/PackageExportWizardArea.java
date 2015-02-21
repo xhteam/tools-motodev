@@ -46,7 +46,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 import org.eclipse.andmore.android.certmanager.ui.wizards.CreateKeyWizard;
 import org.eclipse.andmore.android.certmanager.ui.wizards.CreateKeystoreWizard;
 import org.eclipse.andmore.android.certmanager.ui.wizards.SelectExistentKeystoreWizard;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.packaging.ui.PackagingUIPlugin;
@@ -247,7 +247,7 @@ public class PackageExportWizardArea {
 				try {
 					resource = (IResource) ((IAdaptable) item).getAdapter(IResource.class);
 				} catch (Exception e) {
-					StudioLogger.warn("Error retrieving projects.");
+					AndmoreLogger.warn("Error retrieving projects.");
 				}
 			}
 			if (resource != null) {
@@ -282,7 +282,7 @@ public class PackageExportWizardArea {
 				}
 			}
 		} catch (CoreException e) {
-			StudioLogger.error(PackageExportWizardArea.class, "Error populating tree: " + e.getMessage()); //$NON-NLS-1$
+			AndmoreLogger.error(PackageExportWizardArea.class, "Error populating tree: " + e.getMessage()); //$NON-NLS-1$
 		}
 
 	}
@@ -399,7 +399,7 @@ public class PackageExportWizardArea {
 			}
 		} catch (Exception e) {
 			successfullyLoaded = false;
-			StudioLogger.info(PackageExportWizardArea.class,
+			AndmoreLogger.info(PackageExportWizardArea.class,
 					NLS.bind("Could not load keys for keystore: {0}", newKeystore.getFile() //$NON-NLS-1$
 							.getAbsolutePath()));
 		}
@@ -703,7 +703,7 @@ public class PackageExportWizardArea {
 				}
 			}
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error(PackageExportWizardArea.class, "Error retrieving keystore list", //$NON-NLS-1$
+			AndmoreLogger.error(PackageExportWizardArea.class, "Error retrieving keystore list", //$NON-NLS-1$
 					e);
 		}
 	}
@@ -868,7 +868,7 @@ public class PackageExportWizardArea {
 				}
 			}
 		} catch (CoreException e) {
-			StudioLogger.error(PackageExportWizardArea.class, "Impossible to get project severity"); //$NON-NLS-1$
+			AndmoreLogger.error(PackageExportWizardArea.class, "Impossible to get project severity"); //$NON-NLS-1$
 		}
 	}
 
@@ -1197,7 +1197,7 @@ public class PackageExportWizardArea {
 								}
 								submonitor.done();
 							} catch (CoreException e) {
-								StudioLogger.error(PackageExportWizardArea.class,
+								AndmoreLogger.error(PackageExportWizardArea.class,
 										"Error while building project or getting project output folder" //$NON-NLS-1$
 												+ eclipseProject.getName(), e);
 								status.add(new Status(IStatus.ERROR, PackagingUIPlugin.PLUGIN_ID,
@@ -1218,7 +1218,7 @@ public class PackageExportWizardArea {
 					}
 				});
 			} catch (Exception e) {
-				StudioLogger.warn("Error finishing package export.");
+				AndmoreLogger.warn("Error finishing package export.");
 			}
 		}
 
@@ -1231,7 +1231,7 @@ public class PackageExportWizardArea {
 
 		// Saving usage data
 		try {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_PACKAGE,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_PACKAGE,
 					UsageDataConstants.KIND_APP_MANAGEMENT, DESCRIPTION_TO_LOG, PackagingUIPlugin.PLUGIN_ID,
 					PackagingUIPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable e) {
@@ -1252,7 +1252,7 @@ public class PackageExportWizardArea {
 			keyEntryPassword = getSelectedKeyStore().getPasswordProvider().getPassword(
 					this.keysCombo.getItem(this.keysCombo.getSelectionIndex()), true);
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error(this.getClass(), "Error retrieving keys entry password", e); //$NON-NLS-1$
+			AndmoreLogger.error(this.getClass(), "Error retrieving keys entry password", e); //$NON-NLS-1$
 		}
 		return keyEntryPassword;
 	}
@@ -1291,14 +1291,14 @@ public class PackageExportWizardArea {
 
 					// Sign the new package
 					PackageFileSigner.signPackage(pack, getSelectedKeyStore().getEntry(keyAlias, keystorePassword),
-							keyPassword, PackageFileSigner.MOTODEV_STUDIO);
+							keyPassword, PackageFileSigner.ECLIPSE_ANDMORE);
 					keepTrying = false;
 				} catch (UnrecoverableKeyException sE) {
 					try {
 						keyPassword = getSelectedKeyStore().getPasswordProvider().getPassword(keyAlias, true, false);
 					} catch (KeyStoreManagerException e) {
 						status = new Status(IStatus.ERROR, CertificateManagerActivator.PLUGIN_ID, e.getMessage());
-						StudioLogger.error(PackageExportWizardArea.this.getClass(),
+						AndmoreLogger.error(PackageExportWizardArea.this.getClass(),
 								"Could not retrieve key password on export: " + e.getMessage()); //$NON-NLS-1$
 					}
 					if (keyPassword == null) {
@@ -1338,14 +1338,14 @@ public class PackageExportWizardArea {
 				EclipseUtils.showErrorDialog("Package Signing", "Could not sign the package.");
 			}
 		} catch (IOException e) {
-			StudioLogger
+			AndmoreLogger
 					.error(PackageExportWizardArea.this.getClass(), "Could not sign the package: " + e.getMessage()); //$NON-NLS-1$
 
 			status = new Status(IStatus.ERROR, PackagingUIPlugin.PLUGIN_ID,
 					Messages.PackageExportWizardArea_ErrorWritingSignedPackageFile + " " //$NON-NLS-1$
 							+ eclipseProject.getName());
 		} catch (SignException e) {
-			StudioLogger
+			AndmoreLogger
 					.error(PackageExportWizardArea.this.getClass(), "Could not sign the package: " + e.getMessage()); //$NON-NLS-1$
 
 			status = new Status(IStatus.ERROR, PackagingUIPlugin.PLUGIN_ID,
@@ -1354,7 +1354,7 @@ public class PackageExportWizardArea {
 			try {
 				jar.close();
 			} catch (IOException e) {
-				StudioLogger.error(PackageExportWizardArea.this.getClass(),
+				AndmoreLogger.error(PackageExportWizardArea.this.getClass(),
 						"Could not sign the package: " + e.getMessage()); //$NON-NLS-1$
 			}
 		}

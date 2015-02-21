@@ -25,7 +25,7 @@ import org.eclipse.andmore.android.certmanager.event.KeyStoreModelEventManager;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
 
@@ -68,7 +68,7 @@ public class KeyStoreRootNode extends AbstractTreeNode {
 		try {
 			password.deleteKeyStoreSavedPasswordNode();
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+			AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 		}
 
 	}

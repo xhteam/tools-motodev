@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.codesnippets;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -36,12 +36,12 @@ public class CodeSnippetsPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(CodeSnippetsPlugin.class, "Starting MOTODEV Android Code Snippets Plugin...");
+		AndmoreLogger.debug(CodeSnippetsPlugin.class, "Starting Andmore Code Snippets Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(CodeSnippetsPlugin.class, "MOTODEV Android Code Snippets Plugin started.");
+		AndmoreLogger.debug(CodeSnippetsPlugin.class, "Andmore Code Snippets Plugin started.");
 	}
 
 	/*

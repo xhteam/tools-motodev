@@ -49,7 +49,7 @@ public class TelnetFrameworkAndroid {
 	 * @param telnetPort
 	 *            the telnet port
 	 * 
-	 * @throws MotodevException
+	 * @throws AndmoreException
 	 *             when the connection cannot be established
 	 */
 	public synchronized void connect(String telnetHost, int telnetPort) throws IOException {
@@ -62,7 +62,7 @@ public class TelnetFrameworkAndroid {
 	/**
 	 * Disconnect a telnet connection to a device
 	 * 
-	 * @throws MotodevException
+	 * @throws AndmoreException
 	 *             when the disconnection cannot be executed
 	 */
 	public synchronized void disconnect() throws IOException {

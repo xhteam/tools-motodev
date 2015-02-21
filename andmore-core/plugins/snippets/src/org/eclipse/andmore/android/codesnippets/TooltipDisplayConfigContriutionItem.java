@@ -16,7 +16,7 @@
 package org.eclipse.andmore.android.codesnippets;
 
 import org.eclipse.andmore.android.codesnippets.i18n.AndroidSnippetsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jface.action.ControlContribution;
@@ -142,7 +142,7 @@ public class TooltipDisplayConfigContriutionItem extends ControlContribution {
 		try {
 			preferences.flush();
 		} catch (BackingStoreException bse) {
-			StudioLogger.error(TooltipDisplayConfigContriutionItem.class.toString(),
+			AndmoreLogger.error(TooltipDisplayConfigContriutionItem.class.toString(),
 					"Preferences for snippets could not be saved.", bse); //$NON-NLS-1$
 		}
 	}

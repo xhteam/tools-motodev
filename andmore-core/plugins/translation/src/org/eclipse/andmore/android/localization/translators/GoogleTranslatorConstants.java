@@ -22,7 +22,7 @@ import org.eclipse.sequoyah.localization.tools.extensions.implementation.generic
  */
 public interface GoogleTranslatorConstants extends TranslatorConstants {
 
-	// API Key to identify MOTODEV site
+	// API Key to identify Andmore site
 	static final String API_KEY = "ABQIAAAAzLP1ONRdncTVQSc4T1g2MRT7zv61Fj6qXODo5OU8i7eIwTs2GRQjZ2moI_dkzMckcgUZys7M9wAMvQ";
 
 	public static final String API_KEY_VALUE_PREFERENCE = "google.translator.apikey";

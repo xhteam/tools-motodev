@@ -93,7 +93,7 @@
          <extension
                point="org.eclipse.ui.startup">
             <startup
-                  class="org.eclipse.andmore.android.StudioDeviceChangeListener">
+                  class="org.eclipse.andmore.android.AndmoreDeviceChangeListener">
             </startup>
              <startup
                   class="org.eclipse.andmore.android.AssociateProguardEditor">
@@ -263,11 +263,6 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="org.eclipse.andmore.android.application.store.handlers.OpenMotorolaMobilityDevicePropertiesHandler"
-            id="org.eclipse.andmore.android.open.motorola.products"
-            name="%command.name.2">
-      </command>
-      <command
             defaultHandler="org.eclipse.andmore.android.obfuscate.handlers.ObfuscateProjectsHandler"
             id="org.eclipse.andmore.android.obfuscate.projects"
             name="%command.name.obfuscate">
@@ -383,9 +378,9 @@
   <extension
      point = "org.eclipse.ui.propertyPages">
         <page
-           id="org.eclipse.andmore.android.MotodevStudioPropertyPage"
-           name="%motodev.category.name"
-	   class="org.eclipse.andmore.android.propertypage.MotodevStudioPropertyPage">	   		
+           id="org.eclipse.andmore.android.AndmorePropertyPage"
+           name="%andmore.category.name"
+	   class="org.eclipse.andmore.android.propertypage.AndmorePropertyPage">	   		
            <enabledWhen>
 		     <adapt type="org.eclipse.core.resources.IProject">
 		          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.andmore.AndroidNature"/>
@@ -398,7 +393,7 @@
   <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.eclipse.andmore.android.preferences.ui.MotodevStudioPreference"
+            class="org.eclipse.andmore.android.preferences.ui.AndmorePreference"
             id="org.eclipse.andmore.platform.ui.preference"
             name="Andmore">
       </page>
@@ -434,7 +429,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="org.eclipse.andmore.android.perspective.MotodevStudioAndroidPerspective"
+            class="org.eclipse.andmore.android.perspective.AndmorePerspective"
             fixed="true"
             icon="icons/obj16/plate16.png"
             id="org.eclipse.andmore.android.perspective"
@@ -631,11 +626,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
-      <command
-            defaultHandler="org.eclipse.andmore.android.perspective.OpenWebResources"
-            id="org.eclipse.andmore.android.open.motodev.web.resources"
-            name="%andmoremenu.web.resources">
-      </command>
    </extension>
    <extension
           point="org.eclipse.ui.menus">

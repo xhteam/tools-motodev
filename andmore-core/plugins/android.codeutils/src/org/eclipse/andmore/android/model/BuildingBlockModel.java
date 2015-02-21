@@ -22,7 +22,7 @@ import java.util.Set;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.model.java.JavaClass;
@@ -183,7 +183,7 @@ public abstract class BuildingBlockModel implements IWizardModel {
 			}
 
 		} catch (Exception e) {
-			StudioLogger.error(BuildingBlockModel.class, "Error configuring building block from selection.", e);
+			AndmoreLogger.error(BuildingBlockModel.class, "Error configuring building block from selection.", e);
 		}
 	}
 
@@ -341,7 +341,7 @@ public abstract class BuildingBlockModel implements IWizardModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#getStatus()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#getStatus()
 	 */
 	@Override
 	public IStatus getStatus() {

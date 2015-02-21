@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
@@ -111,7 +111,7 @@ public class WidgetProvider extends Launcher {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.BuildingBlockModel#getStatus()
+	 * @see org.eclipse.andmore.android.model.BuildingBlockModel#getStatus()
 	 */
 	@Override
 	public IStatus getStatus() {
@@ -121,7 +121,7 @@ public class WidgetProvider extends Launcher {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#needMoreInformation()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#needMoreInformation()
 	 */
 	@Override
 	public boolean needMoreInformation() {
@@ -144,7 +144,7 @@ public class WidgetProvider extends Launcher {
 			addedOnManifest = createWidgetProviderOnManifest(monitor);
 
 			// Logs to UDC the widget provider creation
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_WIDGETPROVIDER_CREATED,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_WIDGETPROVIDER_CREATED,
 					UsageDataConstants.KIND_WIDGETPROVIDER, "", //$NON-NLS-1$
 					CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());
 

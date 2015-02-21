@@ -15,9 +15,9 @@
  */
 package org.eclipse.andmore.android.emulator.skin.android;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,7 +111,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getKeyDataCollection(java.lang.String)
 	 */
 	@Override
@@ -161,7 +161,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getPressedImageData(java.lang.String)
 	 */
 	@Override
@@ -173,7 +173,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#getEnterImageData
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#getEnterImageData
 	 * (java.lang.String)
 	 */
 	@Override
@@ -184,7 +184,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getReleasedImageData(java.lang.String)
 	 */
 	@Override
@@ -196,7 +196,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#getSkinBean
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#getSkinBean
 	 * (java.lang.String)
 	 */
 	@Override
@@ -239,7 +239,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#isFlipSupported
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#isFlipSupported
 	 * ()
 	 */
 	@Override
@@ -251,7 +251,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#setSkinFilesPath
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#setSkinFilesPath
 	 * (java.lang.String)
 	 */
 	@Override
@@ -272,7 +272,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#isRotatedLayout
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#isRotatedLayout
 	 * (java.lang.String)
 	 */
 	@Override
@@ -283,7 +283,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getAvailableLayouts()
 	 */
 	@Override
@@ -294,7 +294,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getLayoutScreenCommand(java.lang.String)
 	 */
 	@Override
@@ -306,7 +306,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#nextLayout
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#nextLayout
 	 * (java.lang.String)
 	 */
 	@Override
@@ -341,7 +341,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#previousLayout
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#previousLayout
 	 * (java.lang.String)
 	 */
 	@Override
@@ -376,7 +376,7 @@ public class AndroidSkin implements IAndroidSkin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.core.skin.IAndroidSkin#
+	 * @see org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#
 	 * getBackgroundColor(java.lang.String)
 	 */
 	@Override
@@ -388,7 +388,7 @@ public class AndroidSkin implements IAndroidSkin {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.skin.IAndroidSkin#getDpadRotation
+	 * org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin#getDpadRotation
 	 * (java.lang.String)
 	 */
 	@Override

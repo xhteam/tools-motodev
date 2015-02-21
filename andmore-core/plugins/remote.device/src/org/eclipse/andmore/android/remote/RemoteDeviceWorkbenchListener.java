@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.remote;
 import java.util.Collection;
 
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.devices.DevicesManager;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -64,7 +64,7 @@ public class RemoteDeviceWorkbenchListener implements IWorkbenchListener {
 					try {
 						RemoteDevicePlugin.getDisconnectServiceHandler().run((RemoteDeviceInstance) device);
 					} catch (SequoyahException e) {
-						StudioLogger.error("Error when trying to disconnect Remote Devices on Studio shutdown: "
+						AndmoreLogger.error("Error when trying to disconnect Remote Devices on Studio shutdown: "
 								+ e.getMessage());
 					}
 				}

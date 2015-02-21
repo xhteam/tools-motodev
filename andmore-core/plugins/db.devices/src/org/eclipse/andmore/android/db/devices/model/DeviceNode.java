@@ -26,9 +26,9 @@ import java.util.Set;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DdmsRunnable;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
-import org.eclipse.andmore.android.StudioAndroidEventManager.EventType;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager;
+import org.eclipse.andmore.android.AndmoreEventManager.EventType;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.ISaveStateTreeNode;
@@ -86,8 +86,8 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
 		ImageDescriptor icon = AbstractUIPlugin.imageDescriptorFromPlugin(DbDevicesPlugin.PLUGIN_ID, ICON_PATH);
 		setIcon(icon);
 
-		StudioAndroidEventManager.addEventListener(EventType.PACKAGE_INSTALLED, listener);
-		StudioAndroidEventManager.addEventListener(EventType.PACKAGE_UNINSTALLED, listener);
+		AndmoreEventManager.addEventListener(EventType.PACKAGE_INSTALLED, listener);
+		AndmoreEventManager.addEventListener(EventType.PACKAGE_UNINSTALLED, listener);
 	}
 
 	/*
@@ -257,7 +257,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
 				}
 			}
 		} catch (BackingStoreException e) {
-			StudioLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
+			AndmoreLogger.error("Could not contact backing store: ", e.getMessage()); //$NON-NLS-1$
 		}
 		setFilterAppWithDb(filterDbApps);
 	}
@@ -343,7 +343,7 @@ public class DeviceNode extends AbstractTreeNode implements IDeviceNode, ISaveSt
 	@Override
 	public void cleanUp() {
 		super.cleanUp();
-		StudioAndroidEventManager.removeEventListener(EventType.PACKAGE_INSTALLED, listener);
-		StudioAndroidEventManager.removeEventListener(EventType.PACKAGE_UNINSTALLED, listener);
+		AndmoreEventManager.removeEventListener(EventType.PACKAGE_INSTALLED, listener);
+		AndmoreEventManager.removeEventListener(EventType.PACKAGE_UNINSTALLED, listener);
 	}
 }

@@ -37,7 +37,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
 import org.eclipse.andmore.android.certmanager.ui.model.SigningAndKeysModelManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.core.commands.AbstractHandler;
@@ -198,7 +198,7 @@ public class RestoreBackupHandler extends AbstractHandler implements IHandler {
 			lastBackupDate.setTime(time);
 		} else {
 			// KsTypes.csv not available
-			StudioLogger.debug("KsTypes.csv not available to get lastBackupDate properties");
+			AndmoreLogger.debug("KsTypes.csv not available to get lastBackupDate properties");
 		}
 	}
 
@@ -231,7 +231,7 @@ public class RestoreBackupHandler extends AbstractHandler implements IHandler {
 					try {
 						propInStream.close();
 					} catch (IOException e) {
-						StudioLogger.error("Could not close steam while loading type properties. " + e.getMessage());
+						AndmoreLogger.error("Could not close steam while loading type properties. " + e.getMessage());
 					}
 					typePropertiesFile.delete();
 				}

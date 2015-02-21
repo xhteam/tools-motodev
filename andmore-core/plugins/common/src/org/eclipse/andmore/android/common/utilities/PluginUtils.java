@@ -24,7 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -61,7 +61,7 @@ public class PluginUtils {
 	 *
 	 * @return the value of the extension attribute
 	 *
-	 * @throws MotodevExtensionException
+	 * @throws AndmoreExtensionException
 	 *             if the executable cannot be created for any reason
 	 */
 	public static Object getExecutable(String extensionId, String elementName, String executableName) throws Exception
@@ -82,7 +82,7 @@ public class PluginUtils {
 						String errMsg = NLS.bind(
 								UtilitiesNLS.EXC_PluginUtils_ErrorGettingTheExecutableFromExtensionPoint, new Object[] {
 										executableName, elementName, extensionId });
-						StudioLogger.error(PluginUtils.class, errMsg, e);
+						AndmoreLogger.error(PluginUtils.class, errMsg, e);
 
 						throw new Exception(errMsg, e);
 					}
@@ -105,7 +105,7 @@ public class PluginUtils {
 	 *
 	 * @return the value of the extension attribute
 	 *
-	 * @throws MotodevExtensionException
+	 * @throws AndmoreExtensionException
 	 *             if the executable cannot be created for any reason
 	 */
 	public static Object getExecutable(String extensionId, String elementName) throws Exception {
@@ -436,7 +436,7 @@ public class PluginUtils {
 		try {
 			relativeInstalationPath = new File(FileLocator.toFileURL(pluginBundle.getEntry("")).getFile());
 		} catch (IOException e) {
-			StudioLogger.warn("Illegal state while getting plugin installation path (" + e.getMessage() + ").");
+			AndmoreLogger.warn("Illegal state while getting plugin installation path (" + e.getMessage() + ").");
 		}
 
 		// if failed to get the file using FileLocator
@@ -463,7 +463,7 @@ public class PluginUtils {
 	 *
 	 * @return a file object pointing to the path of the resource
 	 *
-	 * @throws MotodevResourceNotAvailable
+	 * @throws AndmoreResourceNotAvailable
 	 *             throws an exception if it occurs an I/O exception with the
 	 *             path $installationPath\resource
 	 */
@@ -530,7 +530,7 @@ public class PluginUtils {
 	 * area of the given plugin
 	 *
 	 * @return the File inside the given plugin preferences area.
-	 * @throws MotodevException
+	 * @throws AndmoreException
 	 *             if it fails to determine the preferences directory of the
 	 *             given plugin
 	 */
@@ -545,7 +545,7 @@ public class PluginUtils {
 				targetXmlFile = path.toFile().getAbsoluteFile();
 			}
 		} catch (IllegalStateException e) {
-			StudioLogger.warn("Illegal state while getting file on preferences directory (" + e.getMessage() + ").");
+			AndmoreLogger.warn("Illegal state while getting file on preferences directory (" + e.getMessage() + ").");
 		}
 
 		if (targetXmlFile == null) {

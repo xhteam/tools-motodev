@@ -26,7 +26,7 @@ import java.util.zip.ZipFile;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.command.BackupHandler;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
@@ -273,7 +273,7 @@ public class RestoreBackupDialog extends TitleAreaDialog {
 							try {
 								zipFile.close();
 							} catch (IOException e) {
-								StudioLogger.error("Could not close stream while restoring backup. " + e.getMessage());
+								AndmoreLogger.error("Could not close stream while restoring backup. " + e.getMessage());
 							}
 						}
 					}

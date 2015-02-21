@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * Saves the state of the {@link KeystoreManagerView} with: - the keystores
@@ -295,7 +295,7 @@ class SaveStateManager {
 				try {
 					out.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while saving properties. " + e.getMessage());
+					AndmoreLogger.error("Could not close stream while saving properties. " + e.getMessage());
 				}
 			}
 		}

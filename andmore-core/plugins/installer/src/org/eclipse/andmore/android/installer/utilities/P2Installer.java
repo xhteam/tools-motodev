@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.installer.InstallerException;
 import org.eclipse.andmore.android.installer.InstallerPlugin;
 import org.eclipse.andmore.android.installer.i18n.InstallerNLS;
@@ -46,7 +46,7 @@ import org.eclipse.equinox.p2.repository.metadata.IMetadataRepository;
  */
 class P2Installer {
 
-	private final String LANGUAGE_PACK_QUERY = "this.id ~= /com.motorola.studio.android.feature.nl*/";
+	private final String LANGUAGE_PACK_QUERY = "this.id ~= /org.eclipse.andmore.android.feature.nl*/";
 
 	private final String NKD_QUERY = "org.eclipse.sequoyah.android.cdt.feature.feature.group";
 
@@ -105,10 +105,10 @@ class P2Installer {
 	 * called, all the repositories would be loaded again.
 	 */
 	private IStatus loadRepositories(List<URI> links, IProgressMonitor monitor) {
-		StudioLogger.debug(this, "loading repositories...");
+		AndmoreLogger.debug(this, "loading repositories...");
 		IStatus status = Status.OK_STATUS;
 
-		StudioLogger.debug(this, "there are not loaded repositories");
+		AndmoreLogger.debug(this, "there are not loaded repositories");
 		SubMonitor submonitor = SubMonitor.convert(monitor);
 
 		int reposSize = 0;
@@ -132,7 +132,7 @@ class P2Installer {
 
 				} catch (Exception e) {
 					status = new Status(IStatus.WARNING, InstallerPlugin.PLUGIN_ID, e.getMessage());
-					StudioLogger.error(this.getClass(), "could not instantiate repository from URI " + uri);
+					AndmoreLogger.error(this.getClass(), "could not instantiate repository from URI " + uri);
 				}
 
 			}
@@ -157,7 +157,7 @@ class P2Installer {
 	public IStatus listAllAvailableInstallItems(Collection<InstallableItem> listToFill, List<URI> uriList,
 			CATEGORY category, IProgressMonitor monitor) throws InstallerException {
 
-		StudioLogger.debug(this, "listing available installable items...");
+		AndmoreLogger.debug(this, "listing available installable items...");
 		IStatus status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 				InstallerNLS.P2Installer_Could_Not_Find_Proper_Backend, null);
 
@@ -228,7 +228,7 @@ class P2Installer {
 
 				status = Status.OK_STATUS;
 			} catch (InstallerException e) {
-				StudioLogger.error(this.getClass(), "could not retrieve installable units");
+				AndmoreLogger.error(this.getClass(), "could not retrieve installable units");
 				status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 						"Error retrieving available installable units", null);
 
@@ -254,7 +254,7 @@ class P2Installer {
 		}
 
 		if (status.getMessage().equals("org.eclipse.core.runtime.OperationCanceledException")) {
-			StudioLogger.debug(this, "operation was canceled");
+			AndmoreLogger.debug(this, "operation was canceled");
 			status = new Status(IStatus.CANCEL, status.getPlugin(), status.getCode(), status.getMessage(),
 					status.getException());
 		}
@@ -290,7 +290,7 @@ class P2Installer {
 	 */
 	public IStatus downloadAndInstall(List<URI> links, Collection<InstallableItem> itemsToDownloadAndInstall,
 			IProgressMonitor monitor) {
-		StudioLogger.debug(this, "downloadAndInstall: installing selected installable items");
+		AndmoreLogger.debug(this, "downloadAndInstall: installing selected installable items");
 		IStatus status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 				InstallerNLS.P2Installer_Could_Not_Install_Selected_Items, null);
 
@@ -312,7 +312,7 @@ class P2Installer {
 					status = P2Utilities.installIu(installableUnits, installOp, monitor);
 				}
 			} catch (InstallerException e) {
-				StudioLogger.error(this.getClass(), "could not install selected installable unit");
+				AndmoreLogger.error(this.getClass(), "could not install selected installable unit");
 				status = new Status(IStatus.WARNING, InstallerPlugin.PLUGIN_ID, e.getMessage());
 			}
 
@@ -334,7 +334,7 @@ class P2Installer {
 	 * @return
 	 */
 	public IStatus updateStudio(IProgressMonitor monitor) {
-		StudioLogger.debug(this, "updateStudio: installing selected installable items");
+		AndmoreLogger.debug(this, "updateStudio: installing selected installable items");
 		IStatus status = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0,
 				InstallerNLS.P2Installer_Could_Not_Install_Selected_Items, null);
 
@@ -342,7 +342,7 @@ class P2Installer {
 			status = P2Utilities.updateIu(up, monitor);
 
 		} catch (Exception e) {
-			StudioLogger.error(this.getClass(), "could not install selected installable unit.", e);
+			AndmoreLogger.error(this.getClass(), "could not install selected installable unit.", e);
 			status = new Status(IStatus.WARNING, InstallerPlugin.PLUGIN_ID, e.getMessage());
 		}
 
@@ -384,7 +384,7 @@ class P2Installer {
 			try {
 				installOp = P2Utilities.getInstallOperation(temp, mainRepositories.values(), monitor);
 			} catch (InstallerException e) {
-				StudioLogger.error(this.getClass(), "Could not retrieve install operation");
+				AndmoreLogger.error(this.getClass(), "Could not retrieve install operation");
 
 				return new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0, e.getMessage(), null);
 
@@ -429,7 +429,7 @@ class P2Installer {
 				result = Status.CANCEL_STATUS;
 			}
 		} catch (Exception e) {
-			StudioLogger.error(this.getClass(), "Error looking for updates. ", e);
+			AndmoreLogger.error(this.getClass(), "Error looking for updates. ", e);
 			result = new Status(IStatus.ERROR, InstallerPlugin.PLUGIN_ID, 0, e.getMessage(), null);
 		}
 

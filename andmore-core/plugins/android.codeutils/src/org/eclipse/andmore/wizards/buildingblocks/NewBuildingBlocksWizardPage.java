@@ -25,7 +25,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
@@ -618,7 +618,7 @@ public abstract class NewBuildingBlocksWizardPage extends NewTypeWizardPage {
 				pack = EclipseUtils.getDefaultPackageFragment(project);
 				getBuildBlock().setPackageFragment(pack);
 			} catch (JavaModelException e) {
-				StudioLogger.error(NewBuildingBlocksWizardPage.class, "Error getting default package fragment.", e); //$NON-NLS-1$
+				AndmoreLogger.error(NewBuildingBlocksWizardPage.class, "Error getting default package fragment.", e); //$NON-NLS-1$
 				// do nothing
 			}
 			setPackageFragment(pack, true);
@@ -763,7 +763,7 @@ public abstract class NewBuildingBlocksWizardPage extends NewTypeWizardPage {
 							.hasNature(IAndroidConstants.ANDROID_NATURE);
 				}
 			} catch (CoreException ce) {
-				StudioLogger.error(NewBuildingBlocksWizardPage.class, "Error getting the project nature.", ce); //$NON-NLS-1$
+				AndmoreLogger.error(NewBuildingBlocksWizardPage.class, "Error getting the project nature.", ce); //$NON-NLS-1$
 				hasNature = false;
 			}
 
@@ -827,7 +827,7 @@ public abstract class NewBuildingBlocksWizardPage extends NewTypeWizardPage {
 			}
 		} catch (JavaModelException e) {
 			// Do nothing
-			StudioLogger.error(NewBuildingBlocksWizardPage.class, e.getLocalizedMessage(), e);
+			AndmoreLogger.error(NewBuildingBlocksWizardPage.class, e.getLocalizedMessage(), e);
 		}
 
 		return exists;

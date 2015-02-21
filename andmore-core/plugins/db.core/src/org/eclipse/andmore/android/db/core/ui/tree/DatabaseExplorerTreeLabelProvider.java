@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.db.core.ui.tree;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
-import org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView;
+import org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -30,7 +30,7 @@ import org.eclipse.ui.IDecoratorManager;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Provides label for the tree into {@link MOTODEVDatabaseExplorerView} by
+ * Provides label for the tree into {@link AndmoreDatabaseExplorerView} by
  * encapsulating {@link AbstractTreeNode}
  */
 public class DatabaseExplorerTreeLabelProvider extends CellLabelProvider {

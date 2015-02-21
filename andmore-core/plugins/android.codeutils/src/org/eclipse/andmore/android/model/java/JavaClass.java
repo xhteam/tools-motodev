@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.model.java;
 
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.dom.AST;
@@ -161,12 +161,12 @@ public abstract class JavaClass {
 		} catch (MalformedTreeException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
 
-			StudioLogger.error(JavaClass.class, errMsg, e);
+			AndmoreLogger.error(JavaClass.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} catch (BadLocationException e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, className);
 
-			StudioLogger.error(JavaClass.class, errMsg, e);
+			AndmoreLogger.error(JavaClass.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		}
 
@@ -351,9 +351,9 @@ public abstract class JavaClass {
 
 	/**
 	 * Retrieves the qualifier for a full qualified name. Example:
-	 * com.motorola.studio.android.MyClass
+	 * org.eclipse.andmore.android.MyClass
 	 * 
-	 * The qualifier for the class is com.motorola.studio.android
+	 * The qualifier for the class is org.eclipse.andmore.android
 	 * 
 	 * @param qualifiedName
 	 *            The full qualified name

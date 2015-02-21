@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.mat.actions;
 
 import org.eclipse.andmore.android.mat.Activator;
 import org.eclipse.andmore.android.mat.i18n.MatNLS;
-import org.eclipse.andmore.android.mat.panes.MotodevPane;
+import org.eclipse.andmore.android.mat.panes.AndmorePane;
 import org.eclipse.jface.action.Action;
 import org.eclipse.mat.ui.editor.MultiPaneEditor;
 import org.eclipse.ui.IEditorPart;
@@ -27,13 +27,13 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 @SuppressWarnings("restriction")
-public class OpenMotodevPaneAction extends Action {
+public class OpenAndmorePaneAction extends Action {
 
 	// Icon image patch
 	private static final String ACTION_IMAGE_PATH = "icons/android_oql.png";
 
-	public OpenMotodevPaneAction() {
-		super(MatNLS.Action_Open_Motodev_Pane, AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
+	public OpenAndmorePaneAction() {
+		super(MatNLS.Action_Open_Andmore_Pane, AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID,
 				ACTION_IMAGE_PATH));
 	}
 
@@ -43,7 +43,7 @@ public class OpenMotodevPaneAction extends Action {
 		IEditorPart part = page == null ? null : page.getActiveEditor();
 
 		if (part instanceof MultiPaneEditor) {
-			((MultiPaneEditor) part).addNewPage(MotodevPane.MOTODEV_PANE_ID, null);
+			((MultiPaneEditor) part).addNewPage(AndmorePane.ANDMORE_PANE_ID, null);
 		}
 	}
 }

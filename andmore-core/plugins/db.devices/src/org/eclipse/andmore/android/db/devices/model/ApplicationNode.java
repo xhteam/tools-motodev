@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.DDMSUtils;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.model.TableModel;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.IDbNode;
@@ -153,7 +153,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode 
 				dbNode.createTables(tables);
 			}
 			putChild(dbNode);
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			status = new Status(IStatus.ERROR, DbDevicesPlugin.PLUGIN_ID, NLS.bind(
 					DbDevicesNLS.ApplicationNode_Could_Not_Create_Database, remoteDbPath.toString(), serialNumber));
 		}

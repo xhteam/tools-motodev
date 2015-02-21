@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.ui.controls.maindisplay;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.util.Properties;
 
@@ -343,7 +343,7 @@ public class MainDisplayComposite extends Composite implements IAndroidComposite
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.ui.controls.IAndroidComposite#
+	 * @see org.eclipse.andmore.android.emulator.ui.controls.IAndroidComposite#
 	 * applyLayout(java.lang.String)
 	 */
 	@Override

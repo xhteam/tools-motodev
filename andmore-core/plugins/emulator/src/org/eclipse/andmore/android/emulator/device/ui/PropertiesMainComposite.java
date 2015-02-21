@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.device.IAndroidDeviceConstants;
 import org.eclipse.andmore.android.emulator.device.IDevicePropertiesConstants;
 import org.eclipse.andmore.android.emulator.device.definition.AndroidEmuDefMgr;
@@ -521,16 +521,16 @@ public class PropertiesMainComposite extends AbstractPropertiesComposite {
 			}
 
 		} catch (FileNotFoundException e) {
-			StudioLogger.error("Could not find config file for AVD: " + name); //$NON-NLS-1$
+			AndmoreLogger.error("Could not find config file for AVD: " + name); //$NON-NLS-1$
 		} catch (IOException e) {
-			StudioLogger.error("Could not read config file for AVD: " + name); //$NON-NLS-1$
+			AndmoreLogger.error("Could not read config file for AVD: " + name); //$NON-NLS-1$
 		} finally {
 			try {
 				if (input != null) {
 					input.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
 			}
 		}
 	}

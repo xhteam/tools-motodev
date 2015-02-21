@@ -30,7 +30,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.EntryNode;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -122,7 +122,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 				iterator = KeyStoreManager.getInstance().getKeyStores().iterator();
 			}
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error(this.getClass(), "Error retrieving keystore list", e); //$NON-NLS-1$
+			AndmoreLogger.error(this.getClass(), "Error retrieving keystore list", e); //$NON-NLS-1$
 		}
 
 		while ((iterator != null) && (iterator.hasNext())) {
@@ -149,7 +149,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 				// retrieve the saved password
 				password = pP.getKeyStorePassword(false);
 			} catch (KeyStoreManagerException e1) {
-				StudioLogger.error(this.getClass(), "Error retrieving keys from keystore", e1); //$NON-NLS-1$
+				AndmoreLogger.error(this.getClass(), "Error retrieving keys from keystore", e1); //$NON-NLS-1$
 			}
 
 			if (password == null) {
@@ -171,7 +171,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 				} catch (KeyStoreManagerException e) {
 					// this exception should never happen here as it was handled
 					// at some point before
-					StudioLogger.error("This keystore was imported with wrong store type"); //$NON-NLS-1$
+					AndmoreLogger.error("This keystore was imported with wrong store type"); //$NON-NLS-1$
 				}
 			}
 			try {
@@ -203,7 +203,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 					}
 
 				} catch (KeyStoreManagerException e) {
-					StudioLogger.error(this.getClass(), "Error retrieving keys from keystore", e); //$NON-NLS-1$
+					AndmoreLogger.error(this.getClass(), "Error retrieving keys from keystore", e); //$NON-NLS-1$
 				}
 
 			} catch (InvalidPasswordException e) {
@@ -249,7 +249,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.packaging.ui.wizards.
+	 * @see org.eclipse.andmore.android.packaging.ui.wizards.
 	 * RemoveExternalPackageSignaturePage
 	 * #createExtendedArea(org.eclipse.swt.widgets.Composite)
 	 */
@@ -396,10 +396,10 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 					getKeystorePassword());
 		} catch (KeyStoreManagerException e) {
 			// should never happen
-			StudioLogger.error("Could not retrieve entry while signing package"); //$NON-NLS-1$
+			AndmoreLogger.error("Could not retrieve entry while signing package"); //$NON-NLS-1$
 		} catch (InvalidPasswordException e) {
 			// should never happen
-			StudioLogger.error("Invalid password while retrieving entry to sign package"); //$NON-NLS-1$
+			AndmoreLogger.error("Invalid password while retrieving entry to sign package"); //$NON-NLS-1$
 		}
 
 		return result;
@@ -430,7 +430,7 @@ public class SignExternalPackagePage extends RemoveExternalPackageSignaturePage 
 		try {
 			this.keyEntryPassword = pP.getPassword(this.keysCombo.getItem(this.keysCombo.getSelectionIndex()), true);
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error(this.getClass(), "Error retrieving keys entry password", e); //$NON-NLS-1$
+			AndmoreLogger.error(this.getClass(), "Error retrieving keys entry password", e); //$NON-NLS-1$
 		}
 		return this.keyEntryPassword;
 	}

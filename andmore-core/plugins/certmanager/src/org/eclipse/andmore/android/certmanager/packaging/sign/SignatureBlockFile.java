@@ -33,7 +33,7 @@ import javax.security.auth.x500.X500Principal;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * This class implements the signature block file from jar mechanism used in
@@ -84,13 +84,13 @@ public class SignatureBlockFile {
 					.append(CertificateManagerActivator.JAR_SEPARATOR).append(ISignConstants.SIGNATURE_FILE_NAME)
 					.append(".").append(getBlockAlgorithm()).toString();
 		} catch (UnrecoverableKeyException e) {
-			StudioLogger.error("Could not generate signature block file name.");
+			AndmoreLogger.error("Could not generate signature block file name.");
 		} catch (KeyStoreException e) {
-			StudioLogger.error("Could not generate signature block file name.");
+			AndmoreLogger.error("Could not generate signature block file name.");
 		} catch (NoSuchAlgorithmException e) {
-			StudioLogger.error("Could not generate signature block file name.");
+			AndmoreLogger.error("Could not generate signature block file name.");
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error("Could not generate signature block file name.");
+			AndmoreLogger.error("Could not generate signature block file name.");
 		}
 
 		return result;
@@ -142,7 +142,7 @@ public class SignatureBlockFile {
 			} else if (blockalgorithm.equalsIgnoreCase(ISignConstants.RSA)) {
 				digestAlgotithm = ISignConstants.MD5;
 			} else {
-				StudioLogger.error(SignatureBlockFile.class,
+				AndmoreLogger.error(SignatureBlockFile.class,
 						"Signing block algorithm not supported. Key algorithm must be DSA or RSA");
 
 				throw new SignException("Signing block algorithm not supported");
@@ -195,7 +195,7 @@ public class SignatureBlockFile {
 			// }
 			// catch (IOException e)
 			// {
-			// StudioLogger.error(SignatureBlockFile.class,
+			// AndmoreLogger.error(SignatureBlockFile.class,
 			// "I/O error creating signature block file: " + e.getMessage());
 			//
 			// throw new
@@ -218,7 +218,7 @@ public class SignatureBlockFile {
 			// }
 			// catch (NoSuchAlgorithmException nsae)
 			// {
-			// StudioLogger.error(SignatureBlockFile.class,
+			// AndmoreLogger.error(SignatureBlockFile.class,
 			// "Signing algorithm not supported: "
 			// + nsae.getMessage());
 			//
@@ -226,7 +226,7 @@ public class SignatureBlockFile {
 			// }
 			// catch (InvalidKeyException ike)
 			// {
-			// StudioLogger.error(SignatureBlockFile.class,
+			// AndmoreLogger.error(SignatureBlockFile.class,
 			// "Invalid key when creating signature block file: " +
 			// ike.getMessage());
 			//
@@ -236,7 +236,7 @@ public class SignatureBlockFile {
 			// }
 			// catch (SignatureException se)
 			// {
-			// StudioLogger.error(SignatureBlockFile.class,
+			// AndmoreLogger.error(SignatureBlockFile.class,
 			// "Signature error when creating signature block file: " +
 			// se.getMessage());
 			//
@@ -245,6 +245,6 @@ public class SignatureBlockFile {
 			// se);
 			// }
 		}
-		StudioLogger.info(SignatureBlockFile.class, "Created signature block file");
+		AndmoreLogger.info(SignatureBlockFile.class, "Created signature block file");
 	}
 }

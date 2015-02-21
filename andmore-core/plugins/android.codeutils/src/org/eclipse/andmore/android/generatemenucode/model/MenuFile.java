@@ -22,7 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatecode.AndroidXMLFileConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -106,7 +106,7 @@ public class MenuFile {
 			doc = dBuilder.parse(f);
 			doc.getDocumentElement().normalize();
 		} catch (Exception e) {
-			StudioLogger.error(MenuFile.class, "Error parsing menu: " + e.getMessage());
+			AndmoreLogger.error(MenuFile.class, "Error parsing menu: " + e.getMessage());
 			throw new AndroidException(e);
 		}
 

@@ -862,60 +862,6 @@ recorder.release();
        </item>
     </category>
     <category
-          description="%category.motorolaapi.description"                   
-          id="android_motorolaapi"
-          label="%category.motorolaapi">
-       <item
-             class="org.eclipse.andmore.android.codesnippets.AndroidPermissionInsertSnippet"           
-             description="%snippet.motorolaapi.ffcamera.description"
-             id="org.eclipse.andmore.android.codesnippets.motorolaapi1"
-             label="%snippet.motorolaapi.ffcamera">
-          <content>
-             // To use these Camera methods, AndroidManifest.xml must have the following permission:
-// &lt;uses-permission android:name=&quot;android.permission.CAMERA&quot;/&gt;
-// Add an import com.motorola.hardware.frontcamera.FrontCamera; statement
-// Add an import android.hardware.Camera; statement
-// Note that you need to add a Motorola library to make this work.
-// See more details at: 
-// https://developer.motorola.com/docstools/library/motorola-front-facing-camera-api/
-
-Camera frontCam = FrontCamera.getFrontCamera();
-// the frontCam object represents the front-facing camera
-// treat it like any other Camera object
-frontCam.release();   // always release when done with the Camera object
-          </content>
-       </item>
-       <item description="%snippet.motorolaapi.hdmi.description"
-             id="org.eclipse.andmore.android.codesnippets.motorolaapi2"
-             label="%snippet.motorolaapi.hdmi">
-          <content>
-// Insert the code below into the onReceive method of a BroadcastReceiver class
-// This broadcast receiver must have the following intent filter:
-// &lt;intent-filter&gt;
-//     &lt;action android:name="com.motorola.intent.action.externaldisplaystate"/&gt;
-// &lt;/intent-filter&gt;
-// More details about Motorola HDMI Status API are available at: 
-// https://developer.motorola.com/docstools/library/motorola-hdmi-status-api/
-final String EXTDISP_PUBLIC_STATE = "com.motorola.intent.action.externaldisplaystate";
-final String EXTRA_HDCP = "";
-final String EXTRA_HDMI = "";
-   
-String action = intent.getAction();
-Bundle extras = (intent != null) ? intent.getExtras() : null;
-
-if (action.equals(EXTDISP_PUBLIC_STATE))
-{
-   if (extras != null)
-   {
-      int hdmi = extras.getInt(EXTRA_HDMI);
-      int hdcp = extras.getInt(EXTRA_HDCP);
-      // Application decides what to do with this information
-   }
-}     
-          </content>
-       </item>
-    </category>
-    <category
           description="%category.preferences.description"
           id="org.eclipse.andmore.android.codesnippets.category2"
           label="%category.preferences">

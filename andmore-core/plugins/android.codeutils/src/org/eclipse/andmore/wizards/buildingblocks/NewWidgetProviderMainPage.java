@@ -43,7 +43,7 @@ public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getBuildBlock()
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getMethods()
 	 */
 	@Override
@@ -65,7 +65,7 @@ public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getDefaultMessage()
 	 */
 	@Override
@@ -76,7 +76,7 @@ public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getWizardTitle()
 	 */
 	@Override
@@ -88,7 +88,7 @@ public class NewWidgetProviderMainPage extends NewLauncherWizardPage {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.wizards.buildingblocks.NewLauncherWizardPage
+	 * org.eclipse.andmore.android.wizards.buildingblocks.NewLauncherWizardPage
 	 * #getIntentFiltersActions()
 	 */
 	@Override

@@ -21,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
@@ -109,7 +109,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 		} catch (Exception e) {
 			String errMsg = NLS.bind(AndroidNLS.EXC_NewAndroidProjectWizard_AnErrorHasOccurredWhenCreatingTheProject,
 					e.getLocalizedMessage());
-			StudioLogger.error(NewAndroidProjectWizard.class, errMsg, e);
+			AndmoreLogger.error(NewAndroidProjectWizard.class, errMsg, e);
 
 			EclipseUtils.showErrorDialog(AndroidNLS.UI_GenericErrorDialogTitle, errMsg, null);
 		}
@@ -118,7 +118,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 		if (success) {
 			// Collecting usage data for statistical purposes
 			try {
-				StudioLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_CREATE,
+				AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_APP_MANAGEMENT_CREATE,
 						UsageDataConstants.KIND_APP_MANAGEMENT, this.project.getSourceType().name().toLowerCase(),
 						AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle().getVersion().toString());
 			} catch (Throwable e) {
@@ -140,7 +140,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 		try {
 			project.finalize();
 		} catch (Throwable e) {
-			StudioLogger.error(NewAndroidProjectWizard.class, e.getLocalizedMessage(), e);
+			AndmoreLogger.error(NewAndroidProjectWizard.class, e.getLocalizedMessage(), e);
 		}
 		return super.performCancel();
 	}
@@ -173,7 +173,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 				nativePage = (WizardPage) classInstance;
 			}
 		} catch (Exception e) {
-			StudioLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
+			AndmoreLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
 		}
 
 		if (nativePage != null) {
@@ -241,7 +241,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 				// there is no need to stop the process because auto-build only
 				// improves performance, it does not interferes with the new
 				// project creation.
-				StudioLogger.error(NewAndroidProjectWizard.class,
+				AndmoreLogger.error(NewAndroidProjectWizard.class,
 						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
 			}
 
@@ -260,7 +260,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 			} catch (Exception e1) {
 				// even if the build fais, the project could still be created,
 				// therefore it must continue
-				StudioLogger.error(NewAndroidProjectWizard.class,
+				AndmoreLogger.error(NewAndroidProjectWizard.class,
 						"Sleep error when cleaning workspace after project creation: " //$NON-NLS-1$
 								+ e1.getMessage());
 			}
@@ -275,7 +275,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 			} catch (CoreException e) {
 				// the auto-building does not interfere with the project
 				// creation, therefore in case it fails, the process may contine
-				StudioLogger.error(NewAndroidProjectWizard.class,
+				AndmoreLogger.error(NewAndroidProjectWizard.class,
 						"Error cleaning workspace after project creation: " + e.getMessage()); //$NON-NLS-1$
 			}
 
@@ -323,7 +323,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 					// the project may be in a inconsistent state - throw an
 					// exception
 					saved = false;
-					StudioLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
+					AndmoreLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
 					throw new InvocationTargetException(e);
 				}
 			}
@@ -335,7 +335,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 				}
 				newProject.refreshLocal(IResource.DEPTH_INFINITE, subMonitor);
 			} catch (Exception e) {
-				StudioLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
+				AndmoreLogger.error(NewAndroidProjectWizard.class, e.getMessage(), e);
 				throw new InvocationTargetException(e);
 			}
 		}
@@ -374,7 +374,7 @@ public class NewAndroidProjectWizard extends BasicNewProjectResourceWizard imple
 									new Path(file.getAbsolutePath()), null, null);
 							javaProject.setRawClasspath(newClasspath, monitor);
 						} catch (JavaModelException e) {
-							StudioLogger.error(NewAndroidProjectWizard.class,
+							AndmoreLogger.error(NewAndroidProjectWizard.class,
 									"Error while setting up the oms.jar on the project classpath: " //$NON-NLS-1$
 											+ e.getMessage());
 						}

@@ -24,7 +24,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
@@ -183,7 +183,7 @@ public class OpenStringEditor extends AbstractHandler {
 										new ProjectCloseListener(fileEditor, wbWindow, wbPage),
 										IResourceChangeEvent.PRE_CLOSE);
 							} else {
-								StudioLogger.error("Cannot open Localization Files Editor - XML(s) Malformed: "
+								AndmoreLogger.error("Cannot open Localization Files Editor - XML(s) Malformed: "
 										+ malformedXMLFiles);
 								EclipseUtils.showErrorDialog(AndroidNLS.ERR_Localization_XMLMalformed_Title, NLS.bind(
 										AndroidNLS.ERR_Localization_XMLMalformed_Description,
@@ -197,11 +197,11 @@ public class OpenStringEditor extends AbstractHandler {
 					}
 
 					// UDC log
-					StudioLogger.collectUsageData("Localization Editor openned", //$NON-NLS-1$
+					AndmoreLogger.collectUsageData("Localization Editor openned", //$NON-NLS-1$
 							"Localization Editor", UsageDataConstants.DESCRIPTION_DEFAULT, //$NON-NLS-1$
 							AndroidPlugin.PLUGIN_ID, AndroidPlugin.getDefault().getBundle().getVersion().toString());
 				} catch (PartInitException e) {
-					StudioLogger.error("Cannot open Localization Files Editor");
+					AndmoreLogger.error("Cannot open Localization Files Editor");
 				}
 			}
 		}

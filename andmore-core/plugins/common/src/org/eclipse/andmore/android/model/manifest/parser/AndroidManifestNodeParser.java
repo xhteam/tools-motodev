@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.model.manifest.parser;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.andmore.android.model.manifest.dom.AbstractBuildingBlockNode;
 import org.eclipse.andmore.android.model.manifest.dom.AbstractIconLabelNameNode;
@@ -97,7 +97,7 @@ abstract class AndroidManifestNodeParser implements IAndroidManifestProperties {
 					String errMsg = NLS.bind(UtilitiesNLS.ERR_AndroidManifestNodeParser_ErrorParsingVersionCode,
 							attrValue, versionCode.toString());
 					parseErrors.add(errMsg);
-					StudioLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
+					AndmoreLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
 				}
 
 				manifestNode.setVersionCode(versionCode);
@@ -422,7 +422,7 @@ abstract class AndroidManifestNodeParser implements IAndroidManifestProperties {
 					String errMsg = NLS
 							.bind(UtilitiesNLS.ERR_AndroidManifestNodeParser_ErrorParsingPriority, attrValue);
 					parseErrors.add(errMsg);
-					StudioLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
+					AndmoreLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
 				}
 			} else {
 				intentFilterNode.addUnknownProperty(attrName, attrValue);
@@ -661,7 +661,7 @@ abstract class AndroidManifestNodeParser implements IAndroidManifestProperties {
 					String errMsg = NLS.bind(UtilitiesNLS.ERR_AndroidManifestNodeParser_ErrorParsingInitOrder,
 							attrValue);
 					parseErrors.add(errMsg);
-					StudioLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
+					AndmoreLogger.error(AndroidManifestNodeParser.class, errMsg, nfe);
 				}
 			} else if (attrName.equalsIgnoreCase(PROP_MULTIPROCESS)) {
 				Boolean multiprocess = Boolean.parseBoolean(attrValue);

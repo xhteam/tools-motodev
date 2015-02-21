@@ -15,9 +15,9 @@
  */
 package org.eclipse.andmore.android.emulator.logic.stop;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;

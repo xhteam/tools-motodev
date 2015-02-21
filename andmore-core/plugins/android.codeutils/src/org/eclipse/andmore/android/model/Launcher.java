@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.wizard.IWizardContainer;
@@ -211,7 +211,7 @@ public abstract class Launcher extends BuildingBlockModel {
 		if (selectedPermissionsSize > 0) {
 
 			// Logs to UDC the permissions selected
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_PERMISSION,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_BUILDINGBLOCK_PERMISSION,
 					UsageDataConstants.KIND_BUILDINGBLOCK_PERMISSION, "permissions: " + permissionList.toString(), //$NON-NLS-1$
 					CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());
 		}

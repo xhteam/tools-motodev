@@ -2,7 +2,7 @@
 <!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task id="t_db-table-editing" xml:lang="en-us">
   <title>Exploring or editing a database table</title>
-  <shortdesc>MOTODEV Studio for Android lets you easily view and manipulate the contents of an SQLite database table in
+  <shortdesc>Eclipse Andmore lets you easily view and manipulate the contents of an SQLite database table in
     spreadsheet form.</shortdesc>
   <prolog>
     <metadata>

@@ -21,7 +21,7 @@ import java.util.Map;
 import org.eclipse.andmore.android.DDMSUtils;
 import org.eclipse.andmore.android.ISerialNumbered;
 import org.eclipse.andmore.android.InstallPackageBean;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.services.i18n.ServicesNLS;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -89,7 +89,7 @@ public class DeployServiceHandler extends ServiceHandler {
 	 */
 	@Override
 	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
-		StudioLogger.info("Updating reset service");
+		AndmoreLogger.info("Updating reset service");
 		return Status.OK_STATUS;
 	}
 

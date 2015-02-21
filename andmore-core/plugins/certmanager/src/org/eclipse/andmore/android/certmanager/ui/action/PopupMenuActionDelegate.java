@@ -27,7 +27,7 @@ import org.eclipse.andmore.android.certmanager.command.DeleteKeystoreHandler;
 import org.eclipse.andmore.android.certmanager.command.ImportKeyStoreEntriesHandler;
 import org.eclipse.andmore.android.certmanager.command.RefreshHandler;
 import org.eclipse.andmore.android.certmanager.command.SignExternalPackagesHandler;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -171,7 +171,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate {
 			try {
 				handler.execute(event);
 			} catch (ExecutionException e) {
-				StudioLogger.error(PopupMenuActionDelegate.class, e.getMessage(), e);
+				AndmoreLogger.error(PopupMenuActionDelegate.class, e.getMessage(), e);
 				EclipseUtils.showErrorDialog("Execution error", e.getMessage());
 			}
 		}

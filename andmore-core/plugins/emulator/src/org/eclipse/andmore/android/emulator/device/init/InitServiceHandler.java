@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.device.init;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.util.List;
 

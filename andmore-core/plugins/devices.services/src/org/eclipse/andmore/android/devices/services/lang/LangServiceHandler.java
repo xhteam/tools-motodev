@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.eclipse.andmore.android.DDMSUtils;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.devices.services.DeviceServicesPlugin;
 import org.eclipse.andmore.android.devices.services.lang.model.LangWizard;
@@ -72,7 +72,7 @@ public class LangServiceHandler extends ServiceHandler {
 
 		// Collecting usage data for statistical purpose
 		try {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_LANGUAGE, UsageDataConstants.KIND_EMULATOR,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_LANGUAGE, UsageDataConstants.KIND_EMULATOR,
 					languageID, DeviceServicesPlugin.PLUGIN_ID, DeviceServicesPlugin.getDefault().getBundle()
 							.getVersion().toString());
 		} catch (Throwable e) {
@@ -92,7 +92,7 @@ public class LangServiceHandler extends ServiceHandler {
 	 */
 	@Override
 	public IStatus updatingService(IInstance instance, IProgressMonitor monitor) {
-		StudioLogger.info("Updating change language service");
+		AndmoreLogger.info("Updating change language service");
 		return Status.OK_STATUS;
 	}
 
@@ -118,7 +118,7 @@ public class LangServiceHandler extends ServiceHandler {
 					}
 
 				} catch (Exception e) {
-					StudioLogger.error("Change Language TmL Service: could not open UI");
+					AndmoreLogger.error("Change Language TmL Service: could not open UI");
 				}
 			}
 		});

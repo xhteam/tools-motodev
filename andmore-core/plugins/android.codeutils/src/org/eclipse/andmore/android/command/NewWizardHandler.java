@@ -27,7 +27,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Abstract class intended to be used to create menu commands for items in the
- * MOTODEV Menu.
+ * Andmore menu.
  */
 abstract class NewWizardHandler extends AbstractHandler {
 	private static final int WIZARD_WIDTH = 500;

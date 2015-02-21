@@ -21,8 +21,8 @@ import org.eclipse.swt.widgets.Composite;
 
 /***
  * This class is responsible for provide MAC OS specific constants values since
- * the option of use native emulator window to show emulator within the MOTODEV
- * Studio is not available on MAC OS. This is why the methods are not filled.
+ * the option of use native emulator window to show emulator 
+ *  is not available on MAC OS. This is why the methods are not filled.
  */
 public class NativeUI implements INativeUI {
 	String DEFAULT_COMMANDLINE = "-no-window";
@@ -33,7 +33,7 @@ public class NativeUI implements INativeUI {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.nativeos.INativeUI#getDefaultCommandLine()
+	 * org.eclipse.andmore.android.nativeos.INativeUI#getDefaultCommandLine()
 	 */
 	public String getDefaultCommandLine() {
 		return DEFAULT_COMMANDLINE;
@@ -42,7 +42,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#getDefaultUseVnc()
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#getDefaultUseVnc()
 	 */
 	public String getDefaultUseVnc() {
 		return DEFAULT_USEVNC;
@@ -52,7 +52,7 @@ public class NativeUI implements INativeUI {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.nativeos.INativeUI#getWindowHandle(java.lang
+	 * org.eclipse.andmore.android.nativeos.INativeUI#getWindowHandle(java.lang
 	 * .String)
 	 */
 	public long getWindowHandle(String windowName) {
@@ -64,7 +64,7 @@ public class NativeUI implements INativeUI {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.nativeos.INativeUI#getWindowProperties(long)
+	 * org.eclipse.andmore.android.nativeos.INativeUI#getWindowProperties(long)
 	 */
 	public long getWindowProperties(long windowHandle) {
 		// Not needed
@@ -74,7 +74,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#getWindowSize(long,
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#getWindowSize(long,
 	 * long)
 	 */
 	public Point getWindowSize(long originalHandle, long windowHandle) {
@@ -85,7 +85,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#hideWindow(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#hideWindow(long)
 	 */
 	public void hideWindow(long windowHandle) {
 		// Not needed
@@ -94,7 +94,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#isWindowEnabled(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#isWindowEnabled(long)
 	 */
 	public boolean isWindowEnabled(long windowHandle) {
 		// Not needed
@@ -104,7 +104,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#restoreWindow(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#restoreWindow(long)
 	 */
 	public void restoreWindow(long windowHandle) {
 		// Not needed
@@ -114,7 +114,7 @@ public class NativeUI implements INativeUI {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.nativeos.INativeUI#sendNextLayoutCommand(
+	 * org.eclipse.andmore.android.nativeos.INativeUI#sendNextLayoutCommand(
 	 * long, long)
 	 */
 	public void sendNextLayoutCommand(long originalHandle, long windowHandle) {
@@ -124,7 +124,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#setWindowFocus(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#setWindowFocus(long)
 	 */
 	public void setWindowFocus(long windowHandle) {
 		// Not needed
@@ -133,7 +133,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#embedWindow(long,
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#embedWindow(long,
 	 * org.eclipse.swt.widgets.Composite)
 	 */
 	public long embedWindow(long windowHandle, Composite composite) {
@@ -144,7 +144,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#unembedWindow(long,
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#unembedWindow(long,
 	 * long)
 	 */
 	public void unembedWindow(long windowHandle, long originalParent) {
@@ -155,7 +155,7 @@ public class NativeUI implements INativeUI {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.nativeos.INativeUI#setWindowProperties(long,
+	 * org.eclipse.andmore.android.nativeos.INativeUI#setWindowProperties(long,
 	 * long)
 	 */
 	public void setWindowProperties(long windowHandle, long originalProperties) {
@@ -165,7 +165,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#setWindowStyle(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#setWindowStyle(long)
 	 */
 	public void setWindowStyle(long windowHandle) {
 		// Not needed
@@ -174,7 +174,7 @@ public class NativeUI implements INativeUI {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.nativeos.INativeUI#showWindow(long)
+	 * @see org.eclipse.andmore.android.nativeos.INativeUI#showWindow(long)
 	 */
 	public void showWindow(long windowHandle) {
 		// Not needed

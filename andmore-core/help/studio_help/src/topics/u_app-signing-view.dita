@@ -12,7 +12,7 @@
     </metadata>
   </prolog>
   <refbody>
-    <section><p>The Signing and Keys view is part of the MOTODEV Studio for Android perspective. You can open it manually  by <ph
+    <section><p>The Signing and Keys view is part of the Eclipse Andmore perspective. You can open it manually  by <ph
           product="webui android-studio">selecting <menucascade>
             <uicontrol>Window</uicontrol>
             <uicontrol>Show View</uicontrol>

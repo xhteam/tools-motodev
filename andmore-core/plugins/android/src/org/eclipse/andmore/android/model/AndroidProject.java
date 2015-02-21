@@ -392,7 +392,7 @@ public class AndroidProject implements IWizardModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#getStatus()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#getStatus()
 	 */
 	@Override
 	public IStatus getStatus() {
@@ -606,7 +606,7 @@ public class AndroidProject implements IWizardModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.IWizardModel#needMoreInformation()
+	 * @see org.eclipse.andmore.android.model.IWizardModel#needMoreInformation()
 	 */
 	@Override
 	public boolean needMoreInformation() {
@@ -651,7 +651,7 @@ public class AndroidProject implements IWizardModel {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.IWizardModel#save(org.eclipse.jface
+	 * org.eclipse.andmore.android.model.IWizardModel#save(org.eclipse.jface
 	 * .wizard.IWizardContainer, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override

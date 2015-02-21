@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.skin.android.parser;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,7 +31,7 @@ import java.util.Collection;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.core.exception.SkinException;
 import org.eclipse.andmore.android.emulator.i18n.EmulatorNLS;
@@ -126,7 +126,7 @@ public class LayoutFileParser implements ILayoutConstants {
 			try {
 				reader.close();
 			} catch (IOException e) {
-				StudioLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
 			}
 		}
 

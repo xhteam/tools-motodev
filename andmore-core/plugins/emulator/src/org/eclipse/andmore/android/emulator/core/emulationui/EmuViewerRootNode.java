@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.core.emulationui;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import org.eclipse.andmore.android.emulator.core.exception.InstanceNotFoundException;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;

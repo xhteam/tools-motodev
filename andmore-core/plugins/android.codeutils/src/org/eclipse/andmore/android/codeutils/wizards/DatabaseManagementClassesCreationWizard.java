@@ -21,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.db.utils.DatabaseUtils;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
@@ -46,7 +46,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class DatabaseManagementClassesCreationWizard extends Wizard {
 
-	private static final String SDK_SWITCH_PERSPECTIVE_TO_MOTODEV_STUDIO_ANDROID_KEY = "switch.perspective.to.motodevstudioandroid"; //$NON-NLS-1$
+	private static final String SDK_SWITCH_PERSPECTIVE_TO_ANDMORE_ANDROID_KEY = "switch.perspective.to.andmoreandroid"; //$NON-NLS-1$
 
 	private static final String SDK_SWITCH_PERSPECTIVE_TO_JAVA_KEY = "switch.perspective.to.java"; //$NON-NLS-1$
 
@@ -127,7 +127,7 @@ public class DatabaseManagementClassesCreationWizard extends Wizard {
 						contentProvidersPackageName, sqlOpenHelperClassName, isOverrideContentProviders, false,
 						subMonitor.newChild(6), true);
 			} catch (Exception e) {
-				StudioLogger.error(DatabaseManagementClassesCreationWizard.class,
+				AndmoreLogger.error(DatabaseManagementClassesCreationWizard.class,
 						CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE, e);
 				IStatus status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
 				EclipseUtils.showErrorDialog(CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE,
@@ -194,7 +194,7 @@ public class DatabaseManagementClassesCreationWizard extends Wizard {
 							isCreateSQLOpenHelper, isCreateContentProviders, sqlOpenHelperPackageName,
 							contentProvidersPackageName, sqlOpenHelperClassName, isOverrideContentProviders));
 		} catch (Exception e) {
-			StudioLogger.error(DatabaseManagementClassesCreationWizard.class,
+			AndmoreLogger.error(DatabaseManagementClassesCreationWizard.class,
 					CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE, e);
 			IStatus status = new Status(IStatus.ERROR, CodeUtilsActivator.PLUGIN_ID, e.getLocalizedMessage());
 			EclipseUtils.showErrorDialog(CodeUtilsNLS.DATABASE_DEPLOY_ERROR_DEPLOYING_DATABASE,
@@ -214,9 +214,9 @@ public class DatabaseManagementClassesCreationWizard extends Wizard {
 						// files created
 						if (DialogWithToggleUtils
 								.showQuestion(
-										SDK_SWITCH_PERSPECTIVE_TO_MOTODEV_STUDIO_ANDROID_KEY,
-										CodeUtilsNLS.UI_PersistenceWizard_ChangePerspectiveToMOTODEVStudioAndroid_DialogTitle,
-										CodeUtilsNLS.UI_PersistenceWizard_ChangePerspectiveToMOTODEVStudioAndroid_DialogMessage)) {
+										SDK_SWITCH_PERSPECTIVE_TO_ANDMORE_ANDROID_KEY,
+										CodeUtilsNLS.UI_PersistenceWizard_ChangePerspectiveToAndmoreAndroid_DialogTitle,
+										CodeUtilsNLS.UI_PersistenceWizard_ChangePerspectiveToAndmoreAndroid_DialogMessage)) {
 							PlatformUI.getWorkbench().showPerspective(CodeUtilsActivator.PERSPECTIVE_ID,
 									PlatformUI.getWorkbench().getActiveWorkbenchWindow());
 						}
@@ -231,12 +231,12 @@ public class DatabaseManagementClassesCreationWizard extends Wizard {
 				}
 			}
 		} catch (WorkbenchException e) {
-			StudioLogger.warn("It was not possible to change perspective to " //$NON-NLS-1$
+			AndmoreLogger.warn("It was not possible to change perspective to " //$NON-NLS-1$
 					+ CodeUtilsActivator.PERSPECTIVE_ID);
 		}
 
 		// create UDC log for db file size
-		StudioLogger.collectUsageData(UsageDataConstants.WHAT_DATABASE_MANAGMT_CLASSES,
+		AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_DATABASE_MANAGMT_CLASSES,
 				UsageDataConstants.KIND_DATABASE_MANAGMT_CLASSES,
 				"Database classes created. Database filesize " + getDatabaseFileSize(databaseFilePath) + ".", //$NON-NLS-1$ //$NON-NLS-2$
 				CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());

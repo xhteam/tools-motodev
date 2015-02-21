@@ -21,8 +21,8 @@ import java.util.Properties;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DdmsRunnable;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.DevicesManager;
 import org.eclipse.sequoyah.device.common.utilities.exception.SequoyahException;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -79,14 +79,14 @@ public class HandsetPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(HandsetPlugin.class, "Starting MOTODEV Android Handset Plugin...");
+		AndmoreLogger.debug(HandsetPlugin.class, "Starting Andmore Handset Plugin...");
 
 		super.start(context);
 		plugin = this;
-		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
 		AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
 
-		StudioLogger.debug(HandsetPlugin.class, "MOTODEV Android Handset Plugin started.");
+		AndmoreLogger.debug(HandsetPlugin.class, "Andmore Handset Plugin started.");
 	}
 
 	/*
@@ -100,7 +100,7 @@ public class HandsetPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
-		StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
 		super.stop(context);
 	}
 
@@ -130,7 +130,7 @@ public class HandsetPlugin extends AbstractUIPlugin {
 				DevicesManager.getInstance().createInstanceForDevice(serialNumber,
 						HandsetPlugin.HANDSET_DEVICE_TYPE_ID, projectBuilder, HandsetPlugin.SERVICE_INIT_ID);
 			} catch (SequoyahException e) {
-				StudioLogger
+				AndmoreLogger
 						.error(HandsetPlugin.class, "Failed to create a TmL instance for device " + serialNumber, e);
 			}
 		}

@@ -16,7 +16,7 @@
 package org.eclipse.andmore.android.propertypage;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.obfuscate.ObfuscatorManager;
@@ -41,9 +41,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PropertyPage;
 
 /**
- * Motodev Studio for Android properties (obfuscate)
+ * Andmore properties (obfuscate)
  */
-public class MotodevStudioPropertyPage extends PropertyPage implements IWorkbenchPropertyPage {
+public class AndmorePropertyPage extends PropertyPage implements IWorkbenchPropertyPage {
 	private final String PROPERTY_PAGE_HELP = AndroidPlugin.PLUGIN_ID + ".obuscation_property"; //$NON-NLS-1$
 
 	private Button obfuscateCkbox;
@@ -93,7 +93,7 @@ public class MotodevStudioPropertyPage extends PropertyPage implements IWorkbenc
 					setMessage(AndroidNLS.WRN_Obfuscation_ProjectLocationContainWhitespaces, IMessageProvider.WARNING);
 
 				} else {
-					setMessage("MOTODEV Studio"); //$NON-NLS-1$
+					setMessage("Eclipse Andmore"); //$NON-NLS-1$
 				}
 			}
 		});
@@ -186,9 +186,9 @@ public class MotodevStudioPropertyPage extends PropertyPage implements IWorkbenc
 				}
 				project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			} catch (Exception e) {
-				EclipseUtils.showErrorDialog(AndroidNLS.MotodevStudioPropertyPage_ChangeProguardSettingsProblem,
+				EclipseUtils.showErrorDialog(AndroidNLS.AndmorePropertyPage_ChangeProguardSettingsProblem,
 						status.getMessage(), status);
-				StudioLogger.error(MotodevStudioPropertyPage.class, e.getMessage(), e);
+				AndmoreLogger.error(AndmorePropertyPage.class, e.getMessage(), e);
 				return false;
 			}
 		}

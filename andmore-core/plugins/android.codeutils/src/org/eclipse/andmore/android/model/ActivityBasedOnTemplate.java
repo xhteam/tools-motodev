@@ -34,7 +34,7 @@ import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.manifest.AndroidProjectManifestFile;
@@ -349,7 +349,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.IWizardModel#save(org.eclipse.jface
+	 * org.eclipse.andmore.android.model.IWizardModel#save(org.eclipse.jface
 	 * .wizard.IWizardContainer, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
@@ -370,7 +370,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 			Iterator<String> iterator = selectedSample.keySet().iterator();
 
 			// UDC log for activity samples use
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_SAMPLE_ACTIVITY_CREATED,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_SAMPLE_ACTIVITY_CREATED,
 					UsageDataConstants.KIND_SAMPLE_ACTIVITY_CREATED, "Activity using sample " + getSample(), //$NON-NLS-1$
 					CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());
 
@@ -604,7 +604,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 			setSampleStringNodes(newStrList);
 			setSampleArrayNodes(newArrayList);
 		} catch (Exception e) {
-			StudioLogger.error(ActivityBasedOnTemplate.class, e.getMessage() + " " //$NON-NLS-1$
+			AndmoreLogger.error(ActivityBasedOnTemplate.class, e.getMessage() + " " //$NON-NLS-1$
 					+ CodeUtilsNLS.UI_SampleSelectionPage_ErrorParsingStringXml, e);
 		}
 
@@ -868,7 +868,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 
 				loadedTemplate = loadedTemplate.replaceAll(MAIN_ACTIVITY_REPLACE_TAG, mainActivityName);
 			} catch (CoreException e) {
-				StudioLogger.error("Could not get Android Manifest File from project.");
+				AndmoreLogger.error("Could not get Android Manifest File from project.");
 			}
 
 			loadedTemplate = replaceResourceNames(loadedTemplate);
@@ -1320,7 +1320,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 			}
 		} catch (Exception e) {
 			currentMap.clear();
-			StudioLogger.error(ActivityBasedOnTemplate.class, CodeUtilsNLS.UI_GenerateSampleListError, e);
+			AndmoreLogger.error(ActivityBasedOnTemplate.class, CodeUtilsNLS.UI_GenerateSampleListError, e);
 		}
 	}
 

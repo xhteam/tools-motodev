@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.device.IDevicePropertiesConstants;
@@ -96,7 +96,7 @@ public class WizardMainPage extends WizardPage implements IInstanceProperties {
 
 		// Collecting usage data for statistical purpose
 		try {
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_CREATION_WIZARD,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_EMULATOR_CREATION_WIZARD,
 					UsageDataConstants.KIND_EMULATOR, UsageDataConstants.DESCRIPTION_DEFAULT, EmulatorPlugin.PLUGIN_ID,
 					EmulatorPlugin.getDefault().getBundle().getVersion().toString());
 		} catch (Throwable e) {

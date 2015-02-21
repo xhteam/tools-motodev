@@ -35,7 +35,7 @@ import org.eclipse.andmore.android.certmanager.exception.InvalidPasswordExceptio
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.runtime.IStatus;
@@ -133,7 +133,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore {
 				password = null;
 				keepTrying = false;
 
-				StudioLogger.info(this.getClass(),
+				AndmoreLogger.info(this.getClass(),
 						CertificateManagerNLS.KeyStoreNode_CouldNotGetKeyStorePassword + e.getLocalizedMessage());
 			}
 		}
@@ -399,7 +399,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore {
 					// is key pair
 					keyPairEntries.add(alias);
 					String msg = NLS.bind(CertificateManagerNLS.KeyStoreNode_KeyPairNotMapped_LogMessage, alias);
-					StudioLogger.debug(msg);
+					AndmoreLogger.debug(msg);
 				}
 			}
 			if ((keyPairEntries != null) && !keyPairEntries.isEmpty()) {
@@ -463,7 +463,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore {
 		try {
 			KeyStoreManager.getInstance().setBackupDate(this, lastBackupDate);
 		} catch (KeyStoreManagerException e) {
-			StudioLogger.error("Could not set backup date for keystore");
+			AndmoreLogger.error("Could not set backup date for keystore");
 		}
 		KeyStoreModelEventManager.getInstance().fireEvent(this, EventType.UPDATE);
 	}
@@ -534,7 +534,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore {
 				forceReload(password.toCharArray(), false);
 			} catch (InvalidPasswordException e) {
 				// Should never happen.
-				StudioLogger.debug("Could reload ks after removing entry, invalid password"); //$NON-NLS-1$
+				AndmoreLogger.debug("Could reload ks after removing entry, invalid password"); //$NON-NLS-1$
 			}
 
 			ITreeNode entryNode = entries.remove(alias);
@@ -566,7 +566,7 @@ public class KeyStoreNode extends AbstractTreeNode implements IKeyStore {
 				forceReload(password.toCharArray(), false);
 			} catch (InvalidPasswordException e) {
 				// Should never happen.
-				StudioLogger.debug("Could reload ks after removing entry, invalid password"); //$NON-NLS-1$
+				AndmoreLogger.debug("Could reload ks after removing entry, invalid password"); //$NON-NLS-1$
 			}
 			if (entries.isEmpty()) {
 				EntryDummyNode entryDummyNode = new EntryDummyNode(this);

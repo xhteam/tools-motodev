@@ -45,7 +45,7 @@ public class RemoteDeviceInstance extends AbstractMobileInstance implements ISer
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getSerialNumber()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getSerialNumber()
 	 */
 	@Override
 	public String getSerialNumber() {
@@ -67,7 +67,7 @@ public class RemoteDeviceInstance extends AbstractMobileInstance implements ISer
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getFullName()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getFullName()
 	 */
 	@Override
 	public String getFullName() {
@@ -81,7 +81,7 @@ public class RemoteDeviceInstance extends AbstractMobileInstance implements ISer
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getDeviceName()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getDeviceName()
 	 */
 	@Override
 	public String getDeviceName() {

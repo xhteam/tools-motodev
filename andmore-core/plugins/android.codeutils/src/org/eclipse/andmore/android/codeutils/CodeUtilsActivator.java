@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.codeutils;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -43,12 +43,12 @@ public class CodeUtilsActivator extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(CodeUtilsActivator.class, "Starting MOTODEV Android Code Utils Plugin...");
+		AndmoreLogger.debug(CodeUtilsActivator.class, "Starting Andmore Code Utils Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(CodeUtilsActivator.class, "MOTODEV Android Code Utils Plugin started.");
+		AndmoreLogger.debug(CodeUtilsActivator.class, "Andmore Code Utils Plugin started.");
 	}
 
 	/*

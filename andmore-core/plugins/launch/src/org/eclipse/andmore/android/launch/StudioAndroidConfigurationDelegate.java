@@ -24,8 +24,8 @@ import java.util.List;
 import org.eclipse.andmore.AdtPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
@@ -127,7 +127,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 						String serialNumber = client.getDevice().getSerialNumber();
 						String avdName = DDMSFacade.getNameBySerialNumber(serialNumber);
 						if ((instance != null) && instance.getName().equals(avdName)) {
-							StudioLogger.info(StudioAndroidConfigurationDelegate.class,
+							AndmoreLogger.info(StudioAndroidConfigurationDelegate.class,
 									"Delegating launch session to ADT... ");
 
 							synchronized (StudioAndroidConfigurationDelegate.this) {
@@ -301,7 +301,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 		// not be propagated to the original copy
 		ILaunchConfigurationWorkingCopy configurationWorkingCopy = configuration.getWorkingCopy();
 
-		StudioLogger.info(StudioAndroidConfigurationDelegate.class,
+		AndmoreLogger.info(StudioAndroidConfigurationDelegate.class,
 				"Launch Android Application using Studio for Android wizard. Configuration: "
 						+ configurationWorkingCopy + " mode:" + mode + " launch: " + launch);
 		try {
@@ -369,7 +369,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 				try {
 					if (appToLaunch != null) {
 						list = new RunAsClientListener(emuInstance, appToLaunch);
-						StudioAndroidEventManager.asyncAddClientChangeListener(list);
+						AndmoreEventManager.asyncAddClientChangeListener(list);
 					}
 
 					// The instance from the launch configuration is an emulator
@@ -388,7 +388,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 						}
 					}
 
-					StudioLogger.info(StudioAndroidConfigurationDelegate.class,
+					AndmoreLogger.info(StudioAndroidConfigurationDelegate.class,
 							"AVD where the application will be executed: " + instanceName);
 
 					String serialNumber = LaunchUtils.getSerialNumberForInstance(instanceName);
@@ -441,7 +441,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 							descriptionToLog = descriptionToLog + UsageDataConstants.KEY_TARGET + emuTarget;
 						}
 
-						StudioLogger.collectUsageData(mode, UsageDataConstants.KIND_APP_MANAGEMENT, descriptionToLog,
+						AndmoreLogger.collectUsageData(mode, UsageDataConstants.KIND_APP_MANAGEMENT, descriptionToLog,
 								LaunchPlugin.PLUGIN_ID, LaunchPlugin.getDefault().getBundle().getVersion().toString());
 					} catch (Throwable e) {
 						// Do nothing, but error on the log should never prevent
@@ -450,9 +450,9 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 
 				} finally {
 					if (list != null) {
-						StudioAndroidEventManager.asyncRemoveClientChangeListener(list);
+						AndmoreEventManager.asyncRemoveClientChangeListener(list);
 					}
-					StudioAndroidEventManager.asyncAddClientChangeListener(AndroidLaunchController.getInstance());
+					AndmoreEventManager.asyncAddClientChangeListener(AndroidLaunchController.getInstance());
 				}
 			} else {
 				throw new CoreException(new Status(IStatus.ERROR, LaunchPlugin.PLUGIN_ID,
@@ -461,11 +461,11 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 		} catch (CoreException e) {
 			AndroidLaunch androidLaunch = (AndroidLaunch) launch;
 			androidLaunch.stopLaunch();
-			StudioLogger.error(StudioAndroidConfigurationDelegate.class, "Error while lauching "
+			AndmoreLogger.error(StudioAndroidConfigurationDelegate.class, "Error while lauching "
 					+ configurationWorkingCopy.getName(), e);
 			throw e;
 		} catch (Exception e) {
-			StudioLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e);
+			AndmoreLogger.error(LaunchUtils.class, "An error occurred trying to parse AndroidManifest", e);
 		} finally {
 			if (mode.equals(ILaunchManager.RUN_MODE)) {
 				AndroidLaunch androidLaunch = (AndroidLaunch) launch;
@@ -560,7 +560,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 					continueLaunch = false;
 				}
 			} catch (CoreException e) {
-				StudioLogger.error(StudioAndroidConfigurationDelegate.class,
+				AndmoreLogger.error(StudioAndroidConfigurationDelegate.class,
 						"It was not possible to open Started Instance Dialog", e);
 			}
 		}
@@ -601,18 +601,18 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 	 * @throws CoreException
 	 */
 	private void startEmuInstance(IAndroidEmulatorInstance instance) throws CoreException {
-		StudioLogger.info(StudioAndroidConfigurationDelegate.class,
+		AndmoreLogger.info(StudioAndroidConfigurationDelegate.class,
 				"Needs to Start the AVD instance before launching... ");
 
 		ServiceHandler startHandler = EmulatorPlugin.getStartServiceHandler();
 		IStatus status = startHandler.run((IInstance) instance, null, new NullProgressMonitor());
 
-		StudioLogger.info(StudioAndroidConfigurationDelegate.class, "Status of the launch service: " + status);
+		AndmoreLogger.info(StudioAndroidConfigurationDelegate.class, "Status of the launch service: " + status);
 
 		if (status.getSeverity() == IStatus.ERROR) {
 			throw new CoreException(status);
 		} else if (status.getSeverity() == IStatus.CANCEL) {
-			StudioLogger.info(StudioAndroidConfigurationDelegate.class,
+			AndmoreLogger.info(StudioAndroidConfigurationDelegate.class,
 					"Abort launch session because the AVD start was canceled. ");
 			return;
 		}
@@ -627,7 +627,7 @@ public class StudioAndroidConfigurationDelegate extends LaunchConfigDelegate {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				StudioLogger.info("Could not wait: ", e.getMessage());
+				AndmoreLogger.info("Could not wait: ", e.getMessage());
 			}
 		}
 	}

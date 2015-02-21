@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.db.devices.ui.action;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.command.RefreshNodeHandler;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
@@ -113,7 +113,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate {
 			try {
 				handler.execute(event);
 			} catch (ExecutionException e) {
-				StudioLogger.error("Could not execute command: ", e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not execute command: ", e.getMessage()); //$NON-NLS-1$
 			}
 		}
 

@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.Arrays;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.graphics.Point;
@@ -47,10 +47,10 @@ public class GtkBridge {
 			URL fileUrl = FileLocator.toFileURL(locationUrl);
 			File file = new File(fileUrl.getFile());
 			absoluteFile = file.getAbsolutePath();
-			StudioLogger.info(GtkBridge.class, "Using gtk bridge app at: " + absoluteFile);
+			AndmoreLogger.info(GtkBridge.class, "Using gtk bridge app at: " + absoluteFile);
 			checkExecutionPermission(absoluteFile);
 		} catch (Exception e) {
-			StudioLogger.error(GtkBridge.class, "Failed to retrieve gtk bridge app", e);
+			AndmoreLogger.error(GtkBridge.class, "Failed to retrieve gtk bridge app", e);
 		}
 		return absoluteFile;
 	}
@@ -76,11 +76,11 @@ public class GtkBridge {
 			} while (returnedValue != null);
 			int exitCode = p.waitFor();
 			if (exitCode != 0) {
-				StudioLogger.debug(GtkBridge.class, "Command " + Arrays.toString(command)
+				AndmoreLogger.debug(GtkBridge.class, "Command " + Arrays.toString(command)
 						+ " finished with error code:" + exitCode);
 			}
 		} catch (Exception e) {
-			StudioLogger.error(GtkBridge.class, "Failed to execute command :" + Arrays.toString(command), e);
+			AndmoreLogger.error(GtkBridge.class, "Failed to execute command :" + Arrays.toString(command), e);
 		} finally {
 			if (p != null) {
 				try {
@@ -119,29 +119,29 @@ public class GtkBridge {
 				response = Long.parseLong(returnedValue);
 			}
 		} catch (Exception e) {
-			StudioLogger.error(GtkBridge.class, "Failed to execute command", e);
+			AndmoreLogger.error(GtkBridge.class, "Failed to execute command", e);
 		}
 		return response;
 	}
 
 	public static long getWindowHandle(String windowName) {
-		StudioLogger.debug(GtkBridge.class, "getWindowHandle " + windowName);
+		AndmoreLogger.debug(GtkBridge.class, "getWindowHandle " + windowName);
 
 		String[] command = { EXEC, "getWindowHandler", DISPLAY, windowName };
 		long handle = exec_toLong(command);
-		StudioLogger.debug(GtkBridge.class, "getWindowHandle handle=" + handle);
+		AndmoreLogger.debug(GtkBridge.class, "getWindowHandle handle=" + handle);
 		return handle;
 	}
 
 	public static long embedNativeWindow(long parentHandle, long windowHandle) {
-		StudioLogger.debug(GtkBridge.class, "embedNativeWindow parent=" + parentHandle + " window=" + windowHandle);
+		AndmoreLogger.debug(GtkBridge.class, "embedNativeWindow parent=" + parentHandle + " window=" + windowHandle);
 		String[] arguments = { EXEC, "embedWindow", DISPLAY, Long.toString(parentHandle), Long.toString(windowHandle) };
 		long handle = exec_toLong(arguments);
 		return handle;
 	}
 
 	public static void unembedNativeWindow(long parentHandle, long formerParentHandle) {
-		StudioLogger.debug(GtkBridge.class, "unembedNativeWindow " + parentHandle);
+		AndmoreLogger.debug(GtkBridge.class, "unembedNativeWindow " + parentHandle);
 		String[] arguments = { EXEC, "unembedWindow", DISPLAY, Long.toString(parentHandle),
 				Long.toString(formerParentHandle) };
 		exec(arguments);
@@ -173,19 +173,19 @@ public class GtkBridge {
 	}
 
 	public static void showWindow(long windowHandle) {
-		StudioLogger.debug(GtkBridge.class, "showWindow " + windowHandle);
+		AndmoreLogger.debug(GtkBridge.class, "showWindow " + windowHandle);
 		String[] arguments = { EXEC, "showWindow", DISPLAY, Long.toString(windowHandle) };
 		exec(arguments);
 	}
 
 	public static void hideWindow(long windowHandle) {
-		StudioLogger.debug(GtkBridge.class, "hideWindow " + windowHandle);
+		AndmoreLogger.debug(GtkBridge.class, "hideWindow " + windowHandle);
 		String[] arguments = { EXEC, "hideWindow", DISPLAY, Long.toString(windowHandle) };
 		exec(arguments);
 	}
 
 	public static void restoreWindow(long windowHandle) {
-		StudioLogger.debug(GtkBridge.class, "restoreWindow " + windowHandle);
+		AndmoreLogger.debug(GtkBridge.class, "restoreWindow " + windowHandle);
 		String[] arguments = { EXEC, "restoreWindow", DISPLAY, Long.toString(windowHandle) };
 		exec(arguments);
 	}

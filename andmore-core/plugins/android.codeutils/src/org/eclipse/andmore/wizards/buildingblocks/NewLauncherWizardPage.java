@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidUtils;
 import org.eclipse.andmore.android.model.BuildingBlockModel;
 import org.eclipse.andmore.android.model.Launcher;
@@ -117,7 +117,7 @@ public abstract class NewLauncherWizardPage extends NewBuildingBlocksWizardPage 
 				try {
 					categorySet.removeAll(getBuildBlock().getIntentFilterActions());
 				} catch (Exception e) {
-					StudioLogger.error(NewLauncherWizardPage.class, e.getLocalizedMessage(), e);
+					AndmoreLogger.error(NewLauncherWizardPage.class, e.getLocalizedMessage(), e);
 				}
 				FilteredActionsSelectionDialog dialog = new FilteredActionsSelectionDialog(getShell(), categorySet);
 				dialog.setInitialPattern("**");
@@ -286,7 +286,7 @@ public abstract class NewLauncherWizardPage extends NewBuildingBlocksWizardPage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.wizards.buildingblocks.
+	 * @see org.eclipse.andmore.android.wizards.buildingblocks.
 	 * NewBuildingBlocksWizardPage#getBuildBlock()
 	 */
 	@Override

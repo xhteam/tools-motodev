@@ -15,15 +15,15 @@
  */
 package org.eclipse.andmore.android.db.core.command;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.project.ProjectNode;
 import org.eclipse.andmore.android.db.core.ui.DbNode;
 import org.eclipse.andmore.android.db.core.ui.IDbNode;
 import org.eclipse.andmore.android.db.core.ui.ITreeNode;
 import org.eclipse.andmore.android.db.core.ui.action.CreateDatabaseManagementClassesAction;
-import org.eclipse.andmore.android.db.core.ui.view.MOTODEVDatabaseExplorerView;
+import org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -55,7 +55,7 @@ public class CreateDatabaseManagementClassesHandler extends AbstractHandler impl
 
 		this.selectedProjectNode = null;
 
-		MOTODEVDatabaseExplorerView view = DbCoreActivator.getMOTODEVDatabaseExplorerView();
+		AndmoreDatabaseExplorerView view = DbCoreActivator.getAndmoreDatabaseExplorerView();
 
 		if (view != null) {
 			// if the Database view is active, looks for the db and project
@@ -106,7 +106,7 @@ public class CreateDatabaseManagementClassesHandler extends AbstractHandler impl
 							try {
 								resource = (IResource) ((IAdaptable) selectionElement).getAdapter(IResource.class);
 							} catch (Exception e) {
-								StudioLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
+								AndmoreLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
 							}
 						}
 
@@ -117,8 +117,8 @@ public class CreateDatabaseManagementClassesHandler extends AbstractHandler impl
 								try {
 									this.selectedDbNode = new DbNode(new Path(resource.getLocation().toFile()
 											.getAbsolutePath()), this.selectedProjectNode);
-								} catch (MotodevDbException e) {
-									StudioLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
+								} catch (AndmoreDbException e) {
+									AndmoreLogger.error(CreateDatabaseManagementClassesAction.class, e.getMessage());
 								}
 							}
 						}
@@ -131,7 +131,7 @@ public class CreateDatabaseManagementClassesHandler extends AbstractHandler impl
 
 	/**
 	 * Constructor when there is NOT a node selected on
-	 * {@link MOTODEVDatabaseExplorerView}
+	 * {@link AndmoreDatabaseExplorerView}
 	 */
 	public CreateDatabaseManagementClassesHandler() {
 		setSelectedNode();
@@ -139,7 +139,7 @@ public class CreateDatabaseManagementClassesHandler extends AbstractHandler impl
 
 	/**
 	 * Constructor when there is a node selected on
-	 * {@link MOTODEVDatabaseExplorerView}
+	 * {@link AndmoreDatabaseExplorerView}
 	 * 
 	 * @param node
 	 */

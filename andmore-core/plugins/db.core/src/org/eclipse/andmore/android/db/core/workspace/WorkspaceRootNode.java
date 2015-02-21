@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.db.core.workspace;
 import java.util.Collection;
 
 import org.eclipse.andmore.android.common.IAndroidConstants;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.project.ProjectNode;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.IRootNode;
@@ -54,13 +54,13 @@ public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode, IR
 				IProject project = (IProject) res;
 				switch (delta.getKind()) {
 				case IResourceDelta.ADDED:
-					StudioLogger.info("Project added: " + res.getFullPath()); //$NON-NLS-1$
+					AndmoreLogger.info("Project added: " + res.getFullPath()); //$NON-NLS-1$
 					addProject(project);
 					break;
 				case IResourceDelta.CHANGED:
 					int flags = delta.getFlags();
 					if ((flags & IResourceDelta.OPEN) != 0) {
-						StudioLogger.info("Project opened: " + res.getFullPath()); //$NON-NLS-1$
+						AndmoreLogger.info("Project opened: " + res.getFullPath()); //$NON-NLS-1$
 						addProject(project);
 					}
 					break;
@@ -126,7 +126,7 @@ public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode, IR
 				putChild(projectNode);
 			}
 		} catch (CoreException e) {
-			StudioLogger.error(WorkspaceRootNode.class,
+			AndmoreLogger.error(WorkspaceRootNode.class,
 					"Unable to retrieve nature from project:" + project.getName(), e); //$NON-NLS-1$
 		}
 	}
@@ -168,7 +168,7 @@ public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode, IR
 		case IResourceChangeEvent.PRE_CLOSE:
 		case IResourceChangeEvent.PRE_DELETE:
 			// project being closed or deleted => remove project from model
-			StudioLogger.info("Project about to close/delete: " + res.getFullPath()); //$NON-NLS-1$
+			AndmoreLogger.info("Project about to close/delete: " + res.getFullPath()); //$NON-NLS-1$
 			project = res.getProject();
 			removeProject(project);
 			break;
@@ -176,7 +176,7 @@ public class WorkspaceRootNode extends AbstractTreeNode implements IRootNode, IR
 			try {
 				event.getDelta().accept(new ResourceDeltaVisior());
 			} catch (CoreException e) {
-				StudioLogger.error(WorkspaceRootNode.class, "Error listening to changes in resources", e); //$NON-NLS-1$
+				AndmoreLogger.error(WorkspaceRootNode.class, "Error listening to changes in resources", e); //$NON-NLS-1$
 			}
 			break;
 		}

@@ -17,7 +17,7 @@ package org.eclipse.andmore.android.db.core.junit;
 
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.andmore.android.db.core.ui.TableNode;
 import org.eclipse.core.runtime.IStatus;
@@ -34,7 +34,7 @@ public class TableNodeTest {
 		DbModel model = null;
 		try {
 			model = new DbModel(path);
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			e.printStackTrace();
 		}
 		IStatus s = model.connect();

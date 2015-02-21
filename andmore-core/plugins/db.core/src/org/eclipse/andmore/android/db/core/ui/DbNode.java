@@ -20,10 +20,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.andmore.android.db.core.model.DbModel;
 import org.eclipse.andmore.android.db.core.model.TableModel;
@@ -151,9 +151,9 @@ public class DbNode extends AbstractTreeNode implements IDbNode {
 	 *            The SQLite database File
 	 * @param parent
 	 *            The parent of the new node.
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 */
-	public DbNode(IPath dbFilePath, ITreeNode parent) throws MotodevDbException {
+	public DbNode(IPath dbFilePath, ITreeNode parent) throws AndmoreDbException {
 		this(parent);
 		init(dbFilePath);
 		model = new DbModel(dbFilePath);
@@ -171,15 +171,15 @@ public class DbNode extends AbstractTreeNode implements IDbNode {
 	 *            set this flag to true if you want to create a new db file, if
 	 *            the flag is false the behavior is the same as the constructor
 	 *            DbNode(Path dbFilePath, AbstractTreeNode parent)
-	 * @throws MotodevDbException
+	 * @throws AndmoreDbException
 	 */
-	public DbNode(IPath dbPath, ITreeNode parent, boolean create) throws MotodevDbException {
+	public DbNode(IPath dbPath, ITreeNode parent, boolean create) throws AndmoreDbException {
 		this(parent);
 		init(dbPath);
 		try {
 			model = new DbModel(dbPath, create);
-		} catch (MotodevDbException e) {
-			throw new MotodevDbException("Could not create DBNode", e); //$NON-NLS-1$
+		} catch (AndmoreDbException e) {
+			throw new AndmoreDbException("Could not create DBNode", e); //$NON-NLS-1$
 		}
 	}
 
@@ -486,7 +486,7 @@ public class DbNode extends AbstractTreeNode implements IDbNode {
 			try {
 				model.cleanModel();
 			} catch (ConnectionProfileException e) {
-				StudioLogger.debug(this, "Unable to cleanup db model.");
+				AndmoreLogger.debug(this, "Unable to cleanup db model.");
 			}
 		}
 		super.cleanUp();

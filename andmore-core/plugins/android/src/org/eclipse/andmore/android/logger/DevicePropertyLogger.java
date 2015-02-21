@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.logger.collector.core.ILogFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -63,7 +63,7 @@ public class DevicePropertyLogger implements ILogFile {
 					}
 				}
 			} catch (IOException e) {
-				StudioLogger.error(getClass(), "Unable to execute getprop command on device " + deviceName, e);
+				AndmoreLogger.error(getClass(), "Unable to execute getprop command on device " + deviceName, e);
 			}
 			properties.put((deviceName), propertiesMap);
 		}
@@ -73,7 +73,7 @@ public class DevicePropertyLogger implements ILogFile {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.logger.collector.core.ILogFile#getLogFilePath
+	 * org.eclipse.andmore.android.logger.collector.core.ILogFile#getLogFilePath
 	 * ()
 	 */
 	@Override
@@ -99,14 +99,14 @@ public class DevicePropertyLogger implements ILogFile {
 				bw.append(propKey + "=" + devProperties.get(propKey) + System.getProperty("line.separator"));
 			}
 		} catch (IOException e) {
-			StudioLogger.error(getClass(), "An error occurred while trying to write device Properties log file, "
+			AndmoreLogger.error(getClass(), "An error occurred while trying to write device Properties log file, "
 					+ logFile.getAbsolutePath(), e);
 		} finally {
 			try {
 				bw.flush();
 				bw.close();
 			} catch (IOException e) {
-				StudioLogger.error("Could not close stream while writing device property log. " + e.getMessage());
+				AndmoreLogger.error("Could not close stream while writing device property log. " + e.getMessage());
 			}
 		}
 	}
@@ -115,7 +115,7 @@ public class DevicePropertyLogger implements ILogFile {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.logger.collector.core.ILogFile#getLogName()
+	 * org.eclipse.andmore.android.logger.collector.core.ILogFile#getLogName()
 	 */
 	@Override
 	public String getLogName() {
@@ -125,7 +125,7 @@ public class DevicePropertyLogger implements ILogFile {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.logger.collector.core.ILogFile#
+	 * @see org.eclipse.andmore.android.logger.collector.core.ILogFile#
 	 * getOutputSubfolderName()
 	 */
 	@Override

@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.db.core.ui.action;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.command.BrowseTableContentsHandler;
 import org.eclipse.andmore.android.db.core.command.CreateDatabaseManagementClassesHandler;
 import org.eclipse.andmore.android.db.core.command.DbConnectHandler;
@@ -253,7 +253,7 @@ public class PopupMenuActionDelegate implements IObjectActionDelegate {
 			try {
 				handler.execute(event);
 			} catch (ExecutionException e) {
-				StudioLogger.debug("Could not execute popupHandler");
+				AndmoreLogger.debug("Could not execute popupHandler");
 			}
 		}
 

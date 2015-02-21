@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.android.codeutils.db.utils;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -43,7 +43,7 @@ import org.eclipse.andmore.android.codeutils.db.actions.ContentProviderGenerator
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.CommonPlugin;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
@@ -166,7 +166,7 @@ public class DatabaseUtils {
 				try {
 					fis.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while checking if a file is a sqlite valid database"
+					AndmoreLogger.error("Could not close stream while checking if a file is a sqlite valid database"
 							+ e.getMessage());
 				}
 			}
@@ -186,7 +186,7 @@ public class DatabaseUtils {
 				try {
 					bais.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream while checking if a file is a sqlite valid database"
+					AndmoreLogger.error("Could not close stream while checking if a file is a sqlite valid database"
 							+ e.getMessage());
 				}
 			}
@@ -231,14 +231,14 @@ public class DatabaseUtils {
 									dbCollection.add(file);
 								}
 							} catch (IOException e) {
-								StudioLogger.warn(DatabaseUtils.class,
+								AndmoreLogger.warn(DatabaseUtils.class,
 										"It was not possible verify if the file is a valid SQLite database", e);
 							}
 						}
 					}
 				} catch (CoreException e) {
 					// Log error
-					StudioLogger.error(DatabaseUtils.class, "An error ocurred while looking for .db files.", e); //$NON-NLS-1$
+					AndmoreLogger.error(DatabaseUtils.class, "An error ocurred while looking for .db files.", e); //$NON-NLS-1$
 				}
 			}
 		}
@@ -353,10 +353,10 @@ public class DatabaseUtils {
 
 		if (generateSQLOpenHelperClases) {
 			DatabaseDeployer.copyDataBaseDeployerClassToProject(project, dbParameters, subMonitor.newChild(2));
-			StudioLogger.info("Finished creating Deployer classes"); //$NON-NLS-1$
+			AndmoreLogger.info("Finished creating Deployer classes"); //$NON-NLS-1$
 
 			// Creates UDC log reporting that an OpenHelper class was created
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_OPENHELPER, UsageDataConstants.KIND_OPENHELPER,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_OPENHELPER, UsageDataConstants.KIND_OPENHELPER,
 					"generated SQLOpenHelper class", //$NON-NLS-1$
 					CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle().getVersion().toString());
 
@@ -453,7 +453,7 @@ public class DatabaseUtils {
 						}
 					}
 					// print and log database connection error message
-					StudioLogger.error(DatabaseUtils.class, CodeUtilsNLS.DATABASE_DEPLOY_ERROR_CONNECTING_DATABASE,
+					AndmoreLogger.error(DatabaseUtils.class, CodeUtilsNLS.DATABASE_DEPLOY_ERROR_CONNECTING_DATABASE,
 							exception);
 					EclipseUtils
 							.showErrorDialog(
@@ -560,7 +560,7 @@ public class DatabaseUtils {
 		if ((allDrivers == null) || (!allDrivers.contains(driverPath))) {
 			String templateId = DatabaseUtils.TEMPLATE_ID;
 			driverMan.createNewDriverInstance(templateId, CommonPlugin.JDBC_DRIVER_INSTANCE_NAME, driverPath);
-			info("Created a MOTODEV Studio JDBC driver instance at Data Tools."); //$NON-NLS-1$
+			info("Created a JDBC driver instance at Data Tools."); //$NON-NLS-1$
 		}
 	}
 
@@ -581,7 +581,7 @@ public class DatabaseUtils {
 				java.sql.Statement stmt = conn.createStatement();
 				resultSet = stmt.executeQuery(query);
 			} catch (java.sql.SQLException sqle) {
-				StudioLogger.error(DatabaseUtils.class, "Problems executing query", sqle); //$NON-NLS-1$
+				AndmoreLogger.error(DatabaseUtils.class, "Problems executing query", sqle); //$NON-NLS-1$
 			}
 		}
 		return resultSet;
@@ -619,7 +619,7 @@ public class DatabaseUtils {
 				java.sql.Statement stmt = conn.createStatement();
 				count = stmt.executeUpdate(query);
 			} catch (java.sql.SQLException sqle) {
-				StudioLogger.error(DatabaseUtils.class, CodeUtilsNLS.DATABASE_ERROR_EXECUTING_STATEMENT, sqle);
+				AndmoreLogger.error(DatabaseUtils.class, CodeUtilsNLS.DATABASE_ERROR_EXECUTING_STATEMENT, sqle);
 			}
 		}
 		return count;
@@ -647,7 +647,7 @@ public class DatabaseUtils {
 					}
 				}
 			} catch (Exception e) {
-				StudioLogger.error(DatabaseUtils.class, "Problems executing query", e); //$NON-NLS-1$
+				AndmoreLogger.error(DatabaseUtils.class, "Problems executing query", e); //$NON-NLS-1$
 			}
 		}
 		return null;
@@ -704,19 +704,19 @@ public class DatabaseUtils {
 						ListIterator<Table> tablesIter = tables.listIterator();
 						while (tablesIter.hasNext()) {
 							Table table = tablesIter.next();
-							StudioLogger.info("Start creating persistence classes for table " //$NON-NLS-1$
+							AndmoreLogger.info("Start creating persistence classes for table " //$NON-NLS-1$
 									+ table.getName());
 
 							// generate Content Provider
 							DatabaseUtils.generateContentProvider(project, table, database, addCreateTableStatement,
 									addDropTableStatementOnUpdate, overrideContentProviders, persistencePackageName,
 									databaseOpenHelperPackageName, databaseOpenHelperClassName, tableNameForClasses);
-							StudioLogger.collectUsageData("generateContentProviderClasses", //$NON-NLS-1$
+							AndmoreLogger.collectUsageData("generateContentProviderClasses", //$NON-NLS-1$
 									"database", UsageDataConstants.DESCRIPTION_DEFAULT, //$NON-NLS-1$
 									CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle()
 											.getVersion().toString());
 
-							StudioLogger.info("Finished creating persistence classes for table " //$NON-NLS-1$
+							AndmoreLogger.info("Finished creating persistence classes for table " //$NON-NLS-1$
 									+ table.getName());
 						}
 					}
@@ -1003,7 +1003,7 @@ public class DatabaseUtils {
 			destinationFile.getParent().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		} catch (Exception e) {
 			String errMsg = NLS.bind(CodeUtilsNLS.EXC_JavaClass_ErrorFormattingSourceCode, destinationFile.getName());
-			StudioLogger.error(DatabaseUtils.class, errMsg, e);
+			AndmoreLogger.error(DatabaseUtils.class, errMsg, e);
 		}
 		return document;
 

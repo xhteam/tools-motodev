@@ -18,7 +18,7 @@ package org.eclipse.andmore.android.common.log;
 
 import org.eclipse.andmore.android.logger.Logger;
 
-public abstract class StudioLogger implements UsageDataConstants {
+public abstract class AndmoreLogger implements UsageDataConstants {
 	private static final Logger logger = Logger.getLogger("Studio for Android");
 
 	public static void debug(String message) {

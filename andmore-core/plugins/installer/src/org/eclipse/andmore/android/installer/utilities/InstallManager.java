@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.installer.InstallerException;
 import org.eclipse.andmore.android.installer.InstallerPlugin;
 import org.eclipse.andmore.android.installer.i18n.InstallerNLS;
@@ -74,7 +74,7 @@ public class InstallManager implements IInstallManager {
 		}
 
 		default: {
-			StudioLogger.debug(this, "updateStudio felt back to default.");
+			AndmoreLogger.debug(this, "updateStudio felt back to default.");
 			break;
 		}
 		}
@@ -85,10 +85,10 @@ public class InstallManager implements IInstallManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.installer.utilities.IInstallManager#
+	 * @see org.eclipse.andmore.android.installer.utilities.IInstallManager#
 	 * listAllAvailableUpdates(java.util.Collection, java.util.List,
-	 * com.motorola.studio.android.installer.utilities.IInstallManager.CATEGORY,
-	 * com.motorola.studio.android.installer.utilities.IInstallManager.BACKEND,
+	 * org.eclipse.andmore.android.installer.utilities.IInstallManager.CATEGORY,
+	 * org.eclipse.andmore.android.installer.utilities.IInstallManager.BACKEND,
 	 * org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
@@ -102,7 +102,7 @@ public class InstallManager implements IInstallManager {
 			break;
 
 		default: {
-			StudioLogger.debug(this, "listAllAvailableUpdates felt back to default.");
+			AndmoreLogger.debug(this, "listAllAvailableUpdates felt back to default.");
 			break;
 		}
 		}

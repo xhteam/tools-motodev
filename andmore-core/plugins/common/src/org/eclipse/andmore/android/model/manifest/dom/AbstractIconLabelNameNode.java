@@ -63,7 +63,7 @@ public abstract class AbstractIconLabelNameNode extends AndroidManifestNode impl
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * isNodeValid()
 	 */
 	@Override
@@ -74,7 +74,7 @@ public abstract class AbstractIconLabelNameNode extends AndroidManifestNode impl
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeProperties()
 	 */
 	@Override

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEvent;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEventManager;
@@ -383,7 +383,7 @@ public abstract class AbstractTreeNode implements ITreeNode {
 			URL fullPathString = new URL(path, iconPath);
 			imgDesc = ImageDescriptor.createFromURL(fullPathString);
 		} catch (Exception e) {
-			StudioLogger.error(getClass(), "Error retrieving icon for tree node", e); //$NON-NLS-1$
+			AndmoreLogger.error(getClass(), "Error retrieving icon for tree node", e); //$NON-NLS-1$
 		}
 		if (imgDesc == null) {
 			imgDesc = getIcon();

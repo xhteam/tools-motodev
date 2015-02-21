@@ -23,7 +23,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.DevicesManager;
 import org.eclipse.andmore.android.remote.instance.RemoteDeviceInstance;
 import org.eclipse.core.runtime.IStatus;
@@ -58,7 +58,7 @@ public class RemoteDeviceUtils {
 					boolean isTransitioning = ((instance != null) ? ((AbstractMobileInstance) instance)
 							.getStateMachineHandler().isTransitioning() : false);
 
-					StudioLogger.debug("Handle remote device connected event. Serial Number: " + serialNumber
+					AndmoreLogger.debug("Handle remote device connected event. Serial Number: " + serialNumber
 							+ " Instance: " + instance + " Transitioning: " + isTransitioning);
 
 					/*
@@ -84,14 +84,14 @@ public class RemoteDeviceUtils {
 
 								try {
 
-									StudioLogger
+									AndmoreLogger
 											.debug("Connecting Remote Device: device doesn't exist, create a new instance");
 
 									DevicesManager.getInstance().createInstanceForDevice(serialNumber,
 											RemoteDeviceConstants.DEVICE_ID, getInstanceBuilder(serialNumber),
 											RemoteDeviceConstants.SERVICE_INIT_ID);
 								} catch (SequoyahException e) {
-									StudioLogger
+									AndmoreLogger
 											.error("Connecting Remote Device: error while creating device instance "
 													+ e.getMessage());
 								}
@@ -100,13 +100,13 @@ public class RemoteDeviceUtils {
 							try {
 								instance = DevicesManager.getInstance().getDeviceBySerialNumber(serialNumber);
 
-								StudioLogger.debug("Connecting Remote Device: the TmL service will be called");
+								AndmoreLogger.debug("Connecting Remote Device: the TmL service will be called");
 
 								Map<Object, Object> arguments = new HashMap<Object, Object>();
 								arguments.put(RemoteDeviceConstants.DUMMY_TRANSITION, true);
 								RemoteDevicePlugin.getConnectServiceHandler().run((IInstance) instance, arguments);
 							} catch (Exception e) {
-								StudioLogger.error("Error when running TmL connect service: " + e.getMessage());
+								AndmoreLogger.error("Error when running TmL connect service: " + e.getMessage());
 							}
 						}
 					}
@@ -126,7 +126,7 @@ public class RemoteDeviceUtils {
 
 			ISerialNumbered instance = DevicesManager.getInstance().getDeviceBySerialNumber(serialNumber);
 
-			StudioLogger.debug("Handle remote device disconnected event. Serial Number: " + serialNumber
+			AndmoreLogger.debug("Handle remote device disconnected event. Serial Number: " + serialNumber
 					+ " Instance: " + instance);
 
 			if (instance != null) {
@@ -136,17 +136,17 @@ public class RemoteDeviceUtils {
 
 				if (!isVolatile) {
 					try {
-						StudioLogger
+						AndmoreLogger
 								.debug("Disconnecting Remote Device: the device is NOT volatile, the TmL service will be called");
 
 						Map<Object, Object> arguments = new HashMap<Object, Object>();
 						arguments.put(RemoteDeviceConstants.DUMMY_TRANSITION, true);
 						RemoteDevicePlugin.getDisconnectServiceHandler().run((IInstance) instance, arguments);
 					} catch (Exception e) {
-						StudioLogger.error("Error when running TmL disconnect service: " + e.getMessage());
+						AndmoreLogger.error("Error when running TmL disconnect service: " + e.getMessage());
 					}
 				} else {
-					StudioLogger.debug("Disconnecting Remote Device: the device is volatile, it will be deleted");
+					AndmoreLogger.debug("Disconnecting Remote Device: the device is volatile, it will be deleted");
 					DevicesManager.getInstance().deleteInstanceOfDevice(serialNumber);
 				}
 
@@ -166,7 +166,7 @@ public class RemoteDeviceUtils {
 	 * @return true if the device became online, false otherwise
 	 */
 	private static boolean waitForDeviceToBeOnline(String serialNumber, ISerialNumbered instance) {
-		StudioLogger.debug("Wait device to be online: " + serialNumber);
+		AndmoreLogger.debug("Wait device to be online: " + serialNumber);
 
 		boolean instanceOnline = false;
 		long timeoutLimit = 0;
@@ -184,13 +184,13 @@ public class RemoteDeviceUtils {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				StudioLogger.error("Wait for device to be online: thread has been interrupted");
+				AndmoreLogger.error("Wait for device to be online: thread has been interrupted");
 			}
 
 			try {
 				testTimeout(timeoutLimit);
 			} catch (TimeoutException e) {
-				StudioLogger.warn("Timeout reached wile wating device to be online: " + serialNumber);
+				AndmoreLogger.warn("Timeout reached wile wating device to be online: " + serialNumber);
 				break;
 			}
 
@@ -280,13 +280,13 @@ public class RemoteDeviceUtils {
 			// wait for the command to finish its execution
 			process.waitFor();
 		} catch (InterruptedException e) {
-			StudioLogger.error(RemoteDeviceUtils.class, "Problems executing the command");
+			AndmoreLogger.error(RemoteDeviceUtils.class, "Problems executing the command");
 			status = new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID, "Problems executing the command", e);
 		}
 		// in case the is a problem with the command execution, create an error
 		// status
 		if (process.exitValue() != 0) {
-			StudioLogger.error(RemoteDeviceUtils.class, "The IP was not found");
+			AndmoreLogger.error(RemoteDeviceUtils.class, "The IP was not found");
 			status = new Status(IStatus.ERROR, RemoteDevicePlugin.PLUGIN_ID, "The IP was not found");
 		}
 

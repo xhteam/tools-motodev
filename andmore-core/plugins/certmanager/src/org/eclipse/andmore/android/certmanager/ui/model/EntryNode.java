@@ -47,7 +47,7 @@ import org.eclipse.andmore.android.certmanager.core.PasswordProvider;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -110,7 +110,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry {
 				this.setTooltip(NLS.bind(CertificateManagerNLS.CertificateBlock_KeyTooltip, org, name));
 			} catch (CertificateEncodingException e) {
 				String errorMsg = "Error getting data from certificate";
-				StudioLogger.error(EntryNode.class, errorMsg, e);
+				AndmoreLogger.error(EntryNode.class, errorMsg, e);
 				throw new KeyStoreManagerException(errorMsg, e);
 			}
 		}
@@ -182,7 +182,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry {
 			certificate = keyStore.getCertificate(alias);
 		} else {
 			// unknown type
-			StudioLogger.error(NLS.bind(CertificateManagerNLS.EntryNode_NotFoundOrTypeWrong, alias));
+			AndmoreLogger.error(NLS.bind(CertificateManagerNLS.EntryNode_NotFoundOrTypeWrong, alias));
 		}
 		return certificate;
 	}
@@ -439,7 +439,7 @@ public class EntryNode extends AbstractTreeNode implements IKeyStoreEntry {
 				}
 			}
 		} catch (Exception e) {
-			StudioLogger.error(EntryNode.class,
+			AndmoreLogger.error(EntryNode.class,
 					NLS.bind(CertificateManagerNLS.EntryNode_ErrorGettingCertificateFromEntry, getAlias()), e);
 		}
 		return x509Certificate;

@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.devices.services.DeviceServicesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 
@@ -90,7 +90,7 @@ public class Language {
 				}
 			}
 		} catch (Exception e) {
-			StudioLogger.error("Change Language TmL Service: could not load languages list");
+			AndmoreLogger.error("Change Language TmL Service: could not load languages list");
 		} finally {
 			if (input != null) {
 				try {

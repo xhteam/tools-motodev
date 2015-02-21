@@ -29,7 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.AndroidStatus;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.andmore.android.model.manifest.dom.AbstractBuildingBlockNode;
@@ -210,7 +210,7 @@ public class AndroidManifestFile extends AndroidManifestParser {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			StudioLogger.error(AndroidManifestFile.class,
+			AndmoreLogger.error(AndroidManifestFile.class,
 					UtilitiesNLS.EXC_AndroidManifestFile_ErrorCreatingTheDocumentBuilder, e);
 			throw new AndroidException(UtilitiesNLS.EXC_AndroidManifestFile_ErrorCreatingTheDocumentBuilder);
 		}
@@ -315,7 +315,7 @@ public class AndroidManifestFile extends AndroidManifestParser {
 			xmlSerializer.serialize(xmlDocument);
 			content = writer.toString();
 		} catch (IOException e) {
-			StudioLogger.error(AndroidManifestFile.class,
+			AndmoreLogger.error(AndroidManifestFile.class,
 					UtilitiesNLS.EXC_AndroidManifestFile_ErrorFormattingTheXMLOutput, e);
 			throw new AndroidException(UtilitiesNLS.EXC_AndroidManifestFile_ErrorFormattingTheXMLOutput);
 		} finally {

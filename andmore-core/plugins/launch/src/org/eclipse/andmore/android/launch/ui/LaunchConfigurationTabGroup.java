@@ -23,7 +23,7 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
  * DESCRIPTION: This class builds the configuration tabs that are displayed when
- * the user is editing the configuration to run MOTODEV Studio for Android
+ * the user is editing the configuration to run Eclipse Andmore
  * applications.
  *
  * RESPONSIBILITY: Build the configuration tab of the "Run As" features.

@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
@@ -76,13 +76,13 @@ public class WirelessWizard extends Wizard {
 			getContainer().run(true, true, new SwitchFromUSBAndConnectToWirelessRunnable(this));
 			EclipseUtils.showInformationDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,
 					RemoteDeviceNLS.WirelessWizard_WirelessDeviceCreatedSuccessfully);
-			StudioLogger.collectUsageData(UsageDataConstants.WHAT_REMOTE_WIRELESS,
+			AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_REMOTE_WIRELESS,
 					UsageDataConstants.KIND_REMOTE_DEVICE, UsageDataConstants.DESCRIPTION_DEFAULT,
 					RemoteDevicePlugin.PLUGIN_ID, RemoteDevicePlugin.getDefault().getBundle().getVersion().toString());
 		} catch (InvocationTargetException ite) {
 			// treat case where something went wrong - log, show an error
 			// message and set the wizard flag
-			StudioLogger.error(this.getClass(), "Problems switching device to TCP/IP.", ite); //$NON-NLS-1$
+			AndmoreLogger.error(this.getClass(), "Problems switching device to TCP/IP.", ite); //$NON-NLS-1$
 			IStatus status = new Status(IStatus.ERROR, AndroidPlugin.PLUGIN_ID, ite.getTargetException() != null ? ite
 					.getTargetException().getMessage() : ite.getMessage());
 			EclipseUtils.showErrorDialog(RemoteDeviceNLS.WirelessWizard_TitleWirelessConnectionModeWizard,

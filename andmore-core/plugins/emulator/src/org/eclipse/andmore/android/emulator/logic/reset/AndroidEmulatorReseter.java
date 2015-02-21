@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.logic.reset;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -112,9 +112,9 @@ public class ApplicationNode extends AbstractIconLabelNameNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * canContains
-	 * (com.motorola.studio.android.model.manifest.dom.AndroidManifestNode
+	 * (org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode
 	 * .NodeType)
 	 */
 	@Override
@@ -129,7 +129,7 @@ public class ApplicationNode extends AbstractIconLabelNameNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.manifest.dom.AbstractIconLabelNameNode
+	 * org.eclipse.andmore.android.model.manifest.dom.AbstractIconLabelNameNode
 	 * #addAdditionalProperties()
 	 */
 	@Override
@@ -186,7 +186,7 @@ public class ApplicationNode extends AbstractIconLabelNameNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getNodeType()
 	 */
 	@Override
@@ -197,7 +197,7 @@ public class ApplicationNode extends AbstractIconLabelNameNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * isNodeValid()
 	 */
 	@Override
@@ -683,7 +683,7 @@ public class ApplicationNode extends AbstractIconLabelNameNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.manifest.dom.AndroidManifestNode#
+	 * @see org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode#
 	 * getSpecificNodeErrors()
 	 */
 	@Override

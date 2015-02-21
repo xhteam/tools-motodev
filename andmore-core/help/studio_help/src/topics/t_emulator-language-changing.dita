@@ -15,7 +15,7 @@
     <context>
       <p>You have two options for changing the operating language of a running emulator: either use the <uicontrol
           >Custom Locale</uicontrol> application (found on the Application tab of the emulated device), or change the
-        emulator settings using the appropriate adb commands. MOTODEV Studio for Android simplifies this latter
+        emulator settings using the appropriate adb commands. Eclipse Andmore simplifies this latter
         operation, allowing you to easily change the emulator's locale from the Device Management view. Note that the
         emulator will be restarted if you choose this option.</p>
     </context>
@@ -32,7 +32,7 @@
         <cmd>Click <uicontrol>Finish</uicontrol>.</cmd>
       </step>
     </steps>
-    <result>MOTODEV Studio for Android issues the appropriate <codeph>setprop persist</codeph> adb shell commands, and
+    <result>Eclipse Andmore issues the appropriate <codeph>setprop persist</codeph> adb shell commands, and
       then restarts the emulator.</result>
   </taskbody>
 </task>

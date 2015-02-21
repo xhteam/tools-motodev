@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.android.localization.translators;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -52,11 +52,11 @@ public class TranslationPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(TranslationPlugin.class, "Starting MOTODEV Studio for Android Translation Plugin...");
+		AndmoreLogger.debug(TranslationPlugin.class, "Starting Eclipse Andmore Translation Plugin...");
 
 		super.start(context);
 
-		StudioLogger.debug(TranslationPlugin.class, "MOTODEV Studio for Android Translation Plugin started.");
+		AndmoreLogger.debug(TranslationPlugin.class, "Eclipse Andmore Translation Plugin started.");
 	}
 
 	/*

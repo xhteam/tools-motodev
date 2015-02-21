@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.DbRootNodeReader;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEvent;
@@ -63,7 +63,7 @@ import org.eclipse.ui.services.IEvaluationService;
  * View containing a {@link TreeViewer} that is expanded as the nodes from type
  * {@link AbstractTreeNode} are double-clicked
  */
-public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseModelListener {
+public class AndmoreDatabaseExplorerView extends ViewPart implements IDatabaseModelListener {
 	public static final String VIEW_ID = "org.eclipse.andmore.android.db.databaseView"; //$NON-NLS-1$
 
 	public static final String DB_EXPLORER_VIEW_HELP = DbCoreActivator.PLUGIN_ID + ".dbexplorer"; //$NON-NLS-1$
@@ -158,7 +158,7 @@ public class MOTODEVDatabaseExplorerView extends ViewPart implements IDatabaseMo
 
 			rootNode.putChildren(childrenList);
 		} catch (PartInitException e) {
-			StudioLogger.error(MOTODEVDatabaseExplorerView.class, "Problem creating MOTODEV Database Explorer Tree", e); //$NON-NLS-1$
+			AndmoreLogger.error(AndmoreDatabaseExplorerView.class, "Problem creating Andmore Database Explorer Tree", e); //$NON-NLS-1$
 		}
 		return rootNode;
 	}

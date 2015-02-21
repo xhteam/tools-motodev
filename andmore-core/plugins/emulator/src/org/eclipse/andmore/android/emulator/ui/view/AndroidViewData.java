@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.ui.view;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.debug;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.debug;
 
 import java.io.File;
 import java.util.Collection;

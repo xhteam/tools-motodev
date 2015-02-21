@@ -27,7 +27,7 @@ import java.util.jar.JarFile;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.packaging.PackageFile;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -97,7 +97,7 @@ public class RemoveExternalPackageSignatureWizard extends Wizard {
 							try {
 								pack.removeMetaEntryFiles();
 							} catch (IOException e) {
-								StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+								AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
 										"Impossible to delete temporary files");
 								throw e;
 							}
@@ -108,11 +108,11 @@ public class RemoveExternalPackageSignatureWizard extends Wizard {
 							PackageFile.zipAlign(file);
 						} catch (IOException e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+							AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
 									"Impossible write to package: " + selected + " " + e.getMessage());
 						} catch (SecurityException e) {
 							defectivePackages.add(selected);
-							StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
+							AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(),
 									"Impossible write to package: " + selected + " " + e.getMessage());
 						} finally {
 
@@ -134,7 +134,7 @@ public class RemoveExternalPackageSignatureWizard extends Wizard {
 							} catch (IOException e) {
 								// Silent exception. Only log the deletion
 								// exception.
-								StudioLogger.error(CertificateManagerActivator.PLUGIN_ID, "Deleting temporary files");
+								AndmoreLogger.error(CertificateManagerActivator.PLUGIN_ID, "Deleting temporary files");
 							}
 						}
 					} else {
@@ -151,9 +151,9 @@ public class RemoveExternalPackageSignatureWizard extends Wizard {
 			PlatformUI.getWorkbench().getProgressService()
 					.runInUI(new ProgressMonitorDialog(getShell()), finishAction, null);
 		} catch (InvocationTargetException e1) {
-			StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
+			AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
 		} catch (InterruptedException e1) {
-			StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
+			AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error running finish actions");
 		}
 
 		if (ResourcesPlugin.getWorkspace().getRoot().getLocation().isPrefixOf(this.page.getSourcePath())) {
@@ -174,9 +174,9 @@ public class RemoveExternalPackageSignatureWizard extends Wizard {
 			try {
 				PlatformUI.getWorkbench().getProgressService().run(false, false, op);
 			} catch (InvocationTargetException e) {
-				StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
+				AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
 			} catch (InterruptedException e) {
-				StudioLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
+				AndmoreLogger.error(RemoveExternalPackageSignatureWizard.class.toString(), "Error refreshing workspace");
 			}
 		}
 

@@ -20,7 +20,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.core.exception.SkinException;
 import org.eclipse.andmore.android.emulator.core.skin.IAndroidSkin;
 import org.eclipse.andmore.android.emulator.core.skin.ISkinKeyXmlTags;
@@ -276,7 +276,7 @@ public class DpiScaleCalculatorDialog extends Dialog {
 
 				size2 = skin.getSkinBean(defLayout).getSkinPropertyValue(ISkinKeyXmlTags.SKIN_INTERNAL_VIEW_HEIGHT);
 			} catch (SkinException e) {
-				StudioLogger.error(DpiScaleCalculatorDialog.class, "Error while calculating scale", //$NON-NLS-1$
+				AndmoreLogger.error(DpiScaleCalculatorDialog.class, "Error while calculating scale", //$NON-NLS-1$
 						e);
 			}
 

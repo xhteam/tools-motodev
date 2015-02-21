@@ -16,8 +16,8 @@
 
 package org.eclipse.andmore.android.emulator;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.util.List;
 import java.util.Properties;
@@ -25,8 +25,8 @@ import java.util.Properties;
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.DdmsRunnable;
-import org.eclipse.andmore.android.StudioAndroidEventManager;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.AndmoreEventManager;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.preferences.DialogWithToggleUtils;
 import org.eclipse.andmore.android.emulator.core.devfrm.DeviceFrameworkManager;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
@@ -250,13 +250,13 @@ public class EmulatorPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(EmulatorPlugin.class, "Starting MOTODEV Android Emulator Plugin...");
+		AndmoreLogger.debug(EmulatorPlugin.class, "Starting Andmore Emulator Plugin...");
 
 		super.start(context);
 
 		start();
 
-		StudioLogger.debug(EmulatorPlugin.class, "MOTODEV Android Emulator Plugin started.");
+		AndmoreLogger.debug(EmulatorPlugin.class, "Andmore Emulator Plugin started.");
 	}
 
 	private void start() {
@@ -268,7 +268,7 @@ public class EmulatorPlugin extends AbstractUIPlugin {
 
 		instanceListener = new AndroidDevInstListener();
 		InstanceEventManager.getInstance().addInstanceListener(instanceListener);
-		StudioAndroidEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncAddDeviceChangeListeners(connectedListener, disconnectedListener);
 
 		AndroidPlugin.getDefault().addSDKLoaderListener(sdkLoaderListener);
 		// Emulator Views synchronization
@@ -288,7 +288,7 @@ public class EmulatorPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		AndroidPlugin.getDefault().removeSDKLoaderListener(sdkLoaderListener);
 		InstanceEventManager.getInstance().removeInstanceListener(instanceListener);
-		StudioAndroidEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
+		AndmoreEventManager.asyncRemoveDeviceChangeListeners(connectedListener, disconnectedListener);
 		InstanceEventManager.getInstance().removeInstanceListener(sequoyahInstanceListener);
 		unregisterStopServiceHandler();
 		unregisterStartServiceHandler();

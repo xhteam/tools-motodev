@@ -26,12 +26,12 @@ import org.eclipse.equinox.p2.operations.ProfileChangeOperation;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * This class replaces the P2 Policy on MOTODEV Studio. This is responsible to
+ * This class replaces the P2 Policy on Eclipse Andmore. This is responsible to
  * verify if writing on the current install directory is writable. A error
  * message is displayed if this occurs and the operation is aborted.
  */
 @SuppressWarnings("restriction")
-public class MotodevPolicy extends SDKPolicy {
+public class AndmorePolicy extends SDKPolicy {
 
 	@Override
 	public boolean continueWorkingWithOperation(ProfileChangeOperation operation, Shell shell) {
@@ -47,8 +47,8 @@ public class MotodevPolicy extends SDKPolicy {
 			canWrite = FileUtil.canWrite(tmpFile);
 
 			if (!canWrite) {
-				EclipseUtils.showErrorDialog(InstallerNLS.MotodevPolicy_Insufficient_Permissions_Title,
-						InstallerNLS.MotodevPolicy_Insufficient_Permissions_Message);
+				EclipseUtils.showErrorDialog(InstallerNLS.AndmorePolicy_Insufficient_Permissions_Title,
+						InstallerNLS.AndmorePolicy_Insufficient_Permissions_Message);
 				canContinue = false;
 			}
 		}

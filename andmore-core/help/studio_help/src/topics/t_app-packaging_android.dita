@@ -3,7 +3,7 @@
   PUBLIC "-//OASIS//DTD DITA Task//EN" "../dtd/task.dtd">
 <task xml:lang="en-us" id="t_app-packaging_android">
   <title>Packaging an Android application</title>
-  <shortdesc>Describes how to create Android Package (APK) files for one or more MOTODEV Studio for Android projects.
+  <shortdesc>Describes how to create Android Package (APK) files for one or more Eclipse Andmore projects.
     APK files are used to distribute and deploy applications for the Android platform. </shortdesc>
   <prolog>
     <metadata>

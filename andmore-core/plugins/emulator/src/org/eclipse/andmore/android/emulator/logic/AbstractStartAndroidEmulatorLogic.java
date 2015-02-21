@@ -15,7 +15,7 @@
  */
 package org.eclipse.andmore.android.emulator.logic;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
 
 import java.io.IOException;
 import java.util.Collection;

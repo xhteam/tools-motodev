@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.PreferenceDialog;
@@ -191,7 +191,7 @@ public class WidgetsUtil {
 		try {
 			dialog.create();
 		} catch (Throwable e) {
-			StudioLogger.error("Error opening dialog");
+			AndmoreLogger.error("Error opening dialog");
 		}
 		centerDialog(dialog);
 		return dialog.open() == Window.OK;

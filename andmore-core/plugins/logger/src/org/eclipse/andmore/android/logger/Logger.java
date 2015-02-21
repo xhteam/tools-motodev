@@ -22,7 +22,7 @@ import org.eclipse.andmore.android.logger.internal.EclipseEnvironmentManager;
 import org.eclipse.andmore.android.logger.internal.EnvironmentManager;
 
 /**
- * Logger provides a logging facility to the <b>MOTODEV Studio</b> based
+ * Logger provides a logging facility to the <b>Eclipse Andmore</b> based
  * applications such as Studios and RCP applications. </p> <b>Note:</b> The logs
  * will be saved on the plug-in state area for this plug-in.
  */
@@ -262,7 +262,7 @@ public class Logger {
 	 * Sets the Logger level to the specified value.
 	 * 
 	 * @param level
-	 *            One of the com.motorola.studio.platform.logger.Level
+	 *            One of the org.eclipse.andmore.android.logger.Level
 	 *            constants.
 	 */
 	public void setLevel(int level) {

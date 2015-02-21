@@ -19,7 +19,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 /**
- * Command to open the New Activity Based On Template wizard through the MOTODEV
+ * Command to open the New Activity Based On Template wizard 
  * menu.
  */
 public class NewActivityBasedOnTemplateHandler extends NewWizardHandler {

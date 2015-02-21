@@ -26,7 +26,7 @@ import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.AndroidDebugBridge.IClientChangeListener;
 import com.android.ddmlib.AndroidDebugBridge.IDebugBridgeChangeListener;
 
-public class StudioAndroidEventManager {
+public class AndmoreEventManager {
 	private static final HashMap<EventType, List<DdmsRunnable>> listeners = new HashMap<EventType, List<DdmsRunnable>>();
 
 	public enum EventType {

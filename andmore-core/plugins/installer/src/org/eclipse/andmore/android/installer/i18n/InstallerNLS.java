@@ -81,7 +81,7 @@ public class InstallerNLS extends NLS {
 
 	public static String P2Installer_Loading_Repositories;
 
-	public static String MotodevPolicy_Insufficient_Permissions_Message;
+	public static String AndmorePolicy_Insufficient_Permissions_Message;
 
-	public static String MotodevPolicy_Insufficient_Permissions_Title;
+	public static String AndmorePolicy_Insufficient_Permissions_Title;
 }

@@ -40,7 +40,7 @@
               package is either unsigned or malformed. You cannot proceed if this is the case.</info>
           </substep>
           <substep>
-            <cmd>Specify what MOTODEV Studio for Android should do if a version of the application already exists on the
+            <cmd>Specify what Eclipse Andmore should do if a version of the application already exists on the
               target device.</cmd>
             <info>
               <ul>

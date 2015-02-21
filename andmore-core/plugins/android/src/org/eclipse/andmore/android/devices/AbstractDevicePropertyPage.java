@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -157,7 +157,7 @@ public abstract class AbstractDevicePropertyPage extends PropertyPage implements
 								outputWriter.flush();
 								outputWriter.close();
 							} catch (IOException e1) {
-								StudioLogger.error("Could not close stream. " + e1.getMessage());
+								AndmoreLogger.error("Could not close stream. " + e1.getMessage());
 							}
 						}
 					}

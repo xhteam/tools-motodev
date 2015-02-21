@@ -19,7 +19,7 @@ package org.eclipse.andmore.android.launch.ui;
 import java.util.Collection;
 
 import org.eclipse.andmore.android.AndroidPlugin;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.core.devfrm.DeviceFrameworkManager;
 import org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance;
 import org.eclipse.andmore.android.launch.ILaunchConfigurationConstants;
@@ -339,7 +339,7 @@ public class StartedInstancesDialog extends TitleAreaDialog {
 			try {
 				updateRunConfiguration();
 			} catch (CoreException e) {
-				StudioLogger.error(StartedInstancesDialog.class,
+				AndmoreLogger.error(StartedInstancesDialog.class,
 						"It was not possible to update the current run configuration");
 			}
 		}

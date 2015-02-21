@@ -129,7 +129,7 @@ public class WirelessDeviceWizardPage extends WizardPage implements IInstancePro
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.remote.ui.RemotePropertiesComposite.
+	 * @see org.eclipse.andmore.android.remote.ui.RemotePropertiesComposite.
 	 * RemotePropertiesChangedListener#propertiesChanged()
 	 */
 	@Override

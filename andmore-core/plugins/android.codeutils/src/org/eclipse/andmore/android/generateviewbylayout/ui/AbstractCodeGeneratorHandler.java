@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.generatecode.JDTUtils;
@@ -92,7 +92,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 					selectionBean.setJavaProject(resource.getProject());
 					selectionBean.setProject(true);
 				} catch (Exception ex) {
-					StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", ex);
+					AndmoreLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", ex);
 					throw new RuntimeException("Error retrieving class information", ex);
 				}
 			}
@@ -107,7 +107,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 						|| JDTUtils.isFragmentSubclass(selectionBean.getJavaFile())
 						|| JDTUtils.isCompatibilityFragmentSubclass(selectionBean.getJavaFile()));
 			} catch (JavaModelException jme) {
-				StudioLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", jme);
+				AndmoreLogger.error(AbstractCodeGeneratorHandler.class, "Error retrieving class information", jme);
 				throw new RuntimeException("Error retrieving class information", jme);
 			}
 		}
@@ -127,7 +127,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 			try {
 				editor = JavaUI.openInEditor(compilationUnit);
 			} catch (Exception e) {
-				StudioLogger
+				AndmoreLogger
 						.warn(AbstractCodeGeneratorHandler.class,
 								"Unable to open editor or bring it to front for Java file while trying to generate code from layout xml file", //$NON-NLS-1$
 								e);
@@ -149,7 +149,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 								try {
 
 									// collect usage data - UDC
-									StudioLogger.collectUsageData(UsageDataConstants.WHAT_VIEW_BY_LAYOUT_EXEC,
+									AndmoreLogger.collectUsageData(UsageDataConstants.WHAT_VIEW_BY_LAYOUT_EXEC,
 											UsageDataConstants.KIND_VIEW_BY_LAYOUT_EXEC,
 											"View by layout feature executed.", //$NON-NLS-1$
 											CodeUtilsActivator.PLUGIN_ID, CodeUtilsActivator.getDefault().getBundle()
@@ -174,7 +174,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 													e.getMessage(), mostSevere);
 										}
 									});
-									StudioLogger.error(
+									AndmoreLogger.error(
 											this.getClass(),
 											"Error inserting code on activity/fragment based on layout"
 													+ ": " + e.getMessage()); //$NON-NLS-1$
@@ -182,7 +182,7 @@ public abstract class AbstractCodeGeneratorHandler extends AbstractHandler {
 							}
 						});
 					} catch (Exception e) {
-						StudioLogger.error(this.getClass(), "Error inserting code on activity/fragment based on layout"
+						AndmoreLogger.error(this.getClass(), "Error inserting code on activity/fragment based on layout"
 								+ ": " + e.getMessage()); //$NON-NLS-1$
 					}
 				}

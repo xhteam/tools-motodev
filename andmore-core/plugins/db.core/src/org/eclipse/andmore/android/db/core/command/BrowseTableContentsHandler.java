@@ -64,7 +64,7 @@ public class BrowseTableContentsHandler extends AbstractHandler implements IHand
 
 	private ITableNode getSelectedItem() {
 		ITableNode selectedNode = null;
-		ITreeNode selectedItem = DbCoreActivator.getMOTODEVDatabaseExplorerView().getSelectedItemOnTree();
+		ITreeNode selectedItem = DbCoreActivator.getAndmoreDatabaseExplorerView().getSelectedItemOnTree();
 
 		if (selectedItem instanceof ITableNode) {
 			selectedNode = (ITableNode) selectedItem;

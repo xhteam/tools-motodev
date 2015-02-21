@@ -28,7 +28,7 @@ import org.eclipse.andmore.android.certmanager.ui.model.IKeyStore;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreNode;
 import org.eclipse.andmore.android.certmanager.ui.model.KeyStoreRootNode;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * Provides a common interface to manipulate keystores. Other plugins need to
@@ -205,7 +205,7 @@ public class KeyStoreManager {
 			}
 		} catch (IOException e) {
 			result = false;
-			StudioLogger.error(getClass(),
+			AndmoreLogger.error(getClass(),
 					"IOException while trying to check if a file is mapped on Signing and Keys view.");
 		}
 
@@ -256,7 +256,7 @@ public class KeyStoreManager {
 			KeyStore keyStore = KeyStoreUtils.createKeystore(keyStoreFile, keyStoreType, password);
 			keyStoreNode = new KeyStoreNode(keyStoreFile, keyStore);
 		} catch (InvalidPasswordException e) {
-			StudioLogger.error("Invalid password when creating a keystore: " + e.getMessage());
+			AndmoreLogger.error("Invalid password when creating a keystore: " + e.getMessage());
 		}
 		return keyStoreNode;
 	}
@@ -271,7 +271,7 @@ public class KeyStoreManager {
 			KeyStore keyStore = KeyStoreUtils.createKeystore(keyStoreFile, password);
 			keyStoreNode = new KeyStoreNode(keyStoreFile, keyStore);
 		} catch (InvalidPasswordException e) {
-			StudioLogger.error("Invalid password when creating a keystore: " + e.getMessage());
+			AndmoreLogger.error("Invalid password when creating a keystore: " + e.getMessage());
 		}
 
 		return keyStoreNode;

@@ -17,46 +17,46 @@ package org.eclipse.andmore.android.db.core.exception;
 
 import org.eclipse.andmore.android.common.exception.AndroidException;
 
-public class MotodevDbException extends AndroidException {
+public class AndmoreDbException extends AndroidException {
 
 	private static final long serialVersionUID = 1148147648131562077L;
 
 	/**
-	 * Creates a new MotodevDbException object.
+	 * Creates a new AndmoreDbException object.
 	 */
-	public MotodevDbException() {
+	public AndmoreDbException() {
 
 	}
 
 	/**
-	 * Creates a new MotodevDbException object.
+	 * Creates a new AndmoreDbException object.
 	 * 
 	 * @param message
 	 *            the message used by the Exception.
 	 */
-	public MotodevDbException(String message) {
+	public AndmoreDbException(String message) {
 		super(message);
 	}
 
 	/**
-	 * Creates a new MotodevDbException object.
+	 * Creates a new AndmoreDbException object.
 	 * 
 	 * @param cause
 	 *            the associated cause.
 	 */
-	public MotodevDbException(Throwable cause) {
+	public AndmoreDbException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
-	 * Creates a new MotodevDbException object.
+	 * Creates a new AndmoreDbException object.
 	 * 
 	 * @param message
 	 *            the message used by the Exception.
 	 * @param cause
 	 *            the associated cause.
 	 */
-	public MotodevDbException(String message, Throwable cause) {
+	public AndmoreDbException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

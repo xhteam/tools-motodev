@@ -30,9 +30,9 @@ public class MatNLS extends NLS {
 	 * UI strings
 	 */
 
-	public static String Motodev_Pane_Title;
+	public static String Andmore_Pane_Title;
 
-	public static String Action_Open_Motodev_Pane;
+	public static String Action_Open_Andmore_Pane;
 
 	public static String DumpHPROFHandler_DEVICE_NOT_READY;
 

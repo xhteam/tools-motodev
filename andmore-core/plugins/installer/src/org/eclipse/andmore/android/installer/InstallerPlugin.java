@@ -19,7 +19,7 @@ import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.eclipse.andmore.android.installer.policy.MotodevPolicy;
+import org.eclipse.andmore.android.installer.policy.AndmorePolicy;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -47,7 +47,7 @@ public class InstallerPlugin extends AbstractUIPlugin {
 
 	public static final String CONTRIBUTED_PAGE_EXTENSION_PAGECLASS = "class"; //$NON-NLS-1$
 
-	public static final String DEFAULT_P2_PROFILE_NAME = "MOTODEV_Profile_Android"; //$NON-NLS-1$
+	public static final String DEFAULT_P2_PROFILE_NAME = "ANDMORE_Profile_Android"; //$NON-NLS-1$
 
 	/*
 	 * (non-Javadoc)
@@ -63,7 +63,7 @@ public class InstallerPlugin extends AbstractUIPlugin {
 		if (canRegisterPolicy()) {
 			Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
 			serviceProperties.put("service.ranking", new Integer(1500));
-			context.registerService(Policy.class.getName(), new MotodevPolicy(), serviceProperties);
+			context.registerService(Policy.class.getName(), new AndmorePolicy(), serviceProperties);
 		}
 	}
 

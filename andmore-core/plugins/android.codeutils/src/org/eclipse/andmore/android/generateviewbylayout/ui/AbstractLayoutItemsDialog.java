@@ -20,7 +20,7 @@ import java.util.List;
 import org.eclipse.andmore.android.codeutils.i18n.CodeUtilsNLS;
 import org.eclipse.andmore.android.common.IAndroidConstants;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatecode.JDTUtils;
 import org.eclipse.andmore.android.generateviewbylayout.JavaModifierBasedOnLayout;
 import org.eclipse.andmore.android.generateviewbylayout.model.CodeGeneratorDataBasedOnLayout;
@@ -416,7 +416,7 @@ public abstract class AbstractLayoutItemsDialog extends TitleAreaDialog {
 						i++;
 					}
 				} catch (CoreException e) {
-					StudioLogger.info(CodeUtilsNLS.Info_ChooseLayoutItemsDialog_Project_Nature);
+					AndmoreLogger.info(CodeUtilsNLS.Info_ChooseLayoutItemsDialog_Project_Nature);
 				}
 			}
 
@@ -472,7 +472,7 @@ public abstract class AbstractLayoutItemsDialog extends TitleAreaDialog {
 						}
 					}
 				} catch (JavaModelException e) {
-					StudioLogger.info(CodeUtilsNLS.Info_ChooseLayoutItemsDialog_Available_Classes);
+					AndmoreLogger.info(CodeUtilsNLS.Info_ChooseLayoutItemsDialog_Available_Classes);
 				}
 
 				classNameComboBox.setEnabled(classNameComboBox.getItemCount() > 0);
@@ -507,7 +507,7 @@ public abstract class AbstractLayoutItemsDialog extends TitleAreaDialog {
 				} catch (AndroidException e) {
 					// if layout xml is malformed indicate it on screen
 					layoutFileErrorMessage = e.getMessage();
-					StudioLogger.error(this.getClass(), "Error parsing layout: " + e.getMessage()); //$NON-NLS-1$
+					AndmoreLogger.error(this.getClass(), "Error parsing layout: " + e.getMessage()); //$NON-NLS-1$
 				}
 
 				populateViewer();

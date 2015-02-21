@@ -38,7 +38,7 @@ public class CreateDatabaseWizard extends Wizard {
 	// it is an old plugin because of backward compatibility
 	private static final String DB_PERSPECTIVE = "org.eclipse.andmore.android.db.perspective"; //$NON-NLS-1$
 
-	private static final String SWITCH_MOTODEV_DATABASE_PERSPECTIVE = "switch.perspective.to.motodevstudio.database"; //$NON-NLS-1$
+	private static final String SWITCH_ANDMORE_DATABASE_PERSPECTIVE = "switch.perspective.to.andmore.database"; //$NON-NLS-1$
 
 	private final List<String> alreadyAvailableDbs;
 
@@ -100,11 +100,11 @@ public class CreateDatabaseWizard extends Wizard {
 
 	private boolean confirmPerspectiveSwitch(IWorkbenchWindow window, IPerspectiveDescriptor perspective) {
 		IPreferenceStore store = DbCoreActivator.getDefault().getPreferenceStore();
-		String preference = store.getString(SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
+		String preference = store.getString(SWITCH_ANDMORE_DATABASE_PERSPECTIVE);
 
 		if (preference.equals("")) //$NON-NLS-1$
 		{
-			store.setValue(SWITCH_MOTODEV_DATABASE_PERSPECTIVE, MessageDialogWithToggle.PROMPT);
+			store.setValue(SWITCH_ANDMORE_DATABASE_PERSPECTIVE, MessageDialogWithToggle.PROMPT);
 			preference = MessageDialogWithToggle.PROMPT;
 		}
 
@@ -118,7 +118,7 @@ public class CreateDatabaseWizard extends Wizard {
 			MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(window.getShell(),
 					DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveTitle,
 					DbCoreNLS.UI_CreateDatabaseWizard_ChangePerspectiveQuestion, null, false, store,
-					SWITCH_MOTODEV_DATABASE_PERSPECTIVE);
+					SWITCH_ANDMORE_DATABASE_PERSPECTIVE);
 			int dialogResult = dialog.getReturnCode();
 
 			result = dialogResult == IDialogConstants.YES_ID;

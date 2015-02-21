@@ -31,7 +31,7 @@ public interface ILaunchConfigurationConstants {
 	 */
 	public final static String LAUNCH_CONFIGURATION_TYPE_EXTENSION_ID = "androidLaunchConfigurationType";
 
-	public final static String MOTODEV_APP_ICO = "icons/motodevapp.gif";
+	public final static String ANDMORE_APP_ICO = "icons/category.gif";
 
 	public final static String DEFAULT_VALUE = "";
 

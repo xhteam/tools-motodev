@@ -15,9 +15,9 @@
  */
 package org.eclipse.andmore.android.emulator.device.instance;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.info;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.info;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.File;
 import java.io.IOException;
@@ -253,7 +253,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #getCurrentLayout()
 	 */
 	@Override
@@ -265,7 +265,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #setCurrentLayout(java.lang.String)
 	 */
 	@Override
@@ -532,7 +532,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.logic.IAndroidLogicInstance#getUserdata
+	 * org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance#getUserdata
 	 * ()
 	 */
 	@Override
@@ -543,7 +543,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.logic.IAndroidLogicInstance#
+	 * @see org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance#
 	 * getSnapshotOriginalFilePath()
 	 */
 	@Override
@@ -563,7 +563,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.logic.IAndroidLogicInstance#getStateData
+	 * org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance#getStateData
 	 * ()
 	 */
 	@Override
@@ -575,7 +575,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.logic.IAndroidLogicInstance#isClean
+	 * org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance#isClean
 	 * ()
 	 */
 	@Override
@@ -601,7 +601,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #getProcess()
 	 */
 	@Override
@@ -613,7 +613,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #setProcess(java.lang.Process)
 	 */
 	@Override
@@ -626,7 +626,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #setWindowHandle(int)
 	 */
 	@Override
@@ -638,7 +638,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #getWindowHandle()
 	 */
 	@Override
@@ -649,7 +649,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getDeviceName()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getDeviceName()
 	 */
 	@Override
 	public String getDeviceName() {
@@ -660,7 +660,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #getFullName()
 	 */
 	@Override
@@ -718,7 +718,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.adt.ISerialNumbered#getSerialNumber()
+	 * @see org.eclipse.andmore.android.adt.ISerialNumbered#getSerialNumber()
 	 */
 	@Override
 	public String getSerialNumber() {
@@ -729,7 +729,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.emulator.core.model.IAndroidEmulatorInstance
+	 * org.eclipse.andmore.android.emulator.core.model.IAndroidEmulatorInstance
 	 * #isAvailable()
 	 */
 	@Override
@@ -740,7 +740,7 @@ public class AndroidDeviceInstance extends AbstractMobileInstance implements IAn
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.emulator.logic.IAndroidLogicInstance#
+	 * @see org.eclipse.andmore.android.emulator.logic.IAndroidLogicInstance#
 	 * getCommandLineArgumentsAsProperties()
 	 */
 	@Override

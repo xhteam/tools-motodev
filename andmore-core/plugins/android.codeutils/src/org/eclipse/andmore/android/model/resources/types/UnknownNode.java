@@ -45,9 +45,9 @@ public class UnknownNode extends AbstractResourceNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * @see org.eclipse.andmore.android.model.resources.AbstractResourceNode#
 	 * canAddChildNode
-	 * (com.motorola.studio.android.model.resources.AbstractResourceNode)
+	 * (org.eclipse.andmore.android.model.resources.AbstractResourceNode)
 	 */
 	@Override
 	protected boolean canAddChildNode(AbstractResourceNode node) {
@@ -58,7 +58,7 @@ public class UnknownNode extends AbstractResourceNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeName
+	 * org.eclipse.andmore.android.model.resources.AbstractResourceNode#getNodeName
 	 * ()
 	 */
 	@Override
@@ -70,7 +70,7 @@ public class UnknownNode extends AbstractResourceNode {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.motorola.studio.android.model.resources.AbstractResourceNode#getNodeType
+	 * org.eclipse.andmore.android.model.resources.AbstractResourceNode#getNodeType
 	 * ()
 	 */
 	@Override
@@ -81,7 +81,7 @@ public class UnknownNode extends AbstractResourceNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.motorola.studio.android.model.resources.AbstractResourceNode#
+	 * @see org.eclipse.andmore.android.model.resources.AbstractResourceNode#
 	 * isAttributeValid(java.lang.String)
 	 */
 	@Override

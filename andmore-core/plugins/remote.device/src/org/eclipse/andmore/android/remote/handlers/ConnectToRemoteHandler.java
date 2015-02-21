@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import org.eclipse.andmore.android.DDMSFacade;
 import org.eclipse.andmore.android.ISerialNumbered;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.remote.RemoteDeviceConstants;
 import org.eclipse.andmore.android.remote.RemoteDevicePlugin;
 import org.eclipse.andmore.android.remote.i18n.RemoteDeviceNLS;
@@ -63,11 +63,11 @@ public class ConnectToRemoteHandler extends ServiceHandler {
 	@Override
 	public IStatus runService(IInstance instance, Map<Object, Object> arguments, IProgressMonitor monitor) {
 
-		StudioLogger.debug("TmL Connect to Remote Device Service: start connecting to remote device: " + instance);
+		AndmoreLogger.debug("TmL Connect to Remote Device Service: start connecting to remote device: " + instance);
 
 		if (arguments != null) {
 			if (((Boolean) arguments.get(RemoteDeviceConstants.DUMMY_TRANSITION)).booleanValue()) {
-				StudioLogger.debug("TmL Connect to Remote Device Service: dummy transition");
+				AndmoreLogger.debug("TmL Connect to Remote Device Service: dummy transition");
 				setSuffix(instance);
 				return Status.OK_STATUS;
 			}
@@ -100,7 +100,7 @@ public class ConnectToRemoteHandler extends ServiceHandler {
 					new InstanceEvent(InstanceEventType.INSTANCE_UPDATED, instance));
 		}
 
-		StudioLogger.debug("TmL Connect to Remote Device Service: finish connecting to remote device. status: "
+		AndmoreLogger.debug("TmL Connect to Remote Device Service: finish connecting to remote device. status: "
 				+ status.getSeverity());
 
 		return status;
@@ -126,7 +126,7 @@ public class ConnectToRemoteHandler extends ServiceHandler {
 	private void setSuffix(IInstance instance) {
 
 		if (instance != null) {
-			StudioLogger
+			AndmoreLogger
 					.debug("TmL Connect to Remote Device Service: setting suffix to instance " + instance.getName());
 
 			String suffix = ((ISerialNumbered) instance).getSerialNumber();

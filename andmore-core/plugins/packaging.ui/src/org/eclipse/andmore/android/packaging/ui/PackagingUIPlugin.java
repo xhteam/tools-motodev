@@ -16,7 +16,7 @@
 
 package org.eclipse.andmore.android.packaging.ui;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -52,12 +52,12 @@ public class PackagingUIPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		StudioLogger.debug(PackagingUIPlugin.class, "Starting MOTODEV Android Packaging UI Plugin...");
+		AndmoreLogger.debug(PackagingUIPlugin.class, "Starting Android Packaging UI Plugin...");
 
 		super.start(context);
 		plugin = this;
 
-		StudioLogger.debug(PackagingUIPlugin.class, "MOTODEV Android Packaging UI Plugin started.");
+		AndmoreLogger.debug(PackagingUIPlugin.class, "Andmore Packaging UI Plugin started.");
 	}
 
 	/*

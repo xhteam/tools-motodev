@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.andmore.android.codeutils.CodeUtilsActivator;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.generatecode.JDTUtils;
 import org.eclipse.andmore.android.generateviewbylayout.codegenerators.SaveStateCodeGenerator;
 import org.eclipse.andmore.android.generateviewbylayout.model.LayoutNode.ViewProperties;
@@ -85,7 +85,7 @@ public class SaveStateVisitor extends ASTVisitor {
 						viewIds.add(((SimpleName) expression).getFullyQualifiedName());
 					}
 				} catch (JavaModelException e) {
-					StudioLogger.warn(CodeUtilsActivator.PLUGIN_ID, "Unable to identify if " + binding.getName()
+					AndmoreLogger.warn(CodeUtilsActivator.PLUGIN_ID, "Unable to identify if " + binding.getName()
 							+ " is a subclass of android.view.View", e);
 				}
 			}
@@ -111,7 +111,7 @@ public class SaveStateVisitor extends ASTVisitor {
 						viewIds.add(((SimpleName) expression).getFullyQualifiedName());
 					}
 				} catch (JavaModelException e) {
-					StudioLogger.warn(CodeUtilsActivator.PLUGIN_ID, "Unable to identify if " + binding.getName()
+					AndmoreLogger.warn(CodeUtilsActivator.PLUGIN_ID, "Unable to identify if " + binding.getName()
 							+ " is a subclass of android.view.View", e);
 				}
 			}

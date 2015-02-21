@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.eclipse.andmore.android.common.exception.AndroidException;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.i18n.UtilitiesNLS;
 import org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode;
 import org.eclipse.andmore.android.model.manifest.dom.AndroidManifestNode.NodeType;
@@ -68,12 +68,12 @@ public abstract class AndroidManifestParser extends AndroidManifestNodeParser {
 		} catch (SAXException e) {
 			String errMsg = NLS.bind(UtilitiesNLS.EXC_AndroidManifestNodeParser_ErrorParsingTheXMLFile,
 					e.getLocalizedMessage());
-			StudioLogger.error(AndroidManifestParser.class, errMsg, e);
+			AndmoreLogger.error(AndroidManifestParser.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} catch (IOException e) {
 			String errMsg = NLS.bind(UtilitiesNLS.EXC_AndroidManifestNodeParser_ErrorReadingTheXMLContent,
 					e.getLocalizedMessage());
-			StudioLogger.error(AndroidManifestParser.class, errMsg, e);
+			AndmoreLogger.error(AndroidManifestParser.class, errMsg, e);
 			throw new AndroidException(errMsg);
 		} finally {
 			if (stringReader != null) {

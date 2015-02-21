@@ -15,8 +15,8 @@
  */
 package org.eclipse.andmore.android.emulator.skin.android;
 
-import static org.eclipse.andmore.android.common.log.StudioLogger.error;
-import static org.eclipse.andmore.android.common.log.StudioLogger.warn;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.error;
+import static org.eclipse.andmore.android.common.log.AndmoreLogger.warn;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.Properties;
 
 import org.eclipse.andmore.android.SdkUtils;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.emulator.EmulatorPlugin;
 import org.eclipse.andmore.android.emulator.core.exception.SkinException;
 import org.eclipse.andmore.android.emulator.core.skin.AndroidPressKey;
@@ -516,7 +516,7 @@ public class AndroidSkinTranslator {
 			try {
 				is.close();
 			} catch (IOException e) {
-				StudioLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
+				AndmoreLogger.error("Could not close input stream: ", e.getMessage()); //$NON-NLS-1$
 			}
 		}
 

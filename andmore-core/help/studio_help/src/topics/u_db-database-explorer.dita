@@ -46,7 +46,7 @@
       <p>You must connect to a database in order to view or modify its contents. When you connect to a database, a copy
         of that database is made in your computer's Temp directory (if desired, you can change where this temporary copy
         is made; see the MOTODEV Studio preferences). It is that copy that you view and edit. It is important to note
-        that changes you make to a database in MOTODEV Studio for Android are made to this local copy of the database;
+        that changes you make to a database in Eclipse Andmore are made to this local copy of the database;
         only when you save your changes is the database copied back to the device or AVD.</p>
       <p>The MOTODEV Database Explorer also provides the following controls:</p>
       <simpletable>

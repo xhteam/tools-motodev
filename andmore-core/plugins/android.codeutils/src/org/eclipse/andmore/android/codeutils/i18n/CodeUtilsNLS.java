@@ -455,9 +455,9 @@ public class CodeUtilsNLS extends NLS {
 
 	public static String UI_PersistenceWizard_ChangePerspectiveToJava_DialogTitle;
 
-	public static String UI_PersistenceWizard_ChangePerspectiveToMOTODEVStudioAndroid_DialogTitle;
+	public static String UI_PersistenceWizard_ChangePerspectiveToAndmoreAndroid_DialogTitle;
 
-	public static String UI_PersistenceWizard_ChangePerspectiveToMOTODEVStudioAndroid_DialogMessage;
+	public static String UI_PersistenceWizard_ChangePerspectiveToAndmoreAndroid_DialogMessage;
 
 	public static String Field_ErrorAutoIncrementNotAllowed;
 

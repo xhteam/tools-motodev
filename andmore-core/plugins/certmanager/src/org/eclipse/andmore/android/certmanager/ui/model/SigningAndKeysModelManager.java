@@ -25,7 +25,7 @@ import org.eclipse.andmore.android.certmanager.core.PasswordProvider;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.i18n.CertificateManagerNLS;
 import org.eclipse.andmore.android.certmanager.views.KeystoreManagerView;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -79,7 +79,7 @@ public class SigningAndKeysModelManager {
 					}
 				} else {
 					// we do not have any item mapped in persistence
-					// try to import from old Motodev keystore
+					// try to import from old keystore
 					// (probably it is the first time user is trying to use the
 					// view)
 					BackwardKeystoreManager backwardKeystoreManager = new BackwardKeystoreManager();
@@ -87,7 +87,7 @@ public class SigningAndKeysModelManager {
 				}
 			}
 		} catch (Exception e) {
-			StudioLogger.error(KeystoreManagerView.class, e.getMessage(), e);
+			AndmoreLogger.error(KeystoreManagerView.class, e.getMessage(), e);
 			EclipseUtils.showErrorDialog(
 					CertificateManagerNLS.KeystoreManagerView_ErrorLoadingMappedKeystoresFromPersistence,
 					e.getMessage());

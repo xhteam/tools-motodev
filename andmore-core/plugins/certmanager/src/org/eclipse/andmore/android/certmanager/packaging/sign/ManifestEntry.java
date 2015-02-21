@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.jar.Attributes;
 
 import org.bouncycastle.util.encoders.Base64Encoder;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 
 /**
  * A Class representing a Manifest Entry.
@@ -80,7 +80,7 @@ public class ManifestEntry {
 			result = stream.toString().getBytes(UTF8_CHARSET);
 
 		} catch (IOException e) {
-			StudioLogger.error(ManifestEntry.class, "Error getting manifest like bytes");
+			AndmoreLogger.error(ManifestEntry.class, "Error getting manifest like bytes");
 		} finally {
 			try {
 				if (dataOut != null) {
@@ -90,7 +90,7 @@ public class ManifestEntry {
 					stream.close();
 				}
 			} catch (IOException e) {
-				StudioLogger.error("Could not close stream while writing manifest" + e.getMessage());
+				AndmoreLogger.error("Could not close stream while writing manifest" + e.getMessage());
 			}
 		}
 
@@ -110,7 +110,7 @@ public class ManifestEntry {
 			digester.update(toManifestEntryBytes());
 			digested = digester.digest();
 		} catch (NoSuchAlgorithmException e) {
-			StudioLogger.error(ManifestEntry.class, "Error digesting manifest bytes");
+			AndmoreLogger.error(ManifestEntry.class, "Error digesting manifest bytes");
 		}
 		return digested;
 	}
@@ -215,7 +215,7 @@ public class ManifestEntry {
 				try {
 					output.close();
 				} catch (IOException e) {
-					StudioLogger.error("Could not close stream: " + e.getMessage());
+					AndmoreLogger.error("Could not close stream: " + e.getMessage());
 				}
 			}
 		}

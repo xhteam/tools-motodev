@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.ui.model.ITreeNode;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.jface.viewers.ILazyTreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -65,7 +65,7 @@ public class KeystoreManagerTreeContentProvider implements ILazyTreeContentProvi
 						treeViewer.setChildCount(child, child.getChildren().size());
 					}
 				} catch (KeyStoreManagerException e) {
-					StudioLogger.error("Error while accessing keystore manager. " + e.getMessage());
+					AndmoreLogger.error("Error while accessing keystore manager. " + e.getMessage());
 				}
 			}
 		}
@@ -84,7 +84,7 @@ public class KeystoreManagerTreeContentProvider implements ILazyTreeContentProvi
 					childCount = children.size();
 				}
 			} catch (KeyStoreManagerException e) {
-				StudioLogger.error(e.getMessage());
+				AndmoreLogger.error(e.getMessage());
 			}
 
 			if (childCount != currentChildCount) {

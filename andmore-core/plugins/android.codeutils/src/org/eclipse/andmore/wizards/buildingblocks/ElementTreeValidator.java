@@ -16,7 +16,7 @@
 package org.eclipse.andmore.wizards.buildingblocks;
 
 import org.eclipse.andmore.android.common.IAndroidConstants;
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -61,7 +61,7 @@ class ElementTreeValidator extends TypedElementSelectionValidator {
 				isValid = true;
 			}
 		} catch (JavaModelException e) {
-			StudioLogger.error(ElementTreeValidator.class, e.getLocalizedMessage(), e);
+			AndmoreLogger.error(ElementTreeValidator.class, e.getLocalizedMessage(), e);
 		}
 		return isValid;
 	}

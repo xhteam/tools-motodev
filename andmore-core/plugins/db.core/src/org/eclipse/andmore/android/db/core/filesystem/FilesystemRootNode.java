@@ -18,11 +18,11 @@ package org.eclipse.andmore.android.db.core.filesystem;
 
 import java.util.List;
 
-import org.eclipse.andmore.android.common.log.StudioLogger;
+import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.db.core.DbCoreActivator;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEventManager;
 import org.eclipse.andmore.android.db.core.event.DatabaseModelEvent.EVENT_TYPE;
-import org.eclipse.andmore.android.db.core.exception.MotodevDbException;
+import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
 import org.eclipse.andmore.android.db.core.i18n.DbCoreNLS;
 import org.eclipse.andmore.android.db.core.ui.AbstractTreeNode;
 import org.eclipse.andmore.android.db.core.ui.DbNode;
@@ -136,7 +136,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
 			putChild(dbNode);
 			DatabaseModelEventManager.getInstance().fireEvent(dbNode, EVENT_TYPE.SELECT);
 			saveState(SaveStateManager.getInstance().getPrefNode());
-		} catch (MotodevDbException e) {
+		} catch (AndmoreDbException e) {
 			status = new Status(IStatus.ERROR, DbCoreActivator.PLUGIN_ID, NLS.bind(
 					DbCoreNLS.FilesystemRootNode_Error_Mapping_Description, dbFilePath));
 		}
@@ -221,7 +221,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
 		try {
 			preferences.flush();
 		} catch (BackingStoreException e) {
-			StudioLogger.debug(this, "Unable to save preferences, flush failed.");
+			AndmoreLogger.debug(this, "Unable to save preferences, flush failed.");
 		}
 
 	}
@@ -251,7 +251,7 @@ public class FilesystemRootNode extends AbstractTreeNode implements IDbMapperNod
 				}
 			}
 		} catch (BackingStoreException e) {
-			StudioLogger.debug(this, "Unable to restore preferences.");
+			AndmoreLogger.debug(this, "Unable to restore preferences.");
 		}
 	}
 }
