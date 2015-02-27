@@ -1,3 +1,7 @@
+# Andmore Logo
+
+*The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.*
+
 # Contributing
 
 [Andmore](https://www.eclipse.org/andmore) is a fork of the former MOTODEV Studio and Android Development Tools plugins for eclipse.
