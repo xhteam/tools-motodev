@@ -38,8 +38,8 @@ This will provide the following information for you to fill out:
     Bug: https://bugs.eclipse.org/bugs/show_bug.cgi?id=bugnumber
     Signed-off-by: Joe Somebody <somebody@someplace.net>
 
-All commits need to reference an existing Bugzilla number.  Any pull request that does not reference a bugzilla number won't be merged until a bugzilla is filed.  You can file new bugs and feature requests at
-https://bugs.eclipse.org/bugs/enter_bug.cgi?product=andmore
+All commits need to reference an existing Bugzilla number.  Any pull request that does 
+not reference a bugzilla number won't be merged until a bugzilla is filed.  
 
 Please make sure that your CLA is signed with the Eclipse Foundation, and that your commits are authored by the same email address as you referenced in your CLA.
 
@@ -47,10 +47,25 @@ You can change your default user.email address for the git repository:
 
      git config user.email youremail@someplace.com
 
+## Bug Reports
 
-The following describes how to build Andmore and bring the source code into an existing eclipse environment to development and improve.
+You can file new bugs and feature requests at
 
-# Building from the Command Line
+https://bugs.eclipse.org/bugs/enter_bug.cgi?product=andmore
+
+You can also use the Mylyn plugins in Eclipse with the Bugzilla connector to add bugs to
+Andmore. The top-level areas for bugs in Andmore are
+
+* Core - Android core functionality. This covers working with Android file types and the Android build process
+* General - Interacting with the rest of Eclipse, preferences, about box, common UI elements, such as menus, toolbars, etc.
+* Releng - Anything to do with the Andmore build system, p2, targets, etc.
+
+# Building Andmore
+
+The following describes how to build Andmore and bring the source code into an 
+existing eclipse environment to development and improve.
+
+## Building from the Command Line
 
 To compile.  You need Maven 3.x installed. Once Maven has been installed, you are ready 
 to build.  Use the command:
@@ -69,14 +84,21 @@ You can add this as a local repository for Eclipse to install from.
 If you want to build a complete product, then use the following command:
 
     mvn clean install -Pproduct
-
+    
 This will also build all supported platform versions of the full IDE as well.  These can be found in the directory 
 
 _andmore-core/site/target/products_
 
 Windows, MacOSX, and Linux builds are available.
 
-# Building from Eclipse
+If you want to skip tests during your local builds the following command will do the job.
+
+    mvn clean install -PskipTests 
+
+Before submitting a pull request back to eclipse/andmore, you must build with tests and 
+all tests must pass.
+
+## Building from Eclipse
 
 To build from Eclipse, use the Eclipse SDK. You will need to add the m2e plugins after the
 SDK is installed.  Java 1.7 or 1.8 are supported.
@@ -89,11 +111,22 @@ SDK is installed.  Java 1.7 or 1.8 are supported.
 1. There will be some sub-projects that do not need to be in the workspace. They will have compile errors because they are for a different OS than you are using. It is alright to close them in Eclipse, but don't delete them from the filesystem as the Maven build compiles them properly.
 1. Create a run configuration. You will probably need to add *-XX:MaxPermSize=256m* or higher to the VM Arguments setting on the Arguments tab.
 
-## Project set
+### Eclipse Project set
 
 There is a project set that can be imported as an alternative to using Maven. This file
 is in android-core/plugins/org.eclipse.andmore/projectSet.psf.  The project set file is
 not guaranteed to be always updated, so if dependency issues arise, use the Maven import.
+
+# Hudson Builds
+
+The status of Andmore builds can be found on the Eclipse Hudson server.
+
+https://hudson.eclipse.org/andmore/
+
+If you submit a pull request, we will submit it to Hudson first to see how it affects the
+build. The status of builds against a PR can be found here:
+
+https://hudson.eclipse.org/andmore/job/Andmore-Develop-PullRequests/
 
 ## Andmore Logo
 
