@@ -773,48 +773,6 @@ public abstract class AbstractAndroidView extends ViewPart implements IEmulatorV
 	}
 
 	/**
-	 * Shows the Android Emulator view, if not being shown
-	 */
-	public static void showView() {
-		info("Open and move focus to the emulator view");
-
-		boolean emulatorViewOpened = !EclipseUtils.getAllOpenedViewsWithId(AndroidView.ANDROID_VIEW_ID).isEmpty();
-
-		try {
-			// if emulator view is opened previously or if no emulator view is
-			// opened,
-			// show / refresh the emulator view.
-			if (emulatorViewOpened) {
-				EclipseUtils.showView(AndroidView.ANDROID_VIEW_ID);
-			} else {
-				// Make sure only one open view (due to the transition to
-				// online) will occur at the same time.
-				// e.g. if the "question open dialog" is already opened, it is
-				// not needed one
-
-				if (showViewLock.tryLock()) {
-					try {
-
-						boolean openEmulatorView = DialogWithToggleUtils.showQuestion(
-								SHOW_EMULATOR_IN_THE_IDE_KEY_PREFERENCE,
-								EmulatorNLS.QUESTION_AbstractAndroidView_OpenViewForStartedEmulatorsTitle,
-								EmulatorNLS.QUESTION_AbstractAndroidView_OpenViewForStartedEmulatorsMessage);
-						if (openEmulatorView) {
-							EclipseUtils.showView(AndroidView.ANDROID_VIEW_ID);
-						}
-					} finally {
-						showViewLock.unlock();
-					}
-				}
-			}
-		} catch (PartInitException e) {
-			error("The Android Emulator View could not be opened programatically");
-			EclipseUtils.showErrorDialog(EmulatorNLS.GEN_Error,
-					EmulatorNLS.EXC_AbstractAndroidView_ViewNotAccessibleProgramatically);
-		}
-	}
-
-	/**
 	 * Creates a viewer for the provided instance
 	 *
 	 * @param instance
