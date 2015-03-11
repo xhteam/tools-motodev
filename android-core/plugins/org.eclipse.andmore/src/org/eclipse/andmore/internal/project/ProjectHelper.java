@@ -875,7 +875,7 @@ public final class ProjectHelper {
             }
         }
 
-        if (JavaCore.VERSION_1_7.equals(optionValue)) {
+        if (JavaCore.VERSION_1_7.equals(optionValue) || JavaCore.VERSION_1_8.equals(optionValue)) {
             // Requires API 19 and buildTools 19
             Sdk currentSdk = Sdk.getCurrent();
             if (currentSdk != null) {
