@@ -221,13 +221,15 @@ public class AndmoreAndroidConstants {
      * Preferred compiler level, i.e. "1.7".
      */
     public final static String COMPILER_COMPLIANCE_PREFERRED = JavaCore.VERSION_1_7;
+    
     /**
-     * List of valid compiler level, i.e. "1.5", "1.6", and "1.7"
+     * List of valid compiler level
      */
     public final static String[] COMPILER_COMPLIANCE = {
         JavaCore.VERSION_1_5,
         JavaCore.VERSION_1_6,
-        JavaCore.VERSION_1_7
+        JavaCore.VERSION_1_7,
+        JavaCore.VERSION_1_8
     };
 
     /** The base URL where to find the Android class & manifest documentation */

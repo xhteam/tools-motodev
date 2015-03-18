@@ -105,7 +105,7 @@
                   category="org.eclipse.andmore.preferences.main"
                   class="org.eclipse.andmore.android.preferences.ui.AndroidPreferencePage"
                   id="org.eclipse.andmore.android.preferencepage"
-                  name="%pluginName">
+                  name="%andmore.preference.general.name">
             </page>
          </extension>
          <extension
@@ -425,7 +425,7 @@
             fixed="true"
             icon="icons/obj16/plate16.png"
             id="org.eclipse.andmore.android.perspective"
-            name="Andmore">
+            name="%perspectiveName">
       </perspective>
    </extension>
    
@@ -625,7 +625,7 @@
              locationURI="menu:org.eclipse.ui.main.menu?after=project">
           <menu
                 id="motorolaMenu"
-                label="Andmore">
+                label="%androidMenu">
             <visibleWhen checkEnabled="false">
                <with variable="activeWorkbenchWindow.activePerspective">
                    <equals value="org.eclipse.andmore.android.perspective"/>
