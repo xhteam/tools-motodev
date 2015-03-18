@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
- *
+ * Copyright (C) 2011 - 2015 The Android Open Source Project
+ * 
  * Licensed under the Eclipse Public License, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,6 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * Contributors:
+ * David Carver - bug 462184 - remove usage tracker
+ * 
  */
 
 package org.eclipse.andmore.internal.welcome;
@@ -52,17 +56,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ADT startup tasks (other than those performed in {@link AndmoreAndroidPlugin#start(org.osgi.framework.BundleContext)}
+ * Andmore startup tasks (other than those performed in {@link AndmoreAndroidPlugin#start(org.osgi.framework.BundleContext)}
  * when the plugin is initializing.
  * <p>
  * The main tasks currently performed are:
  * <ul>
  *   <li> See if the user has ever run the welcome wizard, and if not, run it
- *   <li> Ping the usage statistics server, if enabled by the user. This is done here
- *       rather than during the plugin start since this task is run later (when the workspace
- *       is fully initialized) and we want to ask the user for permission for usage
- *       tracking before running it (and if we don't, then the usage tracking permissions
- *       dialog will run instead.)
  * </ul>
  */
 public class AdtStartup implements IStartup, IWindowListener {
@@ -79,14 +78,9 @@ public class AdtStartup implements IStartup, IWindowListener {
         }
 
         boolean showSdkInstallationPage = !isSdkSpecified() && isFirstTime();
-        boolean showOptInDialogPage = !mStore.hasPingId();
 
-        if (showSdkInstallationPage || showOptInDialogPage) {
-            showWelcomeWizard(showSdkInstallationPage, showOptInDialogPage);
-        }
-
-        if (mStore.isPingOptIn()) {
-            sendUsageStats();
+        if (showSdkInstallationPage) {
+            showWelcomeWizard(showSdkInstallationPage);
         }
 
         initializeWindowCoordinator();
@@ -254,91 +248,19 @@ public class AdtStartup implements IStartup, IWindowListener {
         });
     }
 
-    private void showWelcomeWizard(final boolean showSdkInstallPage,
-            final boolean showUsageOptInPage) {
+    private void showWelcomeWizard(final boolean showSdkInstallPage) {
         final IWorkbench workbench = PlatformUI.getWorkbench();
         workbench.getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
                 IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
                 if (window != null) {
-                    WelcomeWizard wizard = new WelcomeWizard(mStore, showSdkInstallPage,
-                            showUsageOptInPage);
+                    WelcomeWizard wizard = new WelcomeWizard(mStore, showSdkInstallPage);
                     WizardDialog dialog = new WizardDialog(window.getShell(), wizard);
                     dialog.open();
                 }
-
-                // Record the fact that we've run the wizard so we don't attempt to do it again,
-                // even if the user just cancels out of the wizard.
-                mStore.setAdtUsed(true);
-
-                if (mStore.isPingOptIn()) {
-                    sendUsageStats();
-                }
             }
         });
-    }
-
-    private void sendUsageStats() {
-        // Ping the usage server and parse the SDK content.
-        // This is deferred in separate jobs to avoid blocking the bundle start.
-        // We also serialize them to avoid too many parallel jobs when Eclipse starts.
-        Job pingJob = createPingUsageServerJob();
-        // build jobs are run after other interactive jobs
-        pingJob.setPriority(Job.BUILD);
-        // Wait another 30 seconds before starting the ping job. This gives other
-        // startup tasks time to finish since it's not vital to get the usage ping
-        // immediately.
-        pingJob.schedule(30000 /*milliseconds*/);
-    }
-
-    /**
-     * Creates a job than can ping the usage server.
-     */
-    private Job createPingUsageServerJob() {
-        // In order to not block the plugin loading, so we spawn another thread.
-        Job job = new Job("Android SDK Ping") {  // Job name, visible in progress view
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                try {
-                    pingUsageServer();
-
-                    return Status.OK_STATUS;
-                } catch (Throwable t) {
-                    AndmoreAndroidPlugin.log(t, "pingUsageServer failed");       //$NON-NLS-1$
-                    return new Status(IStatus.ERROR, AndmoreAndroidPlugin.PLUGIN_ID,
-                            "pingUsageServer failed", t);    //$NON-NLS-1$
-                }
-            }
-        };
-        return job;
-    }
-
-    private static Version getVersion(Plugin plugin) {
-        @SuppressWarnings("cast") // Cast required in Eclipse 3.5; prevent auto-removal in 3.7
-        String version = plugin.getBundle().getHeaders().get(Constants.BUNDLE_VERSION);
-        // Parse the string using the Version class.
-        return new Version(version);
-    }
-
-    /**
-     * Pings the usage start server.
-     */
-    private void pingUsageServer() {
-        // Report the version of the ADT plugin to the stat server
-        Version version = getVersion(AndmoreAndroidPlugin.getDefault());
-        String adtVersionString = String.format("%1$d.%2$d.%3$d", version.getMajor(), //$NON-NLS-1$
-                version.getMinor(), version.getMicro());
-
-        // Report the version of Eclipse to the stat server.
-        // Get the version of eclipse by getting the version of one of the runtime plugins.
-        Version eclipseVersion = InstallDetails.getPlatformVersion();
-        String eclipseVersionString = String.format("%1$d.%2$d",  //$NON-NLS-1$
-                eclipseVersion.getMajor(), eclipseVersion.getMinor());
-
-        SdkStatsService stats = new SdkStatsService();
-        stats.ping("adt", adtVersionString); //$NON-NLS-1$
-        stats.ping("eclipse", eclipseVersionString); //$NON-NLS-1$
     }
 
     // ---- Implements IWindowListener ----
