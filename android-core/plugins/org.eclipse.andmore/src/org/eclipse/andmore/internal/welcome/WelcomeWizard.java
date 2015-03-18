@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+/*******************************************************************************
+* Copyright (c) 2015 David Carver and others
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+* David Carver - removing usage tracker implementation.
+*******************************************************************************/
+
 package org.eclipse.andmore.internal.welcome;
 
 import com.android.sdkstats.DdmsPreferenceStore;
@@ -43,10 +54,8 @@ public class WelcomeWizard extends Wizard {
     private final DdmsPreferenceStore mStore;
 
     private WelcomeWizardPage mWelcomePage;
-    private UsagePermissionPage mUsagePage;
 
     private final boolean mShowWelcomePage;
-    private final boolean mShowUsagePage;
 
     /**
      * Creates a new {@link WelcomeWizard}
@@ -55,11 +64,9 @@ public class WelcomeWizard extends Wizard {
      * @param showInstallSdkPage show page to install SDK's
      * @param showUsageOptinPage show page to get user consent for usage data collection
      */
-    public WelcomeWizard(DdmsPreferenceStore store, boolean showInstallSdkPage,
-            boolean showUsageOptinPage) {
+    public WelcomeWizard(DdmsPreferenceStore store, boolean showInstallSdkPage) {
         mStore = store;
         mShowWelcomePage = showInstallSdkPage;
-        mShowUsagePage = showUsageOptinPage;
 
         setWindowTitle("Welcome to Android Development");
         ImageDescriptor image = AndmoreAndroidPlugin.getImageDescriptor("icons/android-64.png"); //$NON-NLS-1$
@@ -72,40 +79,10 @@ public class WelcomeWizard extends Wizard {
             mWelcomePage = new WelcomeWizardPage();
             addPage(mWelcomePage);
         }
-
-        // It's possible that the user has already run the command line tools
-        // such as ddms and has agreed to usage statistics collection, but has never
-        // run ADT which is why the wizard was opened. No need to ask again.
-        if (mShowUsagePage && !mStore.hasPingId()) {
-            mUsagePage = new UsagePermissionPage();
-            addPage(mUsagePage);
-        }
     }
 
     @Override
     public boolean performFinish() {
-        if (mUsagePage != null) {
-            boolean isUsageCollectionApproved = mUsagePage.isUsageCollectionApproved();
-            DdmsPreferenceStore store = new DdmsPreferenceStore();
-
-            // Workaround: Store a new ping id if one doesn't exist, regardless of
-            // whether usage statistics gathering is enabled, to ensure that ddms and
-            // ADT agree upon whether usage data collection is enabled. The reason this
-            // is necessary is that the Eclipse PreferenceStore optimizes out writing
-            // property values that equal their default values, and in our case, the
-            // default value for usage-collection is "false", so it just doesn't write
-            // it into the config file is the user opts out - which means that nothing
-            // is written in ddms.config. That works in the sense that the getter returns
-            // "usage collection"=false, but it doesn't work in the sense that it looks
-            // like the property has not yet been decided by the user. DDMS will look at
-            // the existence of a ping id to see whether we've already considered the
-            // question, so do the same here.
-            if (!store.hasPingId()) {
-                store.generateNewPingId();
-            }
-
-            store.setPingOptIn(isUsageCollectionApproved);
-        }
 
         if (mWelcomePage != null) {
             // Read out wizard settings immediately; we will perform the actual work
@@ -131,7 +108,7 @@ public class WelcomeWizard extends Wizard {
                             }
                             installSdk(path, apiLevels);
                         } catch (Exception e) {
-                            AndmoreAndroidPlugin.logAndPrintError(e, "ADT Welcome Wizard",
+                            AndmoreAndroidPlugin.logAndPrintError(e, "Andmore Welcome Wizard",
                                     "Installation failed");
                         }
                     }
@@ -154,7 +131,7 @@ public class WelcomeWizard extends Wizard {
     private boolean installSdk(File path, Set<Integer> apiLevels) {
         if (!path.isDirectory()) {
             if (!path.mkdirs()) {
-                AndmoreAndroidPlugin.logAndPrintError(null, "ADT Welcome Wizard",
+                AndmoreAndroidPlugin.logAndPrintError(null, "Andmore Welcome Wizard",
                         "Failed to create directory %1$s",
                         path.getAbsolutePath());
                 return false;

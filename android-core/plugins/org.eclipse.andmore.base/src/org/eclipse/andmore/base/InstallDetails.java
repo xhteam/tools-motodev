@@ -21,7 +21,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
 
 public class InstallDetails {
-	private static final String ADT_PLUGIN_ID = "org.eclipse.andmore"; //$NON-NLS-1$
+	private static final String ANDMORE_PLUGIN_ID = "org.eclipse.andmore"; //$NON-NLS-1$
 	private static final String ECLIPSE_PLATFORM_PLUGIN_ID = "org.eclipse.platform"; //$NON-NLS-1$
 
 	/**
@@ -30,7 +30,7 @@ public class InstallDetails {
 	 * Eclipse.
 	 */
 	public static boolean isAdtInstalled() {
-		Bundle b = Platform.getBundle(ADT_PLUGIN_ID);
+		Bundle b = Platform.getBundle(ANDMORE_PLUGIN_ID);
 		return b != null;
 	}
 
