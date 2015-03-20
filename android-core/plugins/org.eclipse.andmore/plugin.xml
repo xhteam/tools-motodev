@@ -161,12 +161,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newproject.ImportProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.project.ImportProjectWizard"
             name="Existing Android Code Into Workspace"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="true">
         </wizard>
     </extension>
@@ -178,12 +178,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.templates.NewProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.project.NewProjectWizard"
             name="Android Application Project"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
             project="true" >
             <description>
                Create an Android Application Project
@@ -193,12 +193,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newproject.NewTestProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/newJunit.png"
             id="org.eclipse.andmore.project.NewTestProjectWizard"
             name="Android Test Project"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="true">
             <description>
                Create an Android Test Project
@@ -208,12 +208,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newproject.NewSampleProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.project.NewSampleProjectWizard"
             name="Android Sample Project"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="true">
             <description>
                Create an Android Sample Project
@@ -223,12 +223,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newproject.ImportProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.project.ImportProjectWizard.NewPrj"
             name="Android Project from Existing Code"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="true">
             <description>
                Create one or more Android projects from existing code
@@ -238,12 +238,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newxmlfile.NewXmlFileWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_xml.png"
             id="org.eclipse.andmore.editors.wizards.NewXmlFileWizard"
             name="Android XML File"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false">
             <description>
                Create an Android resource XML file
@@ -253,12 +253,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newxmlfile.NewXmlFileWizard$NewLayoutWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_xml.png"
             id="org.eclipse.andmore.editors.wizards.NewXmlFileWizard.Layout"
             name="Android XML Layout File"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false">
             <description>
                Create an Android layout XML file
@@ -268,12 +268,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.newxmlfile.NewXmlFileWizard$NewValuesWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_xml.png"
             id="org.eclipse.andmore.editors.wizards.NewXmlFileWizard.Values"
             name="Android XML Values File"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false">
             <description>
                Create an Android XML values file such as strings.xml
@@ -283,12 +283,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.templates.NewActivityWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.editors.wizards.NewActivityWizard"
             name="Android Activity"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false" >
             <description>
                Create an Android Activity
@@ -298,44 +298,27 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.templates.NewActivityWizard$OtherWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/newCustomView.png"
             id="org.eclipse.andmore.editors.wizards.NewActivityWizard.OtherWizard"
             name="Android Object"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false" >
             <description>
                Create an Android object such as a Service, an Activity, a Broadcast Receiver, a Notification, etc.
             </description>
         </wizard>
-        <!-- Available through generic object list above
-        <wizard
-            canFinishEarly="false"
-            category="org.eclipse.andmore.wizards.category"
-            class="org.eclipse.andmore.internal.wizards.templates.NewTemplateWizard$NewCustomViewWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
-            hasPages="true"
-            icon="icons/newCustomView.png"
-            id="org.eclipse.andmore.editors.wizards.NewTemplateWizard.CustomView"
-            name="Android Custom View"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
-            project="false" >
-            <description>
-               Create an Android custom view
-            </description>
-        </wizard>
-        -->
         <wizard
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/new_asset_set.png"
             id="org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizard"
             name="Android Icon Set"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false" >
             <description>
                Create an Android icon set
@@ -347,12 +330,12 @@
             canFinishEarly="false"
             category="org.eclipse.andmore.wizards.category"
             class="org.eclipse.andmore.internal.wizards.templates.TemplateTestWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.andmore.android.perspective"
             hasPages="true"
             icon="icons/androidjunit.png"
             id="org.eclipse.andmore.editors.wizards.TemplateTestWizard"
             name="Template Development Wizard"
-            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="false" />
     </extension>
     <extension point="org.eclipse.debug.core.launchConfigurationTypes">
@@ -416,6 +399,7 @@
                 </enablement>
             </contextualLaunch>
             <perspective id="org.eclipse.jdt.ui.JavaPerspective" />
+            <perspective id="org.eclipse.andmore.android.perspective"/>
             <perspective id="org.eclipse.debug.ui.DebugPerspective" />
             <configurationType id="org.eclipse.andmore.debug.LaunchConfigType">
             </configurationType>
@@ -552,7 +536,7 @@
         <initializer class="org.eclipse.andmore.internal.preferences.AdtPrefs" />
     </extension>
     <extension point="org.eclipse.ui.perspectiveExtensions">
-        <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
+        <perspectiveExtension targetID="org.eclipse.andmore.android.perspective">
             <newWizardShortcut id="org.eclipse.andmore.project.NewProjectWizard" />
             <newWizardShortcut id="org.eclipse.andmore.editors.wizards.NewXmlFileWizard" />
             <actionSet id="adt.actionSet.wizards" />
