@@ -183,7 +183,7 @@
             icon="icons/new_adt_project.png"
             id="org.eclipse.andmore.project.NewProjectWizard"
             name="Android Application Project"
-            preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+            preferredPerspectives="org.eclipse.andmore.android.perspective"
             project="true" >
             <description>
                Create an Android Application Project

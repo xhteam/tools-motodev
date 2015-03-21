@@ -192,6 +192,7 @@
                 </enablement>
             </contextualLaunch>
             <perspective id="org.eclipse.jdt.ui.JavaPerspective" />
+            <perspective id="org.eclipse.andmore.android.perspective"/>
             <perspective id="org.eclipse.debug.ui.DebugPerspective" />
             <perspective
                   id="org.eclipse.cdt.ui.CPerspective">
