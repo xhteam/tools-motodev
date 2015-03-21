@@ -121,7 +121,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
+      <perspectiveExtension targetID="org.eclipse.andmore.android.perspective">
          <perspectiveShortcut id="org.eclipse.andmore.ddms.Perspective"/>
       </perspectiveExtension>
       <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">

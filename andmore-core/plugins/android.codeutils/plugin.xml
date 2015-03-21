@@ -30,7 +30,7 @@
              icon="icons/obj16/new_activity_wiz.png"
              id="org.eclipse.andmore.android.wizards.newActivityWizard"
              name="%android.wizard.activity"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.activity.description
@@ -45,7 +45,7 @@
              icon="icons/obj16/new_activity_template_wiz.png"
              id="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard"
              name="%android.wizard.activity.template"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.activity.template.description
@@ -60,7 +60,7 @@
              icon="icons/obj16/receiver.png"
              id="org.eclipse.andmore.android.wizards.newReceiverWizard"
              name="%android.wizard.receiver"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.receiver.description
@@ -75,7 +75,7 @@
              icon="icons/obj16/service_new.gif"
              id="org.eclipse.andmore.android.wizards.newServiceWizard"
              name="%android.wizard.service"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.service.description
@@ -90,7 +90,7 @@
              icon="icons/obj16/provider.png"
              id="org.eclipse.andmore.android.wizards.newProviderWizard"
              name="%android.wizard.provider"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.provider.description
@@ -105,7 +105,7 @@
              icon="icons/obj16/widget_provider_block_wiz_toolbar.png"
              id="org.eclipse.andmore.android.wizard.newWidgetProviderWizard"
              name="%android.wizard.widget.provider"
-             preferredPerspectives="org.eclipse.andmore.android.perspective, org.eclipse.jdt.ui.JavaPerspective"
+             preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
           <description>
              %android.wizard.widget.provider.description
