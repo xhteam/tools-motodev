@@ -256,11 +256,5 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
-
-        /* When the ADT preferences page is made visible, display the dialog to obtain
-         * permissions for the ping service. */
-        SdkStatsService stats = new SdkStatsService();
-        Shell parent = getShell();
-        stats.checkUserPermissionForPing(parent);
     }
 }
