@@ -21,14 +21,13 @@
       %feature.android.license
    </license>
 
-   <url>
-      <update label="%feature.android.update.site.name" url="https://studio-android.motodevupdate.com/android/4.0/basic/"/>
-   </url>
-
    <requires>
-      <import feature="org.eclipse.andmore.feature" version="0.0.0"/>
       <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
    </requires>
+   
+   <includes
+         id="org.eclipse.andmore.feature"
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.sequoyah.device.common.feature"
