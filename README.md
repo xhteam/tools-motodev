@@ -60,6 +60,20 @@ Andmore. The top-level areas for bugs in Andmore are
 * General - Interacting with the rest of Eclipse, preferences, about box, common UI elements, such as menus, toolbars, etc.
 * Releng - Anything to do with the Andmore build system, p2, targets, etc.
 
+## Installing
+
+Nightly builds are available for adopters and others to use and install into a eclipse environment.  Currently Eclipse Luna or
+higher are supported but other versions may work.
+
+### Nightly P2 site
+
+The the nightly p2 repository can be found at the following location:
+
+http://download.eclipse.org/andmore/nightly
+
+To install add the above url to your Available Software Sites.  There are several features that can be installed, the main ones you
+need are the Andmore Core and if you want to do native development, then the Android Native Tools.
+
 # Building Andmore
 
 The following describes how to build Andmore and bring the source code into an 
