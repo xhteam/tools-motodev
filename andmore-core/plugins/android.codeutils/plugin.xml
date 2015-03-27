@@ -24,7 +24,7 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewActivityWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewActivityWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/new_activity_wiz.png"
@@ -39,11 +39,11 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewActivityBasedOnTemplateWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewActivityBasedOnTemplateWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/new_activity_template_wiz.png"
-             id="org.eclipse.andmore.android.wizards.newActivityBasedOnTemplateWizard"
+             id="org.eclipse.andmore.wizards.newActivityBasedOnTemplateWizard"
              name="%android.wizard.activity.template"
              preferredPerspectives="org.eclipse.andmore.android.perspective"
              project="false">
@@ -54,7 +54,7 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewReceiverWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewReceiverWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/receiver.png"
@@ -69,7 +69,7 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewServiceWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewServiceWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/service_new.gif"
@@ -84,7 +84,7 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewProviderWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewProviderWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/provider.png"
@@ -99,7 +99,7 @@
        <wizard
              canFinishEarly="false"
              category="org.eclipse.andmore.wizards.category"
-             class="org.eclipse.andmore.android.wizards.buildingblocks.NewWidgetProviderWizard"
+             class="org.eclipse.andmore.wizards.buildingblocks.NewWidgetProviderWizard"
              finalPerspective="org.eclipse.andmore.android.perspective"
              hasPages="true"
              icon="icons/obj16/widget_provider_block_wiz_toolbar.png"
