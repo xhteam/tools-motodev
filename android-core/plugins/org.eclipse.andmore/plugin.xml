@@ -155,7 +155,7 @@
     <extension
         point="org.eclipse.ui.importWizards">
         <category
-            id="org.eclispe.andmore.wizards.category"
+            id="org.eclipse.andmore.wizards.category"
             name="Android" />
         <wizard
             canFinishEarly="false"
