@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.feature"
-      label="Android Development Tools"
+      label="Andmore Eclipse Android Development Tools"
       version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation"
       plugin="org.eclipse.andmore">
 
    <description>
-      Android Developer Tools.
+      Andmore Eclipse Android Developer Tools.
    </description>
 
    <copyright>
-      Copyright (C) 2007-2011 The Android Open Source Project
+      Copyright (C) 2015 Eclipse Foundation, and others.
    </copyright>
 
    <license url="http://www.eclipse.org/org/documents/epl-v10.php">
