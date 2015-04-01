@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (C) 2007-2015 The Android Open Source Project and others
  *
  * Licensed under the Eclipse Public License, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * David Carver - bug 463598 - Re-add ADT Specific nature ids and container ids.
+ * 
  */
 
 package org.eclipse.andmore;
@@ -59,14 +62,25 @@ public class AndmoreAndroidConstants {
 
     /** Nature of default Android projects */
     public final static String NATURE_DEFAULT = "org.eclipse.andmore.AndroidNature"; //$NON-NLS-1$
+    
+    public final static String ADT_NATURE = "com.android.ide.eclipse.adt.AndroidNature"; //$NON-NLS-1$
 
     /** The container id for the android framework jar file */
     public final static String CONTAINER_FRAMEWORK =
         "org.eclipse.andmore.ANDROID_FRAMEWORK"; //$NON-NLS-1$
+    
+    /** The container id for the android framework jar file */
+    public final static String ADT_CONTAINER_FRAMEWORK =
+        "com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"; //$NON-NLS-1$
 
     /** The container id for the libraries */
     public final static String CONTAINER_PRIVATE_LIBRARIES = "org.eclipse.andmore.LIBRARIES"; //$NON-NLS-1$
+    
+    public final static String ADT_CONTAINER_PRIVATE_LIBRARIES = "com.android.ide.eclipse.adt.LIBRARIES"; //$NON-NLS-1$
+    
     public final static String CONTAINER_DEPENDENCIES = "org.eclipse.andmore.DEPENDENCIES";
+    
+    public final static String ADT_CONTAINER_DEPENDENCIES = "com.android.ide.eclipse.adt.DEPENDENCIES";
 
 
     /** Separator for workspace path, i.e. "/". */
