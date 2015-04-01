@@ -27,6 +27,7 @@ import org.eclipse.andmore.internal.build.builders.ResourceManagerBuilder;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
@@ -143,6 +144,22 @@ public class ConvertADTProject extends AbstractHandler {
 	private void updateProjectDescription(IJavaProject androidProject) throws CoreException {
 		IProjectDescription description = androidProject.getProject().getDescription();
 		description.setNatureIds(new String[] { AndmoreAndroidConstants.NATURE_DEFAULT, JavaCore.NATURE_ID });
+		
+		ICommand commands[] = description.getBuildSpec();
+		ArrayList<ICommand> acutalCommands = new ArrayList<ICommand>();
+		for (ICommand command : commands) {
+			if (!command.getBuilderName().equals("com.android.ide.eclipse.adt.PreCompilerBuilder") &&
+				!command.getBuilderName().equals("com.android.ide.eclipse.adt.ResourceManagerBuilder") &&
+				!command.getBuilderName().equals("com.android.ide.eclipse.adt.ApkBuilder")) {
+				acutalCommands.add(command);
+			}
+		}
+		
+		ICommand keepCommands[] = new ICommand[acutalCommands.size()];
+		acutalCommands.toArray(keepCommands);
+		
+		description.setBuildSpec(keepCommands);
+		
 		description.setBuildConfigs(new String[] { ResourceManagerBuilder.ID, PostCompilerBuilder.ID,
 				PreCompilerBuilder.ID, JavaCore.BUILDER_ID });
 		
