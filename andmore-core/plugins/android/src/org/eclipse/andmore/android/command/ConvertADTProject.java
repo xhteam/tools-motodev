@@ -29,26 +29,20 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IAccessRule;
-import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-import com.android.sdklib.build.ApkBuilder;
 
 public class ConvertADTProject extends AbstractHandler {
 
@@ -80,7 +74,8 @@ public class ConvertADTProject extends AbstractHandler {
 
 				// Check if the selected item is a project
 				if (resource instanceof IJavaProject) {
-					projectList.add(((IProject) resource));
+					IJavaProject javaProject = (IJavaProject) resource;
+					projectList.add(javaProject.getProject());
 				} else if (resource instanceof IAdaptable) {
 					IAdaptable adaptable = (IAdaptable) resource;
 					projectList.add((IProject) adaptable.getAdapter(IProject.class));
@@ -98,10 +93,10 @@ public class ConvertADTProject extends AbstractHandler {
 		// command.
 		for (IProject project : projectList) {
 			try {
-				IJavaProject androidProject = (IJavaProject) project;
 				if (!project.hasNature(AndmoreAndroidConstants.ADT_NATURE)) {
 					break;
 				}
+				IJavaProject androidProject = JavaCore.create(project);
 				
 				updateProjectDescription(androidProject);
 				updateClasspathEntries(androidProject);
@@ -129,6 +124,8 @@ public class ConvertADTProject extends AbstractHandler {
 				} else if (classpathId.equals(AndmoreAndroidConstants.ADT_CONTAINER_PRIVATE_LIBRARIES)) {
 					newclasspathEntries
 							.add(createNewAndmoreContainer(AndmoreAndroidConstants.CONTAINER_PRIVATE_LIBRARIES));
+				} else {
+					newclasspathEntries.add(classpathEntry);
 				}
 
 			} else {
@@ -148,6 +145,7 @@ public class ConvertADTProject extends AbstractHandler {
 		description.setNatureIds(new String[] { AndmoreAndroidConstants.NATURE_DEFAULT, JavaCore.NATURE_ID });
 		description.setBuildConfigs(new String[] { ResourceManagerBuilder.ID, PostCompilerBuilder.ID,
 				PreCompilerBuilder.ID, JavaCore.BUILDER_ID });
+		
 		androidProject.getProject().setDescription(description, new NullProgressMonitor());
 	}
 
