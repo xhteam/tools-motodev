@@ -132,6 +132,12 @@
                   id="org.eclipse.andmore.android.clean.projects"
                   name="%popupmenu.clean.projects.command.name">
             </command>
+            <command
+            	 defaultHandler="org.eclipse.andmore.android.command.ConvertADTProject"
+            	 description="%popupmenu.convert.adt.projects.command.name"
+            	 id="org.eclipse.andmore.android.convert.adt.projects"
+            	 name="%popupmenu.convert.adt.projects.command.name">
+            </command>
          </extension>
          <extension
                point="org.eclipse.ui.menus">
@@ -249,7 +255,26 @@
                      label="%command.name.obfuscate"
                      style="push">
                </command>
-            </menuContribution>            
+            </menuContribution>   
+            <menuContribution
+                  locationURI="popup:org.eclipse.ui.projectConfigure">
+                  <command
+                     commandId="org.eclipse.andmore.android.convert.adt.projects"
+                     label="%command.name.convert.adt.projects"
+                     style="push">
+                       <visibleWhen
+                             checkEnabled="false">  
+                             <iterate operator="and" ifEmpty="false">                           
+	                             <adapt type="org.eclipse.core.resources.IResource">
+						             <test
+						                   property="org.eclipse.core.resources.projectNature"
+						                   value="com.android.ide.eclipse.adt.AndroidNature">
+						             </test>
+						         </adapt>
+					         </iterate>
+                       </visibleWhen>>
+                  </command>
+            </menuContribution>         
          </extension>
         <extension
                point="org.eclipse.andmore.android.logger.collector.log">
