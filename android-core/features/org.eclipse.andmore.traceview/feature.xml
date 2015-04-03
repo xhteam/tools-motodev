@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.traceview.feature"
-      label="Android Traceview"
+      label="Andmore - Android Traceview Feature (Incubating)"
       version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation"
       plugin="org.eclipse.andmore.traceview">
