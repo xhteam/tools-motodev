@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.hierarchyviewer.feature"
-      label="Android Hierarchy Viewer"
+      label="Andmore - Android Hierarchy Viewer Feature (Incubating)"
       version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation"
       plugin="org.eclipse.andmore.hierarchyviewer">

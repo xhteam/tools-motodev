@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.gldebugger.feature"
-      label="Tracer for OpenGL ES"
+      label="Andmore - Android Tracer for OpenGL ES (Incubating)"
       version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation">
 
