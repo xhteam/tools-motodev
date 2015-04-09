@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 
 public class LogCatMonitorDialog extends TitleAreaDialog {
 	private static final String TITLE = "Auto Monitor Logcat";
-	private static final String DEFAULT_MESSAGE = "Would you like ADT to automatically monitor logcat \n"
+	private static final String DEFAULT_MESSAGE = "Would you like ADT to automatically monitor logcat " + DdmsPlugin.NEWLINE
 			+ "output for messages from applications in the workspace?";
 
 	private boolean mShouldMonitor = true;
@@ -69,7 +69,7 @@ public class LogCatMonitorDialog extends TitleAreaDialog {
 		disableButton.setText("No, do not monitor logcat output.");
 
 		final Button enableButton = new Button(c, SWT.RADIO);
-		enableButton.setText("Yes, monitor logcat and display logcat view if there are\n"
+		enableButton.setText("Yes, monitor logcat and display logcat view if there are" + DdmsPlugin.NEWLINE 
 				+ "messages with priority higher than:");
 		enableButton.setSelection(true);
 
