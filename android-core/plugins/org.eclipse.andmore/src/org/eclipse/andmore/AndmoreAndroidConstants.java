@@ -256,4 +256,6 @@ public class AndmoreAndroidConstants {
 
     public static final String DEX_OPTIONS_FORCEJUMBO = "dex.force.jumbo"; //$NON-NLS-1$
     public static final String DEX_OPTIONS_DISABLE_MERGER = "dex.disable.merger"; //$NON-NLS-1$
+    
+    public static final String NEWLINE = System.getProperty("line.separator");
 }

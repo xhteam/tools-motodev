@@ -73,6 +73,8 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.andmore.ddms"; //$NON-NLS-1$
+	
+	public static final String NEWLINE = System.getProperty("line.separator");
 
 	/** The singleton instance */
 	private static DdmsPlugin sPlugin;
