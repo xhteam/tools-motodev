@@ -403,6 +403,7 @@
   <extension
      point = "org.eclipse.ui.propertyPages">
         <page
+           category="org.eclipse.andmore.project.properties.AndroidPropertyPage"
            id="org.eclipse.andmore.android.AndmorePropertyPage"
            name="%andmore.category.name"
 	   class="org.eclipse.andmore.android.propertypage.AndmorePropertyPage">	   		
