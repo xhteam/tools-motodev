@@ -21,7 +21,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            category="studioAndroidViewCategory"
+            category="org.eclipse.andmore.ddms.views.category"
             class="org.eclipse.andmore.android.certmanager.views.KeystoreManagerView"
             icon="icons/view_icon.png"
             id="org.eclipse.andmore.android.packaging.ui.signingview"

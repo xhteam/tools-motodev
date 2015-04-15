@@ -7,11 +7,4 @@
             class="org.eclipse.andmore.android.common.proxy.NetworkProxySettingStartup">
         </startup>
     </extension>
-    <extension
-          point="org.eclipse.ui.views">
-       <category
-             id="studioAndroidViewCategory"
-             name="%studioAndroidCategoryLabel">
-       </category>
-    </extension>
 </plugin>
