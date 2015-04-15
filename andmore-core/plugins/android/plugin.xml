@@ -420,28 +420,28 @@
          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
       <category
             id="org.eclipse.andmore.platform.ui.cheatsheet"
-            name="Andmore">
+            name="Android">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.importWizards">
       <category
             id="org.eclipse.andmore.platform.ui.import"
-            name="Andmore">
+            name="Android Tooling">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.exportWizards">
       <category
             id="org.eclipse.andmore.platform.ui.export"
-            name="Andmore">
+            name="Android Tooling">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.eclipse.andmore.platform.ui.newproject"
-            name="Andmore">
+            name="Android Tooling">
       </category>
    </extension>
    <extension

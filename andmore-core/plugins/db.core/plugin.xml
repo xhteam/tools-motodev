@@ -13,7 +13,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            category="studioAndroidViewCategory"
+            category="org.eclipse.andmore.ddms.views.category"
             class="org.eclipse.andmore.android.db.core.ui.view.AndmoreDatabaseExplorerView"
             icon="icons/database_explorer_view.png"
             id="org.eclipse.andmore.android.db.databaseView"
