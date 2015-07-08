@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.DDMSUtils;
 import org.eclipse.andmore.android.db.core.CanRefreshStatus;
 import org.eclipse.andmore.android.db.core.exception.AndmoreDbException;
@@ -65,7 +67,7 @@ public class ApplicationNode extends AbstractTreeNode implements IDbCreatorNode 
 		this.appName = appName;
 		setId(appName);
 		setName(appName);
-		ImageDescriptor icon = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipe.andmore", //$NON-NLS-1$
+		ImageDescriptor icon = AbstractUIPlugin.imageDescriptorFromPlugin(AndmoreAndroidPlugin.PLUGIN_ID, //$NON-NLS-1$
 				"icons/android.png"); //$NON-NLS-1$
 		setIcon(icon);
 	}
