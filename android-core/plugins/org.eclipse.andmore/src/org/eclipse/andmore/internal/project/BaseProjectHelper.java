@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2007 The Android Open Source Project
+/**
+ * Copyright (C) 2007, 2015 The Android Open Source Project
  *
  * Licensed under the Eclipse Public License, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,17 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * Kaloyan Raev - bug 471527 - Some wizards still open the Java perspective
  */
 
 package org.eclipse.andmore.internal.project;
 
-import com.android.SdkConstants;
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.internal.actions.OpenAndroidPerspectiveAction;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -42,7 +43,6 @@ import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jdt.ui.actions.OpenJavaPerspectiveAction;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -56,8 +56,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.android.SdkConstants;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.google.common.collect.Lists;
 
 /**
  * Utility methods to manipulate projects.
@@ -373,8 +375,8 @@ public final class BaseProjectHelper {
                 IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
                 IWorkbenchPage page = window.getActivePage();
                 if (page.isEditorAreaVisible() == false) {
-                    // no editor area? we open the java perspective.
-                    new OpenJavaPerspectiveAction().run();
+                    // no editor area? we open the Android perspective.
+                    new OpenAndroidPerspectiveAction().run();
                 }
 
                 IEditorPart editor = JavaUI.openInEditor(result);
