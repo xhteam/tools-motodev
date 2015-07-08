@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2007-2015 The Android Open Source Project and others
  *
  * Licensed under the Eclipse Public License, Version 1.0 (the "License");
@@ -14,6 +14,7 @@
  * limitations under the License.
  * 
  * David Carver - bug 463598 - Re-add ADT Specific nature ids and container ids.
+ * Kaloyan Raev - bug 471527 - Some wizards still open the Java perspective
  * 
  */
 
@@ -25,14 +26,14 @@ import static com.android.SdkConstants.DOT_FS;
 import static com.android.SdkConstants.DOT_JAVA;
 import static com.android.SdkConstants.DOT_RS;
 
-import com.android.SdkConstants;
+import java.io.File;
 
 import org.eclipse.andmore.internal.build.builders.PostCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.PreCompilerBuilder;
 import org.eclipse.andmore.internal.build.builders.ResourceManagerBuilder;
 import org.eclipse.jdt.core.JavaCore;
 
-import java.io.File;
+import com.android.SdkConstants;
 
 /**
  * Constant definition class.<br>
@@ -54,6 +55,12 @@ import java.io.File;
  *
  */
 public class AndmoreAndroidConstants {
+    
+    /**
+     * The ID of the Android perspective.
+     */
+    public static final String PERSPECTIVE_ANDROID = "org.eclipse.andmore.android.perspective"; //$NON-NLS-1$
+    
     /**
      * The old Editors Plugin ID. It is still used in some places for compatibility.
      * Please do not use for new features.

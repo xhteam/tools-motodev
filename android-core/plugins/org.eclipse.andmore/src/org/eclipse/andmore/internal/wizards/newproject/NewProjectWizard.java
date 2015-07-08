@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
+/**
+ * Copyright (C) 2011, 2015 The Android Open Source Project
  *
  * Licensed under the Eclipse Public License, Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,24 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * Kaloyan Raev - bug 471527 - Some wizards still open the Java perspective
  */
 package org.eclipse.andmore.internal.wizards.newproject;
 
 import static com.android.SdkConstants.FN_PROJECT_PROGUARD_FILE;
 import static com.android.SdkConstants.OS_SDK_TOOLS_LIB_FOLDER;
 
-import org.eclipse.andmore.AndmoreAndroidPlugin;
+import java.io.File;
+
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mode;
-import org.eclipse.jdt.ui.actions.OpenJavaPerspectiveAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-
-import java.io.File;
+import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 
 /**
@@ -41,7 +42,7 @@ import java.io.File;
  * <p/>
  * Do not derive from this class.
  */
-public class NewProjectWizard extends Wizard implements INewWizard {
+public class NewProjectWizard extends BasicNewProjectResourceWizard implements INewWizard {
     private static final String PROJECT_LOGO_LARGE = "icons/android-64.png"; //$NON-NLS-1$
 
     private NewProjectWizardState mValues;
@@ -137,9 +138,7 @@ public class NewProjectWizard extends Wizard implements INewWizard {
             return false;
         }
 
-        // Open the default Java Perspective
-        OpenJavaPerspectiveAction action = new OpenJavaPerspectiveAction();
-        action.run();
+        updatePerspective();
         return true;
     }
 
