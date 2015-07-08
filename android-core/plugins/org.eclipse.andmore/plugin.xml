@@ -660,7 +660,7 @@
         <editor
               class="org.eclipse.andmore.internal.editors.common.CommonXmlEditor"
               contributorClass="org.eclipse.andmore.internal.editors.common.CommonActionContributor"
-              default="true"
+              default="false"
               extensions="xml"
               icon="icons/android_file.png"
               id="org.eclipse.andmore.editors.CommonXmlEditor"
