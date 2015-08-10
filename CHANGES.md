@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.5-M2
+
+Milestone two provides some stability and usability improvements.  The biggest change is that the XML Editor no longer assumes it is the only editor.
+Also the Database Perspective and browser have been fixed to show all the icons in the tree.
+
+* (464542)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=464542] Migrate usages of KML2 to use XPP3
+* (471901)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=471901] Android Common XML Editor should not be the default for all XML files
+* (465702)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=465702] Android XML Editor should not try to be the default for non android XML files
+* (471527)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=471527] Some wizards still open the Java perspective instead of the Android perspective
+* (468473)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=468473] Android Database Explorer throws NPE when expanding tree
 
 ## 0.5-M1
 
