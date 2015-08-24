@@ -9,9 +9,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
-		<platform-version-name>indigo</platform-version-name>
-		<eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
+		<tycho-version>0.23.1</tycho-version>
+		<eclipse-site>http://download.eclipse.org/releases/mars/</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository</orbit-site>
 		<sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
 		<m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
@@ -24,7 +23,7 @@
 			<url>${sequoyah-site}</url>
 		</repository>
 		<repository>
-			<id>helios</id>
+			<id>eclipse</id>
 			<layout>p2</layout>
 			<url>${eclipse-site}</url>
 		</repository>
@@ -117,6 +116,12 @@
 	</build>
 
 	<profiles>
+		<profile>
+			<id>luna</id>
+			<properties>
+				<eclipse-site>http://download.eclipse.org/releases/luna/</eclipse-site>
+			</properties>
+		</profile>
 		<profile>
 			<id>findbugs</id>
 			<build>

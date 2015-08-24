@@ -17,11 +17,11 @@
 <unit id="org.eclipse.emf.common.ui.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.emf.codegen.ui.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.wb.core.xml.feature.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/luna"/>
+<repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.datatools.sdk.feature.feature.group" version="1.12.0.v201406061321-7PB21FEpPZQXdcX0z-_yMM0Hfz0w"/>
-<repository location="http://download.eclipse.org/releases/luna"/>
+<repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sequoyah.vnc.feature.feature.group" version="2.1.0.N20120718-0509"/>
@@ -35,11 +35,11 @@
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.mat.feature.feature.group" version="1.4.0.201406041413"/>
-<repository location="http://download.eclipse.org/releases/luna"/>
+<repository location="http://archive.eclipse.org/mat/1.4/update-site/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/luna"/>
+<repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.apache.commons.net.source" version="1.4.1.v200905122237"/>
