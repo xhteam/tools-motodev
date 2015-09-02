@@ -16,28 +16,22 @@
 
 package org.eclipse.andmore.internal.build;
 
-import com.android.SdkConstants;
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.prefs.AndroidLocation.AndroidLocationException;
-import com.android.sdklib.BuildToolInfo;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
-import com.android.sdklib.build.ApkBuilder;
-import com.android.sdklib.build.ApkBuilder.JarStatus;
-import com.android.sdklib.build.ApkBuilder.SigningInfo;
-import com.android.sdklib.build.ApkCreationException;
-import com.android.sdklib.build.DuplicateFileException;
-import com.android.sdklib.build.RenderScriptProcessor;
-import com.android.sdklib.build.SealedApkException;
-import com.android.sdklib.internal.build.DebugKeyProvider;
-import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
-import com.android.utils.GrabProcessOutput;
-import com.android.utils.GrabProcessOutput.IProcessOutput;
-import com.android.utils.GrabProcessOutput.Wait;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
@@ -64,20 +58,28 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import com.android.SdkConstants;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.prefs.AndroidLocation.AndroidLocationException;
+import com.android.sdklib.BuildToolInfo;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
+import com.android.sdklib.build.ApkBuilder;
+import com.android.sdklib.build.ApkBuilder.JarStatus;
+import com.android.sdklib.build.ApkBuilder.SigningInfo;
+import com.android.sdklib.build.ApkCreationException;
+import com.android.sdklib.build.DuplicateFileException;
+import com.android.sdklib.build.RenderScriptProcessor;
+import com.android.sdklib.build.SealedApkException;
+import com.android.sdklib.internal.build.DebugKeyProvider;
+import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
+import com.android.utils.GrabProcessOutput;
+import com.android.utils.GrabProcessOutput.IProcessOutput;
+import com.android.utils.GrabProcessOutput.Wait;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 
 /**
  * Helper with methods for the last 3 steps of the generation of an APK.
@@ -108,6 +110,9 @@ public class BuildHelper {
     private static final String COMMAND_CRUNCH = "crunch";  //$NON-NLS-1$
     private static final String COMMAND_PACKAGE = "package"; //$NON-NLS-1$
 
+    private static final String MULTIDEX_ENABLED_PROPERTY = "multidex.enabled";
+    private static final String MULTIDEX_MAIN_DEX_LIST_PROPERTY = "multidex.main-dex-list";
+        
     @NonNull
     private final ProjectState mProjectState;
     @NonNull
@@ -131,7 +136,7 @@ public class BuildHelper {
 
     private final static int MILLION = 1000000;
     private String mProguardFile;
-
+   
     /**
      * An object able to put a marker on a resource.
      */
@@ -331,7 +336,7 @@ public class BuildHelper {
      * @throws CoreException
      * @throws DuplicateFileException
      */
-    public void finalDebugPackage(String intermediateApk, String dex, String output,
+    public void finalDebugPackage(String intermediateApk, List<File> dexFiles, String output,
             List<IProject> libProjects, ResourceMarker resMarker)
             throws ApkCreationException, KeytoolException, AndroidLocationException,
             NativeLibInJarException, DuplicateFileException, CoreException {
@@ -356,10 +361,33 @@ public class BuildHelper {
         // from the keystore, get the signing info
         SigningInfo info = ApkBuilder.getDebugKey(keystoreOsPath, mVerbose ? mOutStream : null);
 
-        finalPackage(intermediateApk, dex, output, libProjects,
+        finalPackage(intermediateApk, dexFiles, output, libProjects,
                 info != null ? info.key : null, info != null ? info.certificate : null, resMarker);
     }
 
+    /**
+     * List a dex files in the bin directory.
+     * 
+     * @param javaProject
+     * @return
+     */
+    public List<File> listDexFiles(IJavaProject javaProject)
+    {    	
+    	IFolder binFolder = BaseProjectHelper.getAndroidOutputFolder(javaProject.getProject());
+    	File binFile = binFolder.getLocation().toFile();
+    	
+    	File[] dexFiles = binFile.listFiles(new FilenameFilter() {
+			
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(SdkConstants.DOT_DEX);
+			}
+		});
+    	
+    	// return a mutable list.
+    	return new ArrayList<File>(Arrays.asList(dexFiles));
+    }
+    
     /**
      * Makes the final package.
      *
@@ -381,18 +409,29 @@ public class BuildHelper {
      * @throws CoreException
      * @throws DuplicateFileException
      */
-    public void finalPackage(String intermediateApk, String dex, String output,
+    public void finalPackage(String intermediateApk, List<File> dexFiles, String output,
             List<IProject> libProjects,
             PrivateKey key, X509Certificate certificate, ResourceMarker resMarker)
             throws NativeLibInJarException, ApkCreationException, DuplicateFileException,
             CoreException {
 
         try {
-            ApkBuilder apkBuilder = new ApkBuilder(output, intermediateApk, dex,
+        	if(dexFiles.size() < 1) {
+        		throw new ApkCreationException("No DEX file found.");
+        	}
+        	
+        	File mainDexFile = dexFiles.get(0);
+        	dexFiles.remove(0);
+        	
+            ApkBuilder apkBuilder = new ApkBuilder(output, intermediateApk, mainDexFile.getAbsolutePath(),
                     key, certificate,
                     mVerbose ? mOutStream: null);
             apkBuilder.setDebugMode(mDebugMode);
-
+            
+            for (File dexFile : dexFiles) {
+            	apkBuilder.addFile(dexFile, dexFile.getName());
+            }
+            
             // either use the full compiled code paths or just the proguard file
             // if present
             Collection<String> pathsCollection = mCompiledCodePaths;
@@ -753,9 +792,30 @@ public class BuildHelper {
                 dexedLibs.mkdir();
             }
 
+            boolean multiDexEnabled = false;
+            String mainDexListFileLocation = null;
+            
+            if (mProjectState.getProperty(MULTIDEX_ENABLED_PROPERTY) != null) {
+            	multiDexEnabled = Boolean.parseBoolean(mProjectState.getProperty(MULTIDEX_ENABLED_PROPERTY));
+            	
+            	if(multiDexEnabled && mProjectState.getProperty(MULTIDEX_MAIN_DEX_LIST_PROPERTY) != null) {
+            		// inform the user
+            		mOutStream.println("Using --multi-dex");
+            		
+            		IFile mainDexListFile = mProject.getFile(
+	            			mProjectState.getProperty(MULTIDEX_MAIN_DEX_LIST_PROPERTY));
+	            	if(mainDexListFile != null) {
+	            		mainDexListFileLocation = mainDexListFile.getRawLocation().toOSString();
+	            		
+	            		// For multidex output to a folder
+	                	osOutFilePath = osOutFilePath.replace("classes.dex", "");
+	            	}
+            	}
+            }
+            
             // replace the libs by their dexed versions (dexing them if needed.)
             List<String> finalInputPaths = new ArrayList<String>(inputPaths.size());
-            if (mDisableDexMerger || inputPaths.size() == 1) {
+            if (mDisableDexMerger || multiDexEnabled || inputPaths.size() == 1) {
                 // only one input, no need to put a pre-dexed version, even if this path is
                 // just a jar file (case for proguard'ed builds)
                 finalInputPaths.addAll(inputPaths);
@@ -784,7 +844,7 @@ public class BuildHelper {
                             }
 
                             int res = wrapper.run(dexedLibPath, Collections.singleton(input),
-                                    mForceJumbo, mVerbose, mOutStream, mErrStream);
+                                    mForceJumbo, false, null, false, mVerbose, mOutStream, mErrStream);
 
                             if (res != 0) {
                                 // output error message and mark the project.
@@ -809,10 +869,13 @@ public class BuildHelper {
                     mOutStream.println("Input: " + input);
                 }
             }
-
+            
             int res = wrapper.run(osOutFilePath,
                     finalInputPaths,
                     mForceJumbo,
+                    multiDexEnabled,
+                    mainDexListFileLocation,
+                    true, // minimalMainDex is true, only used for multidex
                     mVerbose,
                     mOutStream, mErrStream);
 

@@ -16,13 +16,6 @@
 
 package org.eclipse.andmore.internal.build;
 
-import com.android.SdkConstants;
-
-import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-
 import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
@@ -31,7 +24,16 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.Future;
+
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+
+import com.android.SdkConstants;
 
 /**
  * Wrapper to access dx.jar through reflection.
@@ -47,6 +49,11 @@ public final class DexWrapper {
     private final static String MAIN_RUN = "run"; //$NON-NLS-1$
 
     private Method mRunMethod;
+    
+    private Field mDexOutputFutures;
+    private Field mDexOutputArrays;
+    private Field mClassesInMainDex;
+    private Field mOutputResources;
 
     private Constructor<?> mArgConstructor;
     private Field mArgOutName;
@@ -54,7 +61,10 @@ public final class DexWrapper {
     private Field mArgJarOutput;
     private Field mArgFileNames;
     private Field mArgForceJumbo;
-
+    private Field mArgMultiDex;
+    private Field mArgMainDexListFile;
+    private Field mArgMinimalMainDex;
+    
     private Field mConsoleOut;
     private Field mConsoleErr;
 
@@ -88,13 +98,21 @@ public final class DexWrapper {
             try {
                 // now get the fields/methods we need
                 mRunMethod = mainClass.getMethod(MAIN_RUN, argClass);
-
+                
+                mDexOutputFutures = mainClass.getDeclaredField("dexOutputFutures");
+                mDexOutputArrays = mainClass.getDeclaredField("dexOutputArrays");
+                mClassesInMainDex = mainClass.getDeclaredField("classesInMainDex");
+                mOutputResources = mainClass.getDeclaredField("outputResources");
+                
                 mArgConstructor = argClass.getConstructor();
                 mArgOutName = argClass.getField("outName"); //$NON-NLS-1$
                 mArgJarOutput = argClass.getField("jarOutput"); //$NON-NLS-1$
                 mArgFileNames = argClass.getField("fileNames"); //$NON-NLS-1$
                 mArgVerbose = argClass.getField("verbose"); //$NON-NLS-1$
                 mArgForceJumbo = argClass.getField("forceJumbo"); //$NON-NLS-1$
+                mArgMultiDex = argClass.getField("multiDex"); //$NON-NLS-1$
+                mArgMainDexListFile = argClass.getField("mainDexListFile");
+                mArgMinimalMainDex = argClass.getField("minimalMainDex");
 
                 mConsoleOut = consoleClass.getField("out"); //$NON-NLS-1$
                 mConsoleErr = consoleClass.getField("err"); //$NON-NLS-1$
@@ -127,16 +145,58 @@ public final class DexWrapper {
      */
     public synchronized void unload() {
         mRunMethod = null;
+        
+        mDexOutputFutures = null;
+        mDexOutputArrays = null;
+        mClassesInMainDex = null;
+        mOutputResources = null;
+        
         mArgConstructor = null;
         mArgOutName = null;
         mArgJarOutput = null;
         mArgFileNames = null;
         mArgVerbose = null;
+        mArgMultiDex = null;
+        mArgMainDexListFile = null;
+        mArgMinimalMainDex = null;
         mConsoleOut = null;
         mConsoleErr = null;
         System.gc();
     }
 
+    /**
+     * Since we are not running Main.java from the command-line we have to reset some values when building.
+     * 
+     * @throws Exception
+     */
+    private synchronized void resetDexMain() throws Exception {
+    	assert mDexOutputFutures != null;
+    	assert mDexOutputArrays != null;
+    	assert mClassesInMainDex != null;
+    	assert mOutputResources != null;
+    	
+    	if(!mDexOutputFutures.isAccessible()) {
+    		mDexOutputFutures.setAccessible(true);
+    	}
+    	
+    	if(!mDexOutputArrays.isAccessible()) {
+    		mDexOutputArrays.setAccessible(true);
+    	}
+    	
+    	if(!mClassesInMainDex.isAccessible()) {
+    		mClassesInMainDex.setAccessible(true);
+    	}
+    	
+    	if(!mOutputResources.isAccessible()) {
+    		mOutputResources.setAccessible(true);
+    	}
+
+        mDexOutputFutures.set(null, new ArrayList<Future<byte[]>>());
+        mDexOutputArrays.set(null, new ArrayList<byte[]>());
+        mClassesInMainDex.set(null, null);
+        mOutputResources.set(null, null);
+     }
+    
     /**
      * Runs the dex command.
      * The wrapper must have been initialized via {@link #loadDex(String)} first.
@@ -151,7 +211,7 @@ public final class DexWrapper {
      * @throws CoreException
      */
     public synchronized int run(String osOutFilePath, Collection<String> osFilenames,
-            boolean forceJumbo, boolean verbose,
+            boolean forceJumbo, boolean enableMultiDex, String mainDexListFile, boolean minimalMainDex, boolean verbose,
             PrintStream outStream, PrintStream errStream) throws CoreException {
 
         assert mRunMethod != null;
@@ -161,6 +221,9 @@ public final class DexWrapper {
         assert mArgFileNames != null;
         assert mArgForceJumbo != null;
         assert mArgVerbose != null;
+        assert mArgMultiDex != null;
+        assert mArgMainDexListFile != null;
+        assert mArgMinimalMainDex != null;
         assert mConsoleOut != null;
         assert mConsoleErr != null;
 
@@ -175,11 +238,22 @@ public final class DexWrapper {
             // set the stream
             mConsoleErr.set(null /* obj: static field */, errStream);
             mConsoleOut.set(null /* obj: static field */, outStream);
-
+            
             // create the Arguments object.
             Object args = mArgConstructor.newInstance();
-            mArgOutName.set(args, osOutFilePath);
+            mArgMultiDex.set(args, enableMultiDex);
+            
+            if(enableMultiDex)
+            {
+            	resetDexMain();
+            	
+            	mArgMainDexListFile.set(args, mainDexListFile);
+            	mArgMinimalMainDex.set(args, minimalMainDex);
+            }
+            
             mArgFileNames.set(args, osFilenames.toArray(new String[osFilenames.size()]));
+            
+            mArgOutName.set(args, osOutFilePath);
             mArgJarOutput.set(args, osOutFilePath.endsWith(SdkConstants.DOT_JAR));
             mArgForceJumbo.set(args, forceJumbo);
             mArgVerbose.set(args, verbose);
