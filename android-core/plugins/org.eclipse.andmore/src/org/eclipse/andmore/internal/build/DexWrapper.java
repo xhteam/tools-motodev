@@ -42,10 +42,24 @@ import com.android.SdkConstants;
  */
 public final class DexWrapper {
 
-    private final static String DEX_MAIN = "com.android.dx.command.dexer.Main"; //$NON-NLS-1$
-    private final static String DEX_CONSOLE = "com.android.dx.command.DxConsole"; //$NON-NLS-1$
-    private final static String DEX_ARGS = "com.android.dx.command.dexer.Main$Arguments"; //$NON-NLS-1$
+    public final static String DEX_MAIN = "com.android.dx.command.dexer.Main"; //$NON-NLS-1$
+    public final static String DEX_CONSOLE = "com.android.dx.command.DxConsole"; //$NON-NLS-1$
+    public final static String DEX_ARGS = "com.android.dx.command.dexer.Main$Arguments"; //$NON-NLS-1$
 
+    public final static String DEX_MAIN_FIELD_OUTPUT_FUTURES = "dexOutputFutures"; //$NON-NLS-1$
+    public final static String DEX_MAIN_FIELD_OUTPUT_ARRAYS = "dexOutputArrays"; //$NON-NLS-1$
+    public final static String DEX_MAIN_FIELD_CLASSES_IN_MAIN_DEX = "classesInMainDex"; //$NON-NLS-1$
+    public final static String DEX_MAIN_FIELD_OUTPUT_RESOURCES = "outputResources"; //$NON-NLS-1$
+    
+    public final static String DEX_ARGUMENTS_FIELD_OUT_NAME = "outName"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_JAR_OUTPUT = "jarOutput"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_FILES_NAMES = "fileNames"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_VERBOSE = "verbose"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_FORCE_JUMBO = "forceJumbo"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_MULTI_DEX = "multiDex"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_MAIN_DEX_LIST_FILE = "mainDexListFile"; //$NON-NLS-1$
+    public final static String DEX_ARGUMENTS_FIELD_MINIMAL_MAIN_DEX = "minimalMainDex"; //$NON-NLS-1$
+    
     private final static String MAIN_RUN = "run"; //$NON-NLS-1$
 
     private Method mRunMethod;
@@ -99,20 +113,20 @@ public final class DexWrapper {
                 // now get the fields/methods we need
                 mRunMethod = mainClass.getMethod(MAIN_RUN, argClass);
                 
-                mDexOutputFutures = mainClass.getDeclaredField("dexOutputFutures");
-                mDexOutputArrays = mainClass.getDeclaredField("dexOutputArrays");
-                mClassesInMainDex = mainClass.getDeclaredField("classesInMainDex");
-                mOutputResources = mainClass.getDeclaredField("outputResources");
+                mDexOutputFutures = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_FUTURES);
+                mDexOutputArrays = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_ARRAYS);
+                mClassesInMainDex = mainClass.getDeclaredField(DEX_MAIN_FIELD_CLASSES_IN_MAIN_DEX);
+                mOutputResources = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_RESOURCES);
                 
                 mArgConstructor = argClass.getConstructor();
-                mArgOutName = argClass.getField("outName"); //$NON-NLS-1$
-                mArgJarOutput = argClass.getField("jarOutput"); //$NON-NLS-1$
-                mArgFileNames = argClass.getField("fileNames"); //$NON-NLS-1$
-                mArgVerbose = argClass.getField("verbose"); //$NON-NLS-1$
-                mArgForceJumbo = argClass.getField("forceJumbo"); //$NON-NLS-1$
-                mArgMultiDex = argClass.getField("multiDex"); //$NON-NLS-1$
-                mArgMainDexListFile = argClass.getField("mainDexListFile");
-                mArgMinimalMainDex = argClass.getField("minimalMainDex");
+                mArgOutName = argClass.getField(DEX_ARGUMENTS_FIELD_OUT_NAME); //$NON-NLS-1$
+                mArgJarOutput = argClass.getField(DEX_ARGUMENTS_FIELD_JAR_OUTPUT); //$NON-NLS-1$
+                mArgFileNames = argClass.getField(DEX_ARGUMENTS_FIELD_FILES_NAMES); //$NON-NLS-1$
+                mArgVerbose = argClass.getField(DEX_ARGUMENTS_FIELD_VERBOSE); //$NON-NLS-1$
+                mArgForceJumbo = argClass.getField(DEX_ARGUMENTS_FIELD_FORCE_JUMBO); //$NON-NLS-1$
+                mArgMultiDex = argClass.getField(DEX_ARGUMENTS_FIELD_MULTI_DEX); //$NON-NLS-1$
+                mArgMainDexListFile = argClass.getField(DEX_ARGUMENTS_FIELD_MAIN_DEX_LIST_FILE);
+                mArgMinimalMainDex = argClass.getField(DEX_ARGUMENTS_FIELD_MINIMAL_MAIN_DEX);
 
                 mConsoleOut = consoleClass.getField("out"); //$NON-NLS-1$
                 mConsoleErr = consoleClass.getField("err"); //$NON-NLS-1$

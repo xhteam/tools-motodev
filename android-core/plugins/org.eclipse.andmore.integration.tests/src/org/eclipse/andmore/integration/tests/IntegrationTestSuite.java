@@ -19,6 +19,7 @@ package org.eclipse.andmore.integration.tests;
 import org.eclipse.andmore.integration.tests.functests.sampleProjects.SampleProjectTest;
 import org.eclipse.andmore.internal.build.AaptParserTest;
 import org.eclipse.andmore.internal.build.AaptQuickFixTest;
+import org.eclipse.andmore.internal.build.DexWrapperTest;
 import org.eclipse.andmore.internal.editors.AndroidContentAssistTest;
 import org.eclipse.andmore.internal.editors.AndroidXmlAutoEditStrategyTest;
 import org.eclipse.andmore.internal.editors.AndroidXmlCharacterMatcherTest;
@@ -31,6 +32,7 @@ import org.eclipse.andmore.internal.lint.ProjectLintConfigurationTest;
 import org.eclipse.andmore.internal.refactorings.core.AndroidPackageRenameParticipantTest;
 import org.eclipse.andmore.internal.refactorings.core.RenameResourceParticipantTest;
 import org.eclipse.andmore.internal.refactorings.renamepackage.ApplicationPackageNameRefactoringTest;
+import org.eclipse.andmore.internal.settings.MultiDexTest;
 import org.eclipse.andmore.internal.wizards.exportgradle.ExportGradleTest;
 import org.eclipse.andmore.internal.wizards.templates.TemplateHandlerTest;
 import org.junit.runner.RunWith;
@@ -40,6 +42,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({SampleProjectTest.class,
 	AaptParserTest.class,
 	AaptQuickFixTest.class,
+	DexWrapperTest.class,
+	MultiDexTest.class,
 	EclipseXmlPrettyPrinterTest.class,
 	AndroidContentAssistTest.class,
 	AndroidXmlAutoEditStrategyTest.class,

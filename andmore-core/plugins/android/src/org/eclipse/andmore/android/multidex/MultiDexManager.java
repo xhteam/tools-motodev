@@ -22,17 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.Scanner;
 
 import org.eclipse.andmore.android.AndroidPlugin;
 import org.eclipse.andmore.android.common.log.AndmoreLogger;
 import org.eclipse.andmore.android.common.log.UsageDataConstants;
-import org.eclipse.andmore.android.common.utilities.AndroidUtils;
-import org.eclipse.andmore.internal.sdk.ProjectState;
-import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
