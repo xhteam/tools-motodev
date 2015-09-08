@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -28,6 +29,7 @@ import org.eclipse.andmore.internal.build.DexWrapper;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
+import org.eclipse.core.resources.IProject;
 import org.junit.Test;
 
 import com.android.sdklib.BuildToolInfo;
@@ -44,7 +46,7 @@ public class DexWrapperTest extends AdtProjectTest {
 	}
 	
 	@Test
-	public void testMainClassFieldsAvailable() {
+	public void testMainClassFieldsAvailable() {		
 		Class<?> mainDexClass = loadMainDexClass();
 		
 		try {
@@ -109,7 +111,18 @@ public class DexWrapperTest extends AdtProjectTest {
 		ProjectState projectState = Sdk.getProjectState(getProject());
 		assertNotNull(projectState);
 		
-		String dxLocation = projectState.getBuildToolInfo().getPath(BuildToolInfo.PathId.DX_JAR);
+		BuildToolInfo buildToolInfo = projectState.getBuildToolInfo();
+        if (buildToolInfo == null) {
+            buildToolInfo = getSdk().getLatestBuildTool();
+        }
+        assertNotNull(buildToolInfo);
+        
+        if(buildToolInfo.getRevision().getMajor() < 21) {
+        	fail("DexWrapper only works with build tools version 21 and higher. "
+        			+ "Currently trying to use " + buildToolInfo.getRevision().getMajor());
+        }
+        
+		String dxLocation = buildToolInfo.getPath(BuildToolInfo.PathId.DX_JAR);
 		
 		File f = new File(dxLocation);	
 		URL url = null;
