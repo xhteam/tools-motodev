@@ -16,17 +16,20 @@
 
 package org.eclipse.andmore.internal.build.builders;
 
-import com.android.SdkConstants;
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.prefs.AndroidLocation.AndroidLocationException;
-import com.android.sdklib.build.ApkBuilder;
-import com.android.sdklib.build.ApkCreationException;
-import com.android.sdklib.build.DuplicateFileException;
-import com.android.sdklib.build.IArchiveBuilder;
-import com.android.sdklib.build.SealedApkException;
-import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
-import com.android.xml.AndroidManifest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.jar.Attributes;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
+import java.util.regex.Pattern;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
@@ -35,10 +38,10 @@ import org.eclipse.andmore.internal.build.AaptExecException;
 import org.eclipse.andmore.internal.build.AaptParser;
 import org.eclipse.andmore.internal.build.AaptResultException;
 import org.eclipse.andmore.internal.build.BuildHelper;
+import org.eclipse.andmore.internal.build.BuildHelper.ResourceMarker;
 import org.eclipse.andmore.internal.build.DexException;
 import org.eclipse.andmore.internal.build.Messages;
 import org.eclipse.andmore.internal.build.NativeLibInJarException;
-import org.eclipse.andmore.internal.build.BuildHelper.ResourceMarker;
 import org.eclipse.andmore.internal.lint.LintDeltaProcessor;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.preferences.AdtPrefs.BuildVerbosity;
@@ -65,20 +68,17 @@ import org.eclipse.jdt.core.IJavaModelMarker;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.jar.Attributes;
-import java.util.jar.JarEntry;
-import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
-import java.util.regex.Pattern;
+import com.android.SdkConstants;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.prefs.AndroidLocation.AndroidLocationException;
+import com.android.sdklib.build.ApkBuilder;
+import com.android.sdklib.build.ApkCreationException;
+import com.android.sdklib.build.DuplicateFileException;
+import com.android.sdklib.build.IArchiveBuilder;
+import com.android.sdklib.build.SealedApkException;
+import com.android.sdklib.internal.build.DebugKeyProvider.KeytoolException;
+import com.android.xml.AndroidManifest;
 
 public class PostCompilerBuilder extends BaseBuilder {
 
@@ -629,9 +629,12 @@ public class PostCompilerBuilder extends BaseBuilder {
                     if (DEBUG_LOG) {
                         AndmoreAndroidPlugin.log(IStatus.INFO, "%s making final package!", project.getName());
                     }
+                    
+                    List<File> dexFiles = helper.listDexFiles(javaProject);
+                    
                     helper.finalDebugPackage(
                             osAndroidBinPath + File.separator + AndmoreAndroidConstants.FN_RESOURCES_AP_,
-                        classesDexPath, osFinalPackagePath, libProjects, mResourceMarker);
+                            dexFiles, osFinalPackagePath, libProjects, mResourceMarker);
                 } catch (KeytoolException e) {
                     String eMessage = e.getMessage();
 

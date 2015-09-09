@@ -33,6 +33,7 @@ Export-Package:
  org.eclipse.andmore.android.devices,
  org.eclipse.andmore.android.i18n,
  org.eclipse.andmore.android.model,
+ org.eclipse.andmore.android.multidex,
  org.eclipse.andmore.android.nativeos,
  org.eclipse.andmore.android.sdkmanager,
  org.eclipse.andmore.android.utilities,
