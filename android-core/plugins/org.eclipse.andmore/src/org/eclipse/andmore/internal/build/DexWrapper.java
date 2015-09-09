@@ -113,7 +113,11 @@ public final class DexWrapper {
                 // now get the fields/methods we need
                 mRunMethod = mainClass.getMethod(MAIN_RUN, argClass);
                 
-                mDexOutputFutures = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_FUTURES);
+                try {
+                	// this field is not required when it is not yet available in Main.
+                	mDexOutputFutures = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_FUTURES);
+                } catch (Exception e) {}
+                
                 mDexOutputArrays = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_ARRAYS);
                 mClassesInMainDex = mainClass.getDeclaredField(DEX_MAIN_FIELD_CLASSES_IN_MAIN_DEX);
                 mOutputResources = mainClass.getDeclaredField(DEX_MAIN_FIELD_OUTPUT_RESOURCES);
@@ -184,13 +188,16 @@ public final class DexWrapper {
      * @throws Exception
      */
     private synchronized void resetDexMain() throws Exception {
-    	assert mDexOutputFutures != null;
     	assert mDexOutputArrays != null;
     	assert mClassesInMainDex != null;
     	assert mOutputResources != null;
     	
-    	if(!mDexOutputFutures.isAccessible()) {
-    		mDexOutputFutures.setAccessible(true);
+    	if(mDexOutputFutures != null) { // not required when not available
+	    	if(!mDexOutputFutures.isAccessible()) {
+	    		mDexOutputFutures.setAccessible(true);
+	    	}
+	    	
+	    	mDexOutputFutures.set(null, new ArrayList<Future<byte[]>>());
     	}
     	
     	if(!mDexOutputArrays.isAccessible()) {
@@ -204,8 +211,7 @@ public final class DexWrapper {
     	if(!mOutputResources.isAccessible()) {
     		mOutputResources.setAccessible(true);
     	}
-
-        mDexOutputFutures.set(null, new ArrayList<Future<byte[]>>());
+    	
         mDexOutputArrays.set(null, new ArrayList<byte[]>());
         mClassesInMainDex.set(null, null);
         mOutputResources.set(null, null);

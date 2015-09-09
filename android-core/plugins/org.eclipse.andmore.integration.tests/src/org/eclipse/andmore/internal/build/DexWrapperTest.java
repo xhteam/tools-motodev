@@ -20,16 +20,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import org.eclipse.andmore.internal.build.DexWrapper;
 import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
 import org.eclipse.andmore.internal.sdk.ProjectState;
 import org.eclipse.andmore.internal.sdk.Sdk;
-import org.eclipse.core.resources.IProject;
 import org.junit.Test;
 
 import com.android.sdklib.BuildToolInfo;
@@ -50,7 +47,6 @@ public class DexWrapperTest extends AdtProjectTest {
 		Class<?> mainDexClass = loadMainDexClass();
 		
 		try {
-			mainDexClass.getDeclaredField(DexWrapper.DEX_MAIN_FIELD_OUTPUT_FUTURES);
 			mainDexClass.getDeclaredField(DexWrapper.DEX_MAIN_FIELD_OUTPUT_ARRAYS);
 			mainDexClass.getDeclaredField(DexWrapper.DEX_MAIN_FIELD_CLASSES_IN_MAIN_DEX);
 			mainDexClass.getDeclaredField(DexWrapper.DEX_MAIN_FIELD_OUTPUT_RESOURCES);
