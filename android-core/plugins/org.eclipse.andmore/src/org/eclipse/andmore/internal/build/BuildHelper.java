@@ -808,7 +808,7 @@ public class BuildHelper {
 	            		mainDexListFileLocation = mainDexListFile.getRawLocation().toOSString();
 	            		
 	            		// For multidex output to a folder
-	                	osOutFilePath = osOutFilePath.replace("classes.dex", "");
+	                	osOutFilePath = new File(osOutFilePath).getParent();
 	            	}
             	}
             }
