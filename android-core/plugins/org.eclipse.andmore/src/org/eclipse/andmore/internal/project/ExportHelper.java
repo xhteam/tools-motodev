@@ -273,11 +273,14 @@ public final class ExportHelper {
 
             helper.executeDx(javaProject, dxInput, dexFile.getAbsolutePath());
 
-            // Step 3. Final package
-
+            // Step 3. Gather dex files
+            List<File> dexFiles = helper.listDexFiles(javaProject);
+            
+            // Step 4. Final package
+            
             helper.finalPackage(
                     resourceFile.getAbsolutePath(),
-                    dexFile.getAbsolutePath(),
+                    dexFiles,
                     outputFile.getAbsolutePath(),
                     libProjects,
                     key,

@@ -384,6 +384,12 @@ public class AndroidNLS extends NLS {
 	public static String UI_ProjectPropertyPage_Obfuscate;
 
 	public static String UI_ProjectPropertyPage_ObfuscateGroup;
+	
+	public static String UI_ProjectCreation_Multidex;
+
+	public static String UI_ProjectPropertyPage_MultiDex;
+
+	public static String UI_ProjectPropertyPage_MultiDexGroup;
 
 	public static String UI_Logger_ApplicationValidatorFolder;
 
