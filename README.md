@@ -98,6 +98,24 @@ If you want to skip tests during your local builds the following command will do
 Before submitting a pull request back to eclipse/andmore, you must build with tests and 
 all tests must pass.
 
+### A note on MacOS
+
+If using MacOS, confirm that Maven is using the correct JDK (Oracle, not Apple) using
+
+    mvn -version
+
+If the version shown in the response does not match what is shown when entering
+
+    javac -version
+    
+You will need to force Maven to use the correct JDK by setting $JAVA_HOME in .mavenrc or
+your .bash_profile.
+
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/{jdk-version}/Contents/Home
+
+This may occur if you've installed the Apple 1.6 JDK for other work and Maven is pointing 
+to that version of the JDK.
+
 ## Building from Eclipse
 
 To build from Eclipse, use the Eclipse SDK. You will need to add the m2e plugins after the
