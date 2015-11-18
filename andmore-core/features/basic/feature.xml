@@ -7,7 +7,9 @@
       plugin="org.eclipse.andmore.android.common"
       os="linux,macosx,win32"
       ws="carbon,cocoa,gtk,win32"
-      arch="ppc,x86,x86_64">
+      arch="ppc,x86,x86_64"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
 
    <description>
       %feature.android.description
@@ -17,8 +19,8 @@
       %feature.android.copyright
    </copyright>
 
-   <license url="">
-      %feature.android.license
+   <license url="%licenseURL">
+      %license
    </license>
 
    <requires>
