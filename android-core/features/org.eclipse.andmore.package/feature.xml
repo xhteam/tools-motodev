@@ -4,7 +4,9 @@
       label="Andmore Package Feature (Incubating)"
       version="0.5.0.qualifier"
       provider-name="The Eclipse Foundation"
-      plugin="org.eclipse.andmore.package">
+      plugin="org.eclipse.andmore.package"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
 
    <description url="http://www.eclipse.org/andmore">
       Android Developer Tools
@@ -14,8 +16,8 @@
       Copyright (C) 2007-2014 The Android Open Source Project
    </copyright>
 
-   <license url="http://www.eclipse.org/org/documents/epl-v10.php">
-      Note:  kxml2-2.3.0.jar is under the BSD license rather ...
+   <license url="%licenseURL">
+      %license
    </license>
 
    <requires>
