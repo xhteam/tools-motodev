@@ -19,36 +19,4 @@
 	<name>Andmore Repository</name>
 	<version>0.5.0-SNAPSHOT</version>
 
-	<profiles>
-		<profile>
-			<id>product</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-p2-director-plugin</artifactId>
-						<version>${tycho-version}</version>
-						<executions>
-							<execution>
-								<id>create-product-distributions</id>
-								<goals>
-									<goal>materialize-products</goal>
-									<goal>archive-products</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<products>
-								<product>
-									<id>andmore-ide.product</id>
-									<archiveFileName>andmore-${project.version}</archiveFileName>
-								</product>
-							</products>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 </project>
