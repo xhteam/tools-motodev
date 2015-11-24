@@ -65,9 +65,13 @@ Andmore. The top-level areas for bugs in Andmore are
 Nightly builds are available for adopters and others to use and install into a eclipse environment.  Currently Eclipse Luna or
 higher are supported but other versions may work.
 
-### Nightly P2 site
+### Eclipse Marketplace
 
-The the nightly p2 repository can be found at the following location:
+Andmore can be installed from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/andmore).
+
+### Nightly Update Site
+
+The nightly p2 repository can be found at the following location:
 
 http://download.eclipse.org/andmore/nightly
 
