@@ -1,8 +1,8 @@
 # Change Log
 
-This milestone introduces MultiDex support. The update site is improved to support correct installation of Andmore on Eclipse older then Luna.
-
 ## 0.5-M3
+
+This milestone introduces MultiDex support. The update site is improved to support correct installation of Andmore on Eclipse older then Luna.
 
 * [482776](https://bugs.eclipse.org/bugs/show_bug.cgi?id=482776) Allow installation of Andmore on Eclipse older than Luna 
 * [479230](https://bugs.eclipse.org/bugs/show_bug.cgi?id=479230) Exporting an application package is not working when using multidex
