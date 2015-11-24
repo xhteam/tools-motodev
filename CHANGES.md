@@ -1,5 +1,15 @@
 # Change Log
 
+This milestone introduces MultiDex support. The update site is improved to support correct installation of Andmore on Eclipse older then Luna.
+
+## 0.5-M3
+
+* (482776)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=482776] Allow installation of Andmore on Eclipse older than Luna 
+* (479230)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=479230] Exporting an application package is not working when using multidex
+* (476446)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=476446] MultiDex support for Android APK
+* (471469)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=471469] Add Profile to use released MARs artifacts as part of the build
+* (460132)[https://bugs.eclipse.org/bugs/show_bug.cgi?id=460132] Fix license terms for dual licensed plugins 
+
 ## 0.5-M2
 
 Milestone two provides some stability and usability improvements.  The biggest change is that the XML Editor no longer assumes it is the only editor.
