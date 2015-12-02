@@ -18,6 +18,9 @@ package org.eclipse.andmore.internal.wizards.actions;
 
 import org.eclipse.andmore.internal.ui.IUpdateWizardDialog;
 import org.eclipse.andmore.internal.ui.WizardDialogEx;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -37,146 +40,192 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.IWorkbenchHelpContextIds;
 import org.eclipse.ui.internal.LegacyResourceSupport;
 import org.eclipse.ui.internal.actions.NewWizardShortcutAction;
-import org.eclipse.ui.internal.util.Util;
 
 /**
- * An abstract action that displays one of our wizards.
- * Derived classes must provide the actual wizard to display.
+ * An abstract action that displays one of our wizards. Derived classes must
+ * provide the actual wizard to display.
  */
-/*package*/ abstract class OpenWizardAction
-    implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
+/* package */ abstract class OpenWizardAction implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
 
-    /**
-     * The wizard dialog width, extracted from {@link NewWizardShortcutAction}
-     */
-    private static final int SIZING_WIZARD_WIDTH = 500;
+	/**
+	 * The wizard dialog width, extracted from {@link NewWizardShortcutAction}
+	 */
+	private static final int SIZING_WIZARD_WIDTH = 500;
 
-    /**
-     * The wizard dialog height, extracted from {@link NewWizardShortcutAction}
-     */
-    private static final int SIZING_WIZARD_HEIGHT = 500;
+	/**
+	 * The wizard dialog height, extracted from {@link NewWizardShortcutAction}
+	 */
+	private static final int SIZING_WIZARD_HEIGHT = 500;
 
-    /** The wizard that was created by {@link #run(IAction)}. */
-    private IWorkbenchWizard mWizard;
-    /** The result from the dialog */
-    private int mDialogResult;
+	/** The wizard that was created by {@link #run(IAction)}. */
+	private IWorkbenchWizard mWizard;
+	/** The result from the dialog */
+	private int mDialogResult;
 
-    private ISelection mSelection;
-    private IWorkbench mWorkbench;
+	private ISelection mSelection;
+	private IWorkbench mWorkbench;
 
-    /** Returns the wizard that was created by {@link #run(IAction)}. */
-    public IWorkbenchWizard getWizard() {
-        return mWizard;
-    }
+	/** Returns the wizard that was created by {@link #run(IAction)}. */
+	public IWorkbenchWizard getWizard() {
+		return mWizard;
+	}
 
-    /** Returns the result from {@link Dialog#open()}, available after
-     * the completion of {@link #run(IAction)}. */
-    public int getDialogResult() {
-        return mDialogResult;
-    }
+	/**
+	 * Returns the result from {@link Dialog#open()}, available after the
+	 * completion of {@link #run(IAction)}.
+	 */
+	public int getDialogResult() {
+		return mDialogResult;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#dispose()
-     */
-    @Override
-    public void dispose() {
-        // pass
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// pass
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.IWorkbenchWindow)
-     */
-    @Override
-    public void init(IWorkbenchWindow window) {
-        // pass
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.
+	 * IWorkbenchWindow)
+	 */
+	@Override
+	public void init(IWorkbenchWindow window) {
+		// pass
+	}
 
-    /**
-     * Opens and display the Android New Project Wizard.
-     * <p/>
-     * Most of this implementation is extracted from {@link NewWizardShortcutAction#run()}.
-     *
-     * @param action The action that got us here. Can be null when used internally.
-     * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-     */
-    @Override
-    public void run(IAction action) {
+	/**
+	 * Opens and display the Android New Project Wizard.
+	 * <p/>
+	 * Most of this implementation is extracted from
+	 * {@link NewWizardShortcutAction#run()}.
+	 *
+	 * @param action
+	 *            The action that got us here. Can be null when used internally.
+	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
+	 */
+	@Override
+	public void run(IAction action) {
 
-        // get the workbench and the current window
-        IWorkbench workbench = mWorkbench != null ? mWorkbench : PlatformUI.getWorkbench();
-        IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+		// get the workbench and the current window
+		IWorkbench workbench = mWorkbench != null ? mWorkbench : PlatformUI.getWorkbench();
+		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 
-        // This code from NewWizardShortcutAction#run() gets the current window selection
-        // and converts it to a workbench structured selection for the wizard, if possible.
-        ISelection selection = mSelection;
-        if (selection == null) {
-            selection = window.getSelectionService().getSelection();
-        }
+		// This code from NewWizardShortcutAction#run() gets the current window
+		// selection
+		// and converts it to a workbench structured selection for the wizard,
+		// if possible.
+		ISelection selection = mSelection;
+		if (selection == null) {
+			selection = window.getSelectionService().getSelection();
+		}
 
-        IStructuredSelection selectionToPass = StructuredSelection.EMPTY;
-        if (selection instanceof IStructuredSelection) {
-            selectionToPass = (IStructuredSelection) selection;
-        } else {
-            // Build the selection from the IFile of the editor
-            IWorkbenchPart part = window.getPartService().getActivePart();
-            if (part instanceof IEditorPart) {
-                IEditorInput input = ((IEditorPart) part).getEditorInput();
-                Class<?> fileClass = LegacyResourceSupport.getFileClass();
-                if (input != null && fileClass != null) {
-                    Object file = Util.getAdapter(input, fileClass);
-                    if (file != null) {
-                        selectionToPass = new StructuredSelection(file);
-                    }
-                }
-            }
-        }
+		IStructuredSelection selectionToPass = StructuredSelection.EMPTY;
+		if (selection instanceof IStructuredSelection) {
+			selectionToPass = (IStructuredSelection) selection;
+		} else {
+			// Build the selection from the IFile of the editor
+			IWorkbenchPart part = window.getPartService().getActivePart();
+			if (part instanceof IEditorPart) {
+				IEditorInput input = ((IEditorPart) part).getEditorInput();
+				Class<?> fileClass = LegacyResourceSupport.getFileClass();
+				if (input != null && fileClass != null) {
+					Object file = getAdapter(input, fileClass);
+					if (file != null) {
+						selectionToPass = new StructuredSelection(file);
+					}
+				}
+			}
+		}
 
-        // Create the wizard and initialize it with the selection
-        mWizard = instanciateWizard(action);
-        mWizard.init(workbench, selectionToPass);
+		// Create the wizard and initialize it with the selection
+		mWizard = instanciateWizard(action);
+		mWizard.init(workbench, selectionToPass);
 
-        // It's not visible yet until a dialog is created and opened
-        Shell parent = window.getShell();
-        WizardDialogEx dialog = new WizardDialogEx(parent, mWizard);
-        dialog.create();
+		// It's not visible yet until a dialog is created and opened
+		Shell parent = window.getShell();
+		WizardDialogEx dialog = new WizardDialogEx(parent, mWizard);
+		dialog.create();
 
-        if (mWizard instanceof IUpdateWizardDialog) {
-            ((IUpdateWizardDialog) mWizard).updateWizardDialog(dialog);
-        }
+		if (mWizard instanceof IUpdateWizardDialog) {
+			((IUpdateWizardDialog) mWizard).updateWizardDialog(dialog);
+		}
 
-        // This code comes straight from NewWizardShortcutAction#run()
-        Point defaultSize = dialog.getShell().getSize();
-        dialog.getShell().setSize(
-                Math.max(SIZING_WIZARD_WIDTH, defaultSize.x),
-                Math.max(SIZING_WIZARD_HEIGHT, defaultSize.y));
-        window.getWorkbench().getHelpSystem().setHelp(dialog.getShell(),
-                IWorkbenchHelpContextIds.NEW_WIZARD_SHORTCUT);
+		// This code comes straight from NewWizardShortcutAction#run()
+		Point defaultSize = dialog.getShell().getSize();
+		dialog.getShell().setSize(Math.max(SIZING_WIZARD_WIDTH, defaultSize.x),
+				Math.max(SIZING_WIZARD_HEIGHT, defaultSize.y));
+		window.getWorkbench().getHelpSystem().setHelp(dialog.getShell(), IWorkbenchHelpContextIds.NEW_WIZARD_SHORTCUT);
 
-        mDialogResult = dialog.open();
-    }
+		mDialogResult = dialog.open();
+	}
 
-    /**
-     * Called by {@link #run(IAction)} to instantiate the actual wizard.
-     *
-     * @param action The action parameter from {@link #run(IAction)}.
-     *               This can be null.
-     * @return A new wizard instance. Must not be null.
-     */
-    protected abstract IWorkbenchWizard instanciateWizard(IAction action);
+	private static <T> T getAdapter(Object sourceObject, Class<T> adapterType) {
+		assert adapterType != null;
+		if (sourceObject == null) {
+			return null;
+		}
+		if (adapterType.isInstance(sourceObject)) {
+			return adapterType.cast(sourceObject);
+		}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-     */
-    @Override
-    public void selectionChanged(IAction action, ISelection selection) {
-        mSelection = selection;
-    }
+		if (sourceObject instanceof IAdaptable) {
+			IAdaptable adaptable = (IAdaptable) sourceObject;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
-     */
-    @Override
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-        mWorkbench = targetPart.getSite().getWorkbenchWindow().getWorkbench();
-    }
+			T result = adaptable.getAdapter(adapterType);
+			if (result != null) {
+				// Sanity-check
+				assert adapterType.isInstance(result);
+				return result;
+			}
+		}
+
+		if (!(sourceObject instanceof PlatformObject)) {
+			T result = Platform.getAdapterManager().getAdapter(sourceObject, adapterType);
+			if (result != null) {
+				return result;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Called by {@link #run(IAction)} to instantiate the actual wizard.
+	 *
+	 * @param action
+	 *            The action parameter from {@link #run(IAction)}. This can be
+	 *            null.
+	 * @return A new wizard instance. Must not be null.
+	 */
+	protected abstract IWorkbenchWizard instanciateWizard(IAction action);
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
+	 * IAction, org.eclipse.jface.viewers.ISelection)
+	 */
+	@Override
+	public void selectionChanged(IAction action, ISelection selection) {
+		mSelection = selection;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.
+	 * action.IAction, org.eclipse.ui.IWorkbenchPart)
+	 */
+	@Override
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		mWorkbench = targetPart.getSite().getWorkbenchWindow().getWorkbench();
+	}
 }
