@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.5-M4
+
+This milestone fixes a build error against the Eclipse Neon release.
+
+* [483020](https://bugs.eclipse.org/bugs/show_bug.cgi?id=483020) Build error against Neon
+* [484277](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484277) Unify logo contributions to the About dialog
+
 ## 0.5-M3
 
 This milestone introduces MultiDex support. The update site is improved to support correct installation of Andmore on Eclipse older then Luna.
