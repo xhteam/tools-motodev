@@ -15,21 +15,33 @@
  */
 package org.eclipse.andmore.android.certmanager.packaging.sign;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.Security;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 
-import javax.security.auth.x500.X500Principal;
-
-//import sun.security.pkcs.ContentInfo;
-//import sun.security.pkcs.PKCS7;
-//import sun.security.pkcs.SignerInfo;
-//import sun.security.x509.AlgorithmId;
-//import sun.security.x509.X500Name;
-
+import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.DEROutputStream;
+import org.bouncycastle.cert.jcajce.JcaCertStore;
+import org.bouncycastle.cms.CMSException;
+import org.bouncycastle.cms.CMSProcessableByteArray;
+import org.bouncycastle.cms.CMSSignedData;
+import org.bouncycastle.cms.CMSSignedDataGenerator;
+import org.bouncycastle.cms.CMSTypedData;
+import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
 import org.eclipse.andmore.android.certmanager.ui.model.IKeyStoreEntry;
@@ -124,126 +136,58 @@ public class SignatureBlockFile {
 	 * @throws KeyStoreException
 	 * @throws UnrecoverableKeyException
 	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeyException 
+	 * @throws CertificateEncodingException 
+	 * @throws OperatorCreationException 
+	 * @throws CMSException 
 	 */
 	public void write(OutputStream outputStream) throws IOException, SignException, UnrecoverableKeyException,
-			KeyStoreException, KeyStoreManagerException, NoSuchAlgorithmException {
+			KeyStoreException, KeyStoreManagerException, NoSuchAlgorithmException, InvalidKeyException,
+			CertificateEncodingException, OperatorCreationException, CMSException {
 		// get certificate from entry
 		X509Certificate[] certChain = { keystoreEntry.getX509Certificate() };
 		if (certChain.length > 0) {
-			// get some info from certificate as issuer, serial and algorithm
-			X500Principal issuer = certChain[0].getIssuerX500Principal();
-			String serial = certChain[0].getSerialNumber().toString();
+			X509Certificate publicKey = certChain[0];
+			PrivateKey privateKey = keystoreEntry.getPrivateKey(keyEntryPassword);
 			String blockalgorithm = getBlockAlgorithm();
-
-			String digestAlgotithm = null;
-			// determine the algorithm to be used to cipher the block file
-			if (blockalgorithm.equalsIgnoreCase(ISignConstants.DSA)) {
-				digestAlgotithm = ISignConstants.SHA1;
-			} else if (blockalgorithm.equalsIgnoreCase(ISignConstants.RSA)) {
-				digestAlgotithm = ISignConstants.MD5;
-			} else {
+			if (!blockalgorithm.equalsIgnoreCase(ISignConstants.DSA)
+					&& !blockalgorithm.equalsIgnoreCase(ISignConstants.RSA)) {
 				AndmoreLogger.error(SignatureBlockFile.class,
 						"Signing block algorithm not supported. Key algorithm must be DSA or RSA");
-
 				throw new SignException("Signing block algorithm not supported");
 			}
 
-			String signatureAlgorithm = digestAlgotithm + ISignConstants.ALGORITHM_CONNECTOR + blockalgorithm;
+			String signatureAlgorithm = ISignConstants.SHA1 + ISignConstants.ALGORITHM_CONNECTOR + blockalgorithm;
 
-			// TODO: FIX ME. Migrate to Bouncy Castle instead of using Sun
-			// classes directly.
-			// AlgorithmId digestAlg;
-			// try
-			// {
-			// digestAlg = AlgorithmId.get(digestAlgotithm);
-			// AlgorithmId privateKeyAlg = AlgorithmId.get(blockalgorithm);
-			// // write the certificate with signature file and cipher it
-			// Signature sig = Signature.getInstance(signatureAlgorithm);
-			// sig.initSign(keystoreEntry.getPrivateKey(this.keyEntryPassword));
-			//
-			// PKCS7 block = null;
-			// ByteArrayOutputStream baos = null;
-			// ByteArrayOutputStream signature = null;
-			//
-			// try
-			// {
-			// baos = new ByteArrayOutputStream();
-			// signatureFile.write(baos);
-			//
-			// ContentInfo contentInfo = new ContentInfo(ContentInfo.DATA_OID,
-			// null);
-			// sig.update(baos.toByteArray());
-			//
-			// signature = new ByteArrayOutputStream();
-			// signature.write(sig.sign());
-			//
-			// SignerInfo si =
-			// new SignerInfo(new X500Name(issuer.getName()), new
-			// BigInteger(serial),
-			// digestAlg, privateKeyAlg, signature.toByteArray());
-			//
-			// AlgorithmId[] algs =
-			// {
-			// digestAlg
-			// };
-			// SignerInfo[] infos =
-			// {
-			// si
-			// };
-			//
-			// block = new PKCS7(algs, contentInfo, certChain, infos);
-			// }
-			// catch (IOException e)
-			// {
-			// AndmoreLogger.error(SignatureBlockFile.class,
-			// "I/O error creating signature block file: " + e.getMessage());
-			//
-			// throw new
-			// SignException("I/O error creating signature block file", e);
-			// }
-			// finally
-			// {
-			// if (baos != null)
-			// {
-			// baos.close();
-			// }
-			// if (signature != null)
-			// {
-			// signature.close();
-			// }
-			// }
-			//
-			// // I/O exceptions below are thrown unmodified
-			// block.encodeSignedData(outputStream);
-			// }
-			// catch (NoSuchAlgorithmException nsae)
-			// {
-			// AndmoreLogger.error(SignatureBlockFile.class,
-			// "Signing algorithm not supported: "
-			// + nsae.getMessage());
-			//
-			// throw new SignException("Signing algorithm not supported", nsae);
-			// }
-			// catch (InvalidKeyException ike)
-			// {
-			// AndmoreLogger.error(SignatureBlockFile.class,
-			// "Invalid key when creating signature block file: " +
-			// ike.getMessage());
-			//
-			// throw new
-			// SignException("Invalid key when creating signature block file",
-			// ike);
-			// }
-			// catch (SignatureException se)
-			// {
-			// AndmoreLogger.error(SignatureBlockFile.class,
-			// "Signature error when creating signature block file: " +
-			// se.getMessage());
-			//
-			// throw new
-			// SignException("Signature error creating signature block file",
-			// se);
-			// }
+			Security.addProvider(new BouncyCastleProvider());
+
+			ArrayList<X509Certificate> certList = new ArrayList<X509Certificate>();
+			certList.add(publicKey);
+			JcaCertStore certs = new JcaCertStore(certList);
+
+			ContentSigner signer = new JcaContentSignerBuilder(signatureAlgorithm).build(privateKey);
+
+			CMSSignedDataGenerator generator = new CMSSignedDataGenerator();
+			generator.addSignerInfoGenerator(
+					new JcaSignerInfoGeneratorBuilder(
+							new JcaDigestCalculatorProviderBuilder()
+							.build())
+					.setDirectSignature(true)
+					.build(signer, publicKey));
+			generator.addCertificates(certs);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			signatureFile.write(baos);
+
+			CMSTypedData cmsdata = new CMSProcessableByteArray(baos.toByteArray());
+			CMSSignedData signeddata = generator.generate(cmsdata, false);
+
+			ASN1InputStream asn1 = new ASN1InputStream(signeddata.getEncoded());
+			DEROutputStream dos = new DEROutputStream(outputStream);
+			dos.writeObject(asn1.readObject());
+			dos.flush();
+			dos.close();
+			asn1.close();
 		}
 		AndmoreLogger.info(SignatureBlockFile.class, "Created signature block file");
 	}
