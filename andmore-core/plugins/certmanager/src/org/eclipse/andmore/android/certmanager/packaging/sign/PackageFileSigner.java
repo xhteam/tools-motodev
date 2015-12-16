@@ -25,12 +25,16 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateEncodingException;
 import java.util.jar.Attributes;
 
+import org.bouncycastle.cms.CMSException;
+import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.util.encoders.Base64Encoder;
 import org.eclipse.andmore.android.certmanager.CertificateManagerActivator;
 import org.eclipse.andmore.android.certmanager.exception.KeyStoreManagerException;
@@ -169,10 +173,15 @@ public class PackageFileSigner {
 	 * @throws KeyStoreManagerException
 	 * @throws KeyStoreException
 	 * @throws UnrecoverableKeyException
+	 * @throws CMSException 
+	 * @throws OperatorCreationException 
+	 * @throws CertificateEncodingException 
+	 * @throws InvalidKeyException 
 	 */
 	private static void addSignatureFiles(PackageFile packageFile, IKeyStoreEntry keystoreEntry,
 			String keyEntryPassword, Base64Encoder encoder, String createdBy) throws IOException, SignException,
-			UnrecoverableKeyException, KeyStoreException, KeyStoreManagerException, NoSuchAlgorithmException {
+					UnrecoverableKeyException, KeyStoreException, KeyStoreManagerException, NoSuchAlgorithmException,
+					InvalidKeyException, CertificateEncodingException, OperatorCreationException, CMSException {
 		// signature file
 		SignatureFile signatureFile = new SignatureFile(packageFile, keystoreEntry.getAlias(), encoder, createdBy);
 
