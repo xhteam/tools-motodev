@@ -50,6 +50,7 @@ import org.eclipse.andmore.android.model.resources.ResourceFile;
 import org.eclipse.andmore.android.model.resources.types.ResourcesNode;
 import org.eclipse.andmore.android.model.resources.types.AbstractResourceNode.NodeType;
 import org.eclipse.andmore.android.resources.AndroidProjectResources;
+import org.eclipse.andmore.android.utilities.DictionaryUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -435,7 +436,7 @@ public class ActivityBasedOnTemplate extends Launcher {
 						parseStringXmlNodes(templateFile.getModelName());
 
 						// add to string.xml
-						EclipseUtils.createOrUpdateDictionaryFile(getProject(), getSampleStringNodes(),
+						DictionaryUtils.createOrUpdateDictionaryFile(getProject(), getSampleStringNodes(),
 								getSampleArrayNodes(), monitor);
 					}
 				} else if (resourceType.equals(RES_TYPE_MENU)) {
