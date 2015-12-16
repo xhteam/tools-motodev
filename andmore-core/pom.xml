@@ -41,6 +41,7 @@
 
     <module>features/basic</module>
     <module>features/feature</module>
+    <module>features/sign</module>
     <module>site</module>
 
   </modules>

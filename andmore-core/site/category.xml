@@ -44,6 +44,14 @@
        <category name="Andmore Core SDK"/>
    </feature>
    
+   <feature id="org.eclipse.andmore.sign.feature" version="0.0.0">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.sign.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
    <category-def name="Andmore" label="Andmore">
        <description>
            Android and Native Development Tools and Frameworks.

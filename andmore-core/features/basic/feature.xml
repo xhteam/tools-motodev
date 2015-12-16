@@ -23,12 +23,12 @@
       %license
    </license>
 
-   <requires>
-      <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
-   </requires>
-   
    <includes
          id="org.eclipse.andmore.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.andmore.sign.feature"
          version="0.0.0"/>
 
    <includes
@@ -59,6 +59,9 @@
          id="org.eclipse.sequoyah.vnc.vncviewer.feature"
          version="0.0.0"/>
 
+   <requires>
+      <import feature="org.eclipse.datatools.enablement.sqlite.feature" version="1.8.0" match="greaterOrEqual"/>
+   </requires>
 
    <plugin
          id="org.eclipse.andmore.android.common"
@@ -96,24 +99,17 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.andmore.android.certmanager"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.andmore.android.logger"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-            
+
    <plugin
          id="org.eclipse.andmore.android"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>	
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.andmore.android.emulator"
