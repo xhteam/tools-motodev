@@ -39,6 +39,7 @@ import org.eclipse.andmore.android.common.utilities.EclipseUtils;
 import org.eclipse.andmore.android.common.utilities.FileUtil;
 import org.eclipse.andmore.android.i18n.AndroidNLS;
 import org.eclipse.andmore.android.model.AndroidProject.SourceTypes;
+import org.eclipse.andmore.android.utilities.DictionaryUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -323,7 +324,7 @@ public class ProjectCreationSupport {
 						200));
 				// add the string definition file if needed
 				if (stringDictionary.size() > 0) {
-					EclipseUtils.createOrUpdateDictionaryFile(project, stringDictionary, null, new SubProgressMonitor(
+					DictionaryUtils.createOrUpdateDictionaryFile(project, stringDictionary, null, new SubProgressMonitor(
 							monitor, 100));
 				}
 
@@ -374,7 +375,7 @@ public class ProjectCreationSupport {
 						new SubProgressMonitor(monitor, 200));
 				// add the string definition file if needed
 				if (stringDictionary.size() > 0) {
-					EclipseUtils.createOrUpdateDictionaryFile(project, stringDictionary, null, new SubProgressMonitor(
+					DictionaryUtils.createOrUpdateDictionaryFile(project, stringDictionary, null, new SubProgressMonitor(
 							monitor, 100));
 				}
 
