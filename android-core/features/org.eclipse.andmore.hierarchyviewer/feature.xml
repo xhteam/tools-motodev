@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.hierarchyviewer.feature"
-      label="Andmore - Android Hierarchy Viewer Feature (Incubating)"
+      label="%feature.label"
       version="0.5.0.qualifier"
-      provider-name="Eclipse Andmore"
+      provider-name="%feature.provider.name"
       plugin="org.eclipse.andmore.hierarchyviewer"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
 
    <description>
-      Android Hierarchy Viewer.
+      %feature.description
    </description>
 
    <copyright>
-      Copyright (C) 2010-2011 The Android Open Source Project
+      %feature.copyright
    </copyright>
 
    <license url="%licenseURL">

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ADT CDT Integration
+Bundle-Name: Native Development Tools for Android
 Bundle-SymbolicName: org.eclipse.andmore.ndk;singleton:=true
 Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.eclipse.andmore.ndk.internal.Activator
