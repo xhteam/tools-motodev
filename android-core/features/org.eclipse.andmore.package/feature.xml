@@ -28,7 +28,7 @@
       <import plugin="org.eclipse.andmore.hierarchyviewer" version="0.0.0"/>
       <import plugin="org.eclipse.andmore.traceview" version="0.0.0"/>
       <import plugin="org.eclipse.andmore.ndk" version="0.0.0"/>
-      <import plugin="overlay.org.eclipse.andmore.overlay" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.overlay" version="0.0.0"/>
       <import feature="org.eclipse.equinox.p2.user.ui"/>
       <import feature="org.eclipse.platform"/>
       <import feature="org.eclipse.rcp"/>

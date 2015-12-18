@@ -28,7 +28,7 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<plugin id="overlay.org.eclipse.andmore.overlay"/>
+								<plugin id="org.eclipse.andmore.overlay"/>
 							</excludes>
 						</configuration>
 					</execution>
