@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.andmore.feature"
-      label="Andmore Eclipse Android Development Tools Feature (Incubating)"
+      label="%feature.label"
       version="0.5.0.qualifier"
-      provider-name="Eclipse Andmore"
+      provider-name="%feature.provider.name"
       plugin="org.eclipse.andmore"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
 
    <description>
-      Andmore Eclipse Android Developer Tools.
+      %feature.description
    </description>
 
    <copyright>
-      Copyright (C) 2015 Eclipse Foundation, and others.
+      %feature.copyright
    </copyright>
 
    <license url="%licenseURL">
