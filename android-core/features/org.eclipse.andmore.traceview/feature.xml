@@ -3,7 +3,7 @@
       id="org.eclipse.andmore.traceview.feature"
       label="Andmore - Android Traceview Feature (Incubating)"
       version="0.5.0.qualifier"
-      provider-name="The Eclipse Foundation"
+      provider-name="Eclipse Andmore"
       plugin="org.eclipse.andmore.traceview"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">

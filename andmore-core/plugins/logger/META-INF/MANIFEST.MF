@@ -4,7 +4,7 @@ Bundle-Name: Andmore Android Logger
 Bundle-SymbolicName: org.eclipse.andmore.android.logger;singleton:=true
 Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.eclipse.andmore.android.logger.internal.Activator
-Bundle-Vendor: Eclipse Andmore Project
+Bundle-Vendor: Eclipse Andmore
 Export-Package: org.eclipse.andmore.android.logger
 Bundle-ClassPath: lib/log4j-1.2.14.jar,
  .
