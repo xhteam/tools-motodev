@@ -3,7 +3,7 @@
       id="com.android.ide.eclipse.monitor.feature"
       label="Android Monitor"
       version="23.0.3.qualifier"
-      provider-name="The Android Open Source Project"
+      provider-name="Eclipse Andmore"
       plugin="com.android.ide.eclipse.monitor">
 
    <description>

@@ -3,7 +3,7 @@
       id="org.eclipse.andmore.hierarchyviewer.feature"
       label="Andmore - Android Hierarchy Viewer Feature (Incubating)"
       version="0.5.0.qualifier"
-      provider-name="The Eclipse Foundation"
+      provider-name="Eclipse Andmore"
       plugin="org.eclipse.andmore.hierarchyviewer"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">

@@ -3,7 +3,7 @@
       id="org.eclipse.andmore.feature"
       label="Andmore Eclipse Android Development Tools Feature (Incubating)"
       version="0.5.0.qualifier"
-      provider-name="The Eclipse Foundation"
+      provider-name="Eclipse Andmore"
       plugin="org.eclipse.andmore"
       license-feature="org.eclipse.license"
       license-feature-version="0.0.0">
@@ -55,33 +55,32 @@
    </requires>
 
    <plugin
-        id="org.objectweb.asm"
+         id="org.objectweb.asm"
          download-size="0"
          install-size="0"
          version="4.0.0.v201302062210"
          unpack="false"/>
-        
+
    <plugin
          id="org.eclipse.andmore"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.andmore.base"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-    <plugin
+
+   <plugin
          id="org.eclipse.andmore.ddms"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
 
    <plugin
          id="overlay.org.eclipse.andmore.overlay"
@@ -91,28 +90,28 @@
          unpack="false"/>
 
    <plugin
-        id="org.apache.commons.codec"
+         id="org.apache.commons.codec"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-        id="org.apache.commons.compress"
+         id="org.apache.commons.compress"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-        id="org.apache.httpcomponents.httpclient"
+         id="org.apache.httpcomponents.httpclient"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-        id="org.apache.httpcomponents.httpcore"
+         id="org.apache.httpcomponents.httpcore"
          download-size="0"
          install-size="0"
          version="0.0.0"

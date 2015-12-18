@@ -17,7 +17,7 @@ Bundle-ClassPath: .,
  libs/swtmenubar.jar,
  libs/manifest-merger.jar
 Bundle-Activator: org.eclipse.andmore.AndmoreAndroidPlugin
-Bundle-Vendor: Eclipse Andmore Project
+Bundle-Vendor: Eclipse Andmore
 Require-Bundle: org.eclipse.andmore.base,
  org.eclipse.andmore.ddms,
  org.eclipse.core.runtime,
