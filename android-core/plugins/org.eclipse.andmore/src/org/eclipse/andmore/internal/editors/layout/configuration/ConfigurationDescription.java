@@ -22,22 +22,8 @@ import static com.android.SdkConstants.ATTR_THEME;
 import static com.android.SdkConstants.PREFIX_RESOURCE_REF;
 import static com.android.SdkConstants.STYLE_RESOURCE_PREFIX;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.resources.ResourceRepository;
-import com.android.ide.common.resources.configuration.DeviceConfigHelper;
-import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
-import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
-import com.android.resources.NightMode;
-import com.android.resources.ResourceFolderType;
-import com.android.resources.ScreenSize;
-import com.android.resources.UiMode;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.devices.Device;
-import com.android.sdklib.devices.State;
-import com.google.common.base.Splitter;
+import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
@@ -50,8 +36,21 @@ import org.eclipse.core.runtime.QualifiedName;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.Collection;
-import java.util.List;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.resources.ResourceRepository;
+import com.android.ide.common.resources.configuration.DeviceConfigHelper;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
+import com.android.resources.NightMode;
+import com.android.resources.ResourceFolderType;
+import com.android.resources.ScreenSize;
+import com.android.resources.UiMode;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.devices.Device;
+import com.android.sdklib.devices.State;
+import com.google.common.base.Splitter;
 
 /** A description of a configuration, used for persistence */
 public class ConfigurationDescription {
@@ -201,16 +200,24 @@ public class ConfigurationDescription {
         if (!localeString.isEmpty()) {
             // Load locale. Note that this can get overwritten by the
             // project-wide settings read below.
-            LanguageQualifier language = Locale.ANY_LANGUAGE;
-            RegionQualifier region = Locale.ANY_REGION;
+        	LocaleQualifier locale = null;
+        			
+        	String language = null;
+        	String region = null;
             String locales[] = localeString.split(SEP_LOCALE);
             if (locales[0].length() > 0) {
-                language = new LanguageQualifier(locales[0]);
+                language = locales[0];
             }
             if (locales.length > 1 && locales[1].length() > 0) {
-                region = new RegionQualifier(locales[1]);
+                region = locales[1];
             }
-            description.locale = Locale.create(language, region);
+            if (language == null) {
+            	locale = Locale.ANY_LOCALE;
+            }
+            else {
+            	locale = new LocaleQualifier(null, language, region, null);
+            }
+            description.locale = Locale.create(locale);
         }
 
         String activity = element.getAttribute(ATTR_ACTIVITY);
@@ -279,13 +286,7 @@ public class ConfigurationDescription {
         }
 
         if (locale != null && (locale.hasLanguage() || locale.hasRegion())) {
-            String value;
-            if (locale.hasRegion()) {
-                value = locale.language.getValue() + SEP_LOCALE + locale.region.getValue();
-            } else {
-                value = locale.language.getValue();
-            }
-            element.setAttribute(ATTR_LOCALE, value);
+            element.setAttribute(ATTR_LOCALE, locale.locale.getValue());
         }
 
         if (device != null) {

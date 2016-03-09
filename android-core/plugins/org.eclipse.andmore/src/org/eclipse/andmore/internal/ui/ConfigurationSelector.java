@@ -16,44 +16,13 @@
 
 package org.eclipse.andmore.internal.ui;
 
-import com.android.SdkConstants;
-import com.android.ide.common.resources.LocaleManager;
-import com.android.ide.common.resources.configuration.CountryCodeQualifier;
-import com.android.ide.common.resources.configuration.DensityQualifier;
-import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.KeyboardStateQualifier;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.LayoutDirectionQualifier;
-import com.android.ide.common.resources.configuration.NavigationMethodQualifier;
-import com.android.ide.common.resources.configuration.NavigationStateQualifier;
-import com.android.ide.common.resources.configuration.NetworkCodeQualifier;
-import com.android.ide.common.resources.configuration.NightModeQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
-import com.android.ide.common.resources.configuration.ResourceQualifier;
-import com.android.ide.common.resources.configuration.ScreenDimensionQualifier;
-import com.android.ide.common.resources.configuration.ScreenHeightQualifier;
-import com.android.ide.common.resources.configuration.ScreenOrientationQualifier;
-import com.android.ide.common.resources.configuration.ScreenRatioQualifier;
-import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
-import com.android.ide.common.resources.configuration.ScreenWidthQualifier;
-import com.android.ide.common.resources.configuration.SmallestScreenWidthQualifier;
-import com.android.ide.common.resources.configuration.TextInputMethodQualifier;
-import com.android.ide.common.resources.configuration.TouchScreenQualifier;
-import com.android.ide.common.resources.configuration.UiModeQualifier;
-import com.android.ide.common.resources.configuration.VersionQualifier;
-import com.android.resources.Density;
-import com.android.resources.Keyboard;
-import com.android.resources.KeyboardState;
-import com.android.resources.LayoutDirection;
-import com.android.resources.Navigation;
-import com.android.resources.NavigationState;
-import com.android.resources.NightMode;
-import com.android.resources.ResourceEnum;
-import com.android.resources.ScreenOrientation;
-import com.android.resources.ScreenRatio;
-import com.android.resources.ScreenSize;
-import com.android.resources.TouchScreen;
-import com.android.resources.UiMode;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.andmore.internal.resources.ResourceHelper;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -91,11 +60,43 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Set;
+import com.android.SdkConstants;
+import com.android.ide.common.resources.LocaleManager;
+import com.android.ide.common.resources.configuration.CountryCodeQualifier;
+import com.android.ide.common.resources.configuration.DensityQualifier;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.KeyboardStateQualifier;
+import com.android.ide.common.resources.configuration.LayoutDirectionQualifier;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.android.ide.common.resources.configuration.NavigationMethodQualifier;
+import com.android.ide.common.resources.configuration.NavigationStateQualifier;
+import com.android.ide.common.resources.configuration.NetworkCodeQualifier;
+import com.android.ide.common.resources.configuration.NightModeQualifier;
+import com.android.ide.common.resources.configuration.ResourceQualifier;
+import com.android.ide.common.resources.configuration.ScreenDimensionQualifier;
+import com.android.ide.common.resources.configuration.ScreenHeightQualifier;
+import com.android.ide.common.resources.configuration.ScreenOrientationQualifier;
+import com.android.ide.common.resources.configuration.ScreenRatioQualifier;
+import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
+import com.android.ide.common.resources.configuration.ScreenWidthQualifier;
+import com.android.ide.common.resources.configuration.SmallestScreenWidthQualifier;
+import com.android.ide.common.resources.configuration.TextInputMethodQualifier;
+import com.android.ide.common.resources.configuration.TouchScreenQualifier;
+import com.android.ide.common.resources.configuration.UiModeQualifier;
+import com.android.ide.common.resources.configuration.VersionQualifier;
+import com.android.resources.Density;
+import com.android.resources.Keyboard;
+import com.android.resources.KeyboardState;
+import com.android.resources.LayoutDirection;
+import com.android.resources.Navigation;
+import com.android.resources.NavigationState;
+import com.android.resources.NightMode;
+import com.android.resources.ResourceEnum;
+import com.android.resources.ScreenOrientation;
+import com.android.resources.ScreenRatio;
+import com.android.resources.ScreenSize;
+import com.android.resources.TouchScreen;
+import com.android.resources.UiMode;
 
 /**
  * Custom UI widget to let user build a Folder configuration.
@@ -161,29 +162,6 @@ public class ConfigurationSelector extends Composite {
                 if (e.text.length() - e.end + e.start +
                         ((Text)e.getSource()).getText().length() > 3) {
                     e.doit = false;
-                }
-            }
-        }
-    }
-
-    /**
-     * Implementation of {@link VerifyListener} for the Language and Region qualifiers.
-     */
-    public static class LanguageRegionVerifier implements VerifyListener {
-        @Override
-        public void verifyText(VerifyEvent e) {
-            // check for length
-            if (e.text.length() - e.end + e.start + ((Combo)e.getSource()).getText().length() > 2) {
-                e.doit = false;
-                return;
-            }
-
-            // check for lower case only.
-            for (int i = 0 ; i < e.text.length(); i++) {
-                char letter = e.text.charAt(i);
-                if ((letter < 'a' || letter > 'z') && (letter < 'A' || letter > 'Z')) {
-                    e.doit = false;
-                    return;
                 }
             }
         }
@@ -433,8 +411,7 @@ public class ConfigurationSelector extends Composite {
             // ResourceQualifer class.
             mUiMap.put(CountryCodeQualifier.class, new MCCEdit(mQualifierEditParent));
             mUiMap.put(NetworkCodeQualifier.class, new MNCEdit(mQualifierEditParent));
-            mUiMap.put(LanguageQualifier.class, new LanguageEdit(mQualifierEditParent));
-            mUiMap.put(RegionQualifier.class, new RegionEdit(mQualifierEditParent));
+            mUiMap.put(LocaleQualifier.class, new LocaleEditor(mQualifierEditParent));
             mUiMap.put(LayoutDirectionQualifier.class,
                     new LayoutDirectionEdit(mQualifierEditParent));
             mUiMap.put(SmallestScreenWidthQualifier.class,
@@ -551,10 +528,6 @@ public class ConfigurationSelector extends Composite {
             return ConfigurationState.INVALID_CONFIG;
         }
 
-        if (mSelectedConfiguration.checkRegion() == false) {
-            return ConfigurationState.REGION_WITHOUT_LANGUAGE;
-        }
-
         return ConfigurationState.OK;
     }
 
@@ -663,7 +636,7 @@ public class ConfigurationSelector extends Composite {
             if (element instanceof ResourceQualifier) {
                 if (mShowQualifierValue) {
                     String value = ((ResourceQualifier)element).getShortDisplayValue();
-                    if (value.length() == 0) {
+                    if (value == null || value.length() == 0) {
                         return String.format("%1$s (?)",
                                 ((ResourceQualifier)element).getShortName());
                     } else {
@@ -859,166 +832,195 @@ public class ConfigurationSelector extends Composite {
         }
     }
 
-    /**
-     * Edit widget for {@link LanguageQualifier}.
-     */
-    private class LanguageEdit extends QualifierEditBase {
-        private Combo mLanguage;
-        private Label mName;
+	private class LocaleEditor extends QualifierEditBase {
 
-        public LanguageEdit(Composite parent) {
-            super(parent, LanguageQualifier.NAME);
+		private LanguageEdit mLanguageEdit;
 
-            mLanguage = new Combo(this, SWT.DROP_DOWN);
-            Set<String> codes = LocaleManager.getLanguageCodes();
-            String[] items = codes.toArray(new String[codes.size()]);
-            Arrays.sort(items);
-            mLanguage.setItems(items);
+		private RegionEdit mRegionEdit;
 
-            mLanguage.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            mLanguage.addVerifyListener(new LanguageRegionVerifier());
-            mLanguage.addSelectionListener(new SelectionListener() {
-                @Override
-                public void widgetDefaultSelected(SelectionEvent e) {
-                    onLanguageChange();
-                }
-                @Override
-                public void widgetSelected(SelectionEvent e) {
-                    onLanguageChange();
-                }
-            });
-            mLanguage.addModifyListener(new ModifyListener() {
-                @Override
-                public void modifyText(ModifyEvent e) {
-                    onLanguageChange();
-                }
-            });
+		public LocaleEditor(Composite parent) {
+			super(parent, LocaleQualifier.NAME);
 
-            new Label(this, SWT.NONE).setText("(2 letter code)");
+			mLanguageEdit = new LanguageEdit(this);
+			mRegionEdit = new RegionEdit(this);
+		}
 
-            mName = new Label(this, SWT.NONE);
-            mName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		@Override
+		public void setQualifier(ResourceQualifier qualifier) {
+			mLanguageEdit.setQualifier(qualifier);
+			mRegionEdit.setQualifier(qualifier);
 
-        }
+		}
 
-        private void onLanguageChange() {
-            // update the current config
-            String value = mLanguage.getText();
+		boolean reentrant = false;
 
-            String newName = "";
-            if (value.length() == 2) {
-                String name = LocaleManager.getLanguageName(value.toLowerCase(Locale.US));
-                if (name != null) {
-                    newName = name;
-                }
-            }
-            mName.setText(newName);
+		void updateLocale() {
+			if (reentrant) {
+				return;
+			}
+			reentrant = true;
+			String language = mLanguageEdit.getLanguageValue();
 
-            if (value.length() == 0) {
-                // empty string, means no qualifier.
-                // Since the qualifier classes are immutable, and we don't want to
-                // remove the qualifier from the configuration, we create a new default one.
-                mSelectedConfiguration.setLanguageQualifier(new LanguageQualifier());
-            } else {
-                LanguageQualifier qualifier = null;
-                String segment = LanguageQualifier.getFolderSegment(value);
-                if (segment != null) {
-                    qualifier = LanguageQualifier.getQualifier(segment);
-                }
+			// check if language has changed, this means we need to update the
+			// region list
+			if (mSelectedConfiguration.getLocaleQualifier() != null
+					&& !language.equals(mSelectedConfiguration.getLocaleQualifier().getLanguage())) {
+				if (language != null && language.length() == 0) {
+					mRegionEdit.setRegions(new LinkedList<String>());
+				} else {
+					mRegionEdit.setRegions(LocaleManager.getRelevantRegions(language));
+				}
+			}
 
-                if (qualifier != null) {
-                    mSelectedConfiguration.setLanguageQualifier(qualifier);
-                } else {
-                    // Failure! Looks like the value is wrong (for instance a one letter string).
-                    mSelectedConfiguration.setLanguageQualifier(new LanguageQualifier());
-                }
-            }
+			String region = mRegionEdit.getRegionValue();
 
-            // notify of change
-            onChange(true /* keepSelection */);
-        }
+			if (language == null || language.length() == 0) {
+				// empty string, means no qualifier.
+				// Since the qualifier classes are immutable, and we don't want
+				// to
+				// remove the qualifier from the configuration, we create a new
+				// default one.
+				mSelectedConfiguration.setLocaleQualifier(
+						org.eclipse.andmore.internal.editors.layout.configuration.Locale.ANY_LOCALE);
+			} else {
+				LocaleQualifier qualifier = new LocaleQualifier(null, language,
+						region == null || region.length() == 0 ? null : region, null);
+				mSelectedConfiguration.setLocaleQualifier(qualifier);
+			}
 
-        @Override
-        public void setQualifier(ResourceQualifier qualifier) {
-            LanguageQualifier q = (LanguageQualifier)qualifier;
+			// notify of change
+			onChange(true /* keepSelection */);
+			reentrant = false;
+		}
+	}
 
-            String value = q.getValue();
-            if (value != null) {
-                mLanguage.setText(value);
-            }
-        }
-    }
+	/**
+	 * Edit widget for {@link LanguageQualifier}.
+	 */
+	private class LanguageEdit extends QualifierEditBase {
+		private Combo mLanguage;
+		private Label mName;
 
-    /**
-     * Edit widget for {@link RegionQualifier}.
-     */
-    private class RegionEdit extends QualifierEditBase {
-        private Combo mRegion;
+		public LanguageEdit(LocaleEditor parent) {
+			super(parent, "Language");
 
-        public RegionEdit(Composite parent) {
-            super(parent, RegionQualifier.NAME);
+			mLanguage = new Combo(this, SWT.DROP_DOWN);
+			List<String> codes = LocaleManager.getLanguageCodes();
+			String[] items = codes.toArray(new String[codes.size()]);
+			Arrays.sort(items);
+			mLanguage.setItems(items);
 
-            mRegion = new Combo(this, SWT.DROP_DOWN);
-            mRegion.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            mRegion.addVerifyListener(new LanguageRegionVerifier());
-            mRegion.addSelectionListener(new SelectionListener() {
-                @Override
-                public void widgetDefaultSelected(SelectionEvent e) {
-                    onRegionChange();
-                }
-                @Override
-                public void widgetSelected(SelectionEvent e) {
-                    onRegionChange();
-                }
-            });
-            mRegion.addModifyListener(new ModifyListener() {
-                @Override
-                public void modifyText(ModifyEvent e) {
-                    onRegionChange();
-                }
-            });
+			mLanguage.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			mLanguage.addSelectionListener(new SelectionListener() {
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					onLanguageChange();
+				}
 
-            new Label(this, SWT.NONE).setText("(2 letter code)");
-        }
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					onLanguageChange();
+				}
+			});
+			mLanguage.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent e) {
+					onLanguageChange();
+				}
+			});
 
-        private void onRegionChange() {
-            // update the current config
-            String value = mRegion.getText();
+			new Label(this, SWT.NONE).setText("(2 letter code)");
 
-            if (value.length() == 0) {
-                // empty string, means no qualifier.
-                // Since the qualifier classes are immutable, and we don't want to
-                // remove the qualifier from the configuration, we create a new default one.
-                mSelectedConfiguration.setRegionQualifier(new RegionQualifier());
-            } else {
-                RegionQualifier qualifier = null;
-                String segment = RegionQualifier.getFolderSegment(value);
-                if (segment != null) {
-                    qualifier = RegionQualifier.getQualifier(segment);
-                }
+			mName = new Label(this, SWT.NONE);
+			mName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-                if (qualifier != null) {
-                    mSelectedConfiguration.setRegionQualifier(qualifier);
-                } else {
-                    // Failure! Looks like the value is wrong (for instance a one letter string).
-                    mSelectedConfiguration.setRegionQualifier(new RegionQualifier());
-                }
-            }
+		}
 
-            // notify of change
-            onChange(true /* keepSelection */);
-        }
+		String getLanguageValue() {
+			return mLanguage.getText();
+		}
 
-        @Override
-        public void setQualifier(ResourceQualifier qualifier) {
-            RegionQualifier q = (RegionQualifier)qualifier;
+		private void onLanguageChange() {
+			// update the current config
+			String value = mLanguage.getText();
 
-            String value = q.getValue();
-            if (value != null) {
-                mRegion.setText(q.getValue());
-            }
-        }
-    }
+			String newName = "";
+			if (value.length() == 2) {
+				String name = LocaleManager.getLanguageName(value.toLowerCase(Locale.US));
+				if (name != null) {
+					newName = name;
+				}
+			}
+			mName.setText(newName);
+			((LocaleEditor) getParent()).updateLocale();
+		}
+
+		@Override
+		public void setQualifier(ResourceQualifier qualifier) {
+			LocaleQualifier q = (LocaleQualifier) qualifier;
+
+			if (q.hasLanguage() && q.getLanguage() != null) {
+				mLanguage.setText(q.getLanguage());
+			}
+		}
+	}
+
+	/**
+	 * Edit widget for {@link RegionQualifier}.
+	 */
+	private class RegionEdit extends QualifierEditBase {
+		private Combo mRegion;
+
+		public RegionEdit(LocaleEditor parent) {
+			super(parent, "Region");
+
+			mRegion = new Combo(this, SWT.DROP_DOWN);
+			mRegion.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			mRegion.addSelectionListener(new SelectionListener() {
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					onRegionChange();
+				}
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					onRegionChange();
+				}
+			});
+			mRegion.addModifyListener(new ModifyListener() {
+				@Override
+				public void modifyText(ModifyEvent e) {
+					onRegionChange();
+				}
+			});
+
+			new Label(this, SWT.NONE).setText("(2 letter code)");
+		}
+
+		public void setRegions(List<String> regions) {
+			String[] items = regions.toArray(new String[regions.size()]);
+			Arrays.sort(items);
+			mRegion.setItems(items);
+			mRegion.setEnabled(!regions.isEmpty());
+		}
+
+		private void onRegionChange() {
+			((LocaleEditor) getParent()).updateLocale();
+		}
+
+		public String getRegionValue() {
+			return mRegion.getText();
+		}
+
+		@Override
+		public void setQualifier(ResourceQualifier qualifier) {
+			LocaleQualifier q = (LocaleQualifier) qualifier;
+
+			if (q.hasRegion()) {
+				mRegion.setText(q.getRegion());
+			}
+		}
+	}
 
     /**
      * Edit widget for {@link LayoutDirectionQualifier}.

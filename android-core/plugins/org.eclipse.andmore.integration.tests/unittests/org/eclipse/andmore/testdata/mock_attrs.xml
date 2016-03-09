@@ -78,7 +78,7 @@
         <flag name="fill" value="0x77" />
     </attr>
 
-    <!-- Standard gravity constant that a child can supply to its parent.
+    <!-- Standard gravity constant that a child supplies to its parent.
          Defines how to place an object, both
          its x and y axis, within a larger containing object. -->
     <attr name="layout_gravity">

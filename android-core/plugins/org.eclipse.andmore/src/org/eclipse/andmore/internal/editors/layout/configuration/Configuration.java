@@ -20,33 +20,7 @@ import static com.android.SdkConstants.ANDROID_STYLE_RESOURCE_PREFIX;
 import static com.android.SdkConstants.PREFIX_RESOURCE_REF;
 import static com.android.SdkConstants.STYLE_RESOURCE_PREFIX;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.rendering.LayoutLibrary;
-import com.android.ide.common.rendering.api.Capability;
-import com.android.ide.common.resources.ResourceFolder;
-import com.android.ide.common.resources.ResourceRepository;
-import com.android.ide.common.resources.configuration.DensityQualifier;
-import com.android.ide.common.resources.configuration.DeviceConfigHelper;
-import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.LayoutDirectionQualifier;
-import com.android.ide.common.resources.configuration.NightModeQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
-import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
-import com.android.ide.common.resources.configuration.UiModeQualifier;
-import com.android.ide.common.resources.configuration.VersionQualifier;
-import com.android.resources.Density;
-import com.android.resources.LayoutDirection;
-import com.android.resources.NightMode;
-import com.android.resources.ScreenSize;
-import com.android.resources.UiMode;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.devices.Device;
-import com.android.sdklib.devices.State;
-import com.android.utils.Pair;
-import com.google.common.base.Objects;
+import java.util.List;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.layout.gle2.RenderService;
@@ -63,7 +37,32 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
 
-import java.util.List;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.rendering.LayoutLibrary;
+import com.android.ide.common.rendering.api.Capability;
+import com.android.ide.common.resources.ResourceFolder;
+import com.android.ide.common.resources.ResourceRepository;
+import com.android.ide.common.resources.configuration.DensityQualifier;
+import com.android.ide.common.resources.configuration.DeviceConfigHelper;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.LayoutDirectionQualifier;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.android.ide.common.resources.configuration.NightModeQualifier;
+import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
+import com.android.ide.common.resources.configuration.UiModeQualifier;
+import com.android.ide.common.resources.configuration.VersionQualifier;
+import com.android.resources.Density;
+import com.android.resources.LayoutDirection;
+import com.android.resources.NightMode;
+import com.android.resources.ScreenSize;
+import com.android.resources.UiMode;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.devices.Device;
+import com.android.sdklib.devices.State;
+import com.android.utils.Pair;
+import com.google.common.base.Objects;
 
 /**
  * A {@linkplain Configuration} is a selection of device, orientation, theme,
@@ -374,7 +373,7 @@ public class Configuration {
      * @return if this configuration represents a locale-specific layout
      */
     public boolean isLocaleSpecificLayout() {
-        return mEditedConfig == null || mEditedConfig.getLanguageQualifier() != null;
+        return mEditedConfig == null || mEditedConfig.getLocaleQualifier() != null;
     }
 
     /**
@@ -563,8 +562,8 @@ public class Configuration {
 
         // sync the selected locale
         Locale locale = getLocale();
-        mFullConfig.setLanguageQualifier(locale.language);
-        mFullConfig.setRegionQualifier(locale.region);
+        mFullConfig.setLocaleQualifier(locale.locale);
+
         if (!locale.hasLanguage()) {
             // Avoid getting the layout library if the locale doesn't have any language.
             mFullConfig.setLayoutDirectionQualifier(
@@ -632,9 +631,7 @@ public class Configuration {
             Locale locale = getLocale();
             if (isLocaleSpecificLayout() && locale != null) {
                 // locale[0]/[1] can be null sometimes when starting Eclipse
-                sb.append(locale.language.getValue());
-                sb.append(SEP_LOCALE);
-                sb.append(locale.region.getValue());
+            	sb.append(locale.locale.getValue());
             }
             sb.append(SEP);
             // Need to escape the theme: if we write the full theme style, then
@@ -764,18 +761,18 @@ public class Configuration {
                     if (config != null) {
                         // Load locale. Note that this can get overwritten by the
                         // project-wide settings read below.
-                        LanguageQualifier language = Locale.ANY_LANGUAGE;
-                        RegionQualifier region = Locale.ANY_REGION;
-                        String locales[] = values[2].split(SEP_LOCALE);
-                        if (locales.length >= 2) {
-                            if (locales[0].length() > 0) {
-                                language = new LanguageQualifier(locales[0]);
-                            }
-                            if (locales[1].length() > 0) {
-                                region = new RegionQualifier(locales[1]);
-                            }
-                            mLocale = Locale.create(language, region);
-                        }
+                    	String locales[] = values[2].split(SEP_LOCALE);
+                    	if (locales[0].length() > 0) {
+                    		String language = locales[0];
+                    		String region = null;
+                    		if (locales.length > 1 && locales[1].length() > 0) {
+                    			region = locales[1];
+                    		}
+                    		mLocale = Locale.create(new LocaleQualifier(null, language, region, null));
+                    	}
+                    	else {
+                    		mLocale = Locale.ANY;
+                    	}
 
                         // Decode the theme name: See {@link #getData}
                         mTheme = values[3];
@@ -848,18 +845,18 @@ public class Configuration {
 
                 String[] values = data.split(SEP);
                 if (values.length == 2) {
-                    LanguageQualifier language = Locale.ANY_LANGUAGE;
-                    RegionQualifier region = Locale.ANY_REGION;
-                    String locales[] = values[0].split(SEP_LOCALE);
-                    if (locales.length >= 2) {
-                        if (locales[0].length() > 0) {
-                            language = new LanguageQualifier(locales[0]);
-                        }
-                        if (locales[1].length() > 0) {
-                            region = new RegionQualifier(locales[1]);
-                        }
+                	String locales[] = values[0].split(SEP_LOCALE);
+                    if (locales[0].length() != 0) {
+                    	String language = locales[0];
+                    	String region = null;
+                    	if (locales.length > 1 && locales[1].length() != 0) {
+                    		region = locales[1];
+                    	}
+                    	locale = Locale.create(new LocaleQualifier(null, language, region, null));
                     }
-                    locale = Locale.create(language, region);
+                	if (values[0].length() > 0) {
+                		locale = Locale.create(new LocaleQualifier(values[0]));
+                	}
 
                     if (AdtPrefs.getPrefs().isAutoPickRenderTarget()) {
                         target = ConfigurationMatcher.findDefaultRenderTarget(chooser);
@@ -916,9 +913,7 @@ public class Configuration {
             Locale locale = getLocale();
             if (locale != null) {
                 // locale[0]/[1] can be null sometimes when starting Eclipse
-                sb.append(locale.language.getValue());
-                sb.append(SEP_LOCALE);
-                sb.append(locale.region.getValue());
+            	sb.append(locale.locale.getValue());
             }
             sb.append(SEP);
             IAndroidTarget target = getTarget();

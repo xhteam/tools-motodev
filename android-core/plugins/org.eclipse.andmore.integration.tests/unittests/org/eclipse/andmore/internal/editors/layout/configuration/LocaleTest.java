@@ -15,42 +15,40 @@
  */
 package org.eclipse.andmore.internal.editors.layout.configuration;
 
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
 
 import junit.framework.TestCase;
 
 @SuppressWarnings("javadoc")
 public class LocaleTest extends TestCase {
     public void test() {
-        LanguageQualifier language1 = new LanguageQualifier("nb");
-        LanguageQualifier language2 = new LanguageQualifier("no");
-        RegionQualifier region1 = new RegionQualifier("NO");
-        RegionQualifier region2 = new RegionQualifier("SE");
+    	
+        String language1 = "nb";
+        String language2 = "no";
+        String region1 = "NO";
+        String region2 = "SE";
 
         assertEquals(Locale.ANY, Locale.ANY);
         assertFalse(Locale.ANY.hasLanguage());
         assertFalse(Locale.ANY.hasRegion());
-        assertFalse(Locale.create(new LanguageQualifier(LanguageQualifier.FAKE_LANG_VALUE),
-                new RegionQualifier(RegionQualifier.FAKE_REGION_VALUE)).hasLanguage());
-        assertFalse(Locale.create(new LanguageQualifier(LanguageQualifier.FAKE_LANG_VALUE),
-                new RegionQualifier(RegionQualifier.FAKE_REGION_VALUE)).hasRegion());
+        assertFalse(Locale.create(new LocaleQualifier()).hasLanguage());
+        assertFalse(Locale.create(new LocaleQualifier()).hasRegion());
 
-        assertEquals(Locale.create(language1), Locale.create(language1));
-        assertTrue(Locale.create(language1).hasLanguage());
-        assertFalse(Locale.create(language1).hasRegion());
-        assertTrue(Locale.create(language1, region1).hasLanguage());
-        assertTrue(Locale.create(language1, region1).hasRegion());
+        assertEquals(Locale.create(new LocaleQualifier(language1)), Locale.create(new LocaleQualifier(language1)));
+        assertTrue(Locale.create(new LocaleQualifier(language1)).hasLanguage());
+        assertFalse(Locale.create(new LocaleQualifier(language1)).hasRegion());
+        assertTrue(Locale.create(new LocaleQualifier(null, language1, region1, null)).hasLanguage());
+        assertTrue(Locale.create(new LocaleQualifier(null, language1, region1, null)).hasRegion());
 
-        assertEquals(Locale.create(language1, region1), Locale.create(language1, region1));
-        assertEquals(Locale.create(language1), Locale.create(language1));
-        assertTrue(Locale.create(language1).equals(Locale.create(language1)));
-        assertTrue(Locale.create(language1, region1).equals(Locale.create(language1, region1)));
-        assertFalse(Locale.create(language1, region1).equals(Locale.create(language1, region2)));
-        assertFalse(Locale.create(language1).equals(Locale.create(language1, region1)));
-        assertFalse(Locale.create(language1).equals(Locale.create(language2)));
-        assertFalse(Locale.create(language1, region1).equals(Locale.create(language2, region1)));
-        assertEquals("Locale{nb, __}", Locale.create(language1).toString());
-        assertEquals("Locale{nb, NO}", Locale.create(language1, region1).toString());
+        assertEquals(Locale.create(new LocaleQualifier(null, language1, region1, null)), Locale.create(new LocaleQualifier(null, language1, region1, null)));
+        assertEquals(Locale.create(new LocaleQualifier(language1)), Locale.create(new LocaleQualifier(language1)));
+        assertTrue(Locale.create(new LocaleQualifier(language1)).equals(Locale.create(new LocaleQualifier(language1))));
+        assertTrue(Locale.create(new LocaleQualifier(null, language1, region1, null)).equals(Locale.create(new LocaleQualifier(null, language1, region1, null))));
+        assertFalse(Locale.create(new LocaleQualifier(null, language1, region1, null)).equals(Locale.create(new LocaleQualifier(null, language1, region2, null))));
+        assertFalse(Locale.create(new LocaleQualifier(language1)).equals(Locale.create(new LocaleQualifier(null, language1, region1, null))));
+        assertFalse(Locale.create(new LocaleQualifier(language1)).equals(Locale.create(new LocaleQualifier(language2))));
+        assertFalse(Locale.create(new LocaleQualifier(null, language1, region1, null)).equals(Locale.create(new LocaleQualifier(null, language2, region1, null))));
+        assertEquals("Locale{nb, __}", Locale.create(new LocaleQualifier(language1)).toString());
+        assertEquals("Locale{nb, NO}", Locale.create(new LocaleQualifier(null, language1, region1, null)).toString());
     }
 }

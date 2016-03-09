@@ -25,6 +25,8 @@ import com.android.ddmlib.testrunner.ITestRunListener;
 import com.android.ddmlib.testrunner.RemoteAndroidTestRunner;
 import com.android.ddmlib.testrunner.TestIdentifier;
 
+import junit.framework.TestFailure;
+
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.launch.LaunchMessages;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -447,19 +449,14 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
             mNotifier.testEnded(new TestCaseReference(mDeviceName, test));
         }
 
-        @Override
-        public void testFailed(TestFailure status, TestIdentifier test, String trace) {
-            String statusString;
-            if (status == TestFailure.ERROR) {
-                statusString = MessageIds.TEST_ERROR;
-            } else {
-                statusString = MessageIds.TEST_FAILED;
-            }
+		@Override
+		public void testFailed(TestIdentifier test, String trace) {
+            String statusString = MessageIds.TEST_FAILED;
             TestReferenceFailure failure =
                 new TestReferenceFailure(new TestCaseReference(mDeviceName, test),
                         statusString, trace, null);
             mNotifier.testFailed(failure);
-        }
+		}
 
         @Override
         public synchronized void testRunEnded(long elapsedTime, Map<String, String> runMetrics) {
@@ -490,6 +487,18 @@ public class RemoteAdtTestRunner extends RemoteTestRunner {
             TestCaseReference testId = new TestCaseReference(mDeviceName, test);
             mNotifier.testStarted(testId);
         }
+
+		@Override
+	    public void testAssumptionFailure(TestIdentifier test, String trace) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void testIgnored(TestIdentifier test) {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
     /** Override parent to get extra logs. */

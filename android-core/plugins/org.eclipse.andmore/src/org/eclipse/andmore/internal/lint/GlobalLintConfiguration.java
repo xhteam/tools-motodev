@@ -96,11 +96,11 @@ class GlobalLintConfiguration extends Configuration {
 
     @Override
     public void ignore(@NonNull Context context, @NonNull Issue issue,
-            @Nullable Location location, @NonNull String message,
-            @Nullable Object data) {
+            @Nullable Location location, @NonNull String message) {
         throw new UnsupportedOperationException(
                 "Can't ignore() in global configurations"); //$NON-NLS-1$
     }
+
 
     @Override
     public void setSeverity(@NonNull Issue issue, @Nullable Severity severity) {

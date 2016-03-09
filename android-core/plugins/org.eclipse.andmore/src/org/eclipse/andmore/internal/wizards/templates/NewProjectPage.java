@@ -388,7 +388,7 @@ public class NewProjectPage extends WizardPage
         for (IAndroidTarget target : targets) {
             if (target.isPlatform() == false &&
                     (target.getOptionalLibraries() == null ||
-                            target.getOptionalLibraries().length == 0)) {
+                            target.getOptionalLibraries().size() == 0)) {
                 continue;
             }
             list.add(target);

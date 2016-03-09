@@ -15,20 +15,22 @@
  */
 package org.eclipse.andmore.internal.editors.layout.configuration;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.resources.LocaleManager;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Maps;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
-import java.util.Locale;
-import java.util.Map;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.resources.LocaleManager;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Maps;
 
 /**
  * The {@linkplain FlagManager} provides access to flags for regions known
@@ -139,15 +141,10 @@ public class FlagManager {
      * @param region the region, or null (if null, language must not be null),
      * @return a suitable flag icon, or null
      */
-    public Image getFlag(LanguageQualifier language, RegionQualifier region) {
-        String languageCode = language != null ? language.getValue() : null;
-        String regionCode = region != null ? region.getValue() : null;
-        if (LanguageQualifier.FAKE_LANG_VALUE.equals(languageCode)) {
-            languageCode = null;
-        }
-        if (RegionQualifier.FAKE_REGION_VALUE.equals(regionCode)) {
-            regionCode = null;
-        }
+    public Image getFlag(LocaleQualifier locale) {
+        String languageCode = locale != null && locale.hasLanguage() ? locale.getLanguage() : null;
+        String regionCode = locale != null && locale.hasRegion() ? locale.getRegion() : null;
+
         return getFlag(languageCode, regionCode);
     }
 
@@ -160,22 +157,11 @@ public class FlagManager {
      */
     @Nullable
     public Image getFlagForFolderName(@NonNull String folder) {
-        RegionQualifier region = null;
-        LanguageQualifier language = null;
-        for (String qualifier : Splitter.on('-').split(folder)) {
-            if (qualifier.length() == 3) {
-                region = RegionQualifier.getQualifier(qualifier);
-                if (region != null) {
-                    break;
-                }
-            } else if (qualifier.length() == 2 && language == null) {
-                language = LanguageQualifier.getQualifier(qualifier);
-            }
-        }
-        if (region != null || language != null) {
-            return FlagManager.get().getFlag(language, region);
-        }
+        LocaleQualifier locale = FolderConfiguration.getConfigForFolder(folder).getLocaleQualifier();
 
+        if (locale != null) {
+            return FlagManager.get().getFlag(locale);
+        }
         return null;
     }
 

@@ -28,39 +28,6 @@ import static com.android.SdkConstants.SPINNER;
 import static com.android.SdkConstants.VIEW_FRAGMENT;
 import static com.android.SdkConstants.VIEW_INCLUDE;
 
-import com.android.SdkConstants;
-import com.android.ide.common.rendering.LayoutLibrary;
-import com.android.ide.common.rendering.RenderSecurityManager;
-import com.android.ide.common.rendering.api.ActionBarCallback;
-import com.android.ide.common.rendering.api.AdapterBinding;
-import com.android.ide.common.rendering.api.DataBindingItem;
-import com.android.ide.common.rendering.api.ILayoutPullParser;
-import com.android.ide.common.rendering.api.IProjectCallback;
-import com.android.ide.common.rendering.api.LayoutLog;
-import com.android.ide.common.rendering.api.ResourceReference;
-import com.android.ide.common.rendering.api.ResourceValue;
-import com.android.ide.common.rendering.api.Result;
-import com.android.ide.common.rendering.legacy.LegacyCallback;
-import com.android.ide.common.resources.ResourceResolver;
-import com.android.ide.common.xml.ManifestData;
-import com.android.resources.ResourceType;
-import com.android.util.Pair;
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
-
-import org.eclipse.andmore.AndmoreAndroidConstants;
-import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
-import org.eclipse.andmore.internal.editors.layout.gle2.LayoutMetadata;
-import org.eclipse.andmore.internal.editors.layout.gle2.RenderLogger;
-import org.eclipse.andmore.internal.editors.layout.uimodel.UiViewElementNode;
-import org.eclipse.andmore.internal.project.AndroidManifestHelper;
-import org.eclipse.andmore.internal.resources.manager.ProjectClassLoader;
-import org.eclipse.andmore.internal.resources.manager.ProjectResources;
-import org.eclipse.core.resources.IProject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,12 +40,49 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.eclipse.andmore.AndmoreAndroidConstants;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
+import org.eclipse.andmore.internal.editors.layout.gle2.LayoutMetadata;
+import org.eclipse.andmore.internal.editors.layout.gle2.RenderLogger;
+import org.eclipse.andmore.internal.editors.layout.uimodel.UiViewElementNode;
+import org.eclipse.andmore.internal.project.AndroidManifestHelper;
+import org.eclipse.andmore.internal.resources.manager.ProjectClassLoader;
+import org.eclipse.andmore.internal.resources.manager.ProjectResources;
+import org.eclipse.core.resources.IProject;
+import org.kxml2.io.KXmlParser;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import com.android.SdkConstants;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.rendering.LayoutLibrary;
+import com.android.ide.common.rendering.RenderSecurityManager;
+import com.android.ide.common.rendering.api.ActionBarCallback;
+import com.android.ide.common.rendering.api.AdapterBinding;
+import com.android.ide.common.rendering.api.DataBindingItem;
+import com.android.ide.common.rendering.api.Features;
+import com.android.ide.common.rendering.api.ILayoutPullParser;
+import com.android.ide.common.rendering.api.LayoutLog;
+import com.android.ide.common.rendering.api.LayoutlibCallback;
+import com.android.ide.common.rendering.api.ParserFactory;
+import com.android.ide.common.rendering.api.ResourceReference;
+import com.android.ide.common.rendering.api.ResourceValue;
+import com.android.ide.common.rendering.api.Result;
+import com.android.ide.common.resources.ResourceResolver;
+import com.android.ide.common.xml.ManifestData;
+import com.android.resources.ResourceType;
+import com.android.util.Pair;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+
 /**
  * Loader for Android Project class in order to use them in the layout editor.
  * <p/>This implements {@link IProjectCallback} for the old and new API through
  * {@link LegacyCallback}
  */
-public final class ProjectCallback extends LegacyCallback {
+public final class ProjectCallback extends LayoutlibCallback {
     private final HashMap<String, Class<?>> mLoadedClasses = new HashMap<String, Class<?>>();
     private final Set<String> mMissingClasses = new TreeSet<String>();
     private final Set<String> mBrokenClasses = new TreeSet<String>();
@@ -95,6 +99,8 @@ public final class ProjectCallback extends LegacyCallback {
     private ILayoutPullParser mLayoutEmbeddedParser;
     private ResourceResolver mResourceResolver;
     private GraphicalEditorPart mEditor;
+    
+    private ParserFactory parserFactory;
 
     /**
      * Creates a new {@link ProjectCallback} to be used with the layout lib.
@@ -113,6 +119,13 @@ public final class ProjectCallback extends LegacyCallback {
         mProject = project;
         mCredential = credential;
         mEditor = editor;
+		parserFactory = new ParserFactory() {
+			@Override
+			@NonNull
+			public XmlPullParser createParser(@Nullable String debugName) throws XmlPullParserException {
+				return new KXmlParser();
+			}
+		};
     }
 
     public Set<String> getMissingClasses() {
@@ -683,5 +696,36 @@ public final class ProjectCallback extends LegacyCallback {
     @Override
     public ActionBarCallback getActionBarCallback() {
         return new ActionBarHandler(mEditor);
+    }
+    
+    @Override
+    public ParserFactory getParserFactory() {
+    	return parserFactory;
+    }
+
+    @Override
+    public boolean supports(int ideFeature) {
+        switch(ideFeature) {
+            case Features.ACTION_BAR:
+            case Features.ADAPTER_BINDING:
+            case Features.ANIMATED_VIEW_MANIPULATION:
+            // Duplicate ID - case Features.FULL_ANIMATED_VIEW_MANIPULATION:
+            case Features.CUSTOM_BACKGROUND_COLOR:
+            case Features.EMBEDDED_LAYOUT:
+            case Features.EXTENDED_VIEWINFO:
+            case Features.FIXED_SCALABLE_NINE_PATCH:
+            case Features.LAYOUT_ONLY:
+            case Features.PLAY_ANIMATION:
+            case Features.PREFERENCES_RENDERING:
+            case Features.RECYCLER_VIEW_ADAPTER:
+            case Features.RENDER:
+            case Features.RENDER_ALL_DRAWABLE_STATES:
+            case Features.RTL:
+            case Features.SIMULATE_PLATFORM:
+            case Features.UNBOUND_RENDERING:
+            case Features.VIEW_MANIPULATION:
+            default:
+                return false;
+        }
     }
 }

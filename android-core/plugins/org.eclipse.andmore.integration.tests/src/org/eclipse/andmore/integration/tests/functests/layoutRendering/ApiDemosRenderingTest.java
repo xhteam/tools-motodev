@@ -25,6 +25,7 @@ import com.android.ide.common.rendering.api.AdapterBinding;
 import com.android.ide.common.rendering.api.HardwareConfig;
 import com.android.ide.common.rendering.api.ILayoutPullParser;
 import com.android.ide.common.rendering.api.IProjectCallback;
+import com.android.ide.common.rendering.api.LayoutlibCallback;
 import com.android.ide.common.rendering.api.RenderSession;
 import com.android.ide.common.rendering.api.ResourceReference;
 import com.android.ide.common.rendering.api.ResourceValue;
@@ -62,6 +63,7 @@ import com.android.resources.NavigationState;
 import com.android.resources.ResourceType;
 import com.android.resources.ScreenOrientation;
 import com.android.resources.ScreenRatio;
+import com.android.resources.ScreenRound;
 import com.android.resources.ScreenSize;
 import com.android.resources.TouchScreen;
 import com.android.sdklib.IAndroidTarget;
@@ -104,7 +106,7 @@ public class ApiDemosRenderingTest extends SdkLoadingTestCase {
 		}
 	}
 
-	private final static class ProjectCallBack implements IProjectCallback {
+	private final static class ProjectCallBack extends LayoutlibCallback {
 		// resource id counter.
 		// We start at 0x7f000000 to avoid colliding with the framework id
 		// since we have no access to the project R.java and we need to generate
@@ -176,6 +178,12 @@ public class ApiDemosRenderingTest extends SdkLoadingTestCase {
 		@Override
 		public ActionBarCallback getActionBarCallback() {
 			return new ActionBarCallback();
+		}
+
+		@Override
+		public boolean supports(int ideFeature) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	}
 
@@ -264,7 +272,7 @@ public class ApiDemosRenderingTest extends SdkLoadingTestCase {
 
 			HardwareConfig hardwareConfig = new HardwareConfig(320, 480, Density.MEDIUM, 160, // xdpi
 					160, // ydpi
-					ScreenSize.NORMAL, ScreenOrientation.PORTRAIT, false /*
+					ScreenSize.NORMAL, ScreenOrientation.PORTRAIT, ScreenRound.NOTROUND, false /*
 																		 * software
 																		 * buttons
 																		 */);

@@ -18,18 +18,14 @@ package org.eclipse.andmore.internal.lint;
 import static com.android.SdkConstants.DOT_JAVA;
 import static com.android.SdkConstants.DOT_XML;
 
-import com.android.tools.lint.client.api.Configuration;
-import com.android.tools.lint.client.api.DefaultConfiguration;
-import com.android.tools.lint.client.api.IssueRegistry;
-import com.android.tools.lint.detector.api.Issue;
-import com.android.tools.lint.detector.api.Issue.OutputFormat;
-import com.android.tools.lint.detector.api.Project;
-import com.android.tools.lint.detector.api.Severity;
-import com.android.utils.SdkUtils;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.andmore.AdtUtils;
 import org.eclipse.andmore.internal.editors.AndroidXmlEditor;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.core.resources.IFile;
@@ -60,10 +56,14 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.android.tools.lint.client.api.Configuration;
+import com.android.tools.lint.client.api.DefaultConfiguration;
+import com.android.tools.lint.client.api.IssueRegistry;
+import com.android.tools.lint.detector.api.Issue;
+import com.android.tools.lint.detector.api.Project;
+import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.TextFormat;
+import com.android.utils.SdkUtils;
 
 /**
  * A quickfix and marker resolution for disabling lint checks, and any
@@ -489,12 +489,12 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
             sb.append('\n').append('\n');
             sb.append("Issue Explanation:");
             sb.append('\n');
-            String explanation = issue.getExplanation(Issue.OutputFormat.TEXT);
+            String explanation = issue.getExplanation(TextFormat.TEXT);
             if (explanation != null && !explanation.isEmpty()) {
                 sb.append('\n');
                 sb.append(explanation);
             } else {
-                sb.append(issue.getDescription(Issue.OutputFormat.TEXT));
+                sb.append(issue.getBriefDescription(TextFormat.TEXT));
             }
 
             if (issue.getMoreInfo() != null) {
@@ -546,7 +546,7 @@ public class LintFixGenerator implements IMarkerResolutionGenerator2, IQuickAssi
             return "Provides more information about this issue."
                     + "<br><br>" //$NON-NLS-1$
                     + EclipseLintClient.getRegistry().getIssue(mId).getExplanation(
-                            OutputFormat.HTML);
+                            TextFormat.HTML);
         }
 
         @Override

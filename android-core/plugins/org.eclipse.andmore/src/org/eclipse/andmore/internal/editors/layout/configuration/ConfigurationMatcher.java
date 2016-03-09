@@ -15,15 +15,32 @@
  */
 package org.eclipse.andmore.internal.editors.layout.configuration;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
+import org.eclipse.andmore.internal.resources.manager.ProjectResources;
+import org.eclipse.andmore.internal.resources.manager.ResourceManager;
+import org.eclipse.andmore.internal.sdk.Sdk;
+import org.eclipse.andmore.io.IFileWrapper;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.ui.IEditorPart;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.configuration.DensityQualifier;
 import com.android.ide.common.resources.configuration.DeviceConfigHelper;
 import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
 import com.android.ide.common.resources.configuration.NightModeQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
 import com.android.ide.common.resources.configuration.ResourceQualifier;
 import com.android.ide.common.resources.configuration.ScreenOrientationQualifier;
 import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
@@ -41,24 +58,6 @@ import com.android.sdklib.devices.State;
 import com.android.sdklib.repository.PkgProps;
 import com.android.utils.Pair;
 import com.android.utils.SparseIntArray;
-
-import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.andmore.AdtUtils;
-import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
-import org.eclipse.andmore.internal.resources.manager.ProjectResources;
-import org.eclipse.andmore.internal.resources.manager.ResourceManager;
-import org.eclipse.andmore.internal.sdk.Sdk;
-import org.eclipse.andmore.io.IFileWrapper;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.ui.IEditorPart;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Produces matches for configurations
@@ -205,8 +204,7 @@ public class ConfigurationMatcher {
                         Locale locale = localeList.get(i);
 
                         // update the test config with the locale qualifiers
-                        testConfig.setLanguageQualifier(locale.language);
-                        testConfig.setRegionQualifier(locale.region);
+                        testConfig.setLocaleQualifier(locale.locale);
 
                         if (editedConfig.isMatchFor(testConfig) &&
                                 isCurrentFileBestMatchFor(testConfig)) {
@@ -273,7 +271,7 @@ public class ConfigurationMatcher {
         // However, if it doesn't, we don't randomly take the first locale, we take one
         // matching the current host locale (making sure it actually exist in the project)
         int start, max;
-        if (editedConfig.getLanguageQualifier() != null || localeHostMatch == -1) {
+        if (editedConfig.getLocaleQualifier() != null || localeHostMatch == -1) {
             // add all the locales
             start = 0;
             max = localeList.size();
@@ -287,8 +285,7 @@ public class ConfigurationMatcher {
             Locale l = localeList.get(i);
 
             ConfigBundle bundle = new ConfigBundle();
-            bundle.config.setLanguageQualifier(l.language);
-            bundle.config.setRegionQualifier(l.region);
+            bundle.config.setLocaleQualifier(l.locale);
 
             bundle.localeIndex = i;
             configBundles.add(bundle);
@@ -459,16 +456,13 @@ public class ConfigurationMatcher {
             final int count = localeList.size();
             for (int l = 0; l < count; l++) {
                 Locale locale = localeList.get(l);
-                LanguageQualifier langQ = locale.language;
-                RegionQualifier regionQ = locale.region;
+                LocaleQualifier localeQ = locale.locale;
 
                 // there's always a ##/Other or ##/Any (which is the same, the region
                 // contains FAKE_REGION_VALUE). If we don't find a perfect region match
                 // we take the fake region. Since it's last in the list, this makes the
                 // test easy.
-                if (langQ.getValue().equals(currentLanguage) &&
-                        (regionQ.getValue().equals(currentRegion) ||
-                         regionQ.getValue().equals(RegionQualifier.FAKE_REGION_VALUE))) {
+                if (localeQ.getLanguage().equals(currentLanguage) && (localeQ.getRegion().equals(currentRegion) || localeQ.hasRegion())) { 
                     return l;
                 }
             }

@@ -49,7 +49,7 @@ class TestCollector implements ITestRunListener {
      * @see com.android.ddmlib.testrunner.ITestRunListener#testFailed(com.android.ddmlib.testrunner.ITestRunListener.TestFailure, com.android.ddmlib.testrunner.TestIdentifier, java.lang.String)
      */
     @Override
-    public synchronized void testFailed(TestFailure status, TestIdentifier test, String trace) {
+    public synchronized void testFailed(TestIdentifier test, String trace) {
         // ignore - should be impossible since this is only collecting test information
     }
 
@@ -117,4 +117,16 @@ class TestCollector implements ITestRunListener {
     public TestSuiteReference getDeviceSuite() {
         return mDeviceSuiteRef;
     }
+
+	@Override
+	public void testAssumptionFailure(TestIdentifier test, String trace) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void testIgnored(TestIdentifier test) {
+		// TODO Auto-generated method stub
+		
+	}
 }

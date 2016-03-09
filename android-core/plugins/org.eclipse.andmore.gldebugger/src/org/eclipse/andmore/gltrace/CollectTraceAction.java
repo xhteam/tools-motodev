@@ -49,6 +49,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.ide.IDE;
 
+import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -250,7 +251,7 @@ public class CollectTraceAction implements IWorkbenchWindowActionDelegate {
 		} catch (IOException e) {
 			MessageDialog.openError(shell, "OpenGL Trace",
 					"Unable to connect to remote GL Trace Server: " + e.getMessage());
-			Closeables.closeQuietly(fos);
+			closeQuietly(fos);
 			return;
 		}
 
@@ -263,7 +264,7 @@ public class CollectTraceAction implements IWorkbenchWindowActionDelegate {
 			MessageDialog.openError(shell, "OpenGL Trace",
 					"Unexpected error while setting trace options: " + e.getMessage());
 			closeSocket(socket);
-			Closeables.closeQuietly(fos);
+			closeQuietly(fos);
 			return;
 		}
 
@@ -278,6 +279,14 @@ public class CollectTraceAction implements IWorkbenchWindowActionDelegate {
 		traceFileWriter.stopTracing();
 		traceCommandWriter.close();
 		closeSocket(socket);
+	}
+	
+	private static void closeQuietly(Closeable closeable) {
+		try {
+			closeable.close();
+		} catch (Exception e) {
+			// do nothing
+		}
 	}
 
 	private static void closeSocket(Socket socket) {

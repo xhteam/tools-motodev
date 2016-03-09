@@ -15,11 +15,9 @@
  */
 package org.eclipse.andmore.internal.editors.layout.configuration;
 
-import static com.android.ide.common.resources.configuration.LanguageQualifier.FAKE_LANG_VALUE;
-import static com.android.ide.common.resources.configuration.RegionQualifier.FAKE_REGION_VALUE;
 
 import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
 import com.android.resources.Density;
 import com.android.sdklib.devices.Device;
 import com.android.sdklib.devices.DeviceManager;
@@ -27,7 +25,7 @@ import com.android.sdklib.devices.Screen;
 import com.android.utils.StdLogger;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
+import java.util.Collection;
 
 import junit.framework.TestCase;
 
@@ -52,27 +50,27 @@ public class ConfigurationTest extends TestCase {
         DeviceManager deviceManager = DeviceManager.createInstance(
                                                         null /*osSdkPath*/,
                                                         new StdLogger(StdLogger.Level.VERBOSE));
-        List<Device> devices = deviceManager.getDevices(DeviceManager.DeviceFilter.DEFAULT);
+        Collection<Device> devices = deviceManager.getDevices(DeviceManager.DeviceFilter.DEFAULT);
         assertNotNull(devices);
         assertTrue(devices.size() > 0);
-        configuration.setDevice(devices.get(0), false);
+        configuration.setDevice(getQVGA(devices), false);
 
         // Check syncing
         FolderConfiguration folderConfig = configuration.getFullConfig();
-        assertEquals(FAKE_LANG_VALUE, folderConfig.getLanguageQualifier().getValue());
-        assertEquals(FAKE_REGION_VALUE, folderConfig.getRegionQualifier().getValue());
+        assertFalse(folderConfig.getLocaleQualifier().hasLanguage());
+        assertFalse(folderConfig.getLocaleQualifier().hasRegion());
         assertEquals(Locale.ANY, configuration.getLocale());
 
-        Locale language = Locale.create(new LanguageQualifier("nb"));
+        Locale language = Locale.create(new LocaleQualifier("nb"));
         configuration.setLocale(language, true /* skipSync */);
-        assertEquals(FAKE_LANG_VALUE, folderConfig.getLanguageQualifier().getValue());
-        assertEquals(FAKE_REGION_VALUE, folderConfig.getRegionQualifier().getValue());
+        assertFalse(folderConfig.getLocaleQualifier().hasLanguage());
+        assertFalse(folderConfig.getLocaleQualifier().hasRegion());
 
         configuration.setLocale(language, false /* skipSync */);
-        assertEquals(FAKE_REGION_VALUE, folderConfig.getRegionQualifier().getValue());
-        assertEquals("nb", folderConfig.getLanguageQualifier().getValue());
+        assertFalse(folderConfig.getLocaleQualifier().hasRegion());
+        assertEquals("nb", folderConfig.getLocaleQualifier().getLanguage());
 
-        assertEquals("2.7\" QVGA::nb-__:+Theme::notnight::", configuration.toPersistentString());
+        assertEquals("2.7\" QVGA::nb:+Theme::notnight::", configuration.toPersistentString());
 
         configuration.setActivity("foo.bar.FooActivity");
         configuration.setTheme("@android:style/Theme.Holo.Light");
@@ -95,13 +93,23 @@ public class ConfigurationTest extends TestCase {
         assertEquals("foo.bar.FooActivity",
                 ConfigurationChooser.getActivityLabel(configuration.getActivity(), false));
 
-        assertEquals("2.7\" QVGA::nb-__:-Theme.Holo.Light::notnight::foo.bar.FooActivity",
+        assertEquals("2.7\" QVGA::nb:-Theme.Holo.Light::notnight::foo.bar.FooActivity",
                 configuration.toPersistentString());
 
         assertEquals(Density.MEDIUM, configuration.getDensity());
         Screen screen = configuration.getDevice().getDefaultHardware().getScreen();
         assertEquals(145.0f, screen.getXdpi(), 0.001);
         assertEquals(145.0f, screen.getYdpi(), 0.001);
+    }
+
+    private Device getQVGA(Iterable<Device> devices) {
+        for (Device device : devices) {
+            if ("2.7in QVGA".equals(device.getId())) {
+                return device;
+            }
+        }
+        fail("Unable to locate QVGA device");
+        return null;
     }
 
     public void testCopy() throws Exception {
@@ -112,30 +120,30 @@ public class ConfigurationTest extends TestCase {
         DeviceManager deviceManager = DeviceManager.createInstance(
                                             null /*osSdkPath*/,
                                             new StdLogger(StdLogger.Level.VERBOSE));
-        List<Device> devices = deviceManager.getDevices(DeviceManager.DeviceFilter.DEFAULT);
+        Device[] devices = deviceManager.getDevices(DeviceManager.DeviceFilter.DEFAULT).toArray(new Device[0]);
         assertNotNull(devices);
-        assertTrue(devices.size() > 0);
-        configuration.setDevice(devices.get(0), false);
+        assertTrue(devices.length > 0);
+        configuration.setDevice(devices[0], false);
         configuration.setActivity("foo.bar.FooActivity");
         configuration.setTheme("@android:style/Theme.Holo.Light");
-        Locale locale = Locale.create(new LanguageQualifier("nb"));
+        Locale locale = Locale.create(new LocaleQualifier("nb"));
         configuration.setLocale(locale, false /* skipSync */);
 
         Configuration copy = Configuration.copy(configuration);
         assertEquals(locale, copy.getLocale());
         assertEquals("foo.bar.FooActivity", copy.getActivity());
         assertEquals("@android:style/Theme.Holo.Light", copy.getTheme());
-        assertEquals(devices.get(0), copy.getDevice());
+        assertEquals(devices[0], copy.getDevice());
 
         // Make sure edits to master does not affect the child
         configuration.setLocale(Locale.ANY, false);
         configuration.setTheme("@android:style/Theme.Holo");
-        configuration.setDevice(devices.get(1), true);
+        configuration.setDevice(devices[1], true);
 
-        assertTrue(copy.getFullConfig().getLanguageQualifier().equals(locale.language));
+        assertTrue(copy.getFullConfig().getLocaleQualifier().equals(locale.locale));
         assertEquals(locale, copy.getLocale());
         assertEquals("foo.bar.FooActivity", copy.getActivity());
         assertEquals("@android:style/Theme.Holo.Light", copy.getTheme());
-        assertEquals(devices.get(0), copy.getDevice());
+        assertEquals(devices[0], copy.getDevice());
     }
 }

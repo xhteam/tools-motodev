@@ -16,14 +16,11 @@
 
 package org.eclipse.andmore.internal.sdk;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.rendering.LayoutLibrary;
-import com.android.ide.common.rendering.api.LayoutLog;
-import com.android.ide.common.resources.ResourceRepository;
-import com.android.ide.common.sdk.LoadStatus;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.common.resources.platform.AttributeInfo;
@@ -40,10 +37,14 @@ import org.eclipse.andmore.internal.editors.values.descriptors.ValuesDescriptors
 import org.eclipse.andmore.internal.resources.manager.ProjectResources;
 import org.eclipse.core.runtime.IStatus;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Map;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.rendering.LayoutLibrary;
+import com.android.ide.common.rendering.api.LayoutLog;
+import com.android.ide.common.resources.ResourceRepository;
+import com.android.ide.common.sdk.LoadStatus;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.IAndroidTarget.OptionalLibrary;
 
 /**
  * This class contains the data of an Android Target as loaded from the SDK.
@@ -138,7 +139,7 @@ public class AndroidTargetData {
             String[] serviceIntentActionValues,
             String[] intentCategoryValues,
             String[] platformLibraries,
-            IOptionalLibrary[] optionalLibraries,
+            List<OptionalLibrary> optionalLibraries,
             ResourceRepository frameworkResources,
             LayoutLibrary layoutLibrary) {
 
@@ -379,7 +380,7 @@ public class AndroidTargetData {
     }
 
     private void setOptionalLibraries(String[] platformLibraries,
-            IOptionalLibrary[] optionalLibraries) {
+            List<OptionalLibrary> optionalLibraries) {
 
         ArrayList<String> libs = new ArrayList<String>();
 
@@ -390,8 +391,8 @@ public class AndroidTargetData {
         }
 
         if (optionalLibraries != null) {
-            for (int i = 0; i < optionalLibraries.length; i++) {
-                libs.add(optionalLibraries[i].getName());
+            for (OptionalLibrary optionalLibrary : optionalLibraries) {
+                libs.add(optionalLibrary.getName());
             }
         }
         setValues("(uses-library,android:name)",  libs.toArray(new String[libs.size()]));

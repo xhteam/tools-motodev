@@ -42,6 +42,7 @@ import com.android.tools.lint.detector.api.Location.Handle;
 import com.android.tools.lint.detector.api.Position;
 import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.TextFormat;
 import com.android.tools.lint.detector.api.XmlContext;
 import com.android.utils.Pair;
 import com.android.utils.SdkUtils;
@@ -292,6 +293,18 @@ public class EclipseLintClient extends LintClient {
                     model.releaseFromRead();
                 }
             }
+
+			@Override
+			public Location getNameLocation(XmlContext arg0, Node arg1) {
+				// TODO Auto-generated method stub
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Location getValueLocation(XmlContext arg0, Attr arg1) {
+				// TODO Auto-generated method stub
+				throw new UnsupportedOperationException();
+			}
         };
     }
 
@@ -352,12 +365,6 @@ public class EclipseLintClient extends LintClient {
         return super.getProjectName(project);
     }
 
-    @NonNull
-    @Override
-    public Configuration getConfiguration(@NonNull Project project) {
-        return getConfigurationFor(project);
-    }
-
     /**
      * Same as {@link #getConfiguration(Project)}, but {@code project} can be
      * null in which case the global configuration is returned.
@@ -376,10 +383,11 @@ public class EclipseLintClient extends LintClient {
 
         return GlobalLintConfiguration.get();
     }
+
     @Override
     public void report(@NonNull Context context, @NonNull Issue issue, @NonNull Severity s,
             @Nullable Location location,
-            @NonNull String message, @Nullable Object data) {
+            @NonNull String message, TextFormat arg5) {
         int severity = getMarkerSeverity(s);
         IMarker marker = null;
         if (location != null) {
@@ -666,8 +674,8 @@ public class EclipseLintClient extends LintClient {
             return "";
         }
 
-        String summary = issue.getDescription(Issue.OutputFormat.TEXT);
-        String explanation = issue.getExplanation(Issue.OutputFormat.TEXT);
+        String summary = issue.getBriefDescription(TextFormat.TEXT);
+        String explanation = issue.getExplanation(TextFormat.TEXT);
 
         StringBuilder sb = new StringBuilder(summary.length() + explanation.length() + 20);
         try {
@@ -888,7 +896,7 @@ public class EclipseLintClient extends LintClient {
                 libraries = super.getClassPath(project).getLibraries();
             }
 
-            info = new ClassPathInfo(sources, classes, libraries);
+            info = new ClassPathInfo(sources, classes, libraries, null);
             mProjectInfo.put(project, info);
         }
 
