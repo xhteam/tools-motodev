@@ -58,6 +58,11 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
 		ife.setValidRange(1024, 32767);
 		addField(ife);
 
+		ife = new IntegerFieldEditor(PreferenceInitializer.ATTR_SELECTED_DEBUG_PORT,
+				Messages.PreferencePage_Selected_Debugger_Port, getFieldEditorParent());
+		ife.setValidRange(1024, 32767);
+		addField(ife);
+
 		BooleanFieldEditor bfe;
 
 		bfe = new BooleanFieldEditor(PreferenceInitializer.ATTR_DEFAULT_THREAD_UPDATE,

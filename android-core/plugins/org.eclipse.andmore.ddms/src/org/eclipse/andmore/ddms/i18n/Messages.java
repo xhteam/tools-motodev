@@ -96,6 +96,7 @@ public class Messages extends NLS {
 	public static String PreferencePage_Adbhost_value;
 	public static String PreferencePage_Assert;
 	public static String PreferencePage_Base_Local_Debugger_Port;
+	public static String PreferencePage_Selected_Debugger_Port;
 	public static String PreferencePage_Debug;
 	public static String PreferencePage_Error;
 	public static String PreferencePage_Heap_Updates_Enabled_Default;
