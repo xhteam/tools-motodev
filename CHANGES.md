@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5-M6
+
+This milestone adds a field in the DDMS preference page for selecting the debug port.
+
+* [489253](https://bugs.eclipse.org/bugs/show_bug.cgi?id=489253) Add Preference Page Entry for Selected Debug Port
+
 ## 0.5-M5
 
 This milestone fixes the Signing and Keys view and provides it as a separate installable feature on the update site.
