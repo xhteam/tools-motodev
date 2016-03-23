@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.5-M5
+
+This milestone fixes the Signing and Keys view and provides it as a separate installable feature on the update site.
+
+* [484461](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484461) APK signing is broken
+* [484462](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484462) "Signing and Keys" view as a separate installable feature
+* [484560](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484560) ADT XML Overlay uses non-standard Bundle-SymbolicName: overlay.org.eclipse.andmore.overlay
+* [484667](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484667) Fix plugin and features vendor/provider name
+* [484689](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484689) Feature names to comply with Android trademark
+
 ## 0.5-M4
 
 This milestone fixes a build error against the Eclipse Neon release.
