@@ -271,7 +271,7 @@ public class ManifestInfoTest extends AdtProjectTest {
 		}
 
 		@Override
-		public IOptionalLibrary[] getOptionalLibraries() {
+		public List<OptionalLibrary> getOptionalLibraries() {
 			return null;
 		}
 
@@ -378,6 +378,12 @@ public class ManifestInfoTest extends AdtProjectTest {
 
 		@Override
 		public BuildToolInfo getBuildToolInfo() {
+			return null;
+		}
+
+		@Override
+		public List<OptionalLibrary> getAdditionalLibraries() {
+			// TODO Auto-generated method stub
 			return null;
 		}
 	}

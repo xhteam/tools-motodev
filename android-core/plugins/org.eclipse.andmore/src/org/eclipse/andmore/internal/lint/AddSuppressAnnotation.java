@@ -349,7 +349,7 @@ class AddSuppressAnnotation implements IMarkerResolution2 {
                 Scope.CLASS_FILE);
 
         // Don't offer to suppress (with an annotation) the annotation checks
-        if (issue == AnnotationDetector.ISSUE) {
+        if (issue == AnnotationDetector.INSIDE_METHOD) {
             return;
         }
 

@@ -16,6 +16,24 @@
 package org.eclipse.andmore.internal.lint;
 
 
+import java.lang.reflect.Constructor;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.contentassist.IContextInformation;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.checks.AccessibilityDetector;
@@ -36,25 +54,7 @@ import com.android.tools.lint.checks.TypographyDetector;
 import com.android.tools.lint.checks.UseCompoundDrawableDetector;
 import com.android.tools.lint.checks.UselessViewDetector;
 import com.android.tools.lint.detector.api.Issue;
-import com.android.tools.lint.detector.api.Issue.OutputFormat;
-
-import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.contentassist.ICompletionProposal;
-import org.eclipse.jface.text.contentassist.IContextInformation;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-
-import java.lang.reflect.Constructor;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.android.tools.lint.detector.api.TextFormat;
 
 abstract class LintFix implements ICompletionProposal {
     protected final IMarker mMarker;
@@ -110,7 +110,7 @@ abstract class LintFix implements ICompletionProposal {
     public String getAdditionalProposalInfo() {
         Issue issue = EclipseLintClient.getRegistry().getIssue(mId);
         if (issue != null) {
-            return issue.getExplanation(OutputFormat.HTML);
+            return issue.getExplanation(TextFormat.HTML);
         }
 
         return null;

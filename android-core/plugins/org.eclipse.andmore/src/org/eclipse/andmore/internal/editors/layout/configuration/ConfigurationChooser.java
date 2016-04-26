@@ -33,42 +33,24 @@ import static org.eclipse.andmore.internal.editors.layout.configuration.Configur
 import static org.eclipse.andmore.internal.editors.layout.configuration.Configuration.CFG_THEME;
 import static org.eclipse.andmore.internal.editors.layout.configuration.Configuration.MASK_ALL;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.rendering.api.ResourceValue;
-import com.android.ide.common.rendering.api.StyleResourceValue;
-import com.android.ide.common.resources.LocaleManager;
-import com.android.ide.common.resources.ResourceFile;
-import com.android.ide.common.resources.ResourceFolder;
-import com.android.ide.common.resources.ResourceRepository;
-import com.android.ide.common.resources.configuration.DeviceConfigHelper;
-import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.RegionQualifier;
-import com.android.ide.common.resources.configuration.ResourceQualifier;
-import com.android.ide.common.sdk.LoadStatus;
-import com.android.resources.ResourceType;
-import com.android.resources.ScreenOrientation;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.devices.Device;
-import com.android.sdklib.devices.DeviceManager;
-import com.android.sdklib.devices.DeviceManager.DevicesChangedListener;
-import com.android.sdklib.devices.State;
-import com.android.utils.Pair;
-import com.google.common.base.Objects;
-import com.google.common.base.Strings;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
 
-import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlDelegate;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.LayoutEditorDelegate;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.editors.layout.gle2.GraphicalEditorPart;
-import org.eclipse.andmore.internal.editors.layout.gle2.LayoutCanvas;
 import org.eclipse.andmore.internal.editors.layout.gle2.IncludeFinder.Reference;
+import org.eclipse.andmore.internal.editors.layout.gle2.LayoutCanvas;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttributes;
 import org.eclipse.andmore.internal.resources.ResourceHelper;
@@ -97,13 +79,30 @@ import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.rendering.api.ResourceValue;
+import com.android.ide.common.rendering.api.StyleResourceValue;
+import com.android.ide.common.resources.LocaleManager;
+import com.android.ide.common.resources.ResourceFile;
+import com.android.ide.common.resources.ResourceFolder;
+import com.android.ide.common.resources.ResourceRepository;
+import com.android.ide.common.resources.configuration.DeviceConfigHelper;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.android.ide.common.resources.configuration.ResourceQualifier;
+import com.android.ide.common.sdk.LoadStatus;
+import com.android.resources.ResourceType;
+import com.android.resources.ScreenOrientation;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.devices.Device;
+import com.android.sdklib.devices.DeviceManager;
+import com.android.sdklib.devices.DeviceManager.DevicesChangedListener;
+import com.android.sdklib.devices.State;
+import com.android.utils.Pair;
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 /**
  * The {@linkplain ConfigurationChooser} allows the user to pick a
@@ -1333,7 +1332,7 @@ public class ConfigurationChooser extends Composite
             }
         }
 
-        String languageCode = locale.language.getValue();
+        String languageCode = locale.locale.getLanguage();
         String languageName = LocaleManager.getLanguageName(languageCode);
 
         if (!locale.hasRegion()) {
@@ -1350,7 +1349,7 @@ public class ConfigurationChooser extends Composite
                 return languageCode;
             }
         } else {
-            String regionCode = locale.region.getValue();
+            String regionCode = locale.locale.getRegion();
             if (!brief && languageName != null) {
                 String regionName = LocaleManager.getRegionName(regionCode);
                 if (regionName != null) {
@@ -1905,18 +1904,15 @@ public class ConfigurationChooser extends Composite
                 languages = projectRes.getLanguages();
 
                 for (String language : languages) {
-                    LanguageQualifier langQual = new LanguageQualifier(language);
-
                     // find the matching regions and add them
                     SortedSet<String> regions = projectRes.getRegions(language);
                     for (String region : regions) {
-                        RegionQualifier regionQual = new RegionQualifier(region);
-                        mLocaleList.add(Locale.create(langQual, regionQual));
+                        mLocaleList.add(Locale.create(new LocaleQualifier(null, language, region, null)));
                     }
 
                     // now the entry for the other regions the language alone
                     // create a region qualifier that will never be matched by qualified resources.
-                    mLocaleList.add(Locale.create(langQual));
+                    mLocaleList.add(Locale.create(new LocaleQualifier(null, language, null, null)));
                 }
             }
 

@@ -19,21 +19,23 @@ package org.eclipse.andmore.internal.assetstudio;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.eclipse.andmore.internal.wizards.templates.NewProjectWizard.DEFAULT_LAUNCHER_ICON;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.assetstudiolib.ActionBarIconGenerator;
-import com.android.assetstudiolib.GraphicGenerator;
-import com.android.assetstudiolib.GraphicGenerator.Shape;
-import com.android.assetstudiolib.LauncherIconGenerator;
-import com.android.assetstudiolib.MenuIconGenerator;
-import com.android.assetstudiolib.NotificationIconGenerator;
-import com.android.assetstudiolib.TabIconGenerator;
-import com.android.assetstudiolib.TextRenderUtil;
-import com.android.assetstudiolib.Util;
-import com.android.utils.Pair;
+import java.awt.Paint;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import org.eclipse.andmore.AndmoreAndroidPlugin;
+import javax.imageio.ImageIO;
+
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.assetstudio.CreateAssetSetWizardState.SourceType;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageControl;
 import org.eclipse.andmore.internal.editors.layout.gle2.ImageUtils;
@@ -81,20 +83,18 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Text;
 
-import java.awt.Paint;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.imageio.ImageIO;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.assetstudiolib.ActionBarIconGenerator;
+import com.android.assetstudiolib.GraphicGenerator;
+import com.android.assetstudiolib.GraphicGenerator.Shape;
+import com.android.assetstudiolib.LauncherIconGenerator;
+import com.android.assetstudiolib.MenuIconGenerator;
+import com.android.assetstudiolib.NotificationIconGenerator;
+import com.android.assetstudiolib.TabIconGenerator;
+import com.android.assetstudiolib.TextRenderUtil;
+import com.android.ide.common.util.AssetUtil;
+import com.android.utils.Pair;
 
 /**
  * This is normally page 2 of a Create New Asset Set wizard, unless we can offer actions
@@ -772,7 +772,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                     };
                     Display display = chooserForm.getDisplay();
                     Color hoverColor = display.getSystemColor(SWT.COLOR_RED);
-                    Iterator<String> clipartImages = GraphicGenerator.getClipartNames();
+                    Iterator<String> clipartImages = GraphicGenerator.getResourcesNames("images/clipart/big/", ".png");
                     while (clipartImages.hasNext()) {
                         String name = clipartImages.next();
                         try {
@@ -1048,7 +1048,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                             sourceImage = ImageUtils.cropBlank(sourceImage, null, TYPE_INT_ARGB);
                         }
                         if (mValues.padding != 0) {
-                            sourceImage = Util.paddedImage(sourceImage, mValues.padding);
+                            sourceImage = AssetUtil.paddedImage(sourceImage, mValues.padding);
                         }
                     }
                 } catch (IOException ioe) {
@@ -1071,12 +1071,12 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
                         RGB fg = mValues.foreground;
                         int color = 0xFF000000 | (fg.red << 16) | (fg.green << 8) | fg.blue;
                         Paint paint = new java.awt.Color(color);
-                        sourceImage = Util.filledImage(sourceImage, paint);
+                        sourceImage = AssetUtil.filledImage(sourceImage, paint);
                     }
 
                     int padding = mValues.padding;
                     if (padding != 0 && !isActionBar) {
-                        sourceImage = Util.paddedImage(sourceImage, padding);
+                        sourceImage = AssetUtil.paddedImage(sourceImage, padding);
                     }
                 } catch (IOException e) {
                     AndmoreAndroidPlugin.log(e, null);
@@ -1104,7 +1104,7 @@ public class ConfigureAssetSetPage extends WizardPage implements SelectionListen
 
                 int padding = mValues.padding;
                 if (padding != 0) {
-                    sourceImage = Util.paddedImage(sourceImage, padding);
+                    sourceImage = AssetUtil.paddedImage(sourceImage, padding);
                 }
                 break;
             }

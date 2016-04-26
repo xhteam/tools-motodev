@@ -16,6 +16,7 @@
 package org.eclipse.andmore.internal.lint;
 
 import com.android.tools.lint.checks.TypoDetector;
+import com.android.tools.lint.detector.api.TextFormat;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.core.resources.IMarker;
@@ -58,11 +59,11 @@ final class TypoFix extends DocumentFix {
     protected void apply(IDocument document, IStructuredModel model, Node node,
             int start, int end) {
         String message = mMarker.getAttribute(IMarker.MESSAGE, "");
-        String typo = TypoDetector.getTypo(message);
+        String typo = TypoDetector.getTypo(message, TextFormat.TEXT);
         if (typo == null) {
             return;
         }
-        List<String> replacements = TypoDetector.getSuggestions(message);
+        List<String> replacements = TypoDetector.getSuggestions(message, TextFormat.TEXT);
         if (replacements == null || replacements.isEmpty()) {
             return;
         }
@@ -103,8 +104,8 @@ final class TypoFix extends DocumentFix {
     @Override
     protected List<LintFix> getAllFixes() {
         String message = mMarker.getAttribute(IMarker.MESSAGE, "");
-        String typo = TypoDetector.getTypo(message);
-        List<String> replacements = TypoDetector.getSuggestions(message);
+        String typo = TypoDetector.getTypo(message, TextFormat.TEXT);
+        List<String> replacements = TypoDetector.getSuggestions(message, TextFormat.TEXT);
         if (replacements != null && !replacements.isEmpty() && typo != null) {
             List<LintFix> allFixes = new ArrayList<LintFix>(replacements.size());
             for (String replacement : replacements) {

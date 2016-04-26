@@ -11,7 +11,7 @@ Bundle-ClassPath: .,
  libs/asset-studio.jar,
  libs/lint-api.jar,
  libs/lint-checks.jar,
- libs/lombok-ast-0.2.2.jar,
+ libs/lombok-ast-0.2.3.jar,
  libs/propertysheet.jar,
  libs/ant-glob.jar,
  libs/swtmenubar.jar,
@@ -133,7 +133,9 @@ Export-Package: com.android.manifmerger;x-friends:="org.eclipse.andmore.integrat
  org.eclipse.andmore.internal.wizards.templates;x-friends:="org.eclipse.andmore.integration.tests",
  org.eclipse.andmore.io;x-friends:="org.eclipse.andmore.integration.tests"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.ibm.icu.text,
+Import-Package: com.android.tools.lint.detector.api,
+ com.ibm.icu.text,
+ junit.framework,
  org.eclipse.core.variables
 
 

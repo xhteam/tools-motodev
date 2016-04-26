@@ -26,24 +26,18 @@ import static org.eclipse.andmore.internal.editors.layout.gle2.RenderPreviewMode
 import static org.eclipse.andmore.internal.editors.layout.gle2.RenderPreviewMode.NONE;
 import static org.eclipse.andmore.internal.editors.layout.gle2.RenderPreviewMode.SCREENS;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ide.common.api.Rect;
-import com.android.ide.common.rendering.api.Capability;
-import com.android.ide.common.resources.configuration.DensityQualifier;
-import com.android.ide.common.resources.configuration.DeviceConfigHelper;
-import com.android.ide.common.resources.configuration.FolderConfiguration;
-import com.android.ide.common.resources.configuration.LanguageQualifier;
-import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
-import com.android.resources.Density;
-import com.android.resources.ScreenSize;
-import com.android.sdklib.devices.Device;
-import com.android.sdklib.devices.Screen;
-import com.android.sdklib.devices.State;
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
+import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.common.CommonXmlEditor;
 import org.eclipse.andmore.internal.editors.layout.configuration.Configuration;
@@ -70,15 +64,21 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ide.common.api.Rect;
+import com.android.ide.common.rendering.api.Capability;
+import com.android.ide.common.resources.configuration.DensityQualifier;
+import com.android.ide.common.resources.configuration.DeviceConfigHelper;
+import com.android.ide.common.resources.configuration.FolderConfiguration;
+import com.android.ide.common.resources.configuration.LocaleQualifier;
+import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
+import com.android.resources.Density;
+import com.android.resources.ScreenSize;
+import com.android.sdklib.devices.Device;
+import com.android.sdklib.devices.Screen;
+import com.android.sdklib.devices.State;
+import com.google.common.collect.Lists;
 
 /**
  * Manager for the configuration previews, which handles layout computations,
@@ -800,10 +800,10 @@ public class RenderPreviewManager {
     }
 
     private void createLocaleVariation(ConfigurationChooser chooser, Configuration parent) {
-        LanguageQualifier currentLanguage = parent.getLocale().language;
+    	LocaleQualifier currentLocale = parent.getLocale().locale;
         for (Locale locale : chooser.getLocaleList()) {
-            LanguageQualifier language = locale.language;
-            if (!language.equals(currentLanguage)) {
+        	String language = locale.locale.getLanguage();
+        	if (!language.equals(currentLocale.getLanguage())) {
                 VaryingConfiguration configuration =
                         VaryingConfiguration.create(chooser, parent);
                 configuration.setAlternateLocale(true);

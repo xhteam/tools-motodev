@@ -53,6 +53,7 @@ import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.TextFormat;
 import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
@@ -170,8 +171,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 
 	@Test
 	public void testNewBlankProject() throws Exception {
-		Stopwatch stopwatch = new Stopwatch();
-		stopwatch.start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		checkProjectWithActivity(null);
 		stopwatch.stop();
 		System.out.println("Checked blank project successfully in " + stopwatch.toString());
@@ -298,8 +298,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 	// ---- Test support code below ----
 
 	private void checkCreateActivityInProject(String activityName) throws Exception {
-		Stopwatch stopwatch = new Stopwatch();
-		stopwatch.start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		File templateFile = findTemplate("activities", activityName);
 		sProjectTestedSeparately.add(templateFile);
 		checkProjectWithActivity(templateFile.getName());
@@ -308,8 +307,7 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 	}
 
 	private void checkCreateTemplate(String category, String name) throws Exception {
-		Stopwatch stopwatch = new Stopwatch();
-		stopwatch.start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		File templateFile = findTemplate(category, name);
 		assertNotNull(templateFile);
 		sTemplateTestedSeparately.add(templateFile);
@@ -769,13 +767,13 @@ public class TemplateHandlerTest extends SdkLoadingTestCase {
 		LintDriver driver = new LintDriver(new BuiltinIssueRegistry(), new LintClient() {
 			@Override
 			public void report(@NonNull Context context, @NonNull Issue issue, @NonNull Severity severity,
-					@Nullable Location location, @NonNull String message, @Nullable Object data) {
+					@Nullable Location location, @NonNull String message, @Nullable TextFormat format) {
 				String s = "Found lint error: " + issue.getId() + ": " + message + " at " + location;
 				job.setProperty(ERROR_KEY, s);
 				fail(s);
 			}
 
-			@Override
+			// TODO remove this?
 			public Configuration getConfiguration(@NonNull Project p) {
 				return new DefaultConfiguration(this, p, null, new File("dummy.xml")) {
 					@Override

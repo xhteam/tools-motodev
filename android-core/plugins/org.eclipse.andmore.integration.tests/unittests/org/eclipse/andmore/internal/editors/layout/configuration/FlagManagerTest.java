@@ -95,20 +95,17 @@ public class FlagManagerTest extends TestCase {
                 "zw",
         };
         Set<String> sIcons = new HashSet<String>(100);
-        Map<String, String> regionNames = LocaleManager.getRegionNamesMap();
-        Map<String, String> languageToCountry = LocaleManager.getLanguageToCountryMap();
-        Map<String, String> languageNames = LocaleManager.getLanguageNamesMap();
         List<String> unused = new ArrayList<String>();
         for (String code : icons) {
             code = code.toUpperCase(Locale.US);
             sIcons.add(code);
 
-            String country = regionNames.get(code);
+            String country = LocaleManager.getRegionName(code);
             if (country == null) {
                 System.out.println("No region name found for region code " + code);
             }
 
-            if (!languageToCountry.values().contains(code)) {
+            if (LocaleManager.getLanguageRegion(code) == null) {
                 unused.add(code.toLowerCase() + ".png");
             }
         }
@@ -118,15 +115,16 @@ public class FlagManagerTest extends TestCase {
         }
 
         // Make sure all our language bindings are languages we have maps for
-        for (Map.Entry<String, String> entry : languageToCountry.entrySet()) {
-            String language = entry.getKey();
-            String region = entry.getValue();
+        
+        for (String language : LocaleManager.getLanguageCodes()) {
+        	for (String region : LocaleManager.getRelevantRegions(language)) {
+        		if (!sIcons.contains(region)) {
+        			System.out.println("No icon found for region " + region + "  "
+        					+ LocaleManager.getRegionName(region) + " (used for language "
+        					+ language + "(" + LocaleManager.getLanguageName(language) + "))");
+        		}
+        	}
 
-            if (!sIcons.contains(region)) {
-                System.out.println("No icon found for region " + region + "  "
-                        + LocaleManager.getRegionName(region) + " (used for language "
-                        + language + "(" + languageNames.get(language) + "))");
-            }
         }
     }
 

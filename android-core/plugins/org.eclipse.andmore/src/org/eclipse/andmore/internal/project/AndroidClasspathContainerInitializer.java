@@ -16,13 +16,18 @@
 
 package org.eclipse.andmore.internal.project;
 
-import com.android.SdkConstants;
-import com.android.ide.common.sdk.LoadStatus;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.IAndroidTarget.IOptionalLibrary;
-import com.google.common.collect.Maps;
-import com.google.common.io.Closeables;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
@@ -47,17 +52,13 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.osgi.framework.Bundle;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.regex.Pattern;
+import com.android.SdkConstants;
+import com.android.ide.common.sdk.LoadStatus;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.IAndroidTarget.OptionalLibrary;
+import com.google.common.collect.Maps;
+import com.google.common.io.Closeables;
 
 /**
  * Classpath container initializer responsible for binding {@link AndroidClasspathContainer} to
@@ -367,7 +368,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
             if (paths.length > CACHE_INDEX_ADD_ON_START) {
 
                 // check the docs path separately from the rest of the paths as it's a URI.
-                if (new File(new URI(paths[CACHE_INDEX_OPT_DOCS_URI])).exists() == false) {
+                if (paths[CACHE_INDEX_OPT_DOCS_URI].length() != 0 && new File(new URI(paths[CACHE_INDEX_OPT_DOCS_URI])).exists() == false) {
                     return null;
                 }
 
@@ -704,7 +705,7 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
         paths.add(AndmoreAndroidPlugin.getUrlDoc());
 
         // now deal with optional libraries.
-        IOptionalLibrary[] libraries = target.getOptionalLibraries();
+        List<OptionalLibrary> libraries = target.getOptionalLibraries();
         if (libraries != null) {
             // all the optional libraries use the same javadoc, so we start with this
             String targetDocPath = target.getPath(IAndroidTarget.DOCS);
@@ -718,8 +719,8 @@ public class AndroidClasspathContainerInitializer extends BaseClasspathContainer
             // because different libraries could use the same jar file, we make sure we add
             // each jar file only once.
             HashSet<String> visitedJars = new HashSet<String>();
-            for (IOptionalLibrary library : libraries) {
-                String jarPath = library.getJarPath();
+            for (OptionalLibrary library : libraries) {
+                String jarPath = library.getJar().getAbsolutePath();
                 if (visitedJars.contains(jarPath) == false) {
                     visitedJars.add(jarPath);
                     paths.add(jarPath);
