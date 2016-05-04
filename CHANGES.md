@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5-M7
+
+This milestone updates the embedded Android SDK to version 24.4.1.
+
+* [461942](https://bugs.eclipse.org/bugs/show_bug.cgi?id=461942) Update to latest Android SDK support libraries
+
 ## 0.5-M6
 
 This milestone adds a field in the DDMS preference page for selecting the debug port.
