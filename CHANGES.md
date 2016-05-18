@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5-RC1
+
+This milestone signs the Andmore bundles with the certificate of the Eclipse Foundation.
+
+* [459574](https://bugs.eclipse.org/bugs/show_bug.cgi?id=459574) Migrate Build to use the CBI
+
 ## 0.5-M7
 
 This milestone updates the embedded Android SDK to version 24.4.1.
