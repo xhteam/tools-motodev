@@ -100,6 +100,7 @@ import com.android.ide.common.resources.configuration.ScreenDimensionQualifier;
 import com.android.ide.common.resources.configuration.ScreenHeightQualifier;
 import com.android.ide.common.resources.configuration.ScreenOrientationQualifier;
 import com.android.ide.common.resources.configuration.ScreenRatioQualifier;
+import com.android.ide.common.resources.configuration.ScreenRoundQualifier;
 import com.android.ide.common.resources.configuration.ScreenSizeQualifier;
 import com.android.ide.common.resources.configuration.ScreenWidthQualifier;
 import com.android.ide.common.resources.configuration.SmallestScreenWidthQualifier;
@@ -143,6 +144,7 @@ public class ResourceHelper {
             sIconMap.put(VersionQualifier.class,            factory.getIcon("version")); //$NON-NLS-1$
             sIconMap.put(ScreenWidthQualifier.class,        factory.getIcon("width")); //$NON-NLS-1$
             sIconMap.put(ScreenHeightQualifier.class,       factory.getIcon("height")); //$NON-NLS-1$
+            sIconMap.put(ScreenRoundQualifier.class,        factory.getIcon("screenround")); //$NON-NLS-1$
             sIconMap.put(SmallestScreenWidthQualifier.class,factory.getIcon("swidth")); //$NON-NLS-1$
         } catch (Throwable t) {
             AndmoreAndroidPlugin.log(t , null);
