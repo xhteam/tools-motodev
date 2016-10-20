@@ -31,8 +31,8 @@ public class LocaleTest extends TestCase {
         assertEquals(Locale.ANY, Locale.ANY);
         assertFalse(Locale.ANY.hasLanguage());
         assertFalse(Locale.ANY.hasRegion());
-        assertFalse(Locale.create(new LocaleQualifier()).hasLanguage());
-        assertFalse(Locale.create(new LocaleQualifier()).hasRegion());
+        assertFalse(Locale.create(new LocaleQualifier(LocaleQualifier.FAKE_VALUE)).hasLanguage());
+        assertFalse(Locale.create(new LocaleQualifier(LocaleQualifier.FAKE_VALUE)).hasRegion());
 
         assertEquals(Locale.create(new LocaleQualifier(language1)), Locale.create(new LocaleQualifier(language1)));
         assertTrue(Locale.create(new LocaleQualifier(language1)).hasLanguage());
@@ -48,7 +48,7 @@ public class LocaleTest extends TestCase {
         assertFalse(Locale.create(new LocaleQualifier(language1)).equals(Locale.create(new LocaleQualifier(null, language1, region1, null))));
         assertFalse(Locale.create(new LocaleQualifier(language1)).equals(Locale.create(new LocaleQualifier(language2))));
         assertFalse(Locale.create(new LocaleQualifier(null, language1, region1, null)).equals(Locale.create(new LocaleQualifier(null, language2, region1, null))));
-        assertEquals("Locale{nb, __}", Locale.create(new LocaleQualifier(language1)).toString());
-        assertEquals("Locale{nb, NO}", Locale.create(new LocaleQualifier(null, language1, region1, null)).toString());
+        assertEquals("nb", Locale.create(new LocaleQualifier(language1)).toString());
+        assertEquals("nb-rNO", Locale.create(new LocaleQualifier(null, language1, region1, null)).toString());
     }
 }
