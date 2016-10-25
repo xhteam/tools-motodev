@@ -294,17 +294,37 @@ public class EclipseLintClient extends LintClient {
                 }
             }
 
-			@Override
-			public Location getNameLocation(XmlContext arg0, Node arg1) {
-				// TODO Auto-generated method stub
-				throw new UnsupportedOperationException();
-			}
+            @Override
+            public Location getNameLocation(@NonNull XmlContext context, @NonNull Node node) {
+                IndexedRegion region = (IndexedRegion) node;
 
-			@Override
-			public Location getValueLocation(XmlContext arg0, Attr arg1) {
-				// TODO Auto-generated method stub
-				throw new UnsupportedOperationException();
-			}
+                IStructuredModel model = (IStructuredModel) context.getProperty(MODEL_PROPERTY);
+                // Get line number
+                LazyLocation location = new LazyLocation(context.file,
+                        model.getStructuredDocument(), region);
+                int line = location.getStart().getLine();
+
+                Position startPos = new DefaultPosition(line, -1, region.getStartOffset());
+                Position endPos = new DefaultPosition(line, -1, region.getEndOffset());
+
+                return Location.create(context.file, startPos, endPos);
+            }
+
+            @Override
+            public Location getValueLocation(@NonNull XmlContext context, @NonNull Attr attribute) {
+                IndexedRegion region = (IndexedRegion) attribute;
+
+                IStructuredModel model = (IStructuredModel) context.getProperty(MODEL_PROPERTY);
+                // Get line number
+                LazyLocation location = new LazyLocation(context.file,
+                        model.getStructuredDocument(), region);
+                int line = location.getStart().getLine();
+
+                Position startPos = new DefaultPosition(line, -1, region.getStartOffset());
+                Position endPos = new DefaultPosition(line, -1, region.getEndOffset());
+
+                return Location.create(context.file, startPos, endPos);
+            }
         };
     }
 
