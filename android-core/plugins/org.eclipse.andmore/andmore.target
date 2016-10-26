@@ -2,26 +2,28 @@
 <?pde version="3.8"?><target name="andmore" sequenceNumber="27">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.platform.ide" version="0.0.0"/>
-<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.pde.source.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.codegen.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.common.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.cdt.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.datatools.sdk.feature.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.common.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.codegen.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.emf.codegen.ui.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.wb.core.xml.feature.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/mars"/>
+<unit id="org.eclipse.emf.common.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.common.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.pde.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.mat.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.platform.ide" version="0.0.0"/>
+<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/releases/neon"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.datatools.sdk.feature.feature.group" version="1.12.0.v201406061321-7PB21FEpPZQXdcX0z-_yMM0Hfz0w"/>
-<repository location="http://download.eclipse.org/releases/mars"/>
+<unit id="org.eclipse.wb.core.xml.feature.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/windowbuilder/WB/release/4.6/"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sequoyah.vnc.feature.feature.group" version="2.1.0.N20120718-0509"/>
@@ -32,14 +34,6 @@
 <unit id="org.eclipse.sequoyah.localization.tools.feature.feature.group" version="2.1.0.N20120718-0509"/>
 <unit id="org.eclipse.sequoyah.localization.android.feature.feature.group" version="2.1.1.N20120718-0509"/>
 <repository location="http://download.eclipse.org/sequoyah/updates/2.1/"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.mat.feature.feature.group" version="1.4.0.201406041413"/>
-<repository location="http://archive.eclipse.org/mat/1.4/update-site/"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="com.google.gson" version="2.2.4.v201311231704"/>
