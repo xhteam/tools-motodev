@@ -26,3 +26,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.andmore.ddms
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
