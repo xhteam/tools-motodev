@@ -454,22 +454,25 @@ public class ConfigurationMatcher {
 
             List<Locale> localeList = mConfigChooser.getLocaleList();
             final int count = localeList.size();
+            // if no locale match the current local locale, it's likely that it is
+            // the default one which is the last one.
+            int bestMatch = count - 1;
             for (int l = 0; l < count; l++) {
                 Locale locale = localeList.get(l);
                 LocaleQualifier localeQ = locale.locale;
-
-                // there's always a ##/Other or ##/Any (which is the same, the region
-                // contains FAKE_REGION_VALUE). If we don't find a perfect region match
-                // we take the fake region. Since it's last in the list, this makes the
-                // test easy.
-                if (localeQ.getLanguage().equals(currentLanguage) && (localeQ.getRegion().equals(currentRegion) || localeQ.hasRegion())) { 
-                    return l;
+                if (localeQ.getLanguage().equals(currentLanguage)) {
+                	if (localeQ.hasRegion() && localeQ.getRegion().equals(currentRegion)) {
+                		// there will be no better match
+                        return l;                		
+                	} else {
+                		// this one is close, but maybe there is a complete match
+                		bestMatch = l;
+                	}
                 }
+                                
             }
 
-            // if no locale match the current local locale, it's likely that it is
-            // the default one which is the last one.
-            return count - 1;
+            return bestMatch;
         }
 
         return -1;
