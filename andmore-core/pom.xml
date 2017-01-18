@@ -5,12 +5,12 @@
   <parent>
       <groupId>org.eclipse.andmore</groupId>
       <artifactId>andmore-parent</artifactId>
-      <version>0.6.0-SNAPSHOT</version>
+      <version>0.5.1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.eclipse.andmore</groupId>
   <artifactId>andmore-core</artifactId>
-  <version>0.6.0-SNAPSHOT</version>
+  <version>0.5.1-SNAPSHOT</version>
   <packaging>pom</packaging>
     
   
