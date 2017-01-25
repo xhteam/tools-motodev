@@ -1,24 +1,38 @@
 # Change Log
 
-## 0.5-RC1
+## 0.5.1
+
+This is a service release that fixes the following bugs:
+
+* [509683](https://bugs.eclipse.org/bugs/show_bug.cgi?id=509683) Andmore NDK plugin is missing an execution environment
+* [509666](https://bugs.eclipse.org/bugs/show_bug.cgi?id=509666) NPE in visual editor causes load failures
+* [509663](https://bugs.eclipse.org/bugs/show_bug.cgi?id=509663) Support for aapt --no-version-vectors option
+* [484566](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484566) NPE in BaseBuilder.abortOnBadSetup
+* [505930](https://bugs.eclipse.org/bugs/show_bug.cgi?id=505930) Exception While Linting
+
+## 0.5
+
+See the notes for each 0.5 milestone below.
+
+### 0.5-RC1
 
 This milestone signs the Andmore bundles with the certificate of the Eclipse Foundation.
 
 * [459574](https://bugs.eclipse.org/bugs/show_bug.cgi?id=459574) Migrate Build to use the CBI
 
-## 0.5-M7
+### 0.5-M7
 
 This milestone updates the embedded Android SDK to version 24.4.1.
 
 * [461942](https://bugs.eclipse.org/bugs/show_bug.cgi?id=461942) Update to latest Android SDK support libraries
 
-## 0.5-M6
+### 0.5-M6
 
 This milestone adds a field in the DDMS preference page for selecting the debug port.
 
 * [489253](https://bugs.eclipse.org/bugs/show_bug.cgi?id=489253) Add Preference Page Entry for Selected Debug Port
 
-## 0.5-M5
+### 0.5-M5
 
 This milestone fixes the Signing and Keys view and provides it as a separate installable feature on the update site.
 
@@ -28,14 +42,14 @@ This milestone fixes the Signing and Keys view and provides it as a separate ins
 * [484667](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484667) Fix plugin and features vendor/provider name
 * [484689](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484689) Feature names to comply with Android trademark
 
-## 0.5-M4
+### 0.5-M4
 
 This milestone fixes a build error against the Eclipse Neon release.
 
 * [483020](https://bugs.eclipse.org/bugs/show_bug.cgi?id=483020) Build error against Neon
 * [484277](https://bugs.eclipse.org/bugs/show_bug.cgi?id=484277) Unify logo contributions to the About dialog
 
-## 0.5-M3
+### 0.5-M3
 
 This milestone introduces MultiDex support. The update site is improved to support correct installation of Andmore on Eclipse older then Luna.
 
@@ -45,7 +59,7 @@ This milestone introduces MultiDex support. The update site is improved to suppo
 * [471469](https://bugs.eclipse.org/bugs/show_bug.cgi?id=471469) Add Profile to use released MARs artifacts as part of the build
 * [460132](https://bugs.eclipse.org/bugs/show_bug.cgi?id=460132) Fix license terms for dual licensed plugins 
 
-## 0.5-M2
+### 0.5-M2
 
 Milestone two provides some stability and usability improvements.  The biggest change is that the XML Editor no longer assumes it is the only editor.
 Also the Database Perspective and browser have been fixed to show all the icons in the tree.
@@ -56,7 +70,7 @@ Also the Database Perspective and browser have been fixed to show all the icons 
 * [471527](https://bugs.eclipse.org/bugs/show_bug.cgi?id=471527) Some wizards still open the Java perspective instead of the Android perspective
 * [468473](https://bugs.eclipse.org/bugs/show_bug.cgi?id=468473) Android Database Explorer throws NPE when expanding tree
 
-## 0.5-M1
+### 0.5-M1
 
 This is the first public stable build for the Andmore project.  This release may have bugs and missing features but should be
 useable for most every day development.
