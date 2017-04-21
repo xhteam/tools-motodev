@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.andmore.ndk.feature"
+      label="%feature.label"
+      version="0.5.2.qualifier"
+      provider-name="%feature.provider.name"
+      plugin="org.eclipse.andmore.ndk"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
+
+   <description>
+      %feature.description
+   </description>
+
+   <copyright>
+      %feature.copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.cdt"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.andmore.ndk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

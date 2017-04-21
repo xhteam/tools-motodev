@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.andmore.traceview.feature"
+      label="%feature.label"
+      version="0.5.2.qualifier"
+      provider-name="%feature.provider.name"
+      plugin="org.eclipse.andmore.traceview"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
+
+   <description>
+      %feature.description
+   </description>
+
+   <copyright>
+      %feature.copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime" version="0.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.andmore.ddms" version="0.0.0"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.core.resources"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.andmore.traceview"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

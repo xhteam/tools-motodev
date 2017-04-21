@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description>
+	Andmore for Android
+   </description>
+   <feature id="org.eclipse.andmore.android.basic.feature" version="0.0.0" patch="false">
+      <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.android.basic.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+             
+   <feature id="org.eclipse.andmore.gldebugger.feature" version="0.0.0">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.gldebugger.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.hierarchyviewer.feature" version="0.0.0">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.hierarchyviewer.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
+   
+   <feature id="org.eclipse.andmore.ndk.feature">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.ndk.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.traceview.feature" version="0.0.0">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.traceview.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.sign.feature" version="0.0.0">
+       <category name="Andmore"/>
+   </feature>
+   
+   <feature id="org.eclipse.andmore.sign.feature.source" version="0.0.0">
+       <category name="Andmore Core SDK"/>
+   </feature>
+   
+   <category-def name="Andmore" label="Andmore">
+       <description>
+           Android and Native Development Tools and Frameworks.
+       </description>
+   </category-def>
+      
+   <category-def name="Andmore Core SDK" label="Andmore Core SDK">
+       <description>
+           Andmore Tools SDK
+       </description>
+   </category-def>
+</site>

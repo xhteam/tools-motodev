@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Traceview for Android
+Bundle-SymbolicName: org.eclipse.andmore.traceview;singleton:=true
+Bundle-Version: 0.5.2.qualifier
+Bundle-Activator: org.eclipse.andmore.traceview.TraceviewPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.ide,
+ org.eclipse.andmore.ddms,
+ org.eclipse.core.filesystem,
+ org.eclipse.core.resources
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ libs/traceview.jar
+Bundle-Vendor: Eclipse Andmore
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>org.eclipse.andmore.integration.tests</artifactId>
+	<packaging>eclipse-test-plugin</packaging>
+	<name>tests</name>
+
+	<parent>
+		<relativePath>../../pom.xml</relativePath>
+		<groupId>org.eclipse.andmore</groupId>
+		<artifactId>andmore-core-parent</artifactId>
+		<version>0.5.2-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<os-jvm-flags>-Xms256m -Xmx1024m -XX:MaxPermSize=256M</os-jvm-flags>
+	</properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.2.201409121644</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.jacoco</groupId>
+						<artifactId>org.jacoco.ant</artifactId>
+						<version>0.7.2.201409121644</version>
+					</dependency>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>20020829</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<property name="source-location" location="../" />
+								<taskdef name="jacoco-report" classname="org.jacoco.ant.ReportTask"
+									classpathref="maven.plugin.classpath" />
+								<taskdef classpathref="maven.runtime.classpath"
+									resource="net/sf/antcontrib/antcontrib.properties" />
+								<available file="${project.basedir}/target/jacoco.exec"
+									property="jacoco.exec.file.exists" />
+								<echo message="${project.basedir}/target/jacoco.exec" />
+								<if>
+									<equals arg1="${jacoco.exec.file.exists}" arg2="true" />
+									<then>
+										<echo message="Executing jacoco report" />
+										<echo message="${source-location}" />
+										<trycatch>
+											<try>
+												<jacoco-report>
+													<executiondata>
+														<file file="${project.basedir}/target/jacoco.exec" />
+													</executiondata>
+
+													<structure name="AndroidCore">
+														<classfiles>
+															<fileset
+																dir="${source-location}/org.eclipse.andmore/target/classes" />
+														</classfiles>
+														<sourcefiles encoding="UTF-8">
+															<fileset dir="${source-location}/org.eclipse.andmore/src/" />
+														</sourcefiles>
+													</structure>
+													<html destdir="${project.basedir}/target/jacoco/report" />
+													<xml destfile="${project.basedir}/target/jacoco/report/jacoco.xml" />
+												</jacoco-report>
+											</try>
+											<catch>
+												<echo>skipping</echo>
+											</catch>
+										</trycatch>
+									</then>
+									<else>
+										<echo message="No jacoco.exec file found." />
+									</else>
+								</if>
+							</target>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<skipTests>false</skipTests>
+					<testFailureIgnore>true</testFailureIgnore>
+					<useUIHarness>true</useUIHarness>
+					<appArgLine>-debug -console</appArgLine>
+					<argLine>${os-jvm-flags} ${tycho.testArgLine}</argLine>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.andmore.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+					<dependencies>
+					    <dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.andmore</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.sdk.ide</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.wst.xml.ui</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.wst.xsd.ui</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.wst.wsdl.ui</artifactId>
+							<version>0.0.0</version>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jacoco</groupId>
+										<artifactId>
+											jacoco-maven-plugin
+										</artifactId>
+										<versionRange>
+											[0.7.2.201409121644,)
+										</versionRange>
+										<goals>
+											<goal>prepare-agent</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>macosx-jvm-flags</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<os-jvm-flags>-Xms256m -Xmx512m -XX:MaxPermSize=256M -XstartOnFirstThread</os-jvm-flags>
+			</properties>
+		</profile>
+		<profile>
+			<id>skipTests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
