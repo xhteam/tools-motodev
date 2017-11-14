@@ -8,7 +8,7 @@
     <name>hierarchyviewer2lib</name>
 
 	<parent>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	    <groupId>org.eclipse.andmore</groupId>
 	    <artifactId>swt-droid-parent</artifactId>
 		<version>0.5.2-SNAPSHOT</version>
