@@ -16,7 +16,6 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.TreeViewModel;
 import com.android.hierarchyviewerlib.models.TreeViewModel.ITreeChangeListener;
@@ -25,6 +24,7 @@ import com.android.hierarchyviewerlib.ui.util.DrawableViewNode;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode.Point;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode.Rectangle;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -178,14 +178,14 @@ public class TreeView extends Canvas implements ITreeChangeListener {
     }
 
     private void loadResources() {
-        ImageLoader loader = ImageLoader.getLoader(this.getClass());
-        sRedImage = loader.loadImage("red.png", Display.getDefault()); //$NON-NLS-1$
-        sYellowImage = loader.loadImage("yellow.png", Display.getDefault()); //$NON-NLS-1$
-        sGreenImage = loader.loadImage("green.png", Display.getDefault()); //$NON-NLS-1$
-        sNotSelectedImage = loader.loadImage("not-selected.png", Display.getDefault()); //$NON-NLS-1$
-        sSelectedImage = loader.loadImage("selected.png", Display.getDefault()); //$NON-NLS-1$
-        sFilteredImage = loader.loadImage("filtered.png", Display.getDefault()); //$NON-NLS-1$
-        sFilteredSelectedImage = loader.loadImage("selected-filtered.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        sRedImage = imageFactory.getImageByName("red.png"); //$NON-NLS-1$
+        sYellowImage = imageFactory.getImageByName("yellow.png"); //$NON-NLS-1$
+        sGreenImage = imageFactory.getImageByName("green.png"); //$NON-NLS-1$
+        sNotSelectedImage = imageFactory.getImageByName("not-selected.png"); //$NON-NLS-1$
+        sSelectedImage = imageFactory.getImageByName("selected.png"); //$NON-NLS-1$
+        sFilteredImage = imageFactory.getImageByName("filtered.png"); //$NON-NLS-1$
+        sFilteredSelectedImage = imageFactory.getImageByName("selected-filtered.png"); //$NON-NLS-1$
         mBoxColor = new Color(Display.getDefault(), new RGB(225, 225, 225));
         mTextBackgroundColor = new Color(Display.getDefault(), new RGB(82, 82, 82));
         if (mScaledSelectedImage != null) {

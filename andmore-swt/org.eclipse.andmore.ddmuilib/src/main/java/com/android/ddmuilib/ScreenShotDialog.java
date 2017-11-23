@@ -204,10 +204,9 @@ public class ScreenShotDialog extends Dialog {
         data.horizontalSpan = colCount;
         mImageLabel.setLayoutData(data);
         Display display = shell.getDisplay();
-        mImageLabel.setImage(ImageLoader.createPlaceHolderArt(
-                display, 50, 50, display.getSystemColor(SWT.COLOR_BLUE)));
-
-
+        ReplacementImageFactory replacementImageFactory = 
+        	new ReplacementImageFactory(display, 50, 50, display.getSystemColor(SWT.COLOR_BLUE));
+        mImageLabel.setImage(replacementImageFactory.getImage());
         shell.setDefaultButton(done);
     }
 
@@ -244,9 +243,9 @@ public class ScreenShotDialog extends Dialog {
         Image image;
         if (mRawImage == null) {
             Display display = shell.getDisplay();
-            image = ImageLoader.createPlaceHolderArt(
-                    display, 320, 240, display.getSystemColor(SWT.COLOR_BLUE));
-
+            ReplacementImageFactory replacementImageFactory = 
+            	new ReplacementImageFactory(display, 320, 240, display.getSystemColor(SWT.COLOR_BLUE));
+            image = replacementImageFactory.getImage();
             mSave.setEnabled(false);
             mBusyLabel.setText("Screen not available");
         } else {

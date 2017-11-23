@@ -16,13 +16,14 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
+import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.TreeViewModel;
 import com.android.hierarchyviewerlib.models.TreeViewModel.ITreeChangeListener;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode.Point;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode.Rectangle;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -90,12 +91,12 @@ public class TreeViewOverview extends Canvas implements ITreeChangeListener {
     }
 
     private void loadResources() {
-        ImageLoader loader = ImageLoader.getLoader(this.getClass());
-        sNotSelectedImage = loader.loadImage("not-selected.png", Display.getDefault()); //$NON-NLS-1$
-        sSelectedImage = loader.loadImage("selected-small.png", Display.getDefault()); //$NON-NLS-1$
-        sFilteredImage = loader.loadImage("filtered.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        sNotSelectedImage = imageFactory.getImageByName("not-selected.png"); //$NON-NLS-1$
+        sSelectedImage = imageFactory.getImageByName("selected-small.png"); //$NON-NLS-1$
+        sFilteredImage = imageFactory.getImageByName("filtered.png"); //$NON-NLS-1$
         sFilteredSelectedImage =
-                loader.loadImage("selected-filtered-small.png", Display.getDefault()); //$NON-NLS-1$
+        		imageFactory.getImageByName("selected-filtered-small.png"); //$NON-NLS-1$
     }
 
     private DisposeListener mDisposeListener = new DisposeListener() {

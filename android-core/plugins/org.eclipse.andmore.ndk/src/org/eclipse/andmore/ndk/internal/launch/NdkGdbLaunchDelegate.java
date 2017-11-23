@@ -16,36 +16,28 @@
 
 package org.eclipse.andmore.ndk.internal.launch;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.ddmlib.AdbCommandRejectedException;
-import com.android.ddmlib.AndroidDebugBridge;
-import com.android.ddmlib.Client;
-import com.android.ddmlib.CollectingOutputReceiver;
-import com.android.ddmlib.IDevice;
-import com.android.ddmlib.IDevice.DeviceUnixSocketNamespace;
-import com.android.ddmlib.InstallException;
-import com.android.ddmlib.ShellCommandUnresponsiveException;
-import com.android.ddmlib.SyncException;
-import com.android.ddmlib.TimeoutException;
-import com.android.ide.common.xml.ManifestData;
-import com.android.ide.common.xml.ManifestData.Activity;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.IAndroidTarget;
-import com.google.common.base.Joiner;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.base.resources.IEditorIconFactory;
+import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchController;
-import org.eclipse.andmore.internal.launch.DeviceChooserDialog;
 import org.eclipse.andmore.internal.launch.LaunchConfigDelegate;
-import org.eclipse.andmore.internal.launch.DeviceChooserDialog.DeviceChooserResponse;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
+import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.andmore.ndk.internal.NativeAbi;
 import org.eclipse.andmore.ndk.internal.NdkHelper;
 import org.eclipse.andmore.ndk.internal.NdkVariables;
+import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.cdt.core.model.ICProject;
 import org.eclipse.cdt.debug.core.CDebugUtils;
 import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
@@ -64,16 +56,28 @@ import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.graphics.Image;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.ddmlib.AdbCommandRejectedException;
+import com.android.ddmlib.AndroidDebugBridge;
+import com.android.ddmlib.Client;
+import com.android.ddmlib.CollectingOutputReceiver;
+import com.android.ddmlib.IDevice;
+import com.android.ddmlib.IDevice.DeviceUnixSocketNamespace;
+import com.android.ddmlib.InstallException;
+import com.android.ddmlib.ShellCommandUnresponsiveException;
+import com.android.ddmlib.SyncException;
+import com.android.ddmlib.TimeoutException;
+import com.android.ide.common.xml.ManifestData;
+import com.android.ide.common.xml.ManifestData.Activity;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdkuilib.ui.DeviceChooserDialog;
+import com.android.sdkuilib.ui.DeviceChooserDialog.DeviceChooserResponse;
+import com.google.common.base.Joiner;
 
 @SuppressWarnings("restriction")
 public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
@@ -149,18 +153,37 @@ public class NdkGdbLaunchDelegate extends GdbLaunchDelegate {
 		if (devices.length == 1) {
 			device = devices[0];
 		} else if ((device = getLastUsedDevice(config, devices)) == null) {
-			final IAndroidTarget projectTarget = Sdk.getCurrent().getTarget(project);
+			Sdk currentSdk = Sdk.getCurrent();
+			if (currentSdk == null)
+				return false;
+			final IAndroidTarget projectTarget = currentSdk.getTarget(project);
 			final DeviceChooserResponse response = new DeviceChooserResponse();
 			final boolean continueLaunch[] = new boolean[] { false };
+            IconFactory iconFactory= IconFactory.getInstance();
+            final IEditorIconFactory sdkIconFactory = new IEditorIconFactory(){
+
+				@Override
+				public Image getColorIcon(String osName, int color) {
+					return iconFactory.getColorIcon(osName, color);
+				}};
 			AndmoreAndroidPlugin.getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
-					DeviceChooserDialog dialog = new DeviceChooserDialog(AndmoreAndroidPlugin.getDisplay().getActiveShell(),
-							response, manifestData.getPackage(), projectTarget, minSdkVersion, false /***
-					 * 
-					 * FIXME!
-					 **/
-					);
+                	SdkCallAgent callAgent = new SdkCallAgent(
+                			currentSdk.getAndroidSdkHandler(),
+                			currentSdk.getRepoManager(),
+                			sdkIconFactory,
+                			new AdtConsoleSdkLog());
+                    // open the chooser dialog. It'll fill 'response' with the device to use
+                    // or the AVD to launch.
+                    DeviceChooserDialog dialog = new DeviceChooserDialog(
+                    		AndmoreAndroidPlugin.getDisplay().getActiveShell(),
+                            callAgent,
+                            response, 
+                            manifestData.getPackage(), 
+                            projectTarget, 
+                            minSdkVersion, 
+                            false);
 					if (dialog.open() == Window.OK) {
 						AndroidLaunchController.updateLaunchConfigWithLastUsedDevice(config, response);
 						continueLaunch[0] = true;

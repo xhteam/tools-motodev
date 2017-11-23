@@ -16,13 +16,13 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.device.IHvDevice;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel.IWindowChangeListener;
 import com.android.hierarchyviewerlib.models.Window;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -38,8 +38,8 @@ public class LoadViewHierarchyAction extends Action implements ImageAction, IWin
     private LoadViewHierarchyAction() {
         super("Load View &Hierarchy");
         setAccelerator(SWT.MOD1 + 'H');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("load-view-hierarchy.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("load-view-hierarchy.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Load the view hierarchy into the tree view");
         setEnabled(

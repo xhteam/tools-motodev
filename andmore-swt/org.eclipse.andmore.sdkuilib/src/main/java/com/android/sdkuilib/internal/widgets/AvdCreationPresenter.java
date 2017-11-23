@@ -20,11 +20,14 @@ import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.prefs.AndroidLocation.AndroidLocationException;
+import com.android.repository.Revision;
+import com.android.repository.api.ProgressIndicator;
 import com.android.resources.Density;
 import com.android.resources.ScreenSize;
+import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.ISystemImage;
-import com.android.sdklib.SystemImage;
+import com.android.sdklib.SdkVersionInfo;
 import com.android.sdklib.devices.Camera;
 import com.android.sdklib.devices.CameraLocation;
 import com.android.sdklib.devices.Device;
@@ -35,10 +38,15 @@ import com.android.sdklib.devices.Software;
 import com.android.sdklib.devices.Storage;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.internal.avd.AvdManager.AvdConflict;
 import com.android.sdklib.internal.avd.HardwareProperties;
-import com.android.sdklib.repository.descriptors.IdDisplay;
-import com.android.sdklib.repository.local.LocalSdk;
+import com.android.sdklib.repository.IdDisplay;
+import com.android.sdklib.repository.meta.DetailsTypes;
+import com.android.sdklib.repository.meta.DetailsTypes.AddonDetailsType.Libraries;
+import com.android.sdklib.repository.meta.Library;
+import com.android.sdklib.repository.targets.SystemImage;
+import com.android.sdkuilib.internal.repository.avd.AvdAgent;
+import com.android.sdkuilib.internal.repository.avd.SdkTargets;
+import com.android.sdkuilib.widgets.MessageBoxLog;
 import com.android.utils.ILogger;
 import com.android.utils.Pair;
 import com.google.common.base.Joiner;
@@ -56,8 +64,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.eclipse.andmore.sdktool.SdkContext;
 
 /**
  * Implements all the logic of the {@link AvdCreationDialog}.
@@ -71,12 +80,23 @@ import java.util.regex.Pattern;
  * constructor.
  */
 class AvdCreationPresenter {
-
+	public enum AvdConflict
+	{
+	   NO_CONFLICT,  CONFLICT_EXISTING_AVD,  CONFLICT_INVALID_AVD,  CONFLICT_EXISTING_PATH;
+	   
+	   private AvdConflict() {}
+	}
+	public static final Pattern RE_AVD_NAME = Pattern.compile("[a-zA-Z0-9._-]+");
+	public static final String CHARS_AVD_NAME = "a-z A-Z 0-9 . _ -";
+	
     @NonNull
     private IWidgetAdapter mWidgets;
     private AvdManager mAvdManager;
     private ILogger mSdkLog;
     private AvdInfo mAvdInfo;
+    private AvdAgent mAvdAgent;
+    private final SdkContext mSdkContext;
+    private final SdkTargets mSdkTargets;
 
     private final TreeMap<String, IAndroidTarget> mCurrentTargets =
             new TreeMap<String, IAndroidTarget>();
@@ -86,8 +106,8 @@ class AvdCreationPresenter {
     private static final AvdSkinChoice SKIN_NONE =
         new AvdSkinChoice(SkinType.NONE, "No skin");
 
-    private final List<Device> mComboDevices = new ArrayList<Device>();
-    private final List<AvdSkinChoice> mComboSkins = new ArrayList<AvdSkinChoice>();
+    private final List<Device> mComboDevices = new ArrayList<>();
+    private final List<AvdSkinChoice> mComboSkins = new ArrayList<>();
     private final List<ISystemImage> mComboSystemImages = new ArrayList<ISystemImage>();
     private final List<IAndroidTarget> mComboTargets = new ArrayList<IAndroidTarget>();
 
@@ -155,12 +175,16 @@ class AvdCreationPresenter {
 
     }
 
-    public AvdCreationPresenter(@NonNull  AvdManager avdManager,
-                                @NonNull  ILogger    log,
-                                @Nullable AvdInfo    editAvdInfo) {
-        mAvdManager = avdManager;
-        mSdkLog     = log;
-        mAvdInfo    = editAvdInfo;
+    public AvdCreationPresenter(@NonNull  SdkContext sdkContext,
+    		                     @NonNull SdkTargets sdkTargets,
+                                 @Nullable AvdAgent editAvdAgent) {
+    	mSdkContext = sdkContext;
+    	mSdkTargets = sdkTargets;
+        mAvdManager = sdkContext.getAvdManager();
+        mSdkLog  = mSdkContext.getSdkLog();
+        mAvdAgent = editAvdAgent;
+        if (editAvdAgent != null)
+        	mAvdInfo = editAvdAgent.getAvd();
     }
 
     /** Returns the AVD Created, if successful. */
@@ -204,7 +228,7 @@ class AvdCreationPresenter {
 
 
         if (mAvdInfo != null) {
-            fillExistingAvdInfo(mAvdInfo);
+            fillExistingAvdInfo(mAvdAgent);
         } else if (mInitWithDevice != null) {
             fillInitialDeviceInfo(mInitWithDevice);
         }
@@ -217,47 +241,22 @@ class AvdCreationPresenter {
 
 
     private void initializeDevices() {
-        LocalSdk localSdk = mAvdManager.getLocalSdk();
-        File location = localSdk.getLocation();
-        if (location != null) {
-            DeviceManager deviceManager = DeviceManager.createInstance(location, mSdkLog);
-            Collection<Device> deviceList = deviceManager.getDevices(DeviceManager.ALL_DEVICES);
+        DeviceManager deviceManager = mSdkContext.getDeviceManager();
+        List<Device> deviceList = new ArrayList<>(deviceManager.getDevices(DeviceManager.ALL_DEVICES));
 
-            // Sort
-            List<Device> nexus = new ArrayList<Device>(deviceList.size());
-            List<Device> other = new ArrayList<Device>(deviceList.size());
-            for (Device device : deviceList) {
-                if (isNexus(device) && !isGeneric(device)) {
-                    nexus.add(device);
-                } else {
-                    other.add(device);
-                }
-            }
-            Collections.reverse(other);
-            Collections.sort(nexus, new Comparator<Device>() {
-                @Override
-                public int compare(Device device1, Device device2) {
-                    // Descending order of age
-                    return nexusRank(device2) - nexusRank(device1);
-                }
-            });
+        // Sort
+        Collections.sort(deviceList, Device.getDisplayComparator());
 
-            mComboDevices.clear();
-            mComboDevices.addAll(nexus);
-            mComboDevices.addAll(other);
+        mComboDevices.clear();
+        mComboDevices.addAll(deviceList);
 
-            String[] labels = new String[mComboDevices.size()];
-            for (int i = 0, n = mComboDevices.size(); i < n; i++) {
-                Device device = mComboDevices.get(i);
-                if (isNexus(device) && !isGeneric(device)) {
-                    labels[i] = getNexusLabel(device);
-                } else {
-                    labels[i] = getGenericLabel(device);
-                }
-            }
-
-            mWidgets.setComboItems(Ctrl.COMBO_DEVICE, labels);
+        String[] labels = new String[mComboDevices.size()];
+        for (int i = 0, n = mComboDevices.size(); i < n; i++) {
+            Device device = mComboDevices.get(i);
+            labels[i] = getGenericLabel(device);
         }
+
+        mWidgets.setComboItems(Ctrl.COMBO_DEVICE, labels);
     }
 
     @Nullable
@@ -309,8 +308,8 @@ class AvdCreationPresenter {
             // Case where we're creating a new AVD or editing an existing one
             // and the AVD name has been changed... check for name uniqueness.
 
-            Pair<AvdConflict, String> conflict = mAvdManager.isAvdNameConflicting(name);
-            if (conflict.getFirst() != AvdManager.AvdConflict.NO_CONFLICT) {
+            Pair<AvdConflict, String> conflict = isAvdNameConflicting(name);
+            if (conflict.getFirst() != AvdConflict.NO_CONFLICT) {
                 // If we're changing the state from disabled to enabled, make sure
                 // to uncheck the button, to force the user to voluntarily re-enforce it.
                 // This happens when editing an existing AVD and changing the name from
@@ -362,6 +361,26 @@ class AvdCreationPresenter {
                 break;
                 case NODPI:
                     break;
+			case ANYDPI:
+				break;
+			case DPI_260:
+				break;
+			case DPI_280:
+				break;
+			case DPI_300:
+				break;
+			case DPI_340:
+				break;
+			case DPI_360:
+				break;
+			case DPI_400:
+				break;
+			case DPI_420:
+				break;
+			case DPI_560:
+				break;
+			default:
+				break;
             }
         } else {
             switch (density) {
@@ -380,6 +399,26 @@ class AvdCreationPresenter {
                 break;
                 case NODPI:
                     break;
+			case ANYDPI:
+				break;
+			case DPI_260:
+				break;
+			case DPI_280:
+				break;
+			case DPI_300:
+				break;
+			case DPI_340:
+				break;
+			case DPI_360:
+				break;
+			case DPI_400:
+				break;
+			case DPI_420:
+				break;
+			case DPI_560:
+				break;
+			default:
+				break;
             }
         }
         mWidgets.setText(Ctrl.TEXT_VM_HEAP, Integer.toString(vmHeapSize));
@@ -462,30 +501,31 @@ class AvdCreationPresenter {
         index = -1;
 
         mComboTargets.clear();
-        LocalSdk localSdk = mAvdManager.getLocalSdk();
-        if (localSdk != null) {
-            for (IAndroidTarget target : localSdk.getTargets()) {
-                String name;
-                if (target.isPlatform()) {
-                    name = String.format("%s - API Level %s",
-                            target.getName(),
-                            target.getVersion().getApiString());
-                } else {
-                    name = String.format("%s (%s) - API Level %s",
-                            target.getName(),
-                            target.getVendor(),
-                            target.getVersion().getApiString());
-                }
-                mCurrentTargets.put(name, target);
-                mWidgets.addComboItem(Ctrl.COMBO_TARGET, name);
-                mComboTargets.add(target);
-                if (!found) {
-                    index++;
-                    found = name.equals(selected);
-                }
+        for (IAndroidTarget target : mSdkTargets.getTargets()) {
+            String name;
+            if (target.isPlatform()) {
+                name = target.getFullName();
+            } else {
+            	name = target.getName();
+            	if (!name.equals(target.getVendor())) {
+	                name = String.format("%s (%s) - API Level %s",
+	                        name,
+	                        target.getVendor(),
+	                        target.getVersion().getApiString());
+            	} else {
+	                name = String.format("%s - API Level %s",
+	                        name,
+	                        target.getVersion().getApiString());
+            	}
+            }
+            mCurrentTargets.put(name, target);
+            mWidgets.addComboItem(Ctrl.COMBO_TARGET, name);
+            mComboTargets.add(target);
+            if (!found) {
+                index++;
+                found = name.equals(selected);
             }
         }
-
         mWidgets.setEnabled(Ctrl.COMBO_TARGET, mCurrentTargets.size() > 0);
 
         if (found) {
@@ -524,8 +564,7 @@ class AvdCreationPresenter {
             String targetName = mWidgets.getComboItem(Ctrl.COMBO_TARGET, index);
             IAndroidTarget target = mCurrentTargets.get(targetName);
 
-            ISystemImage[] systemImages = getSystemImages(target);
-
+            Collection<SystemImage> systemImages = getSystemImages(target);
             // If user explicitly selected an ABI before, preserve that option
             // If user did not explicitly select before (only one option before)
             // force them to select
@@ -548,15 +587,16 @@ class AvdCreationPresenter {
             mWidgets.setComboItems(Ctrl.COMBO_TAG_ABI, null);
             mComboSystemImages.clear();
 
-            int i;
+            int i = 0;
             boolean found = false;
-            for (i = 0; i < systemImages.length; i++) {
-                ISystemImage systemImage = systemImages[i];
+            Iterator<SystemImage> iterator = systemImages.iterator();
+            while(iterator.hasNext()) {
+                SystemImage systemImage = iterator.next();
                 if (deviceTagId != null && !deviceTagId.equals(systemImage.getTag().getId())) {
                     continue;
                 }
-                mComboSystemImages.add(systemImage);
                 String prettyAbiType = AvdInfo.getPrettyAbiType(systemImage);
+                mComboSystemImages.add(systemImage);
                 mWidgets.addComboItem(Ctrl.COMBO_TAG_ABI, prettyAbiType);
                 if (!found) {
                     found = prettyAbiType.equals(selected);
@@ -564,6 +604,7 @@ class AvdCreationPresenter {
                         mWidgets.selectComboIndex(Ctrl.COMBO_TAG_ABI, i);
                     }
                 }
+                ++i;
             }
 
             mWidgets.setEnabled(Ctrl.COMBO_TAG_ABI, !mComboSystemImages.isEmpty());
@@ -575,7 +616,6 @@ class AvdCreationPresenter {
                 mWidgets.selectComboIndex(Ctrl.COMBO_TAG_ABI, 0);
             }
         }
-
         reloadSkinCombo();
     }
 
@@ -599,7 +639,7 @@ class AvdCreationPresenter {
             }
 
             // path of sdk/system-images
-            String sdkSysImgPath = new File(mAvdManager.getLocalSdk().getLocation(),
+            String sdkSysImgPath = new File(mSdkContext.getLocation(),
                                             SdkConstants.FD_SYSTEM_IMAGES).getAbsolutePath();
 
             for (File skin : target.getSkins()) {
@@ -678,10 +718,10 @@ class AvdCreationPresenter {
             return;
         }
 
-        if (!AvdManager.RE_AVD_NAME.matcher(avdName).matches()) {
+        if (!RE_AVD_NAME.matcher(avdName).matches()) {
             error = String.format(
                     "AVD name '%1$s' contains invalid characters.\nAllowed characters are: %2$s",
-                    avdName, AvdManager.CHARS_AVD_NAME);
+                    avdName, CHARS_AVD_NAME);
             setPageValid(false, error, null);
             return;
         }
@@ -713,8 +753,8 @@ class AvdCreationPresenter {
         IAndroidTarget target = mCurrentTargets.get(targetName);
         if (target != null && !target.isPlatform()) {
 
-            ISystemImage[] sis = target.getSystemImages();
-            if (sis != null && sis.length > 0) {
+            Collection<SystemImage> sis = mSdkTargets.getSystemImages(target);
+            if (sis != null && sis.size() > 0) {
                 // Note: if an addon has no system-images of its own, it depends on its parent
                 // platform and it wouldn't have been loaded properly if the platform were
                 // missing so we don't need to double-check that part here.
@@ -724,7 +764,7 @@ class AvdCreationPresenter {
                 String abiType = tagAbi.getSecond();
                 if (abiType != null &&
                         !abiType.isEmpty() &&
-                        target.getParent().getSystemImage(tag, abiType) == null) {
+                        getSystemImage(target.getParent(), tag, abiType) == null) {
                     // We have a system-image requirement but there is no such system image
                     // loaded in the parent platform. This AVD won't run properly.
                     warnings.add(
@@ -875,7 +915,16 @@ class AvdCreationPresenter {
         }
         IdDisplay tag = tagAbi.getFirst();
         String abiType = tagAbi.getSecond();
-
+        ISystemImage systemImage = null;
+        Collection<SystemImage> sysImgs = mSdkContext.getHandler().getSystemImageManager(mSdkContext.getProgressIndicator()).getImages();
+        for (SystemImage img : sysImgs) {
+            if (img.getAbiType().equals(abiType)) {
+                systemImage = img;
+                break;
+            }
+        }
+        if (systemImage == null)
+        	return false;
         // get the SD card data from the UI.
         String sdName = null;
         if (mWidgets.isChecked(Ctrl.RADIO_SDCARD_SIZE)) {
@@ -939,7 +988,8 @@ class AvdCreationPresenter {
 
         File avdFolder = null;
         try {
-            avdFolder = AvdInfo.getDefaultAvdFolder(mAvdManager, avdName);
+            AvdInfo.getDefaultAvdFolder(
+            		mAvdManager, avdName, mSdkContext.getHandler().getFileOp(), false);
         } catch (AndroidLocationException e) {
             return false;
         }
@@ -985,16 +1035,30 @@ class AvdCreationPresenter {
             hwProps.put(HardwareProperties.HW_SDCARD, HardwareProperties.BOOLEAN_YES);
         }
 
+        /*
+            @NonNull  File avdFolder,
+            @NonNull  String avdName,
+            @NonNull  ISystemImage systemImage,
+            @Nullable File skinFolder,
+            @Nullable String skinName,
+            @Nullable String sdcard,
+            @Nullable Map<String,String> hardwareConfig,
+            @Nullable Map<String,String> bootProps,
+            boolean deviceHasPlayStore,
+            boolean createSnapshot,
+            boolean removePrevious,
+            boolean editExisting,
+            @NonNull ILogger log) {
+         */
         AvdInfo avdInfo = mAvdManager.createAvd(avdFolder,
                 avdName,
-                target,
-                tag,
-                abiType,
+                systemImage,
                 skinFolder,
                 skinName,
                 sdName,
                 hwProps,
                 device.getBootProps(),
+                false, // deviceHasPlayStore
                 mWidgets.isChecked(Ctrl.CHECK_SNAPSHOT),
                 mWidgets.isChecked(Ctrl.CHECK_FORCE_CREATION),
                 mAvdInfo != null, // edit existing
@@ -1038,12 +1102,12 @@ class AvdCreationPresenter {
         return null;
     }
 
-    private void fillExistingAvdInfo(AvdInfo avd) {
-        mWidgets.setText(Ctrl.TEXT_AVD_NAME, avd.getName());
-        selectDevice(avd.getDeviceManufacturer(), avd.getDeviceName());
+    private void fillExistingAvdInfo(AvdAgent avdAgent) {
+        mWidgets.setText(Ctrl.TEXT_AVD_NAME, avdAgent.getAvd().getName());
+        selectDevice(avdAgent.getDeviceMfctr(), avdAgent.getDeviceName());
         toggleCameras();
 
-        IAndroidTarget target = avd.getTarget();
+        IAndroidTarget target = avdAgent.getTarget();
 
         if (target != null && !mCurrentTargets.isEmpty()) {
             // Try to select the target in the target combo.
@@ -1061,13 +1125,12 @@ class AvdCreationPresenter {
                 }
             }
         }
-
-        ISystemImage[] systemImages = getSystemImages(target);
-        if (target != null && systemImages.length > 0) {
-            mWidgets.setEnabled(Ctrl.COMBO_TAG_ABI, systemImages.length > 1);
-            String abiType = AvdInfo.getPrettyAbiType(avd.getTag(), avd.getAbiType());
-            int n = mWidgets.getComboSize(Ctrl.COMBO_TAG_ABI);
-            for (int i = 0; i < n; i++) {
+        Collection<SystemImage> systemImages = getSystemImages(target);
+        if (target != null && systemImages.size() > 0) {
+            mWidgets.setEnabled(Ctrl.COMBO_TAG_ABI, systemImages.size() > 1);
+            String abiType = mAvdAgent.getPrettyAbiType();
+            int count = mWidgets.getComboSize(Ctrl.COMBO_TAG_ABI);
+            for (int i = 0; i < count; i++) {
                 if (abiType.equals(mWidgets.getComboItem(Ctrl.COMBO_TAG_ABI, i))) {
                     mWidgets.selectComboIndex(Ctrl.COMBO_TAG_ABI, i);
                     reloadSkinCombo();
@@ -1076,7 +1139,7 @@ class AvdCreationPresenter {
             }
         }
 
-        Map<String, String> props = avd.getProperties();
+        Map<String, String> props = avdAgent.getAvd().getProperties();
 
         if (props != null) {
             String snapshots = props.get(AvdManager.AVD_INI_SNAPSHOT_PRESENT);
@@ -1130,15 +1193,15 @@ class AvdCreationPresenter {
             // the AVD .ini skin path is relative to the SDK folder *or* is a numeric size.
             String skinIniPath = props.get(AvdManager.AVD_INI_SKIN_PATH);
             if (skinIniPath != null) {
-                File skinFolder = new File(mAvdManager.getLocalSdk().getLocation(), skinIniPath);
-
-                for (int i = 0; i < mComboSkins.size(); i++) {
-                    if (mComboSkins.get(i).hasPath() &&
-                            skinFolder.equals(mComboSkins.get(i).getPath())) {
-                        mWidgets.selectComboIndex(Ctrl.COMBO_SKIN, i);
-                        defaultSkinType = null;
-                        break;
-                    }
+                File skinFolder = getAvdPath(skinIniPath);
+                if (skinFolder != null)
+	                for (int i = 0; i < mComboSkins.size(); i++) {
+	                    if (mComboSkins.get(i).hasPath() &&
+	                            skinFolder.equals(mComboSkins.get(i).getPath())) {
+	                        mWidgets.selectComboIndex(Ctrl.COMBO_SKIN, i);
+	                        defaultSkinType = null;
+	                        break;
+	                    }
                 }
             }
 
@@ -1203,19 +1266,22 @@ class AvdCreationPresenter {
         }
     }
 
-    @SuppressWarnings("deprecation")
+    private File getAvdPath(String subDirectory)
+    {
+    	File file = null;
+    		try {
+				file = new File(mAvdManager.getBaseAvdFolder(), subDirectory);
+			} catch (AndroidLocationException e) {
+				mSdkContext.getSdkLog().error(e, subDirectory);
+			}
+    	return file;
+    }
+    
+    
     private void fillInitialDeviceInfo(Device device) {
-        String name = device.getManufacturer();
-        if (!name.equals("Generic") &&      // TODO define & use constants
-                !name.equals("User") &&
-                device.getName().indexOf(name) == -1) {
-            name = " by " + name;
-        } else {
-            name = "";
-        }
-        name = "AVD for " + device.getName() + name;
+        String name = "AVD for " + device.getDisplayName();
         // sanitize the name
-        name = name.replaceAll("[^0-9a-zA-Z_-]+", " ").trim().replaceAll("[ _]+", "_");
+        //name = name.replaceAll("[^0-9a-zA-Z_-]+", " ").trim().replaceAll("[ _]+", "_");
         mWidgets.setText(Ctrl.TEXT_AVD_NAME, name);
 
         // Select the device
@@ -1243,110 +1309,13 @@ class AvdCreationPresenter {
      * @return A non-null ISystemImage array. Can be empty.
      */
     @NonNull
-    private ISystemImage[] getSystemImages(IAndroidTarget target) {
-        if (target != null) {
-            ISystemImage[] images = target.getSystemImages();
-
-            if ((images == null || images.length == 0) && !target.isPlatform()) {
-                // This is an add-on and it does not provide any system image.
-
-                // Before LMP / Tools 23.0.4, the behavior was to provide the
-                // parent (platform) system-image using this code:
-                //
-                // images = target.getParent().getSystemImages();
-                //
-                // After tools 23.0.4, the behavior is to NOT provide the
-                // platform system-image for the add-on.
-            }
-
-            if (images != null) {
-                return images;
-            }
-        }
-
-        return new ISystemImage[0];
-    }
-
-    // Code copied from DeviceMenuListener in ADT; unify post release
-
-    private static final String NEXUS = "Nexus";       //$NON-NLS-1$
-    private static final String GENERIC = "Generic";   //$NON-NLS-1$
-    private static Pattern PATTERN = Pattern.compile(
-            "(\\d+\\.?\\d*)in (.+?)( \\(.*Nexus.*\\))?"); //$NON-NLS-1$
-
-    private static int nexusRank(Device device) {
-        @SuppressWarnings("deprecation")
-        String name = device.getName();
-        if (name.endsWith(" One")) {     //$NON-NLS-1$
-            return 1;
-        }
-        if (name.endsWith(" S")) {       //$NON-NLS-1$
-            return 2;
-        }
-        if (name.startsWith("Galaxy")) { //$NON-NLS-1$
-            return 3;
-        }
-        if (name.endsWith(" 7")) {       //$NON-NLS-1$
-            return 4;
-        }
-        if (name.endsWith(" 10")) {       //$NON-NLS-1$
-            return 5;
-        }
-        if (name.endsWith(" 4")) {       //$NON-NLS-1$
-            return 6;
-        }
-
-        return 7;
-    }
-
-    private static boolean isGeneric(Device device) {
-        return device.getManufacturer().equals(GENERIC);
-    }
-
-    @SuppressWarnings("deprecation")
-    private static boolean isNexus(Device device) {
-        return device.getName().contains(NEXUS);
+    private Collection<SystemImage> getSystemImages(IAndroidTarget target) {
+        return mSdkTargets.getSystemImages(target);
     }
 
     private static String getGenericLabel(Device d) {
-        // * Replace "'in'" with '"' (e.g. 2.7" QVGA instead of 2.7in QVGA)
-        // * Use the same precision for all devices (all but one specify decimals)
-        // * Add some leading space such that the dot ends up roughly in the
-        //   same space
-        // * Add in screen resolution and density
-        @SuppressWarnings("deprecation")
-        String name = d.getName();
-        if (name.equals("3.7 FWVGA slider")) {                        //$NON-NLS-1$
-            // Fix metadata: this one entry doesn't have "in" like the rest of them
-            name = "3.7in FWVGA slider";                              //$NON-NLS-1$
-        }
-
-        Matcher matcher = PATTERN.matcher(name);
-        if (matcher.matches()) {
-            String size = matcher.group(1);
-            String n = matcher.group(2);
-            int dot = size.indexOf('.');
-            if (dot == -1) {
-                size = size + ".0";
-                dot = size.length() - 2;
-            }
-            for (int i = 0; i < 2 - dot; i++) {
-                size = ' ' + size;
-            }
-            name = size + "\" " + n;
-        }
-
-        return String.format(java.util.Locale.US, "%1$s (%2$s)", name,
+        return String.format(java.util.Locale.US, "%1$s (%2$s)", d.getDisplayName(),
                 getResolutionString(d));
-    }
-
-    private static String getNexusLabel(Device d) {
-        @SuppressWarnings("deprecation")
-        String name = d.getName();
-        Screen screen = d.getDefaultHardware().getScreen();
-        float length = (float) screen.getDiagonalLength();
-        return String.format(java.util.Locale.US, "%1$s (%3$s\", %2$s)",
-                name, getResolutionString(d), Float.toString(length));
     }
 
     @Nullable
@@ -1358,9 +1327,6 @@ class AvdCreationPresenter {
                 screen.getYDimension(),
                 screen.getPixelDensity().getResourceValue());
     }
-
-    //-------
-
 
     /**
      * AVD skin type. Order defines the order of the skin combo list.
@@ -1484,5 +1450,47 @@ class AvdCreationPresenter {
         validatePage();
     }
 
+    private ISystemImage getSystemImage(IAndroidTarget target, IdDisplay tag, String abiType)
+    {
+    	if (target != null)
+    	{
+    		Collection<SystemImage> systemImages = getSystemImages(target);
+	        for (SystemImage sysImg : systemImages) {
+	            if ((sysImg.getTag().equals(tag)) && (sysImg.getAbiType().equals(abiType))) {
+	                return sysImg;
+	            }
+	        }
+    	}
+        return null;
+    }
 
+    private Pair<AvdConflict, String> isAvdNameConflicting(String name)
+    {
+        boolean ignoreCase = SdkConstants.currentPlatform() == 2;
+        AvdInfo[] allAvdList = mAvdManager.getAllAvds();
+        for (AvdInfo info : allAvdList)
+        {
+            String name2 = info.getName();
+            if ((name2.equals(name)) || ((ignoreCase) && (name2.equalsIgnoreCase(name))))
+            {
+                if (info.getStatus() == AvdInfo.AvdStatus.OK) {
+                    return Pair.of(AvdConflict.CONFLICT_EXISTING_AVD, name2);
+                }
+                return Pair.of(AvdConflict.CONFLICT_INVALID_AVD, name2);
+            }
+        }
+        try
+        {
+            File file = AvdInfo.getDefaultIniFile(mAvdManager, name);
+            if (file.exists()) {
+                return Pair.of(AvdConflict.CONFLICT_EXISTING_PATH, file.getPath());
+            }
+            file = AvdInfo.getDefaultAvdFolder(mAvdManager, name, mSdkContext.getHandler().getFileOp(), false);
+            if (file.exists()) {
+                return Pair.of(AvdConflict.CONFLICT_EXISTING_PATH, file.getPath());
+            }
+        }
+        catch (AndroidLocationException e) {}
+        return Pair.of(AvdConflict.NO_CONFLICT, null);
+    }
 }

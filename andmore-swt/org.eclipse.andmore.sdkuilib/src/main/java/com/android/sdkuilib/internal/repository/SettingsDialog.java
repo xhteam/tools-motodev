@@ -16,14 +16,15 @@
 
 package com.android.sdkuilib.internal.repository;
 
-import com.android.sdklib.internal.repository.DownloadCache;
-import com.android.sdklib.internal.repository.DownloadCache.Strategy;
-import com.android.sdklib.internal.repository.updater.ISettingsPage;
-import com.android.sdklib.internal.repository.updater.SettingsController;
-import com.android.sdklib.util.FormatUtils;
+//import com.android.sdklib.repository.legacy.remote.internal.DownloadCache;
+//import com.android.sdklib.repository.legacy.remote.internal.DownloadCache.Strategy;
+//import com.android.sdklib.internal.repository.updater.ISettingsPage;
+//import com.android.sdklib.internal.repository.updater.SettingsController;
+//import com.android.sdklib.util.FormatUtils;
 import com.android.sdkuilib.ui.GridDataBuilder;
 import com.android.sdkuilib.ui.GridLayoutBuilder;
 
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -39,22 +40,23 @@ import org.eclipse.swt.widgets.Text;
 import java.util.Properties;
 
 
-public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
+public class SettingsDialog extends UpdaterBaseDialog {
 
 
     // data members
-    private final DownloadCache mDownloadCache = new DownloadCache(Strategy.SERVE_CACHE);
-    private final SettingsController mSettingsController;
-    private SettingsChangedCallback mSettingsChangedCallback;
+//    private final DownloadCache mDownloadCache = new DownloadCache(Strategy.SERVE_CACHE);
+//    private final SettingsController mSettingsController;
+//    private SettingsChangedCallback mSettingsChangedCallback;
 
     // UI widgets
-    private Text mTextProxyServer;
-    private Text mTextProxyPort;
-    private Text mTextCacheSize;
-    private Button mCheckUseCache;
+//    private Text mTextProxyServer;
+//    private Text mTextProxyPort;
+	// TODO - Add channel configuration
+    private Text mTextChannel;
+//    private Button mCheckUseCache;
     private Button mCheckForceHttp;
-    private Button mCheckAskAdbRestart;
-    private Button mCheckEnablePreviews;
+//    private Button mCheckAskAdbRestart;
+//    private Button mCheckEnablePreviews;
 
     private SelectionAdapter mApplyOnSelected = new SelectionAdapter() {
         @Override
@@ -70,10 +72,8 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
         }
     };
 
-    public SettingsDialog(Shell parentShell, SwtUpdaterData swtUpdaterData) {
-        super(parentShell, swtUpdaterData, "Settings" /*title*/);
-        assert swtUpdaterData != null;
-        mSettingsController = swtUpdaterData.getSettingsController();
+    public SettingsDialog(Shell parentShell, SdkContext sdkContext) {
+        super(parentShell, sdkContext, "Settings" /*title*/);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
     protected void createContents() {
         super.createContents();
         Shell shell = getShell();
-
+        /*
         Group group = new Group(shell, SWT.NONE);
         group.setText("Proxy Settings");
         GridDataBuilder.create(group).fill().grab().hSpan(2);
@@ -100,7 +100,6 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
         String tooltip = "The hostname or IP of the HTTP & HTTPS proxy server to use (e.g. proxy.example.com).\n" +
                          "When empty, the default Java proxy setting is used.";
         label.setToolTipText(tooltip);
-
         mTextProxyServer = new Text(group, SWT.BORDER);
         GridDataBuilder.create(mTextProxyServer).hFill().hGrab().vCenter();
         mTextProxyServer.addModifyListener(mApplyOnModified);
@@ -163,10 +162,10 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
                 updateDownloadCacheSize();
             }
         });
-
+*/
         // ----
-        group = new Group(shell, SWT.NONE);
-        group.setText("Others");
+        Group group = new Group(shell, SWT.NONE);
+        group.setText("Options");
         GridDataBuilder.create(group).fill().grab().hSpan(2);
         GridLayoutBuilder.create(group).columns(2);
 
@@ -177,7 +176,7 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
             "If you are not able to connect to the official Android repository using HTTPS,\n" +
             "enable this setting to force accessing it via HTTP.");
         mCheckForceHttp.addSelectionListener(mApplyOnSelected);
-
+/*
         mCheckAskAdbRestart = new Button(group, SWT.CHECK);
         GridDataBuilder.create(mCheckAskAdbRestart).hFill().hGrab().vCenter().hSpan(2);
         mCheckAskAdbRestart.setText("Ask before restarting ADB");
@@ -185,7 +184,6 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
                 "When checked, the user will be asked for permission to restart ADB\n" +
                 "after updating an addon-on package or a tool package.");
         mCheckAskAdbRestart.addSelectionListener(mApplyOnSelected);
-
         mCheckEnablePreviews = new Button(group, SWT.CHECK);
         GridDataBuilder.create(mCheckEnablePreviews).hFill().hGrab().vCenter().hSpan(2);
         mCheckEnablePreviews.setText("Enable Preview Tools");
@@ -194,6 +192,7 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
             "These are optional future release candidates that the Android tools team\n" +
             "publishes from time to time for early feedback.");
         mCheckEnablePreviews.addSelectionListener(mApplyOnSelected);
+*/
 
         Label filler = new Label(shell, SWT.NONE);
         GridDataBuilder.create(filler).hFill().hGrab();
@@ -204,14 +203,13 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
     @Override
     protected void postCreate() {
         super.postCreate();
-        // This tells the controller to load the settings into the page UI.
-        mSettingsController.setSettingsPage(this);
+        loadSettings();
     }
 
     @Override
     protected void close() {
         // Dissociate this page from the controller
-        mSettingsController.setSettingsPage(null);
+        //mSettingsController.setSettingsPage(null);
         super.close();
     }
 
@@ -221,35 +219,32 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
     //$hide>>$
 
     /** Loads settings from the given {@link Properties} container and update the page UI. */
-    @Override
-    public void loadSettings(Properties inSettings) {
-        mTextProxyServer.setText(inSettings.getProperty(KEY_HTTP_PROXY_HOST, ""));  //$NON-NLS-1$
-        mTextProxyPort.setText(  inSettings.getProperty(KEY_HTTP_PROXY_PORT, ""));  //$NON-NLS-1$
-        mCheckForceHttp.setSelection(
-                Boolean.parseBoolean(inSettings.getProperty(KEY_FORCE_HTTP)));
-        mCheckAskAdbRestart.setSelection(
-                Boolean.parseBoolean(inSettings.getProperty(KEY_ASK_ADB_RESTART)));
-        mCheckUseCache.setSelection(
-                Boolean.parseBoolean(inSettings.getProperty(KEY_USE_DOWNLOAD_CACHE)));
-        mCheckEnablePreviews.setSelection(
-                Boolean.parseBoolean(inSettings.getProperty(KEY_ENABLE_PREVIEWS)));
+    public void loadSettings() {
+    	Settings settings = mSdkContext.getSettings();
+        //mTextProxyServer.setText(inSettings.getProperty(KEY_HTTP_PROXY_HOST, ""));  //$NON-NLS-1$
+        //mTextProxyPort.setText(  inSettings.getProperty(KEY_HTTP_PROXY_PORT, ""));  //$NON-NLS-1$
+        mCheckForceHttp.setSelection(settings.getForceHttp());
+        //mCheckAskAdbRestart.setSelection(
+        //        Boolean.parseBoolean(inSettings.getProperty(KEY_ASK_ADB_RESTART)));
+        //mCheckUseCache.setSelection(
+        //        Boolean.parseBoolean(inSettings.getProperty(KEY_USE_DOWNLOAD_CACHE)));
+        //mCheckEnablePreviews.setSelection(false);
 
     }
 
     /** Called by the application to retrieve settings from the UI and store them in
      * the given {@link Properties} container. */
-    @Override
-    public void retrieveSettings(Properties outSettings) {
-        outSettings.setProperty(KEY_HTTP_PROXY_HOST, mTextProxyServer.getText());
-        outSettings.setProperty(KEY_HTTP_PROXY_PORT, mTextProxyPort.getText());
-        outSettings.setProperty(KEY_FORCE_HTTP,
-                Boolean.toString(mCheckForceHttp.getSelection()));
-        outSettings.setProperty(KEY_ASK_ADB_RESTART,
-                Boolean.toString(mCheckAskAdbRestart.getSelection()));
-        outSettings.setProperty(KEY_USE_DOWNLOAD_CACHE,
-                Boolean.toString(mCheckUseCache.getSelection()));
-        outSettings.setProperty(KEY_ENABLE_PREVIEWS,
-                Boolean.toString(mCheckEnablePreviews.getSelection()));
+    public void retrieveSettings() {
+    	Settings settings = mSdkContext.getSettings();
+        //outSettings.setProperty(KEY_HTTP_PROXY_HOST, mTextProxyServer.getText());
+        //outSettings.setProperty(KEY_HTTP_PROXY_PORT, mTextProxyPort.getText());
+        settings.setForceHttp(mCheckForceHttp.getSelection());
+        //outSettings.setProperty(KEY_ASK_ADB_RESTART,
+        //        Boolean.toString(mCheckAskAdbRestart.getSelection()));
+        //outSettings.setProperty(KEY_USE_DOWNLOAD_CACHE,
+        //        Boolean.toString(mCheckUseCache.getSelection()));
+        //outSettings.setProperty(KEY_ENABLE_PREVIEWS,
+        //        Boolean.toString(mCheckEnablePreviews.getSelection()));
 
     }
 
@@ -258,28 +253,26 @@ public class SettingsDialog extends UpdaterBaseDialog implements ISettingsPage {
      * settings must be applied. The page does not apply the settings itself, instead
      * it notifies the application.
      */
-    @Override
+    /*
     public void setOnSettingsChanged(SettingsChangedCallback settingsChangedCallback) {
         mSettingsChangedCallback = settingsChangedCallback;
     }
-
+*/
     /**
      * Callback invoked when user touches one of the settings.
      * There is no "Apply" button, settings are applied immediately as they are changed.
      * Notify the application that settings have changed.
      */
     private void applyNewSettings() {
-        if (mSettingsChangedCallback != null) {
-            mSettingsChangedCallback.onSettingsChanged(this);
-        }
+    	retrieveSettings();
     }
-
+/*
     private void updateDownloadCacheSize() {
         long size = mDownloadCache.getCurrentSize();
         String str = FormatUtils.byteSizeToString(size);
         mTextCacheSize.setText(str);
     }
-
+*/
 
     // End of hiding from SWT Designer
     //$hide<<$

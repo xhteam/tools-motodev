@@ -17,12 +17,13 @@
 package com.android.sdkuilib.internal.repository;
 
 import com.android.SdkConstants;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
-import com.android.sdkuilib.internal.repository.ui.SdkUpdaterWindowImpl2;
+import org.eclipse.andmore.base.resources.ImageFactory;
+//import com.android.sdkuilib.internal.repository.ui.SdkUpdaterWindowImpl2;
 import com.android.sdkuilib.ui.GridDataBuilder;
 import com.android.sdkuilib.ui.GridLayoutBuilder;
 import com.android.sdkuilib.ui.SwtBaseDialog;
 
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -36,18 +37,19 @@ import org.eclipse.swt.widgets.Shell;
  * about box or add-on site.)
  */
 public abstract class UpdaterBaseDialog extends SwtBaseDialog {
+    public static final String APP_NAME = "Android SDK Manager";
 
-    private final SwtUpdaterData mSwtUpdaterData;
+    protected final SdkContext mSdkContext;
 
-    protected UpdaterBaseDialog(Shell parentShell, SwtUpdaterData swtUpdaterData, String title) {
+    protected UpdaterBaseDialog(Shell parentShell, SdkContext sdkContext, String title) {
         super(parentShell,
               SWT.APPLICATION_MODAL,
-              String.format("%1$s - %2$s", SdkUpdaterWindowImpl2.APP_NAME, title)); //$NON-NLS-1$
-        mSwtUpdaterData = swtUpdaterData;
+              String.format("%1$s - %2$s", APP_NAME, title)); //$NON-NLS-1$
+        mSdkContext = sdkContext;
     }
 
-    public SwtUpdaterData getSwtUpdaterData() {
-        return mSwtUpdaterData;
+    public SdkContext getSdkContext() {
+        return mSdkContext;
     }
 
     /**
@@ -96,11 +98,9 @@ public abstract class UpdaterBaseDialog extends SwtBaseDialog {
             imageName = "android_icon_128.png"; //$NON-NLS-1$
         }
 
-        if (mSwtUpdaterData != null) {
-            ImageFactory imgFactory = mSwtUpdaterData.getImageFactory();
-            if (imgFactory != null) {
-                shell.setImage(imgFactory.getImageByName(imageName));
-            }
+        ImageFactory imgFactory = mSdkContext.getSdkHelper().getImageFactory();
+        if (imgFactory != null) {
+            shell.setImage(imgFactory.getImageByName(imageName));
         }
     }
 }

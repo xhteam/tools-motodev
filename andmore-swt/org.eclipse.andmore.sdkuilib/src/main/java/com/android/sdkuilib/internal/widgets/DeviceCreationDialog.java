@@ -44,7 +44,7 @@ import com.android.sdklib.devices.Sensor;
 import com.android.sdklib.devices.Software;
 import com.android.sdklib.devices.State;
 import com.android.sdklib.devices.Storage;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
+import org.eclipse.andmore.base.resources.ImageFactory;
 import com.android.sdkuilib.ui.GridDataBuilder;
 import com.android.sdkuilib.ui.GridDialog;
 import com.android.sdkuilib.ui.GridLayoutBuilder;
@@ -68,7 +68,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class DeviceCreationDialog extends GridDialog {

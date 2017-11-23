@@ -16,13 +16,13 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.device.IHvDevice;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel.IWindowChangeListener;
 import com.android.hierarchyviewerlib.models.Window;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.viewers.IFontProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -60,7 +60,7 @@ public class DeviceSelector extends Composite implements IWindowChangeListener, 
 
     private Image mEmulatorImage;
 
-    private final static int ICON_WIDTH = 16;
+   // private final static int ICON_WIDTH = 16;
 
     private boolean mDoTreeViewStuff;
 
@@ -203,14 +203,12 @@ public class DeviceSelector extends Composite implements IWindowChangeListener, 
         }
         mBoldFont = new Font(Display.getDefault(), newFontData);
 
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
         mDeviceImage =
-                loader.loadImage(display, "device.png", ICON_WIDTH, ICON_WIDTH, display //$NON-NLS-1$
-                        .getSystemColor(SWT.COLOR_RED));
+        		imageFactory.getImageByName("device.png");
 
         mEmulatorImage =
-                loader.loadImage(display, "emulator.png", ICON_WIDTH, ICON_WIDTH, display //$NON-NLS-1$
-                        .getSystemColor(SWT.COLOR_BLUE));
+        		imageFactory.getImageByName("emulator.png");
     }
 
     private DisposeListener mDisposeListener = new DisposeListener() {

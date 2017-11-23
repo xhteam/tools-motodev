@@ -48,7 +48,7 @@ import org.eclipse.swt.widgets.Widget;
  * the floating window is hidden but not closed. This way it can easily accumulate
  * all the log.
  */
-class LogWindow implements ILogUiProvider {
+public class LogWindow implements ILogUiProvider {
 
     private Shell mParentShell;
     private Shell mShell;

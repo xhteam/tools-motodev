@@ -18,7 +18,6 @@ package com.android.hierarchyviewerlib.ui;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.device.IHvDevice;
 import com.android.hierarchyviewerlib.models.TreeViewModel;
@@ -29,6 +28,7 @@ import com.android.hierarchyviewerlib.ui.DevicePropertyEditingSupport.PropertyTy
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode;
 import com.android.hierarchyviewerlib.ui.util.TreeColumnResizer;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -343,8 +343,8 @@ public class PropertyViewer extends Composite implements ITreeChangeListener {
 
         addControlListener(mControlListener);
 
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("picker.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("picker.png"); //$NON-NLS-1$
 
         treeChanged();
     }

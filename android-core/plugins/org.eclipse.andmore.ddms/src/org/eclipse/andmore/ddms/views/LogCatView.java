@@ -52,7 +52,7 @@ public class LogCatView extends SelectionDependentViewPart {
 		parent.setLayout(new FillLayout());
 
 		IPreferenceStore prefStore = DdmsPlugin.getDefault().getPreferenceStore();
-		mLogCatPanel = new LogCatPanel(prefStore);
+		mLogCatPanel = new LogCatPanel(prefStore, DdmsPlugin.getDefault().getImageFactory());
 		mLogCatPanel.createPanel(parent);
 		setSelectionDependentPanel(mLogCatPanel);
 

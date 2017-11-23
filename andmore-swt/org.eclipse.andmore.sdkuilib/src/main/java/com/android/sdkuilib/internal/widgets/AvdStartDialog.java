@@ -20,10 +20,10 @@ import com.android.sdklib.devices.Device;
 import com.android.sdklib.devices.DeviceManager;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.internal.repository.updater.SettingsController;
+import com.android.sdkuilib.internal.repository.avd.AvdAgent;
 import com.android.sdkuilib.ui.GridDialog;
+import com.android.sdkuilib.ui.ResolutionChooserDialog;
 import com.android.utils.ILogger;
-import com.android.utils.SdkUtils;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.window.Window;
@@ -78,7 +78,6 @@ final class AvdStartDialog extends GridDialog {
 
     private final AvdInfo mAvd;
     private final File mSdkLocation;
-    private final SettingsController mSettingsController;
     private final DeviceManager mDeviceManager;
 
     private Text mScreenSize;
@@ -98,12 +97,10 @@ final class AvdStartDialog extends GridDialog {
     private boolean mSnapshotLaunch = true;
     private Button mSnapshotLaunchCheckbox;
 
-    AvdStartDialog(Shell parentShell, AvdInfo avd, File sdkLocation,
-            SettingsController settingsController, ILogger sdkLog) {
+    AvdStartDialog(Shell parentShell, AvdAgent avdAgent, File sdkLocation, ILogger sdkLog) {
         super(parentShell, 2, false);
-        mAvd = avd;
+        mAvd = avdAgent.getAvd();
         mSdkLocation = sdkLocation;
-        mSettingsController = settingsController;
         mDeviceManager = DeviceManager.createInstance(mSdkLocation, sdkLog);
         if (mAvd == null) {
             throw new IllegalArgumentException("avd cannot be null");
@@ -330,12 +327,6 @@ final class AvdStartDialog extends GridDialog {
         String dpi = mMonitorDpi.getText();
         if (dpi.length() > 0) {
             sMonitorDpi = Integer.parseInt(dpi);
-
-            // if there is a setting controller, save it
-            if (mSettingsController != null) {
-                mSettingsController.setMonitorDensity(sMonitorDpi);
-                mSettingsController.saveSettings();
-            }
         }
 
         // now the scale factor
@@ -434,9 +425,6 @@ final class AvdStartDialog extends GridDialog {
      * can tell us.
      */
     private int getMonitorDpi() {
-        if (mSettingsController != null) {
-            sMonitorDpi = mSettingsController.getSettings().getMonitorDensity();
-        }
 
         if (sMonitorDpi == -1) { // first time? try to get a value
             sMonitorDpi = Toolkit.getDefaultToolkit().getScreenResolution();

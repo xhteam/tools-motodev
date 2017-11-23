@@ -11,10 +11,12 @@ Require-Bundle: org.eclipse.core.commands;bundle-version="3.8.1",
  org.eclipse.jface;bundle-version="3.12.2",
  org.eclipse.andmore.swt,
  org.eclipse.andmore.swtmenubar,
- org.eclipse.andmore.ddmuilib
+ org.eclipse.andmore.ddmuilib,
+ org.eclipse.core.runtime;bundle-version="3.12.0"
 Export-Package: com.android.hierarchyviewerlib,
  com.android.hierarchyviewerlib.actions,
  com.android.hierarchyviewerlib.device,
  com.android.hierarchyviewerlib.models,
  com.android.hierarchyviewerlib.ui
 Bundle-ClassPath: .
+Import-Package: org.eclipse.ui.plugin

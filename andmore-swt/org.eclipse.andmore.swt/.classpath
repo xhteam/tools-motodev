@@ -13,7 +13,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/dvlib-25.3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/sdk-common-25.3.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/repository-25.3.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/ddmlib-25.3.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/ddmlib-25.3.3.jar" sourcepath="F:/m2/repository/com/android/tools/ddms/ddmlib/25.3.3/ddmlib-25.3.3-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jimfs-1.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

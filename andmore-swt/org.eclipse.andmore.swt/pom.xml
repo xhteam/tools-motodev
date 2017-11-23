@@ -211,11 +211,6 @@
                         <version>4.1</version>
 			          </artifactItem>
 			          <artifactItem>
-                        <groupId>com.android.tools</groupId>
-                        <artifactId>sdk-common</artifactId>
-                        <version>${android.tools.version}</version>
-			          </artifactItem>
-			          <artifactItem>
                          <groupId>com.android.tools</groupId>
                          <artifactId>repository</artifactId>
                          <version>${android.tools.version}</version>

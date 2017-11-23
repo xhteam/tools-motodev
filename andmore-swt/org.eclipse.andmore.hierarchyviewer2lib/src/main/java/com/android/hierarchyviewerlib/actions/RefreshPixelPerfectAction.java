@@ -16,13 +16,12 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 public class RefreshPixelPerfectAction extends PixelPerfectEnabledAction implements ImageAction {
 
@@ -33,8 +32,8 @@ public class RefreshPixelPerfectAction extends PixelPerfectEnabledAction impleme
     private RefreshPixelPerfectAction() {
         super("&Refresh Screenshot");
         setAccelerator(SWT.F5);
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("refresh-windows.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("refresh-windows.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Refresh the screenshot");
     }

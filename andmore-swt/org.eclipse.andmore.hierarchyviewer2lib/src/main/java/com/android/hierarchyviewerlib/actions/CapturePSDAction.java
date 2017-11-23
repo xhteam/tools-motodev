@@ -16,13 +16,12 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class CapturePSDAction extends TreeViewEnabledAction implements ImageAction {
@@ -37,8 +36,8 @@ public class CapturePSDAction extends TreeViewEnabledAction implements ImageActi
         super("&Capture Layers");
         this.mShell = shell;
         setAccelerator(SWT.MOD1 + 'C');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("capture-psd.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("capture-psd.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Capture the window layers as a photoshop document");
     }

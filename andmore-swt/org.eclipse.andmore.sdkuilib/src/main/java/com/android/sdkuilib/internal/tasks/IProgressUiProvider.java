@@ -16,8 +16,8 @@
 
 package com.android.sdkuilib.internal.tasks;
 
-import com.android.sdklib.internal.repository.ITaskMonitor;
-import com.android.sdklib.internal.repository.UserCredentials;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
 
 import org.eclipse.swt.widgets.ProgressBar;
 
@@ -72,6 +72,17 @@ interface IProgressUiProvider extends ILogUiProvider {
      * @return true if YES was clicked.
      */
     public abstract boolean displayPrompt(String title, String message);
+
+    /**
+     * Display info dialog box.
+     *
+     * This implementation allow this to be called from any thread, it
+     * makes sure the dialog is opened synchronously in the ui thread.
+     *
+     * @param title The title of the dialog box
+     * @param message The error message
+     */
+	public abstract void displayInfo(String title, String message);
 
     /**
      * Launch an interface which asks for login credentials. Implementations

@@ -16,14 +16,13 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 public class PixelPerfectAutoRefreshAction extends PixelPerfectEnabledAction implements ImageAction {
 
@@ -34,8 +33,8 @@ public class PixelPerfectAutoRefreshAction extends PixelPerfectEnabledAction imp
     private PixelPerfectAutoRefreshAction() {
         super("Auto &Refresh", Action.AS_CHECK_BOX);
         setAccelerator(SWT.MOD1 + 'R');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("auto-refresh.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("auto-refresh.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Automatically refresh the screenshot");
     }

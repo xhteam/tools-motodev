@@ -16,13 +16,12 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 public class InvalidateAction extends SelectedNodeEnabledAction implements ImageAction {
 
@@ -33,8 +32,8 @@ public class InvalidateAction extends SelectedNodeEnabledAction implements Image
     private InvalidateAction() {
         super("&Invalidate Layout");
         setAccelerator(SWT.MOD1 + 'I');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("invalidate.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("invalidate.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Invalidate the layout for the current window");
     }

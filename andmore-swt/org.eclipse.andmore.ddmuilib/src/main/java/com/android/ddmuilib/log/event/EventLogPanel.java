@@ -32,6 +32,7 @@ import com.android.ddmuilib.annotation.UiThread;
 import com.android.ddmuilib.annotation.WorkerThread;
 import com.android.ddmuilib.log.event.EventDisplay.ILogColumnListener;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -108,8 +109,11 @@ public class EventLogPanel extends TablePanel implements ILogListener,
     /** file containing the current log raw data. */
     private File mTempFile = null;
 
-    public EventLogPanel() {
+	private ImageFactory mImageFactory;
+
+    public EventLogPanel(ImageFactory imageFactory) {
         super();
+    	mImageFactory = imageFactory;
         mFormatter.setGroupingUsed(true);
     }
 
@@ -204,7 +208,7 @@ public class EventLogPanel extends TablePanel implements ILogListener,
     @UiThread
     public void openOptionPanel() {
         try {
-            EventDisplayOptions dialog = new EventDisplayOptions(mParent.getShell());
+            EventDisplayOptions dialog = new EventDisplayOptions(mParent.getShell(), mImageFactory);
             if (dialog.open(mCurrentEventLogParser, mEventDisplays, mEvents)) {
                 synchronized (mLock) {
                     // get the new EventDisplay list

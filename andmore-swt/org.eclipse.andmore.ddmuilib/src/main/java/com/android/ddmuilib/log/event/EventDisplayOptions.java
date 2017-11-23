@@ -20,10 +20,10 @@ import com.android.ddmlib.log.EventContainer;
 import com.android.ddmlib.log.EventLogParser;
 import com.android.ddmlib.log.EventValueDescription;
 import com.android.ddmuilib.DdmUiPreferences;
-import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.log.event.EventDisplay.OccurrenceDisplayDescriptor;
 import com.android.ddmuilib.log.event.EventDisplay.ValueDisplayDescriptor;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -112,9 +112,11 @@ class EventDisplayOptions  extends Dialog {
     private boolean mProcessTextChanges = true;
     private Text mTimeLimitText;
     private Text mHistWidthText;
+	private ImageFactory mImageFactory;
 
-    EventDisplayOptions(Shell parent) {
+    EventDisplayOptions(Shell parent, ImageFactory imageFactory) {
         super(parent, SWT.DIALOG_TRIM | SWT.BORDER | SWT.APPLICATION_MODAL);
+    	mImageFactory = imageFactory;
     }
 
     /**
@@ -273,10 +275,8 @@ class EventDisplayOptions  extends Dialog {
         gl.verticalSpacing = 0;
         gl.horizontalSpacing = 0;
 
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
         mEventDisplayNewButton = new Button(bottomControls, SWT.PUSH | SWT.FLAT);
-        mEventDisplayNewButton.setImage(loader.loadImage("add.png", //$NON-NLS-1$
-                leftPanel.getDisplay()));
+        mEventDisplayNewButton.setImage(mImageFactory.getImageByName("add.png")); //$NON-NLS-1$
         mEventDisplayNewButton.setToolTipText("Adds a new event display");
         mEventDisplayNewButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER));
         mEventDisplayNewButton.addSelectionListener(new SelectionAdapter() {
@@ -287,8 +287,7 @@ class EventDisplayOptions  extends Dialog {
         });
 
         mEventDisplayDeleteButton = new Button(bottomControls, SWT.PUSH | SWT.FLAT);
-        mEventDisplayDeleteButton.setImage(loader.loadImage("delete.png", //$NON-NLS-1$
-                leftPanel.getDisplay()));
+        mEventDisplayDeleteButton.setImage(mImageFactory.getImageByName("delete.png")); //$NON-NLS-1$
         mEventDisplayDeleteButton.setToolTipText("Deletes the selected event display");
         mEventDisplayDeleteButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER));
         mEventDisplayDeleteButton.addSelectionListener(new SelectionAdapter() {
@@ -299,8 +298,7 @@ class EventDisplayOptions  extends Dialog {
         });
 
         mEventDisplayUpButton = new Button(bottomControls, SWT.PUSH | SWT.FLAT);
-        mEventDisplayUpButton.setImage(loader.loadImage("up.png", //$NON-NLS-1$
-                leftPanel.getDisplay()));
+        mEventDisplayUpButton.setImage(mImageFactory.getImageByName("up.png")); //$NON-NLS-1$
         mEventDisplayUpButton.setToolTipText("Moves the selected event display up");
         mEventDisplayUpButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -327,8 +325,7 @@ class EventDisplayOptions  extends Dialog {
         });
 
         mEventDisplayDownButton = new Button(bottomControls, SWT.PUSH | SWT.FLAT);
-        mEventDisplayDownButton.setImage(loader.loadImage("down.png", //$NON-NLS-1$
-                leftPanel.getDisplay()));
+        mEventDisplayDownButton.setImage(mImageFactory.getImageByName("down.png")); //$NON-NLS-1$
         mEventDisplayDownButton.setToolTipText("Moves the selected event display down");
         mEventDisplayDownButton.addSelectionListener(new SelectionAdapter() {
             @Override

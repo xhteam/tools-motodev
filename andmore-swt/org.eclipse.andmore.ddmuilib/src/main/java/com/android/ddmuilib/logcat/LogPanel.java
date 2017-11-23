@@ -30,6 +30,7 @@ import com.android.ddmuilib.SelectionDependentPanel;
 import com.android.ddmuilib.TableHelper;
 import com.android.ddmuilib.actions.ICommonAction;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -197,6 +198,8 @@ public class LogPanel extends SelectionDependentPanel {
 
     private LogCatViewInterface mLogCatViewInterface = null;
 
+	private ImageFactory mImageFactory;
+
     /** message data, separated from content for multi line messages */
     protected static class LogMessage {
         public LogMessageInfo data;
@@ -332,10 +335,11 @@ public class LogPanel extends SelectionDependentPanel {
      * @param mode The filtering mode
      */
     public LogPanel(LogColors colors,
-            ILogFilterStorageManager filterStorage, int mode) {
+            ILogFilterStorageManager filterStorage, int mode, ImageFactory imageFactory) {
         mColors = colors;
         mFilterMode = mode;
         mFilterStorage = filterStorage;
+        mImageFactory = imageFactory;
         mStore = DdmUiPreferences.getStore();
     }
 
@@ -573,7 +577,7 @@ public class LogPanel extends SelectionDependentPanel {
      *
      */
     public void addFilter() {
-        EditFilterDialog dlg = new EditFilterDialog(mFolders.getShell());
+        EditFilterDialog dlg = new EditFilterDialog(mFolders.getShell(), mImageFactory);
         if (dlg.open()) {
             synchronized (mBuffer) {
                 // get the new filter in the array
@@ -645,7 +649,7 @@ public class LogPanel extends SelectionDependentPanel {
     public void editFilter() {
         if (mCurrentFilter != null && mCurrentFilter != mDefaultFilter) {
             EditFilterDialog dlg = new EditFilterDialog(
-                    mFolders.getShell(), mCurrentFilter);
+                    mFolders.getShell(), mImageFactory, mCurrentFilter);
             if (dlg.open()) {
                 synchronized (mBuffer) {
                     // at this point the filter has been updated.

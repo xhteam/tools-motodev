@@ -382,9 +382,11 @@ public final class HeapPanel extends BaseHeapPanel {
         {
             mLinearHeapImage = new Label(mLinearBase, SWT.NONE);
             mLinearHeapImage.setLayoutData(new GridData());
-            mLinearHeapImage.setImage(ImageLoader.createPlaceHolderArt(mDisplay,
-                    PLACEHOLDER_LINEAR_H_SIZE, PLACEHOLDER_LINEAR_V_SIZE,
-                    mDisplay.getSystemColor(SWT.COLOR_BLUE)));
+            ReplacementImageFactory replacementImageFactory =
+            	new ReplacementImageFactory(mDisplay,
+                                           PLACEHOLDER_LINEAR_H_SIZE, PLACEHOLDER_LINEAR_V_SIZE,
+                                           mDisplay.getSystemColor(SWT.COLOR_BLUE));
+            mLinearHeapImage.setImage(replacementImageFactory.getImage());
 
             // create a composite to contain the bottom part (legend)
             Composite bottomSection = new Composite(mLinearBase, SWT.NONE);
@@ -414,9 +416,11 @@ public final class HeapPanel extends BaseHeapPanel {
         if (DISPLAY_HILBERT_BITMAP) {
             mHilbertHeapImage = new Label(mHilbertBase, SWT.NONE);
             mHilbertHeapImage.setLayoutData(new GridData());
-            mHilbertHeapImage.setImage(ImageLoader.createPlaceHolderArt(mDisplay,
-                    PLACEHOLDER_HILBERT_SIZE, PLACEHOLDER_HILBERT_SIZE,
-                    mDisplay.getSystemColor(SWT.COLOR_BLUE)));
+            ReplacementImageFactory replacementImageFactory = 
+            	new ReplacementImageFactory(mDisplay,
+                                            PLACEHOLDER_HILBERT_SIZE, PLACEHOLDER_HILBERT_SIZE,
+                                            mDisplay.getSystemColor(SWT.COLOR_BLUE));
+            mHilbertHeapImage.setImage(replacementImageFactory.getImage());
 
             // create a composite to contain the right part (legend + zoom)
             Composite rightSection = new Composite(mHilbertBase, SWT.NONE);

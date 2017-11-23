@@ -16,9 +16,9 @@
 
 package com.android.sdkuilib.internal.tasks;
 
-import com.android.sdklib.internal.repository.ITask;
-import com.android.sdklib.internal.repository.ITaskMonitor;
-import com.android.sdklib.internal.repository.UserCredentials;
+import com.android.sdkuilib.internal.repository.ITask;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
 import com.android.sdkuilib.ui.AuthenticationDialog;
 import com.android.sdkuilib.ui.GridDialog;
 
@@ -33,6 +33,10 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -113,13 +117,19 @@ public final class ProgressView implements IProgressUiProvider {
     public void startTask(
             final String title,
             final ITaskMonitor parentMonitor,
-            final ITask task) {
+            final ITask task,
+            boolean sync) {
         if (task != null) {
             try {
                 if (parentMonitor == null && !mProgressBar.isDisposed()) {
-                    mLabel.setText(title);
-                    mProgressBar.setSelection(0);
-                    mProgressBar.setEnabled(true);
+                    syncExec(mProgressBar, new Runnable() {
+                        @Override
+                        public void run() {
+                            mLabel.setText(title);
+                            mProgressBar.setSelection(0);
+                            mProgressBar.setEnabled(true);
+                        }
+                    });
                     changeState(ProgressView.State.ACTIVE);
                 }
 
@@ -167,29 +177,42 @@ public final class ProgressView implements IProgressUiProvider {
 
                     final Thread t = new Thread(r, title);
                     t.start();
-
-                    // Process the app's event loop whilst we wait for the thread to finish
-                    while (!mProgressBar.isDisposed() && t.isAlive()) {
-                        Display display = mProgressBar.getDisplay();
-                        if (!mProgressBar.isDisposed() && !display.readAndDispatch()) {
-                            display.sleep();
-                        }
-                    }
+                    if (sync)
+	                    // Process the app's event loop whilst we wait for the thread to finish
+	                    while (!mProgressBar.isDisposed() && t.isAlive()) {
+	                        Display display = mProgressBar.getDisplay();
+	                        if (!mProgressBar.isDisposed() && !display.readAndDispatch()) {
+	                            display.sleep();
+	                        }
+	                    }
                 }
             } catch (Exception e) {
-                // TODO log
-
+        		StringWriter builder = new StringWriter();
+                builder.append(e.getMessage()).append("\n");
+                PrintWriter writer = new PrintWriter(builder);
+                e.printStackTrace(writer);
+                mLog.logError(builder.toString());
             } finally {
-                if (parentMonitor == null && !mProgressBar.isDisposed()) {
-                    changeState(ProgressView.State.IDLE);
-                    mProgressBar.setSelection(0);
-                    mProgressBar.setEnabled(false);
+                if (parentMonitor == null && sync && !mProgressBar.isDisposed()) {
+                	endTask();
                 }
             }
         }
     }
 
-    private void syncExec(final Widget widget, final Runnable runnable) {
+    public void endTask()
+    {
+        changeState(ProgressView.State.IDLE);
+        syncExec(mProgressBar, new Runnable() {
+            @Override
+            public void run() {
+                mProgressBar.setSelection(0);
+                mProgressBar.setEnabled(false);
+            }
+        });
+    }
+    
+    public void syncExec(final Widget widget, final Runnable runnable) {
         if (widget != null && !widget.isDisposed()) {
             widget.getDisplay().syncExec(new Runnable() {
                 @Override
@@ -222,7 +245,10 @@ public final class ProgressView implements IProgressUiProvider {
 
     @Override
     public boolean isCancelRequested() {
-        return mState != State.ACTIVE;
+    	boolean cancelStatus = mState != State.ACTIVE;
+    	if (cancelStatus)
+    		log("Stop button pressed");
+        return cancelStatus;
     }
 
     /**
@@ -336,6 +362,27 @@ public final class ProgressView implements IProgressUiProvider {
 
         return result[0];
     }
+
+    /**
+     * Display info dialog box.
+     *
+     * This implementation allow this to be called from any thread, it
+     * makes sure the dialog is opened synchronously in the ui thread.
+     *
+     * @param title The title of the dialog box
+     * @param message The error message
+     */
+	@Override
+	public void displayInfo(String title, String message) {
+
+        syncExec(mProgressBar, new Runnable() {
+            @Override
+            public void run() {
+                Shell shell = mProgressBar.getShell();
+                MessageDialog.openInformation(shell, title, message);
+            }
+        });
+	}
 
     /**
      * This method opens a pop-up window which requests for User Credentials.

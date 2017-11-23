@@ -22,7 +22,7 @@ import com.android.ddmlib.AllocationInfo.SortMode;
 import com.android.ddmlib.AndroidDebugBridge.IClientChangeListener;
 import com.android.ddmlib.Client;
 import com.android.ddmlib.ClientData.AllocationTrackingStatus;
-
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -50,7 +50,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -94,6 +93,7 @@ public class AllocationPanel extends TablePanel {
     private Image mSortUpImg;
     private Image mSortDownImg;
     private String mFilterText = null;
+    private ImageFactory mImageFactory;
 
     /**
      * Content Provider to display the allocations of a client.
@@ -184,6 +184,12 @@ public class AllocationPanel extends TablePanel {
         }
     }
 
+    public AllocationPanel(ImageFactory imageFactory)
+    {
+    	super();
+    	mImageFactory = imageFactory;
+    }
+    
     /**
      * Create our control(s).
      */
@@ -191,11 +197,9 @@ public class AllocationPanel extends TablePanel {
     protected Control createControl(Composite parent) {
         final IPreferenceStore store = DdmUiPreferences.getStore();
 
-        Display display = parent.getDisplay();
-
         // get some images
-        mSortUpImg = ImageLoader.getDdmUiLibLoader().loadImage("sort_up.png", display);
-        mSortDownImg = ImageLoader.getDdmUiLibLoader().loadImage("sort_down.png", display);
+        mSortUpImg = mImageFactory.getImageByName("sort_up.png");
+        mSortDownImg = mImageFactory.getImageByName("sort_down.png");
 
         // base composite for selected client with enabled thread update.
         mAllocationBase = new Composite(parent, SWT.NONE);

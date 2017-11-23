@@ -25,10 +25,10 @@ import com.android.ddmuilib.AbstractBufferFindTarget;
 import com.android.ddmuilib.FindDialog;
 import com.android.ddmuilib.ITableFocusListener;
 import com.android.ddmuilib.ITableFocusListener.IFocusedTableActivator;
-import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.SelectionDependentPanel;
 import com.android.ddmuilib.TableHelper;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -208,12 +208,15 @@ public final class LogCatPanel extends SelectionDependentPanel
     // # of messages deleted since last refresh, synchronized on mLogBuffer
     private int mDeletedLogCount;
 
+	private ImageFactory mImageFactory;
+
     /**
      * Construct a logcat panel.
      * @param prefStore preference store where UI preferences will be saved
      */
-    public LogCatPanel(IPreferenceStore prefStore) {
+    public LogCatPanel(IPreferenceStore prefStore, ImageFactory imageFactory) {
         mPrefStore = prefStore;
+        mImageFactory = imageFactory;
         mLogBuffer = new ArrayList<LogCatMessage>(LogCatMessageList.MAX_MESSAGES_DEFAULT);
 
         initializeFilters();
@@ -440,7 +443,7 @@ public final class LogCatPanel extends SelectionDependentPanel
         /* new filter */
         mNewFilterToolItem = new ToolItem(t, SWT.PUSH);
         mNewFilterToolItem.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_ADD_FILTER, t.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_ADD_FILTER));
         mNewFilterToolItem.setToolTipText("Add a new logcat filter");
         mNewFilterToolItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -452,7 +455,7 @@ public final class LogCatPanel extends SelectionDependentPanel
         /* delete filter */
         mDeleteFilterToolItem = new ToolItem(t, SWT.PUSH);
         mDeleteFilterToolItem.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_DELETE_FILTER, t.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_DELETE_FILTER));
         mDeleteFilterToolItem.setToolTipText("Delete selected logcat filter");
         mDeleteFilterToolItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -464,7 +467,7 @@ public final class LogCatPanel extends SelectionDependentPanel
         /* edit filter */
         mEditFilterToolItem = new ToolItem(t, SWT.PUSH);
         mEditFilterToolItem.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_EDIT_FILTER, t.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_EDIT_FILTER));
         mEditFilterToolItem.setToolTipText("Edit selected logcat filter");
         mEditFilterToolItem.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -671,8 +674,7 @@ public final class LogCatPanel extends SelectionDependentPanel
         ToolBar toolBar = new ToolBar(c, SWT.FLAT);
 
         ToolItem saveToLog = new ToolItem(toolBar, SWT.PUSH);
-        saveToLog.setImage(ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_SAVE_LOG_TO_FILE,
-                toolBar.getDisplay()));
+        saveToLog.setImage(mImageFactory.getImageByName(IMAGE_SAVE_LOG_TO_FILE));
         saveToLog.setToolTipText("Export Selected Items To Text File..");
         saveToLog.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -683,7 +685,7 @@ public final class LogCatPanel extends SelectionDependentPanel
 
         ToolItem clearLog = new ToolItem(toolBar, SWT.PUSH);
         clearLog.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_CLEAR_LOG, toolBar.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_CLEAR_LOG));
         clearLog.setToolTipText("Clear Log");
         clearLog.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -701,8 +703,7 @@ public final class LogCatPanel extends SelectionDependentPanel
 
         final ToolItem showFiltersColumn = new ToolItem(toolBar, SWT.CHECK);
         showFiltersColumn.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_DISPLAY_FILTERS,
-                        toolBar.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_DISPLAY_FILTERS));
         showFiltersColumn.setSelection(mPrefStore.getBoolean(DISPLAY_FILTERS_COLUMN_PREFKEY));
         showFiltersColumn.setToolTipText("Display Saved Filters View");
         showFiltersColumn.addSelectionListener(new SelectionAdapter() {
@@ -716,8 +717,7 @@ public final class LogCatPanel extends SelectionDependentPanel
 
         mScrollLockCheckBox = new ToolItem(toolBar, SWT.CHECK);
         mScrollLockCheckBox.setImage(
-                ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_SCROLL_LOCK,
-                        toolBar.getDisplay()));
+        		mImageFactory.getImageByName(IMAGE_SCROLL_LOCK));
         mScrollLockCheckBox.setSelection(true);
         mScrollLockCheckBox.setToolTipText("Scroll Lock");
         mScrollLockCheckBox.addSelectionListener(new SelectionAdapter() {

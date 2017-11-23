@@ -16,10 +16,13 @@
 
 package com.android.sdkuilib.repository;
 
-import com.android.sdklib.repository.ISdkChangeListener;
+import com.android.repository.api.RepoManager;
+import com.android.sdklib.repository.AndroidSdkHandler;
 import com.android.sdkuilib.internal.repository.ISdkUpdaterWindow;
 import com.android.sdkuilib.internal.repository.ui.SdkUpdaterWindowImpl2;
-import com.android.utils.ILogger;
+
+import org.eclipse.andmore.sdktool.SdkCallAgent;
+import org.eclipse.andmore.sdktool.SdkContext;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -74,18 +77,32 @@ public class SdkUpdaterWindow {
      * Creates a new window. Caller must call open(), which will block.
      *
      * @param parentShell Parent shell.
-     * @param sdkLog Logger. Cannot be null.
-     * @param osSdkRoot The OS path to the SDK root.
+     * @param sdkCallAgent Mediates between application and UI layer
      * @param context The {@link SdkInvocationContext} to change the behavior depending on who's
      *  opening the SDK Manager.
      */
     public SdkUpdaterWindow(
             Shell parentShell,
-            ILogger sdkLog,
-            String osSdkRoot,
+            SdkCallAgent sdkCallAgent,
             SdkInvocationContext context) {
 
-        mWindow = new SdkUpdaterWindowImpl2(parentShell, sdkLog, osSdkRoot, context);
+        this(parentShell, sdkCallAgent.getSdkContext(), context);
+    }
+
+    /**
+     * Creates a new window. Caller must call open(), which will block.
+     *
+     * @param parentShell Parent shell.
+     * @param sdkContext SDK handler and repo manager
+     * @param context The {@link SdkInvocationContext} to change the behavior depending on who's
+     *  opening the SDK Manager.
+     */
+    public SdkUpdaterWindow(
+            Shell parentShell,
+            SdkContext sdkContext,
+            SdkInvocationContext context) {
+
+        mWindow = new SdkUpdaterWindowImpl2(parentShell, sdkContext, context);
     }
 
     /**

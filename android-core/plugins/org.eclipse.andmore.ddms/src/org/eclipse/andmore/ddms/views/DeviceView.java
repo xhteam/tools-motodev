@@ -31,7 +31,6 @@ import com.android.ddmlib.SyncService.ISyncProgressMonitor;
 import com.android.ddmlib.TimeoutException;
 import com.android.ddmuilib.DevicePanel;
 import com.android.ddmuilib.DevicePanel.IUiSelectionListener;
-import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.ScreenShotDialog;
 import com.android.ddmuilib.SyncProgressHelper;
 import com.android.ddmuilib.SyncProgressHelper.SyncRunnable;
@@ -42,6 +41,7 @@ import com.android.uiautomator.UiAutomatorHelper.UiAutomatorException;
 import com.android.uiautomator.UiAutomatorHelper.UiAutomatorResult;
 import com.google.common.io.Files;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.ddms.IClientAction;
 import org.eclipse.andmore.ddms.IDebuggerConnector;
@@ -306,9 +306,9 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 	public void createPartControl(Composite parent) {
 		mParentShell = parent.getShell();
 
-		ImageLoader loader = ImageLoader.getDdmUiLibLoader();
+		ImageFactory imageFactory = DdmsPlugin.getDefault().getImageFactory();
 
-		mDeviceList = new DevicePanel(USE_SELECTED_DEBUG_PORT);
+		mDeviceList = new DevicePanel(USE_SELECTED_DEBUG_PORT, imageFactory);
 		mDeviceList.createPanel(parent);
 		mDeviceList.addSelectionListener(this);
 
@@ -324,7 +324,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 			}
 		};
 		mCaptureAction.setToolTipText(Messages.DeviceView_Screen_Capture_Tooltip);
-		mCaptureAction.setImageDescriptor(loader.loadDescriptor("capture.png")); //$NON-NLS-1$
+		mCaptureAction.setImageDescriptor(imageFactory.getDescriptorByName("capture.png")); //$NON-NLS-1$
 
 		mViewUiAutomatorHierarchyAction = new Action("Dump View Hierarchy for UI Automator") {
 			@Override
@@ -380,7 +380,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 
 		mKillAppAction.setText(Messages.DeviceView_Stop_Process);
 		mKillAppAction.setToolTipText(Messages.DeviceView_Stop_Process_Tooltip);
-		mKillAppAction.setImageDescriptor(loader.loadDescriptor(DevicePanel.ICON_HALT));
+		mKillAppAction.setImageDescriptor(imageFactory.getDescriptorByName(DevicePanel.ICON_HALT));
 
 		mGcAction = new Action() {
 			@Override
@@ -391,7 +391,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 
 		mGcAction.setText(Messages.DeviceView_Cause_GC);
 		mGcAction.setToolTipText(Messages.DeviceView_Cause_GC_Tooltip);
-		mGcAction.setImageDescriptor(loader.loadDescriptor(DevicePanel.ICON_GC));
+		mGcAction.setImageDescriptor(imageFactory.getDescriptorByName(DevicePanel.ICON_GC));
 
 		mHprofAction = new Action() {
 			@Override
@@ -402,7 +402,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 		};
 		mHprofAction.setText(Messages.DeviceView_Dump_HPROF_File);
 		mHprofAction.setToolTipText(Messages.DeviceView_Dump_HPROF_File_Tooltip);
-		mHprofAction.setImageDescriptor(loader.loadDescriptor(DevicePanel.ICON_HPROF));
+		mHprofAction.setImageDescriptor(imageFactory.getDescriptorByName(DevicePanel.ICON_HPROF));
 
 		mUpdateHeapAction = new Action(Messages.DeviceView_Update_Heap, IAction.AS_CHECK_BOX) {
 			@Override
@@ -412,7 +412,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 			}
 		};
 		mUpdateHeapAction.setToolTipText(Messages.DeviceView_Update_Heap_Tooltip);
-		mUpdateHeapAction.setImageDescriptor(loader.loadDescriptor(DevicePanel.ICON_HEAP));
+		mUpdateHeapAction.setImageDescriptor(imageFactory.getDescriptorByName(DevicePanel.ICON_HEAP));
 
 		mUpdateThreadAction = new Action(Messages.DeviceView_Threads, IAction.AS_CHECK_BOX) {
 			@Override
@@ -422,7 +422,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 			}
 		};
 		mUpdateThreadAction.setToolTipText(Messages.DeviceView_Threads_Tooltip);
-		mUpdateThreadAction.setImageDescriptor(loader.loadDescriptor(DevicePanel.ICON_THREAD));
+		mUpdateThreadAction.setImageDescriptor(imageFactory.getDescriptorByName(DevicePanel.ICON_THREAD));
 
 		mTracingAction = new Action() {
 			@Override
@@ -432,8 +432,8 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 		};
 		mTracingAction.setText(Messages.DeviceView_Start_Method_Profiling);
 		mTracingAction.setToolTipText(Messages.DeviceView_Start_Method_Profiling_Tooltip);
-		mTracingStartImage = loader.loadDescriptor(DevicePanel.ICON_TRACING_START);
-		mTracingStopImage = loader.loadDescriptor(DevicePanel.ICON_TRACING_STOP);
+		mTracingStartImage = imageFactory.getDescriptorByName(DevicePanel.ICON_TRACING_START);
+		mTracingStopImage = imageFactory.getDescriptorByName(DevicePanel.ICON_TRACING_STOP);
 		mTracingAction.setImageDescriptor(mTracingStartImage);
 
 		mDebugAction = new Action(Messages.DeviceView_Debug_Process) {
@@ -497,7 +497,7 @@ public class DeviceView extends ViewPart implements IUiSelectionListener, IClien
 			}
 		};
 		mDebugAction.setToolTipText(Messages.DeviceView_Debug_Process_Tooltip);
-		mDebugAction.setImageDescriptor(loader.loadDescriptor("debug-attach.png")); //$NON-NLS-1$
+		mDebugAction.setImageDescriptor(imageFactory.getDescriptorByName("debug-attach.png")); //$NON-NLS-1$
 		mDebugAction.setEnabled(DdmsPlugin.getDefault().hasDebuggerConnectors());
 
 		placeActions();

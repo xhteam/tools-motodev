@@ -18,7 +18,6 @@ package com.android.sdkuilib.internal.repository.ui;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.sdklib.SystemImage;
 import com.android.sdklib.devices.Device;
 import com.android.sdklib.devices.DeviceManager;
 import com.android.sdklib.devices.DeviceManager.DeviceFilter;
@@ -28,16 +27,18 @@ import com.android.sdklib.devices.Screen;
 import com.android.sdklib.devices.Storage;
 import com.android.sdklib.devices.Storage.Unit;
 import com.android.sdklib.internal.avd.AvdInfo;
-import com.android.sdklib.repository.ISdkChangeListener;
-import com.android.sdkuilib.internal.repository.SwtUpdaterData;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory.Filter;
+import com.android.sdklib.repository.targets.SystemImage;
+import com.android.sdkuilib.internal.repository.avd.SdkTargets;
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.base.resources.ImageFactory.ImageEditor;
 import com.android.sdkuilib.internal.widgets.AvdCreationDialog;
 import com.android.sdkuilib.internal.widgets.AvdSelector;
 import com.android.sdkuilib.internal.widgets.DeviceCreationDialog;
+import com.android.sdkuilib.repository.ISdkChangeListener;
 import com.android.sdkuilib.ui.GridDataBuilder;
 import com.android.sdkuilib.ui.GridLayoutBuilder;
 
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -102,7 +103,8 @@ public class DeviceManagerPage extends Composite
         public void onAvdCreated(AvdInfo createdAvdInfo);
     }
 
-    private final SwtUpdaterData mSwtUpdaterData;
+    private final SdkContext mSdkContext;
+    private final SdkTargets mSdkTargets;
     private final DeviceManager mDeviceManager;
     private Table mTable;
     private Button mNewButton;
@@ -116,9 +118,9 @@ public class DeviceManagerPage extends Composite
     private int mImageWidth;
     private boolean mDisableRefresh;
     private IAvdCreatedListener mAvdCreatedListener;
-    private final Filter mUserColorFilter = new Filter() {
+    private final ImageEditor mUserColorFilter = new ImageEditor() {
         @Override
-        public Image filter(Image source) {
+        public ImageData edit(Image source) {
             ImageData srcData = source.getImageData();
 
             // swap green and blue
@@ -131,25 +133,26 @@ public class DeviceManagerPage extends Composite
             p.blueShift = p.greenShift;
             p.greenShift = b;
 
-            return new Image(source.getDevice(), srcData);
+            return srcData;
         }
     };
 
     /**
      * Create the composite.
      * @param parent The parent of the composite.
-     * @param swtUpdaterData An instance of {@link SwtUpdaterData}.
+     * @param SdkContext An instance of {@link SdkContext}.
      */
     public DeviceManagerPage(Composite parent,
             int swtStyle,
-            SwtUpdaterData swtUpdaterData,
-            DeviceManager deviceManager) {
+            SdkContext sdkContext,
+            SdkTargets sdkTargets) {
         super(parent, swtStyle);
 
-        mSwtUpdaterData = swtUpdaterData;
-        mSwtUpdaterData.addListeners(this);
+        mSdkContext = sdkContext;
+        mSdkTargets = sdkTargets;
+        mSdkContext.getSdkHelper().addListeners(this);
 
-        mDeviceManager = deviceManager;
+        mDeviceManager = mSdkContext.getDeviceManager();
         mDeviceManager.registerListener(this);
 
         createContents(this);
@@ -163,7 +166,7 @@ public class DeviceManagerPage extends Composite
     private void createContents(Composite parent) {
 
         // get some bitmaps.
-        mImageFactory = new ImageFactory(parent.getDisplay());
+        mImageFactory = mSdkContext.getSdkHelper().getImageFactory();
         mUserImage = getTagImage(null /*tag*/, true /*isUser*/);
         mDeviceImage = getTagImage(null /*tag*/, false /*isUser*/);
         mImageWidth = Math.max(mDeviceImage.getImageData().width,
@@ -316,7 +319,7 @@ public class DeviceManagerPage extends Composite
 
     @Override
     public void dispose() {
-        mSwtUpdaterData.removeListener(this);
+        mSdkContext.getSdkHelper().removeListener(this);
         mDeviceManager.unregisterListener(this);
         super.dispose();
     }
@@ -484,14 +487,14 @@ public class DeviceManagerPage extends Composite
 
         // Generate a list of the AVD names using these devices
         Map<Device, List<String>> device2avdMap = new HashMap<Device, List<String>>();
-        for (AvdInfo avd : mSwtUpdaterData.getAvdManager().getAllAvds()) {
+        for (AvdInfo avd : mSdkContext.getAvdManager().getAllAvds()) {
             String n = avd.getDeviceName();
             String m = avd.getDeviceManufacturer();
             if (n == null || m == null || n.isEmpty() || m.isEmpty()) {
                 continue;
             }
             for (Device device : devices) {
-                if (m.equals(device.getManufacturer()) && n.equals(device.getName())) {
+                if (m.equals(device.getManufacturer()) && n.equals(device.getDisplayName())) {
                     List<String> list = device2avdMap.get(device);
                     if (list == null) {
                         list = new LinkedList<String>();
@@ -598,7 +601,7 @@ public class DeviceManagerPage extends Composite
         if (d == null) {
             return "";
         }
-        String name = d.getName();
+        String name = d.getDisplayName();
         if (name.equals("3.7 FWVGA slider")) {                        //$NON-NLS-1$
             // Fix metadata: this one entry doesn't have "in" like the rest of them
             name = "3.7in FWVGA slider";                              //$NON-NLS-1$
@@ -654,7 +657,7 @@ public class DeviceManagerPage extends Composite
         DeviceCreationDialog dlg = new DeviceCreationDialog(
                 getShell(),
                 mDeviceManager,
-                mSwtUpdaterData.getImageFactory(),
+                mSdkContext.getSdkHelper().getImageFactory(),
                 null /*device*/);
         if (dlg.open() == Window.OK) {
             onRefresh();
@@ -674,7 +677,7 @@ public class DeviceManagerPage extends Composite
         DeviceCreationDialog dlg = new DeviceCreationDialog(
                 getShell(),
                 mDeviceManager,
-                mSwtUpdaterData.getImageFactory(),
+                mSdkContext.getSdkHelper().getImageFactory(),
                 ci.mDevice);
         if (dlg.open() == Window.OK) {
             onRefresh();
@@ -720,9 +723,8 @@ public class DeviceManagerPage extends Composite
         }
 
         final AvdCreationDialog dlg = new AvdCreationDialog(mTable.getShell(),
-                mSwtUpdaterData.getAvdManager(),
-                mImageFactory,
-                mSwtUpdaterData.getSdkLog(),
+                mSdkContext,
+                mSdkTargets,
                 null);
         dlg.selectInitialDevice(ci.mDevice);
 
@@ -760,13 +762,13 @@ public class DeviceManagerPage extends Composite
         if (mTable.isDisposed() || selected == null || selected.mDevice == null) {
             return false;
         }
-        String name = selected.mDevice.getName();
+        String name = selected.mDevice.getDisplayName();
         for (int n = mTable.getItemCount() - 1; n >= 0; n--) {
             TableItem item = mTable.getItem(n);
             Object data = item.getData();
             if (data instanceof CellInfo) {
                 CellInfo ci = (CellInfo) data;
-                if (ci != null && ci.mDevice != null && name.equals(ci.mDevice.getName())) {
+                if (ci != null && ci.mDevice != null && name.equals(ci.mDevice.getDisplayName())) {
                     // Same cell object. Select it.
                     mTable.select(n);
                     return true;

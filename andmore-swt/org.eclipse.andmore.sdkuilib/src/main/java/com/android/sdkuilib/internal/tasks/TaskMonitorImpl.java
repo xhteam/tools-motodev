@@ -17,8 +17,8 @@
 package com.android.sdkuilib.internal.tasks;
 
 import com.android.annotations.NonNull;
-import com.android.sdklib.internal.repository.ITaskMonitor;
-import com.android.sdklib.internal.repository.UserCredentials;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
 
 /**
  * Internal class that implements the logic of an {@link ITaskMonitor}.
@@ -178,6 +178,21 @@ class TaskMonitorImpl implements ITaskMonitor {
     }
 
     /**
+     * Display info dialog box.
+     *
+     * Implementations MUST allow this to be called from any thread, e.g. by
+     * making sure the dialog is opened synchronously in the ui thread.
+     *
+     * @param title The title of the dialog box
+     * @param message The error message
+     */
+    @Override
+    public void displayInfo(final String title, final String message)
+    {
+    	mUi.displayInfo(title, message);
+    };
+
+    /**
      * Displays a Login/Password dialog. This implementation allows this method to be
      * called from any thread, it makes sure the dialog is opened synchronously
      * in the ui thread.
@@ -329,6 +344,11 @@ class TaskMonitorImpl implements ITaskMonitor {
             return mRoot.displayPrompt(title, message);
         }
 
+		@Override
+		public void displayInfo(String title, String message) {
+            mRoot.displayInfo(title, message);
+		}
+		
         @Override
         public UserCredentials displayLoginCredentialsPrompt(String title, String message) {
             return mRoot.displayLoginCredentialsPrompt(title, message);
@@ -365,5 +385,6 @@ class TaskMonitorImpl implements ITaskMonitor {
         public void verbose(@NonNull String msgFormat, Object... arg) {
             mRoot.verbose(msgFormat, arg);
         }
+
     }
 }

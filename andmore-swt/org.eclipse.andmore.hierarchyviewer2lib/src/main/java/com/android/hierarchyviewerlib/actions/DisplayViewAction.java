@@ -16,13 +16,12 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class DisplayViewAction extends SelectedNodeEnabledAction implements ImageAction {
@@ -37,8 +36,8 @@ public class DisplayViewAction extends SelectedNodeEnabledAction implements Imag
         super("&Display View");
         this.mShell = shell;
         setAccelerator(SWT.MOD1 + 'D');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("display.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("display.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Display the selected view image in a separate window");
     }

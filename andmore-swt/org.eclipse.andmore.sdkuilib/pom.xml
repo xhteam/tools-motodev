@@ -14,6 +14,11 @@
 	</parent>
     <dependencies>
         <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-compress</artifactId>
+          <version>1.8.1</version>
+        </dependency>
+        <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
           <scope>test</scope>
@@ -77,6 +82,33 @@
 					</execution>
 				</executions>
 			</plugin>
+	        <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-dependency-plugin</artifactId>
+	          <executions>
+	            <execution>
+	              <id>copy</id>
+	              <phase>initialize</phase>
+	              <goals>
+	                <goal>copy</goal>
+	              </goals>
+	              <configuration>
+			        <artifactItems>
+			          <artifactItem>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-compress</artifactId>
+                        <version>1.8.1</version>
+			          </artifactItem>
+			        </artifactItems>
+                    <outputDirectory>${project.basedir}/libs</outputDirectory>
+	                <overWriteReleases>false</overWriteReleases>
+	                <overWriteSnapshots>false</overWriteSnapshots>
+	                <overWriteIfNewer>true</overWriteIfNewer>
+	               <exclusionGroupIds></exclusionGroupIds>
+	             </configuration>
+	           </execution>
+	         </executions>
+	       </plugin>
 		</plugins>
 	</build>
 

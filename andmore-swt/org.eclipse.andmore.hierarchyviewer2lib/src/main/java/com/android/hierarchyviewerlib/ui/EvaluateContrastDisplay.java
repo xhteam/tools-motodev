@@ -16,19 +16,17 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.EvaluateContrastModel;
 import com.android.hierarchyviewerlib.models.ViewNode;
 import com.android.hierarchyviewerlib.models.EvaluateContrastModel.ContrastResult;
 import com.android.hierarchyviewerlib.models.ViewNode.Property;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.GC;
@@ -39,14 +37,11 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
@@ -106,10 +101,10 @@ public class EvaluateContrastDisplay {
         sImageForColor = new HashMap<Integer, Image>();
         sViewNodeForTreeItem = new HashMap<TreeItem, ViewNode>();
 
-        ImageLoader loader = ImageLoader.getLoader(EvaluateContrastDisplay.class);
-        sYellowImage = loader.loadImage("yellow.png", Display.getDefault());
-        sRedImage = loader.loadImage("red.png", Display.getDefault());
-        sGreenImage = loader.loadImage("green.png", Display.getDefault());
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        sYellowImage = imageFactory.getImageByName("yellow.png");
+        sRedImage = imageFactory.getImageByName("red.png");
+        sGreenImage = imageFactory.getImageByName("green.png");
 
         sRectangleForViewNode = new HashMap<ViewNode, Rectangle>();
         sBorderColorForViewNode = new HashMap<ViewNode, org.eclipse.swt.graphics.Color>();

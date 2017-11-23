@@ -17,31 +17,33 @@
 package com.android.sdkuilib.internal.repository;
 
 
-import com.android.SdkConstants;
-import com.android.sdklib.io.LegacyFileOp;
-import com.android.sdklib.repository.PkgProps;
-import com.android.sdklib.repository.SdkAddonConstants;
-import com.android.sdklib.repository.SdkRepoConstants;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
-import com.android.sdkuilib.ui.GridDataBuilder;
-import com.android.sdkuilib.ui.GridLayoutBuilder;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import com.android.SdkConstants;
+import com.android.repository.api.LocalPackage;
+import com.android.repository.io.FileOp;
+import com.android.repository.io.FileOpUtils;
+import com.android.sdklib.repository.PkgProps;
+import com.android.sdkuilib.ui.GridDataBuilder;
+import com.android.sdkuilib.ui.GridLayoutBuilder;
 
 public class AboutDialog extends UpdaterBaseDialog {
 
-    public AboutDialog(Shell parentShell, SwtUpdaterData swtUpdaterData) {
-        super(parentShell, swtUpdaterData, "About" /*title*/);
-        assert swtUpdaterData != null;
+    private static final String COPYRIGHT = "Copyright (C) 2009-2017";
+
+	public AboutDialog(Shell parentShell, SdkContext sdkContext) {
+        super(parentShell, sdkContext, "About" /*title*/);
     }
 
     @Override
@@ -54,23 +56,21 @@ public class AboutDialog extends UpdaterBaseDialog {
         GridLayoutBuilder.create(shell).columns(3);
 
         Label logo = new Label(shell, SWT.NONE);
-        ImageFactory imgf = getSwtUpdaterData() == null ? null
-                                                        : getSwtUpdaterData().getImageFactory();
+        ImageFactory imgf = mSdkContext.getSdkHelper().getImageFactory();
         Image image = imgf == null ? null : imgf.getImageByName("sdkman_logo_128.png");
         if (image != null) logo.setImage(image);
 
         Label label = new Label(shell, SWT.NONE);
-        GridDataBuilder.create(label).hFill().hGrab().hSpan(2);;
+        GridDataBuilder.create(label).hFill().hGrab().hSpan(2);
+        String version = getVersion();
+        if (!version.isEmpty())
+        	version = String.format("Revision %1$s", version);
         label.setText(String.format(
                 "Android SDK Manager.\n" +
-                "Revision %1$s\n" +
-                "Add-on XML Schema #%2$d\n" +
-                "Repository XML Schema #%3$d\n" +
-                // TODO: update with new year date (search this to find other occurrences to update)
-                "Copyright (C) 2009-2012 The Android Open Source Project.",
-                getRevision(),
-                SdkAddonConstants.NS_LATEST_VERSION,
-                SdkRepoConstants.NS_LATEST_VERSION));
+                "%1$s\n" +
+                "%2$s The Android Open Source Project.",
+                version,
+                COPYRIGHT));
 
         Label filler = new Label(shell, SWT.NONE);
         GridDataBuilder.create(filler).fill().grab().hSpan(2);
@@ -90,32 +90,30 @@ public class AboutDialog extends UpdaterBaseDialog {
     // End of hiding from SWT Designer
     //$hide<<$
 
-    private String getRevision() {
-        Properties p = new Properties();
-        try{
-            File sourceProp = LegacyFileOp.append(getSwtUpdaterData().getOsSdkRoot(),
-                    SdkConstants.FD_TOOLS,
-                    SdkConstants.FN_SOURCE_PROP);
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(sourceProp);
-                p.load(fis);
-            } finally {
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException ignore) {
-                    }
-                }
-            }
-
-            String revision = p.getProperty(PkgProps.PKG_REVISION);
-            if (revision != null) {
-                return revision;
-            }
-        } catch (IOException e) {
-        }
-
-        return "?";
+    private String getVersion() {
+    	LocalPackage platformPackage = mSdkContext.getHandler().getLatestLocalPackageForPrefix(SdkConstants.FD_TOOLS, false, mSdkContext.getProgressIndicator());
+    	if (platformPackage != null)
+    		return platformPackage.getVersion().toShortString();
+    	return getToolsVersion();
     }
+    
+    private String getToolsVersion() {
+        Properties p = new Properties();
+        File suffix = new File(SdkConstants.FD_TOOLS, SdkConstants.FN_SOURCE_PROP);
+        FileOp fileOp = FileOpUtils.create();
+        InputStream fis = null;
+        try {
+            fis = fileOp.newFileInputStream(new File(mSdkContext.getLocation().toString(), suffix.toString()));
+            p.load(fis);
+        } catch (IOException ignore) {
+        } finally {
+        	if (fis != null)
+                try {
+					fis.close();
+                } catch (IOException ignore) {
+            }
+        }
+	    return p.getProperty(PkgProps.PKG_REVISION, "");
+    }
+
 }

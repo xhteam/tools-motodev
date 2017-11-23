@@ -25,9 +25,9 @@ import com.android.ddmuilib.Addr2Line;
 import com.android.ddmuilib.BaseHeapPanel;
 import com.android.ddmuilib.ITableFocusListener;
 import com.android.ddmuilib.ITableFocusListener.IFocusedTableActivator;
-import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.TableHelper;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -145,9 +145,11 @@ public class NativeHeapPanel extends BaseHeapPanel {
     private ToolItem mDiffsOnlyButton;
     private ToolItem mShowZygoteAllocationsButton;
     private ToolItem mExportHeapDataButton;
+	private ImageFactory mImageFactory;
 
-    public NativeHeapPanel(IPreferenceStore prefStore) {
+    public NativeHeapPanel(IPreferenceStore prefStore, ImageFactory imageFactory) {
         mPrefStore = prefStore;
+        mImageFactory = imageFactory;
         mPrefStore.setDefault(PREFS_SASH_HEIGHT_PERCENT, 75);
         mPrefStore.setDefault(PREFS_SYMBOL_SEARCH_PATH, "");
         mPrefStore.setDefault(PREFS_GROUP_BY_LIBRARY, false);
@@ -757,8 +759,7 @@ public class NativeHeapPanel extends BaseHeapPanel {
 
     private void initializeDetailsToolBar(ToolBar toolbar) {
         mGroupByButton = new ToolItem(toolbar, SWT.CHECK);
-        mGroupByButton.setImage(ImageLoader.getDdmUiLibLoader().loadImage(GROUPBY_IMAGE,
-                toolbar.getDisplay()));
+        mGroupByButton.setImage(mImageFactory.getImageByName(GROUPBY_IMAGE));
         mGroupByButton.setToolTipText(TOOLTIP_GROUPBY);
         mGroupByButton.setSelection(mPrefStore.getBoolean(PREFS_GROUP_BY_LIBRARY));
         mGroupByButton.addSelectionListener(new SelectionAdapter() {
@@ -769,8 +770,7 @@ public class NativeHeapPanel extends BaseHeapPanel {
         });
 
         mDiffsOnlyButton = new ToolItem(toolbar, SWT.CHECK);
-        mDiffsOnlyButton.setImage(ImageLoader.getDdmUiLibLoader().loadImage(DIFFS_ONLY_IMAGE,
-                toolbar.getDisplay()));
+        mDiffsOnlyButton.setImage(mImageFactory.getImageByName(DIFFS_ONLY_IMAGE));
         mDiffsOnlyButton.setToolTipText(TOOLTIP_DIFFS_ONLY);
         mDiffsOnlyButton.setSelection(mPrefStore.getBoolean(PREFS_SHOW_DIFFS_ONLY));
         mDiffsOnlyButton.addSelectionListener(new SelectionAdapter() {
@@ -784,8 +784,7 @@ public class NativeHeapPanel extends BaseHeapPanel {
         });
 
         mShowZygoteAllocationsButton = new ToolItem(toolbar, SWT.CHECK);
-        mShowZygoteAllocationsButton.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                ZYGOTE_IMAGE, toolbar.getDisplay()));
+        mShowZygoteAllocationsButton.setImage(mImageFactory.getImageByName(ZYGOTE_IMAGE));
         mShowZygoteAllocationsButton.setToolTipText(TOOLTIP_ZYGOTE_ALLOCATIONS);
         mShowZygoteAllocationsButton.setSelection(
                 mPrefStore.getBoolean(PREFS_SHOW_ZYGOTE_ALLOCATIONS));
@@ -797,8 +796,7 @@ public class NativeHeapPanel extends BaseHeapPanel {
         });
 
         mExportHeapDataButton = new ToolItem(toolbar, SWT.PUSH);
-        mExportHeapDataButton.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                EXPORT_DATA_IMAGE, toolbar.getDisplay()));
+        mExportHeapDataButton.setImage(mImageFactory.getImageByName(EXPORT_DATA_IMAGE));
         mExportHeapDataButton.setToolTipText(TOOLTIP_EXPORT_DATA);
         mExportHeapDataButton.addSelectionListener(new SelectionAdapter() {
             @Override

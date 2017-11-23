@@ -16,31 +16,17 @@
 
 package com.android.sdkuilib.internal.widgets;
 
-import com.android.SdkConstants;
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
-import com.android.prefs.AndroidLocation.AndroidLocationException;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.SystemImage;
-import com.android.sdklib.internal.avd.AvdInfo;
-import com.android.sdklib.internal.avd.AvdInfo.AvdStatus;
-import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.internal.repository.ITask;
-import com.android.sdklib.internal.repository.ITaskMonitor;
-import com.android.sdklib.internal.repository.updater.SettingsController;
-import com.android.sdklib.repository.descriptors.IdDisplay;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory.Filter;
-import com.android.sdkuilib.internal.repository.ui.AvdManagerWindowImpl1;
-import com.android.sdkuilib.internal.tasks.ProgressTask;
-import com.android.sdkuilib.repository.AvdManagerWindow.AvdInvocationContext;
-import com.android.sdkuilib.ui.GridDialog;
-import com.android.utils.GrabProcessOutput;
-import com.android.utils.GrabProcessOutput.IProcessOutput;
-import com.android.utils.GrabProcessOutput.Wait;
-import com.android.utils.ILogger;
-import com.android.utils.NullLogger;
+import java.awt.DisplayMode;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Formatter;
+import java.util.Locale;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
@@ -49,12 +35,11 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -62,18 +47,37 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Formatter;
-import java.util.Locale;
+import com.android.SdkConstants;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
+import com.android.prefs.AndroidLocation.AndroidLocationException;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.internal.avd.AvdInfo;
+import com.android.sdklib.internal.avd.AvdInfo.AvdStatus;
+import com.android.sdklib.internal.avd.AvdManager;
+import com.android.sdklib.repository.IdDisplay;
+import com.android.sdklib.repository.targets.SystemImage;
+import com.android.sdkuilib.internal.repository.ITask;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.avd.AvdAgent;
+import com.android.sdkuilib.internal.repository.avd.SdkTargets;
+import com.android.sdkuilib.internal.repository.ui.AvdManagerWindowImpl1;
+import com.android.sdkuilib.internal.tasks.ProgressTask;
+import com.android.sdkuilib.repository.AvdManagerWindow.AvdInvocationContext;
+import com.android.sdkuilib.ui.AvdDisplayMode;
+import com.android.sdkuilib.ui.GridDialog;
+import com.android.sdkuilib.widgets.MessageBoxLog;
+import com.android.utils.GrabProcessOutput;
+import com.android.utils.GrabProcessOutput.IProcessOutput;
+import com.android.utils.GrabProcessOutput.Wait;
+import com.android.utils.ILogger;
+import com.android.utils.NullLogger;
 
 
 /**
@@ -86,11 +90,9 @@ import java.util.Locale;
 public final class AvdSelector {
     private static int NUM_COL = 2;
 
-    private final DisplayMode mDisplayMode;
-
+    private final AvdDisplayMode mDisplayMode;
+    private final SdkTargets mSdkTargets;
     private AvdManager mAvdManager;
-    private final String mOsSdkPath;    // TODO consider converting to File later
-
     private Table mTable;
     private Button mDeleteButton;
     private Button mDetailsButton;
@@ -111,42 +113,9 @@ public final class AvdSelector {
     private ImageFactory mImageFactory;
     private Image mBrokenImage;
     private Image mInvalidImage;
-
-    private SettingsController mController;
-
-    private final ILogger mSdkLog;
+    private final SdkContext mSdkContext;
 
     private boolean mInternalRefresh;
-
-
-    /**
-     * The display mode of the AVD Selector.
-     */
-    public static enum DisplayMode {
-        /**
-         * Manager mode. Invalid AVDs are displayed. Buttons to create/delete AVDs
-         */
-        MANAGER,
-
-        /**
-         * Non manager mode. Only valid AVDs are displayed. Cannot create/delete AVDs, but
-         * there is a button to open the AVD Manager.
-         * In the "check" selection mode, checkboxes are displayed on each line
-         * and {@link AvdSelector#getSelected()} returns the line that is checked
-         * even if it is not the currently selected line. Only one line can
-         * be checked at once.
-         */
-        SIMPLE_CHECK,
-
-        /**
-         * Non manager mode. Only valid AVDs are displayed. Cannot create/delete AVDs, but
-         * there is a button to open the AVD Manager.
-         * In the "select" selection mode, there are no checkboxes and
-         * {@link AvdSelector#getSelected()} returns the line currently selected.
-         * Only one line can be selected at once.
-         */
-        SIMPLE_SELECTION,
-    }
 
     /**
      * A filter to control the whether or not an AVD should be displayed by the AVD Selector.
@@ -159,10 +128,10 @@ public final class AvdSelector {
 
         /**
          * Called to decided whether an AVD should be displayed.
-         * @param avd the AVD to test.
+         * @param avdAgent Agent containing the AVD to test.
          * @return true if the AVD should be displayed.
          */
-        boolean accept(AvdInfo avd);
+        boolean accept(AvdAgent avdAgent);
 
         /**
          * Called after {@link #accept(AvdInfo)} has been called on all the AVDs.
@@ -187,9 +156,9 @@ public final class AvdSelector {
         }
 
         @Override
-        public boolean accept(AvdInfo avd) {
-            if (avd != null) {
-                return mTarget.canRunOn(avd.getTarget());
+        public boolean accept(AvdAgent avdAgent) {
+            if (avdAgent != null) {
+                return mTarget.canRunOn(avdAgent.getTarget());
             }
 
             return false;
@@ -208,27 +177,24 @@ public final class AvdSelector {
      * {@link IAndroidTarget} will be displayed.
      *
      * @param parent The parent composite where the selector will be added.
-     * @param osSdkPath The SDK root path. When not null, enables the start button to start
-     *                  an emulator on a given AVD.
+     * @param sdkContext SDK handler and repo manager
      * @param manager the AVD manager.
      * @param filter When non-null, will allow filtering the AVDs to display.
      * @param displayMode The display mode ({@link DisplayMode}).
      * @param sdkLog The logger. Cannot be null.
      */
     public AvdSelector(Composite parent,
-            String osSdkPath,
-            AvdManager manager,
+            SdkContext sdkContext,
             IAvdFilter filter,
-            DisplayMode displayMode,
-            ILogger sdkLog) {
-        mOsSdkPath = osSdkPath;
-        mAvdManager = manager;
+            AvdDisplayMode displayMode) {
+    	mSdkTargets = new SdkTargets(sdkContext);
+        mSdkContext = sdkContext;
+        mAvdManager = sdkContext.getAvdManager();
         mTargetFilter = filter;
         mDisplayMode = displayMode;
-        mSdkLog = sdkLog;
 
         // get some bitmaps.
-        mImageFactory = new ImageFactory(parent.getDisplay());
+        mImageFactory = mSdkContext.getSdkHelper().getImageFactory();
         mBrokenImage = mImageFactory.getImageByName("warning_icon16.png");
         mInvalidImage = mImageFactory.getImageByName("reject_icon16.png");
 
@@ -239,15 +205,9 @@ public final class AvdSelector {
         gl.marginHeight = gl.marginWidth = 0;
         group.setLayoutData(new GridData(GridData.FILL_BOTH));
         group.setFont(parent.getFont());
-        group.addDisposeListener(new DisposeListener() {
-            @Override
-            public void widgetDisposed(DisposeEvent arg0) {
-                mImageFactory.dispose();
-            }
-        });
 
         int style = SWT.FULL_SELECTION | SWT.SINGLE | SWT.BORDER;
-        if (displayMode == DisplayMode.SIMPLE_CHECK) {
+        if (displayMode == AvdDisplayMode.SIMPLE_CHECK) {
             style |= SWT.CHECK;
         }
         mTable = new Table(group, style);
@@ -261,7 +221,7 @@ public final class AvdSelector {
         buttons.setLayoutData(new GridData(GridData.FILL_VERTICAL));
         buttons.setFont(group.getFont());
 
-        if (displayMode == DisplayMode.MANAGER) {
+        if (displayMode == AvdDisplayMode.MANAGER) {
             mNewButton = new Button(buttons, SWT.PUSH | SWT.FLAT);
             mNewButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             mNewButton.setText("Create...");
@@ -289,7 +249,7 @@ public final class AvdSelector {
         @SuppressWarnings("unused")
         Label spacing = new Label(buttons, SWT.NONE);
 
-        if (displayMode == DisplayMode.MANAGER) {
+        if (displayMode == AvdDisplayMode.MANAGER) {
             mEditButton = new Button(buttons, SWT.PUSH | SWT.FLAT);
             mEditButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             mEditButton.setText("Edit...");
@@ -349,7 +309,7 @@ public final class AvdSelector {
             }
         });
 
-        if (displayMode != DisplayMode.MANAGER) {
+        if (displayMode != AvdDisplayMode.MANAGER) {
             mManagerButton = new Button(buttons, SWT.PUSH | SWT.FLAT);
             mManagerButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             mManagerButton.setText("Manager...");
@@ -401,14 +361,13 @@ public final class AvdSelector {
      * @param sdkLog The logger. Cannot be null.
      */
     public AvdSelector(Composite parent,
-            String osSdkPath,
-            AvdManager manager,
-            DisplayMode displayMode,
-            ILogger sdkLog) {
-        this(parent, osSdkPath, manager, (IAvdFilter)null /* filter */, displayMode, sdkLog);
+            SdkContext sdkContext,
+            AvdDisplayMode displayMode) {
+        this(parent, sdkContext, (IAvdFilter)null /* filter */, displayMode);
     }
 
     /**
+     * *** NOT REFERENCED ***
      * Creates a new SDK Target Selector, and fills it with a list of {@link AvdInfo}, filtered
      * by an {@link IAndroidTarget}.
      * <p/>Only the {@link AvdInfo} able to run applications developed for the given
@@ -421,20 +380,10 @@ public final class AvdSelector {
      * @param sdkLog The logger. Cannot be null.
      */
     public AvdSelector(Composite parent,
-            String osSdkPath,
-            AvdManager manager,
+            SdkContext sdkContext,
             IAndroidTarget filter,
-            DisplayMode displayMode,
-            ILogger sdkLog) {
-        this(parent, osSdkPath, manager, new TargetBasedFilter(filter), displayMode, sdkLog);
-    }
-
-    /**
-     * Sets an optional SettingsController.
-     * @param controller the controller.
-     */
-    public void setSettingsController(SettingsController controller) {
-        mController = controller;
+            AvdDisplayMode displayMode) {
+        this(parent, sdkContext, new TargetBasedFilter(filter), displayMode);
     }
 
     /**
@@ -479,7 +428,7 @@ public final class AvdSelector {
                     }
                 }
 
-                AvdInfo selected = getSelected();
+                AvdAgent selected = getSelected();
                 fillTable(mTable);
                 setSelection(selected);
                 return true;
@@ -544,7 +493,7 @@ public final class AvdSelector {
         mSelectionListener = selectionListener;
     }
 
-    /**
+	/**
      * Sets the current target selection.
      * <p/>
      * If the selection is actually changed, this will invoke the selection listener
@@ -553,15 +502,30 @@ public final class AvdSelector {
      * @param target the target to be selected. Use null to deselect everything.
      * @return true if the target could be selected, false otherwise.
      */
-    public boolean setSelection(AvdInfo target) {
+	public void setSelection(AvdInfo avd) {
+		AvdAgent target = new AvdAgent(mSdkTargets.getTargetForSysImage((SystemImage)avd.getSystemImage()), avd);
+		setSelection(target);
+	}
+
+	/**
+     * Sets the current target selection.
+     * <p/>
+     * If the selection is actually changed, this will invoke the selection listener
+     * (if any) with a null event.
+     *
+     * @param target the target to be selected. Use null to deselect everything.
+     * @return true if the target could be selected, false otherwise.
+     */
+    public boolean setSelection(AvdAgent target) {
         boolean found = false;
         boolean modified = false;
 
         int selIndex = mTable.getSelectionIndex();
         int index = 0;
         for (TableItem i : mTable.getItems()) {
-            if (mDisplayMode == DisplayMode.SIMPLE_CHECK) {
-                if ((AvdInfo) i.getData() == target) {
+        	AvdAgent avdAgent = (AvdAgent)i.getData();
+            if (mDisplayMode == AvdDisplayMode.SIMPLE_CHECK) {
+                if (avdAgent == target) {
                     found = true;
                     if (!i.getChecked()) {
                         modified = true;
@@ -572,7 +536,7 @@ public final class AvdSelector {
                     i.setChecked(false);
                 }
             } else {
-                if ((AvdInfo) i.getData() == target) {
+                if (avdAgent == target) {
                     found = true;
                     if (index != selIndex) {
                         mTable.setSelection(index);
@@ -584,13 +548,10 @@ public final class AvdSelector {
                 index++;
             }
         }
-
         if (modified && mSelectionListener != null) {
             mSelectionListener.widgetSelected(null);
         }
-
         enableActionButtons();
-
         return found;
     }
 
@@ -600,20 +561,19 @@ public final class AvdSelector {
      *
      * @return The currently selected item or null.
      */
-    public AvdInfo getSelected() {
-        if (mDisplayMode == DisplayMode.SIMPLE_CHECK) {
+    public AvdAgent getSelected() {
+        if (mDisplayMode == AvdDisplayMode.SIMPLE_CHECK) {
             for (TableItem i : mTable.getItems()) {
                 if (i.getChecked()) {
-                    return (AvdInfo) i.getData();
+                    return (AvdAgent) i.getData();
                 }
             }
         } else {
             int selIndex = mTable.getSelectionIndex();
             if (selIndex >= 0) {
-                return (AvdInfo) mTable.getItem(selIndex).getData();
+                return (AvdAgent) mTable.getItem(selIndex).getData();
             }
         }
-
         return null;
     }
 
@@ -709,7 +669,7 @@ public final class AvdSelector {
             public void widgetDefaultSelected(SelectionEvent e) {
                 if (e.item instanceof TableItem) {
                     TableItem i = (TableItem) e.item;
-                    if (mDisplayMode == DisplayMode.SIMPLE_CHECK) {
+                    if (mDisplayMode == AvdDisplayMode.SIMPLE_CHECK) {
                         i.setChecked(true);
                     }
                     enforceSingleSelection(i);
@@ -717,7 +677,7 @@ public final class AvdSelector {
                 }
 
                 // whether or not we display details. default: true when not in SIMPLE_CHECK mode.
-                boolean showDetails = mDisplayMode != DisplayMode.SIMPLE_CHECK;
+                boolean showDetails = mDisplayMode != AvdDisplayMode.SIMPLE_CHECK;
 
                 if (mSelectionListener != null) {
                     mSelectionListener.widgetDefaultSelected(e);
@@ -736,7 +696,7 @@ public final class AvdSelector {
              * This makes the chekboxes act as radio buttons.
              */
             private void enforceSingleSelection(TableItem item) {
-                if (mDisplayMode == DisplayMode.SIMPLE_CHECK) {
+                if (mDisplayMode == AvdDisplayMode.SIMPLE_CHECK) {
                     if (item.getChecked()) {
                         Table parentTable = item.getParent();
                         for (TableItem i2 : parentTable.getItems()) {
@@ -757,9 +717,10 @@ public final class AvdSelector {
      * The table columns are:
      * <ul>
      * <li>column 0: sdk name
-     * <li>column 1: sdk vendor
-     * <li>column 2: sdk api name
-     * <li>column 3: sdk version
+     * <li>column 1: sdk target
+     * <li>column 2: sdk platform
+     * <li>column 3: sdk API level
+     * <li>column 4: CPU/ABI
      * </ul>
      */
     private void fillTable(final Table table) {
@@ -768,13 +729,12 @@ public final class AvdSelector {
         // get the AVDs
         AvdInfo avds[] = null;
         if (mAvdManager != null) {
-            if (mDisplayMode == DisplayMode.MANAGER) {
+            if (mDisplayMode == AvdDisplayMode.MANAGER) {
                 avds = mAvdManager.getAllAvds();
             } else {
                 avds = mAvdManager.getValidAvds();
             }
         }
-
         if (avds != null && avds.length > 0) {
             Arrays.sort(avds, new Comparator<AvdInfo>() {
                 @Override
@@ -782,19 +742,17 @@ public final class AvdSelector {
                     return o1.compareTo(o2);
                 }
             });
-
             table.setEnabled(true);
-
             if (mTargetFilter != null) {
                 mTargetFilter.prepare();
             }
-
             for (AvdInfo avd : avds) {
-                if (mTargetFilter == null || mTargetFilter.accept(avd)) {
+                AvdAgent avdAgent = new AvdAgent(mSdkTargets.getTargetForSysImage((SystemImage)avd.getSystemImage()), avd);
+                if (mTargetFilter == null || mTargetFilter.accept(avdAgent)) {
                     TableItem item = new TableItem(table, SWT.NONE);
-                    item.setData(avd);
+                    item.setData(avdAgent);
                     item.setText(0, avd.getName());
-                    if (mDisplayMode == DisplayMode.MANAGER) {
+                    if (mDisplayMode == AvdDisplayMode.MANAGER) {
                         AvdStatus status = avd.getStatus();
 
                         boolean isOk = status == AvdStatus.OK;
@@ -804,26 +762,16 @@ public final class AvdSelector {
                         Image img = getTagImage(avd.getTag(), isOk, isRepair, isInvalid);
                         item.setImage(0,  img);
                     }
-                    IAndroidTarget target = avd.getTarget();
-                    if (target != null) {
-                        item.setText(1, target.getFullName());
-                        item.setText(2, target.getVersionName());
-                        item.setText(3, target.getVersion().getApiString());
-                        item.setText(4, AvdInfo.getPrettyAbiType(avd));
-                    } else {
-                        item.setText(1, "?");
-                        item.setText(2, "?");
-                        item.setText(3, "?");
-                        item.setText(4, "?");
-                    }
+                    item.setText(1, avdAgent.getTargetFullName());
+                    item.setText(2, avdAgent.getTargetVersionName());
+                    item.setText(3, avd.getAndroidVersion().getApiString());
+                    item.setText(4, AvdInfo.getPrettyAbiType(avd));
                 }
             }
-
             if (mTargetFilter != null) {
                 mTargetFilter.cleanup();
             }
         }
-
         if (table.getItemCount() == 0) {
             table.setEnabled(false);
             TableItem item = new TableItem(table, SWT.NONE);
@@ -849,20 +797,18 @@ public final class AvdSelector {
                                                   (isRepair ? 1 : 0),
                                                   (isInvalid ? 1 : 0),
                                                   fname);
-        return mImageFactory.getImageByName(fname, kname, new Filter() {
+        if (isOk)
+            return mImageFactory.getImageByName(fname);
+        		
+        return mImageFactory.getImageByName(fname, kname, new ImageFactory.ImageEditor() {
             @Override
-            public Image filter(Image source) {
-                // We don't need an overlay for good AVDs.
-                if (isOk) {
-                    return source;
-                }
-
+            public ImageData edit(Image source) {
                 Image overlayImg = isRepair ? mBrokenImage : mInvalidImage;
                 ImageDescriptor overlayDesc = ImageDescriptor.createFromImage(overlayImg);
 
                 DecorationOverlayIcon overlaid =
                         new DecorationOverlayIcon(source, overlayDesc, IDecoration.BOTTOM_RIGHT);
-                return overlaid.createImage();
+                return overlaid.getImageData();
             }
         });
     }
@@ -873,19 +819,17 @@ public final class AvdSelector {
      * Unlike {@link #getSelected()} this will always return the item being selected
      * in the list, ignoring the check boxes state in {@link DisplayMode#SIMPLE_CHECK} mode.
      */
-    private AvdInfo getTableSelection() {
+    private AvdAgent getTableSelection() {
         int selIndex = mTable.getSelectionIndex();
         if (selIndex >= 0) {
-            return (AvdInfo) mTable.getItem(selIndex).getData();
+            return (AvdAgent) mTable.getItem(selIndex).getData();
         }
-
         return null;
     }
 
     /**
      * Updates the enable state of the Details, Start, Delete and Update buttons.
      */
-    @SuppressWarnings("null")
     private void enableActionButtons() {
         if (mIsEnabled == false) {
             mDetailsButton.setEnabled(false);
@@ -901,13 +845,12 @@ public final class AvdSelector {
                 mRepairButton.setEnabled(false);
             }
         } else {
-            AvdInfo selection = getTableSelection();
+            AvdAgent selection = getTableSelection();
             boolean hasSelection = selection != null;
 
             mDetailsButton.setEnabled(hasSelection);
-            mStartButton.setEnabled(mOsSdkPath != null &&
-                    hasSelection &&
-                    selection.getStatus() == AvdStatus.OK);
+            mStartButton.setEnabled(hasSelection &&
+                    selection.getAvd().getStatus() == AvdStatus.OK);
 
             if (mEditButton != null) {
                 mEditButton.setEnabled(hasSelection);
@@ -916,62 +859,59 @@ public final class AvdSelector {
                 mDeleteButton.setEnabled(hasSelection);
             }
             if (mRepairButton != null) {
-                mRepairButton.setEnabled(hasSelection && isAvdRepairable(selection.getStatus()));
+                mRepairButton.setEnabled(hasSelection && isAvdRepairable(selection.getAvd().getStatus()));
             }
         }
     }
 
     private void onNew() {
         AvdCreationDialog dlg = new AvdCreationDialog(mTable.getShell(),
-                mAvdManager,
-                mImageFactory,
-                mSdkLog,
+                mSdkContext,
+                mSdkTargets,
                 null);
 
         if (dlg.open() == Window.OK) {
-            refresh(false /*reload*/);
+            refresh(false); //reload
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void onEdit() {
-        AvdInfo avdInfo = getTableSelection();
+        AvdAgent avdAgent = getTableSelection();
         GridDialog dlg;
-        if (!avdInfo.getDeviceName().isEmpty()) {
+        if (!avdAgent.getAvd().getDeviceName().isEmpty()) {
             dlg = new AvdCreationDialog(mTable.getShell(),
-                    mAvdManager,
-                    mImageFactory,
-                    mSdkLog,
-                    avdInfo);
-        } else {
-            dlg = new LegacyAvdEditDialog(mTable.getShell(),
-                    mAvdManager,
-                    mImageFactory,
-                    mSdkLog,
-                    avdInfo);
-        }
-
-
-        if (dlg.open() == Window.OK) {
-            refresh(false /*reload*/);
+            		mSdkContext,
+            		mSdkTargets,
+            		avdAgent);
+            if (dlg.open() == Window.OK) {
+                refresh(false); //reload
+	        } else {
+	        	// create a dialog with ok button and a warning icon
+	        	MessageBox dialog =
+	        	    new MessageBox(mTable.getShell(), SWT.ICON_WARNING| SWT.OK);
+	        	dialog.setText("Legacy device not supported");
+	        	dialog.setMessage(avdAgent.getAvd().getName() + " has is assigned a legacy device no longer supported by the Android SDK");
+	         	// open dialog and await user selection
+	        	dialog.open();       
+	        }
         }
     }
 
     private void onDetails() {
-        AvdInfo avdInfo = getTableSelection();
+        AvdAgent avdAgent = getTableSelection();
 
-        AvdDetailsDialog dlg = new AvdDetailsDialog(mTable.getShell(), avdInfo);
+        AvdDetailsDialog dlg = new AvdDetailsDialog(mTable.getShell(), avdAgent);
         dlg.open();
     }
 
     private void onDelete() {
-        final AvdInfo avdInfo = getTableSelection();
+        final AvdAgent avdAgent = getTableSelection();
 
         // get the current Display
         final Display display = mTable.getDisplay();
 
         // check if the AVD is running
-        if (mAvdManager.isAvdRunning(avdInfo)) {
+        if (mAvdManager.isAvdRunning(avdAgent.getAvd(), mSdkContext.getSdkLog())) {
             display.asyncExec(new Runnable() {
                 @Override
                 public void run() {
@@ -980,7 +920,7 @@ public final class AvdSelector {
                             "Delete Android Virtual Device",
                             String.format(
                                     "The Android Virtual Device '%1$s' is currently running in an emulator and cannot be deleted.",
-                                    avdInfo.getName()));
+                                    avdAgent.getAvd().getName()));
                 }
             });
             return;
@@ -996,7 +936,7 @@ public final class AvdSelector {
                         "Delete Android Virtual Device",
                         String.format(
                                 "Please confirm that you want to delete the Android Virtual Device named '%s'. This operation cannot be reverted.",
-                                avdInfo.getName()));
+                                avdAgent.getAvd().getName()));
             }
         });
 
@@ -1004,19 +944,19 @@ public final class AvdSelector {
             return;
         }
 
-        // log for this action.
-        ILogger log = mSdkLog;
-        if (log == null || log instanceof MessageBoxLog) {
+        ILogger log = null;
+		// log for this action.
+        if (log  == null || log instanceof MessageBoxLog) {
             // If the current logger is a message box, we use our own (to make sure
             // to display errors right away and customize the title).
             log = new MessageBoxLog(
-                String.format("Result of deleting AVD '%s':", avdInfo.getName()),
+                String.format("Result of deleting AVD '%s':", avdAgent.getAvd().getName()),
                 display,
                 false /*logErrorsOnly*/);
         }
 
         // delete the AVD
-        boolean success = mAvdManager.deleteAvd(avdInfo, log);
+        boolean success = mAvdManager.deleteAvd(avdAgent.getAvd(), log);
 
         // display the result
         if (log instanceof MessageBoxLog) {
@@ -1034,38 +974,37 @@ public final class AvdSelector {
      * For now this only supports fixing the wrong value in image.sysdir.*
      */
     private void onRepair() {
-        final AvdInfo avdInfo = getTableSelection();
+        final AvdAgent avdAgent = getTableSelection();
 
         // get the current Display
         final Display display = mTable.getDisplay();
 
-        // log for this action.
-        ILogger log = mSdkLog;
+        ILogger log = null;
         if (log == null || log instanceof MessageBoxLog) {
             // If the current logger is a message box, we use our own (to make sure
             // to display errors right away and customize the title).
             log = new MessageBoxLog(
-                String.format("Result of updating AVD '%s':", avdInfo.getName()),
+                String.format("Result of updating AVD '%s':", avdAgent.getAvd().getName()),
                 display,
                 false /*logErrorsOnly*/);
         }
 
-        if (avdInfo.getStatus() == AvdStatus.ERROR_IMAGE_DIR) {
+        if (avdAgent.getAvd().getStatus() == AvdStatus.ERROR_IMAGE_DIR) {
             // delete the AVD
             try {
-                mAvdManager.updateAvd(avdInfo, log);
+                mAvdManager.updateAvd(avdAgent.getAvd(), avdAgent.getAvd().getProperties());
             } catch (IOException e) {
-                log.error(e, null);
+               log.error(e, null);
             }
             refresh(false /*reload*/);
-        } else if (avdInfo.getStatus() == AvdStatus.ERROR_DEVICE_CHANGED) {
+        } else if (avdAgent.getAvd().getStatus() == AvdStatus.ERROR_DEVICE_CHANGED) {
             try {
-                mAvdManager.updateDeviceChanged(avdInfo, log);
+                mAvdManager.updateDeviceChanged(avdAgent.getAvd(), log);
             } catch (IOException e) {
                 log.error(e, null);
             }
             refresh(false /*reload*/);
-        } else if (avdInfo.getStatus() == AvdStatus.ERROR_DEVICE_MISSING) {
+        } else if (avdAgent.getAvd().getStatus() == AvdStatus.ERROR_DEVICE_MISSING) {
             onEdit();
         }
     }
@@ -1076,7 +1015,7 @@ public final class AvdSelector {
         Display display = mTable.getDisplay();
 
         // log for this action.
-        ILogger log = mSdkLog;
+        ILogger log = null;
         if (log == null || log instanceof MessageBoxLog) {
             // If the current logger is a message box, we use our own (to make sure
             // to display errors right away and customize the title).
@@ -1087,7 +1026,7 @@ public final class AvdSelector {
             AvdManagerWindowImpl1 win = new AvdManagerWindowImpl1(
                     mTable.getShell(),
                     log,
-                    mOsSdkPath,
+                    mSdkContext,
                     AvdInvocationContext.DIALOG);
 
             win.open();
@@ -1101,24 +1040,23 @@ public final class AvdSelector {
     }
 
     private void onStart() {
-        AvdInfo avdInfo = getTableSelection();
+    	AvdAgent avdAgent = getTableSelection();
 
-        if (avdInfo == null || mOsSdkPath == null) {
+        if (avdAgent == null) {
             return;
         }
-
+        File osSdkPath = mSdkContext.getLocation();
         AvdStartDialog dialog = new AvdStartDialog(
                 mTable.getShell(),
-                avdInfo,
-                new File(mOsSdkPath),
-                mController,
-                mSdkLog);
+                avdAgent,
+                osSdkPath,
+                mSdkContext.getSdkLog());
         if (dialog.open() == Window.OK) {
-            String path = mOsSdkPath + File.separator
+            String path = osSdkPath + File.separator
                     + SdkConstants.OS_SDK_TOOLS_FOLDER
                     + SdkConstants.FN_EMULATOR;
 
-            final String avdName = avdInfo.getName();
+            final String avdName = avdAgent.getAvd().getName();
 
             // build the command line based on the available parameters.
             ArrayList<String> list = new ArrayList<String>();
@@ -1260,4 +1198,5 @@ public final class AvdSelector {
                 || avdStatus == AvdStatus.ERROR_DEVICE_CHANGED
                 || avdStatus == AvdStatus.ERROR_DEVICE_MISSING;
     }
+
 }

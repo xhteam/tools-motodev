@@ -9,7 +9,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.core.commands;bundle-version="3.8.1",
  org.eclipse.equinox.common;bundle-version="3.8.0",
  org.eclipse.jface;bundle-version="3.12.2",
- org.eclipse.andmore.swt
+ org.eclipse.andmore.swt,
+ org.eclipse.core.runtime;bundle-version="3.12.0"
 Export-Package: com.android.ddmuilib,
  com.android.ddmuilib.actions,
  com.android.ddmuilib.annotation,
@@ -22,10 +23,10 @@ Export-Package: com.android.ddmuilib,
  com.android.ddmuilib.logcat,
  com.android.ddmuilib.net,
  com.android.ddmuilib.screenrecord,
- com.android.ddmuilib.vmtrace,
- images
+ com.android.ddmuilib.vmtrace
 Bundle-ClassPath: .,
  libs/chart_swt-1.0.13.jar,
  libs/jcommon-1.0.24.jar,
  libs/jfreechart-1.0.19.jar,
  libs/jfreechart-swt-1.0.jar
+Import-Package: org.eclipse.ui.plugin

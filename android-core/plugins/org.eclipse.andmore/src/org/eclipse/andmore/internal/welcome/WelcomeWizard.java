@@ -28,11 +28,14 @@
 package org.eclipse.andmore.internal.welcome;
 
 import com.android.sdkstats.DdmsPreferenceStore;
-import com.android.sdkuilib.internal.repository.ui.AdtUpdateDialog;
+import com.android.sdkuilib.ui.AdtUpdateDialog;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
+import org.eclipse.andmore.internal.sdk.Sdk;
+import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.Wizard;
@@ -156,10 +159,20 @@ public class WelcomeWizard extends Wizard {
             disposeShell = true;
         }
 
+        final Sdk sdk = Sdk.getCurrent();
+        if (sdk == null) {
+            AndmoreAndroidPlugin.printErrorToConsole(
+                    AddSupportJarAction.class.getSimpleName(),   // tag
+                    "Error: Android SDK is not loaded yet."); //$NON-NLS-1$
+            return false;
+        }
+        SdkCallAgent callAgent = new SdkCallAgent(
+        		sdk.getAndroidSdkHandler(),
+        		sdk.getRepoManager(),
+        		new AdtConsoleSdkLog());
         AdtUpdateDialog updater = new AdtUpdateDialog(
                 shell,
-                new AdtConsoleSdkLog(),
-                path.getAbsolutePath());
+                callAgent);
         // Note: we don't have to specify tools & platform-tools since they
         // are required dependencies of any platform.
         boolean result = updater.installNewSdk(apiLevels);

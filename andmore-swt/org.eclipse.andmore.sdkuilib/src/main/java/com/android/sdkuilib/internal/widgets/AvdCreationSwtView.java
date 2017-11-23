@@ -18,11 +18,12 @@ package com.android.sdkuilib.internal.widgets;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
 import com.android.sdkuilib.internal.widgets.AvdCreationPresenter.Ctrl;
 import com.android.sdkuilib.internal.widgets.AvdCreationPresenter.IWidgetAdapter;
 import com.android.sdkuilib.ui.GridDialog;
+import com.android.sdkuilib.widgets.MessageBoxLog;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;

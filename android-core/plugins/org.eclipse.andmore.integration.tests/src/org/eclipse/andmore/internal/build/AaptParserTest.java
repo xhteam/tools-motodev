@@ -69,7 +69,7 @@ public class AaptParserTest extends AdtProjectTest {
 	}
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void testRange3() throws Exception {
 		// Check that when we have a duplicate resource error, we highlight both
 		// the original

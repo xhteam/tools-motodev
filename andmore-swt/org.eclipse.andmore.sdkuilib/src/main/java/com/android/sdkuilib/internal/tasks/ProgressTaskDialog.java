@@ -17,8 +17,8 @@
 package com.android.sdkuilib.internal.tasks;
 
 import com.android.SdkConstants;
-import com.android.sdklib.internal.repository.ITaskMonitor;
-import com.android.sdklib.internal.repository.UserCredentials;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
 import com.android.sdkuilib.ui.AuthenticationDialog;
 import com.android.sdkuilib.ui.GridDialog;
 import com.android.utils.Pair;
@@ -413,6 +413,28 @@ final class ProgressTaskDialog extends Dialog implements IProgressUiProvider {
         });
         return result[0];
     }
+
+
+    /**
+     * Display info dialog box.
+     *
+     * This implementation allow this to be called from any thread, it
+     * makes sure the dialog is opened synchronously in the ui thread.
+     *
+     * @param title The title of the dialog box
+     * @param message The error message
+     */
+	@Override
+	public void displayInfo(String title, String message) {
+        Display display = mDialogShell.getDisplay();
+
+        display.syncExec(new Runnable() {
+            @Override
+            public void run() {
+                MessageDialog.openInformation(mDialogShell, title, message);
+            }
+        });
+	}
 
     /**
      * This method opens a pop-up window which requests for User Login and

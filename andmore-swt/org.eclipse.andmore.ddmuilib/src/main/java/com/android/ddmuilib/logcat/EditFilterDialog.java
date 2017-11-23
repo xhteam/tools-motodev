@@ -16,8 +16,7 @@
 
 package com.android.ddmuilib.logcat;
 
-import com.android.ddmuilib.ImageLoader;
-
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -74,13 +73,15 @@ public class EditFilterDialog extends Dialog {
     private Label mNameWarning;
     private Label mTagWarning;
     private Label mPidWarning;
+	private ImageFactory mImageFactory;
 
-    public EditFilterDialog(Shell parent) {
+    public EditFilterDialog(Shell parent, ImageFactory imageFactory) {
         super(parent, SWT.DIALOG_TRIM | SWT.BORDER | SWT.APPLICATION_MODAL);
+        mImageFactory = imageFactory;
     }
 
-    public EditFilterDialog(Shell shell, LogFilter filter) {
-        this(shell);
+    public EditFilterDialog(Shell shell, ImageFactory imageFactory, LogFilter filter) {
+        this(shell, imageFactory);
         mFilter = filter;
     }
 
@@ -180,8 +181,7 @@ public class EditFilterDialog extends Dialog {
         });
 
         mNameWarning = new Label(nameComposite, SWT.NONE);
-        mNameWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_EMPTY,
-                mShell.getDisplay()));
+        mNameWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
 
         // separator
         l = new Label(mShell, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -214,8 +214,7 @@ public class EditFilterDialog extends Dialog {
         });
 
         mTagWarning = new Label(main, SWT.NONE);
-        mTagWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_EMPTY,
-                mShell.getDisplay()));
+        mTagWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
 
         l = new Label(main, SWT.NONE);
         l.setText("by pid:");
@@ -239,8 +238,7 @@ public class EditFilterDialog extends Dialog {
         });
 
         mPidWarning = new Label(main, SWT.NONE);
-        mPidWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(IMAGE_EMPTY,
-                mShell.getDisplay()));
+        mPidWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
 
         l = new Label(main, SWT.NONE);
         l.setText("by Log level:");
@@ -341,19 +339,15 @@ public class EditFilterDialog extends Dialog {
     private void validate() {
 
         boolean result = true;
-
+ 
         // then we check it only contains digits.
         if (mPid != null) {
             if (mPid.matches("[0-9]*") == false) { //$NON-NLS-1$
-                mPidWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_WARNING,
-                        mShell.getDisplay()));
+                mPidWarning.setImage(mImageFactory.getImageByName(IMAGE_WARNING));
                 mPidWarning.setToolTipText("PID must be a number"); //$NON-NLS-1$
                 result = false;
             } else {
-                mPidWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_EMPTY,
-                        mShell.getDisplay()));
+                mPidWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
                 mPidWarning.setToolTipText(null);
             }
         }
@@ -361,15 +355,11 @@ public class EditFilterDialog extends Dialog {
         // then we check it not contains character | or :
         if (mTag != null) {
             if (mTag.matches(".*[:|].*") == true) { //$NON-NLS-1$
-                mTagWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_WARNING,
-                        mShell.getDisplay()));
+                mTagWarning.setImage(mImageFactory.getImageByName(IMAGE_WARNING));
                 mTagWarning.setToolTipText("Tag cannot contain | or :"); //$NON-NLS-1$
                 result = false;
             } else {
-                mTagWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_EMPTY,
-                        mShell.getDisplay()));
+                mTagWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
                 mTagWarning.setToolTipText(null);
             }
         }
@@ -377,15 +367,11 @@ public class EditFilterDialog extends Dialog {
         // then we check it not contains character | or :
         if (mName != null && mName.length() > 0) {
             if (mName.matches(".*[:|].*") == true) { //$NON-NLS-1$
-                mNameWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_WARNING,
-                        mShell.getDisplay()));
+                mNameWarning.setImage(mImageFactory.getImageByName(IMAGE_WARNING));
                 mNameWarning.setToolTipText("Name cannot contain | or :"); //$NON-NLS-1$
                 result = false;
             } else {
-                mNameWarning.setImage(ImageLoader.getDdmUiLibLoader().loadImage(
-                        IMAGE_EMPTY,
-                        mShell.getDisplay()));
+                mNameWarning.setImage(mImageFactory.getImageByName(IMAGE_EMPTY));
                 mNameWarning.setToolTipText(null);
             }
         } else {

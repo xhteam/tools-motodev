@@ -28,7 +28,6 @@
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.eclipse.andmore.feature" version="0.0.0"/>
       <import feature="org.eclipse.andmore.hierarchyviewer.feature" version="0.0.0"/>
       <import feature="org.eclipse.andmore.ddms.feature" version="0.0.0"/>
       <import feature="org.eclipse.andmore.traceview.feature" version="0.0.0"/>

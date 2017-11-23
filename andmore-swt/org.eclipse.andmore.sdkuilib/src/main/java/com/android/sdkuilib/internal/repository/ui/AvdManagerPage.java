@@ -21,11 +21,11 @@ import com.android.sdklib.devices.DeviceManager;
 import com.android.sdklib.devices.DeviceManager.DevicesChangedListener;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.repository.ISdkChangeListener;
-import com.android.sdkuilib.internal.repository.SwtUpdaterData;
+import com.android.sdkuilib.repository.ISdkChangeListener;
+import com.android.sdkuilib.ui.AvdDisplayMode;
 import com.android.sdkuilib.internal.widgets.AvdSelector;
-import com.android.sdkuilib.internal.widgets.AvdSelector.DisplayMode;
 
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -48,23 +48,22 @@ public class AvdManagerPage extends Composite
 
     private AvdSelector mAvdSelector;
 
-    private final SwtUpdaterData mSwtUpdaterData;
+    private final SdkContext mSdkContext;
     private final DeviceManager mDeviceManager;
     /**
      * Create the composite.
      * @param parent The parent of the composite.
-     * @param swtUpdaterData An instance of {@link SwtUpdaterData}.
+     * @param sdkContext SDK handler and repo manager
      */
     public AvdManagerPage(Composite parent,
             int swtStyle,
-            SwtUpdaterData swtUpdaterData,
-            DeviceManager deviceManager) {
+            SdkContext sdkContext) {
         super(parent, swtStyle);
 
-        mSwtUpdaterData = swtUpdaterData;
-        mSwtUpdaterData.addListeners(this);
+        mSdkContext = sdkContext;
+        mSdkContext.getSdkHelper().addListeners(this);
 
-        mDeviceManager = deviceManager;
+        mDeviceManager = mSdkContext.getDeviceManager();
         mDeviceManager.registerListener(this);
 
         createContents(this);
@@ -78,23 +77,16 @@ public class AvdManagerPage extends Composite
         label.setLayoutData(new GridData());
 
         try {
-            if (mSwtUpdaterData != null && mSwtUpdaterData.getAvdManager() != null) {
-                label.setText(String.format(
+             label.setText(String.format(
                         "List of existing Android Virtual Devices located at %s",
-                        mSwtUpdaterData.getAvdManager().getBaseAvdFolder()));
-            } else {
-                label.setText("Error: cannot find the AVD folder location.\r\n Please set the 'ANDROID_SDK_HOME' env variable.");
-            }
+                        mSdkContext.getAvdManager().getBaseAvdFolder()));
         } catch (AndroidLocationException e) {
             label.setText(e.getMessage());
         }
 
         mAvdSelector = new AvdSelector(parent,
-                mSwtUpdaterData.getOsSdkRoot(),
-                mSwtUpdaterData.getAvdManager(),
-                DisplayMode.MANAGER,
-                mSwtUpdaterData.getSdkLog());
-        mAvdSelector.setSettingsController(mSwtUpdaterData.getSettingsController());
+        		mSdkContext,
+                AvdDisplayMode.MANAGER);
     }
 
     @Override
@@ -104,7 +96,7 @@ public class AvdManagerPage extends Composite
 
     @Override
     public void dispose() {
-        mSwtUpdaterData.removeListener(this);
+    	mSdkContext.getSdkHelper().removeListener(this);
         mDeviceManager.unregisterListener(this);
         super.dispose();
     }
@@ -114,16 +106,16 @@ public class AvdManagerPage extends Composite
         // Disable the check that prevents subclassing of SWT components
     }
 
-    public void selectAvd(AvdInfo avdInfo, boolean reloadAvdList) {
+    public void selectAvd(AvdInfo avd, boolean reloadAvdList) {
         if (reloadAvdList) {
             mAvdSelector.refresh(true /*reload*/);
 
             // Reloading the AVDs created new objects, so the reference to avdInfo
             // will never be selected. Instead reselect it based on its unique name.
-            AvdManager am = mSwtUpdaterData.getAvdManager();
-            avdInfo = am.getAvd(avdInfo.getName(), false /*validAvdOnly*/);
+            AvdManager avdManager = mSdkContext.getAvdManager();
+            avd = avdManager.getAvd(avd.getName(), false /*validAvdOnly*/);
         }
-        mAvdSelector.setSelection(avdInfo);
+        mAvdSelector.setSelection(avd);
     }
 
     // -- Start of internal part ----------
@@ -165,7 +157,6 @@ public class AvdManagerPage extends Composite
     public void onDevicesChanged() {
         mAvdSelector.refresh(false /*reload*/);
     }
-
 
     // End of hiding from SWT Designer
     //$hide<<$

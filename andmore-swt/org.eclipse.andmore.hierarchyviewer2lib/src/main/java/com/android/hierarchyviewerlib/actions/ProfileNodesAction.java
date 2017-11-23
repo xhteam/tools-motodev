@@ -16,12 +16,11 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 
 public class ProfileNodesAction extends SelectedNodeEnabledAction implements ImageAction {
     private static ProfileNodesAction sAction;
@@ -30,8 +29,8 @@ public class ProfileNodesAction extends SelectedNodeEnabledAction implements Ima
 
     public ProfileNodesAction() {
         super("Profile Node");
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("profile.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("profile.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Obtain layout times for tree rooted at selected node");
     }

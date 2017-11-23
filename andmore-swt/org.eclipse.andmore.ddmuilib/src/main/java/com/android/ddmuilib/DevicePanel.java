@@ -30,6 +30,7 @@ import com.android.ddmlib.IDevice.DeviceState;
 import com.android.ddmuilib.vmtrace.VmTraceOptionsDialog;
 import com.google.common.base.Throwables;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -44,6 +45,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -102,6 +104,7 @@ public final class DevicePanel extends Panel implements IDebugBridgeChangeListen
     private Image mWaitingImage;
     private Image mDebuggerImage;
     private Image mDebugErrorImage;
+    private ImageFactory mImageFactory;
 
     private final ArrayList<IUiSelectionListener> mListeners = new ArrayList<IUiSelectionListener>();
 
@@ -318,10 +321,12 @@ public final class DevicePanel extends Panel implements IDebugBridgeChangeListen
     /**
      * Creates the {@link DevicePanel} object.
      * @param advancedPortSupport if true the device panel will add support for selected client port
+     * @param imageFactory Image loader
      * and display the ports in the ui.
      */
-    public DevicePanel(boolean advancedPortSupport) {
+    public DevicePanel(boolean advancedPortSupport, ImageFactory imageFactory) {
         mAdvancedPortSupport = advancedPortSupport;
+        mImageFactory = imageFactory;
     }
 
     public void addSelectionListener(IUiSelectionListener listener) {
@@ -718,42 +723,68 @@ public final class DevicePanel extends Panel implements IDebugBridgeChangeListen
     }
 
     private void loadImages(Display display) {
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
-
         if (mDeviceImage == null) {
-            mDeviceImage = loader.loadImage(display, "device.png", //$NON-NLS-1$
-                    ICON_WIDTH, ICON_WIDTH,
-                    display.getSystemColor(SWT.COLOR_RED));
+        	String imageName = "device.png"; //$NON-NLS-1$
+            mDeviceImage = mImageFactory.getImageByName(imageName);
+            if (mDeviceImage == null) {
+            	mDeviceImage = loadImage(imageName, display, 
+            			                 ICON_WIDTH, ICON_WIDTH,
+            		                     display.getSystemColor(SWT.COLOR_RED)); 
+            }
         }
         if (mEmulatorImage == null) {
-            mEmulatorImage = loader.loadImage(display,
-                    "emulator.png", ICON_WIDTH, ICON_WIDTH, //$NON-NLS-1$
-                    display.getSystemColor(SWT.COLOR_BLUE));
+        	String imageName = "emulator.png"; //$NON-NLS-1$
+        	mEmulatorImage = mImageFactory.getImageByName(imageName);
+            if (mEmulatorImage == null) {
+	            mEmulatorImage = loadImage(imageName, display,
+	                                      ICON_WIDTH, ICON_WIDTH,
+	                                      display.getSystemColor(SWT.COLOR_BLUE));
+            }
         }
         if (mThreadImage == null) {
-            mThreadImage = loader.loadImage(display, ICON_THREAD,
-                    ICON_WIDTH, ICON_WIDTH,
-                    display.getSystemColor(SWT.COLOR_YELLOW));
+        	String imageName = ICON_THREAD;
+        	mThreadImage = mImageFactory.getImageByName(imageName);
+            if (mThreadImage == null) {
+	            mThreadImage = loadImage(imageName, display,
+	                                     ICON_WIDTH, ICON_WIDTH,
+	                                     display.getSystemColor(SWT.COLOR_YELLOW));
+            }
         }
         if (mHeapImage == null) {
-            mHeapImage = loader.loadImage(display, ICON_HEAP,
-                    ICON_WIDTH, ICON_WIDTH,
-                    display.getSystemColor(SWT.COLOR_BLUE));
+        	String heapImageName = ICON_HEAP;
+        	mHeapImage = mImageFactory.getImageByName(heapImageName);
+            if (mHeapImage == null) {
+                 mHeapImage = loadImage(heapImageName, display, 
+                                       ICON_WIDTH, ICON_WIDTH,
+                                       display.getSystemColor(SWT.COLOR_BLUE));
+            }
         }
         if (mWaitingImage == null) {
-            mWaitingImage = loader.loadImage(display,
-                    "debug-wait.png", ICON_WIDTH, ICON_WIDTH, //$NON-NLS-1$
-                    display.getSystemColor(SWT.COLOR_RED));
+        	String waitImageName = "debug-wait.png"; //$NON-NLS-1$
+        	mWaitingImage = mImageFactory.getImageByName(waitImageName);
+            if (mWaitingImage == null) {
+	            mWaitingImage = loadImage(waitImageName, display,
+	                                      ICON_WIDTH, ICON_WIDTH,
+	                                      display.getSystemColor(SWT.COLOR_RED));
+            }
         }
         if (mDebuggerImage == null) {
-            mDebuggerImage = loader.loadImage(display,
-                    "debug-attach.png", ICON_WIDTH, ICON_WIDTH, //$NON-NLS-1$
-                    display.getSystemColor(SWT.COLOR_GREEN));
+        	String debugImageName = "debug-attach.png"; //$NON-NLS-1$
+        	mDebuggerImage = mImageFactory.getImageByName(debugImageName);
+            if (mDebuggerImage == null) {
+	            mDebuggerImage = loadImage(debugImageName, display,
+	                                      ICON_WIDTH, ICON_WIDTH,
+	                                       display.getSystemColor(SWT.COLOR_GREEN));
+            }
         }
         if (mDebugErrorImage == null) {
-            mDebugErrorImage = loader.loadImage(display,
-                    "debug-error.png", ICON_WIDTH, ICON_WIDTH, //$NON-NLS-1$
-                    display.getSystemColor(SWT.COLOR_RED));
+        	String deviceImageName = "device.png"; //$NON-NLS-1$
+        	mDebugErrorImage = mImageFactory.getImageByName(deviceImageName);
+            if (mDebugErrorImage == null) {
+	            mDebugErrorImage = loadImage(deviceImageName, display,
+	                                        ICON_WIDTH, ICON_WIDTH, 
+	                                        display.getSystemColor(SWT.COLOR_RED));
+            }
         }
     }
 
@@ -826,4 +857,8 @@ public final class DevicePanel extends Panel implements IDebugBridgeChangeListen
         }
     }
 
+    private Image loadImage(String imageName, Display display, int width, int height, Color color) {
+        return mImageFactory.getImageByName(imageName, new ReplacementImageFactory(display, width, height, color));
+    }
+    
 }

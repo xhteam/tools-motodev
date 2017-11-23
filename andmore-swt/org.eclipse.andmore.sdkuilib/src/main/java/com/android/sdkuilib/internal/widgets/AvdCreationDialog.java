@@ -19,11 +19,11 @@ package com.android.sdkuilib.internal.widgets;
 import com.android.annotations.NonNull;
 import com.android.sdklib.devices.Device;
 import com.android.sdklib.internal.avd.AvdInfo;
-import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdkuilib.internal.repository.icons.ImageFactory;
+import com.android.sdkuilib.internal.repository.avd.AvdAgent;
+import com.android.sdkuilib.internal.repository.avd.SdkTargets;
 import com.android.sdkuilib.internal.widgets.AvdCreationPresenter.IWidgetAdapter;
-import com.android.utils.ILogger;
 
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -42,11 +42,10 @@ import org.eclipse.swt.widgets.Shell;
 public class AvdCreationDialog extends AvdCreationSwtView {
 
     public AvdCreationDialog(Shell shell,
-            AvdManager avdManager,
-            ImageFactory imageFactory,
-            ILogger log,
-            AvdInfo editAvdInfo) {
-        super(shell, imageFactory, new AvdCreationPresenter(avdManager, log, editAvdInfo));
+    		@NonNull SdkContext sdkContext,
+    		@NonNull SdkTargets sdkTargets,
+            AvdAgent editAvdAgent) {
+        super(shell, sdkContext.getSdkHelper().getImageFactory(), new AvdCreationPresenter(sdkContext, sdkTargets, editAvdAgent));
 
     }
 

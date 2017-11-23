@@ -38,6 +38,8 @@ import com.android.hierarchyviewerlib.ui.TreeView;
 import com.android.hierarchyviewerlib.ui.util.DrawableViewNode;
 import com.android.hierarchyviewerlib.ui.util.PsdFile;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.base.resources.JFaceImageLoader;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
@@ -68,6 +70,8 @@ public abstract class HierarchyViewerDirector implements IDeviceChangeListener,
     }
 
     protected static HierarchyViewerDirector sDirector;
+    
+    private ImageFactory mImageFactory;
 
     public static final String TAG = "hierarchyviewer";
 
@@ -88,6 +92,10 @@ public abstract class HierarchyViewerDirector implements IDeviceChangeListener,
     private static final Object mDevicesLock = new Object();
     private Map<IDevice, IHvDevice> mDevices = new HashMap<IDevice, IHvDevice>(10);
 
+    public HierarchyViewerDirector(ImageFactory imageFactory) {
+    	mImageFactory = imageFactory;
+    }
+    
     public static boolean isUsingDdmProtocol() {
         return sIsUsingDdmProtocol;
     }
@@ -95,6 +103,7 @@ public abstract class HierarchyViewerDirector implements IDeviceChangeListener,
     public void terminate() {
         WindowUpdater.terminate();
         mPixelPerfectRefreshTimer.cancel();
+        mImageFactory.dispose();
     }
 
     public abstract String getAdbLocation();
@@ -788,4 +797,9 @@ public abstract class HierarchyViewerDirector implements IDeviceChangeListener,
     public int getPixelPerfectAutoRefreshInverval() {
         return mPixelPerfectAutoRefreshInterval;
     }
+    
+	public ImageFactory getImageFactory() {
+		return mImageFactory;
+	}
+
 }

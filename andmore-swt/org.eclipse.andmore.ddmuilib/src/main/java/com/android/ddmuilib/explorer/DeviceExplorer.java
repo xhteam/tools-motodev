@@ -28,7 +28,6 @@ import com.android.ddmlib.SyncService;
 import com.android.ddmlib.SyncService.ISyncProgressMonitor;
 import com.android.ddmlib.TimeoutException;
 import com.android.ddmuilib.DdmUiPreferences;
-import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.Panel;
 import com.android.ddmuilib.SyncProgressHelper;
 import com.android.ddmuilib.SyncProgressHelper.SyncRunnable;
@@ -36,6 +35,7 @@ import com.android.ddmuilib.TableHelper;
 import com.android.ddmuilib.actions.ICommonAction;
 import com.android.ddmuilib.console.DdmConsole;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -111,8 +111,10 @@ public class DeviceExplorer extends Panel {
     private IDevice mCurrentDevice;
 
     private String mDefaultSave;
+	private ImageFactory mImageFactory;
 
-    public DeviceExplorer() {
+    public DeviceExplorer(ImageFactory imageFactory) {
+    	mImageFactory = imageFactory;
     }
 
     /**
@@ -159,15 +161,14 @@ public class DeviceExplorer extends Panel {
         mParent = parent;
         parent.setLayout(new FillLayout());
 
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
         if (mFileImage == null) {
-            mFileImage = loader.loadImage("file.png", mParent.getDisplay());
+            mFileImage = mImageFactory.getImageByName("file.png");
         }
         if (mFolderImage == null) {
-            mFolderImage = loader.loadImage("folder.png", mParent.getDisplay());
+            mFolderImage = mImageFactory.getImageByName("folder.png");
         }
         if (mPackageImage == null) {
-            mPackageImage = loader.loadImage("android.png", mParent.getDisplay());
+            mPackageImage = mImageFactory.getImageByName("android.png");
         }
         if (mOtherImage == null) {
             // TODO: find a default image for other.

@@ -18,6 +18,7 @@ package org.eclipse.andmore.ddms.views;
 
 import com.android.ddmuilib.EmulatorControlPanel;
 
+import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.swt.widgets.Composite;
 
 public class EmulatorControlView extends SelectionDependentViewPart {
@@ -28,7 +29,7 @@ public class EmulatorControlView extends SelectionDependentViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		mPanel = new EmulatorControlPanel();
+		mPanel = new EmulatorControlPanel(DdmsPlugin.getDefault().getImageFactory());
 		mPanel.createPanel(parent);
 		setSelectionDependentPanel(mPanel);
 	}

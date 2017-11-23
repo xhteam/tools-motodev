@@ -16,8 +16,8 @@
 
 package com.android.sdkuilib.internal.tasks;
 
-import com.android.sdklib.internal.repository.ITask;
-import com.android.sdklib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.ITask;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
 
 import org.eclipse.swt.widgets.Shell;
 

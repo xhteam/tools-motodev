@@ -16,7 +16,7 @@
 
 package com.android.sdkuilib.internal.repository;
 
-import com.android.sdklib.repository.ISdkChangeListener;
+import com.android.sdkuilib.repository.ISdkChangeListener;
 
 /**
  * Interface for the actual implementation of the Update Window.

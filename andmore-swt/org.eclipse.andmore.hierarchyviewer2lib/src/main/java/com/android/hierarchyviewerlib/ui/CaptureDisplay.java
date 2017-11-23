@@ -16,10 +16,10 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.ViewNode;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -121,8 +121,8 @@ public class CaptureDisplay {
 
         sShell.addShellListener(sShellListener);
 
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        Image image = imageLoader.loadImage("display.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        Image image = imageFactory.getImageByName("display.png"); //$NON-NLS-1$
         sShell.setImage(image);
     }
 

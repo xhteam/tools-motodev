@@ -16,13 +16,13 @@
 
 package com.android.hierarchyviewerlib.actions;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.device.IHvDevice;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel;
 import com.android.hierarchyviewerlib.models.DeviceSelectionModel.IWindowChangeListener;
 import com.android.hierarchyviewerlib.models.Window;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -38,8 +38,8 @@ public class InspectScreenshotAction extends Action implements ImageAction, IWin
     private InspectScreenshotAction() {
         super("Inspect &Screenshot");
         setAccelerator(SWT.MOD1 + 'S');
-        ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-        mImage = imageLoader.loadImage("inspect-screenshot.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mImage = imageFactory.getImageByName("inspect-screenshot.png"); //$NON-NLS-1$
         setImageDescriptor(ImageDescriptor.createFromImage(mImage));
         setToolTipText("Inspect a screenshot in the pixel perfect view");
         setEnabled(

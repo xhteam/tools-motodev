@@ -16,11 +16,12 @@
 
 package com.android.hierarchyviewerlib.ui;
 
-import com.android.ddmuilib.ImageLoader;
+import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.PixelPerfectModel;
 import com.android.hierarchyviewerlib.models.ViewNode;
 import com.android.hierarchyviewerlib.models.PixelPerfectModel.IImageChangeListener;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -161,9 +162,9 @@ public class PixelPerfectTree extends Composite implements IImageChangeListener,
     }
 
     private void loadResources() {
-        ImageLoader loader = ImageLoader.getDdmUiLibLoader();
-        mFileImage = loader.loadImage("file.png", Display.getDefault());
-        mFolderImage = loader.loadImage("folder.png", Display.getDefault());
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        mFileImage = imageFactory.getImageByName("file.png");
+        mFolderImage = imageFactory.getImageByName("folder.png");
     }
 
     private DisposeListener mDisposeListener = new DisposeListener() {

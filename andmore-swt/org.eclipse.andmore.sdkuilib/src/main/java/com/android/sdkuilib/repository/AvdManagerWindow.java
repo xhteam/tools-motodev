@@ -17,9 +17,9 @@
 package com.android.sdkuilib.repository;
 
 import com.android.sdkuilib.internal.repository.ui.AvdManagerWindowImpl1;
-import com.android.sdkuilib.internal.widgets.AvdSelector;
-import com.android.utils.ILogger;
 
+import org.eclipse.andmore.sdktool.SdkCallAgent;
+import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -70,20 +70,34 @@ public class AvdManagerWindow {
      * Creates a new window. Caller must call open(), which will block.
      *
      * @param parentShell Parent shell.
-     * @param sdkLog Logger. Cannot be null.
-     * @param osSdkRoot The OS path to the SDK root.
+     * @param sdkCallAgent Mediates between application and UI layer
      * @param context The {@link AvdInvocationContext} to change the behavior depending on who's
      *  opening the SDK Manager.
      */
     public AvdManagerWindow(
             Shell parentShell,
-            ILogger sdkLog,
-            String osSdkRoot,
+            SdkCallAgent sdkCallAgent,
+            AvdInvocationContext context) {
+        this(parentShell,
+        		sdkCallAgent.getSdkContext(),
+                context);
+    }
+
+    /**
+     * Creates a new window. Caller must call open(), which will block.
+     *
+     * @param parentShell Parent shell.
+     * @param sdkContext SDK handler and repo manager
+     * @param context The {@link AvdInvocationContext} to change the behavior depending on who's
+     *  opening the SDK Manager.
+     */
+    public AvdManagerWindow(
+            Shell parentShell,
+            SdkContext sdkContext,
             AvdInvocationContext context) {
         mWindow = new AvdManagerWindowImpl1(
                 parentShell,
-                sdkLog,
-                osSdkRoot,
+                sdkContext,
                 context);
     }
 
