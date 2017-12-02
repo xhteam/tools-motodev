@@ -23,6 +23,7 @@ import com.android.ddmlib.Log.ILogOutput;
 import com.android.ddmlib.Log.LogLevel;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
@@ -48,6 +49,7 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static HierarchyViewerPlugin sPlugin;
+	private HierarchyViewerDirector director;
 
 	private Color mRedColor;
 
@@ -113,7 +115,7 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 
 		});
 
-		final HierarchyViewerDirector director = HierarchyViewerPluginDirector.createDirector();
+		director = HierarchyViewerPluginDirector.createDirector();
 		director.startListenForDevices();
 
 		// make the director receive change in ADB.
@@ -150,7 +152,6 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 
 		mRedColor.dispose();
 
-		HierarchyViewerDirector director = HierarchyViewerDirector.getDirector();
 		director.stopListenForDevices();
 		director.stopDebugBridge();
 		director.terminate();
@@ -204,5 +205,10 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 		}
 
 		return String.format("[%1$tF %1$tT - %2$s]", c, tag); //$NON-NLS-1$
+	}
+
+	public ImageFactory getImageFactory() {
+		// Director is not expected to be null because of plugin lifecycle
+		return director != null ? director.getImageFactory() : null;
 	}
 }

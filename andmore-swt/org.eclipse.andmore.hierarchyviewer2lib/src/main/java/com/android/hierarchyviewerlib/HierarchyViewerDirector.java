@@ -39,7 +39,6 @@ import com.android.hierarchyviewerlib.ui.util.DrawableViewNode;
 import com.android.hierarchyviewerlib.ui.util.PsdFile;
 
 import org.eclipse.andmore.base.resources.ImageFactory;
-import org.eclipse.andmore.base.resources.JFaceImageLoader;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;

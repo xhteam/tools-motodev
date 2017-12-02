@@ -22,6 +22,7 @@ import com.android.hierarchyviewerlib.models.TreeViewModel.ITreeChangeListener;
 import com.android.hierarchyviewerlib.ui.LayoutViewer;
 
 import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.hierarchyviewer.HierarchyViewerPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -76,7 +77,7 @@ public class LayoutView extends ViewPart implements ITreeChangeListener {
 	@Override
 	public void createPartControl(Composite parent) {
 		mShowExtrasAction.setAccelerator(SWT.MOD1 + 'E');
-        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+        ImageFactory imageFactory = HierarchyViewerPlugin.getPlugin().getImageFactory();
 		Image image = imageFactory.getImageByName("show-extras.png"); //$NON-NLS-1$
 		mShowExtrasAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
 		mShowExtrasAction.setToolTipText("Show images");
