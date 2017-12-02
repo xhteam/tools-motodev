@@ -24,6 +24,7 @@ import com.android.ddmlib.Log.LogLevel;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -82,7 +83,7 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 		});
 
 		// set up the ddms log to use the ddms console.
-		Log.setLogOutput(new ILogOutput() {
+		Log.addLogger(new ILogOutput() {
 			@Override
 			public void printLog(LogLevel logLevel, String tag, String message) {
 				if (logLevel.getPriority() >= LogLevel.ERROR.getPriority()) {
@@ -164,6 +165,13 @@ public class HierarchyViewerPlugin extends AbstractUIPlugin {
 		return sPlugin;
 	}
 
+	/**
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
 	/**
 	 * Prints a message, associated with a project to the specified stream
 	 *

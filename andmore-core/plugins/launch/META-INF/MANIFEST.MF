@@ -18,8 +18,8 @@ Require-Bundle: org.eclipse.andmore.android,
  org.eclipse.core.runtime,
  org.eclipse.ui.console,
  org.eclipse.ui,
- org.eclipse.andmore.base
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+ org.eclipse.andmore.swt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.andmore.android.launch.i18n

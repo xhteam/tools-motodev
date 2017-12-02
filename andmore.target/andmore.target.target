@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="andmore" sequenceNumber="1">
+<locations>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.wb.core.feature.feature.group" version="1.9.0"/>
+<unit id="org.eclipse.wb.core.java.feature.feature.group" version="1.9.0"/>
+<unit id="org.eclipse.wb.core.xml.feature.feature.group" version="1.9.0"/>
+<repository location="http://download.eclipse.org/windowbuilder/WB/release/4.6/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="com.google.gson" version="2.2.4.v201311231704"/>
+<unit id="org.apache.oro.source" version="2.0.8.v201005080400"/>
+<unit id="org.apache.commons.httpclient" version="3.1.0.v201012070820"/>
+<unit id="org.apache.commons.httpclient.source" version="3.1.0.v201012070820"/>
+<unit id="org.apache.oro" version="2.0.8.v201005080400"/>
+<unit id="org.easymock" version="2.4.0.v20090202-0900"/>
+<repository location="http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.apache.httpcomponents.httpclient" version="4.1.3.v201209201135"/>
+<unit id="org.apache.commons.net" version="1.4.1.v200905122237"/>
+<unit id="org.apache.commons.net.source" version="1.4.1.v200905122237"/>
+<unit id="org.custommonkey.xmlunit" version="1.3.0.v201111161502"/>
+<unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.core" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.library" version="1.1.0.v20090501071000"/>
+<unit id="org.hamcrest.integration" version="1.1.0.v201303031500"/>
+<unit id="org.mockito" version="1.9.5.v201311280930"/>
+<unit id="org.objenesis" version="1.0.0.v201105211943"/>
+<unit id="com.google.guava" version="15.0.0.v201403281430"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20150124073747/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.apache.httpcomponents.httpcore" version="4.1.4.v201203221030"/>
+<unit id="org.apache.httpcomponents.httpclient" version="4.1.3.v201209201135"/>
+<unit id="org.apache.commons.codec" version="1.6.0.v201305230611"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.swt.dummyfragments.feature.group" version="0.0.0"/>
+<repository location="https://eclipseguru.github.io/missing-swt-fragments/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.platform.sdk" version="4.6.3.M20170301-0400"/>
+<unit id="org.eclipse.sdk.ide" version="4.6.3.M20170301-0400"/>
+<repository location="http://download.eclipse.org/eclipse/updates/4.6"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.tm.terminal.control.feature.feature.group" version="4.1.0.201606052351"/>
+<repository location="http://download.eclipse.org/tm/terminal/updates/4.1/"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="3.8.2.v201702270442"/>
+<unit id="org.eclipse.sequoyah.vnc.protocol.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.cdt.sdk.feature.group" version="9.2.1.201703062208"/>
+<unit id="org.eclipse.sequoyah.localization.tools.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.wst.common.fproj.feature.group" version="3.7.0.v201505072140"/>
+<unit id="org.eclipse.pde.feature.group" version="3.12.3.v20170301-0400"/>
+<unit id="org.eclipse.wst.xsl.feature.feature.group" version="1.3.401.v201509231858"/>
+<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.wst.xsl.feature.feature.group" version="1.3.401.v201509231858"/>
+<unit id="org.eclipse.sequoyah.device.common.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.sequoyah.device.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.wst.common.fproj.feature.group" version="3.7.0.v201505072140"/>
+<unit id="org.eclipse.wst.common.modulecore" version="1.2.500.v201701032135"/>
+<unit id="org.eclipse.wst.common.modulecore.ui" version="1.0.300.v201505072128"/>
+<unit id="org.eclipse.xsd.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.xsd.edit.feature.group" version="2.9.0.v20160526-0356"/>
+<unit id="org.eclipse.datatools.sdk.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.egit.feature.group" version="4.6.1.201703071140-r"/>
+<unit id="org.eclipse.jgit.feature.group" version="4.6.1.201703071140-r"/>
+<unit id="org.eclipse.emf.codegen.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.codegen.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.common.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.common.ui.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.pde.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.mat.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.platform.ide" version="0.0.0"/>
+<unit id="org.eclipse.pde.source.feature.group" version="3.12.3.v20170301-0400"/>
+<unit id="org.eclipse.equinox.p2.discovery" version="1.0.400.v20160504-1450"/>
+<unit id="org.eclipse.equinox.p2.ui.discovery" version="1.0.201.v20160901-1335"/>
+<unit id="org.eclipse.equinox.p2.discovery.compatibility" version="1.0.200.v20131211-1531"/>
+<unit id="org.eclipse.ecf" version="3.8.0.v20160823-2221"/>
+<unit id="org.eclipse.ecf.identity" version="3.7.0.v20160823-2221"/>
+<unit id="org.eclipse.ecf.filetransfer" version="5.0.0.v20160823-2221"/>
+<unit id="org.eclipse.ecf.provider.filetransfer" version="3.2.200.v20160823-2221"/>
+<unit id="org.eclipse.launchbar.core" version="2.1.0.201612052026"/>
+<unit id="org.eclipse.launchbar.ui" version="2.1.0.201612052026"/>
+<unit id="org.eclipse.tools.templates.ui" version="1.1.1.201702141301"/>
+<unit id="org.eclipse.tools.templates.core" version="1.1.0.201702141301"/>
+<unit id="org.freemarker" version="2.3.22.v20160210-1233"/>
+<unit id="org.eclipse.sequoyah.vnc.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.sequoyah.vnc.vncviewer.feature.feature.group" version="2.1.0.N20120718-0509"/>
+<unit id="org.eclipse.sequoyah.localization.android.feature.feature.group" version="2.1.1.N20120718-0509"/>
+<repository location="http://download.eclipse.org/releases/neon"/>
+</location>
+</locations>
+</target>

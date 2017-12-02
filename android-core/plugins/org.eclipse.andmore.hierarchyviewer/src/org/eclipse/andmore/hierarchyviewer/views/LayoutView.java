@@ -16,12 +16,12 @@
 
 package org.eclipse.andmore.hierarchyviewer.views;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.models.TreeViewModel;
 import com.android.hierarchyviewerlib.models.TreeViewModel.ITreeChangeListener;
 import com.android.hierarchyviewerlib.ui.LayoutViewer;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -76,21 +76,21 @@ public class LayoutView extends ViewPart implements ITreeChangeListener {
 	@Override
 	public void createPartControl(Composite parent) {
 		mShowExtrasAction.setAccelerator(SWT.MOD1 + 'E');
-		ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-		Image image = imageLoader.loadImage("show-extras.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerDirector.getDirector().getImageFactory();
+		Image image = imageFactory.getImageByName("show-extras.png"); //$NON-NLS-1$
 		mShowExtrasAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
 		mShowExtrasAction.setToolTipText("Show images");
 		mShowExtrasAction.setEnabled(TreeViewModel.getModel().getTree() != null);
 
-		mOnWhite = imageLoader.loadImage("on-white.png", Display.getDefault()); //$NON-NLS-1$
-		mOnBlack = imageLoader.loadImage("on-black.png", Display.getDefault()); //$NON-NLS-1$
+		mOnWhite = imageFactory.getImageByName("on-white.png"); //$NON-NLS-1$
+		mOnBlack = imageFactory.getImageByName("on-black.png"); //$NON-NLS-1$
 
 		mOnBlackWhiteAction.setAccelerator(SWT.MOD1 + 'C');
 		mOnBlackWhiteAction.setImageDescriptor(ImageDescriptor.createFromImage(mOnWhite));
 		mOnBlackWhiteAction.setToolTipText("Change layout viewer background color");
 
 		mLoadAllViewsAction.setAccelerator(SWT.MOD1 + 'V');
-		image = imageLoader.loadImage("load-all-views.png", Display.getDefault()); //$NON-NLS-1$
+		image = imageFactory.getImageByName("load-all-views.png"); //$NON-NLS-1$
 		mLoadAllViewsAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
 		mLoadAllViewsAction.setToolTipText("Load all view images");
 		mLoadAllViewsAction.setEnabled(TreeViewModel.getModel().getTree() != null);

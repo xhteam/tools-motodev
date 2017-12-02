@@ -37,19 +37,16 @@
 	</ciManagement>
 
 	<properties>
-		<tycho-version>0.26.0</tycho-version>
+        <project.java.version>1.8</project.java.version>
+		<tycho-version>1.0.0</tycho-version>
 		<eclipse-site>http://download.eclipse.org/releases/neon/</eclipse-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository</orbit-site>
-		<sequoyah-site>http://download.eclipse.org/sequoyah/updates/2.1/</sequoyah-site>
+		<orbit-site>http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository</orbit-site>
 		<m2e-update-site>http://download.eclipse.org/technology/m2e/releases/</m2e-update-site>
+        <android.builder.version>2.3.3</android.builder.version>
+        <android.tools.version>25.3.3</android.tools.version>
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>sequoyah</id>
-			<layout>p2</layout>
-			<url>${sequoyah-site}</url>
-		</repository>
 		<repository>
 			<id>eclipse</id>
 			<layout>p2</layout>
@@ -69,6 +66,15 @@
 			<id>license-feature</id>
 			<url>http://download.eclipse.org/cbi/updates/license/</url>
 			<layout>p2</layout>
+		</repository>
+		<repository>
+			<!-- For org.jfree:chart_swt -->
+			<id>homer-core</id>
+			<name>homer-core</name>
+			<url>https://nexus.arcsmed.at/content/repositories/homer.core/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
 		</repository>
 	</repositories>
 
@@ -98,8 +104,10 @@
 	</distributionManagement>
 
 	<modules>
+		<module>andmore-swt</module>
 		<module>android-core</module>
 		<module>andmore-core</module>
+		<module>andmore.target</module>
 	</modules>
 
 	<build>
@@ -156,6 +164,37 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+                <configuration>
+                  <source>${project.java.version}</source>
+                  <target>${project.java.version}</target>
+                  <testSource>${project.java.version}</testSource>
+                  <testTarget>${project.java.version}</testTarget>
+                  <encoding>${project.build.sourceEncoding}</encoding>
+                  <fork>true</fork>
+                  <compilerArgument>-Xlint:none</compilerArgument>
+                  <testCompilerArgument>-Xlint:none</testCompilerArgument>
+               </configuration>
+			</plugin>
+		    <plugin>
+	            <groupId>org.eclipse.tycho</groupId>
+	            <artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+	            <configuration>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
+                    <showWarnings>false</showWarnings>
+	                <compilerArgument>-Xlint:none</compilerArgument>  
+	            </configuration>
+		    </plugin>
+		    <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-dependency-plugin</artifactId>
+			  <version>3.0.2</version>
+			</plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<extensions>true</extensions>
@@ -169,6 +208,13 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<configuration>
 					<resolver>p2</resolver>
+                    <target> 
+                        <artifact>
+                            <groupId>org.eclipse.andmore</groupId>
+                            <artifactId>andmore.target</artifactId>
+                            <version>${project.version}</version>
+                        </artifact>
+                    </target>     
 					<environments>
 						<environment>
 							<os>macosx</os>

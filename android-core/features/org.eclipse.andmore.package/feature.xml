@@ -21,6 +21,14 @@
    </license>
 
    <requires>
+      <import plugin="org.eclipse.andmore.swt" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.swtmenubar" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.ddmuilib" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.sdkuilib" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.sdkstats" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.traceviewuilib" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.hierarchyviewer2lib" version="0.0.0"/>
+      <import plugin="org.eclipse.andmore.uiautomatorviewer" version="0.0.0"/>
       <import plugin="org.eclipse.andmore" version="0.0.0"/>
       <import plugin="org.eclipse.andmore.base" version="0.0.0"/>
       <import plugin="org.eclipse.andmore.ddms" version="0.0.0"/>

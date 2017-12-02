@@ -1,4 +1,5 @@
 Code completion in completion1.xml for style="@android:^style/Widget.Button":
+@android:string/
 @android:style/
 @android:anim/
 @android:animator/
@@ -19,5 +20,4 @@ Code completion in completion1.xml for style="@android:^style/Widget.Button":
 @android:plurals/
 @android:public/
 @android:raw/
-@android:string/
 @android:xml/

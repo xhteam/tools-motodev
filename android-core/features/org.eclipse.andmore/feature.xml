@@ -21,6 +21,14 @@
    </license>
 
    <requires>
+      <import plugin="org.eclipse.andmore.swt" match="perfect"/>
+      <import plugin="org.eclipse.andmore.swtmenubar" match="perfect"/>
+      <import plugin="org.eclipse.andmore.ddmuilib" match="perfect"/>
+      <import plugin="org.eclipse.andmore.sdkuilib" match="perfect"/>
+      <import plugin="org.eclipse.andmore.sdkstats" match="perfect"/>
+      <import plugin="org.eclipse.andmore.traceviewuilib" match="perfect"/>
+      <import plugin="org.eclipse.andmore.hierarchyviewer2lib" match="perfect"/>
+      <import plugin="org.eclipse.andmore.uiautomatorviewer" match="perfect"/>
       <import plugin="org.eclipse.andmore.base" match="perfect"/>
       <import plugin="org.eclipse.andmore.ddms" match="perfect"/>
       <import plugin="org.eclipse.core.runtime" version="0.0.0" match="greaterOrEqual"/>
@@ -55,10 +63,59 @@
    </requires>
 
    <plugin
-         id="org.objectweb.asm"
+         id="org.eclipse.andmore.swt"
          download-size="0"
          install-size="0"
-         version="4.0.0.v201302062210"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.swtmenubar"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.ddmuilib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.sdkuilib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.sdkstats"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.traceviewuilib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.hierarchyviewer2lib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.uiautomatorviewer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin

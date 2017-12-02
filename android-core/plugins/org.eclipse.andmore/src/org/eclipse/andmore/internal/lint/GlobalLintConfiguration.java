@@ -28,6 +28,7 @@ import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -173,5 +174,21 @@ class GlobalLintConfiguration extends Configuration {
     public void finishBulkEditing() {
         mBulkEditing = false;
         setSeverities(mSeverities);
+    }
+
+    @Override
+    public File getBaselineFile()
+    {
+        return null;
+    }
+
+    @Override
+    public void ignore(Issue arg0, File arg1)
+    {
+    }
+
+    @Override
+    public void setBaselineFile(File arg0)
+    {
     }
 }

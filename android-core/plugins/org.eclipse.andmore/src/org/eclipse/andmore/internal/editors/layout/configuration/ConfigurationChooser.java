@@ -87,6 +87,7 @@ import com.android.ide.common.resources.LocaleManager;
 import com.android.ide.common.resources.ResourceFile;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.ide.common.resources.ResourceRepository;
+import com.android.ide.common.resources.ResourceValueMap;
 import com.android.ide.common.resources.configuration.DeviceConfigHelper;
 import com.android.ide.common.resources.configuration.FolderConfiguration;
 import com.android.ide.common.resources.configuration.LocaleQualifier;
@@ -886,10 +887,9 @@ public class ConfigurationChooser extends Composite
 
         Sdk currentSdk = Sdk.getCurrent();
         if (currentSdk != null) {
-            IAndroidTarget[] targets = currentSdk.getTargets();
-            for (int i = 0 ; i < targets.length; i++) {
-                if (targets[i].hasRenderingLibrary()) {
-                    mTargetList.add(targets[i]);
+            for (IAndroidTarget target : currentSdk.getTargets()) {
+                if (target.hasRenderingLibrary()) {
+                    mTargetList.add(target);
                 }
             }
 
@@ -1773,7 +1773,7 @@ public class ConfigurationChooser extends Composite
             // in cases where the opened file is not linked to a project, this could be null.
             if (projectRes != null) {
                 // get the configured resources for the project
-                Map<ResourceType, Map<String, ResourceValue>> configuredProjectRes =
+                Map<ResourceType, ResourceValueMap> configuredProjectRes =
                     mClient.getConfiguredProjectResources();
 
                 if (configuredProjectRes != null) {
@@ -1807,12 +1807,12 @@ public class ConfigurationChooser extends Composite
             // get the themes, and languages from the Framework.
             if (frameworkRes != null) {
                 // get the configured resources for the framework
-                Map<ResourceType, Map<String, ResourceValue>> frameworResources =
+                Map<ResourceType, ResourceValueMap> frameworkResources =
                     frameworkRes.getConfiguredResources(mConfiguration.getFullConfig());
 
-                if (frameworResources != null) {
+                if (frameworkResources != null) {
                     // get the styles.
-                    Map<String, ResourceValue> styles = frameworResources.get(ResourceType.STYLE);
+                    ResourceValueMap styles = frameworkResources.get(ResourceType.STYLE);
 
                     // collect the themes out of all the styles.
                     for (ResourceValue value : styles.values()) {
