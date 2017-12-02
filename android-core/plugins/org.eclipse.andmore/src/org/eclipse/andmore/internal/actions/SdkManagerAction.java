@@ -42,6 +42,7 @@ import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.repository.io.FileOpUtils;
+import com.android.sdkuilib.repository.ISdkChangeListener;
 import com.android.sdkuilib.repository.SdkUpdaterWindow;
 import com.android.sdkuilib.repository.SdkUpdaterWindow.SdkInvocationContext;
 import com.android.utils.GrabProcessOutput;
@@ -67,6 +68,7 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
     @Override
     public void run(IAction action) {
     	openAdtSdkManager();
+    	// TODO - Revise action response to not inclue opening external SDK Manager
     	// Although orthogonal to the sdk manager action, this is a good time
         // to check whether the SDK has changed on disk.
         //AndmoreAndroidPlugin.getDefault().refreshSdk();
@@ -285,68 +287,60 @@ public class SdkManagerAction implements IWorkbenchWindowActionDelegate, IObject
                 sdkCallAgent,
                 SdkInvocationContext.IDE);
         adtConsoleSdkLog.info("SdkUpdaterWindow created");
-//        ISdkChangeListener listener = new ISdkChangeListener() {
-//            @Override
-//            public void onSdkLoaded() {
-//                // Ignore initial load of the SDK.
-//            }
-//
-//            /**
-//             * Unload all we can from the SDK before new packages are installed.
-//             * Typically we need to get rid of references to dx from platform-tools
-//             * and to any platform resource data.
-//             * <p/>
-//             * {@inheritDoc}
-//             */
-//            @Override
-//            public void preInstallHook() {
-//
-//                // TODO we need to unload as much of as SDK as possible. Otherwise
-//                // on Windows we end up with Eclipse locking some files and we can't
-//                // replace them.
-//                //
-//                // At this point, we know what the user wants to install so it would be
-//                // possible to pass in flags to know what needs to be unloaded. Typically
-//                // we need to:
-//                // - unload dex if platform-tools is going to be updated. There's a vague
-//                //   attempt below at removing any references to dex and GCing. Seems
-//                //   to do the trick.
-//                // - unload any target that is going to be updated since it may have
-//                //   resource data used by a current layout editor (e.g. data/*.ttf
-//                //   and various data/res/*.xml).
-//                //
-//                // Most important we need to make sure there isn't a build going on
-//                // and if there is one, either abort it or wait for it to complete and
-//                // then we want to make sure we don't get any attempt to use the SDK
-//                // before the postInstallHook is called.
-//
-//                if (sdk != null) {
-//                    sdk.unloadTargetData(true /*preventReload*/);
-//                    sdk.unloadDexWrappers();
-//                }
-//            }
-//
-//            /**
-//             * Nothing to do. We'll reparse the SDK later in onSdkReload.
-//             * <p/>
-//             * {@inheritDoc}
-//             */
-//            @Override
-//            public void postInstallHook() {
-//            }
-//
-//            /**
-//             * Reparse the SDK in case anything was add/removed.
-//             * <p/>
-//             * {@inheritDoc}
-//             */
-//            @Override
-//            public void onSdkReload() {
-//                AndmoreAndroidPlugin.getDefault().reparseSdk();
-//            }
-//        };
-//
-//        window.addListener(listener);
+        ISdkChangeListener listener = new ISdkChangeListener() {
+
+            /**
+             * Unload all we can from the SDK before new packages are installed.
+             * Typically we need to get rid of references to dx from platform-tools
+             * and to any platform resource data.
+             * <p/>
+             * {@inheritDoc}
+             */
+            @Override
+            public void preInstallHook() {
+
+                // TODO we need to unload as much of as SDK as possible. Otherwise
+                // on Windows we end up with Eclipse locking some files and we can't
+                // replace them.
+                //
+                // At this point, we know what the user wants to install so it would be
+                // possible to pass in flags to know what needs to be unloaded. Typically
+                // we need to unload any target that is going to be updated since it may have
+                // resource data used by a current layout editor (e.g. data/*.ttf
+                // and various data/res/*.xml).
+                //
+                // Most important we need to make sure there isn't a build going on
+                // and if there is one, either abort it or wait for it to complete and
+                // then we want to make sure we don't get any attempt to use the SDK
+                // before the postInstallHook is called.
+
+                sdk.unloadTargetData(true /*preventReload*/);
+            }
+
+            /**
+             * Nothing to do. We'll reparse the SDK later in onSdkReload.
+             * <p/>
+             * {@inheritDoc}
+             */
+            @Override
+            public void postInstallHook() {
+            }
+
+            /**
+             * Reparse the SDK in case anything was add/removed.
+             * <p/>
+             * {@inheritDoc}
+             */
+			@Override
+            public void onSdkReload() {
+            	// The Android SDK library used to reload packages post-install. 
+            	// Now the application has to do this.
+            	Sdk.loadSdk(sdk.getSdkFileLocation().getAbsolutePath());
+                AndmoreAndroidPlugin.getDefault().reparseSdk();
+            }
+        };
+
+        window.addListener(listener);
         window.open();
         adtConsoleSdkLog.info("SdkUpdaterWindow opened");
 

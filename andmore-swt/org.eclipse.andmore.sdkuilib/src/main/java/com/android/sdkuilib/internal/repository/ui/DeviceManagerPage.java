@@ -803,11 +803,6 @@ public class DeviceManagerPage extends Composite
     // --- Implementation of ISdkChangeListener ---
 
     @Override
-    public void onSdkLoaded() {
-        onSdkReload();
-    }
-
-    @Override
     public void onSdkReload() {
         onRefresh();
     }

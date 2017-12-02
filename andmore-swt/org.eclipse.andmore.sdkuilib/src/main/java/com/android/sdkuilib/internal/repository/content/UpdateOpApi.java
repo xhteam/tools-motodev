@@ -2,8 +2,10 @@ package com.android.sdkuilib.internal.repository.content;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import com.android.repository.api.RepoPackage;
+import com.android.sdkuilib.internal.repository.content.PackageAnalyser.PkgState;
 import com.android.sdkuilib.internal.repository.ui.PackagesPageIcons;
 import com.android.sdklib.AndroidVersion;
 
@@ -22,8 +24,10 @@ public class UpdateOpApi extends UpdateOp<AndroidVersion> {
             } else {
                 return CategoryKeyType.TOOLS;
             }
-        } else {
+        } else if (pkg.getPath().indexOf("extras") != -1) {
             return CategoryKeyType.EXTRA;
+        } else {
+            return CategoryKeyType.GENERIC;
         }
 	}
 	
@@ -31,12 +35,6 @@ public class UpdateOpApi extends UpdateOp<AndroidVersion> {
 	public AndroidVersion getCategoryKeyValue(RepoPackage pkg) {
         // Sort by API
         return PkgItem.getAndroidVersion(pkg);
-	}
-
-	@Override
-	public void addDefaultCategories() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -78,12 +76,6 @@ public class UpdateOpApi extends UpdateOp<AndroidVersion> {
         }
 	}
 
-	@Override
-	public void postCategoryItemsChanged() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void sortPackages(PkgCategory<AndroidVersion> cat)
 	{
 		synchronized (cat)
@@ -105,6 +97,18 @@ public class UpdateOpApi extends UpdateOp<AndroidVersion> {
 				}
 				
 			});
+		}
+		// Generate product map to support filtering on latest version
+		String product = null;
+		cat.clearProducts();
+		Iterator<PkgItem> iterator = cat.getItems().iterator();
+		while (iterator.hasNext()) {
+			PkgItem packageItem = iterator.next();
+			if ((packageItem.getState() == PkgState.NEW) &&
+					!packageItem.getProduct().equals(product)) {
+				product = packageItem.getProduct();
+				cat.putProduct(product, packageItem);
+			}
 		}
 	}
 }

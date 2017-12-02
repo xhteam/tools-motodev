@@ -5,8 +5,6 @@ package org.eclipse.andmore.sdktool;
 
 import org.eclipse.andmore.base.resources.IEditorIconFactory;
 import org.eclipse.andmore.base.resources.ImageFactory;
-import org.eclipse.andmore.base.resources.JFaceImageLoader;
-import org.eclipse.andmore.base.resources.PluginResourceProvider;
 import org.eclipse.swt.graphics.Image;
 
 import com.android.repository.api.RepoManager;
@@ -62,7 +60,7 @@ public class SdkCallAgent {
 	public SdkContext getSdkContext() {
 		SdkHelper helper = sdkContext.getSdkHelper();
 		if (helper.getImageFactory() == null)
-			helper.setImageFactory(getImageLoader(new SdkResourceProvider()));
+			helper.setImageFactory(getImageLoader());
 		return sdkContext;
 	}
 
@@ -78,19 +76,24 @@ public class SdkCallAgent {
 				}};//
 		return iconEditorFactory;
 	}
-
-	public void dispose()
-	{
-		sdkContext.getSdkHelper().dispose();
-	}
-
+	
 	/**
 	 * Set image loader if not already set
 	 */
-	public ImageFactory getImageLoader(PluginResourceProvider provider)
+	public ImageFactory getImageLoader()
 	{
-		JFaceImageLoader imageLoader = new JFaceImageLoader(provider);
-		imageLoader.setLogger(consoleLogger);
-		return imageLoader;
+		SdkUserInterfacePlugin sdkPlugin = SdkUserInterfacePlugin.instance();
+		return sdkPlugin != null ? sdkPlugin.getImageFactory() : null;
  	}
+	
+	/**
+	 * Call completeOperations() in a finally clause to ensure pending notifications are triggered
+	 */
+	public void completeSdkOperations()
+	{
+		SdkHelper helper = sdkContext.getSdkHelper();
+		if (sdkContext.isSdkLocationChanged() || helper.isReloadPending())
+			helper.broadcastOnSdkReload(consoleLogger);
+		
+	}
 }

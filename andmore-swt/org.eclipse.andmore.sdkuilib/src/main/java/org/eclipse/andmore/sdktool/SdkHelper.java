@@ -17,10 +17,16 @@ public class SdkHelper {
     
     /** The current {@link ImageFactory}. */
     private ImageFactory mImageFactory;
+    /** Flag to remember one or more packages have been installed. Reset on {@link #broadcastOnSdkReload(ILogger)} called. */ 
+    private boolean isReloadPending;
 
     private final ArrayList<ISdkChangeListener> mListeners = new ArrayList<ISdkChangeListener>();
 
-    /** Adds a listener ({@link ISdkChangeListener}) that is notified when the SDK is reloaded. */
+    public boolean isReloadPending() {
+		return isReloadPending;
+	}
+
+	/** Adds a listener ({@link ISdkChangeListener}) that is notified when the SDK is reloaded. */
     public void addListeners(ISdkChangeListener listener) {
         if (mListeners.contains(listener) == false) {
             mListeners.add(listener);
@@ -33,17 +39,61 @@ public class SdkHelper {
     }
 
     /**
-     * Safely invoke all the registered {@link ISdkChangeListener#onSdkLoaded()}.
+     * Safely invoke all the registered {@link ISdkChangeListener#onSdkReload()}.
      * This can be called from any thread.
      */
-    public void broadcastOnSdkLoaded(ILogger logger) {
+    public void broadcastOnSdkReload(ILogger logger) {
+       isReloadPending = false;
+       if (!mListeners.isEmpty()) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (ISdkChangeListener listener : mListeners) {
+                        try {
+                            listener.onSdkReload();
+                        } catch (Throwable t) {
+                        	logger.error(t, null);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * Safely invoke all the registered {@link ISdkChangeListener#preInstallHook()}.
+     * This can be called from any thread.
+     */
+    public void broadcastPreInstallHook(ILogger logger) {
         if (!mListeners.isEmpty()) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     for (ISdkChangeListener listener : mListeners) {
                         try {
-                            listener.onSdkLoaded();
+                            listener.preInstallHook();
+                        } catch (Throwable t) {
+                        	logger.error(t, null);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * Safely invoke all the registered {@link ISdkChangeListener#postInstallHook()}.
+     * This can be called from any thread.
+     */
+    public void broadcastPostInstallHook(ILogger logger) {
+        if (!mListeners.isEmpty()) {
+        	isReloadPending = true;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (ISdkChangeListener listener : mListeners) {
+                        try {
+                            listener.postInstallHook();
                         } catch (Throwable t) {
                         	logger.error(t, null);
                         }
@@ -73,10 +123,6 @@ public class SdkHelper {
         return mImageFactory;
     }
 
-	public void dispose() {
-		if (mImageFactory != null)
-			mImageFactory.dispose();
-	}
     /**
      * Loads an image given its filename (with its extension).
      * Might return null if the image cannot be loaded.  <br/>
@@ -84,9 +130,8 @@ public class SdkHelper {
      * The image is automatically disposed when {@link ImageFactory} is disposed.
      *
      * @param imageName The filename (with extension) of the image to load.
-     * @return A new or existing {@link Image}. The caller must NOT dispose the image (the
-     *  image will disposed by {@link #dispose()}). The returned image can be null if the
-     *  expected file is missing.
+     * @return A new or existing {@link Image}. The caller must NOT dispose the image. 
+     * The returned image can be null if the expected file is missing.
      */
     @Nullable
     public Image getImageByName(@NonNull String imageName) {

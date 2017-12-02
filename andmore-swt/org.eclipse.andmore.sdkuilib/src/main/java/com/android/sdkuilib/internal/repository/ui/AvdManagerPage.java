@@ -132,11 +132,6 @@ public class AvdManagerPage extends Composite
     // --- Implementation of ISdkChangeListener ---
 
     @Override
-    public void onSdkLoaded() {
-        onSdkReload();
-    }
-
-    @Override
     public void onSdkReload() {
         mAvdSelector.refresh(false /*reload*/);
     }

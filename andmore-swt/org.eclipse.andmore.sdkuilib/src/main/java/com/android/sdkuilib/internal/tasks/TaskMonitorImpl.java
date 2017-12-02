@@ -21,7 +21,7 @@ import com.android.sdkuilib.internal.repository.ITaskMonitor;
 import com.android.sdkuilib.internal.repository.UserCredentials;
 
 /**
- * Internal class that implements the logic of an {@link ITaskMonitor}.
+ * Implements the logic of an {@link ITaskMonitor}.
  * It doesn't deal with any UI directly. Instead it delegates the UI to
  * the provided {@link IProgressUiProvider}.
  */

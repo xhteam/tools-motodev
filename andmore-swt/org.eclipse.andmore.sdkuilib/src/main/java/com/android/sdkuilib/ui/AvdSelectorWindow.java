@@ -28,9 +28,9 @@ import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.repository.targets.SystemImage;
 import com.android.sdkuilib.internal.repository.avd.AvdAgent;
 import com.android.sdkuilib.internal.repository.avd.SdkTargets;
+import com.android.sdkuilib.internal.repository.avd.SystemImageInfo;
 import com.android.sdkuilib.internal.widgets.AvdSelector;
 import com.android.sdkuilib.internal.widgets.AvdSelector.IAvdFilter;
 
@@ -150,6 +150,9 @@ public class AvdSelectorWindow {
     }
     
     private IAndroidTarget getAndroidTargetFor(AvdInfo info) {
-    	return sdkTargets.getTargetForSysImage((SystemImage)info.getSystemImage());
+        SystemImageInfo systemImageInfo = new SystemImageInfo(info);
+        if (systemImageInfo.hasSystemImage())
+        	return sdkTargets.getTargetForSysImage(systemImageInfo.getSystemImage());
+        return avdSelector.getSdkTargets().getTargetForAndroidVersion(info.getAndroidVersion());
     }
 }

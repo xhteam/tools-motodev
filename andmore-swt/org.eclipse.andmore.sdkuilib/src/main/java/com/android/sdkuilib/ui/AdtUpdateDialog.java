@@ -16,43 +16,49 @@
 
 package com.android.sdkuilib.ui;
 
-import com.android.repository.api.RemotePackage;
-import com.android.repository.api.RepoPackage;
-import com.android.repository.api.UpdatablePackage;
-import com.android.repository.impl.meta.TypeDetails;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.repository.meta.DetailsTypes.ExtraDetailsType;
-import com.android.sdklib.repository.meta.DetailsTypes.PlatformDetailsType;
-import com.android.sdkuilib.internal.repository.PackageManager.RemotePackageHandler;
-import com.android.sdkuilib.internal.repository.PackageManager.UpdatablePackageHandler;
-import com.android.sdkuilib.internal.repository.Settings;
-import com.android.sdkuilib.internal.repository.content.PackageType;
-import com.android.sdkuilib.internal.repository.content.PkgItem;
-import com.android.sdkuilib.internal.repository.ui.LogWindow;
-import com.android.sdkuilib.internal.repository.ui.SdkProgressFactory;
-import com.android.sdkuilib.internal.tasks.ProgressView;
-import com.android.sdkuilib.repository.SdkUpdaterWindow.SdkInvocationContext;
-import com.android.sdkuilib.ui.GridDataBuilder;
-import com.android.sdkuilib.ui.GridLayoutBuilder;
-import com.android.sdkuilib.ui.SwtBaseDialog;
-import com.android.utils.ILogger;
-import com.android.utils.Pair;
+import java.io.File;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+import com.android.repository.api.ProgressRunner;
+import com.android.repository.api.RemotePackage;
+import com.android.repository.api.RepoManager.RepoLoadedCallback;
+import com.android.repository.api.RepoPackage;
+import com.android.repository.impl.meta.RepositoryPackages;
+import com.android.repository.impl.meta.TypeDetails;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.repository.meta.DetailsTypes.ExtraDetailsType;
+import com.android.sdklib.repository.meta.DetailsTypes.PlatformDetailsType;
+import com.android.sdkuilib.internal.repository.LoadPackagesRequest;
+import com.android.sdkuilib.internal.repository.PackageInstallListener;
+import com.android.sdkuilib.internal.repository.PackageManager;
+import com.android.sdkuilib.internal.repository.Settings;
+import com.android.sdkuilib.internal.repository.content.PackageAnalyser;
+import com.android.sdkuilib.internal.repository.content.PackageInstaller;
+import com.android.sdkuilib.internal.repository.content.PackageType;
+import com.android.sdkuilib.internal.repository.content.PackageVisitor;
+import com.android.sdkuilib.internal.repository.content.PkgItem;
+import com.android.sdkuilib.internal.repository.ui.SdkProgressFactory;
+import com.android.sdkuilib.internal.repository.ui.SdkProgressFactory.ISdkLogWindow;
+import com.android.utils.ILogger;
+import com.android.utils.Pair;
 
 /**
  * TODO - Integrate this class with SdkUpdaterWindow
@@ -72,20 +78,35 @@ import java.util.Set;
  * Pair<Boolean, File> result = dialog.installPlatformPackage(11);
  * </pre>
  */
-public class AdtUpdateDialog extends SwtBaseDialog {
+public class AdtUpdateDialog extends SwtBaseDialog implements ISdkLogWindow {
 
+    private enum TextStyle {
+        DEFAULT,
+        TITLE,
+        ERROR
+    }
+    
     public static final int USE_MAX_REMOTE_API_LEVEL = 0;
 
     private static final String APP_NAME = "Android SDK Manager";
     private final SdkContext mSdkContext;
+    private final PackageAnalyser mPackageAnalyser;
+    PackageInstaller packageInstaller;
 
-    private Boolean mResultCode = Boolean.FALSE;
-    private Map<PkgItem, File> mResultPaths = null;
-    private PackageFilter mPackageFilter;
+    private PackageVisitor mPackageFilter;
 
     private ProgressBar mProgressBar;
     private Label mStatusText;
-    private LogWindow mLogWindow;
+    private StyledText mStyledText;
+    private Button mCloseButton;
+
+    private PackageInstallListener onIdle = new PackageInstallListener(){
+
+		@Override
+		public void onPackagesInstalled(int count) {
+			enableClose();
+		}
+    };
 
     /**
      * Creates a new {@link AdtUpdateDialog}.
@@ -100,6 +121,8 @@ public class AdtUpdateDialog extends SwtBaseDialog {
             SdkCallAgent sdkCallAgent) {
         super(parentShell, SWT.NONE, APP_NAME);
         mSdkContext = sdkCallAgent.getSdkContext();
+        mPackageAnalyser = new PackageAnalyser(mSdkContext);
+
     }
 
     /**
@@ -119,18 +142,20 @@ public class AdtUpdateDialog extends SwtBaseDialog {
     public Pair<Boolean, File> installPlatformPackage(int apiLevel) {
         mPackageFilter = createPlatformFilter(apiLevel);
         open();
-
+        boolean success = packageInstaller != null;
+        if (success) {
+        	success = packageInstaller.getNumInstalled() > 0;
+        }
         File installPath = null;
-        if (mResultPaths != null) {
-            for (Entry<PkgItem, File> entry : mResultPaths.entrySet()) {
-                if (entry.getKey().getMetaPackage().getPackageType() == PackageType.platforms) {
-                    installPath = entry.getValue();
+        if (success) {
+            for (PkgItem entry : packageInstaller.getRequiredPackageItems()) {
+                if (entry.getMetaPackage().getPackageType() == PackageType.platforms) {
+                    installPath = new File(mSdkContext.getLocalPath(), entry.getMainPackage().getPath().replaceAll(";", "/"));
                     break;
                 }
             }
         }
-
-        return Pair.of(mResultCode, installPath);
+        return Pair.of(success, installPath);
     }
 
     /**
@@ -150,17 +175,20 @@ public class AdtUpdateDialog extends SwtBaseDialog {
     public Pair<Boolean, File> installExtraPackage(String vendor, String path) {
         mPackageFilter = createExtraFilter(vendor, path);
         open();
-
+        boolean success = packageInstaller != null;
+        if (success) {
+        	success = packageInstaller.getNumInstalled() > 0;
+        }
         File installPath = null;
-        if (mResultPaths != null) {
-            for (Entry<PkgItem, File> entry : mResultPaths.entrySet()) {
-                if (entry.getKey().getMetaPackage().getPackageType() == PackageType.extras) {
-                    installPath = entry.getValue();
+        if (success) {
+            for (PkgItem entry : packageInstaller.getRequiredPackageItems()) {
+                if (entry.getMetaPackage().getPackageType() == PackageType.extras) {
+                    installPath = new File(mSdkContext.getLocalPath(), entry.getMainPackage().getPath().replaceAll(";", "/"));
                     break;
                 }
             }
         }
-        return Pair.of(mResultCode, installPath);
+        return Pair.of(success, installPath);
     }
 
     /**
@@ -177,18 +205,21 @@ public class AdtUpdateDialog extends SwtBaseDialog {
     public Pair<Boolean, File> installPlatformTools() {
         mPackageFilter = createPlatformToolsFilter();
         open();
-
+        boolean success = packageInstaller != null;
+        if (success) {
+        	success = packageInstaller.getNumInstalled() > 0;
+        }
         File installPath = null;
-        if (mResultPaths != null) {
-            for (Entry<PkgItem, File> entry : mResultPaths.entrySet()) {
-                if (entry.getKey().getMetaPackage().getPackageType() == PackageType.platform_tools) {
-                    installPath = entry.getValue();
+        if (success) {
+            for (PkgItem entry : packageInstaller.getRequiredPackageItems()) {
+                if (entry.getMetaPackage().getPackageType() == PackageType.platform_tools) {
+                    installPath = new File(mSdkContext.getLocalPath(), entry.getMainPackage().getPath().replaceAll(";", "/"));
                     break;
                 }
             }
         }
 
-        return Pair.of(mResultCode, installPath);
+        return Pair.of(success, installPath);
     }
 
     /**
@@ -207,87 +238,58 @@ public class AdtUpdateDialog extends SwtBaseDialog {
     public boolean installNewSdk(Set<Integer> apiLevels) {
         mPackageFilter = createNewSdkFilter(apiLevels);
         open();
-        return mResultCode.booleanValue();
+        boolean success = packageInstaller != null;
+        if (success) {
+        	success = packageInstaller.getNumInstalled() > 0;
+        }
+        return success;
     }
 
     @Override
     protected void createContents() {
         Shell shell = getShell();
-        shell.setMinimumSize(new Point(450, 100));
-        shell.setSize(450, 100);
+        GridLayout glShell = new GridLayout(2, false);
+        glShell.verticalSpacing = 0;
+        glShell.horizontalSpacing = 0;
+        glShell.marginWidth = 0;
+        glShell.marginHeight = 0;
+        shell.setLayout(glShell);
+
+        shell.setMinimumSize(new Point(600, 300));
+        shell.setSize(700, 500);
         GridLayoutBuilder.create(shell).columns(1);
         Composite composite1 = new Composite(shell, SWT.NONE);
         composite1.setLayout(new GridLayout(1, false));
         GridDataBuilder.create(composite1).fill().grab();
 
+    	Composite composite = new Composite(composite1, SWT.NONE);
+        GridLayoutBuilder.create(composite).columns(2);
+        GridDataBuilder.create(composite).fill().grab();
+
+        mStyledText = new StyledText(composite,
+                SWT.BORDER | SWT.MULTI | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+        GridDataBuilder.create(mStyledText).hSpan(2).fill().grab();
+
+        mStatusText = new Label(composite, SWT.NONE);
+        GridDataBuilder.create(mStatusText).hFill().hGrab();
+
+        mCloseButton = new Button(composite, SWT.NONE);
+        mCloseButton.setText("Stop");
+        mCloseButton.setToolTipText("Aborts the installation");
+        mCloseButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                mSdkContext.getProgressIndicator().cancel();
+                close();
+            }
+        });
         mProgressBar = new ProgressBar(composite1, SWT.NONE);
         GridDataBuilder.create(mProgressBar).hFill().hGrab();
-
-        mStatusText = new Label(composite1, SWT.NONE);
-        mStatusText.setText("Status Placeholder");  //$NON-NLS-1$ placeholder
-        GridDataBuilder.create(mStatusText).hFill().hGrab();
-        createLogWindow();
     }
-
-    /**
-     * Creates the log window.
-     * <p/>
-     * If this is invoked from an IDE, we also define a secondary logger so that all
-     * messages flow to the IDE log. This may or may not be what we want in the end
-     * (e.g. a middle ground would be to repeat error, and ignore normal/verbose)
-     */
-    private void createLogWindow() {
-        mLogWindow = new LogWindow(getShell(), mSdkContext.getSdkLog());
-        mLogWindow.open();
-    }
-
 
     @Override
     protected void postCreate() {
-        // This class delegates all logging to the mLogWindow window
-        // and filters errors to make sure the window is visible when
-        // an error is logged.
-        SdkProgressFactory.ISdkLogWindow logAdapter = new SdkProgressFactory.ISdkLogWindow() {
-            @Override
-            public void setDescription(String description) {
-                mLogWindow.setDescription(description);
-            }
-
-            @Override
-            public void log(String log) {
-                mLogWindow.log(log);
-            }
-
-            @Override
-            public void logVerbose(String log) {
-                mLogWindow.logVerbose(log);
-            }
-
-            @Override
-            public void logError(String log) {
-                mLogWindow.logError(log);
-            }
-            @Override
-            public void show()
-            {
-                // Run the window visibility check/toggle on the UI thread.
-                // Note: at least on Windows, it seems ok to check for the window visibility
-                // on a sub-thread but that doesn't seem cross-platform safe. We shouldn't
-                // have a lot of error logging, so this should be acceptable. If not, we could
-                // cache the visibility state.
-                if (getShell() != null && !getShell().isDisposed()) {
-                	getShell().getDisplay().syncExec(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!mLogWindow.isVisible()) {
-                            	mLogWindow.setVisible(true);
-                            }
-                        }
-                    });
-                }
-            }
-        };
-        SdkProgressFactory factory = new SdkProgressFactory(mStatusText, mProgressBar, null, logAdapter);
+        SdkProgressFactory factory = new SdkProgressFactory(mStatusText, mProgressBar, mCloseButton, this);
         initializeSettings();
         if (mSdkContext.hasError())
         {
@@ -300,38 +302,89 @@ public class AdtUpdateDialog extends SwtBaseDialog {
         }
         mSdkContext.setSdkLogger(factory);
         mSdkContext.setSdkProgressIndicator(factory);
+		Runnable onError = new Runnable(){
+			@Override
+			public void run() {
+				enableClose();
+				factory.getProgressControl().setDescription("Package operation did not complete due to error or cancellation");
+			}};
+    	RepoLoadedCallback onSuccess = new RepoLoadedCallback(){
+			@Override
+			public void doRun(RepositoryPackages packages) {
+                if (!getShell().isDisposed()) 
+                {
+                	mSdkContext.getPackageManager().setPackages(packages);
+                	mPackageAnalyser.loadPackages();
+            		packageInstaller = new PackageInstaller(mPackageAnalyser, mPackageFilter, factory);
+            		if (packageInstaller.getRequiredPackageItems().isEmpty()) {
+            			// No packages were selected
+            			onError.run();
+            			return;
+            		}
+                 	factory.getProgressControl().setDescription("Done loading packages.");
+                	packageInstaller.installPackages(getShell(), mSdkContext, onIdle);
+                }
+			}};
+        loadPackages(factory, onSuccess, onError);
     }
 
+    /**
+     * Sets the description in the current task dialog.
+     * This method can be invoked from a non-UI thread.
+     */
     @Override
-    protected void eventLoop() {
- /*       		
-            public boolean acceptPackage(PkgItem pkg) {
-                // Is this the package we want to install?
-                return mPackageFilter.accept(pkg);
+    public void setDescription(final String description) {
+        syncExec(mStatusText, new Runnable() {
+            @Override
+            public void run() {
+                mStatusText.setText(description);
+                appendLine(TextStyle.TITLE, description);
             }
-
-            public void setResult(boolean success, Map<PkgItem, File> installPaths) {
-                // Capture the result from the installation.
-                mResultCode = Boolean.valueOf(success);
-                mResultPaths = installPaths;
-            }
-
-             public void taskCompleted() {
-                // We can close that window now.
-                close();
-            }
-*/
-        super.eventLoop();
+        });
     }
 
-    // -- Start of internal part ----------
-    // Hide everything down-below from SWT designer
-    //$hide>>$
+    /**
+     * Logs a "normal" information line.
+     * This method can be invoked from a non-UI thread.
+     */
+    @Override
+    public void log(final String log) {
+        syncExec(mStatusText, new Runnable() {
+            @Override
+            public void run() {
+                appendLine(TextStyle.DEFAULT, log);
+            }
+        });
+    }
 
-    // --- Public API -----------
+    /**
+     * Logs an "error" information line.
+     * This method can be invoked from a non-UI thread.
+     */
+    @Override
+    public void logError(final String log) {
+        syncExec(mStatusText, new Runnable() {
+            @Override
+            public void run() {
+                appendLine(TextStyle.ERROR, log);
+            }
+        });
+    }
 
-
-    // --- Internals & UI Callbacks -----------
+    /**
+     * Logs a "verbose" information line, that is extra details which are typically
+     * not that useful for the end-user and might be hidden until explicitly shown.
+     * This method can be invoked from a non-UI thread.
+     */
+    @Override
+    public void logVerbose(final String log) {
+        syncExec(mStatusText, new Runnable() {
+            @Override
+            public void run() {
+                appendLine(TextStyle.DEFAULT, "  " + log);      //$NON-NLS-1$
+            }
+        });
+    }
 
     /**
      * Initializes settings.
@@ -349,29 +402,15 @@ public class AdtUpdateDialog extends SwtBaseDialog {
         return false;
     }
 
-
-    // ----
-
-    private static abstract class PackageFilter {
-        /** Returns the installer flags for the corresponding mode. */
-        abstract int installFlags();
-
-        /** Visit a new package definition, in case we need to adjust the filter dynamically. */
-        abstract void visit(PkgItem pkg);
-
-        /** Checks whether this is the package we've been looking for. */
-        abstract boolean accept(PkgItem pkg);
-    }
-
-    public static PackageFilter createExtraFilter(
+    public static PackageVisitor createExtraFilter(
             final String vendor,
             final String path) {
-        return new PackageFilter() {
+        return new PackageVisitor() {
             String mVendor = vendor;
             String mPath = path;
 
             @Override
-            boolean accept(PkgItem pkg) {
+            public boolean accept(PkgItem pkg) {
                 if (pkg.getMetaPackage().getPackageType() == PackageType.extras) {
                     TypeDetails details = pkg.getMainPackage().getTypeDetails();
                     if (details instanceof ExtraDetailsType) {
@@ -386,45 +425,25 @@ public class AdtUpdateDialog extends SwtBaseDialog {
                }
                 return false;
             }
-
-            @Override
-            void visit(PkgItem pkg) {
-                // nop
-            }
-
-            @Override
-            int installFlags() {
-                return SdkCallAgent.TOOLS_MSG_UPDATED_FROM_ADT;
-            }
         };
     }
 
-    private PackageFilter createPlatformToolsFilter() {
-        return new PackageFilter() {
+    private PackageVisitor createPlatformToolsFilter() {
+        return new PackageVisitor() {
             @Override
-            boolean accept(PkgItem pkg) {
+            public boolean accept(PkgItem pkg) {
                 return pkg.getMetaPackage().getPackageType() == PackageType.platform_tools;
             }
-
-            @Override
-            void visit(PkgItem pkg) {
-                // nop
-            }
-
-            @Override
-            int installFlags() {
-                return SdkCallAgent.TOOLS_MSG_UPDATED_FROM_ADT;
-            }
-        };
+         };
     }
 
-    public static PackageFilter createPlatformFilter(final int apiLevel) {
-        return new PackageFilter() {
+    public static PackageVisitor createPlatformFilter(final int apiLevel) {
+        return new PackageVisitor() {
             int mApiLevel = apiLevel;
             boolean mFindMaxApi = apiLevel == USE_MAX_REMOTE_API_LEVEL;
 
             @Override
-            boolean accept(PkgItem pkg) {
+            public boolean accept(PkgItem pkg) {
                 if (pkg.getMetaPackage().getPackageType() == PackageType.platforms) {
                 	RepoPackage remotePackage = pkg.getMainPackage();
                     TypeDetails details = remotePackage.getTypeDetails();
@@ -438,7 +457,7 @@ public class AdtUpdateDialog extends SwtBaseDialog {
             }
 
             @Override
-            void visit(PkgItem pkg) {
+            public boolean visit(PkgItem pkg) {
                 // Try to find the max API in all remote packages
                 if (mFindMaxApi && (pkg.getMetaPackage().getPackageType() == PackageType.platforms)) {
                 	RepoPackage remotePackage = pkg.getMainPackage();
@@ -454,24 +473,20 @@ public class AdtUpdateDialog extends SwtBaseDialog {
 	                    }
                     }
                 }
-            }
-
-            @Override
-            int installFlags() {
-                return SdkCallAgent.TOOLS_MSG_UPDATED_FROM_ADT;
+                return true;
             }
         };
     }
 
-    public static PackageFilter createNewSdkFilter(final Set<Integer> apiLevels) {
-        return new PackageFilter() {
+    public static PackageVisitor createNewSdkFilter(final Set<Integer> apiLevels) {
+        return new PackageVisitor() {
             int mMaxApiLevel;
             boolean mFindMaxApi = apiLevels.contains(USE_MAX_REMOTE_API_LEVEL);
             boolean mNeedTools = true;
             boolean mNeedPlatformTools = true;
 
             @Override
-            boolean accept(PkgItem pkg) {
+            public boolean accept(PkgItem pkg) {
             	RepoPackage repoPackage = pkg.getMainPackage();
             	if (repoPackage instanceof RemotePackage) {
 	                TypeDetails details = repoPackage.getTypeDetails();
@@ -501,7 +516,7 @@ public class AdtUpdateDialog extends SwtBaseDialog {
             }
 
             @Override
-            void visit(PkgItem pkg) {
+            public boolean visit(PkgItem pkg) {
                 // Try to find the max API in all remote packages
                 if (mFindMaxApi && (pkg.getMetaPackage().getPackageType() == PackageType.platforms)) {
                 	RepoPackage remotePackage = pkg.getMainPackage();
@@ -517,18 +532,70 @@ public class AdtUpdateDialog extends SwtBaseDialog {
 	                    }
                     }
                 }
-            }
-
-            @Override
-            int installFlags() {
-                return SdkCallAgent.NO_TOOLS_MSG;
+                return true;
             }
         };
     }
 
-    // End of hiding from SWT Designer
-    //$hide<<$
+    private void loadPackages(ProgressRunner progressRunner, RepoLoadedCallback onSuccess, Runnable onError) {
+        final PackageManager packageManager = mSdkContext.getPackageManager();
+    	LoadPackagesRequest loadPackagesRequest = new LoadPackagesRequest(progressRunner);
+		//loadPackagesRequest.setOnLocalComplete(Collections.singletonList(onLocalComplete));
+    	loadPackagesRequest.setOnSuccess(Collections.singletonList(onSuccess));
+    	loadPackagesRequest.setOnError(Collections.singletonList(onError));
+    	packageManager.requestRepositoryPackages(loadPackagesRequest);
+    }
 
-    // -----
+    
+    private void syncExec(final Widget widget, final Runnable runnable) {
+        if (widget != null && !widget.isDisposed()) {
+            widget.getDisplay().syncExec(runnable);
+        }
+    }
 
+    private void appendLine(TextStyle style, String text) {
+        if (!text.endsWith("\n")) {                                 //$NON-NLS-1$
+            text += '\n';
+        }
+
+        int start = mStyledText.getCharCount();
+
+        if (style == TextStyle.DEFAULT) {
+            mStyledText.append(text);
+
+        } else {
+            mStyledText.append(text);
+
+            StyleRange sr = new StyleRange();
+            sr.start = start;
+            sr.length = text.length();
+            sr.fontStyle = SWT.BOLD;
+            if (style == TextStyle.ERROR) {
+                sr.foreground = mStyledText.getDisplay().getSystemColor(SWT.COLOR_DARK_RED);
+            }
+            sr.underline = false;
+            mStyledText.setStyleRange(sr);
+        }
+
+        // Scroll caret if it was already at the end before we added new text.
+        // Ideally we would scroll if the scrollbar is at the bottom but we don't
+        // have direct access to the scrollbar without overriding the SWT impl.
+        if (mStyledText.getCaretOffset() >= start) {
+            mStyledText.setSelection(mStyledText.getCharCount());
+        }
+    }
+
+	@Override
+	public void show() {
+	}
+
+	private void enableClose() {
+		syncExec(mCloseButton, new Runnable() {
+            @Override
+            public void run() {
+            	mCloseButton.setEnabled(true);
+            	mCloseButton.setText("OK");
+            }
+        });
+	}
 }

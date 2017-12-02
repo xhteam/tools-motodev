@@ -334,7 +334,7 @@ public class SdkTargetSelector {
      * <ul>
      * <li>column 0: sdk name
      * <li>column 1: sdk vendor
-     * <li>column 2: sdk api name
+     * <li>column 2: sdk platform
      * <li>column 3: sdk version
      * </ul>
      */
@@ -353,7 +353,10 @@ public class SdkTargetSelector {
                 item.setData(target);
                 item.setText(0, target.getName());
                 item.setText(1, target.getVendor());
-                item.setText(2, target.getVersionName());
+                String platform = target.getVersionName();
+                if (platform == null)
+                	platform = "";
+                item.setText(2, platform);
                 item.setText(3, target.getVersion().getApiString());
             }
         } else {

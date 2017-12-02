@@ -23,18 +23,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
+import java.util.TreeSet;
 
 import org.eclipse.andmore.sdktool.SdkContext;
 
 import com.android.repository.api.ProgressIndicator;
+import com.android.sdklib.AndroidTargetHash;
+import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.repository.IdDisplay;
 import com.android.sdklib.repository.meta.DetailsTypes;
 import com.android.sdklib.repository.targets.AddonTarget;
@@ -43,20 +43,26 @@ import com.android.sdklib.repository.targets.SystemImage;
 import com.android.sdkuilib.internal.repository.content.PackageType;
 
 /**
+ * Container for Android targets and System images which relates them by Andriod version using
+ * AndroidTargetHash .getPlatformHashString() following AVD Manager practice.
  * @author Andrew Bowley
  *
  * 16-11-2017
  */
 public class SdkTargets {
-
+    /** All available targets */
 	private final List<IAndroidTarget> targets = new ArrayList<>();
+	/** All available system images */
 	private final Collection<SystemImage> sysImages;
+	/** Maps system image to target by platform hash */
 	private final Map<SystemImage,IAndroidTarget> targetMap = new HashMap<>();
 	
 	/**
-	 * 
+	 * Construct SdkTargets object
+	 * @param sdkContext The SDK context containing reference to AndroidSdkHandler object
 	 */
 	public SdkTargets(SdkContext sdkContext) {
+		// Use AndroidTargetManager to get targets
 		ProgressIndicator progress = sdkContext.getProgressIndicator();
         targets.addAll( 
         		sdkContext.getHandler().getAndroidTargetManager(progress)
@@ -67,7 +73,7 @@ public class SdkTargets {
 			public int compare(IAndroidTarget target1, IAndroidTarget target2) {
 				return getApiLevel(target1) - getApiLevel(target2);
 			}});
-        
+        // Use SystemImageManager to get system images
         sysImages =
         		sdkContext.getHandler().getSystemImageManager(progress).getImages();
         Iterator<SystemImage> iterator = sysImages.iterator();
@@ -80,14 +86,16 @@ public class SdkTargets {
         	
 	}
 
+	/**
+	 * Returns all available system images for given target
+	 * @param target Android target
+	 * @return sorted list of system images
+	 */
 	public List<SystemImage> getSystemImages(IAndroidTarget target) {
 		List<SystemImage> systemImages = new ArrayList<>();
-    	Set<Map.Entry<SystemImage,IAndroidTarget>> targetEntries = targetMap.entrySet();
-        Iterator<Map.Entry<SystemImage,IAndroidTarget>> iterator = targetEntries.iterator();
-        while(iterator.hasNext()) {
-        	Entry<SystemImage, IAndroidTarget> entry = iterator.next();
-        	if (entry.getValue().canRunOn(target))
-        		systemImages.add(entry.getKey());
+		for (SystemImage systemImage: sysImages) {
+        	if (filterOnApi(systemImage, target))
+        		systemImages.add(systemImage);
         }
         // Sort
         Collections.sort(systemImages, new Comparator<SystemImage>(){
@@ -96,39 +104,70 @@ public class SdkTargets {
 			public int compare(SystemImage sysImage1, SystemImage sysImage2) {
 				return sysImage1.compareTo(sysImage2);
 			}});
-        // Remove duplicates which contain same abitype details
-        // Prior sort ensures predictable results
-        Set<String> abiTypeSet = new HashSet<>();
-        Iterator<SystemImage> imagesIterator = systemImages.iterator();
-        while (imagesIterator.hasNext()) {
-        	SystemImage systemImage = imagesIterator.next();
-        	String key = AvdInfo.getPrettyAbiType(systemImage);
-            if (abiTypeSet.contains(key))
-            	imagesIterator.remove();
-            else
-            	abiTypeSet.add(key);
-        }
 		return systemImages;
 	}
-	
+
+	/**
+	 * Returns map of system image to target by platform hash 
+	 * @return map
+	 */
 	public Map<SystemImage,IAndroidTarget> getTargetMap()
 	{
 		return Collections.unmodifiableMap(targetMap);
 	}
-	
+
+	/**
+	 * Returns all available targets
+	 * @return IAndroidTarget collection
+	 * @ss {@link #getSystemImageTargets()}
+	 */
 	public Collection<IAndroidTarget> getTargets() {
 		return targets;
 	}
 
+	/**
+	 * Returns all targets with available system images
+	 * @return IAndroidTarget collection
+	 */
+	public Collection<IAndroidTarget> getSystemImageTargets() {
+		Set<IAndroidTarget> systemImageTargets = new TreeSet<>();
+		for (SystemImage systemImage: sysImages) {
+			for (IAndroidTarget target: targets) {
+				if (filterOnApi(systemImage, target)) {
+					systemImageTargets.add(target);
+					break;
+				}
+			}
+		}
+		return systemImageTargets;
+	}
+
+	/**
+	 * Returns all available system images
+	 * @return SystemImage collection
+	 */
 	public Collection<SystemImage> getSysImages() {
 		return sysImages;
 	}
-	
+
+	/**
+	 * Return target matching Android version of given system image
+	 * @param systemImage SystemImage object
+	 * @return IAndroidTarget object
+	 */
 	public IAndroidTarget getTargetForSysImage(SystemImage systemImage) {
 		return targetMap.get(systemImage);
 	}
 
-	IAndroidTarget mapTarget(SystemImage systemImage) {
+	public IAndroidTarget getTargetForAndroidVersion(AndroidVersion androidVersion) {
+		for (IAndroidTarget target: targetMap.values()) {
+			if (filterOnApi(androidVersion, target))
+				return target;
+		}
+		return null;
+	}
+
+	private IAndroidTarget mapTarget(SystemImage systemImage) {
 		PackageType packageType = null;
 		IdDisplay vendorId = IdDisplay.create("", "");
         DetailsTypes.ApiDetailsType details =
@@ -159,9 +198,18 @@ public class SdkTargets {
 
 	private boolean filterOnApi(SystemImage systemImage, IAndroidTarget target)
 	{
-		int imageApi = systemImage.getAndroidVersion().getApiLevel();
-		int targetApi = getApiLevel(target);
-		return imageApi <=  targetApi;
+		// AVD Manager, for each AVD, stores just platform version as hash, so this defines the system image/target association
+		String imageApiHash = AndroidTargetHash.getPlatformHashString(systemImage.getAndroidVersion());
+		String targetHash = AndroidTargetHash.getPlatformHashString(target.getVersion());
+		return imageApiHash.equals(targetHash);
+	}
+	
+	private boolean filterOnApi(AndroidVersion version, IAndroidTarget target)
+	{
+		// AVD Manager, for each AVD, stores just platform version as hash, so this defines the system image/target association
+		String imageApiHash = AndroidTargetHash.getPlatformHashString(version);
+		String targetHash = AndroidTargetHash.getPlatformHashString(target.getVersion());
+		return imageApiHash.equals(targetHash);
 	}
 	
 	private int getApiLevel(IAndroidTarget target) {
@@ -172,4 +220,5 @@ public class SdkTargets {
 		AddonTarget addonTarget = (AddonTarget)target;
 		return addonTarget.getParent().getVersion().getApiLevel();
 	}
+
 }

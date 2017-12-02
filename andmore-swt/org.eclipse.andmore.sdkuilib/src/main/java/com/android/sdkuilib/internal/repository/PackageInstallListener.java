@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+/**
+ * 
+ */
 package com.android.sdkuilib.internal.repository;
 
-
 /**
- * A factory starts {@link ITask}s as a job and returns immediately.
- * An optional Runnable parameter can be given to run when the job is done.
+ * @author Andrew Bowley
+ *
+ * 30-11-2017
  */
-public interface ITaskFactory {
-
-    /**
-     * Starts a new task with a new {@link ITaskMonitor}.
-     * The task will execute asynchronously in a job.
-     * @param title The title of the task, displayed in the monitor if any.
-     * @param task The task to run.
-     * @param onTerminateTask Callback when task done. Can be null
-     */
-    void start(String title, ITask task, Runnable onTerminateTask);
-
+public interface PackageInstallListener {
+	void onPackagesInstalled(int count);
 }

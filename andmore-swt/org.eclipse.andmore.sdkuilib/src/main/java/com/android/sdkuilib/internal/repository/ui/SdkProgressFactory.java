@@ -56,7 +56,6 @@ public class SdkProgressFactory extends ProgressIndicatorAdapter implements ITas
 	
     private final ProgressView progressView;
     private final ISdkLogWindow logWindow;
-    private final ProgressBar progressBar;
     private int referenceCount;
 
     /**
@@ -77,7 +76,6 @@ public class SdkProgressFactory extends ProgressIndicatorAdapter implements ITas
             Control stopButton,
 	        ISdkLogWindow logWindow) {
     	this.logWindow = logWindow;
-    	this.progressBar = progressBar;
 		this.progressView = new ProgressView(statusText, progressBar, stopButton, getLogUiProvider(logWindow));
 	}
 
@@ -86,14 +84,16 @@ public class SdkProgressFactory extends ProgressIndicatorAdapter implements ITas
     	return progressView;
     }
 
+    /**
+     * Starts a new task with a new {@link ITaskMonitor}.
+     * The task will execute asynchronously in a job.
+     * @param title The title of the task, displayed in the monitor if any.
+     * @param task The task to run.
+     * @param onTerminateTask Callback when task done
+     */
     @Override
-    public void start(String title, ITask task) {
-        start(title, null /*monitor*/, task);
-    }
-
-    @Override
-    public void start(String title, ITaskMonitor parentMonitor, ITask task) {
-        progressView.startTask(title, parentMonitor, task, true);
+    public void start(String title, ITask task, Runnable onTerminateTask) {
+        progressView.startAsyncTask(title, task, onTerminateTask);
     }
     
     // Returns object which delegates all logging to the logWindow window
@@ -217,7 +217,7 @@ public class SdkProgressFactory extends ProgressIndicatorAdapter implements ITas
 
 	@Override
 	public void runAsyncWithProgress(final ProgressRunnable progressRunnable) {
-		String title = this.getClass().getSimpleName();
+		String title = this.getClass().getSimpleName() + referenceCount++;
 		ProgressRunnable monitor = new ProgressRunnable(){
 
 			@Override
@@ -231,21 +231,14 @@ public class SdkProgressFactory extends ProgressIndicatorAdapter implements ITas
 					progressView.endTask();
 				}
 			}};
-			
-		Runnable runnable = new Runnable(){
-
-			@Override
-			public void run() {
-					progressView.startTask(title, null, taskInstance(monitor), false);
-			}};
-        final Thread t = new Thread(runnable , title + "_async_thread_ " + referenceCount++);
-        t.start();
+		progressView.startAsyncTask(title, taskInstance(monitor), null);
 	}
 
 
 	@Override
 	public void runSyncWithProgress(ProgressRunnable progressRunnable) {
-		start("", 	taskInstance(progressRunnable));
+		String title = this.getClass().getSimpleName() + referenceCount++;
+        progressView.startSyncTask(title, taskInstance(progressRunnable));
     }
 
 

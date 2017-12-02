@@ -86,6 +86,7 @@ public abstract class SwtBaseDialog extends Dialog {
      * @return The last value set using {@link #setReturnValue(boolean)} or false by default.
      */
     public boolean open() {
+    	mReturnValue = false;
         if (!mQuitRequested) {
             createShell();
         }
@@ -103,7 +104,6 @@ public abstract class SwtBaseDialog extends Dialog {
             mShell.layout();
             eventLoop();
         }
-
         return mReturnValue;
     }
 
@@ -236,6 +236,9 @@ public abstract class SwtBaseDialog extends Dialog {
             child.setLocation(x, y);
             child.setSize(cw, ch);
         }
+        mShell.layout(true, true);
+        final Point newSize = mShell.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);  
+        mShell.setSize(newSize);   
     }
 
     private void saveSize() {

@@ -17,13 +17,11 @@ Require-Bundle: org.eclipse.core.commands;bundle-version="3.8.1",
  com.google.gson;bundle-version="2.2.4",
  org.eclipse.core.runtime;bundle-version="3.12.0",
  org.eclipse.andmore.ddms;bundle-version="0.5.2"
-Bundle-ClassPath: .,
- libs/commons-compress-1.8.1.jar
+Bundle-ClassPath: .
 Export-Package: com.android.sdkuilib.repository,
  com.android.sdkuilib.ui,
  com.android.sdkuilib.widgets,
  org.eclipse.andmore.sdktool
-Import-Package: com.android.sdklib.repository,
- org.eclipse.ui.plugin
+Import-Package: org.eclipse.ui.plugin
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.andmore.sdktool.SdkUserInterfacePlugin

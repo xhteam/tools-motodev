@@ -8,6 +8,7 @@ public enum PackageType {
 	add_ons,
 	system_images,
 	sources,
+	samples,
 	docs,
     extras,
     emulator,
@@ -15,5 +16,26 @@ public enum PackageType {
     lldb,
     ndk_bundle,
     patcher,
-    generic
+    generic;
+	
+	public String label;
+	
+	static {
+		tools.label = "Tools";
+		platform_tools.label = "Platform tools";
+		build_tools.label = "Build tools";
+		platforms.label = "Platforms";
+		add_ons.label = "Add ons";
+		system_images.label = "System images";
+		sources.label = "Sources";
+		samples.label = "Samples";
+		docs.label = "Documents";
+	    extras.label = "Extras";
+	    emulator.label = "Emulators";
+	    cmake.label = "cmake";
+	    lldb.label = "Layout Libraries";
+	    ndk_bundle.label = "NDK bundle";
+	    patcher.label = "Patcher";
+	    generic.label = "Generic";
+	}
 }

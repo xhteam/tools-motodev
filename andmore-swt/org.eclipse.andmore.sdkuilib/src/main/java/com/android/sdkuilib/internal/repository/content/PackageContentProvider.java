@@ -3,29 +3,25 @@ package com.android.sdkuilib.internal.repository.content;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.jface.viewers.IInputProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import com.android.repository.api.RemotePackage;
-import com.android.repository.api.RepoPackage;
 import com.android.repository.api.UpdatablePackage;
 import com.android.repository.impl.meta.Archive;
-import com.android.sdkuilib.internal.repository.PackageManager;
+import com.android.sdklib.AndroidVersion;
 
 public class PackageContentProvider implements ITreeContentProvider {
 
     private final IInputProvider mViewer;
-    private final SdkContext mSdkContext;
-    private final PackageManager mPackageManager;
+    private final PackageFilter mPackageFilter;
     private boolean mDisplayArchives;
 
-    public PackageContentProvider(SdkContext sdkContext, IInputProvider viewer)
+    public PackageContentProvider(IInputProvider viewer, PackageFilter packageFilter)
 	{
-    	this.mSdkContext = sdkContext;
         this.mViewer = viewer;
-        this.mPackageManager = sdkContext.getPackageManager();
+        this.mPackageFilter = packageFilter;
     }
 
     public void setDisplayArchives(boolean displayArchives) {
@@ -39,7 +35,11 @@ public class PackageContentProvider implements ITreeContentProvider {
             return ((ArrayList<?>) parentElement).toArray();
 
         } else if (parentElement instanceof PkgCategory) {
-            return ((PkgCategory) parentElement).getItems().toArray();
+        	@SuppressWarnings("unchecked")
+			PkgCategory<AndroidVersion> pkgCategory = (PkgCategory<AndroidVersion>)parentElement;
+        	if (mPackageFilter.isFilterOn())
+        		return mPackageFilter.getFilteredItems(pkgCategory.getChildren()).toArray();
+            return pkgCategory.getChildren().toArray();
 
         } else if (parentElement instanceof PkgItem) {
             if (mDisplayArchives) {
@@ -78,7 +78,7 @@ public class PackageContentProvider implements ITreeContentProvider {
         if (element instanceof PkgItem) {
             Object input = mViewer.getInput();
             if (input != null) {
-                for (PkgCategory cat : (List<PkgCategory>) input) {
+                for (PkgCategory<?> cat : (List<PkgCategory<?>>) input) {
                     if (cat.getItems().contains(element)) {
                         return cat;
                     }

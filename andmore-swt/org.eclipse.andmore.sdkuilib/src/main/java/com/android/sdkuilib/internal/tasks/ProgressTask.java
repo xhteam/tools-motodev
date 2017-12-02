@@ -19,6 +19,13 @@ package com.android.sdkuilib.internal.tasks;
 import com.android.sdkuilib.internal.repository.ITask;
 import com.android.sdkuilib.internal.repository.ITaskMonitor;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.widgets.Shell;
 
 
@@ -44,14 +51,16 @@ public final class ProgressTask extends TaskMonitorImpl {
     }
 
     /**
-     * Execute the given task in a separate thread (not the UI thread).
-     * This blocks till the thread ends.
-     * <p/>
+     * Execute the given task asynchronously in a separate thread (not the UI thread).
      * The {@link ProgressTask} must not be reused after this call.
+     * Returns when dialog is closed
+     * @param task The task to be executed
      */
     public void start(ITask task) {
         assert mDialog != null;
-        mDialog.open(createTaskThread(mTitle, task));
+        Job job = createJob(mTitle, task);
+        job.setPriority(Job.INTERACTIVE);
+        mDialog.open(job);
     }
 
     /**
@@ -72,22 +81,33 @@ public final class ProgressTask extends TaskMonitorImpl {
     }
 
     /**
-     * Creates a thread to run the task. The thread has not been started yet.
+     * Creates a Job to run the task. The caller must call schedule() on the job to start it.
      * When the task completes, requests to close the dialog.
-     *
-     * @return A new thread that will run the task. The thread has not been started yet.
+     * @return A new job that will run the task. The thread has not been started yet.
      */
-    private Thread createTaskThread(String title, final ITask task) {
+    private Job createJob(String title, final ITask task) {
         if (task != null) {
-            return new Thread(title) {
+            return new Job(title) {
                 @Override
-                public void run() {
-                    task.run(ProgressTask.this);
-                    if (mAutoClose) {
-                        mDialog.setAutoCloseRequested();
-                    } else {
-                        mDialog.setManualCloseRequested();
-                    }
+                protected IStatus run(IProgressMonitor m) {
+                	IStatus status = Status.CANCEL_STATUS;
+                	try {
+                        task.run(ProgressTask.this);
+                        if (mAutoClose) {
+                            mDialog.setAutoCloseRequested();
+                        } else {
+                            mDialog.setManualCloseRequested();
+                        }
+                        status = Status.OK_STATUS;
+                	} catch (Exception e) {
+                		StringWriter builder = new StringWriter();
+                        builder.append(e.getMessage()).append("\n");
+                        PrintWriter writer = new PrintWriter(builder);
+                        e.printStackTrace(writer);
+                        logError(builder.toString());
+                	} finally {
+                	}
+                    return status;
                 }
             };
         }

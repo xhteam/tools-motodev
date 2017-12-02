@@ -23,7 +23,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -79,7 +78,7 @@ import com.android.sdkuilib.ui.GridDialog;
 /**
  * Implements an {@link SdkUpdaterChooserDialog}.
  */
-final class SdkUpdaterChooserDialog extends GridDialog {
+public final class SdkUpdaterChooserDialog extends GridDialog {
 
     /** Last dialog size for this session. */
     private static Point sLastSize;
@@ -101,8 +100,6 @@ final class SdkUpdaterChooserDialog extends GridDialog {
     private Group mTableGroup;
     private Label mErrorLabel;
     private Set<RemotePackage> unacceptedLicenses = new HashSet<>();
-    //private Multimap<License, RemotePackage> unacceptedLicenses = HashMultimap.create();
-    //private List<RemotePackage> acceptedPackages = new ArrayList<>();
 
     private final SdkContext mSdkContext;
     /**
@@ -169,7 +166,6 @@ final class SdkUpdaterChooserDialog extends GridDialog {
         mSashForm = new SashForm(parent, SWT.NONE);
         mSashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 
-
         // Left part of Sash Form
 
         mTableGroup = new Group(mSashForm, SWT.NONE);
@@ -183,7 +179,7 @@ final class SdkUpdaterChooserDialog extends GridDialog {
 
         mTreePackage.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 onPackageSelected();  //$hide$
             }
             @Override
@@ -344,8 +340,8 @@ final class SdkUpdaterChooserDialog extends GridDialog {
         mTreeViewPackage.setInput(createTreeInput(mPackages));
         mTreeViewPackage.expandAll();
         adjustColumnsWidth();
-        // select first item
-        onPackageSelected();
+        // select first item is superfluous
+        //onPackageSelected(contents.get(0));
     }
 
     /**
@@ -494,7 +490,8 @@ final class SdkUpdaterChooserDialog extends GridDialog {
         mPackageText.setText("");                   //$NON-NLS-1$
         addSectionTitle("Package Description\n");
         RemotePackage remotePackage = packageInfo.getNewPackage();
-        addText(remotePackage.getDisplayName(), "\n\n"); //$NON-NLS-1$
+        // Add revision if not in path
+        addText(getName(remotePackage), "\n\n"); //$NON-NLS-1$
 
         LocalPackage localPackage = packageInfo.getReplaced();
         if (localPackage != null) {
@@ -519,13 +516,27 @@ final class SdkUpdaterChooserDialog extends GridDialog {
                 Collections.singletonList(remotePackage), mSdkContext.getPackages(),
                 mSdkContext.getProgressIndicator());
         if ((required != null && required.size() > 0)) {
-        	// The returned required dependencies includes principal
-            required.remove(remotePackage);
-        	if ((required.size() > 0)) {
-            addSectionTitle("Dependencies\n");
+        	// Remove principal and duplicates
+        	Iterator<RemotePackage> iterator = required.iterator();
+            Set<RemotePackage> existenceSet = new HashSet<>();
+            existenceSet.add(remotePackage);
+            List<RemotePackage> filteredRequired = new ArrayList<>();
+            while (iterator.hasNext()) {
+            	RemotePackage requiredPackage = iterator.next();
+            	if (!existenceSet.contains(requiredPackage)) {
+            		{
+            			existenceSet.add(requiredPackage);
+            			filteredRequired.add(requiredPackage);
+            		}
+            	}
+            }
+            // Remove references now existenceSet no longer needed
+            existenceSet.clear();
+        	if ((filteredRequired.size() > 0)) {
+                addSectionTitle("Dependencies\n");
 	            addText("Installing this package also requires installing:");
-	            for (RemotePackage dependency : required) {
-	                addText(String.format("\n- %1$s", dependency.getDisplayName()));
+	            for (RemotePackage dependency : filteredRequired) {
+	                addText(String.format("\n- %1$s", getName(dependency)));
 	            }
 	            addText("\n\n");
 	/*
@@ -1057,11 +1068,29 @@ final class SdkUpdaterChooserDialog extends GridDialog {
             mPackages.add(new PackageInfo(updatable.getRemote(), updatable.getLocal()));
         }
 	}
+	
+	private String getName(RemotePackage remotePackage) {
+        // Add revision if not in path
+    	String path = remotePackage.getPath();
+    	String version = null;
+    	int index = path.lastIndexOf(';');
+    	if (index != -1) {
+    		version = path.substring(index + 1);
+    		if (!Character.isDigit(version.charAt(0)))
+    			version = null;
+    	}
+        String packageName = remotePackage.getDisplayName();
+        if (version == null)
+        	packageName = packageName + " " + remotePackage.getVersion().toShortString();
+        return packageName;
+	}
+	
     /**
      * Reformats the licenseRef to be more human-readable.
      * It's an XML ref and in practice it looks like [oem-]android-[type]-license.
      * If it's not a format we can deal with, leave it alone.
      */
+	/*
     private String prettyLicenseRef(String ref) {
         // capitalize every word
         StringBuilder sb = new StringBuilder();
@@ -1090,7 +1119,7 @@ final class SdkUpdaterChooserDialog extends GridDialog {
 
         return ref;
     }
-
+*/
     // End of hiding from SWT Designer
     //$hide<<$
 }

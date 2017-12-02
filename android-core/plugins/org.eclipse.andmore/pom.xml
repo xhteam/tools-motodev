@@ -25,6 +25,11 @@
 		    <version>5.0.4</version>
 	      </dependency>
 	      <dependency>
+            <artifactId>asm-analysis</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>5.0.4</version>
+	      </dependency>
+	      <dependency>
 			<groupId>com.android.tools.build</groupId>
 			<artifactId>builder</artifactId>
 			<version>${android.builder.version}</version>
@@ -224,6 +229,11 @@
 			          <artifactItem>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm-tree</artifactId>
+        			    <version>5.0.4</version>
+			          </artifactItem>
+			          <artifactItem>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm-analysis</artifactId>
         			    <version>5.0.4</version>
 			          </artifactItem>
 			        </artifactItems>

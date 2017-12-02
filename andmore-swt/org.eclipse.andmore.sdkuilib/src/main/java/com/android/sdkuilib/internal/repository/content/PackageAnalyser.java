@@ -24,7 +24,6 @@ public class PackageAnalyser {
     private final SdkContext mSdkContext;
     private final UpdateOpApi mOpApi;
     private final Map<String, MetaPackage> mMetaPackageMap = new HashMap<>();
-    private boolean mFirstLoadComplete = true;
     
     /**
      * {@link PkgState}s to check in {@link #processSource(UpdateOp, SdkSource, Package[])}.
@@ -48,18 +47,8 @@ public class PackageAnalyser {
      * Useful for testing.
      */
     public void clear() {
-        mFirstLoadComplete = true;
         mOpApi.clear();
     }
-
-    /** Return mFirstLoadComplete and resets it to false.
-     * All following calls will returns false. */
-    public boolean isFirstLoadComplete() {
-        boolean b = mFirstLoadComplete;
-        mFirstLoadComplete = false;
-        return b;
-    }
-
 
     /**
      * Mark all new and update PkgItems as checked.
@@ -120,10 +109,6 @@ public class PackageAnalyser {
         return items;
     }
 
-    public void updateStart() {
-        mOpApi.updateStart();
-    }
-
 	public void removeDeletedNodes() {
 		for (PkgCategory<AndroidVersion> cat: mOpApi.getCategories())
 			remoteDeleted(cat, 0);
@@ -145,15 +130,6 @@ public class PackageAnalyser {
         	}
     	}
 	}
-
-	public boolean updateSourcePackages(SdkSource source, RepoPackage[] newPackages) {
-
-        return mOpApi.updateSourcePackages(source, newPackages);
-    }
-
-    public boolean updateEnd() {
-        return mOpApi.updateEnd();
-    }
 
     public static String getNameFromPath(String path)
     {
@@ -189,6 +165,9 @@ public class PackageAnalyser {
     	mMetaPackageMap.put(metaPackage.getName(), metaPackage);
 
     	metaPackage = new MetaPackage(PackageType.sources, "source_pkg_16.png");
+    	mMetaPackageMap.put(metaPackage.getName(), metaPackage);
+
+    	metaPackage = new MetaPackage(PackageType.samples, "source_pkg_16.png");
     	mMetaPackageMap.put(metaPackage.getName(), metaPackage);
 
     	metaPackage = new MetaPackage(PackageType.docs, "doc_pkg_16.png");
@@ -242,9 +221,14 @@ public class PackageAnalyser {
 		}
 		else {
 			cat = getPkgCategory(remote);
-	        item = new PkgItem(remote, metaPackageFromPackage(remote), PkgState.NEW);
+	        item = getPkgItem(remote);
 		}
         cat.getItems().add(item);
+	}
+
+	private PkgItem getPkgItem(RemotePackage remote) {
+		PkgItem pkgItem = new PkgItem(remote, metaPackageFromPackage(remote), PkgState.NEW);
+		return pkgItem;
 	}
 
 	private PkgCategory<AndroidVersion> getPkgCategory(RepoPackage pkg)
@@ -256,8 +240,7 @@ public class PackageAnalyser {
         switch (catKeyType)
         {
         case API: 
-        case REMOTE:
-        	catKeyValue = mOpApi.getCategoryKeyValue(pkg);
+         	catKeyValue = mOpApi.getCategoryKeyValue(pkg);
         	cat = findCurrentCategory(cats, catKeyType, catKeyValue);
         	break;
         default:	

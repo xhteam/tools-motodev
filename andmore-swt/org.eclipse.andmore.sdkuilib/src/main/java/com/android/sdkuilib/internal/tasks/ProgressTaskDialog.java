@@ -16,13 +16,7 @@
 
 package com.android.sdkuilib.internal.tasks;
 
-import com.android.SdkConstants;
-import com.android.sdkuilib.internal.repository.ITaskMonitor;
-import com.android.sdkuilib.internal.repository.UserCredentials;
-import com.android.sdkuilib.ui.AuthenticationDialog;
-import com.android.sdkuilib.ui.GridDialog;
-import com.android.utils.Pair;
-
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -41,6 +35,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Widget;
+
+import com.android.SdkConstants;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
+import com.android.sdkuilib.ui.AuthenticationDialog;
+import com.android.sdkuilib.ui.GridDialog;
+import com.android.utils.Pair;
 
 
 /**
@@ -96,15 +98,24 @@ final class ProgressTaskDialog extends Dialog implements IProgressUiProvider {
 
     /**
      * Open the dialog and blocks till it gets closed
-     * @param taskThread The thread to run the task. Cannot be null.
      */
-    public void open(Thread taskThread) {
+    public void open(Job job) {
         createContents();
         positionShell();                        //$hide$ (hide from SWT designer)
         mDialogShell.open();
         mDialogShell.layout();
-
-        startThread(taskThread);                //$hide$ (hide from SWT designer)
+        job.setPriority(Job.INTERACTIVE);
+        /*
+        if (onTerminateTask != null) {
+            job.addJobChangeListener(new JobChangeAdapter() {
+                @Override
+                public void done(IJobChangeEvent event) {
+                	onTerminateTask.run();
+                }
+            });
+        }
+        */
+        job.schedule();
 
         Display display = getParent().getDisplay();
         while (!mDialogShell.isDisposed() && mCancelMode != CancelMode.CLOSE_AUTO) {
@@ -112,15 +123,28 @@ final class ProgressTaskDialog extends Dialog implements IProgressUiProvider {
                 display.sleep();
             }
         }
-
         setCancelRequested();       //$hide$ (hide from SWT designer)
-
         if (!mDialogShell.isDisposed()) {
             sLastSize = mDialogShell.getSize();
             mDialogShell.close();
         }
     }
 
+
+    public void syncExec(final Widget widget, final Runnable runnable) {
+        if (widget != null && !widget.isDisposed()) {
+            widget.getDisplay().syncExec(new Runnable() {
+                @Override
+                public void run() {
+                    // Check again whether the widget got disposed between the time where
+                    // we requested the syncExec and the time it actually happened.
+                    if (!widget.isDisposed()) {
+                        runnable.run();
+                    }
+                }
+            });
+        }
+    }
     /**
      * Create contents of the dialog.
      */
@@ -491,16 +515,6 @@ final class ProgressTaskDialog extends Dialog implements IProgressUiProvider {
 
         public UserCredentials getUserCredentials() {
             return mResult;
-        }
-    }
-
-    /**
-     * Starts the thread that runs the task.
-     * This is deferred till the UI is created.
-     */
-    private void startThread(Thread taskThread) {
-        if (taskThread != null) {
-            taskThread.start();
         }
     }
 

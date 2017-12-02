@@ -19,18 +19,10 @@ package com.android.sdkuilib.repository;
 
 /**
  * Interface for listeners on SDK modifications by the SDK Manager UI.
- * This notifies when the SDK manager is first loading the SDK or before/after it installed
+ * This notifies both before and after the Android Sdk Handler installs pacakges
  * a package.
  */
 public interface ISdkChangeListener {
-    /**
-     * Invoked when the content of the SDK is being loaded by the SDK Manager UI
-     * for the first time.
-     * This is generally followed by a call to {@link #onSdkReload()}
-     * or by a call to {@link #preInstallHook()}.
-     */
-    void onSdkLoaded();
-
     /**
      * Invoked when the SDK Manager UI is about to start installing packages.
      * This will be followed by a call to {@link #postInstallHook()}.

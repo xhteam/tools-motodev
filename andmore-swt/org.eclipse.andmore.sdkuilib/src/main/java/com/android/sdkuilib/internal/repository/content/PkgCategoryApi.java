@@ -51,11 +51,13 @@ public class PkgCategoryApi extends PkgCategory<AndroidVersion> {
 
     public String getApiLabel() {
         if (getKeyType() == CategoryKeyType.TOOLS) {
-            return "TOOLS";             //$NON-NLS-1$ // for internal debug use only
+            return "TOOLS";             //$NON-NLS-1$ 
         } else if  (getKeyType() == CategoryKeyType.TOOLS_PREVIEW){
-            return "TOOLS-PREVIEW"; //$NON-NLS-1$ // for internal debug use only
+            return "TOOLS-PREVIEW"; //$NON-NLS-1$
         } else if (getKeyType() == CategoryKeyType.EXTRA) {
-            return "EXTRAS";            //$NON-NLS-1$ // for internal debug use only
+            return "EXTRAS";            //$NON-NLS-1$
+        } else if (getKeyType() == CategoryKeyType.GENERIC) {
+            return "GENERIC";            //$NON-NLS-1$
         } 
         AndroidVersion key = getKeyValue();
         return key.getApiString();
@@ -73,7 +75,9 @@ public class PkgCategoryApi extends PkgCategory<AndroidVersion> {
                 label = "Tools (Preview Channel)";
             } else if (key == CategoryKeyType.EXTRA) {
                 label = "Extras";
-            } else {
+            } else if (key == CategoryKeyType.GENERIC) {
+                label = "Generic";
+           } else {
                 if (mPlatformName != null) {
                     label = String.format("%1$s (%2$s)", mPlatformName, getApiLabel());
                 } else {

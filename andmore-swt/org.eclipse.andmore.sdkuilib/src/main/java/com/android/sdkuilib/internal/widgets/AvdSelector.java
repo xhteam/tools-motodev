@@ -57,6 +57,7 @@ import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.prefs.AndroidLocation.AndroidLocationException;
+import com.android.repository.io.FileOp;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdInfo.AvdStatus;
@@ -67,6 +68,7 @@ import com.android.sdkuilib.internal.repository.ITask;
 import com.android.sdkuilib.internal.repository.ITaskMonitor;
 import com.android.sdkuilib.internal.repository.avd.AvdAgent;
 import com.android.sdkuilib.internal.repository.avd.SdkTargets;
+import com.android.sdkuilib.internal.repository.avd.SystemImageInfo;
 import com.android.sdkuilib.internal.repository.ui.AvdManagerWindowImpl1;
 import com.android.sdkuilib.internal.tasks.ProgressTask;
 import com.android.sdkuilib.repository.AvdManagerWindow.AvdInvocationContext;
@@ -88,7 +90,9 @@ import com.android.utils.NullLogger;
  * {@link #getSelected()} to retrieve the selection.
  */
 public final class AvdSelector {
-    private static int NUM_COL = 2;
+    private static final String STARTING_EMULATOR = "Starting Android Emulator";
+
+	private static int NUM_COL = 2;
 
     private final AvdDisplayMode mDisplayMode;
     private final SdkTargets mSdkTargets;
@@ -102,6 +106,7 @@ public final class AvdSelector {
     private Button mManagerButton;
     private Button mRepairButton;
     private Button mStartButton;
+    private Button mOkButton;
 
     private SelectionListener mSelectionListener;
     private IAvdFilter mTargetFilter;
@@ -320,7 +325,9 @@ public final class AvdSelector {
                     onAvdManager();
                 }
             });
+            addOkButton(buttons, parent.getShell());
         } else {
+            addOkButton(buttons, parent.getShell());
             Composite legend = new Composite(group, SWT.NONE);
             legend.setLayout(gl = new GridLayout(4, false /*makeColumnsEqualWidth*/));
             gl.marginHeight = gl.marginWidth = 0;
@@ -352,6 +359,19 @@ public final class AvdSelector {
         setEnabled(true);
     }
 
+    private void addOkButton(Composite buttons, Shell shell) {
+    	mOkButton = new Button(buttons, SWT.PUSH | SWT.FLAT);
+    	mOkButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    	mOkButton.setText("OK");
+    	mOkButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent arg0) {
+                shell.close();
+             }
+        });
+    	shell.setDefaultButton(mOkButton);
+    }
+    
     /**
      * Creates a new SDK Target Selector, and fills it with a list of {@link AvdInfo}.
      *
@@ -386,7 +406,11 @@ public final class AvdSelector {
         this(parent, sdkContext, new TargetBasedFilter(filter), displayMode);
     }
 
-    /**
+    public SdkTargets getSdkTargets() {
+		return mSdkTargets;
+	}
+
+	/**
      * Sets the table grid layout data.
      *
      * @param heightHint If > 0, the height hint is set to the requested value.
@@ -503,8 +527,10 @@ public final class AvdSelector {
      * @return true if the target could be selected, false otherwise.
      */
 	public void setSelection(AvdInfo avd) {
-		AvdAgent target = new AvdAgent(mSdkTargets.getTargetForSysImage((SystemImage)avd.getSystemImage()), avd);
-		setSelection(target);
+		AvdAgent avdAgent = avdAgentInstance(avd);
+       	if (avdAgent != null)
+    		setSelection(avdAgent);
+        // Ignore AVD if there is no system image and Android version not supported
 	}
 
 	/**
@@ -747,7 +773,9 @@ public final class AvdSelector {
                 mTargetFilter.prepare();
             }
             for (AvdInfo avd : avds) {
-                AvdAgent avdAgent = new AvdAgent(mSdkTargets.getTargetForSysImage((SystemImage)avd.getSystemImage()), avd);
+                AvdAgent avdAgent = avdAgentInstance(avd);
+               	if (avdAgent == null)
+                	continue; // Ignore AVD if there is no system image and Android version not supported
                 if (mTargetFilter == null || mTargetFilter.accept(avdAgent)) {
                     TableItem item = new TableItem(table, SWT.NONE);
                     item.setData(avdAgent);
@@ -783,6 +811,20 @@ public final class AvdSelector {
         }
     }
 
+    private AvdAgent avdAgentInstance(AvdInfo avd) {
+        AvdAgent avdAgent = null;
+        SystemImageInfo systemImageInfo = new SystemImageInfo(avd);
+        if (systemImageInfo.hasSystemImage())
+        	avdAgent = new AvdAgent(mSdkTargets.getTargetForSysImage(systemImageInfo.getSystemImage()), avd);
+        else {
+        	IAndroidTarget target = mSdkTargets.getTargetForAndroidVersion(avd.getAndroidVersion());
+        	if (target != null)
+        	    avdAgent = new AvdAgent(target, avd);
+    		// Return null if there is no system image and Android version not supported
+        }
+        return avdAgent;
+    }
+    
     @NonNull
     private Image getTagImage(IdDisplay tag,
                               final boolean isOk,
@@ -877,23 +919,23 @@ public final class AvdSelector {
 
     private void onEdit() {
         AvdAgent avdAgent = getTableSelection();
-        GridDialog dlg;
+        GridDialog dlg = null;
         if (!avdAgent.getAvd().getDeviceName().isEmpty()) {
             dlg = new AvdCreationDialog(mTable.getShell(),
             		mSdkContext,
             		mSdkTargets,
             		avdAgent);
-            if (dlg.open() == Window.OK) {
-                refresh(false); //reload
-	        } else {
-	        	// create a dialog with ok button and a warning icon
-	        	MessageBox dialog =
-	        	    new MessageBox(mTable.getShell(), SWT.ICON_WARNING| SWT.OK);
-	        	dialog.setText("Legacy device not supported");
-	        	dialog.setMessage(avdAgent.getAvd().getName() + " has is assigned a legacy device no longer supported by the Android SDK");
-	         	// open dialog and await user selection
-	        	dialog.open();       
-	        }
+        } else {
+        	// create a dialog with ok button and a warning icon
+        	MessageBox dialog =
+        	    new MessageBox(mTable.getShell(), SWT.ICON_WARNING| SWT.OK);
+        	dialog.setText("Legacy device not supported");
+        	dialog.setMessage(avdAgent.getAvd().getName() + " has is assigned a legacy device no longer supported by the Android SDK");
+         	// open dialog and await user selection
+        	dialog.open();       
+        }
+        if ((dlg != null) && (dlg.open() == Window.OK)) {
+            refresh(false); //reload
         }
     }
 
@@ -1052,15 +1094,17 @@ public final class AvdSelector {
                 osSdkPath,
                 mSdkContext.getSdkLog());
         if (dialog.open() == Window.OK) {
-            String path = osSdkPath + File.separator
-                    + SdkConstants.OS_SDK_TOOLS_FOLDER
-                    + SdkConstants.FN_EMULATOR;
-
+            File path = new File(osSdkPath, SdkConstants.OS_SDK_TOOLS_FOLDER + SdkConstants.FN_EMULATOR);
+            FileOp fileOp = mSdkContext.getFileOp();
+            if (!fileOp.canExecute(path)) {
+                MessageDialog.openError(mTable.getShell(), STARTING_EMULATOR, "Cannot run emulator \"" + path.getAbsolutePath() + "\"");
+                return;
+            }
             final String avdName = avdAgent.getAvd().getName();
 
             // build the command line based on the available parameters.
             ArrayList<String> list = new ArrayList<String>();
-            list.add(path);
+            list.add(path.getAbsolutePath());
             list.add("-avd");                             //$NON-NLS-1$
             list.add(avdName);
             if (dialog.hasWipeData()) {
@@ -1093,7 +1137,7 @@ public final class AvdSelector {
 
             // launch the emulator
             final ProgressTask progress = new ProgressTask(mTable.getShell(),
-                                                    "Starting Android Emulator");
+                                                    STARTING_EMULATOR);
             progress.start(new ITask() {
                 volatile ITaskMonitor mMonitor = null;
 

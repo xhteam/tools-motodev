@@ -24,6 +24,7 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 
 /**
@@ -51,6 +52,9 @@ public class ToggleButton extends CLabel {
         mTooltip[1] = tooltip2;
         updateImageAndTooltip();
 
+        Display display = parent.getDisplay();
+        setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+        setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
         addMouseListener(new MouseListener() {
             @Override
             public void mouseDown(MouseEvent e) {

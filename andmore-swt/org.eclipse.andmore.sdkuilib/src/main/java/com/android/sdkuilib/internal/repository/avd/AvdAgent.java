@@ -25,12 +25,11 @@ import com.android.sdklib.SdkVersionInfo;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.repository.IdDisplay;
-import com.android.sdklib.repository.meta.DetailsTypes;
-import com.android.sdklib.repository.targets.SystemImage;
 import com.android.sdkuilib.internal.repository.content.PackageType;
 
 /**
+ * Contains and AvdInfo object and details extracted from it suitable for application use.
+ * Also contains the target assigned to the AvdInfo object to match it's Android version 
  * @author Andrew Bowley
  *
  * 15-11-2017
@@ -43,7 +42,7 @@ public class AvdAgent {
 	private String deviceName;
 	private String deviceMfctr;
 	private String path;
-	private SystemImage systemImage;
+	private SystemImageInfo systemImageInfo;
 	private String platformVersion;
 	private String versionWithCodename;
 	private AndroidVersion androidVersion;
@@ -61,7 +60,7 @@ public class AvdAgent {
 		this.target = target;
 		this.avd = avd;
 		path = avd.getDataFolderPath();
-		systemImage = (SystemImage) avd.getSystemImage();
+		systemImageInfo = new SystemImageInfo(avd);
 		vendor = BLANK;
 		targetDisplayName = BLANK;
 		init();
@@ -88,8 +87,8 @@ public class AvdAgent {
 		return path;
 	}
 
-	public SystemImage getSystemImage() {
-		return systemImage;
+	public SystemImageInfo getSystemImageInfo() {
+		return systemImageInfo;
 	}
 
 	public String getPlatformVersion() {
@@ -117,7 +116,8 @@ public class AvdAgent {
 	}
 
 	public String getTargetVersionName() {
-		return target.getVersionName();
+		String platform = target.getVersionName();
+		return platform != null ? platform : BLANK;
 	}
 
 	public String getTargetDisplayName() {
@@ -150,23 +150,13 @@ public class AvdAgent {
         }
         else if (deviceMfctr == null)
         	deviceMfctr = BLANK;
-        DetailsTypes.ApiDetailsType details =
-                (DetailsTypes.ApiDetailsType) systemImage.getPackage().getTypeDetails();
-        androidVersion = details.getAndroidVersion();
+        androidVersion = systemImageInfo.getAndroidVersion();
         versionWithCodename = SdkVersionInfo
                 .getVersionWithCodename(androidVersion);
         platformVersion = SdkVersionInfo.getVersionString(androidVersion.getApiLevel());
-        if (details instanceof DetailsTypes.PlatformDetailsType) {
-        	packageType = PackageType.platforms;
-        } else if (details instanceof DetailsTypes.SysImgDetailsType) {
-        	packageType = PackageType.system_images;
-            IdDisplay vendorId = ((DetailsTypes.SysImgDetailsType) details).getVendor();
-            if (vendorId != null) {
-                vendor = vendorId.getDisplay();
-            }
-        } else if (details instanceof DetailsTypes.AddonDetailsType) {
-        	packageType = PackageType.add_ons;
-        	vendor = ((DetailsTypes.AddonDetailsType) details).getVendor().getDisplay();
+        PackageType packageType = systemImageInfo.getPackageType();
+        if ((packageType == PackageType.system_images) || (packageType == PackageType.add_ons)) {
+            vendor = systemImageInfo.getVendor();
         }
         if (target.isPlatform()) {
         	targetDisplayName = String.format("  API: %s", versionWithCodename);

@@ -18,8 +18,6 @@ package com.android.sdkuilib.internal.repository.content;
 import java.util.Collections;
 import java.util.List;
 
-import com.android.sdkuilib.internal.repository.content.PackageAnalyser.PkgState;
-
 /**
  * Tree node which provides the text, font and image for the label of a given tree element
  * @author Andrew Bowley
@@ -113,11 +111,18 @@ public class INode {
             int topApiLevel)
 	{
 	}
-	
+
+	/**
+	 * Mark item as deleted. This is a transient state on the path to removal from the collection to which it belongs
+	 */
 	public void markDeleted()
 	{
 	}
-	
+
+	/**
+	 * Returns true if item has been marked for deletion
+	 * @return boolean
+	 */
 	public boolean isDeleted()
 	{
 		return false; 

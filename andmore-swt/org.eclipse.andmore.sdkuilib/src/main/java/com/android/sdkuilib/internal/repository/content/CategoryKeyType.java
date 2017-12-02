@@ -5,6 +5,5 @@ public enum CategoryKeyType {
 	TOOLS_PREVIEW,
 	API,
 	EXTRA,
-	LOCAL,
-	REMOTE
+	GENERIC
 }

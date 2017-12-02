@@ -16,16 +16,19 @@
 
 package com.android.sdkuilib.internal.tasks;
 
-import com.android.sdkuilib.internal.repository.ITask;
-import com.android.sdkuilib.internal.repository.ITaskMonitor;
-import com.android.sdkuilib.internal.repository.UserCredentials;
-import com.android.sdkuilib.ui.AuthenticationDialog;
-import com.android.sdkuilib.ui.GridDialog;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -33,11 +36,11 @@ import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.concurrent.atomic.AtomicReference;
+import com.android.sdkuilib.internal.repository.ITask;
+import com.android.sdkuilib.internal.repository.ITaskMonitor;
+import com.android.sdkuilib.internal.repository.UserCredentials;
+import com.android.sdkuilib.ui.AuthenticationDialog;
+import com.android.sdkuilib.ui.GridDialog;
 
 
 /**
@@ -104,103 +107,100 @@ public final class ProgressView implements IProgressUiProvider {
     }
 
     /**
-     * Starts the task and block till it's either finished or canceled.
-     * This can be called from a non-UI thread safely.
-     * <p/>
-     * When a task is started from within a monitor, it reuses the thread
-     * from the parent. Otherwise it starts a new thread and runs it own
-     * UI loop. This means the task can perform UI operations using
-     * {@link Display#asyncExec(Runnable)}.
-     * <p/>
-     * In either case, the method only returns when the task has finished.
+     * Starts the task returns. Runs given callback when the task is either finished or canceled.
      */
-    public void startTask(
+    public void startAsyncTask(
             final String title,
-            final ITaskMonitor parentMonitor,
-            final ITask task,
-            boolean sync) {
+            final ITask task, 
+            final Runnable onTerminateTask) {
+        // If for some reason the UI has been disposed, just abort the thread.
+        if (mProgressBar.isDisposed())
+            return;
         if (task != null) {
             try {
-                if (parentMonitor == null && !mProgressBar.isDisposed()) {
-                    syncExec(mProgressBar, new Runnable() {
-                        @Override
-                        public void run() {
-                            mLabel.setText(title);
-                            mProgressBar.setSelection(0);
-                            mProgressBar.setEnabled(true);
-                        }
-                    });
-                    changeState(ProgressView.State.ACTIVE);
-                }
-
-                Runnable r = new Runnable() {
+                syncExec(mProgressBar, new Runnable() {
                     @Override
                     public void run() {
-                        if (parentMonitor == null) {
+                        mLabel.setText(title);
+                        mProgressBar.setSelection(0);
+                        mProgressBar.setEnabled(true);
+                    }
+                });
+                changeState(ProgressView.State.ACTIVE);
+                Job job = new Job(title) {
+                    @Override
+                    protected IStatus run(IProgressMonitor m) {
+                    	IStatus status = Status.CANCEL_STATUS;
+                    	try {
                             task.run(new TaskMonitorImpl(ProgressView.this));
-
-                        } else {
-                            // Use all the reminder of the parent monitor.
-                            if (parentMonitor.getProgressMax() == 0) {
-                                parentMonitor.setProgressMax(1);
-                            }
-                            ITaskMonitor sub = parentMonitor.createSubMonitor(
-                                    parentMonitor.getProgressMax() - parentMonitor.getProgress());
-                            try {
-                                task.run(sub);
-                            } finally {
-                                int delta =
-                                    sub.getProgressMax() - sub.getProgress();
-                                if (delta > 0) {
-                                    sub.incProgress(delta);
-                                }
-                            }
-                        }
+                            status = Status.OK_STATUS;
+                    	} catch (Exception e) {
+                    		StringWriter builder = new StringWriter();
+                            builder.append(e.getMessage()).append("\n");
+                            PrintWriter writer = new PrintWriter(builder);
+                            e.printStackTrace(writer);
+                            mLog.logError(builder.toString());
+                    	} finally {
+                            endTask();
+                    	}
+                        return status;
                     }
                 };
-
-                // If for some reason the UI has been disposed, just abort the thread.
-                if (mProgressBar.isDisposed()) {
-                    return;
+                job.setPriority(Job.INTERACTIVE);
+                if (onTerminateTask != null) {
+                    job.addJobChangeListener(new JobChangeAdapter() {
+                        @Override
+                        public void done(IJobChangeEvent event) {
+                        	onTerminateTask.run();
+                        }
+                    });
                 }
-
-                if (TaskMonitorImpl.isTaskMonitorImpl(parentMonitor)) {
-                    // If there's a parent monitor and it's our own class, we know this parent
-                    // is already running a thread and the base one is running an event loop.
-                    // We should thus not run a second event loop and we can process the
-                    // runnable right here instead of spawning a thread inside the thread.
-                    r.run();
-
-                } else {
-                    // No parent monitor. This is the first one so we need a thread and
-                    // we need to process UI events.
-
-                    final Thread t = new Thread(r, title);
-                    t.start();
-                    if (sync)
-	                    // Process the app's event loop whilst we wait for the thread to finish
-	                    while (!mProgressBar.isDisposed() && t.isAlive()) {
-	                        Display display = mProgressBar.getDisplay();
-	                        if (!mProgressBar.isDisposed() && !display.readAndDispatch()) {
-	                            display.sleep();
-	                        }
-	                    }
-                }
+                job.schedule();
             } catch (Exception e) {
         		StringWriter builder = new StringWriter();
                 builder.append(e.getMessage()).append("\n");
                 PrintWriter writer = new PrintWriter(builder);
                 e.printStackTrace(writer);
                 mLog.logError(builder.toString());
-            } finally {
-                if (parentMonitor == null && sync && !mProgressBar.isDisposed()) {
-                	endTask();
-                }
             }
         }
     }
 
-    public void endTask()
+    /**
+     * Starts the task and blocks until the task is completed or canceled.
+     */
+    public void startSyncTask(
+            final String title,
+            final ITask task) {
+        // If for some reason the UI has been disposed, just abort the thread.
+        if (mProgressBar.isDisposed())
+            return;
+        if (task != null) {
+            try {
+                syncExec(mProgressBar, new Runnable() {
+                    @Override
+                    public void run() {
+                        mLabel.setText(title);
+                        mProgressBar.setSelection(0);
+                        mProgressBar.setEnabled(true);
+                    }
+                });
+                changeState(ProgressView.State.ACTIVE);
+                task.run(new TaskMonitorImpl(ProgressView.this));
+            } catch (Exception e) {
+        		StringWriter builder = new StringWriter();
+                builder.append(e.getMessage()).append("\n");
+                PrintWriter writer = new PrintWriter(builder);
+                e.printStackTrace(writer);
+                mLog.logError(builder.toString());
+            }
+            finally {
+                endTask();
+            }
+        }
+    }
+
+   public void endTask()
     {
         changeState(ProgressView.State.IDLE);
         syncExec(mProgressBar, new Runnable() {
@@ -235,7 +235,8 @@ public final class ProgressView implements IProgressUiProvider {
         syncExec(mStopButton, new Runnable() {
             @Override
             public void run() {
-                mStopButton.setEnabled(mState == State.ACTIVE);
+            	if (mState == State.ACTIVE)
+            		mStopButton.setEnabled(true);
             }
         });
 

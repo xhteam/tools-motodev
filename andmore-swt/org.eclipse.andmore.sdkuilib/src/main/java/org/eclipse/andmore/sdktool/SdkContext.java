@@ -35,6 +35,7 @@ public class SdkContext {
     private Settings settings;
     private ProgressIndicator sdkProgressIndicator;
     private ILogger sdkLogger;
+    private boolean sdkLocationChanged;
     
 	public SdkContext(AndroidSdkHandler handler, RepoManager repoManager) {
 		super();
@@ -57,6 +58,10 @@ public class SdkContext {
 		return  settings;
 	}
 	
+	public boolean isSdkLocationChanged() {
+		return sdkLocationChanged;
+	}
+
 	public PackageManager getPackageManager()
 	{
 		return packageManager;
@@ -101,7 +106,10 @@ public class SdkContext {
 	}
 
 	public File getLocation() {
-		return handler.getLocation();
+		File location = handler.getLocation();
+		if (location == null)
+			return new File("");
+		return location;
 	}
 
 	public Map<String, RemotePackage> getRemotePackages() {
@@ -203,6 +211,12 @@ public class SdkContext {
 		if (sdkLogger != null)
 			return sdkLogger;
 		return loggerInstance();
+	}
+
+	public void setLocation(File sdkLocation) {
+		// This change needs to be monitored so external AndroidSdkHandler consumers can re-sync
+		sdkLocationChanged = true;
+		AndroidSdkHandler.resetInstance(sdkLocation);
 	}
 
 }

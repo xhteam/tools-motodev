@@ -18,7 +18,6 @@
  */
 package org.eclipse.andmore.sdktool;
 
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -27,7 +26,6 @@ import com.android.annotations.Nullable;
 import com.android.ddmlib.IDevice;
 import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
-import com.android.sdklib.devices.Device;
 import com.android.sdklib.internal.avd.AvdInfo;
 
 /**

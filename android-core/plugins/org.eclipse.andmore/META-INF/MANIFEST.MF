@@ -17,7 +17,8 @@ Bundle-ClassPath: .,
  libs/builder-2.3.3.jar,
  libs/uast-162.2228.14.jar,
  libs/asm-5.0.4.jar,
- libs/asm-tree-5.0.4.jar
+ libs/asm-tree-5.0.4.jar,
+ libs/asm-analysis-5.0.4.jar
 Bundle-Activator: org.eclipse.andmore.AndmoreAndroidPlugin
 Bundle-Vendor: Eclipse Andmore
 Require-Bundle: org.eclipse.andmore.swt,

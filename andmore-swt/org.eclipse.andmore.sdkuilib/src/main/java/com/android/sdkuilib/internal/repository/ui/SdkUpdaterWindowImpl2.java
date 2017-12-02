@@ -19,10 +19,11 @@ package com.android.sdkuilib.internal.repository.ui;
 
 import com.android.SdkConstants;
 import com.android.sdkuilib.internal.repository.AboutDialog;
-import com.android.sdkuilib.internal.repository.ISdkUpdaterWindow;
 import com.android.sdkuilib.internal.repository.MenuBarWrapper;
 import com.android.sdkuilib.internal.repository.Settings;
 import com.android.sdkuilib.internal.repository.SettingsDialog;
+import com.android.sdkuilib.internal.repository.content.PackageType;
+
 import org.eclipse.andmore.base.resources.ImageFactory;
 import com.android.sdkuilib.internal.repository.ui.PackagesPage.MenuAction;
 import com.android.sdkuilib.internal.widgets.ImgDisabledButton;
@@ -32,7 +33,10 @@ import com.android.sdkuilib.repository.ISdkChangeListener;
 import com.android.sdkuilib.repository.SdkUpdaterWindow.SdkInvocationContext;
 import com.android.utils.ILogger;
 
+import java.io.File;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.andmore.sdktool.SdkContext;
 import org.eclipse.swt.SWT;
@@ -45,6 +49,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -60,10 +65,11 @@ import org.eclipse.swt.widgets.Shell;
  * <p/>
  * This window features only one embedded page, the combined installed+available package list.
  */
-public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
+public class SdkUpdaterWindowImpl2 {
 
     public static final String APP_NAME = "Android SDK Manager";
     private static final String SIZE_POS_PREFIX = "sdkman2"; //$NON-NLS-1$
+	private static final String ANDROID_SDK_LOCATION_PROMPT = "Android SDK Location" ;
 
     private final Shell mParentShell;
     private final SdkInvocationContext mContext;
@@ -78,6 +84,9 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
     private ImgDisabledButton mButtonStop;
     private ToggleButton mButtonShowLog;
     private LogWindow mLogWindow;
+	/** Set of package types on which to filter. An empty set indicates no filtering */
+	private Set<PackageType> packageTypeSet;
+
 
     /**
      * Creates a new window. Caller must call open(), which will block.
@@ -97,17 +106,38 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
         mSdkContext = sdkContext;
     }
 
+    public void addPackageFilter(PackageType packageType) {
+    	if (packageTypeSet == null)
+    		packageTypeSet = new TreeSet<PackageType>();
+    	packageTypeSet.add(packageType);
+    }
+    
     /**
      * Opens the window.
      * @wbp.parser.entryPoint
      */
-    @Override
     public void open() {
         if (mParentShell == null) {
             Display.setAppName(APP_NAME); //$hide$ (hide from SWT designer)
         }
 
         createShell();
+    	File sdkLocation = mSdkContext.getLocation();
+    	boolean sdkLocationExists = sdkLocation.exists();
+    	boolean sdkLocationIsDir = sdkLocation.isDirectory();
+    	if (!sdkLocationExists) {
+    		mSdkContext.getSdkLog().error(null, "Android SDK directory not found: %s", sdkLocation.getPath());
+    		sdkLocation = promptForSdkLocation(ANDROID_SDK_LOCATION_PROMPT) ;
+    	} else if (!sdkLocationIsDir) {
+    		mSdkContext.getSdkLog().error(null, "Android SDK location is not a directory: %s", sdkLocation.getPath());
+    		sdkLocation = promptForSdkLocation(ANDROID_SDK_LOCATION_PROMPT);
+    	}
+    	if (sdkLocation == null)
+    		return;
+    	if (!sdkLocationExists || !sdkLocationIsDir) {
+    		// TODO - Persist location
+    		mSdkContext.setLocation(sdkLocation);
+    	}
         preCreateContent();
         createContents();
         createMenuBar();
@@ -139,7 +169,6 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 ShellSizeAndPos.saveSizeAndPos(mShell, SIZE_POS_PREFIX);
-                onAndroidSdkUpdaterDispose();    //$hide$ (hide from SWT designer)
             }
         });
 
@@ -157,8 +186,19 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
         ShellSizeAndPos.loadSizeAndPos(mShell, SIZE_POS_PREFIX);
     }
 
+    private File promptForSdkLocation(String title) {
+    	DirectoryDialog dialog = new DirectoryDialog (mShell);
+    	dialog.setText(title);
+    	String platform = SWT.getPlatform();
+    	dialog.setFilterPath (platform.equals("win32") ? "c:\\" : "/");
+    	String sdkLocation = dialog.open ();
+    	if (sdkLocation != null)
+    		return new File(sdkLocation);
+    	return null;
+	}
+
     private void createContents() {
-        mPkgPage = new PackagesPage(mShell, SWT.NONE, mSdkContext, mContext);
+        mPkgPage = new PackagesPage(mShell, SWT.NONE, mSdkContext, mContext, packageTypeSet);
         mPkgPage.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 
         Composite composite1 = new Composite(mShell, SWT.NONE);
@@ -332,7 +372,6 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
     /**
      * Adds a new listener to be notified when a change is made to the content of the SDK.
      */
-    @Override
     public void addListener(ISdkChangeListener listener) {
         mSdkContext.getSdkHelper().addListeners(listener);
     }
@@ -341,7 +380,6 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
      * Removes a new listener to be notified anymore when a change is made to the content of
      * the SDK.
      */
-    @Override
     public void removeListener(ISdkChangeListener listener) {
         mSdkContext.getSdkHelper().removeListener(listener);
     }
@@ -430,7 +468,7 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
         //mSdkContext.getSdkHelper().broadcastOnSdkLoaded(mSdkContext.getSdkLog());
 
         // Display packages
-        mPkgPage.onReady(factory, factory.getProgressControl(), factory);
+        mPkgPage.onReady(factory);
         return true;
     }
 
@@ -458,18 +496,6 @@ public class SdkUpdaterWindowImpl2 implements ISdkUpdaterWindow {
      */
     private void dispose() {
         mLogWindow.close();
-    }
-
-    /**
-     * Callback called when the window shell is disposed.
-     */
-    private void onAndroidSdkUpdaterDispose() {
-        if (mSdkContext != null) {
-            ImageFactory imgFactory = mSdkContext.getSdkHelper().getImageFactory();
-            if (imgFactory != null) {
-                imgFactory.dispose();
-            }
-        }
     }
 
     /**

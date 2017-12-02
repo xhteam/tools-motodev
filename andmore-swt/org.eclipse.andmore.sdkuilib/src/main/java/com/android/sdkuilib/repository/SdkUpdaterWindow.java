@@ -16,13 +16,10 @@
 
 package com.android.sdkuilib.repository;
 
-import com.android.repository.api.RepoManager;
-import com.android.sdklib.repository.AndroidSdkHandler;
-import com.android.sdkuilib.internal.repository.ISdkUpdaterWindow;
+import com.android.sdkuilib.internal.repository.content.PackageType;
 import com.android.sdkuilib.internal.repository.ui.SdkUpdaterWindowImpl2;
 
 import org.eclipse.andmore.sdktool.SdkCallAgent;
-import org.eclipse.andmore.sdktool.SdkContext;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -34,7 +31,8 @@ import org.eclipse.swt.widgets.Shell;
 public class SdkUpdaterWindow {
 
     /** The actual window implementation to which this class delegates. */
-    private ISdkUpdaterWindow mWindow;
+    private final SdkUpdaterWindowImpl2 mWindow;
+    private final SdkCallAgent mSdkCallAgent;
 
     /**
      * Enum giving some indication of what is invoking this window.
@@ -86,23 +84,8 @@ public class SdkUpdaterWindow {
             SdkCallAgent sdkCallAgent,
             SdkInvocationContext context) {
 
-        this(parentShell, sdkCallAgent.getSdkContext(), context);
-    }
-
-    /**
-     * Creates a new window. Caller must call open(), which will block.
-     *
-     * @param parentShell Parent shell.
-     * @param sdkContext SDK handler and repo manager
-     * @param context The {@link SdkInvocationContext} to change the behavior depending on who's
-     *  opening the SDK Manager.
-     */
-    public SdkUpdaterWindow(
-            Shell parentShell,
-            SdkContext sdkContext,
-            SdkInvocationContext context) {
-
-        mWindow = new SdkUpdaterWindowImpl2(parentShell, sdkContext, context);
+        this.mSdkCallAgent = sdkCallAgent;
+        mWindow = new SdkUpdaterWindowImpl2(parentShell, sdkCallAgent.getSdkContext(), context);
     }
 
     /**
@@ -121,10 +104,20 @@ public class SdkUpdaterWindow {
         mWindow.removeListener(listener);
     }
 
+    public void addPackageFilter(PackageType packageType) {
+    	mWindow.addPackageFilter(packageType);
+    }
+    
     /**
      * Opens the window.
      */
     public void open() {
-        mWindow.open();
+    	try {
+    		mWindow.open();
+    	}
+    	finally {
+    		mSdkCallAgent.completeSdkOperations();
+    	}
+    	
     }
 }

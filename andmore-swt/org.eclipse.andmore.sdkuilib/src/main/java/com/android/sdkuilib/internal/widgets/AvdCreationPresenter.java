@@ -16,18 +16,30 @@
 
 package com.android.sdkuilib.internal.widgets;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.regex.Pattern;
+
+import org.eclipse.andmore.sdktool.SdkContext;
+
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.prefs.AndroidLocation.AndroidLocationException;
-import com.android.repository.Revision;
-import com.android.repository.api.ProgressIndicator;
 import com.android.resources.Density;
 import com.android.resources.ScreenSize;
-import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.ISystemImage;
-import com.android.sdklib.SdkVersionInfo;
 import com.android.sdklib.devices.Camera;
 import com.android.sdklib.devices.CameraLocation;
 import com.android.sdklib.devices.Device;
@@ -40,9 +52,6 @@ import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
 import com.android.sdklib.internal.avd.HardwareProperties;
 import com.android.sdklib.repository.IdDisplay;
-import com.android.sdklib.repository.meta.DetailsTypes;
-import com.android.sdklib.repository.meta.DetailsTypes.AddonDetailsType.Libraries;
-import com.android.sdklib.repository.meta.Library;
 import com.android.sdklib.repository.targets.SystemImage;
 import com.android.sdkuilib.internal.repository.avd.AvdAgent;
 import com.android.sdkuilib.internal.repository.avd.SdkTargets;
@@ -50,23 +59,6 @@ import com.android.sdkuilib.widgets.MessageBoxLog;
 import com.android.utils.ILogger;
 import com.android.utils.Pair;
 import com.google.common.base.Joiner;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
-
-import org.eclipse.andmore.sdktool.SdkContext;
 
 /**
  * Implements all the logic of the {@link AvdCreationDialog}.
@@ -501,7 +493,7 @@ class AvdCreationPresenter {
         index = -1;
 
         mComboTargets.clear();
-        for (IAndroidTarget target : mSdkTargets.getTargets()) {
+        for (IAndroidTarget target : mSdkTargets.getSystemImageTargets()) {
             String name;
             if (target.isPlatform()) {
                 name = target.getFullName();
@@ -907,22 +899,7 @@ class AvdCreationPresenter {
         if (target == null) {
             return false;
         }
-
-        // get the tag & abi type
-        Pair<IdDisplay, String> tagAbi = getSelectedTagAbi();
-        if (tagAbi == null) {
-            return false;
-        }
-        IdDisplay tag = tagAbi.getFirst();
-        String abiType = tagAbi.getSecond();
-        ISystemImage systemImage = null;
-        Collection<SystemImage> sysImgs = mSdkContext.getHandler().getSystemImageManager(mSdkContext.getProgressIndicator()).getImages();
-        for (SystemImage img : sysImgs) {
-            if (img.getAbiType().equals(abiType)) {
-                systemImage = img;
-                break;
-            }
-        }
+        ISystemImage systemImage = getSelectedSysImg();
         if (systemImage == null)
         	return false;
         // get the SD card data from the UI.
@@ -988,7 +965,7 @@ class AvdCreationPresenter {
 
         File avdFolder = null;
         try {
-            AvdInfo.getDefaultAvdFolder(
+        	avdFolder = AvdInfo.getDefaultAvdFolder(
             		mAvdManager, avdName, mSdkContext.getHandler().getFileOp(), false);
         } catch (AndroidLocationException e) {
             return false;

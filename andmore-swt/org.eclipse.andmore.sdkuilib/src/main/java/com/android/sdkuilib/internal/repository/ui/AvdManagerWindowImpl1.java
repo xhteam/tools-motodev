@@ -63,10 +63,6 @@ public class AvdManagerWindowImpl1 {
     private final Shell mParentShell;
     private final AvdInvocationContext mContext;
     private final SdkContext mSdkContext;
-    /** Internal data shared between the window and its pages. */
-    /** True if this window created the UpdaterData, in which case it needs to dispose it. */
-    private final boolean mOwnUpdaterData;
-
 
     // --- UI members ---
 
@@ -91,7 +87,6 @@ public class AvdManagerWindowImpl1 {
         mParentShell = parentShell;
         mSdkContext = sdkContext;
         mContext = context;
-        mOwnUpdaterData = true;
     }
 
     /**
@@ -112,7 +107,6 @@ public class AvdManagerWindowImpl1 {
         mParentShell = parentShell;
         mContext = context;
         mSdkContext = sdkContext;
-        mOwnUpdaterData = false;
     }
 
     /**
@@ -157,15 +151,18 @@ public class AvdManagerWindowImpl1 {
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 ShellSizeAndPos.saveSizeAndPos(mShell, SIZE_POS_PREFIX);    //$hide$
-                onAndroidSdkUpdaterDispose();                               //$hide$
                 mAvdPage.dispose();                                         //$hide$
             }
         });
 
         GridLayout glShell = new GridLayout(2, false);
+        glShell.verticalSpacing = 0;
+        glShell.horizontalSpacing = 0;
+        glShell.marginWidth = 0;
+        glShell.marginHeight = 0;
         mShell.setLayout(glShell);
 
-        mShell.setMinimumSize(new Point(500, 300));
+        mShell.setMinimumSize(new Point(600, 300));
         mShell.setSize(700, 500);
         mShell.setText(APP_NAME);
 
@@ -347,18 +344,6 @@ public class AvdManagerWindowImpl1 {
      */
     private void dispose() {
         //mSdkContext.getSources().saveUserAddons(mSdkContext.getSdkLog());
-    }
-
-    /**
-     * Callback called when the window shell is disposed.
-     */
-    private void onAndroidSdkUpdaterDispose() {
-        if (mOwnUpdaterData && mSdkContext != null) {
-            ImageFactory imgFactory = mSdkContext.getSdkHelper().getImageFactory();
-            if (imgFactory != null) {
-                imgFactory.dispose();
-            }
-        }
     }
 
     /**

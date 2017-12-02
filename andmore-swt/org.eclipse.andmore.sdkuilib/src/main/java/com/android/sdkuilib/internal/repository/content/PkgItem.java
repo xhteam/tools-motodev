@@ -15,8 +15,6 @@
  */
 package com.android.sdkuilib.internal.repository.content;
 
-import java.util.regex.Pattern;
-
 import org.eclipse.andmore.sdktool.Utilities;
 
 import com.android.SdkConstants;
@@ -41,24 +39,37 @@ import com.android.sdkuilib.internal.repository.ui.PackagesPageIcons;
  * The state or update package can change later.
  */
 public class PkgItem extends INode implements Comparable<PkgItem> {
-    private final MetaPackage metaPackage;
+    private static final String ICON_PKG_OBSOLETE = "error_icon_16.png";
+    
+	private final MetaPackage metaPackage;
     private PkgState state;
     private RepoPackage mainPackage;
     private UpdatablePackage updatePackage;
+    private String product;
+    private String version;
 
     /**
      * Create a new {@link PkgItem} for this main package.
      * The main package is final and cannot change since it's what "defines" this PkgItem.
      * The state or update package can change later.
      */
-    public PkgItem(RepoPackage mainPkg, MetaPackage metaPackage, PkgState state) {
+    public PkgItem(RepoPackage mainPackage, MetaPackage metaPackage, PkgState state) {
     	super();
-    	this.mainPackage = mainPkg;
+    	this.mainPackage = mainPackage;
         this.metaPackage = metaPackage;
         this.state = state;
+        analysePath();
     }
 
-    public boolean isObsolete() {
+	public String getProduct() {
+		return product;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public boolean isObsolete() {
         return mainPackage.obsolete();
     }
 
@@ -119,12 +130,16 @@ public class PkgItem extends INode implements Comparable<PkgItem> {
     	else if (columnIndex == PackagesPage.STATUS) {
             switch(state) {
             case INSTALLED:
+            	if (isObsolete())
+            		return ICON_PKG_OBSOLETE;
                 if (updatePackage != null) {
                     return PackagesPageIcons.ICON_PKG_UPDATE;
                 } else {
                     return PackagesPageIcons.ICON_PKG_INSTALLED;
                 }
             case NEW:
+            	if (isObsolete())
+            		return ICON_PKG_OBSOLETE;
                 return PackagesPageIcons.ICON_PKG_NEW;
             case DELETED:
             	return PackagesPageIcons.ICON_PKG_INCOMPAT;
@@ -145,22 +160,28 @@ public class PkgItem extends INode implements Comparable<PkgItem> {
     	switch (columnIndex)
     	{
     	case PackagesPage.NAME: 
-    		return getPkgItemName();
+    		return decorate(getPkgItemName());
     	case PackagesPage.API:  
     	{
     		AndroidVersion version = getAndroidVersion();
      		return version == null ? VOID : getAndroidVersion().getApiString();
     	}
     	case PackagesPage.REVISION: 
-    		// Do not repeat version if included in name
-    		if (Pattern.matches(".*\\d+\\.\\d+\\.\\d+.*", getPkgItemName()))
-    			return VOID;
+    		// Do use version from path, if available to pick up alpha/beta
+    		if (version != VOID)
+    			return version;
     		return mainPackage.getVersion().toString();
     	case PackagesPage.STATUS:   
     		return getStatusText();
     	default:
     	}
 		return VOID;
+	}
+
+	private String decorate(String pkgItemName) {
+		if (isObsolete())
+			return pkgItemName + "(obsolete)";
+		return pkgItemName;
 	}
 
 	/**
@@ -297,6 +318,26 @@ public class PkgItem extends INode implements Comparable<PkgItem> {
         return false;
     }
 
+    private void analysePath() {
+		// Parse package path to separate product from version
+    	String path = mainPackage.getPath();
+    	int index = path.lastIndexOf(';');
+    	if (index != -1) {
+    		String candidateVersion = path.substring(index + 1);
+    		if (Character.isDigit(candidateVersion.charAt(0)))
+    			version = candidateVersion;
+    		else if (candidateVersion.startsWith("android-")) 
+    			version = candidateVersion.substring(8);
+    	}
+    	if (version == null) {
+    		version = VOID;
+    		product = path;
+    	} else {
+    		product = path.substring(0,  index);
+    	}	
+	}
+
+
     private String getStatusText() {
        switch(state) {
        case INSTALLED:
@@ -335,7 +376,13 @@ public class PkgItem extends INode implements Comparable<PkgItem> {
     private String getPkgItemName() {
 	    if (metaPackage.getPackageType() == PackageType.platforms)
 	    	return "Platform SDK";
-		return mainPackage.getDisplayName();
+	    String displayName = mainPackage.getDisplayName();
+	    if (version != VOID) {
+	    	int index = displayName.indexOf(version);
+	    	if (index != -1)
+	    		return displayName.substring(0,  index);
+	    }
+		return displayName;
 	}
 
 

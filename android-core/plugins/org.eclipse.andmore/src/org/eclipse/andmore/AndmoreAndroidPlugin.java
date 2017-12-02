@@ -1341,13 +1341,13 @@ public class AndmoreAndroidPlugin extends AbstractUIPlugin implements ILogger {
                     String.format(Messages.Could_Not_Find_Folder_In_SDK,
                             SdkConstants.FD_TOOLS, osSdkLocation));
         }
-
+        /* Version check file <code>plugin.prop</code> is no longer included in the SDK 
         // first check the min plug-in requirement as its error message is easier to figure
         // out for the user
         if (VersionCheck.checkVersion(osSdkLocation, errorHandler) == false) {
             return false;
         }
-
+        */
         // check that we have both the tools component and the platform-tools component.
         String platformTools = osSdkLocation + SdkConstants.OS_SDK_PLATFORM_TOOLS_FOLDER;
         if (checkFolder(platformTools) == false) {

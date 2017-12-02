@@ -817,7 +817,8 @@ public class DeviceChooserDialog extends Dialog implements IDeviceChangeListener
     }
     
     private IAndroidTarget getAndroidTargetFor(AvdInfo info) {
-    	return mSdkTargets.getTargetForSysImage((SystemImage)info.getSystemImage());
+    	SystemImage systemImage = (SystemImage)info.getSystemImage();
+    	return systemImage != null ? mSdkTargets.getTargetForSysImage(systemImage) : null;
     }
 }
 

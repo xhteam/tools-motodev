@@ -18,8 +18,12 @@ package com.android.sdkuilib.internal.repository.content;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import com.android.sdkuilib.internal.repository.content.PackageAnalyser.PkgState;
 import com.android.sdkuilib.internal.repository.ui.PackagesPage;
 
 /**
@@ -33,7 +37,9 @@ public abstract class PkgCategory<K> extends INode {
 	protected final K keyValue;
 	protected final String imageReference;
 	protected final List<PkgItem> packageList = new ArrayList<PkgItem>();
+	protected final Map<String, PkgItem> productMap = new TreeMap<>();
 	protected String label;
+	protected boolean selectAllPackages = false;
 
     public PkgCategory(CategoryKeyType keyType, String label, String imageReference) {
     	this(keyType, null, label, imageReference);
@@ -64,10 +70,26 @@ public abstract class PkgCategory<K> extends INode {
         this.label = label;
     }
 
-    public List<PkgItem> getItems() {
+    public void setSelectAllPackages(boolean selectAllPackages) {
+		this.selectAllPackages = selectAllPackages;
+	}
+
+	public List<PkgItem> getItems() {
         return packageList;
     }
 
+    public void clearProducts() {
+    	productMap.clear();
+    }
+    
+    public void putProduct(String product, PkgItem item) {
+    	productMap.put(product, item);
+    }
+
+    public PkgItem getProduct(String product) {
+    	return productMap.get(product);
+    }
+    
 	/**
 	 * Returns the text for the label of the given element.
 	 * @param element Target
@@ -98,6 +120,20 @@ public abstract class PkgCategory<K> extends INode {
 	 */
     @Override
 	public List<? extends INode> getChildren() {
+    	if (!selectAllPackages) {
+    		String product = null;
+    		List<PkgItem> filteredPackageList = new ArrayList<PkgItem>();
+    		Iterator<PkgItem> iterator = packageList.iterator();
+    		while (iterator.hasNext()) {
+    			PkgItem packageItem = iterator.next();
+    			if ((packageItem.getState() != PkgState.NEW) || 
+    				 !packageItem.getProduct().equals(product)) {
+    				product = packageItem.getProduct();
+    				filteredPackageList.add(packageItem);
+    			}
+    		}
+			return filteredPackageList;
+    	}
         return packageList;
 	}
 

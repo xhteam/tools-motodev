@@ -15,6 +15,9 @@
  */
 package org.eclipse.andmore.sdktool;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.base.resources.JFaceImageLoader;
+import org.eclipse.andmore.base.resources.PluginResourceProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -29,12 +32,17 @@ public class SdkUserInterfacePlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.eclipse.andmore.sdkuilib"; //$NON-NLS-1$
 	
     private static SdkUserInterfacePlugin instance;
+	private ImageFactory imageFactory;
 
     public SdkUserInterfacePlugin() {
         super();
         instance = this;
     }
   
+	public ImageFactory getImageFactory() {
+		return imageFactory;
+	}
+	
     public static SdkUserInterfacePlugin instance()
     {
     	return instance;
@@ -84,6 +92,14 @@ public class SdkUserInterfacePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		imageFactory = new JFaceImageLoader(
+			new PluginResourceProvider() {
+
+				@Override
+				public ImageDescriptor descriptorFromPath(String imagePath) {
+					return getImageDescriptor(imagePath);
+				}
+			});
 	}
 
 	/**
@@ -123,6 +139,7 @@ public class SdkUserInterfacePlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		imageFactory.dispose();
 		super.stop(context);
 	}
 
