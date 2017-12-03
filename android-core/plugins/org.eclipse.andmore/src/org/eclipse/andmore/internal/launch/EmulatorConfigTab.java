@@ -16,25 +16,25 @@
 
 package org.eclipse.andmore.internal.launch;
 
-import com.android.ddmuilib.ImageLoader;
 import com.android.prefs.AndroidLocation.AndroidLocationException;
 import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdkuilib.internal.widgets.AvdSelector;
-import com.android.sdkuilib.internal.widgets.AvdSelector.DisplayMode;
-import com.android.sdkuilib.internal.widgets.AvdSelector.IAvdFilter;
+import com.android.sdkuilib.ui.AvdSelectorWindow;
 import com.android.utils.NullLogger;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.ddms.DdmsPlugin;
+import org.eclipse.andmore.internal.actions.AddSupportJarAction;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
-import org.eclipse.andmore.internal.launch.AvdCompatibility.Compatibility;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
+import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -84,7 +84,7 @@ public class EmulatorConfigTab extends AbstractLaunchConfigurationTab {
 
     private Button mAutoTargetButton;
     private Button mManualTargetButton;
-    private AvdSelector mPreferredAvdSelector;
+    private AvdSelectorWindow mPreferredAvdSelector;
     private Combo mSpeedCombo;
     private Combo mDelayCombo;
     private Group mEmulatorOptionsGroup;
@@ -232,11 +232,19 @@ public class EmulatorConfigTab extends AbstractLaunchConfigurationTab {
         // create the selector with no manager, we'll reset the manager every time this is
         // displayed to ensure we have the latest one (dialog is reused but SDK could have
         // been changed in between.
-        mPreferredAvdSelector = new AvdSelector(avdOffsetComp,
-                Sdk.getCurrent().getSdkOsLocation(),
-                null /* avd manager */,
-                DisplayMode.SIMPLE_CHECK,
-                new AdtConsoleSdkLog());
+        final Sdk sdk = Sdk.getCurrent();
+        if (sdk == null) {
+            AndmoreAndroidPlugin.printErrorToConsole(
+                    AddSupportJarAction.class.getSimpleName(),   // tag
+                    "Error: Android SDK is not loaded yet."); //$NON-NLS-1$
+            return;
+        }
+        SdkCallAgent callAgent = new SdkCallAgent(
+        		sdk.getAndroidSdkHandler(),
+        		sdk.getRepoManager(),
+        		new AdtConsoleSdkLog());
+        mPreferredAvdSelector = 
+        		new AvdSelectorWindow(avdOffsetComp, callAgent);
         mPreferredAvdSelector.setTableHeightHint(100);
         SelectionListener listener = new SelectionAdapter() {
             @Override
@@ -346,33 +354,16 @@ public class EmulatorConfigTab extends AbstractLaunchConfigurationTab {
 
     @Override
     public Image getImage() {
-        return ImageLoader.getDdmUiLibLoader().loadImage("emulator.png", null); //$NON-NLS-1$
+		ImageFactory imageFactory = DdmsPlugin.getDefault().getImageFactory();
+
+        return imageFactory.getImageByName("emulator.png"); //$NON-NLS-1$
     }
 
     private void updateAvdList(AvdManager avdManager) {
         if (avdManager == null) {
             avdManager = Sdk.getCurrent().getAvdManager();
         }
-
-        mPreferredAvdSelector.setManager(avdManager);
-        mPreferredAvdSelector.refresh(false);
-
-        mPreferredAvdSelector.setFilter(new IAvdFilter() {
-            @Override
-            public void prepare() {
-            }
-
-            @Override
-            public void cleanup() {
-            }
-
-            @Override
-            public boolean accept(AvdInfo avd) {
-                AvdCompatibility.Compatibility c =
-                        AvdCompatibility.canRun(avd, mProjectTarget, mProjectMinApiVersion);
-                return (c == Compatibility.NO) ? false : true;
-            }
-        });
+        mPreferredAvdSelector.setManager(avdManager, mProjectTarget, mProjectMinApiVersion);
     }
 
     /* (non-Javadoc)

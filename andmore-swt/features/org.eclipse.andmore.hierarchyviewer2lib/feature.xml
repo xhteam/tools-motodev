@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.andmore.hierarchyviewer2lib.feature"
+      label="Andmore Android UI Hierarchy Viewer2 library"
+      version="0.5.2.qualifier"
+      provider-name="Eclipse Andmore"
+      plugin="org.eclipse.andmore.hierarchyviewer2lib"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
+
+   <description>
+      Android UI Hierarchy Viewer2 library
+   </description>
+
+   <copyright>
+      Copyright (C) 2007-2011 The Android Open Source Project
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui" version="0.0.0"/>
+      <import plugin="org.eclipse.core.runtime" version="0.0.0"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.andmore.swt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.ddmuilib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.andmore.hierarchyviewer2lib"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

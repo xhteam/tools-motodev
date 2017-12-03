@@ -16,8 +16,6 @@
 
 package org.eclipse.andmore.hierarchyviewer.views;
 
-import com.android.ddmuilib.ImageLoader;
-import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.actions.PixelPerfectAutoRefreshAction;
 import com.android.hierarchyviewerlib.models.PixelPerfectModel;
 import com.android.hierarchyviewerlib.models.PixelPerfectModel.IImageChangeListener;
@@ -25,6 +23,8 @@ import com.android.hierarchyviewerlib.ui.PixelPerfectControls;
 import com.android.hierarchyviewerlib.ui.PixelPerfectLoupe;
 import com.android.hierarchyviewerlib.ui.PixelPerfectPixelPanel;
 
+import org.eclipse.andmore.base.resources.ImageFactory;
+import org.eclipse.andmore.hierarchyviewer.HierarchyViewerPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -54,8 +54,8 @@ public class PixelPerfectLoupeView extends ViewPart implements IImageChangeListe
 	@Override
 	public void createPartControl(Composite parent) {
 		mShowInLoupeAction.setAccelerator(SWT.MOD1 + 'S');
-		ImageLoader imageLoader = ImageLoader.getLoader(HierarchyViewerDirector.class);
-		Image image = imageLoader.loadImage("show-overlay.png", Display.getDefault()); //$NON-NLS-1$
+        ImageFactory imageFactory = HierarchyViewerPlugin.getPlugin().getImageFactory();
+		Image image = imageFactory.getImageByName("show-overlay.png"); //$NON-NLS-1$
 		mShowInLoupeAction.setImageDescriptor(ImageDescriptor.createFromImage(image));
 		mShowInLoupeAction.setToolTipText("Show the overlay in the loupe view");
 		mShowInLoupeAction.setEnabled(PixelPerfectModel.getModel().getOverlayImage() != null);

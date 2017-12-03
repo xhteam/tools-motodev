@@ -317,12 +317,12 @@ public class MultiDexManager {
 		String projectLocation = project.getLocation().toOSString();
 		
 		// legacy support: look for default.properties
-        ProjectProperties properties = ProjectProperties.load(projectLocation,
-                PropertyType.LEGACY_DEFAULT);
-        if(properties == null) {
-        	properties = ProjectProperties.load(projectLocation, PropertyType.PROJECT);
-        }
+        //ProjectProperties properties = ProjectProperties.load(projectLocation,
+        //        PropertyType.LEGACY_DEFAULT);
+        //if(properties == null) {
+        //	properties = ProjectProperties.load(projectLocation, PropertyType.PROJECT);
+        //}
         
-        return properties;
+        return ProjectProperties.load(projectLocation, PropertyType.PROJECT);
 	}
 }

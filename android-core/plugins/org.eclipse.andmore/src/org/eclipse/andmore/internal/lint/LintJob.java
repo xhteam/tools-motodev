@@ -101,7 +101,21 @@ public final class LintJob extends Job {
                 files.add(file);
 
                 if (resource instanceof IProject && mSource == null) {
-                    scope = Scope.ALL;
+                	// Scope.ALL causes NPE in Lint if project does not contain test resources
+                    scope = EnumSet.noneOf(Scope.class);
+                    scope.add(Scope.ALL_RESOURCE_FILES);
+                    scope.add(Scope.RESOURCE_FILE);
+                    scope.add(Scope.BINARY_RESOURCE_FILE);
+                    scope.add(Scope.RESOURCE_FOLDER);
+                    scope.add(Scope.ALL_JAVA_FILES);
+                    scope.add(Scope.ALL_CLASS_FILES);
+                    scope.add(Scope.JAVA_FILE);
+                    scope.add(Scope.CLASS_FILE);
+                    scope.add(Scope.RESOURCE_FILE);
+                    scope.add(Scope.PROGUARD_FILE);
+                    scope.add(Scope.PROPERTY_FILE);
+                    scope.add(Scope.GRADLE_FILE);
+                    scope.add(Scope.MANIFEST);
                 } else {
                     String name = resource.getName();
                     if (SdkUtils.endsWithIgnoreCase(name, DOT_XML)) {
@@ -133,9 +147,6 @@ public final class LintJob extends Job {
                             "Only XML & Java files are supported for single file lint", null); //$NON-NLS-1$
                     }
                 }
-            }
-            if (scope == null) {
-                scope = Scope.ALL;
             }
             if (mSource == null) {
                 assert !Scope.checkSingleFile(scope) : scope + " with " + mResources;

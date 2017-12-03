@@ -45,7 +45,6 @@ Code completion in completion9.xml for ^<Button:
 <TabWidget ></TabWidget>
 <TableLayout ></TableLayout>
 <TableRow ></TableRow>
-<TextClock />
 <TextSwitcher ></TextSwitcher>
 <TextView />
 <TextureView />
