@@ -93,8 +93,7 @@ class TreeContentProvider implements ITreeContentProvider {
 			Sdk sdk = (Sdk) arg0;
 			Object[] targets = SdkUtils.getTargets(sdk);
 			if (targets.length > 0) {
-				for (Object o : targets) {
-					IAndroidTarget target = (IAndroidTarget) o;
+				for (IAndroidTarget target : (IAndroidTarget[]) targets) {
 					if (target.equals(project.getSdkTarget())) {
 						objs = SdkUtils.getSamples(target);
 					}

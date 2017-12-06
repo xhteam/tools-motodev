@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sequoyah.device.common.utilities,
  org.eclipse.andmore.android.common,
  org.eclipse.andmore.android
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.andmore.android.remote,

@@ -36,8 +36,6 @@ import org.eclipse.ui.IWorkingSet;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -307,7 +305,8 @@ public class NewProjectWizardState {
 
         Sdk sdk = Sdk.getCurrent();
         if (sdk != null) {
-            for (IAndroidTarget t : sdk.getTargets()) {
+            IAndroidTarget[] targets = sdk.getTargets();
+            for (IAndroidTarget t : targets) {
                 if (t.getVersion().equals(minSdk)) {
                     target = t;
                     return;
@@ -350,7 +349,13 @@ public class NewProjectWizardState {
             }
 
             Sdk sdk = Sdk.getCurrent();
-            Collection<IAndroidTarget> targets = sdk == null ? Collections.<IAndroidTarget>emptySet() : sdk.getTargets();
+            IAndroidTarget[] targets = null;
+            if (sdk != null) {
+                targets = sdk.getTargets();
+            }
+            if (targets == null) {
+                targets = new IAndroidTarget[0];
+            }
 
             if (foundTarget == null && minSdk != null) {
                 // Otherwise try to match the requested min-sdk-version if we find an

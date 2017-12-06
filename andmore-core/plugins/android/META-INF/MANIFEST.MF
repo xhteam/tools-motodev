@@ -22,13 +22,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sequoyah.device.common.utilities,
  org.eclipse.debug.ui,
  org.eclipse.core.expressions,
+ org.eclipse.andmore.base,
  org.eclipse.jdt.ui,
  org.apache.commons.net;bundle-version="1.4.1",
- org.apache.oro;bundle-version="2.0.8",
- org.eclipse.andmore.swt;bundle-version="0.5.2",
- org.eclipse.andmore.ddmuilib;bundle-version="0.5.2",
- org.eclipse.andmore.sdkuilib;bundle-version="0.5.2"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.apache.oro;bundle-version="2.0.8"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Export-Package: 
  org.eclipse.andmore.android,

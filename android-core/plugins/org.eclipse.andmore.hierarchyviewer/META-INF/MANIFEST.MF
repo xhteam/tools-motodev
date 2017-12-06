@@ -10,10 +10,9 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.console,
- org.eclipse.andmore.swt,
  org.eclipse.andmore.ddms,
- org.eclipse.andmore.hierarchyviewer2lib,
- org.eclipse.andmore.ddmuilib
-Bundle-ClassPath: .
+ org.eclipse.andmore.base
+Bundle-ClassPath: .,
+ libs/hierarchyviewer2lib.jar
 Export-Package: org.eclipse.andmore.hierarchyviewer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

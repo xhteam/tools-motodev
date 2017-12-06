@@ -92,9 +92,7 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
 
@@ -271,7 +269,6 @@ public abstract class AndroidXmlEditor extends FormEditor {
 
     // ---- Base Class Overrides, Interfaces Implemented ----
 
-    @SuppressWarnings("unchecked")
     @Override
     public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
         Object result = super.getAdapter(adapter);
@@ -1253,23 +1250,13 @@ public abstract class AndroidXmlEditor extends FormEditor {
         if (input instanceof IURIEditorInput) {
             IURIEditorInput urlInput = (IURIEditorInput) input;
             Sdk currentSdk = Sdk.getCurrent();
-            if ((currentSdk != null) && (urlInput != null)){
+            if (currentSdk != null) {
                 try {
-                    // NPE encountered during testing, so check for null added
-                    String path = null;
-                    URI uri = urlInput.getURI();
-                    if (uri != null)
-                    {
-                        File file = AdtUtils.getFile(uri.toURL());
-                        if (file != null) 
-                            path = file.getPath();
-                    }
-                    if (path != null)
-                    {
-                        for (IAndroidTarget target : currentSdk.getTargets()) {
-                            if (path.startsWith(target.getLocation())) {
-                                return currentSdk.getTargetData(target);
-                            }
+                    String path = AdtUtils.getFile(urlInput.getURI().toURL()).getPath();
+                    IAndroidTarget[] targets = currentSdk.getTargets();
+                    for (IAndroidTarget target : targets) {
+                        if (path.startsWith(target.getLocation())) {
+                            return currentSdk.getTargetData(target);
                         }
                     }
                 } catch (MalformedURLException e) {

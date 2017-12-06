@@ -156,9 +156,4 @@ public class IFileWrapper implements IAbstractFile {
     public String toString() {
         return mFile.toString();
     }
-
-	@Override
-	public String getPath() {
-		return mFile.getFullPath().toOSString();
-	}
 }

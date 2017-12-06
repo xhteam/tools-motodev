@@ -275,7 +275,7 @@ public class AaptQuickFix implements IMarkerResolutionGenerator2, IQuickAssistPr
 
         @Override
         public String getAdditionalProposalInfo() {
-            return "Adds an Android namespace declaration to the root element.";
+            return "Adds an Android namespace declaratiopn to the root element.";
         }
 
         @Override

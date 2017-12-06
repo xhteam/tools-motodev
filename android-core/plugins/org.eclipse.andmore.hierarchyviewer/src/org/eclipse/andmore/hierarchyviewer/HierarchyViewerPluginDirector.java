@@ -20,8 +20,6 @@ import com.android.hierarchyviewerlib.HierarchyViewerDirector;
 import com.android.hierarchyviewerlib.device.IHvDevice;
 import com.android.hierarchyviewerlib.models.Window;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
-import org.eclipse.andmore.base.resources.JFaceImageLoader;
 import org.eclipse.andmore.hierarchyviewer.views.PixelPerfectTreeView;
 import org.eclipse.andmore.hierarchyviewer.views.PropertyView;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -36,13 +34,8 @@ import org.eclipse.ui.PartInitException;
 
 public class HierarchyViewerPluginDirector extends HierarchyViewerDirector {
 
-	public HierarchyViewerPluginDirector(ImageFactory imageFactory) {
-		super(imageFactory);
-		// TODO Auto-generated constructor stub
-	}
-
 	public static HierarchyViewerDirector createDirector() {
-		return sDirector = new HierarchyViewerPluginDirector(new JFaceImageLoader(new HiarchResourceProvider()));
+		return sDirector = new HierarchyViewerPluginDirector();
 	}
 
 	@Override

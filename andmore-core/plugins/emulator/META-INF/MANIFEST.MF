@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.andmore.android.emulator;singleton:=true
 Bundle-Version: 0.5.2.qualifier
 Bundle-Activator: org.eclipse.andmore.android.emulator.EmulatorPlugin
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.andmore,
  org.eclipse.andmore.ddms,
@@ -21,10 +21,9 @@ Require-Bundle: org.eclipse.andmore,
  org.eclipse.sequoyah.vnc.vncviewer,
  org.eclipse.sequoyah.vnc.protocol,
  org.eclipse.sequoyah.vnc.vncviewer.vncviews,
- org.eclipse.andmore.swt,
+ org.eclipse.andmore.base,
  org.apache.commons.net;bundle-version="1.4.1",
- org.apache.oro;bundle-version="2.0.8",
- org.eclipse.andmore.ddmuilib;bundle-version="0.5.2"
+ org.apache.oro;bundle-version="2.0.8"
 Export-Package: org.eclipse.andmore.android.emulator,
  org.eclipse.andmore.android.emulator.core.devfrm,
  org.eclipse.andmore.android.emulator.core.emulationui,

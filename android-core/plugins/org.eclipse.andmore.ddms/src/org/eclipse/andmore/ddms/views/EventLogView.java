@@ -16,11 +16,10 @@
 
 package org.eclipse.andmore.ddms.views;
 
+import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.log.event.EventLogPanel;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.andmore.ddms.CommonAction;
-import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.ddms.i18n.Messages;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -35,32 +34,32 @@ public class EventLogView extends SelectionDependentViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		ImageFactory imageFactory = DdmsPlugin.getDefault().getImageFactory();
+		ImageLoader loader = ImageLoader.getDdmUiLibLoader();
 
 		// create the external actions
 		CommonAction optionsAction = new CommonAction(Messages.EventLogView_Options);
 		optionsAction.setToolTipText(Messages.EventLogView_Opens_Options_Panel);
-		optionsAction.setImageDescriptor(imageFactory.getDescriptorByName("edit.png")); //$NON-NLS-1$
+		optionsAction.setImageDescriptor(loader.loadDescriptor("edit.png")); //$NON-NLS-1$
 
 		CommonAction clearLogAction = new CommonAction(Messages.EventLogView_Clear_Log);
 		clearLogAction.setToolTipText(Messages.EventLogView_Clears_Event_Log);
-		clearLogAction.setImageDescriptor(imageFactory.getDescriptorByName("clear.png")); //$NON-NLS-1$
+		clearLogAction.setImageDescriptor(loader.loadDescriptor("clear.png")); //$NON-NLS-1$
 
 		CommonAction saveAction = new CommonAction(Messages.EventLogView_Save_Log);
 		saveAction.setToolTipText(Messages.EventLogView_Saves_Event_Log);
-		saveAction.setImageDescriptor(imageFactory.getDescriptorByName("save.png")); //$NON-NLS-1$
+		saveAction.setImageDescriptor(loader.loadDescriptor("save.png")); //$NON-NLS-1$
 
 		CommonAction loadAction = new CommonAction(Messages.EventLogView_Load_Log);
 		loadAction.setToolTipText(Messages.EventLogView_Loads_Event_Log);
-		loadAction.setImageDescriptor(imageFactory.getDescriptorByName("load.png")); //$NON-NLS-1$
+		loadAction.setImageDescriptor(loader.loadDescriptor("load.png")); //$NON-NLS-1$
 
 		CommonAction importBugAction = new CommonAction(Messages.EventLogView_Import_Bug_Report_Log);
 		importBugAction.setToolTipText(Messages.EventLogView_Imports_Bug_Report);
-		importBugAction.setImageDescriptor(imageFactory.getDescriptorByName("importBug.png")); //$NON-NLS-1$
+		importBugAction.setImageDescriptor(loader.loadDescriptor("importBug.png")); //$NON-NLS-1$
 
 		placeActions(optionsAction, clearLogAction, saveAction, loadAction, importBugAction);
 
-		mLogPanel = new EventLogPanel(imageFactory);
+		mLogPanel = new EventLogPanel();
 		mLogPanel.setActions(optionsAction, clearLogAction, saveAction, loadAction, importBugAction);
 		mLogPanel.createPanel(parent);
 		setSelectionDependentPanel(mLogPanel);

@@ -17,13 +17,13 @@
 package org.eclipse.andmore.ddms.views;
 
 import com.android.ddmlib.Log.LogLevel;
+import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.logcat.LogColors;
 import com.android.ddmuilib.logcat.LogFilter;
 import com.android.ddmuilib.logcat.LogPanel;
 import com.android.ddmuilib.logcat.LogPanel.ILogFilterStorageManager;
 import com.android.ddmuilib.logcat.LogPanel.LogCatViewInterface;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.andmore.ddms.CommonAction;
 import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.ddms.i18n.Messages;
@@ -95,7 +95,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 	};
 
 	private Action mClearAction;
-    private ImageFactory mImageFactory;
+
 	private Clipboard mClipboard;
 
 	/**
@@ -143,9 +143,8 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 		}
 	}
 
-	public OldLogCatView(ImageFactory imageFactory) {
+	public OldLogCatView() {
 		sThis = this;
-		mImageFactory = imageFactory;
 		LogPanel.PREFS_TIME = PREFS_COL_TIME;
 		LogPanel.PREFS_LEVEL = PREFS_COL_LEVEL;
 		LogPanel.PREFS_PID = PREFS_COL_PID;
@@ -177,7 +176,8 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 		Display d = parent.getDisplay();
 		LogColors colors = new LogColors();
 
-		ImageFactory imageFactory = DdmsPlugin.getDefault().getImageFactory();
+		ImageLoader loader = ImageLoader.getDdmUiLibLoader();
+
 		colors.infoColor = new Color(d, 0, 127, 0);
 		colors.debugColor = new Color(d, 0, 0, 127);
 		colors.errorColor = new Color(d, 255, 0, 0);
@@ -191,7 +191,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 			}
 		};
 		mCreateFilterAction.setToolTipText(Messages.LogCatView_Create_Filter_Tooltip);
-		mCreateFilterAction.setImageDescriptor(imageFactory.getDescriptorByName("add.png")); //$NON-NLS-1$
+		mCreateFilterAction.setImageDescriptor(loader.loadDescriptor("add.png")); //$NON-NLS-1$
 
 		mEditFilterAction = new CommonAction(Messages.LogCatView_Edit_Filter) {
 			@Override
@@ -200,7 +200,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 			}
 		};
 		mEditFilterAction.setToolTipText(Messages.LogCatView_Edit_Filter_Tooltip);
-		mEditFilterAction.setImageDescriptor(imageFactory.getDescriptorByName("edit.png")); //$NON-NLS-1$
+		mEditFilterAction.setImageDescriptor(loader.loadDescriptor("edit.png")); //$NON-NLS-1$
 
 		mDeleteFilterAction = new CommonAction(Messages.LogCatView_Delete_Filter) {
 			@Override
@@ -209,7 +209,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 			}
 		};
 		mDeleteFilterAction.setToolTipText(Messages.LogCatView_Delete_Filter_Tooltip);
-		mDeleteFilterAction.setImageDescriptor(imageFactory.getDescriptorByName("delete.png")); //$NON-NLS-1$
+		mDeleteFilterAction.setImageDescriptor(loader.loadDescriptor("delete.png")); //$NON-NLS-1$
 
 		mExportAction = new CommonAction(Messages.LogCatView_Export_Selection_As_Text) {
 			@Override
@@ -218,7 +218,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 			}
 		};
 		mExportAction.setToolTipText(Messages.LogCatView_Export_Selection_As_Text_Tooltip);
-		mExportAction.setImageDescriptor(imageFactory.getDescriptorByName("save.png")); //$NON-NLS-1$
+		mExportAction.setImageDescriptor(loader.loadDescriptor("save.png")); //$NON-NLS-1$
 
 		LogLevel[] levels = LogLevel.values();
 		mLogLevelActions = new CommonAction[mLogLevelIcons.length];
@@ -243,7 +243,7 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 			};
 
 			mLogLevelActions[i].setToolTipText(name);
-			mLogLevelActions[i].setImageDescriptor(imageFactory.getDescriptorByName(mLogLevelIcons[i]));
+			mLogLevelActions[i].setImageDescriptor(loader.loadDescriptor(mLogLevelIcons[i]));
 		}
 
 		mClearAction = new Action(Messages.LogCatView_Clear_Log) {
@@ -252,10 +252,10 @@ public final class OldLogCatView extends SelectionDependentViewPart implements L
 				mLogPanel.clear();
 			}
 		};
-		mClearAction.setImageDescriptor(imageFactory.getDescriptorByName("clear.png")); //$NON-NLS-1$
+		mClearAction.setImageDescriptor(loader.loadDescriptor("clear.png")); //$NON-NLS-1$
 
 		// now create the log view
-		mLogPanel = new LogPanel(colors, new FilterStorage(), LogPanel.FILTER_MANUAL, mImageFactory);
+		mLogPanel = new LogPanel(colors, new FilterStorage(), LogPanel.FILTER_MANUAL);
 		mLogPanel.setLogCatViewInterface(this);
 		mLogPanel.setActions(mDeleteFilterAction, mEditFilterAction, mLogLevelActions);
 

@@ -18,7 +18,8 @@ package org.eclipse.andmore.internal.preferences;
 
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdkstats.DdmsPreferenceStore;
-import com.android.sdkuilib.widgets.SdkTargetSelector;
+import com.android.sdkstats.SdkStatsService;
+import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AndmoreAndroidPlugin.CheckSdkErrorHandler;
@@ -32,6 +33,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -194,7 +196,7 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
             try {
                 // We may not have an sdk if the sdk path pref is empty or not valid.
                 Sdk sdk = Sdk.getCurrent();
-                IAndroidTarget[] targets = sdk != null ? sdk.getTargets().toArray(new IAndroidTarget[0]) : null;
+                IAndroidTarget[] targets = sdk != null ? sdk.getTargets() : null;
 
                 mTargetSelector = new SdkTargetSelector(parent,
                         targets,
@@ -233,7 +235,7 @@ public class AndroidPreferencePage extends FieldEditorPreferencePage implements
                 if (mTargetSelector != null) {
                     // We may not have an sdk if the sdk path pref is empty or not valid.
                     Sdk sdk = Sdk.getCurrent();
-                    IAndroidTarget[] targets = sdk != null ? sdk.getTargets().toArray(new IAndroidTarget[0]) : null;
+                    IAndroidTarget[] targets = sdk != null ? sdk.getTargets() : null;
 
                     mTargetSelector.setTargets(targets);
                 }

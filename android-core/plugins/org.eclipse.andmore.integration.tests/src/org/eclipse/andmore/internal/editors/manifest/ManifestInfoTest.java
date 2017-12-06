@@ -15,11 +15,28 @@
  */
 package org.eclipse.andmore.internal.editors.manifest;
 
+import static org.junit.Assert.*;
 import static com.android.resources.ScreenSize.LARGE;
 import static com.android.resources.ScreenSize.NORMAL;
 import static com.android.resources.ScreenSize.XLARGE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+
+import com.android.annotations.NonNull;
+
+import org.eclipse.andmore.internal.resources.ResourceHelper;
+
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.BuildToolInfo;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.ISystemImage;
+import com.android.sdklib.repository.descriptors.IdDisplay;
+
+import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
+import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttributes;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -27,19 +44,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.eclipse.andmore.internal.editors.layout.refactoring.AdtProjectTest;
-import org.eclipse.andmore.internal.editors.manifest.ManifestInfo.ActivityAttributes;
-import org.eclipse.andmore.internal.resources.ResourceHelper;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.junit.Test;
-
-import com.android.annotations.NonNull;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.BuildToolInfo;
-import com.android.sdklib.IAndroidTarget;
 
 @SuppressWarnings("javadoc")
 public class ManifestInfoTest extends AdtProjectTest {
@@ -247,6 +251,16 @@ public class ManifestInfoTest extends AdtProjectTest {
 		}
 
 		@Override
+		public ISystemImage getSystemImage(IdDisplay tag, String abiType) {
+			return null;
+		}
+
+		@Override
+		public ISystemImage[] getSystemImages() {
+			return new ISystemImage[0];
+		}
+
+		@Override
 		public String getLocation() {
 			return null;
 		}
@@ -292,6 +306,16 @@ public class ManifestInfoTest extends AdtProjectTest {
 		}
 
 		@Override
+		public Integer getProperty(String name, Integer defaultValue) {
+			return null;
+		}
+
+		@Override
+		public Boolean getProperty(String name, Boolean defaultValue) {
+			return null;
+		}
+
+		@Override
 		public int getRevision() {
 			return 0;
 		}
@@ -299,6 +323,11 @@ public class ManifestInfoTest extends AdtProjectTest {
 		@Override
 		public File[] getSkins() {
 			return null;
+		}
+
+		@Override
+		public int getUsbVendorId() {
+			return 0;
 		}
 
 		@Override

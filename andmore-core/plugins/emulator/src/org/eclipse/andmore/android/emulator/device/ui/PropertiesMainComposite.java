@@ -31,7 +31,6 @@ import org.eclipse.andmore.android.emulator.device.IAndroidDeviceConstants;
 import org.eclipse.andmore.android.emulator.device.IDevicePropertiesConstants;
 import org.eclipse.andmore.android.emulator.device.definition.AndroidEmuDefMgr;
 import org.eclipse.andmore.android.emulator.i18n.EmulatorNLS;
-import org.eclipse.andmore.internal.sdk.Sdk;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceNode;
@@ -60,12 +59,8 @@ import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.ISystemImage;
 import com.android.SdkConstants;
-import com.android.repository.testframework.FakeProgressIndicator;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdklib.repository.IdDisplay;
-import com.android.sdklib.repository.targets.SystemImage;
-import com.android.sdklib.repository.targets.SystemImageManager;
 
 /**
  * DESCRIPTION: <br>
@@ -823,24 +818,18 @@ public class PropertiesMainComposite extends AbstractPropertiesComposite {
 
 	private void populateAbiTypeCombo(Combo abiTypeCombo) {
 		// System Images represents the ABI types
-		// TODO these IdDisplay are almost certainly wrong.
-		Collection<SystemImage> images = Sdk.getCurrent().getAndroidSdkHandler().getSystemImageManager(new FakeProgressIndicator())
-				.lookup(IdDisplay.create(vmTarget.getName(), vmTarget.getName()), vmTarget.getVersion(),
-						IdDisplay.create(vmTarget.getVendor(), vmTarget.getVendor()));
+		ISystemImage[] images = vmTarget.getSystemImages();
 
 		// in case no images are found, get try its parent
-		if ((images == null) || ((images.size() == 0) && !vmTarget.isPlatform())) {
-			IAndroidTarget parent = vmTarget.getParent();
-			images = Sdk.getCurrent().getAndroidSdkHandler().getSystemImageManager(new FakeProgressIndicator()).lookup(
-					IdDisplay.create(parent.getName(), parent.getName()), parent.getVersion(),
-					IdDisplay.create(parent.getVendor(), parent.getVendor()));
+		if ((images == null) || ((images.length == 0) && !vmTarget.isPlatform())) {
+			images = vmTarget.getParent().getSystemImages();
 		}
 
 		// always clean abi combo since it will be reloaded
 		abiTypeCombo.removeAll();
 
 		int i = 0;
-		if ((images != null) && (images.size() > 0)) {
+		if ((images != null) && (images.length > 0)) {
 			for (ISystemImage image : images) {
 				String prettyAbiName = AvdInfo.getPrettyAbiType(image);
 				abiTypeCombo.add(prettyAbiName);

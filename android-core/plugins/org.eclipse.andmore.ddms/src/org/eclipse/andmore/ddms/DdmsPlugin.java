@@ -31,8 +31,6 @@ import com.android.ddmuilib.StackTracePanel;
 import com.android.ddmuilib.console.DdmConsole;
 import com.android.ddmuilib.console.IDdmConsole;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
-import org.eclipse.andmore.base.resources.JFaceImageLoader;
 import org.eclipse.andmore.ddms.i18n.Messages;
 import org.eclipse.andmore.ddms.preferences.PreferenceInitializer;
 import org.eclipse.core.runtime.CoreException;
@@ -105,7 +103,6 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 	private final ArrayList<ISelectionListener> mListeners = new ArrayList<ISelectionListener>();
 
 	private Color mRed;
-	private ImageFactory mImageFactory;
 
 	/**
 	 * Classes which implement this interface provide methods that deals with
@@ -137,10 +134,6 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 		sPlugin = this;
 	}
 
-	public ImageFactory getImageFactory() {
-		return mImageFactory;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -184,7 +177,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 		});
 
 		// set up the ddms log to use the ddms console.
-		Log.addLogger(new ILogOutput() {
+		Log.setLogOutput(new ILogOutput() {
 			@Override
 			public void printLog(LogLevel logLevel, String tag, String message) {
 				if (logLevel.getPriority() >= LogLevel.ERROR.getPriority()) {
@@ -272,7 +265,6 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 
 		// do some last initializations
 
-		mImageFactory = new JFaceImageLoader(new DdmResourceProvider());
 		// set the preferences.
 		PreferenceInitializer.setupPreferences();
 
@@ -361,14 +353,11 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 		// get the adb location from an implementation of the ADB Locator
 		// extension point.
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		// NPE occurred during testing
-		if (extensionRegistry != null)
-		{
-    		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(extensionPointId);
-    		if (extensionPoint != null) {
-    			return extensionPoint.getConfigurationElements();
-    		}
+		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(extensionPointId);
+		if (extensionPoint != null) {
+			return extensionPoint.getConfigurationElements();
 		}
+
 		// shouldn't happen or it means the plug-in is broken.
 		return new IConfigurationElement[0];
 	}
@@ -492,7 +481,7 @@ public final class DdmsPlugin extends AbstractUIPlugin implements IDeviceChangeL
 		AndroidDebugBridge.terminate();
 
 		mRed.dispose();
-		mImageFactory.dispose();
+
 		sPlugin = null;
 		super.stop(context);
 	}

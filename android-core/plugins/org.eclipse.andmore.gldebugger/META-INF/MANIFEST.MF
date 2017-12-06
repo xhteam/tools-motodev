@@ -10,9 +10,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.core.filesystem,
  org.eclipse.ui.console,
- org.eclipse.andmore.swt,
  org.eclipse.andmore.ddms,
- org.eclipse.andmore.ddmuilib;bundle-version="0.5.2"
+ org.eclipse.andmore.base
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: libs/host-libprotobuf-java-2.3.0-lite.jar,
  libs/liblzf-1.0.jar,
@@ -21,4 +20,4 @@ Bundle-Vendor: Eclipse Andmore
 Export-Package: org.eclipse.andmore.gltrace;x-friends:="com.android.ide.eclipse.gldebugger.tests",
  org.eclipse.andmore.gltrace.format;x-friends:="com.android.ide.eclipse.gldebugger.tests",
  org.eclipse.andmore.gltrace.model;x-friends:="com.android.ide.eclipse.gldebugger.tests"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

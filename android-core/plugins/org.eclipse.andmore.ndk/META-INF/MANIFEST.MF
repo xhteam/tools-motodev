@@ -21,10 +21,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.cdt.dsf.gdb,
  org.eclipse.cdt.dsf.gdb.ui,
  org.eclipse.cdt.launch,
- org.eclipse.andmore.swt,
- org.eclipse.andmore.sdkuilib,
  org.eclipse.andmore,
  org.eclipse.andmore.base,
  org.eclipse.andmore.ddms
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -22,7 +22,6 @@ import com.android.annotations.Nullable;
 import com.google.common.collect.Maps;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.andmore.base.resources.IEditorIconFactory;
 import org.eclipse.andmore.internal.editors.ui.ErrorImageComposite;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -46,7 +45,7 @@ import java.util.Map;
  * <p/>
  * Icons are kept here and reused.
  */
-public class IconFactory implements IEditorIconFactory {
+public class IconFactory {
     public static final int COLOR_RED     = SWT.COLOR_DARK_RED;
     public static final int COLOR_GREEN   = SWT.COLOR_DARK_GREEN;
     public static final int COLOR_BLUE    = SWT.COLOR_DARK_BLUE;
@@ -149,47 +148,6 @@ public class IconFactory implements IEditorIconFactory {
             mIconMap.put(key, icon);
         }
         return icon;
-    }
-
-    /**
-     * Returns a green default Image for a given icon name.
-     * <p/>
-     * Callers should not dispose it.
-     *
-     * @param osName The leaf name, without the extension, of an existing icon in the
-     *        editor's "icons" directory. If it doesn't exist, a default icon will be
-     *        generated automatically based on the name.
-     */
-    public Image getGreenIcon(String osName) {
-        return getIcon(osName, COLOR_GREEN, SHAPE_DEFAULT);
-    }
-
-    /**
-     * Returns a red default Image for a given icon name.
-     * <p/>
-     * Callers should not dispose it.
-     *
-     * @param osName The leaf name, without the extension, of an existing icon in the
-     *        editor's "icons" directory. If it doesn't exist, a default icon will be
-     *        generated automatically based on the name.
-     */
-    public Image getRedIcon(String osName) {
-        return getIcon(osName, COLOR_RED, SHAPE_DEFAULT);
-    }
-
-    /**
-     * Returns a red default Image for a given icon name.
-     * <p/>
-     * Callers should not dispose it.
-     *
-     * @param osName The leaf name, without the extension, of an existing icon in the
-     *        editor's "icons" directory. If it doesn't exist, a default icon will be
-     *        generated automatically based on the name.
-     * @param color The color of the text in the automatically generated icons
-     */
-    @Override
-	public Image getColorIcon(String osName, int color) {
-        return getIcon(osName, color, SHAPE_DEFAULT);
     }
 
     /**

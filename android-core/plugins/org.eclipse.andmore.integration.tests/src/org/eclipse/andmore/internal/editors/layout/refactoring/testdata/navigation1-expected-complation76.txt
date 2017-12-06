@@ -74,3 +74,9 @@ Code completion in navigation1.xml for ?android:a^ttr/alertDialogStyle:
 ?android:actionBarDivider
 ?android:actionBarItemBackground
 ?android:actionModeSplitBackground
+?android:addPrintersActivity
+?android:autoMirrored
+?android:apduServiceBanner
+?android:accessibilityLiveRegion
+?android:advancedPrintOptionsActivity
+?android:allowEmbedded
