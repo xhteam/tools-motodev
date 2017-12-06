@@ -945,6 +945,8 @@ public class ManifestInfo {
                         }
                     }
                 }
+            } catch (XPathExpressionException e) {
+                // do nothing we'll use 1 below.
             } catch (StreamException e) {
                 // do nothing we'll use 1 below.
             }

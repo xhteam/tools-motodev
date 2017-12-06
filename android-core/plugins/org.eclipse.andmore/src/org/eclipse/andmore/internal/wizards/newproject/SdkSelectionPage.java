@@ -15,13 +15,18 @@
  */
 package org.eclipse.andmore.internal.wizards.newproject;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Pattern;
+import com.android.SdkConstants;
+import com.android.annotations.Nullable;
+import com.android.ide.common.sdk.LoadStatus;
+import com.android.ide.common.xml.AndroidManifestParser;
+import com.android.ide.common.xml.ManifestData;
+import com.android.io.FileWrapper;
+import com.android.sdklib.AndroidVersion;
+import com.android.sdklib.IAndroidTarget;
+import com.android.sdklib.SdkManager;
+import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
+import com.android.utils.NullLogger;
+import com.android.utils.Pair;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.Sdk;
@@ -39,16 +44,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-import com.android.SdkConstants;
-import com.android.annotations.Nullable;
-import com.android.ide.common.sdk.LoadStatus;
-import com.android.ide.common.xml.AndroidManifestParser;
-import com.android.ide.common.xml.ManifestData;
-import com.android.io.FileWrapper;
-import com.android.sdklib.AndroidVersion;
-import com.android.sdklib.IAndroidTarget;
-import com.android.sdkuilib.widgets.SdkTargetSelector;
-import com.android.utils.Pair;
+import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 /** A page in the New Project wizard where you select the target SDK */
 class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
@@ -213,8 +215,10 @@ class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
             if (sdk != null) {
                 // Parse the extras to see if we can find samples that are
                 // compatible with the selected target API.
+                // First we need an SdkManager that suppresses all output.
+                SdkManager sdkman = sdk.getNewSdkManager(NullLogger.getLogger());
 
-                Map<File, String> extras = sdk.getExtraSamples();
+                Map<File, String> extras = sdkman.getExtraSamples();
                 for (Entry<File, String> entry : extras.entrySet()) {
                     File path = entry.getKey();
                     String name = entry.getValue();
@@ -431,12 +435,15 @@ class SdkSelectionPage extends WizardPage implements ITargetChangeListener {
         // Update the sdk target selector with the new targets
 
         // get the targets from the sdk
-        IAndroidTarget[] targets = (Sdk.getCurrent() != null ? Sdk.getCurrent().getTargets() : Collections.<IAndroidTarget>emptySet()).toArray(new IAndroidTarget[0]);
+        IAndroidTarget[] targets = null;
+        if (Sdk.getCurrent() != null) {
+            targets = Sdk.getCurrent().getTargets();
+        }
         mSdkTargetSelector.setTargets(targets);
 
         // If there's only one target, select it.
         // This will invoke the selection listener on the selector defined above.
-        if (targets.length <= 1) {
+        if (targets != null && targets.length == 1) {
             mValues.target = targets[0];
             mSdkTargetSelector.setSelection(mValues.target);
             onSdkTargetModified();

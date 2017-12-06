@@ -44,7 +44,6 @@ import org.eclipse.andmore.internal.wizards.newproject.NewProjectWizardState.Mod
 
 import com.android.sdklib.IAndroidTarget;
 
-import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -141,15 +140,8 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	@After
 	public void tearDownProjects() throws Exception {
 		IProject project = getProject();
-        System.out.println("Deleting project " + project.getName());
-        try
-        {
-            project.delete(true, new NullProgressMonitor());
-        }
-        catch(ResourceException e)
-        {
-            e.printStackTrace();
-        }
+		project.delete(true, new NullProgressMonitor());
+		System.out.println("Deleting projet " + project.getName());
 		super.tearDownProjects();
 	}
 
@@ -289,7 +281,8 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	protected IProject createProject(String name) {
 		IAndroidTarget target = null;
 
-		for (IAndroidTarget t : getSdk().getTargets()) {
+		IAndroidTarget[] targets = getSdk().getTargets();
+		for (IAndroidTarget t : targets) {
 			if (!t.isPlatform()) {
 				continue;
 			}
@@ -331,7 +324,8 @@ public abstract class AdtProjectTest extends SdkLoadingTestCase {
 	public void createTestProject() {
 		IAndroidTarget target = null;
 
-		for (IAndroidTarget t : getSdk().getTargets()) {
+		IAndroidTarget[] targets = getSdk().getTargets();
+		for (IAndroidTarget t : targets) {
 			if (t.getVersion().getApiLevel() >= TARGET_API_LEVEL) {
 				target = t;
 				break;

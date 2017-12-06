@@ -34,13 +34,9 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.annotations.VisibleForTesting;
 import com.android.ide.common.xml.XmlFormatStyle;
-import com.android.manifmerger.ManifestMerger2;
-import com.android.manifmerger.ManifestMerger2.MergeFailureException;
-import com.android.manifmerger.ManifestMerger2.MergeType;
-import com.android.manifmerger.MergingReport;
-import com.android.manifmerger.MergingReport.MergedManifestKind;
+import com.android.manifmerger.ManifestMerger;
+import com.android.manifmerger.MergerLog;
 import com.android.resources.ResourceFolderType;
-import com.android.utils.FileUtils;
 import com.android.utils.SdkUtils;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
@@ -59,6 +55,7 @@ import org.eclipse.andmore.internal.editors.formatting.EclipseXmlFormatPreferenc
 import org.eclipse.andmore.internal.editors.formatting.EclipseXmlPrettyPrinter;
 import org.eclipse.andmore.internal.editors.layout.gle2.DomUtilities;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
+import org.eclipse.andmore.internal.sdk.AdtManifestMergeCallback;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -83,7 +80,6 @@ import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MultiTextEdit;
 import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.text.edits.TextEdit;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.osgi.framework.Constants;
 import org.osgi.framework.Version;
 import org.w3c.dom.Attr;
@@ -759,9 +755,7 @@ class TemplateHandler {
         boolean ok;
         String fileName = to.getName();
         if (fileName.equals(SdkConstants.FN_ANDROID_MANIFEST_XML)) {
-            Document mergedManifest = mergeManifest(currentDocument, fragment);
-            modified = ok = mergedManifest != null;
-            currentDocument = mergedManifest;
+            modified = ok = mergeManifest(currentDocument, fragment);
         } else {
             // Merge plain XML files
             String parentFolderName = to.getParent().getName();
@@ -901,11 +895,7 @@ class TemplateHandler {
     }
 
     /** Merges the given manifest fragment into the given manifest file */
-    private static Document mergeManifest(Document currentManifest, Document fragment) {
-        if (currentManifest == null || fragment == null) {
-            return null;
-        }
-
+    private static boolean mergeManifest(Document currentManifest, Document fragment) {
         // TODO change MergerLog.wrapSdkLog by a custom IMergerLog that will create
         // and maintain error markers.
 
@@ -914,7 +904,7 @@ class TemplateHandler {
         Element fragmentRoot = fragment.getDocumentElement();
         Element manifestRoot = currentManifest.getDocumentElement();
         if (fragmentRoot == null || manifestRoot == null) {
-            return null;
+            return false;
         }
         String pkg = fragmentRoot.getAttribute(ATTR_PACKAGE);
         if (pkg == null || pkg.isEmpty()) {
@@ -924,35 +914,12 @@ class TemplateHandler {
             }
         }
 
-        try {
-            File currentManifestFile = createTemp(currentManifest);
-            File fragmentFile = createTemp(fragment);
-
-            // TODO Extract the correct type
-            MergingReport report = ManifestMerger2.newMerger(currentManifestFile, AndmoreAndroidPlugin.getDefault(), MergeType.APPLICATION).addLibraryManifest(fragmentFile).merge();
-            if (report.getResult().isError()) {
-                return null;
-            }
-            return DomUtilities.parseStructuredDocument(report.getMergedDocument(MergedManifestKind.MERGED));
-        }
-        catch (IOException e) {
-            StatusManager.getManager().handle(new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID, "Unable to create temporary file for manifest merging.", e));
-            return null;
-        } catch (MergeFailureException e) {
-            StatusManager.getManager().handle(new Status(IStatus.WARNING, AndmoreAndroidPlugin.PLUGIN_ID, "An unexpected error occurred while merging manifests.", e));
-            return null;
-        }
-    }
-    
-    private static File createTemp(Document doc) throws IOException {
-        File tmp = File.createTempFile("android-manifest", "xml");
-        tmp.delete();
-
-        FileUtils.createFile(tmp, EclipseXmlPrettyPrinter.prettyPrint(doc,
-                EclipseXmlFormatPreferences.create(),  XmlFormatStyle.MANIFEST, null,
-                false));
-        tmp.deleteOnExit();
-        return tmp;
+        ManifestMerger merger = new ManifestMerger(
+                MergerLog.wrapSdkLog(AndmoreAndroidPlugin.getDefault()),
+                new AdtManifestMergeCallback()).setExtractPackagePrefix(true);
+        return currentManifest != null &&
+                fragment != null &&
+                merger.process(currentManifest, fragment);
     }
 
     /**

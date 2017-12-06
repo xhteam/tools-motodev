@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.andmore.android,
  org.eclipse.andmore.android.emulator
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Localization: plugin
 Export-Package: org.eclipse.andmore.android.mat.i18n
 Import-Package: org.eclipse.andmore.android.common.log

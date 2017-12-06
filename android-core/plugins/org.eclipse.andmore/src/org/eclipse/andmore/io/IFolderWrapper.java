@@ -197,9 +197,4 @@ public class IFolderWrapper implements IAbstractFolder {
     public String toString() {
         return mFolder.toString();
     }
-
-	@Override
-	public String getPath() {
-		return mContainer.getFullPath().toOSString();
-	}
 }

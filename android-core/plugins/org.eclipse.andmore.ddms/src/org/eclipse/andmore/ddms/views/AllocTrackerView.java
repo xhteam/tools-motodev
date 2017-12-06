@@ -18,24 +18,19 @@ package org.eclipse.andmore.ddms.views;
 
 import com.android.ddmuilib.AllocationPanel;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
-import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.swt.widgets.Composite;
 
 public class AllocTrackerView extends TableView {
 
 	public static final String ID = "org.eclipse.andmore.ddms.views.AllocTrackerView"; //$NON-NLS-1$
 	private AllocationPanel mPanel;
-	private ImageFactory mImageFactory;
 
 	public AllocTrackerView() {
-		super();
-		mImageFactory = DdmsPlugin.getDefault().getImageFactory();
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
-		mPanel = new AllocationPanel(mImageFactory);
+		mPanel = new AllocationPanel();
 		mPanel.createPanel(parent);
 
 		setSelectionDependentPanel(mPanel);
@@ -48,4 +43,5 @@ public class AllocTrackerView extends TableView {
 	public void setFocus() {
 		mPanel.setFocus();
 	}
+
 }

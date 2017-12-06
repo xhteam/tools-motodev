@@ -27,7 +27,6 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.tools.lint.checks.BuiltinIssueRegistry;
 import com.android.tools.lint.client.api.Configuration;
 import com.android.tools.lint.client.api.IssueRegistry;
-import com.android.tools.lint.client.api.JavaEvaluator;
 import com.android.tools.lint.client.api.JavaParser;
 import com.android.tools.lint.client.api.LintClient;
 import com.android.tools.lint.client.api.XmlParser;
@@ -48,9 +47,6 @@ import com.android.tools.lint.detector.api.XmlContext;
 import com.android.utils.Pair;
 import com.android.utils.SdkUtils;
 import com.google.common.collect.Maps;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaFile;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.AdtUtils;
@@ -286,7 +282,7 @@ public class EclipseLintClient extends LintClient {
                     final @NonNull Node node) {
                 IStructuredModel model = (IStructuredModel) context.getProperty(MODEL_PROPERTY);
                 return new LazyLocation(context.file, model.getStructuredDocument(),
-                        (IndexedRegion) node).getHandle();
+                        (IndexedRegion) node);
             }
 
             @Override
@@ -328,12 +324,6 @@ public class EclipseLintClient extends LintClient {
                 Position endPos = new DefaultPosition(line, -1, region.getEndOffset());
 
                 return Location.create(context.file, startPos, endPos);
-            }
-
-            @Override
-            public Node findNodeAt(XmlContext arg0, int arg1)
-            {
-                return null;
             }
         };
     }
@@ -818,7 +808,7 @@ public class EclipseLintClient extends LintClient {
 
     private String readPlainFile(File file) {
         try {
-            return (String) LintUtils.getEncodedString(this, file,  true);
+            return LintUtils.getEncodedString(this, file);
         } catch (IOException e) {
             return ""; //$NON-NLS-1$
         }
@@ -923,18 +913,10 @@ public class EclipseLintClient extends LintClient {
                 classes = super.getClassPath(project).getClassFolders();
             }
             if (libraries == null) {
-                libraries = super.getClassPath(project).getLibraries(true);
+                libraries = super.getClassPath(project).getLibraries();
             }
-     /*
-     public ClassPathInfo(
-            List<File> sourceFolders, 
-            List<File> classFolders, 
-            List<File> libraries, 
-            List<File> nonProvidedLibraries, 
-            List<File> testFolders, 
-            List<File> testLibraries)
-     */
-            info = new ClassPathInfo(sources, classes, libraries, libraries, null, null);
+
+            info = new ClassPathInfo(sources, classes, libraries, null);
             mProjectInfo.put(project, info);
         }
 
@@ -961,7 +943,7 @@ public class EclipseLintClient extends LintClient {
     public IAndroidTarget[] getTargets() {
         Sdk sdk = Sdk.getCurrent();
         if (sdk != null) {
-            return sdk.getTargets().toArray(new IAndroidTarget[0]);
+            return sdk.getTargets();
         } else {
             return new IAndroidTarget[0];
         }
@@ -1086,7 +1068,7 @@ public class EclipseLintClient extends LintClient {
         return null;
     }
 
-    private static class LazyLocation extends Location /*implements Location.Handle*/ {
+    private static class LazyLocation extends Location implements Location.Handle {
         private final IStructuredDocument mDocument;
         private final IndexedRegion mRegion;
         private Position mStart;
@@ -1097,33 +1079,6 @@ public class EclipseLintClient extends LintClient {
             mDocument = document;
             mRegion = region;
         }
-
-        public Handle getHandle()
-        {
-            return new Handle(){
-
-                private Object mClientData;
-
-                @Override
-                public Location resolve()
-                {
-                    return LazyLocation.this;
-                }
-
-                @Override
-                public void setClientData(@Nullable Object clientData) {
-                    mClientData = clientData;
-                }
-
-                @Override
-                @Nullable
-                public Object getClientData() {
-                    return mClientData;
-                }
-            };
-        }
-
-
 
         @Override
         public Position getStart() {
@@ -1174,10 +1129,10 @@ public class EclipseLintClient extends LintClient {
             return mEnd;
         }
 
-        //@Override
-        //public @NonNull Location resolve() {
-        //    return this;
-        //}
+        @Override
+        public @NonNull Location resolve() {
+            return this;
+        }
     }
 
     private static class EclipseJavaParser extends JavaParser {
@@ -1207,8 +1162,7 @@ public class EclipseLintClient extends LintClient {
         }
 
         @Override
-        public boolean prepareJavaParse(@NonNull List<JavaContext> contexts) {
-            return true;
+        public void prepareJavaParse(@NonNull List<JavaContext> contexts) {
             // TODO: Use batch compiler from lint-cli.jar
         }
 
@@ -1217,7 +1171,7 @@ public class EclipseLintClient extends LintClient {
             if (USE_ECLIPSE_PARSER) {
                 // Use Eclipse's compiler
                 EcjTreeConverter converter = new EcjTreeConverter();
-                String code = (String) context.getContents();
+                String code = context.getContents();
 
                 CompilationUnit sourceUnit = new CompilationUnit(code.toCharArray(),
                         context.file.getName(), "UTF-8"); //$NON-NLS-1$
@@ -1256,7 +1210,7 @@ public class EclipseLintClient extends LintClient {
                 }
             } else {
                 // Use Lombok for now
-                Source source = new Source((String) context.getContents(), context.file.getName());
+                Source source = new Source(context.getContents(), context.file.getName());
                 List<lombok.ast.Node> nodes = source.getNodes();
 
                 // Don't analyze files containing errors
@@ -1326,16 +1280,8 @@ public class EclipseLintClient extends LintClient {
             return null;
         }
 
-        @Override
-        public Location getRangeLocation(JavaContext context, lombok.ast.Node from, int fromDelta, lombok.ast.Node to,
-                int toDelta) {
-            String contents = (String) context.getContents();
-            int start = Math.max(0,  from.getPosition().getStart() + fromDelta);
-            int end = Math.max(contents == null ? Integer.MAX_VALUE : contents.length(), to.getPosition().getEnd() + toDelta);
-            return Location.create(context.file, contents, start, end);
-        }
-
-         private class LocationHandle implements Handle {
+        /* Handle for creating positions cheaply and returning full fledged locations later */
+        private class LocationHandle implements Handle {
             private File mFile;
             private lombok.ast.Node mNode;
             private Object mClientData;
@@ -1361,30 +1307,6 @@ public class EclipseLintClient extends LintClient {
             public Object getClientData() {
                 return mClientData;
             }
-        }
-
-        @Override
-        public PsiElement findElementAt(JavaContext arg0, int arg1)
-        {
-            return null;
-        }
-
-        @Override
-        public JavaEvaluator getEvaluator()
-        {
-            return null;
-        }
-
-        @Override
-        public File getFile(PsiFile arg0)
-        {
-            return null;
-        }
-
-        @Override
-        public PsiJavaFile parseJavaToPsi(JavaContext arg0)
-        {
-            return null;
         }
     }
 }

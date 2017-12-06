@@ -17,6 +17,7 @@ package org.eclipse.andmore.internal.wizards.newproject;
 
 import static com.android.SdkConstants.FN_PROJECT_PROGUARD_FILE;
 import static com.android.SdkConstants.OS_SDK_TOOLS_LIB_FOLDER;
+import static com.android.utils.SdkUtils.stripWhitespace;
 import static org.eclipse.andmore.AdtUtils.capitalize;
 import static org.eclipse.andmore.internal.wizards.newproject.ApplicationInfoPage.ACTIVITY_NAME_SUFFIX;
 
@@ -246,16 +247,6 @@ public class ProjectNamePage extends WizardPage implements SelectionListener, Mo
         if (!mValues.projectLocationModifiedByUser) {
             updateLocationPathField(null);
         }
-    }
-
-    private static String stripWhitespace(String input) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : input.toCharArray()) {
-            if (!Character.isWhitespace(c)) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
     }
 
     @Override

@@ -188,8 +188,7 @@ public class AndroidXmlAutoEditStrategyTest extends AdtProjectTest {
 	}
 
 	@Test
-    @Ignore // TODO - Why does workbench hang?
-    public void testSurroundCaret2() throws Exception {
+	public void testSurroundCaret2() throws Exception {
 		// This test combines both surround with and continuing earlier lines
 		// (where
 		// it searches for a matching tag)

@@ -22,7 +22,6 @@ import com.android.sdkuilib.repository.AvdManagerWindow.AvdInvocationContext;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
-import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IObjectActionDelegate;
@@ -53,14 +52,12 @@ public class AvdManagerAction implements IWorkbenchWindowActionDelegate, IObject
             // Although orthogonal to the avd manager action, this is a good time
             // to check whether the SDK has changed on disk.
             AndmoreAndroidPlugin.getDefault().refreshSdk();
-            SdkCallAgent callAgent = new SdkCallAgent(
-            	sdk.getAndroidSdkHandler(),
-            	sdk.getRepoManager(),
-            	new AdtConsoleSdkLog());
+
             // Runs the updater window, directing all logs to the ADT console.
             AvdManagerWindow window = new AvdManagerWindow(
                     AndmoreAndroidPlugin.getShell(),
-                    callAgent,
+                    new AdtConsoleSdkLog(),
+                    sdk.getSdkOsLocation(),
                     AvdInvocationContext.IDE);
             window.open();
         } else {

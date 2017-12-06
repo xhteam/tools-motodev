@@ -18,9 +18,9 @@ package org.eclipse.andmore.ddms.views;
 
 import com.android.ddmlib.Client;
 import com.android.ddmlib.IDevice;
+import com.android.ddmuilib.ImageLoader;
 import com.android.ddmuilib.explorer.DeviceExplorer;
 
-import org.eclipse.andmore.base.resources.ImageFactory;
 import org.eclipse.andmore.ddms.CommonAction;
 import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.ddms.DdmsPlugin.ISelectionListener;
@@ -53,7 +53,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		ImageFactory imageFactory = DdmsPlugin.getDefault().getImageFactory();
+		ImageLoader loader = ImageLoader.getDdmUiLibLoader();
 
 		DeviceExplorer.COLUMN_NAME = COLUMN_NAME;
 		DeviceExplorer.COLUMN_SIZE = COLUMN_SIZE;
@@ -63,7 +63,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 		DeviceExplorer.COLUMN_INFO = COLUMN_INFO;
 
 		// device explorer
-		mExplorer = new DeviceExplorer(imageFactory);
+		mExplorer = new DeviceExplorer();
 
 		mExplorer.setCustomImages(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE),
 				PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER), null /*
@@ -80,7 +80,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 			}
 		};
 		pushAction.setToolTipText(Messages.FileExplorerView_Push_File_Onto_Device);
-		pushAction.setImageDescriptor(imageFactory.getDescriptorByName("push.png")); //$NON-NLS-1$
+		pushAction.setImageDescriptor(loader.loadDescriptor("push.png")); //$NON-NLS-1$
 		pushAction.setEnabled(false);
 
 		CommonAction pullAction = new CommonAction(Messages.FileExplorerView_Pull_File) {
@@ -90,7 +90,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 			}
 		};
 		pullAction.setToolTipText(Messages.FileExplorerView_Pull_File_From_File);
-		pullAction.setImageDescriptor(imageFactory.getDescriptorByName("pull.png")); //$NON-NLS-1$
+		pullAction.setImageDescriptor(loader.loadDescriptor("pull.png")); //$NON-NLS-1$
 		pullAction.setEnabled(false);
 
 		CommonAction deleteAction = new CommonAction(Messages.FileExplorerView_Delete) {
@@ -100,7 +100,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 			}
 		};
 		deleteAction.setToolTipText(Messages.FileExplorerView_Delete_The_Selection);
-		deleteAction.setImageDescriptor(imageFactory.getDescriptorByName("delete.png")); //$NON-NLS-1$
+		deleteAction.setImageDescriptor(loader.loadDescriptor("delete.png")); //$NON-NLS-1$
 		deleteAction.setEnabled(false);
 
 		CommonAction createNewFolderAction = new CommonAction("New Folder") {
@@ -110,7 +110,7 @@ public class FileExplorerView extends ViewPart implements ISelectionListener {
 			}
 		};
 		createNewFolderAction.setToolTipText("New Folder");
-		createNewFolderAction.setImageDescriptor(imageFactory.getDescriptorByName("add.png")); //$NON-NLS-1$
+		createNewFolderAction.setImageDescriptor(loader.loadDescriptor("add.png")); //$NON-NLS-1$
 		createNewFolderAction.setEnabled(false);
 
 		// set up the actions in the explorer

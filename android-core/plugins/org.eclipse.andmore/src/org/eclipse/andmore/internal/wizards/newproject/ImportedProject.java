@@ -45,7 +45,6 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -192,7 +191,7 @@ class ImportedProject {
     public IAndroidTarget getTarget() {
         // Pick a target:
         // First try to find the one requested by project.properties
-        Collection<IAndroidTarget> targets = Sdk.getCurrent().getTargets();
+        IAndroidTarget[] targets = Sdk.getCurrent().getTargets();
         ProjectProperties properties = ProjectProperties.load(mLocation.getPath(),
                 PropertyType.PROJECT);
         if (properties != null) {
@@ -220,7 +219,7 @@ class ImportedProject {
                     if (targetLevel > 0) {
                         // If not found, pick the closest one that is higher than the
                         // api level
-                        IAndroidTarget target = last(targets);
+                        IAndroidTarget target = targets[targets.length - 1];
                         int targetDelta = target.getVersion().getApiLevel() - targetLevel;
                         for (IAndroidTarget t : targets) {
                             int newDelta = t.getVersion().getApiLevel() - targetLevel;
@@ -238,7 +237,7 @@ class ImportedProject {
 
         // If not found, pick the closest one to the one requested by the
         // project (in project.properties) that is still >= the minSdk version
-        IAndroidTarget target = last(targets);
+        IAndroidTarget target = targets[targets.length - 1];
         ManifestData manifest = getManifest();
         if (manifest != null) {
             int minSdkLevel = manifest.getMinSdkVersion();
@@ -252,14 +251,6 @@ class ImportedProject {
             }
         }
 
-        return target;
-    }
-    
-    private static IAndroidTarget last(Collection<IAndroidTarget> targets) {
-        IAndroidTarget target = null;
-        for (IAndroidTarget current : targets) {
-            target = current;
-        }
         return target;
     }
 }

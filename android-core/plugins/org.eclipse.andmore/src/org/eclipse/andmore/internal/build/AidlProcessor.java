@@ -18,11 +18,9 @@ package org.eclipse.andmore.internal.build;
 
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
-import com.android.repository.io.FileOpUtils;
 import com.android.sdklib.BuildToolInfo;
 import com.android.sdklib.IAndroidTarget;
-import com.android.repository.io.FileOp;
-import com.android.repository.io.FileOpUtils;
+import com.android.sdklib.io.FileOp;
 
 import org.eclipse.andmore.AndmoreAndroidConstants;
 import org.eclipse.andmore.AndmoreAndroidPlugin;
@@ -201,7 +199,7 @@ public class AidlProcessor extends SourceProcessor {
                 IFile aidlOutFile = getAidlOutputFile(sourceFile, aidlOutFolder,
                         false /*replaceExt*/, true /*createFolders*/, monitor);
 
-                FileOp op = FileOpUtils.create();
+                FileOp op = new FileOp();
                 try {
                     op.copyFile(sourceFile.getLocation().toFile(),
                             aidlOutFile.getLocation().toFile());

@@ -26,7 +26,7 @@ import com.android.ide.common.api.RuleAction.Separator;
 import com.android.ide.common.api.RuleAction.Toggle;
 import com.android.sdklib.devices.Device;
 import com.android.sdklib.devices.Screen;
-import com.android.sdkuilib.ui.ResolutionChooserDialog;
+import com.android.sdkuilib.internal.widgets.ResolutionChooserDialog;
 import com.google.common.base.Strings;
 
 import org.eclipse.andmore.common.layout.BaseViewRule;

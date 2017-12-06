@@ -9,5 +9,5 @@ Export-Package: org.eclipse.andmore.android.logger
 Bundle-ClassPath: lib/log4j-1.2.14.jar,
  .
 Require-Bundle: org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

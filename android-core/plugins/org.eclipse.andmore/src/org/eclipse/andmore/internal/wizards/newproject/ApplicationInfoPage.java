@@ -49,8 +49,6 @@ import org.eclipse.swt.widgets.Text;
 import java.io.File;
 import java.io.FileFilter;
 import java.net.URI;
-import java.util.Collection;
-import java.util.Collections;
 
 /** Page where you choose the application name, activity name, and optional test project info */
 public class ApplicationInfoPage extends WizardPage implements SelectionListener, ModifyListener,
@@ -243,16 +241,15 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
         validatePage();
     }
 
-    protected void setSdkTargets(Collection<IAndroidTarget> targets, IAndroidTarget target) {
+    protected void setSdkTargets(IAndroidTarget[] targets, IAndroidTarget target) {
         if (targets == null) {
-            targets = Collections.emptySet();
+            targets = new IAndroidTarget[0];
         }
         int selectionIndex = -1;
-        String[] items = new String[targets.size()];
-        int i = -1;
-        for (IAndroidTarget candidate : targets) {
-            items[++i] = targetLabel(candidate);
-            if (candidate == target) {
+        String[] items = new String[targets.length];
+        for (int i = 0, n = targets.length; i < n; i++) {
+            items[i] = targetLabel(targets[i]);
+            if (targets[i] == target) {
                 selectionIndex = i;
             }
         }
@@ -762,7 +759,7 @@ public class ApplicationInfoPage extends WizardPage implements SelectionListener
         // Update the sdk target selector with the new targets
 
         // get the targets from the sdk
-        Collection<IAndroidTarget> targets = null;
+        IAndroidTarget[] targets = null;
         if (Sdk.getCurrent() != null) {
             targets = Sdk.getCurrent().getTargets();
         }

@@ -20,6 +20,8 @@ import static com.android.ide.common.xml.XmlAttributeSortOrder.ALPHABETICAL;
 import static com.android.ide.common.xml.XmlAttributeSortOrder.LOGICAL;
 import static com.android.ide.common.xml.XmlAttributeSortOrder.NO_SORTING;
 
+import com.android.sdkuilib.internal.widgets.ResolutionChooserDialog;
+
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -32,8 +34,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-
-import com.android.sdkuilib.ui.ResolutionChooserDialog;
 
 /**
  * Preference page for the editors.

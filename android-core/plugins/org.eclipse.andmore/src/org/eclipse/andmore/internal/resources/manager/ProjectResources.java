@@ -23,7 +23,6 @@ import com.android.ide.common.resources.IntArrayWrapper;
 import com.android.ide.common.resources.ResourceFolder;
 import com.android.ide.common.resources.ResourceItem;
 import com.android.ide.common.resources.ResourceRepository;
-import com.android.ide.common.resources.ResourceValueMap;
 import com.android.ide.common.resources.configuration.FolderConfiguration;
 import com.android.io.IAbstractFolder;
 import com.android.resources.ResourceType;
@@ -93,12 +92,12 @@ public class ProjectResources extends ResourceRepository {
      */
     @Override
     @NonNull
-    public Map<ResourceType, ResourceValueMap> getConfiguredResources(
+    public Map<ResourceType, Map<String, ResourceValue>> getConfiguredResources(
             @NonNull FolderConfiguration referenceConfig) {
         ensureInitialized();
 
-        Map<ResourceType, ResourceValueMap> resultMap =
-            new EnumMap<ResourceType, ResourceValueMap>(ResourceType.class);
+        Map<ResourceType, Map<String, ResourceValue>> resultMap =
+            new EnumMap<ResourceType, Map<String, ResourceValue>>(ResourceType.class);
 
         // if the project contains libraries, we need to add the libraries resources here
         // so that they are accessible to the layout rendering.
@@ -120,12 +119,12 @@ public class ProjectResources extends ResourceRepository {
                     if (libRes != null) {
                         // get the library resources, and only the library, not the dependencies
                         // so call doGetConfiguredResources() directly.
-                        Map<ResourceType, ResourceValueMap> libMap =
+                        Map<ResourceType, Map<String, ResourceValue>> libMap =
                                 libRes.doGetConfiguredResources(referenceConfig);
 
                         // we don't want to simply replace the whole map, but instead merge the
                         // content of any sub-map
-                        for (Entry<ResourceType, ResourceValueMap> libEntry :
+                        for (Entry<ResourceType, Map<String, ResourceValue>> libEntry :
                                 libMap.entrySet()) {
 
                             // get the map currently in the result map for this resource type
@@ -147,11 +146,11 @@ public class ProjectResources extends ResourceRepository {
         }
 
         // now the project resources themselves.
-        Map<ResourceType, ResourceValueMap> thisProjectMap =
+        Map<ResourceType, Map<String, ResourceValue>> thisProjectMap =
                 doGetConfiguredResources(referenceConfig);
 
         // now merge the maps.
-        for (Entry<ResourceType, ResourceValueMap> entry : thisProjectMap.entrySet()) {
+        for (Entry<ResourceType, Map<String, ResourceValue>> entry : thisProjectMap.entrySet()) {
             ResourceType type = entry.getKey();
             Map<String, ResourceValue> typeMap = resultMap.get(type);
             if (typeMap == null) {

@@ -37,26 +37,21 @@ import com.android.sdklib.AndroidVersion;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.avd.AvdInfo;
 import com.android.sdklib.internal.avd.AvdManager;
-import com.android.sdkuilib.ui.DeviceChooserDialog;
-import com.android.sdkuilib.ui.DeviceChooserDialog.DeviceChooserResponse;
 import com.android.utils.NullLogger;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
-import org.eclipse.andmore.base.resources.IEditorIconFactory;
 import org.eclipse.andmore.ddms.DdmsPlugin;
 import org.eclipse.andmore.internal.actions.AvdManagerAction;
-import org.eclipse.andmore.internal.editors.IconFactory;
 import org.eclipse.andmore.internal.editors.manifest.ManifestInfo;
 import org.eclipse.andmore.internal.launch.AndroidLaunchConfiguration.TargetMode;
 import org.eclipse.andmore.internal.launch.DelayedLaunchInfo.InstallRetryMode;
+import org.eclipse.andmore.internal.launch.DeviceChooserDialog.DeviceChooserResponse;
 import org.eclipse.andmore.internal.preferences.AdtPrefs;
 import org.eclipse.andmore.internal.project.AndroidManifestHelper;
 import org.eclipse.andmore.internal.project.ApkInstallManager;
 import org.eclipse.andmore.internal.project.BaseProjectHelper;
 import org.eclipse.andmore.internal.project.ProjectHelper;
-import org.eclipse.andmore.internal.sdk.AdtConsoleSdkLog;
 import org.eclipse.andmore.internal.sdk.Sdk;
-import org.eclipse.andmore.sdktool.SdkCallAgent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -75,10 +70,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMConnector;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -391,7 +386,7 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
             }
 
             if (preferredAvd != null) {
-                IAndroidTarget preferredAvdTarget = currentSdk.getAndroidTargetFor(preferredAvd);
+                IAndroidTarget preferredAvdTarget = preferredAvd.getTarget();
                 if (preferredAvdTarget != null
                         && !preferredAvdTarget.getVersion().canRun(minApiVersion)) {
                     preferredAvd = null;
@@ -616,19 +611,11 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
         AndmoreAndroidPlugin.getDisplay().syncExec(new Runnable() {
             @Override
             public void run() {
-                // get the SDK
-                Sdk currentSdk = Sdk.getCurrent();
                 try {
-                	SdkCallAgent callAgent = new SdkCallAgent(
-                			currentSdk.getAndroidSdkHandler(),
-                			currentSdk.getRepoManager(),
-                			IconFactory.getInstance(),
-                			new AdtConsoleSdkLog());
                     // open the chooser dialog. It'll fill 'response' with the device to use
                     // or the AVD to launch.
                     DeviceChooserDialog dialog = new DeviceChooserDialog(
                             AndmoreAndroidPlugin.getShell(),
-                            callAgent,
                             response, launchInfo.getPackageName(),
                             desiredProjectTarget, minApiVersion,
                             config.mReuseLastUsedDevice);
@@ -673,8 +660,7 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
     private Collection<IDevice> findCompatibleDevices(IDevice[] devices,
             AndroidVersion requiredVersion, boolean includeDevices, boolean includeAvds) {
         Set<IDevice> compatibleDevices = new HashSet<IDevice>(devices.length);
-        Sdk currentSdk = Sdk.getCurrent();
-        AvdManager avdManager = currentSdk.getAvdManager();
+        AvdManager avdManager = Sdk.getCurrent().getAvdManager();
         for (IDevice d: devices) {
             boolean isEmulator = d.isEmulator();
             boolean canRun = false;
@@ -685,9 +671,8 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
                 }
 
                 AvdInfo avdInfo = avdManager.getAvd(d.getAvdName(), true);
-                IAndroidTarget target = currentSdk.getAndroidTargetFor(avdInfo);
-                if (avdInfo != null && target != null) {
-                    canRun = target.getVersion().canRun(requiredVersion);
+                if (avdInfo != null && avdInfo.getTarget() != null) {
+                    canRun = avdInfo.getTarget().getVersion().canRun(requiredVersion);
                 }
             } else {
                 if (!includeDevices) {
@@ -716,15 +701,14 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
             AndroidVersion minApiVersion) {
         AvdInfo[] avds = avdManager.getValidAvds();
         AvdInfo bestAvd = null;
-        Sdk currentSdk = Sdk.getCurrent();
         for (AvdInfo avd : avds) {
             if (AvdCompatibility.canRun(avd, projectTarget, minApiVersion)
                     == AvdCompatibility.Compatibility.YES) {
                 // at this point we can ignore the code name issue since
                 // AvdCompatibility.canRun() will already have filtered out the non compatible AVDs.
                 if (bestAvd == null ||
-                        currentSdk.getAndroidTargetFor(avd).getVersion().getApiLevel() <
-                        currentSdk.getAndroidTargetFor(bestAvd).getVersion().getApiLevel()) {
+                        avd.getTarget().getVersion().getApiLevel() <
+                            bestAvd.getTarget().getVersion().getApiLevel()) {
                     bestAvd = avd;
                 }
             }
@@ -1273,13 +1257,7 @@ public final class AndroidLaunchController implements IDebugBridgeChangeListener
      */
     private String doInstall(DelayedLaunchInfo launchInfo, final String remotePath,
             final IDevice device, boolean reinstall) throws InstallException {
-        try {
-            device.installRemotePackage(remotePath, reinstall);
-            return null;
-        }
-        catch (InstallException e) {
-            return e.getMessage();
-        }
+        return device.installRemotePackage(remotePath, reinstall);
     }
 
     /**

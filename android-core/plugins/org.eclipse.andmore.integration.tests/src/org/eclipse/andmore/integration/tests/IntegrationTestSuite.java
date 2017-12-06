@@ -19,7 +19,7 @@ package org.eclipse.andmore.integration.tests;
 import org.eclipse.andmore.integration.tests.functests.sampleProjects.SampleProjectTest;
 import org.eclipse.andmore.internal.build.AaptParserTest;
 import org.eclipse.andmore.internal.build.AaptQuickFixTest;
-//import org.eclipse.andmore.internal.build.DexWrapperTest;
+import org.eclipse.andmore.internal.build.DexWrapperTest;
 import org.eclipse.andmore.internal.editors.AndroidContentAssistTest;
 import org.eclipse.andmore.internal.editors.AndroidXmlAutoEditStrategyTest;
 import org.eclipse.andmore.internal.editors.AndroidXmlCharacterMatcherTest;
@@ -41,9 +41,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({SampleProjectTest.class,
 	AaptParserTest.class,
-	//AaptQuickFixTest.class,
-    // DexWrapper only works with build tools version 21 - 25
-	//DexWrapperTest.class,
+	AaptQuickFixTest.class,
+	DexWrapperTest.class,
 	MultiDexTest.class,
 	EclipseXmlPrettyPrinterTest.class,
 	AndroidContentAssistTest.class,

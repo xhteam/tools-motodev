@@ -4,27 +4,22 @@ Bundle-Name: Core Development Tools for Android
 Bundle-SymbolicName: org.eclipse.andmore;singleton:=true
 Bundle-Version: 0.5.2.qualifier
 Bundle-ClassPath: .,
+ libs/sdkuilib.jar,
  libs/ninepatch.jar,
+ libs/freemarker-2.3.20.jar,
  libs/rule-api.jar,
  libs/asset-studio.jar,
- libs/lint-25.3.3.jar,
- libs/lint-api-25.3.3.jar,
- libs/lint-checks-25.3.3.jar,
+ libs/lint-api.jar,
+ libs/lint-checks.jar,
  libs/lombok-ast-0.2.3.jar,
  libs/propertysheet.jar,
  libs/ant-glob.jar,
- libs/manifest-merger-25.3.3.jar,
- libs/builder-2.3.3.jar,
- libs/uast-162.2228.14.jar,
- libs/asm-5.0.4.jar,
- libs/asm-tree-5.0.4.jar,
- libs/asm-analysis-5.0.4.jar
+ libs/swtmenubar.jar,
+ libs/manifest-merger.jar
 Bundle-Activator: org.eclipse.andmore.AndmoreAndroidPlugin
 Bundle-Vendor: Eclipse Andmore
-Require-Bundle: org.eclipse.andmore.swt,
+Require-Bundle: org.eclipse.andmore.base,
  org.eclipse.andmore.ddms,
- org.eclipse.andmore.sdkuilib,
- org.eclipse.andmore.swtmenubar,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.debug.core,
@@ -55,16 +50,24 @@ Require-Bundle: org.eclipse.andmore.swt,
  org.eclipse.core.expressions,
  org.eclipse.compare,
  org.eclipse.jdt.debug,
- org.freemarker;bundle-version="2.3.22",
  com.google.gson;bundle-version="2.2.4",
- org.eclipse.andmore.ddmuilib;bundle-version="0.5.2",
- org.eclipse.andmore.sdkstats;bundle-version="0.5.2"
+ org.objectweb.asm;bundle-version="[4.0.0,5.0.0)"
 Bundle-ActivationPolicy: lazy
 Export-Package: com.android.manifmerger;x-friends:="org.eclipse.andmore.integration.tests",
  com.android.ninepatch;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.repository;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.repository.core;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.repository.icons;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.repository.ui;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.tasks;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.internal.widgets;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.repository;x-friends:="org.eclipse.andmore.integration.tests",
+ com.android.sdkuilib.ui;x-friends:="org.eclipse.andmore.integration.tests",
  com.android.tools.lint.checks;x-friends:="org.eclipse.andmore.integration.tests",
  com.android.tools.lint.client.api;x-friends:="org.eclipse.andmore.integration.tests",
  com.android.tools.lint.detector.api;x-friends:="org.eclipse.andmore.integration.tests",
+ freemarker.cache;x-friends:="org.eclipse.andmore.integration.tests",
+ freemarker.template;x-friends:="org.eclipse.andmore.integration.tests",
  org.eclipse.andmore;x-friends:="org.eclipse.andmore.integration.tests,com.android.ide.eclipse.adt.package",
  org.eclipse.andmore.common.layout;x-friends:="org.eclipse.andmore.integration.tests",
  org.eclipse.andmore.common.layout.grid;x-friends:="org.eclipse.andmore.integration.tests",
@@ -130,11 +133,10 @@ Export-Package: com.android.manifmerger;x-friends:="org.eclipse.andmore.integrat
  org.eclipse.andmore.internal.wizards.newxmlfile;x-friends:="org.eclipse.andmore.integration.tests",
  org.eclipse.andmore.internal.wizards.templates;x-friends:="org.eclipse.andmore.integration.tests",
  org.eclipse.andmore.io;x-friends:="org.eclipse.andmore.integration.tests"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.android.tools.lint.detector.api,
  com.ibm.icu.text,
  junit.framework,
  org.eclipse.core.variables
- 
 
 

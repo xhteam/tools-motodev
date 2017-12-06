@@ -20,9 +20,7 @@ import com.android.SdkConstants;
 import com.android.sdklib.IAndroidTarget;
 import com.android.sdklib.internal.project.ProjectProperties;
 import com.android.sdklib.internal.project.ProjectPropertiesWorkingCopy;
-import com.android.sdkuilib.widgets.SdkTargetSelector;
-
-import java.util.Collection;
+import com.android.sdkuilib.internal.widgets.SdkTargetSelector;
 
 import org.eclipse.andmore.AndmoreAndroidPlugin;
 import org.eclipse.andmore.internal.sdk.ProjectState;
@@ -52,6 +50,8 @@ public class AndroidPropertyPage extends PropertyPage {
     private IProject mProject;
     private SdkTargetSelector mSelector;
     private Button mIsLibrary;
+    private Button mNoVersionVectors;
+    
     // APK-SPLIT: This is not yet supported, so we hide the UI
 //    private Button mSplitByDensity;
     private LibraryProperties mLibraryDependencies;
@@ -69,7 +69,7 @@ public class AndroidPropertyPage extends PropertyPage {
         // get the targets from the sdk
         IAndroidTarget[] targets = null;
         if (Sdk.getCurrent() != null) {
-            targets = Sdk.getCurrent().getTargets().toArray(new IAndroidTarget[0]);
+            targets = Sdk.getCurrent().getTargets();
         }
 
         // build the UI.
@@ -91,6 +91,14 @@ public class AndroidPropertyPage extends PropertyPage {
 
         mIsLibrary = new Button(libraryGroup, SWT.CHECK);
         mIsLibrary.setText("Is Library");
+        
+        Group optionsGroup = new Group(top, SWT.NONE);
+        optionsGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
+        optionsGroup.setLayout(new GridLayout(1, false));
+        optionsGroup.setText("Other Options");
+
+        mNoVersionVectors = new Button(optionsGroup, SWT.CHECK);
+        mNoVersionVectors.setText("--no-version-vectors");
 
         mLibraryDependencies = new LibraryProperties(libraryGroup);
 
@@ -135,7 +143,11 @@ public class AndroidPropertyPage extends PropertyPage {
                         Boolean.toString(mIsLibrary.getSelection()));
                 mustSaveProp = true;
             }
-
+            if (state == null || mNoVersionVectors.getSelection() != state.isNoVersionVectors()) {
+                mPropertiesWorkingCopy.setProperty(ProjectState.NO_VERSION_VECTORS_PROPERTY,
+                        Boolean.toString(mNoVersionVectors.getSelection()));
+                mustSaveProp = true;            	
+            }
             if (mLibraryDependencies.save()) {
                 mustSaveProp = true;
             }
@@ -180,6 +192,7 @@ public class AndroidPropertyPage extends PropertyPage {
             }
 
             mIsLibrary.setSelection(state.isLibrary());
+            mNoVersionVectors.setSelection(state.isNoVersionVectors());
             mLibraryDependencies.setContent(state, mPropertiesWorkingCopy);
         }
 

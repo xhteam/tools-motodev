@@ -20,6 +20,7 @@ android:noHistory : Specify whether an activity should be kept in its history st
 android:alwaysRetainTaskState : Specify whether an acitivty's task state should always be maintained  by the system, or if it is allowed to reset the task to its initial  state in certain situations.  [boolean]
 android:stateNotNeeded : Indicates that an Activity does not need to have its freeze state  (as returned by onSaveInstanceState retained in order to be restarted.  [boolean]
 android:excludeFromRecents : Indicates that an Activity should be excluded from the list of  recently launched activities.  [boolean]
+android:showOnLockScreen : Specify that an Activity should be shown over the lock screen  and, in a multiuser environment, across all users' windows  [boolean]
 android:enabled : Specify whether the activity is enabled or not (that is, can  be instantiated by the system).  [boolean]
 android:exported : Flag indicating whether the given application component is available  to other applications.  [boolean]
 android:windowSoftInputMode : Specify the default soft-input mode for the main window of this  activity.  [flag]
@@ -27,3 +28,5 @@ android:immersive : Flag declaring this activity to be 'immersive'; immersive ac
 android:hardwareAccelerated : <p>Flag indicating whether the application's rendering should  be hardware accelerated if possible.  [boolean]
 android:uiOptions : Extra options for an activity's UI.  [flag]
 android:parentActivityName : The name of the logical parent of the activity as it appears  in the manifest.  [string]
+android:singleUser : If set to true, a single instance of this component will run  for all users.  [boolean]
+android:allowEmbedded : Indicate that the activity can be launched as the embedded child  of another activity.  [boolean]
